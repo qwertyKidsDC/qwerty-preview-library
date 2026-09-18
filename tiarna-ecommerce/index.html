@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiarna — From Website to Shop</title>
+<style>
+:root{
+  --blue:#4C69E3;
+  --pink:#F66DC1;
+  --green:#92D644;
+  --orange:#FF9029;
+  --light:#F1F8F8;
+  --dark:#020020;
+  --ink:#020020;
+  --paper:#F1F8F8;
+  --shadow:8px 8px 0 #020020;
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--light);
+  background:
+    radial-gradient(circle at 20% 12%, rgba(246,109,193,.17), transparent 19rem),
+    radial-gradient(circle at 82% 18%, rgba(146,214,68,.13), transparent 17rem),
+    linear-gradient(rgba(76,105,227,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76,105,227,.09) 1px, transparent 1px),
+    var(--dark);
+  background-size:auto, auto, 32px 32px, 32px 32px, auto;
+  overflow-x:hidden;
+}
+a{color:inherit}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:4px solid var(--orange);outline-offset:4px}
+.skip-link{position:fixed;left:12px;top:-80px;background:var(--light);color:var(--dark);padding:10px 14px;border:3px solid var(--dark);z-index:9999}
+.skip-link:focus{top:12px}
+.shell{max-width:1120px;margin:0 auto;padding:24px 20px 120px;position:relative}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  position:sticky;top:10px;z-index:50;
+  background:rgba(2,0,32,.92);backdrop-filter:blur(12px);
+  border:2px solid var(--green);border-radius:999px;padding:10px 12px 10px 18px;
+  box-shadow:4px 4px 0 rgba(146,214,68,.4);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem}
+.brand-dot{width:15px;height:15px;border-radius:50%;background:var(--pink);box-shadow:20px 0 0 var(--green),40px 0 0 var(--orange)}
+.progress-wrap{display:flex;align-items:center;gap:10px;min-width:220px}
+.progress{height:9px;background:rgba(241,248,248,.18);border:1px solid var(--light);border-radius:999px;overflow:hidden;flex:1}
+.progress > span{display:block;height:100%;width:4%;background:var(--green);transition:width .2s ease}
+.counter{font-variant-numeric:tabular-nums;font-size:.82rem;font-weight:800;white-space:nowrap}
+.controls{display:flex;gap:8px}
+.icon-btn{border:2px solid var(--light);background:transparent;color:var(--light);width:40px;height:40px;border-radius:50%;font-weight:900}
+.icon-btn:hover{background:var(--light);color:var(--dark)}
+.deck{margin-top:26px;min-height:720px;display:grid;place-items:center}
+.card{
+  display:none;
+  width:min(100%,940px);
+  min-height:650px;
+  border:4px solid var(--dark);
+  border-radius:var(--radius);
+  color:var(--dark);
+  background:var(--light);
+  box-shadow:12px 12px 0 var(--pink),20px 20px 0 var(--blue);
+  overflow:hidden;
+  position:relative;
+}
+.card.active{display:grid;grid-template-rows:auto 1fr auto;animation:pop .22s ease-out}
+@keyframes pop{from{transform:translateY(10px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.card-head{padding:18px 24px 14px;border-bottom:4px solid var(--dark);display:flex;justify-content:space-between;align-items:flex-start;gap:16px;background:linear-gradient(90deg,var(--light),#fff)}
+.kicker{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900}
+.card-no{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:900;background:var(--dark);color:var(--light);padding:6px 9px;border-radius:9px;white-space:nowrap}
+.card-body{padding:32px 34px 30px;position:relative}
+.card-foot{padding:14px 20px;border-top:3px solid var(--dark);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--green)}
+.card-foot small{font-weight:800;color:var(--dark)}
+h1,h2,h3{margin-top:0;line-height:.94;letter-spacing:-.045em}
+h1{font-size:clamp(3.4rem,9vw,7.5rem);max-width:800px;margin-bottom:20px}
+h2{font-size:clamp(2.25rem,5vw,4.5rem);max-width:820px;margin-bottom:18px}
+h3{font-size:1.35rem;line-height:1.05;margin-bottom:8px}
+p,li{font-size:1.05rem;line-height:1.55}
+.lead{font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.35;max-width:760px;font-weight:650}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.big-number{font-size:clamp(5rem,16vw,11rem);font-weight:1000;line-height:.8;letter-spacing:-.09em;color:var(--pink);-webkit-text-stroke:3px var(--dark);text-shadow:7px 7px 0 var(--orange)}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 10px}
+.badge{display:inline-block;border:3px solid var(--dark);border-radius:999px;padding:8px 12px;font-weight:900;background:var(--pink)}
+.badge.green{background:var(--green)} .badge.orange{background:var(--orange)} .badge.light{background:var(--light)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.panel{border:3px solid var(--dark);border-radius:18px;padding:18px;background:#fff;box-shadow:5px 5px 0 var(--dark)}
+.panel.pink{background:var(--pink)} .panel.green{background:var(--green)} .panel.orange{background:var(--orange)} .panel.dark{background:var(--dark);color:var(--light)}
+.panel h3{font-size:1.2rem}
+.callout{margin:20px 0;border:4px solid var(--dark);padding:18px 20px;border-radius:18px;background:var(--orange);font-weight:800;box-shadow:6px 6px 0 var(--dark)}
+.y2k-window{border:4px solid var(--dark);border-radius:18px;background:#fff;overflow:hidden;box-shadow:8px 8px 0 var(--dark);margin-top:20px}
+.window-bar{min-height:38px;background:var(--pink);border-bottom:3px solid var(--dark);display:flex;align-items:center;gap:8px;padding:7px 11px}
+.dot{width:12px;height:12px;border:2px solid var(--dark);border-radius:50%;background:var(--orange)}
+.dot:nth-child(2){background:var(--green)} .dot:nth-child(3){background:var(--light)}
+.window-content{padding:20px}
+.usecase{display:grid;grid-template-columns:130px 1fr;gap:10px 20px;margin:18px 0}
+.usecase dt{font-weight:950;text-transform:uppercase;font-size:.8rem;letter-spacing:.07em}
+.usecase dd{margin:0;line-height:1.45}
+.steps{counter-reset:step;display:grid;gap:12px;margin:18px 0}
+.step{counter-increment:step;display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start}
+.step:before{content:counter(step);width:38px;height:38px;display:grid;place-items:center;background:var(--dark);color:var(--light);border-radius:50%;font-weight:900}
+.exercise{margin-top:22px;border:4px dashed var(--dark);border-radius:20px;padding:20px;background:rgba(146,214,68,.35)}
+.exercise label{display:block;font-weight:950;margin-bottom:8px}
+textarea,input[type=text]{width:100%;border:3px solid var(--dark);border-radius:12px;padding:12px 14px;background:var(--light);color:var(--dark);min-height:46px}
+textarea{min-height:120px;resize:vertical}
+.resource-link{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;text-decoration:none;border:3px solid var(--dark);border-radius:16px;padding:14px 16px;margin:10px 0;background:#fff;box-shadow:4px 4px 0 var(--dark);font-weight:850}
+.resource-link:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
+.resource-link span:last-child{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem}
+.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin:26px 0}
+.arch-box{border:3px solid var(--dark);border-radius:18px;padding:18px;display:grid;place-items:center;text-align:center;font-weight:950;background:var(--pink);min-height:130px}
+.arch-box:nth-of-type(3){background:var(--orange)}
+.arch-box:nth-of-type(5){background:var(--green)}
+.arrow{display:grid;place-items:center;font-size:2rem;font-weight:1000}
+.compare{width:100%;border-collapse:separate;border-spacing:0;margin-top:20px;border:3px solid var(--dark);border-radius:16px;overflow:hidden;background:#fff;font-size:.96rem}
+.compare th,.compare td{padding:12px 14px;border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);vertical-align:top;text-align:left}
+.compare th:last-child,.compare td:last-child{border-right:0}.compare tr:last-child td{border-bottom:0}
+.compare th{background:var(--green);font-weight:950}
+.checklist{list-style:none;padding:0;margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
+.checklist li{position:relative;padding:12px 14px 12px 46px;border:2px solid var(--dark);border-radius:14px;background:#fff}
+.checklist li:before{content:"□";position:absolute;left:14px;top:7px;font-size:1.6rem;font-weight:900}
+.pour{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.pour > div{border:3px solid var(--dark);border-radius:18px;padding:18px 14px;background:#fff;box-shadow:4px 4px 0 var(--dark)}
+.pour strong{display:block;font-size:1.4rem;margin-bottom:8px}
+.pour > div:nth-child(1){background:var(--pink)} .pour > div:nth-child(2){background:var(--green)} .pour > div:nth-child(3){background:var(--orange)} .pour > div:nth-child(4){background:var(--light)}
+.swatches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.swatch{border:3px solid var(--dark);border-radius:16px;padding:16px;min-height:105px;display:flex;flex-direction:column;justify-content:space-between;font-weight:900}
+.swatch small{font-weight:800}
+.dark-on-light{background:var(--light);color:var(--dark)}
+.dark-on-pink{background:var(--pink);color:var(--dark)}
+.dark-on-green{background:var(--green);color:var(--dark)}
+.dark-on-orange{background:var(--orange);color:var(--dark)}
+.dark-on-blue{background:var(--blue);color:var(--dark)}
+.light-on-blue{background:var(--blue);color:var(--light)}
+.pass{display:inline-block;background:var(--green);color:var(--dark);border:2px solid var(--dark);border-radius:999px;padding:4px 8px;font-size:.75rem}
+.fail{display:inline-block;background:var(--pink);color:var(--dark);border:2px solid var(--dark);border-radius:999px;padding:4px 8px;font-size:.75rem}
+.cover .card-body{background:
+  radial-gradient(circle at 88% 24%,var(--pink) 0 9%,transparent 9.5%),
+  radial-gradient(circle at 79% 32%,var(--green) 0 5%,transparent 5.5%),
+  linear-gradient(135deg,transparent 0 60%,rgba(76,105,227,.16) 60% 61%,transparent 61% 64%,rgba(255,144,41,.18) 64% 65%,transparent 65%),
+  var(--light)}
+.cover-mark{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:950;text-transform:uppercase;letter-spacing:.12em;border:3px solid var(--dark);display:inline-block;padding:8px 10px;background:var(--green);box-shadow:4px 4px 0 var(--dark);margin-bottom:24px}
+.chrome{background:linear-gradient(180deg,#fff 0%,#cfd3ff 30%,#fff 49%,#b9b8ff 53%,#fff 85%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:3px var(--dark);text-shadow:6px 6px 0 var(--pink)}
+.bottom-nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;background:var(--dark);border:3px solid var(--light);border-radius:999px;padding:8px;display:flex;gap:8px;box-shadow:6px 6px 0 rgba(246,109,193,.65)}
+.nav-btn{border:0;border-radius:999px;padding:11px 18px;font-weight:950;background:var(--light);color:var(--dark)}
+.nav-btn.primary{background:var(--green)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.utility{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.utility button{border:3px solid var(--dark);border-radius:999px;padding:10px 14px;background:var(--orange);font-weight:900;box-shadow:3px 3px 0 var(--dark)}
+.note{font-size:.9rem;opacity:.86}
+.star{position:absolute;width:54px;height:54px;right:28px;bottom:28px;background:var(--orange);clip-path:polygon(50% 0,60% 35%,100% 50%,60% 65%,50% 100%,40% 65%,0 50%,40% 35%);border:3px solid var(--dark)}
+@media(max-width:760px){
+  .shell{padding:12px 10px 110px}.topbar{border-radius:18px;align-items:flex-start}.brand{display:none}.progress-wrap{min-width:0;flex:1}.card{min-height:720px;box-shadow:7px 7px 0 var(--pink),12px 12px 0 var(--blue)}.card-body{padding:24px 20px}.grid2,.grid3,.swatches,.checklist{grid-template-columns:1fr}.pour{grid-template-columns:1fr 1fr}.arch{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.usecase{grid-template-columns:1fr;gap:2px}.bottom-nav{width:calc(100% - 20px);justify-content:space-between}.nav-btn{flex:1}.controls{display:none}
+}
+@media print{
+ body{background:#fff;color:#000}.topbar,.bottom-nav{display:none}.shell{max-width:none;padding:0}.deck{display:block}.card,.card.active{display:grid;page-break-after:always;box-shadow:none;margin:0 0 14px;border:2px solid #000;min-height:0}.exercise textarea,.exercise input{border:1px solid #000}.card-foot{background:#fff}.resource-link{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#deck">Skip to card</a>
+<div class="shell">
+  <header class="topbar" aria-label="Deck controls">
+    <div class="brand"><span class="brand-dot" aria-hidden="true"></span><span style="margin-left:38px">Qwerty Labs · Code Cadet</span></div>
+    <div class="progress-wrap" aria-live="polite"><div class="progress" aria-hidden="true"><span id="progressBar"></span></div><span class="counter" id="counter">01 / 28</span></div>
+    <div class="controls"><button class="icon-btn" id="printBtn" title="Print or save as PDF" aria-label="Print or save as PDF">↗</button><button class="icon-btn" id="resetBtn" title="Reset saved notes" aria-label="Reset saved notes">×</button></div>
+  </header>
+
+  <main class="deck" id="deck">
+    <section class="card cover active" data-title="Cover">
+      <div class="card-head"><div class="kicker">QK/Lessons · Web Project</div><div class="card-no">01</div></div>
+      <div class="card-body">
+        <div class="cover-mark">Plot twist detected</div>
+        <h1 class="chrome">From Website<br>to Shop</h1>
+        <p class="lead">Tiarna’s field guide to turning a friend’s website into a real digital product: from people and use cases to real-world UX, domains, hosting, CMSs, ecommerce and accessibility.</p>
+        <div class="badges"><span class="badge">USE CASES</span><span class="badge green">DOMAINS + HOSTING</span><span class="badge orange">CMS + COMMERCE</span><span class="badge">ACCESSIBILITY</span></div>
+        <p class="mono note">You already know some HTML + CSS. Now the project is asking bigger questions.</p>
+        <div class="star" aria-hidden="true"></div>
+      </div>
+      <div class="card-foot"><small>Tiarna’s Working Deck</small><small>← → keys work too</small></div>
+    </section>
+
+    <section class="card" data-title="The plot twist">
+      <div class="card-head"><div class="kicker">Scope</div><div class="card-no">02</div></div>
+      <div class="card-body">
+        <div class="big-number">SHOP?!</div>
+        <h2>The project changed. That’s normal.</h2>
+        <p class="lead">A simple site mainly publishes information. A shop also has to handle products, stock, money, customer data, orders, confirmations, errors and trust.</p>
+        <div class="callout">This is no longer just “make some pages look good”. It is now a tiny software + business system.</div>
+        <div class="grid3">
+          <div class="panel pink"><h3>Design</h3><p>What should people see, understand and feel?</p></div>
+          <div class="panel green"><h3>System</h3><p>What needs to happen behind the scenes?</p></div>
+          <div class="panel orange"><h3>Operations</h3><p>Who updates products, handles orders and fixes problems?</p></div>
+        </div>
+      </div>
+      <div class="card-foot"><small>Rule #1: scope changes are information.</small><small>Don’t panic-code.</small></div>
+    </section>
+
+    <section class="card" data-title="Don't choose software yet">
+      <div class="card-head"><div class="kicker">Strategy</div><div class="card-no">03</div></div>
+      <div class="card-body">
+        <h2>Before “Shopify or WordPress?”…</h2>
+        <p class="lead">Work out what the site must actually do. Choosing the platform first is like buying a kitchen before you know whether you’re opening a bakery or a sushi bar.</p>
+        <div class="steps">
+          <div class="step"><div><strong>People</strong><br>Who is using this site?</div></div>
+          <div class="step"><div><strong>Goals</strong><br>What are they trying to get done?</div></div>
+          <div class="step"><div><strong>Use cases</strong><br>What paths, decisions and failures can happen?</div></div>
+          <div class="step"><div><strong>Requirements</strong><br>What must the system support?</div></div>
+          <div class="step"><div><strong>Platform</strong><br>Which tool fits those requirements best?</div></div>
+        </div>
+        <div class="callout">The code is downstream of the thinking.</div>
+      </div>
+      <div class="card-foot"><small>Architecture before apps.</small><small>Yes, even when the apps are shiny.</small></div>
+    </section>
+
+    <section class="card" data-title="Persona to use case">
+      <div class="card-head"><div class="kicker">UX</div><div class="card-no">04</div></div>
+      <div class="card-body">
+        <h2>Persona → scenario → use case</h2>
+        <p class="lead">A persona describes a kind of person. A use case puts that person in motion.</p>
+        <div class="grid3">
+          <div class="panel pink"><h3>Persona</h3><p>Who are they? What matters to them?</p></div>
+          <div class="panel green"><h3>Scenario</h3><p>What situation are they in right now?</p></div>
+          <div class="panel orange"><h3>Use case</h3><p>What are they trying to accomplish, and what has to happen?</p></div>
+        </div>
+        <div class="y2k-window">
+          <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><strong class="mono">tiny_example.txt</strong></div>
+          <div class="window-content">
+            <p><strong>Persona:</strong> customer who discovers the brand on Instagram and shops on a phone.</p>
+            <p><strong>Scenario:</strong> they see a product they like while on the bus.</p>
+            <p><strong>Use case:</strong> they need to check the item, choose any options, understand delivery cost, pay, and know the order worked.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-foot"><small>Personas stop being posters here.</small><small>They start making design decisions.</small></div>
+    </section>
+
+    <section class="card" data-title="User stories and use cases">
+      <div class="card-head"><div class="kicker">UX</div><div class="card-no">05</div></div>
+      <div class="card-body">
+        <h2>Start with a story. Then make it real.</h2>
+        <div class="panel pink">
+          <h3>User story</h3>
+          <p class="lead" style="margin-bottom:0">“As a <u>mobile shopper</u>, I want to <u>know the full cost before paying</u>, so that <u>I can decide confidently</u>.”</p>
+        </div>
+        <dl class="usecase">
+          <dt>Trigger</dt><dd>They arrive from social media.</dd>
+          <dt>Goal</dt><dd>Buy one product.</dd>
+          <dt>Main path</dt><dd>Product → options → cart → delivery → payment → confirmation.</dd>
+          <dt>Exceptions</dt><dd>Sold out? Payment fails? Address invalid? They change their mind?</dd>
+          <dt>Success</dt><dd>The order is recorded and the customer knows what happens next.</dd>
+        </dl>
+        <div class="callout">A use case exposes the invisible requirements hiding behind a pretty page.</div>
+      </div>
+      <div class="card-foot"><small>Use cases are requirements detectors.</small><small>Very handy beasts.</small></div>
+    </section>
+
+    <section class="card" data-title="Write shop use cases">
+      <div class="card-head"><div class="kicker">Fieldwork</div><div class="card-no">06</div></div>
+      <div class="card-body">
+        <h2>Write five shop use cases</h2>
+        <p class="lead">Try to cover different people and moments, not five versions of “buy something”.</p>
+        <ul class="checklist">
+          <li>New customer discovers a product</li>
+          <li>Customer buys on a phone</li>
+          <li>Customer asks a question before buying</li>
+          <li>Shop owner adds or edits a product</li>
+          <li>Shop owner receives and fulfils an order</li>
+          <li>Something goes wrong</li>
+        </ul>
+        <div class="exercise">
+          <label for="usecases">Your five use cases</label>
+          <textarea id="usecases" data-save="usecases" placeholder="1. As a…&#10;2. As a…&#10;3. As a…"></textarea>
+        </div>
+      </div>
+      <div class="card-foot"><small>Saved automatically in this browser.</small><small>Use the friend’s real project.</small></div>
+    </section>
+
+    <section class="card" data-title="Requirements">
+      <div class="card-head"><div class="kicker">Architecture</div><div class="card-no">07</div></div>
+      <div class="card-body">
+        <h2>Now translate use cases into requirements</h2>
+        <table class="compare">
+          <thead><tr><th>Use-case clue</th><th>Possible requirement</th></tr></thead>
+          <tbody>
+            <tr><td>“Choose size / colour”</td><td>Product variants</td></tr>
+            <tr><td>“Know if it’s available”</td><td>Inventory / stock status</td></tr>
+            <tr><td>“Know delivery cost”</td><td>Shipping rules or calculator</td></tr>
+            <tr><td>“Pay securely”</td><td>Payment gateway</td></tr>
+            <tr><td>“Know it worked”</td><td>Order confirmation + email</td></tr>
+            <tr><td>“Owner edits products”</td><td>CMS / admin interface</td></tr>
+          </tbody>
+        </table>
+        <div class="exercise">
+          <label for="requirements">What requirements are appearing in YOUR use cases?</label>
+          <textarea id="requirements" data-save="requirements" placeholder="Products need…&#10;Customers need…&#10;The owner needs…"></textarea>
+        </div>
+      </div>
+      <div class="card-foot"><small>You are now doing product thinking.</small><small>Still no platform chosen.</small></div>
+    </section>
+
+    <section class="card" data-title="BOM side quest">
+      <div class="card-head"><div class="kicker">Side quest · Real product</div><div class="card-no">08</div></div>
+      <div class="card-body">
+        <div class="cover-mark">REAL-WORLD UX DETOUR</div>
+        <h2>A “simple website” can become a $96.5m problem</h2>
+        <p class="lead">The Bureau of Meteorology rebuilt its website after years of work and public beta testing. When the new site launched in October 2025, many regular users still struggled with things that had once felt automatic.</p>
+        <div class="grid2">
+          <div class="panel pink"><h3>The visible bit</h3><p>ABC reported about <strong>$4.1m</strong> for the front-end redesign.</p></div>
+          <div class="panel orange"><h3>The whole iceberg</h3><p>ABC reported <strong>$96.5m</strong> overall, including the wider website build, launch and security testing.</p></div>
+        </div>
+        <div class="callout">The useful question is not “how can a website cost that much?” It is: <strong>what else are you really building when people depend on the website?</strong></div>
+        <a class="resource-link" href="https://www.abc.net.au/news/2026-09-18/bureau-of-meteorology-website-major-update-to-rain-radar/107167980" target="_blank" rel="noreferrer"><span>Read the current ABC story</span><span>↗ CASE STUDY</span></a>
+      </div>
+      <div class="card-foot"><small>Real users. Real habits. Real consequences.</small><small>And yes, real budgets.</small></div>
+    </section>
+
+    <section class="card" data-title="BOM users and jobs">
+      <div class="card-head"><div class="kicker">Side quest · Use cases</div><div class="card-no">09</div></div>
+      <div class="card-body">
+        <h2>There is no single “weather user”</h2>
+        <p class="lead">The BOM redesign is a good reminder that an audience can contain people doing completely different jobs.</p>
+        <div class="grid2">
+          <div class="panel"><h3>Quick checker</h3><p>Will it rain before school pickup?</p></div>
+          <div class="panel green"><h3>Farmer</h3><p>Are conditions right to spray, shear, plant or harvest?</p></div>
+          <div class="panel orange"><h3>Fisher / boater</h3><p>Is the wind and radar safe enough to go out?</p></div>
+          <div class="panel pink"><h3>Emergency user</h3><p>What exact risk information is needed right now?</p></div>
+        </div>
+        <div class="exercise">
+          <label for="bomusecases">Turn any 3 of these into use cases. What does each person need to do quickly?</label>
+          <textarea id="bomusecases" data-save="bomusecases" placeholder="1. As a… I need to… so that…&#10;2. As a…&#10;3. As a…"></textarea>
+        </div>
+      </div>
+      <div class="card-foot"><small>Same product ≠ same job.</small><small>This is why personas need use cases.</small></div>
+    </section>
+
+    <section class="card" data-title="BOM UX friction">
+      <div class="card-head"><div class="kicker">Side quest · UX</div><div class="card-no">10</div></div>
+      <div class="card-body">
+        <h2>“The information is still there” isn’t enough</h2>
+        <p class="lead">Regular users had built mental models: they knew where to click, what the radar looked like and which shortcuts got them to the answer fast. Changing those patterns created friction even when the underlying data still existed.</p>
+        <div class="grid2">
+          <div class="panel pink"><h3>Mental models</h3><p>People remember how a system behaves, not just its labels.</p></div>
+          <div class="panel"><h3>Defaults</h3><p>A useful feature can feel “missing” if the new default hides it.</p></div>
+          <div class="panel green"><h3>Hierarchy</h3><p>Important information cannot require archaeological work.</p></div>
+          <div class="panel orange"><h3>Wayfinding</h3><p>Familiar landmarks, quick links and clear paths help people stay oriented.</p></div>
+        </div>
+        <a class="resource-link" href="https://www.bom.gov.au/news-and-media/website-update-delivers-rain-radar-improvements" target="_blank" rel="noreferrer"><span>See what BOM changed in September 2026</span><span>↗ UPDATE</span></a>
+        <div class="exercise"><label for="bomfriction">After reading: name 3 changes that look like attempts to restore a useful old habit or shortcut.</label><textarea id="bomfriction" data-save="bomfriction" placeholder="1. …&#10;2. …&#10;3. …"></textarea></div>
+      </div>
+      <div class="card-foot"><small>Modernise what needs modernising.</small><small>Protect what already works.</small></div>
+    </section>
+
+    <section class="card" data-title="BOM to shop">
+      <div class="card-head"><div class="kicker">Side quest · Back to your shop</div><div class="card-no">11</div></div>
+      <div class="card-body">
+        <h2>Now steal the lesson for your friend’s shop</h2>
+        <p class="lead">Your shop will also have first-time visitors, repeat visitors, an owner who needs to update it, and people who arrive with different expectations.</p>
+        <div class="grid2">
+          <div class="panel"><h3>Navigation</h3><p>Can a first-time buyer and a repeat buyer both find what they need?</p></div>
+          <div class="panel pink"><h3>Defaults</h3><p>What might be preselected: size, delivery, pickup, quantity? Who could that confuse?</p></div>
+          <div class="panel orange"><h3>Search + labels</h3><p>What happens when a customer uses a different word from the shop owner?</p></div>
+          <div class="panel green"><h3>Critical details</h3><p>What must never be hard to find: price, size, stock, delivery, returns?</p></div>
+        </div>
+        <div class="exercise"><label for="bomshoprisk">Pick one shop screen. What is one user habit or expectation you should protect, and one thing you would test before launch?</label><textarea id="bomshoprisk" data-save="bomshoprisk" placeholder="Screen: …&#10;Protect: …&#10;Test: …&#10;I would ask someone to…"></textarea></div>
+        <div class="callout">A good test is a task, not “do you like it?” Give someone something to accomplish, watch quietly, and notice where they hesitate.</div>
+      </div>
+      <div class="card-foot"><small>Use cases → design decisions → testing.</small><small>That’s the loop.</small></div>
+    </section>
+
+    <section class="card" data-title="Domain hosting DNS">
+      <div class="card-head"><div class="kicker">Internet basics</div><div class="card-no">12</div></div>
+      <div class="card-body">
+        <h2>Domain ≠ hosting ≠ DNS</h2>
+        <p class="lead">These three things work together, but they are not the same thing.</p>
+        <div class="arch" role="img" aria-label="A domain name is resolved by DNS to the hosting server where the website lives">
+          <div class="arch-box">DOMAIN<br><span class="mono">friendshop.com</span><small>The memorable name</small></div>
+          <div class="arrow">→</div>
+          <div class="arch-box">DNS<br><small>The directions</small></div>
+          <div class="arrow">→</div>
+          <div class="arch-box">HOSTING<br><small>Where the site runs / files + data live</small></div>
+        </div>
+        <p>ICANN describes DNS as the system that connects human-readable domain names to the IP addresses computers use to find one another.</p>
+        <a class="resource-link" href="https://www.icann.org/resources/pages/about-domain-names-2018-08-30-en" target="_blank" rel="noreferrer"><span>Open: ICANN — About Domain Names</span><span>↗ OFFICIAL</span></a>
+      </div>
+      <div class="card-foot"><small>Name. Directions. Home.</small><small>Three jobs.</small></div>
+    </section>
+
+    <section class="card" data-title="Register a domain">
+      <div class="card-head"><div class="kicker">Internet basics</div><div class="card-no">13</div></div>
+      <div class="card-body">
+        <h2>What does “register a domain” mean?</h2>
+        <p class="lead">You don’t buy a domain forever. You register the right to use it for a period of time through a registrar, then keep renewing it.</p>
+        <div class="grid2">
+          <div class="panel pink"><h3>Registrar</h3><p>The company that handles the domain registration.</p></div>
+          <div class="panel green"><h3>Registrant</h3><p>The person or organisation recorded as the holder of the domain.</p></div>
+          <div class="panel orange"><h3>Renewal</h3><p>Registration expires if it is not renewed. Ownership/admin details matter.</p></div>
+          <div class="panel"><h3>DNS settings</h3><p>These tell the domain which services should answer for the website, email and more.</p></div>
+        </div>
+        <div class="callout">For a real client/friend project: work out whose name/account should own the domain before clicking “Buy”.</div>
+        <div class="exercise"><label for="domainideas">Possible domain names — ideas only, don’t register yet</label><input type="text" id="domainideas" data-save="domainideas" placeholder="e.g. brandname.com.au, brandname.com"></div>
+      </div>
+      <div class="card-foot"><small>Domain registration is an ongoing responsibility.</small><small>Not a file download.</small></div>
+    </section>
+
+    <section class="card" data-title="Hosting">
+      <div class="card-head"><div class="kicker">Internet basics</div><div class="card-no">14</div></div>
+      <div class="card-body">
+        <h2>So what is hosting?</h2>
+        <p class="lead">A website needs computers connected to the internet to serve its pages, code, images and data when someone visits. Hosting is the service that provides that environment.</p>
+        <div class="y2k-window">
+          <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><strong class="mono">request → response</strong></div>
+          <div class="window-content">
+            <p><strong>Your browser:</strong> “Hello. Can I have the product page?”</p>
+            <p><strong>Server:</strong> “Yep. Here’s the HTML, CSS, JavaScript, images and whatever data the page needs.”</p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="panel green"><h3>Self-hosted WordPress</h3><p>You arrange a host, then install/run WordPress there.</p></div>
+          <div class="panel pink"><h3>Shopify</h3><p>Hosting is part of the hosted commerce platform, so you don’t separately manage the web server.</p></div>
+        </div>
+      </div>
+      <div class="card-foot"><small>Domain and hosting can be bought from different companies.</small><small>They meet through DNS.</small></div>
+    </section>
+
+    <section class="card" data-title="CMS">
+      <div class="card-head"><div class="kicker">Systems</div><div class="card-no">15</div></div>
+      <div class="card-body">
+        <h2>CMS = Content Management System</h2>
+        <p class="lead">A CMS gives people a way to create and manage website content without opening the source files every time.</p>
+        <div class="grid2">
+          <div class="panel pink"><h3>Without a CMS</h3><p>Edit HTML/CSS files → upload/deploy → repeat.</p></div>
+          <div class="panel green"><h3>With a CMS</h3><p>Log in → edit pages/products/media in an admin interface → publish.</p></div>
+        </div>
+        <p>WordPress is an open-source publishing platform/CMS. Its plugin system lets you add functionality without rebuilding the core software.</p>
+        <a class="resource-link" href="https://wordpress.org/" target="_blank" rel="noreferrer"><span>Open: WordPress.org</span><span>↗ CMS</span></a>
+        <a class="resource-link" href="https://wordpress.org/documentation/article/introduction-to-plugins/" target="_blank" rel="noreferrer"><span>Open: WordPress — Introduction to Plugins</span><span>↗ PLUGINS</span></a>
+      </div>
+      <div class="card-foot"><small>The owner should not need you to change a price.</small><small>That’s a clue.</small></div>
+    </section>
+
+    <section class="card" data-title="Plugins and apps">
+      <div class="card-head"><div class="kicker">Systems</div><div class="card-no">16</div></div>
+      <div class="card-body">
+        <h2>Core + extensions</h2>
+        <p class="lead">Modern platforms are often built as a useful core that can be extended with plugins, apps or integrations.</p>
+        <div class="grid3">
+          <div class="panel"><h3>Core</h3><p>The platform’s built-in features.</p></div>
+          <div class="panel pink"><h3>Plugin / app</h3><p>Adds a capability: forms, bookings, reviews, shipping, analytics…</p></div>
+          <div class="panel green"><h3>Integration</h3><p>Connects the site to another service.</p></div>
+        </div>
+        <div class="callout">Plugins are powerful, but every extra moving part can bring cost, maintenance, compatibility, privacy and accessibility questions.</div>
+        <p class="note">Translation: “There’s an app for that” is the beginning of a decision, not the end of one.</p>
+      </div>
+      <div class="card-foot"><small>Extend deliberately.</small><small>Avoid plugin confetti.</small></div>
+    </section>
+
+    <section class="card" data-title="Commerce routes">
+      <div class="card-head"><div class="kicker">Platform map</div><div class="card-no">17</div></div>
+      <div class="card-body">
+        <h2>Three broad routes</h2>
+        <table class="compare">
+          <thead><tr><th>Route</th><th>What it means</th><th>What you learn</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Hand-coded site</strong></td><td>Your HTML/CSS/JS site, with external services added as needed.</td><td>Web fundamentals, maximum code visibility.</td></tr>
+            <tr><td><strong>WordPress + WooCommerce</strong></td><td>WordPress CMS on a host, with WooCommerce added as the ecommerce plugin.</td><td>CMS, hosting, plugins, themes, databases, commerce administration.</td></tr>
+            <tr><td><strong>Shopify</strong></td><td>A hosted commerce platform with themes, built-in commerce features and an app ecosystem.</td><td>Commerce configuration, themes, apps and platform constraints.</td></tr>
+          </tbody>
+        </table>
+        <div class="grid2">
+          <a class="resource-link" href="https://woocommerce.com/documentation/woocommerce/" target="_blank" rel="noreferrer"><span>WooCommerce docs</span><span>↗</span></a>
+          <a class="resource-link" href="https://www.shopify.com/faq" target="_blank" rel="noreferrer"><span>Shopify FAQ</span><span>↗</span></a>
+        </div>
+        <p class="note">We’re not choosing yet. We’re learning enough to make the choice for a reason.</p>
+      </div>
+      <div class="card-foot"><small>Platform = consequence of requirements.</small><small>Not a popularity contest.</small></div>
+    </section>
+
+    <section class="card" data-title="Platform decision">
+      <div class="card-head"><div class="kicker">Decision prep</div><div class="card-no">18</div></div>
+      <div class="card-body">
+        <h2>What must we know before choosing?</h2>
+        <ul class="checklist">
+          <li>What is being sold?</li><li>How many products?</li><li>Sizes / colours / variants?</li><li>Physical, digital or both?</li><li>Stock tracking?</li><li>Pickup, shipping, both?</li><li>Where can customers be?</li><li>How will payments work?</li><li>Who updates the shop?</li><li>How technical are they?</li><li>What is the budget?</li><li>How custom does the design need to be?</li>
+        </ul>
+        <div class="exercise"><label for="platformquestions">Questions you need to ask your friend</label><textarea id="platformquestions" data-save="platformquestions" placeholder="What do we still need to know before choosing the platform?"></textarea></div>
+      </div>
+      <div class="card-foot"><small>This becomes the client brief.</small><small>Good questions save hours.</small></div>
+    </section>
+
+    <section class="card" data-title="Accessibility matters">
+      <div class="card-head"><div class="kicker">Accessibility</div><div class="card-no">19</div></div>
+      <div class="card-body">
+        <h2>Accessibility is part of the design</h2>
+        <p class="lead">Not a “fix it at the end” checkbox. People need to be able to perceive, understand and operate the site in different ways.</p>
+        <p>In Australia, the Australian Human Rights Commission points digital product teams to technical standards and guidance that support equal access for people with disability. WCAG is the main international web-content standard.</p>
+        <a class="resource-link" href="https://humanrights.gov.au/resource-hub/by-resource-type/guidelines-and-standards/guides-and-standards-disability-rights/chapter-3-standards-and-guidelines-digital-accessibility" target="_blank" rel="noreferrer"><span>Open: Australian Human Rights Commission — digital accessibility standards + guidelines</span><span>↗ AU</span></a>
+        <a class="resource-link" href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noreferrer"><span>Open: W3C — WCAG overview</span><span>↗ W3C</span></a>
+        <div class="callout">For this project: accessibility changes our colours, structure, controls, text, forms, images and testing.</div>
+      </div>
+      <div class="card-foot"><small>Good UX includes more people.</small><small>That’s the job.</small></div>
+    </section>
+
+    <section class="card" data-title="POUR">
+      <div class="card-head"><div class="kicker">Accessibility</div><div class="card-no">20</div></div>
+      <div class="card-body">
+        <h2>WCAG’s four big ideas: POUR</h2>
+        <div class="pour">
+          <div><strong>P</strong><b>Perceivable</b><p>Can people get the information?</p></div>
+          <div><strong>O</strong><b>Operable</b><p>Can they use the controls and navigation?</p></div>
+          <div><strong>U</strong><b>Understandable</b><p>Does the interface and language make sense?</p></div>
+          <div><strong>R</strong><b>Robust</b><p>Can different browsers and assistive technologies interpret it?</p></div>
+        </div>
+        <p class="lead" style="margin-top:30px">WCAG 2.2 has testable success criteria at three conformance levels: A, AA and AAA.</p>
+        <div class="exercise"><label for="pournotes">Pick one feature from your friend’s site. How could each POUR principle affect it?</label><textarea id="pournotes" data-save="pournotes" placeholder="Feature: product card / navigation / checkout / contact form…"></textarea></div>
+      </div>
+      <div class="card-foot"><small>POUR = a thinking tool.</small><small>Not just an acronym to memorise.</small></div>
+    </section>
+
+    <section class="card" data-title="Real accessibility checks">
+      <div class="card-head"><div class="kicker">Accessibility</div><div class="card-no">21</div></div>
+      <div class="card-body">
+        <h2>What does this change in the actual build?</h2>
+        <div class="grid2">
+          <div class="panel pink"><h3>Structure</h3><p>Logical headings, landmarks, labels, real buttons and links.</p></div>
+          <div class="panel green"><h3>Keyboard</h3><p>Can someone reach and use everything without a mouse?</p></div>
+          <div class="panel orange"><h3>Images</h3><p>Useful alt text when the image carries meaning.</p></div>
+          <div class="panel"><h3>Forms</h3><p>Clear labels, instructions and errors that don’t rely on colour alone.</p></div>
+          <div class="panel pink"><h3>Zoom + layout</h3><p>Does the site still work when text gets larger or the viewport gets narrow?</p></div>
+          <div class="panel green"><h3>Colour + focus</h3><p>Sufficient contrast and visible keyboard focus.</p></div>
+        </div>
+        <div class="callout">Accessibility is not “make it dull”. It is “make the design survive more real-world conditions”.</div>
+      </div>
+      <div class="card-foot"><small>Design for variation.</small><small>Not for one perfect user.</small></div>
+    </section>
+
+    <section class="card" data-title="Contrast challenge">
+      <div class="card-head"><div class="kicker">Accessibility · Colour</div><div class="card-no">22</div></div>
+      <div class="card-body">
+        <h2>Chloe already caught this</h2>
+        <p class="lead">The Qwerty Labs palette exploration already includes a <strong>Colour contrast adjustment</strong> from the earlier “Colder” variation. That is design-system thinking: don’t just choose colours — decide <em>how they are allowed to work together</em>.</p>
+        <p>For normal text, WCAG AA requires at least <strong>4.5:1</strong> contrast. Large text can use <strong>3:1</strong>. Here is what the current palette does when we measure some useful pairings:</p>
+        <div class="swatches">
+          <div class="swatch dark-on-light"><strong>#020020 on #F1F8F8</strong><small>19.08:1 · <span class="pass">AAA</span></small></div>
+          <div class="swatch dark-on-pink"><strong>#020020 on #F66DC1</strong><small>7.70:1 · <span class="pass">AAA</span></small></div>
+          <div class="swatch dark-on-green"><strong>#020020 on #92D644</strong><small>11.65:1 · <span class="pass">AAA</span></small></div>
+          <div class="swatch dark-on-orange"><strong>#020020 on #FF9029</strong><small>9.06:1 · <span class="pass">AAA</span></small></div>
+          <div class="swatch dark-on-blue"><strong>#020020 on #4C69E3</strong><small>4.34:1 · <span class="fail">not AA for normal text</span></small></div>
+          <div class="swatch light-on-blue"><strong>#F1F8F8 on #4C69E3</strong><small>4.40:1 · <span class="fail">not AA for normal text</span></small></div>
+        </div>
+        <div class="callout"><strong>The useful lesson is not “fix the blue”.</strong> It is “give every colour a job”. Blue can stay a strong accent/display colour while the accessible pairings do the reading work.</div>
+      </div>
+      <div class="card-foot"><small>Real Qwerty example: Chloe’s contrast adjustment.</small><small>Palette ≠ permission to use every pairing.</small></div>
+    </section>
+
+    <section class="card" data-title="Contrast tool lab">
+      <div class="card-head"><div class="kicker">Accessibility · Tool lab</div><div class="card-no">23</div></div>
+      <div class="card-body">
+        <h2>Now repeat the process</h2>
+        <p class="lead">Chloe did this for Qwerty. Do the same for your friend’s palette: test it, find the weak pairings, then decide which colours are for text, backgrounds, buttons, accents and decoration.</p>
+        <a class="resource-link" href="https://www.w3schools.com/tools/tool_contrast_checker.php" target="_blank" rel="noreferrer"><span>W3Schools Contrast Checker</span><span>↗ TEST</span></a>
+        <a class="resource-link" href="https://colorable.jxnblk.com/" target="_blank" rel="noreferrer"><span>Colorable</span><span>↗ PLAY</span></a>
+        <div class="exercise">
+          <label for="contrastnotes">Record 3 colour combinations + give each one a job</label>
+          <textarea id="contrastnotes" data-save="contrastnotes" placeholder="Text / background / ratio / pass or fail / role in the site"></textarea>
+        </div>
+        <p class="note">Bonus: find one combination you like visually that fails, then solve the design problem without simply abandoning the colour.</p>
+      </div>
+      <div class="card-foot"><small>Measure → decide roles → document the rule.</small><small>That is a tiny design system.</small></div>
+    </section>
+
+    <section class="card" data-title="Orange case study">
+      <div class="card-head"><div class="kicker">Accessibility · Read</div><div class="card-no">24</div></div>
+      <div class="card-body">
+        <h2>The orange button problem</h2>
+        <p class="lead">This short case study is useful because it shows the tension between what can <em>look</em> clearer and what the measured contrast ratio says.</p>
+        <a class="resource-link" href="https://www.bounteous.com/insights/2019/03/22/orange-you-accessible-mini-case-study-color-ratio/" target="_blank" rel="noreferrer"><span>Read: “Orange You Accessible?”</span><span>↗ CASE STUDY</span></a>
+        <div class="exercise"><label for="orangereflection">After reading: what surprised you, and what should a designer do with that information?</label><textarea id="orangereflection" data-save="orangereflection" placeholder="The surprising bit was…&#10;I think a designer should…"></textarea></div>
+        <div class="callout">Useful question: what should happen when a brand choice and an accessibility requirement collide?</div>
+      </div>
+      <div class="card-foot"><small>Standards + judgement.</small><small>Both matter.</small></div>
+    </section>
+
+    <section class="card" data-title="Testing tools">
+      <div class="card-head"><div class="kicker">Accessibility · Test</div><div class="card-no">25</div></div>
+      <div class="card-body">
+        <h2>Accessibility testing is a toolkit</h2>
+        <p class="lead">W3C maintains a filterable list of evaluation tools for websites, mobile apps, documents and source code. Automated checks are useful, but they’re one part of evaluation.</p>
+        <a class="resource-link" href="https://www.w3.org/WAI/test-evaluate/tools/list/" target="_blank" rel="noreferrer"><span>W3C — Web Accessibility Evaluation Tools List</span><span>↗ TOOLBOX</span></a>
+        <div class="grid2">
+          <div class="panel pink"><h3>Automated</h3><p>Fast at finding some detectable failures.</p></div>
+          <div class="panel green"><h3>Manual</h3><p>Keyboard testing, zoom, reading order, labels, meaning and task completion.</p></div>
+        </div>
+        <div class="exercise"><label for="toolchoice">Pick one testing tool from the W3C list. What does it test, and what DOESN’T it prove?</label><textarea id="toolchoice" data-save="toolchoice"></textarea></div>
+      </div>
+      <div class="card-foot"><small>A green automated score ≠ “accessible”.</small><small>Humans still required.</small></div>
+    </section>
+
+    <section class="card" data-title="Back to the code">
+      <div class="card-head"><div class="kicker">Skills bridge</div><div class="card-no">26</div></div>
+      <div class="card-body">
+        <h2>Your HTML + CSS work still matters</h2>
+        <p class="lead">The Raspberry Pi lessons gave you the browser-language layer. None of that disappears when a CMS or ecommerce platform arrives.</p>
+        <a class="resource-link" href="https://projects.raspberrypi.org/en/projects/editor-cd-sebento-htmlcss-1/landing" target="_blank" rel="noreferrer"><span>Raspberry Pi — the HTML/CSS project series you started from</span><span>↗ YOUR BASE</span></a>
+        <div class="grid2">
+          <div class="panel pink"><h3>HTML</h3><p>Structure and meaning: headings, links, buttons, forms, product content.</p></div>
+          <div class="panel green"><h3>CSS</h3><p>Layout, responsive design, typography, states, colour and focus treatment.</p></div>
+          <div class="panel orange"><h3>CMS / theme</h3><p>Generates and manages lots of that content and markup.</p></div>
+          <div class="panel"><h3>You</h3><p>Still need to understand what the browser receives and why.</p></div>
+        </div>
+      </div>
+      <div class="card-foot"><small>Tools change.</small><small>Web fundamentals travel with you.</small></div>
+    </section>
+
+    <section class="card" data-title="Next studio session">
+      <div class="card-head"><div class="kicker">Next move</div><div class="card-no">27</div></div>
+      <div class="card-body">
+        <h2>What to bring to the next session</h2>
+        <div class="steps">
+          <div class="step"><div>Your existing <strong>mood board</strong>.</div></div>
+          <div class="step"><div>Your current <strong>IA / sitemap</strong>.</div></div>
+          <div class="step"><div>Your <strong>personas</strong>.</div></div>
+          <div class="step"><div>Your <strong>five use cases</strong>.</div></div>
+          <div class="step"><div>Your first pass at <strong>shop requirements</strong>.</div></div>
+          <div class="step"><div>Your friend’s answers to the <strong>platform questions</strong>.</div></div>
+          <div class="step"><div>One <strong>accessibility discovery</strong> you think should affect the design.</div></div>
+        </div>
+        <div class="callout">Then we can make a sensible WordPress/WooCommerce vs Shopify decision together.</div>
+        <div class="utility"><button id="downloadNotes">Download my notes</button><button onclick="window.print()">Print / PDF</button></div>
+      </div>
+      <div class="card-foot"><small>Bring evidence, not guesses.</small><small>Code Captain can cope. Probably.</small></div>
+    </section>
+
+    <section class="card" data-title="Resource launchpad">
+      <div class="card-head"><div class="kicker">Links</div><div class="card-no">28</div></div>
+      <div class="card-body">
+        <h2>Resource launchpad</h2>
+        <p class="lead">Everything from the deck in one place. The first seven are the sources DC supplied for this learning path.</p>
+        <a class="resource-link" href="https://projects.raspberrypi.org/en/projects/editor-cd-sebento-htmlcss-1/landing" target="_blank" rel="noreferrer"><span>Raspberry Pi HTML + CSS project series</span><span>↗</span></a>
+        <a class="resource-link" href="https://humanrights.gov.au/resource-hub/by-resource-type/guidelines-and-standards/guides-and-standards-disability-rights/chapter-3-standards-and-guidelines-digital-accessibility" target="_blank" rel="noreferrer"><span>Australian Human Rights Commission — digital accessibility</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noreferrer"><span>W3C — WCAG overview</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.w3.org/WAI/test-evaluate/tools/list/" target="_blank" rel="noreferrer"><span>W3C — accessibility evaluation tools</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.w3schools.com/tools/tool_contrast_checker.php" target="_blank" rel="noreferrer"><span>W3Schools contrast checker</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.bounteous.com/insights/2019/03/22/orange-you-accessible-mini-case-study-color-ratio/" target="_blank" rel="noreferrer"><span>Bounteous — Orange You Accessible?</span><span>↗</span></a>
+        <a class="resource-link" href="https://colorable.jxnblk.com/" target="_blank" rel="noreferrer"><span>Colorable</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.icann.org/resources/pages/about-domain-names-2018-08-30-en" target="_blank" rel="noreferrer"><span>ICANN — About Domain Names</span><span>↗</span></a>
+        <a class="resource-link" href="https://wordpress.org/documentation/article/introduction-to-plugins/" target="_blank" rel="noreferrer"><span>WordPress — Introduction to Plugins</span><span>↗</span></a>
+        <a class="resource-link" href="https://woocommerce.com/documentation/woocommerce/" target="_blank" rel="noreferrer"><span>WooCommerce documentation</span><span>↗</span></a>
+        <a class="resource-link" href="https://www.shopify.com/faq" target="_blank" rel="noreferrer"><span>Shopify FAQ</span><span>↗</span></a>
+      </div>
+      <div class="card-foot"><small>Ctrl + Alt + Create.</small><small>Qwerty Labs</small></div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav" aria-label="Card navigation">
+  <button class="nav-btn" id="prevBtn">← Back</button>
+  <button class="nav-btn primary" id="nextBtn">Next →</button>
+</nav>
+
+<script>
+(() => {
+  const cards = [...document.querySelectorAll('.card')];
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const bar = document.getElementById('progressBar');
+  const counter = document.getElementById('counter');
+  let index = Math.max(0, Math.min(cards.length - 1, Number(sessionStorage.getItem('tiarnaDeckCard') || 0)));
+
+  function show(i){
+    index = Math.max(0, Math.min(cards.length - 1, i));
+    cards.forEach((c,n) => c.classList.toggle('active', n === index));
+    const pct = ((index + 1) / cards.length) * 100;
+    bar.style.width = pct + '%';
+    counter.textContent = String(index + 1).padStart(2,'0') + ' / ' + String(cards.length).padStart(2,'0');
+    prev.disabled = index === 0;
+    next.disabled = index === cards.length - 1;
+    next.textContent = index === cards.length - 1 ? 'Finished ✓' : 'Next →';
+    sessionStorage.setItem('tiarnaDeckCard', index);
+    document.title = 'Tiarna — ' + cards[index].dataset.title;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  document.addEventListener('keydown',e=>{
+    if (['TEXTAREA','INPUT'].includes(document.activeElement.tagName)) return;
+    if(e.key==='ArrowRight') show(index+1);
+    if(e.key==='ArrowLeft') show(index-1);
+  });
+
+  document.querySelectorAll('[data-save]').forEach(el => {
+    const key = 'tiarnaDeck:' + el.dataset.save;
+    el.value = localStorage.getItem(key) || '';
+    el.addEventListener('input', () => localStorage.setItem(key, el.value));
+  });
+
+  document.getElementById('resetBtn').addEventListener('click',()=>{
+    if(!confirm('Clear all notes saved in this deck on this browser?')) return;
+    document.querySelectorAll('[data-save]').forEach(el => {
+      localStorage.removeItem('tiarnaDeck:' + el.dataset.save);
+      el.value='';
+    });
+  });
+  document.getElementById('printBtn').addEventListener('click',()=>window.print());
+
+  document.getElementById('downloadNotes').addEventListener('click',()=>{
+    const rows = ['TIARNA — FROM WEBSITE TO SHOP',''];
+    document.querySelectorAll('[data-save]').forEach(el=>{
+      const label = document.querySelector('label[for="'+el.id+'"]');
+      rows.push((label ? label.textContent : el.dataset.save).toUpperCase());
+      rows.push(el.value || '(blank)');
+      rows.push('');
+    });
+    const blob = new Blob([rows.join('\n')], {type:'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tiarna-web-project-notes.txt';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  });
+  show(index);
+})();
+</script>
+</body>
+</html>
