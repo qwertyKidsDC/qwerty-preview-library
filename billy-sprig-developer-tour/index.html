@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Billy's Sprig Developer Tour</title>
+<style>
+:root{--ink:#020020;--paper:#F1F8F8;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.shell{max-width:980px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.title{font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-.03em}.tag{border:2px solid var(--ink);background:#fff;padding:7px 10px;font-weight:800;box-shadow:3px 3px 0 var(--ink)}
+.card{display:none;min-height:620px;background:#fff;border:3px solid var(--ink);box-shadow:7px 7px 0 var(--ink);padding:clamp(22px,4vw,42px)}
+.card.active{display:block}.eyebrow{display:inline-block;background:var(--accent);border:2px solid var(--ink);padding:5px 9px;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+h1,h2{margin:0 0 16px;line-height:1.03;letter-spacing:-.04em}h1{font-size:clamp(34px,6vw,62px)}h2{font-size:clamp(30px,5vw,50px)}
+p,li{font-size:clamp(17px,2vw,21px);line-height:1.5}ul{padding-left:1.25em}
+.ask{border:3px solid var(--ink);background:var(--accent);padding:18px 20px;font-size:clamp(20px,2.5vw,28px);font-weight:900;line-height:1.25;margin:18px 0;box-shadow:4px 4px 0 var(--ink)}
+.listen{background:var(--paper);border-left:6px solid var(--accent);padding:14px 16px;margin:16px 0}.listen strong,.notes-label{font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}
+code{background:#eef0f5;border:1px solid #c8cad1;padding:.12em .35em;border-radius:4px;font-size:.9em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}.choice{border:2px solid var(--ink);padding:14px;background:#fff}.choice h3{margin:0 0 8px;font-size:18px}
+textarea{width:100%;min-height:90px;border:2px solid var(--ink);padding:10px;font:inherit;background:#fffef7;resize:vertical}.notes-label{display:block;margin:22px 0 7px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}button{border:2px solid var(--ink);background:#fff;color:var(--ink);padding:10px 15px;font-weight:900;box-shadow:3px 3px 0 var(--ink);cursor:pointer}button:disabled{opacity:.35;cursor:not-allowed}
+.progress{font-weight:900;font-size:14px}.tiny{font-size:14px;opacity:.75}.quote{font-size:clamp(25px,4vw,40px);font-weight:900;line-height:1.15;margin:20px 0}.foot{font-size:13px;opacity:.7;margin-top:14px}
+@media(max-width:650px){.card{min-height:570px;padding:22px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="top"><div class="title">Billy's Sprig Developer Tour</div><div class="tag">DC companion deck</div></div>
+
+<section class="card active" data-accent="#4C69E3">
+<div class="eyebrow">Start here</div><h1>Let Billy drive.</h1>
+<div class="ask">“I realised I’ve watched this grow all term without ever getting the proper developer tour. Show me what you’ve made.”</div>
+<p>This deck is a steering wheel for you, not a worksheet for Billy. Let him play, explain, demonstrate and wander. Use a prompt only when there is somewhere interesting to go.</p>
+<div class="listen"><strong>Useful rule</strong><p>Ask how something works <em>before</em> mentioning anything you noticed in the code.</p></div>
+<label class="notes-label">Quick notes</label><textarea data-note="0" placeholder="Things Billy says that you want to remember..."></textarea>
+</section>
+
+<section class="card" data-accent="#F66DC1">
+<div class="eyebrow">1 · Origin story</div><h2>What did you start with?</h2>
+<div class="ask">“What was already there when you began, and what parts did you add yourself?”</div>
+<p>If he gives a broad answer, get him to point at things on screen or in the code.</p>
+<div class="listen"><strong>Listen for</strong><ul><li>What came from a tutorial, example or existing Sprig game.</li><li>What he designed, adapted or rewrote.</li><li>Where he got stuck and how he found help.</li><li>Whether he can distinguish “I copied this” from “I understood and changed this”.</li></ul></div>
+<label class="notes-label">Billy's answer</label><textarea data-note="1"></textarea>
+</section>
+
+<section class="card" data-accent="#FF9029">
+<div class="eyebrow">2 · Game tour</div><h2>Play it from the start.</h2>
+<div class="ask">“Talk me through what the player is learning as the levels go on.”</div>
+<p>The six maps appear to introduce and then combine mechanics: basic movement, spikes, lock blocks, bullets and finally the Qwerty element.</p>
+<div class="listen"><strong>Interesting follow-up</strong><p>“Did you plan that order, or did the levels just grow that way?”</p></div>
+<label class="notes-label">Quick notes</label><textarea data-note="2"></textarea>
+</section>
+
+<section class="card" data-accent="#92D644">
+<div class="eyebrow">3 · Gravity</div><h2>How is the player falling?</h2>
+<div class="ask">“Show me the bit that makes gravity work. What is happening over time?”</div>
+<div class="listen"><strong>Listen for</strong><ul><li><code>movePlayers()</code></li><li>changing the player's <code>y</code> position</li><li>the repeating timer</li><li>why the player cannot simply fall through solid floor tiles</li></ul></div>
+<div class="listen"><strong>If you want to stretch him</strong><p>“If you wanted jumping to feel smoother instead of moving one tile up, what would have to change?”</p></div>
+<label class="notes-label">Quick notes</label><textarea data-note="3"></textarea>
+</section>
+
+<section class="card" data-accent="#4C69E3">
+<div class="eyebrow">4 · Locks</div><h2>How do the lock blocks work?</h2>
+<div class="ask">“What changes when I press S? Are the blocks moving, disappearing, or is something else changing?”</div>
+<div class="listen"><strong>Listen for</strong><p>The important idea is state: <code>isOn</code> changes, and the game rebuilds which sprite types count as solid.</p></div>
+<div class="listen"><strong>Small investigation</strong><p>Finish a level while the locks are clear, then try the lock control in the next level. Ask whether the code's idea of <em>isOn</em> always matches what the game is actually doing.</p></div>
+<label class="notes-label">Quick notes</label><textarea data-note="4"></textarea>
+</section>
+
+<section class="card" data-accent="#F66DC1">
+<div class="eyebrow">5 · Bullets</div><h2>These are interesting.</h2>
+<div class="ask">“Show me how a bullet knows which way it is travelling, and how it knows when to turn around.”</div>
+<div class="listen"><strong>Listen for</strong><ul><li>each bullet getting its own <code>dx</code></li><li>checking the next position before moving</li><li>reversing direction at the map edge</li><li>reversing when the next tile contains floor or a lock block</li></ul></div>
+<div class="ask">“What are the bullets supposed to do when they hit the player?”</div>
+<p>The code moves them, but does not appear to make them damage or kill the player. That may be unfinished, deliberate, or simply not noticed yet.</p>
+<label class="notes-label">Quick notes</label><textarea data-note="5"></textarea>
+</section>
+
+<section class="card" data-accent="#FF9029">
+<div class="eyebrow">6 · Secret ending</div><h2>Qwerty Winner 👀</h2>
+<div class="ask">“How do I discover Qwerty Winner? Show me how that ending works in the code.”</div>
+<div class="listen"><strong>Then ask</strong><p>“Why does <code>(goal).length</code> work there?”</p></div>
+<p>Don't explain it first. <code>goal</code> is the string <code>"g"</code>, so its length happens to be 1. The condition can therefore work for a single Qwerty tile without actually counting Qwerty tiles.</p>
+<p class="tiny">Lovely accidental-success debugging question: the game can work while the reasoning underneath it is shaky.</p>
+<label class="notes-label">Quick notes</label><textarea data-note="6"></textarea>
+</section>
+
+<section class="card" data-accent="#92D644">
+<div class="eyebrow">7 · If he wants to improve it</div><h2>Pick one. Don't turn it into homework.</h2>
+<p>Once Billy has given you the tour:</p>
+<div class="ask">“If you had another session, what would you improve first?”</div>
+<div class="grid">
+<div class="choice"><h3>Make bullets dangerous</h3><p>Add player/bullet collision and decide what a hit actually does.</p></div>
+<div class="choice"><h3>Make hazards more reliable</h3><p>Spike checking currently happens on the gravity timer, so a quick move may potentially escape between checks.</p></div>
+<div class="choice"><h3>Make locks fully consistent</h3><p>Keep <code>isOn</code> and the actual solids list synchronized when levels change.</p></div>
+<div class="choice"><h3>Let bullets respect the switch</h3><p>Bullets currently treat lock tiles as barriers even when the player can pass through them.</p></div>
+<div class="choice"><h3>Fix the Qwerty count properly</h3><p>Count Qwerty tiles instead of relying on the length of <code>"g"</code>.</p></div>
+<div class="choice"><h3>Add a proper restart</h3><p>After Game Over, <code>gameRunning</code> is false, so the current J reset handler cannot run.</p></div>
+<div class="choice"><h3>Tidy old experiments</h3><p><code>mapWidth</code> and <code>showQwertyText</code> are declared but not used.</p></div>
+<div class="choice"><h3>Polish the code</h3><p>Use the <code>bullet</code> constant consistently instead of sometimes using <code>"b"</code> directly.</p></div>
+</div>
+<label class="notes-label">What Billy chooses</label><textarea data-note="7"></textarea>
+</section>
+
+<section class="card" data-accent="#4C69E3">
+<div class="eyebrow">8 · Finish here</div><h2>One question.</h2>
+<div class="quote">“What’s the bit in here you’re proudest of?”</div>
+<p>Then let him answer properly. No need to translate it into a learning outcome while he is sitting there.</p>
+<div class="listen"><strong>For you afterwards</strong><p>Notice whether he chooses a technical problem, a design decision, an aesthetic detail, a joke/easter egg, or the fact that he worked something out independently. That tells you what this project meant to him.</p></div>
+<label class="notes-label">His answer</label><textarea data-note="8"></textarea>
+</section>
+
+<div class="nav"><button id="prev">← Previous</button><div id="progress" class="progress">1 / 9</div><button id="next">Next →</button></div>
+<div class="foot">Keyboard: ← → to move through cards. Notes save in this browser.</div>
+</div>
+<script>
+const cards=[...document.querySelectorAll('.card')],prev=document.getElementById('prev'),next=document.getElementById('next'),progress=document.getElementById('progress');let index=0;
+function show(i){index=Math.max(0,Math.min(cards.length-1,i));cards.forEach((c,n)=>{c.classList.toggle('active',n===index);c.style.setProperty('--accent',c.dataset.accent)});prev.disabled=index===0;next.disabled=index===cards.length-1;progress.textContent=`${index+1} / ${cards.length}`;window.scrollTo({top:0,behavior:'smooth'})}
+prev.onclick=()=>show(index-1);next.onclick=()=>show(index+1);document.addEventListener('keydown',e=>{if(document.activeElement.tagName==='TEXTAREA')return;if(e.key==='ArrowRight')show(index+1);if(e.key==='ArrowLeft')show(index-1)});
+document.querySelectorAll('textarea[data-note]').forEach(a=>{const k='billySprigTour_note_'+a.dataset.note;a.value=localStorage.getItem(k)||'';a.addEventListener('input',()=>localStorage.setItem(k,a.value))});show(0);
+</script>
+</body></html>
