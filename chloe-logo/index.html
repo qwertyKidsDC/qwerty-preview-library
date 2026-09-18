@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwerty Labs — Chloe’s Logo Working Deck</title>
+<style>
+  :root{
+    --ink:#171717;
+    --paper:#f5f0e7;
+    --acid:#d9ff3f;
+    --violet:#8b7cff;
+    --pink:#ff8fb3;
+    --blue:#77d8ff;
+    --muted:#6d6a64;
+    --shadow:10px 10px 0 var(--ink);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--ink);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  body{
+    background:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+      var(--ink);
+    background-size:24px 24px;
+    overflow:hidden;
+  }
+  button{font:inherit}
+  .deck{height:100svh;display:flex;flex-direction:column}
+  .topbar{
+    height:58px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;color:white;border-bottom:2px solid rgba(255,255,255,.18);
+    background:rgba(23,23,23,.95)
+  }
+  .brand{font-weight:900;letter-spacing:.02em;text-transform:uppercase;font-size:14px}
+  .status{font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.85}
+  .stage{flex:1;position:relative;display:grid;place-items:center;padding:26px 26px 92px}
+  .card{
+    display:none;position:absolute;width:min(940px,calc(100vw - 52px));height:min(650px,calc(100svh - 158px));
+    background:var(--paper);border:3px solid var(--ink);box-shadow:var(--shadow);
+    padding:clamp(24px,4vw,54px);overflow:auto;
+  }
+  .card.active{display:block}
+  .kicker{font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+  h1,h2{margin:0;max-width:850px;letter-spacing:-.045em;line-height:.94}
+  h1{font-size:clamp(44px,7vw,88px)}
+  h2{font-size:clamp(38px,5.8vw,70px)}
+  h3{font-size:20px;margin:0 0 7px;line-height:1.05}
+  p{font-size:clamp(18px,2vw,24px);line-height:1.35;max-width:760px;margin:18px 0}
+  .big{font-size:clamp(26px,3.5vw,44px);line-height:1.08;font-weight:850;letter-spacing:-.025em}
+  .small{font-size:15px;line-height:1.45;color:var(--muted)}
+  .note{font:700 13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;border-left:6px solid var(--ink);padding:10px 14px;margin-top:22px;max-width:720px}
+  .pill{display:inline-block;border:2px solid var(--ink);padding:6px 9px;margin:4px 4px 0 0;font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;background:white}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .tile{border:2px solid var(--ink);padding:18px;background:white;min-height:126px}
+  .tile b{display:block;font-size:23px;line-height:1.05;margin-bottom:7px}
+  .tile span{font-size:15px;line-height:1.35}
+  .acid{background:var(--acid)}
+  .violet{background:var(--violet)}
+  .pink{background:var(--pink)}
+  .blue{background:var(--blue)}
+  .strike{text-decoration:line-through;text-decoration-thickness:3px}
+  .route{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:30px}
+  .step{border:2px solid var(--ink);background:white;min-height:112px;padding:12px;display:flex;flex-direction:column;justify-content:space-between}
+  .step .n{font:900 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .step .t{font-weight:900;font-size:16px;line-height:1.05}
+  .arrow{font-size:22px}
+  .rule{
+    margin-top:26px;border:3px solid var(--ink);padding:18px 20px;background:white;
+    font-size:clamp(22px,3vw,36px);font-weight:900;line-height:1.08;letter-spacing:-.02em
+  }
+  .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:25px}
+  .do-dont ul{margin:10px 0 0;padding-left:20px;font-size:17px;line-height:1.5}
+  .do-dont li{margin:5px 0}
+  .checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:22px}
+  .check{border-bottom:2px solid var(--ink);padding:9px 0;font-weight:750;font-size:18px}
+  .check::before{content:"□ ";font-family:monospace;font-weight:900}
+  .number{
+    position:absolute;right:22px;top:18px;font:900 clamp(46px,8vw,86px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+    opacity:.12
+  }
+  .controls{
+    position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;z-index:5
+  }
+  .controls button{
+    border:2px solid var(--ink);background:var(--paper);padding:10px 14px;font-weight:900;cursor:pointer;
+    box-shadow:4px 4px 0 var(--ink)
+  }
+  .controls button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .dots{display:flex;gap:6px;margin:0 6px}
+  .dot{width:9px;height:9px;border:1px solid white;background:transparent}
+  .dot.active{background:var(--acid)}
+  .sources a{color:inherit;text-decoration-thickness:2px;text-underline-offset:3px}
+  .sources li{margin:10px 0;line-height:1.4}
+  .mini-label{font:800 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em}
+  .mission{border-left:14px solid var(--acid);padding-left:22px;margin-top:26px}
+  .footerhint{position:absolute;right:20px;bottom:18px;color:white;font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.55}
+
+  .workbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+  .workfield{display:flex;flex-direction:column;gap:7px}
+  .workfield.wide{grid-column:1/-1}
+  .workfield label{font:900 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
+  .workfield textarea{
+    width:100%;min-height:86px;resize:vertical;border:2px solid var(--ink);background:white;color:var(--ink);
+    padding:11px 12px;font:600 15px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    border-radius:0;outline:none;box-shadow:4px 4px 0 var(--ink)
+  }
+  .workfield textarea:focus{background:#fffdf6;box-shadow:6px 6px 0 var(--ink)}
+  .workbook-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
+  .workbook-actions button{
+    border:2px solid var(--ink);background:var(--acid);color:var(--ink);padding:10px 14px;font-weight:900;cursor:pointer;
+    box-shadow:4px 4px 0 var(--ink)
+  }
+  .workbook-actions button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .save-note{font:700 12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);max-width:520px}
+  @media(max-width:760px){
+    body{overflow:auto}
+    .deck{min-height:100svh}
+    .stage{padding:16px 14px 84px}
+    .card{width:calc(100vw - 28px);height:calc(100svh - 142px);padding:24px 20px;box-shadow:6px 6px 0 var(--ink)}
+    .grid2,.grid3,.do-dont,.checklist,.workbook-grid{grid-template-columns:1fr}
+    .workfield.wide{grid-column:auto}
+    .route{grid-template-columns:1fr 1fr}
+    .number{font-size:48px}
+    p{font-size:18px}
+    .topbar{padding:0 14px}
+    .footerhint{display:none}
+  }
+  @media print{
+    body{background:white;overflow:visible}
+    .deck{height:auto}
+    .topbar,.controls,.footerhint{display:none!important}
+    .stage{display:block;padding:0}
+    .card,.card.active{
+      display:block!important;position:relative;width:100%;height:100vh;box-shadow:none;border:0;
+      page-break-after:always;padding:14mm;overflow:hidden
+    }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <header class="topbar">
+    <div class="brand">Qwerty Labs / Chloe’s Working Deck</div>
+    <div class="status"><span id="saveState">NOTES READY</span> · <span id="status">01 / 11</span></div>
+  </header>
+
+  <main class="stage">
+
+    <section class="card active">
+      <div class="number">01</div>
+      <div class="kicker">Before you draw a logo</div>
+      <h1>Your job is not to invent a clever symbol.</h1>
+      <div class="mission">
+        <p class="big">Find a visual idea that makes Qwerty Labs feel unmistakably like Qwerty Labs.</p>
+      </div>
+      <p>Then see whether that idea wants to become a mark, a wordmark, a behaviour, or a whole identity system.</p>
+      <div class="note">A great logo can be simple. The thinking behind it usually isn’t.</div>
+    </section>
+
+    <section class="card">
+      <div class="number">02</div>
+      <div class="kicker">The professional shape of the work</div>
+      <h2>Strategy → sources → making → selection → system → testing.</h2>
+      <div class="route">
+        <div class="step acid"><span class="n">01</span><span class="t">Know the brief</span></div>
+        <div class="step"><span class="n">02</span><span class="t">Find a strong idea</span></div>
+        <div class="step violet"><span class="n">03</span><span class="t">Hunt strange sources</span></div>
+        <div class="step"><span class="n">04</span><span class="t">Make lots</span></div>
+        <div class="step pink"><span class="n">05</span><span class="t">Kill most</span></div>
+        <div class="step"><span class="n">06</span><span class="t">Build the world</span></div>
+        <div class="step blue"><span class="n">07</span><span class="t">Stress-test it</span></div>
+      </div>
+      <div class="note">Good agencies vary the exact process. The discipline is remarkably consistent.</div>
+    </section>
+
+    <section class="card">
+      <div class="number">03</div>
+      <div class="kicker">QL’s north star</div>
+      <h2>Smart, strange, useful and beautiful digital things get made here.</h2>
+      <div class="grid3">
+        <div class="tile"><b>Warm + technical</b><span>Human without becoming childish. Precise without becoming sterile.</span></div>
+        <div class="tile"><b>Old + new</b><span>Comfortable with technology’s history and future. Not retro cosplay.</span></div>
+        <div class="tile"><b>Serious + informal</b><span>High-quality work without startup pomp or institutional stiffness.</span></div>
+        <div class="tile"><b>Physical + digital</b><span>Making, coding, electronics, design, games, systems, ideas.</span></div>
+        <div class="tile"><b>Structured + experimental</b><span>Know the rules. Then know when to bend them.</span></div>
+        <div class="tile"><b>Teaching + practice</b><span>QL teaches because it makes; it makes because it understands.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="number">04</div>
+      <div class="kicker">The trap</div>
+      <h2>First-order ideas arrive first because everybody can think of them.</h2>
+      <div class="do-dont">
+        <div class="tile pink">
+          <h3>Dead ends</h3>
+          <ul>
+            <li>tech → circuit</li>
+            <li>creativity → spark</li>
+            <li>Qwerty → keyboard</li>
+            <li>Labs → science</li>
+            <li>AI → nodes</li>
+          </ul>
+        </div>
+        <div class="tile acid">
+          <h3>Go sideways instead</h3>
+          <ul>
+            <li>How can parts show they belong together?</li>
+            <li>How does hidden structure become visible?</li>
+            <li>What traces does making leave behind?</li>
+            <li>How can a system adapt under constraint?</li>
+            <li>What can an error reveal?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">AIGA’s teaching material makes the same point: the first 10–15 sketches are often the expected clichés. Keep going.</div>
+    </section>
+
+    <section class="card">
+      <div class="number">05</div>
+      <div class="kicker">Source hunt</div>
+      <h2>Look outside logo-land.</h2>
+      <p class="big">Find real phenomena, systems, mistakes, objects and behaviours with interesting rules.</p>
+      <div>
+        <span class="pill">printing</span><span class="pill">bookbinding</span><span class="pill">broadcast</span>
+        <span class="pill">fabrication</span><span class="pill">notation</span><span class="pill">archives</span>
+        <span class="pill">mechanics</span><span class="pill">interfaces</span><span class="pill">signals</span>
+        <span class="pill">maps</span><span class="pill">manufacturing</span><span class="pill">errors</span>
+      </div>
+      <div class="rule">Don’t ask: “what does this look like?”<br>Ask: “what does this <em>do</em>?”</div>
+      <p class="small">Repeat? split? interrupt? fold? mate? reveal? degrade? encode? align? overshoot? transform?</p>
+    </section>
+
+    <section class="card">
+      <div class="number">06</div>
+      <div class="kicker">Making phase</div>
+      <h2>Make before you decide.</h2>
+      <div class="grid2">
+        <div class="tile acid">
+          <b>Quantity first</b>
+          <span>Aim for dozens of tiny rough experiments. Pencil, cut paper, Illustrator, bitmap, photocopy, whatever is fastest.</span>
+        </div>
+        <div class="tile">
+          <b>Different ideas</b>
+          <span>Thirty tweaks to one shape are not thirty ideas. Change the governing rule.</span>
+        </div>
+        <div class="tile">
+          <b>Ugly is allowed</b>
+          <span>You are testing thought, not presenting finished work.</span>
+        </div>
+        <div class="tile violet">
+          <b>Notice surprises</b>
+          <span>The best result may turn out to be typography, motion or a border rule rather than “the symbol”. Follow it.</span>
+        </div>
+      </div>
+      <div class="note">Professional practice is prolific: Koto explicitly recommends making as much as possible; AIGA uses 50 thumbnails to force thinking beyond the obvious.</div>
+    </section>
+
+    <section class="card">
+      <div class="number">07</div>
+      <div class="kicker">The ruthless review</div>
+      <h2>Do not reward an idea because it was difficult to invent.</h2>
+      <div class="checklist">
+        <div class="check">Does it feel specifically QL?</div>
+        <div class="check">Is the underlying rule interesting?</div>
+        <div class="check">Could it become recognisable?</div>
+        <div class="check">Does it avoid tech-brand shorthand?</div>
+        <div class="check">Can it survive one colour?</div>
+        <div class="check">Can it survive 16–32px?</div>
+        <div class="check">Is it still interesting on a shopfront?</div>
+        <div class="check">Could it generate a wider identity?</div>
+      </div>
+      <div class="rule">If it could comfortably be a SaaS company, AI startup, coding school or generic design studio: make it stranger or kill it.</div>
+    </section>
+
+    <section class="card">
+      <div class="number">08</div>
+      <div class="kicker">Where we already are</div>
+      <h2>You are not starting with a blank page.</h2>
+      <p>DC and I have already done much of the strategy and source-territory work. The current experiments include:</p>
+      <div class="grid2">
+        <div class="tile acid"><b>Marriage marks</b><span>Separate parts carry evidence of how they belong together.</span></div>
+        <div class="tile violet"><b>Needle sort</b><span>Information is encoded by removing material from a boundary.</span></div>
+        <div class="tile blue"><b>Catchword</b><span>A small piece of what comes next appears inside what exists now.</span></div>
+        <div class="tile"><b>Kerf</b><span>The missing material is evidence that making happened.</span></div>
+        <div class="tile pink"><b>Error diffusion</b><span>Local error is redistributed so the whole becomes more accurate.</span></div>
+        <div class="tile"><b>Soft hyphen</b><span>A hidden rule becomes visible only when circumstances require it.</span></div>
+      </div>
+      <p class="small">These are source territories, not logo instructions. You are allowed to reject all of them.</p>
+    </section>
+
+    <section class="card">
+      <div class="number">09</div>
+      <div class="kicker">Your first working session</div>
+      <h2>Pick 3 territories. Spend 20 minutes on each.</h2>
+      <div class="grid3">
+        <div class="tile acid">
+          <b>1. Gather</b>
+          <span>Find 4–8 visual references showing the actual source phenomenon. Not logos inspired by it.</span>
+        </div>
+        <div class="tile violet">
+          <b>2. Extract</b>
+          <span>Write 3 verbs describing what the source does: split, mate, remove, echo, reveal…</span>
+        </div>
+        <div class="tile pink">
+          <b>3. Abuse it</b>
+          <span>Make 10 tiny experiments per territory. Change shapes, weight, rhythm, scale and context.</span>
+        </div>
+      </div>
+      <div class="rule">Do not finish anything.<br>Bring back the evidence.</div>
+      <p class="small">The question at the end is not “which logo do we like?” It is “which rule keeps producing interesting Qwerty-ish things?”</p>
+    </section>
+
+    <section class="card sources">
+      <div class="number">10</div>
+      <div class="kicker">The only bit of homework I’m making you read</div>
+      <h2>Why this process?</h2>
+      <p>It closely matches how experienced identity studios and design educators describe the work: strategy first, broad references, lots of making, selection by fit, then development into a usable system.</p>
+      <ul>
+        <li><a href="https://seasoned.koto.studio/book/start-with-strategy/" target="_blank">Koto / Seasoned — Start with Strategy</a></li>
+        <li><a href="https://seasoned.koto.studio/book/making-your-ideas-a-reality/" target="_blank">Koto / Seasoned — Making Your Ideas a Reality</a></li>
+        <li><a href="https://seasoned.koto.studio/book/the-power-of-good-ideas/" target="_blank">Koto / Seasoned — The Power of Good Ideas</a></li>
+        <li><a href="https://www.aiga.org/sites/default/files/2021-03/3D_DesignProcess_GenerateIdeas.pdf" target="_blank">AIGA — Generate Ideas</a></li>
+        <li><a href="https://www.aiga.org/sites/default/files/2021-03/3E_DesignProcess_DesignDevelopment.pdf" target="_blank">AIGA — Design Development</a></li>
+        <li><a href="https://wolffolins.com/news/inside-wolff-olins-sammy-page-on-strategy" target="_blank">Wolff Olins — Strategy as fuel for creativity</a></li>
+      </ul>
+      <div class="note">Shortcut: read Koto’s “Making your ideas a reality” if you read only one.</div>
+    </section>
+
+
+    <section class="card workbook">
+      <div class="number">11</div>
+      <div class="kicker">Your project memory</div>
+      <h2>Keep the useful thinking.</h2>
+      <p class="small">These notes autosave in this browser as you type, and the deck reopens where you left it. Download them when you want a portable copy.</p>
+
+      <div class="workbook-grid">
+        <div class="workfield">
+          <label for="currentTerritory">Current territory</label>
+          <textarea id="currentTerritory" data-note="currentTerritory" placeholder="What are you exploring right now?"></textarea>
+        </div>
+        <div class="workfield">
+          <label for="nextExperiment">Next experiment</label>
+          <textarea id="nextExperiment" data-note="nextExperiment" placeholder="What will you try next?"></textarea>
+        </div>
+        <div class="workfield wide">
+          <label for="tested">What I tested</label>
+          <textarea id="tested" data-note="tested" placeholder="What did you actually make, change or compare?"></textarea>
+        </div>
+        <div class="workfield">
+          <label for="survived">What survived</label>
+          <textarea id="survived" data-note="survived" placeholder="What still feels promising?"></textarea>
+        </div>
+        <div class="workfield">
+          <label for="rejected">What I rejected</label>
+          <textarea id="rejected" data-note="rejected" placeholder="What are you dropping?"></textarea>
+        </div>
+        <div class="workfield wide">
+          <label for="why">Why</label>
+          <textarea id="why" data-note="why" placeholder="What did you notice? Why did something survive or fail?"></textarea>
+        </div>
+      </div>
+
+      <div class="workbook-actions">
+        <button id="downloadNotes" type="button">Download my notes ↓</button>
+        <span class="save-note">Autosave stays on this browser/device. The download gives you a simple Markdown copy you can keep or send to DC.</span>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="controls" aria-label="Deck navigation">
+    <button id="prev" aria-label="Previous card">←</button>
+    <div class="dots" id="dots"></div>
+    <button id="next" aria-label="Next card">→</button>
+  </nav>
+  <div class="footerhint">← → keys work · notes autosave · print to save as PDF</div>
+</div>
+
+<script>
+const STORAGE_KEY='qwertyLabsChloeLogoWorkingDeck_v1';
+const cards=[...document.querySelectorAll('.card')];
+const status=document.getElementById('status');
+const saveState=document.getElementById('saveState');
+const dots=document.getElementById('dots');
+const noteFields=[...document.querySelectorAll('[data-note]')];
+let saved={notes:{},lastCard:0,updatedAt:null};
+
+try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    const parsed=JSON.parse(raw);
+    saved={...saved,...parsed,notes:{...saved.notes,...(parsed.notes||{})}};
+  }
+}catch(err){ console.warn('Could not load saved notes',err); }
+
+noteFields.forEach(field=>{
+  field.value=saved.notes[field.dataset.note]||'';
+});
+
+let i=Math.min(Math.max(Number(saved.lastCard)||0,0),cards.length-1);
+let saveTimer;
+
+function persist(){
+  const notes={};
+  noteFields.forEach(field=>notes[field.dataset.note]=field.value);
+  saved={notes,lastCard:i,updatedAt:new Date().toISOString()};
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));
+    saveState.textContent='SAVED';
+  }catch(err){
+    saveState.textContent='SAVE FAILED';
+    console.warn('Could not save notes',err);
+  }
+}
+
+function queueSave(){
+  saveState.textContent='SAVING…';
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(persist,250);
+}
+
+cards.forEach((_,idx)=>{
+  const d=document.createElement('button');
+  d.className='dot'+(idx===i?' active':'');
+  d.setAttribute('aria-label','Go to card '+(idx+1));
+  d.style.padding='0';
+  d.style.cursor='pointer';
+  d.onclick=()=>show(idx);
+  dots.appendChild(d);
+});
+
+function show(n){
+  i=(n+cards.length)%cards.length;
+  cards.forEach((c,idx)=>c.classList.toggle('active',idx===i));
+  [...dots.children].forEach((d,idx)=>d.classList.toggle('active',idx===i));
+  status.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+  persist();
+}
+
+noteFields.forEach(field=>field.addEventListener('input',queueSave));
+
+document.getElementById('downloadNotes').addEventListener('click',()=>{
+  persist();
+  const labels={
+    currentTerritory:'Current territory',
+    tested:'What I tested',
+    survived:'What survived',
+    rejected:'What I rejected',
+    why:'Why',
+    nextExperiment:'Next experiment'
+  };
+  const order=['currentTerritory','tested','survived','rejected','why','nextExperiment'];
+  const lines=['# Qwerty Labs — Chloe logo project notes','',`Exported: ${new Date().toLocaleString()}`,''];
+  order.forEach(key=>{
+    lines.push(`## ${labels[key]}`,'',saved.notes[key]?.trim()||'—','');
+  });
+  const blob=new Blob([lines.join('\n')],{type:'text/markdown;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const date=new Date().toISOString().slice(0,10);
+  a.href=url;
+  a.download=`qwerty-labs-chloe-logo-notes-${date}.md`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('prev').onclick=()=>show(i-1);
+document.getElementById('next').onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{
+  const typing=['TEXTAREA','INPUT'].includes(document.activeElement?.tagName);
+  if(typing) return;
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();show(i+1)}
+  if(e.key==='ArrowLeft'){e.preventDefault();show(i-1)}
+  if(e.key==='Home'){show(0)}
+  if(e.key==='End'){show(cards.length-1)}
+});
+
+show(i);
+</script>
+</body>
+</html>
