@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwerty Labs — Code Cadet Territory Sprint Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#F1F8F8;
+    --ink:#020020;
+    --blue:#4C69E3;
+    --pink:#F66DC1;
+    --green:#92D644;
+    --orange:#FF9029;
+    --b:3px solid var(--ink);
+    --shadow-sm:4px 4px 0 var(--ink);
+    --shadow-md:8px 8px 0 var(--ink);
+    --grid:28px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--ink);color:var(--ink)}
+  body{
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    background:
+      linear-gradient(rgba(241,248,248,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(241,248,248,.08) 1px, transparent 1px),
+      var(--ink);
+    background-size:var(--grid) var(--grid), var(--grid) var(--grid), auto;
+    overflow:hidden;
+  }
+  .deck{height:100svh;display:flex;flex-direction:column}
+  .topbar{
+    height:60px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 18px;color:var(--base);background:rgba(2,0,32,.95);
+    border-bottom:2px solid rgba(241,248,248,.18)
+  }
+  .brand,.status{font:700 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+  .stage{position:relative;flex:1;display:grid;place-items:center;padding:20px 20px 82px}
+  .card{
+    display:none;position:absolute;width:min(1080px,calc(100vw - 40px));height:min(730px,calc(100svh - 146px));
+    background:var(--base);border:var(--b);box-shadow:var(--shadow-md);padding:28px 30px;overflow:auto;
+  }
+  .card.active{display:block}
+  .card::before{content:"";position:absolute;inset:14px;border:1px dashed rgba(2,0,32,.18);pointer-events:none}
+  .card-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .kicker{
+    display:inline-block;padding:8px 10px;border:var(--b);background:white;box-shadow:var(--shadow-sm);
+    font:700 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;
+  }
+  .page-no{font:700 54px/1 "IBM Plex Mono",monospace;color:rgba(2,0,32,.16)}
+  h1,h2,h3{margin:0;font-family:"Syne","Space Grotesk",sans-serif;letter-spacing:-.045em;line-height:.94}
+  h1{font-size:clamp(36px,6vw,76px)}
+  h2{font-size:clamp(28px,4.8vw,54px)}
+  h3{font-size:20px;line-height:1.05}
+  p{font-size:18px;line-height:1.38;max-width:830px;margin:14px 0}
+  .big{font-size:clamp(22px,3vw,34px);line-height:1.07;font-weight:700}
+  .small{font-size:14px;line-height:1.45;color:rgba(2,0,32,.8)}
+  .banner{
+    margin:20px 0 18px;padding:14px 16px;background:var(--green);border:var(--b);box-shadow:var(--shadow-sm);
+    font-weight:700;font-size:24px;line-height:1.08;max-width:900px
+  }
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .pill{
+    padding:8px 10px;border:var(--b);background:white;box-shadow:var(--shadow-sm);
+    font:700 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .panel{border:var(--b);background:white;box-shadow:var(--shadow-sm);padding:15px}
+  .panel.blue{background:var(--blue);color:var(--base)}
+  .panel.pink{background:var(--pink)}
+  .panel.orange{background:var(--orange)}
+  .panel.green{background:var(--green)}
+  .panel-title{font:700 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+  .panel ul{margin:8px 0 0 18px;padding:0;font-size:16px;line-height:1.45}
+  .worksheet{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .stack{display:grid;gap:16px}
+  .field{border:var(--b);background:white;box-shadow:var(--shadow-sm);padding:12px 14px}
+  .field-title{font:700 12px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+  .field-sub{font-size:13px;line-height:1.35;color:rgba(2,0,32,.74);margin-bottom:8px}
+  .lines{min-height:88px;background:repeating-linear-gradient(to bottom, transparent 0 26px, rgba(2,0,32,.16) 26px 27px)}
+  .lines.sm{min-height:62px}
+  .boxes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
+  .mini-box{
+    aspect-ratio:1/1;border:2px solid var(--ink);background:
+      linear-gradient(135deg, rgba(2,0,32,.035) 25%, transparent 25%) 0 0/12px 12px, white;
+  }
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .checklist{display:grid;gap:8px}
+  .check{border-bottom:2px solid var(--ink);padding:8px 0;font-size:16px}
+  .check::before{content:"□ ";font-family:"IBM Plex Mono",monospace}
+  .controls{
+    position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;z-index:8
+  }
+  .controls button{
+    border:var(--b);background:var(--base);box-shadow:var(--shadow-sm);padding:10px 14px;cursor:pointer;font-weight:700
+  }
+  .controls button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .dots{display:flex;gap:6px}
+  .dot{width:10px;height:10px;border:2px solid var(--base);background:transparent}
+  .dot.active{background:var(--green)}
+  [contenteditable="true"]:focus{outline:3px dashed var(--pink);outline-offset:2px}
+  .footer-note{
+    position:absolute;bottom:16px;right:20px;color:rgba(241,248,248,.7);font:700 11px/1 "IBM Plex Mono",monospace
+  }
+  @media(max-width:900px){
+    body{overflow:auto}
+    .stage{padding:14px 12px 82px}
+    .card{width:calc(100vw - 24px);height:calc(100svh - 140px);padding:22px 18px 24px}
+    .grid2,.worksheet,.compare{grid-template-columns:1fr}
+    .boxes{grid-template-columns:repeat(3,1fr)}
+  }
+  @media print{
+    @page { size:A4 portrait; margin:0; }
+    body{background:white;overflow:visible}
+    .topbar,.controls,.footer-note{display:none!important}
+    .deck{height:auto}
+    .stage{display:block;padding:0}
+    .card,.card.active{
+      display:block!important;position:relative;width:100%;height:100vh;border:none;box-shadow:none;
+      page-break-after:always;padding:11mm 11mm 13mm;overflow:hidden;background:var(--base)
+    }
+    .card::before{inset:9mm}
+    h1{font-size:34pt} h2{font-size:24pt} h3{font-size:13pt}
+    p,.big{font-size:12.5pt}
+    .small,.field-sub,.panel ul,.check{font-size:9.4pt}
+    .kicker,.field-title,.panel-title,.pill,.brand,.status{font-size:8pt}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+<header class="topbar">
+  <div class="brand">Qwerty Labs / Code Cadet Territory Sprint</div>
+  <div class="status" id="status">01 / 04</div>
+</header>
+<main class="stage">
+  <section class="card active">
+    <div class="card-header">
+      <div>
+        <div class="kicker">Cadet version</div>
+        <h1>Territory sprint.</h1>
+        <p class="big">Pick 2 territories. Push them fast. Bring back evidence, not finished logos.</p>
+        <div class="banner">Question to keep asking: “Which rule keeps producing the most interesting Qwerty-ish things?”</div>
+        <div class="pill-row">
+          <div class="pill">2 territories</div>
+          <div class="pill">10 rough tries each</div>
+          <div class="pill">tiny-size test</div>
+          <div class="pill">compare honestly</div>
+        </div>
+      </div>
+      <div class="page-no">01</div>
+    </div>
+    <div class="grid2">
+      <div class="panel blue">
+        <div class="panel-title">Do</div>
+        <ul>
+          <li>Follow the rule, not the cliché.</li>
+          <li>Use real source references.</li>
+          <li>Make fast and weird.</li>
+          <li>Notice what keeps working.</li>
+        </ul>
+      </div>
+      <div class="panel pink">
+        <div class="panel-title">Don't</div>
+        <ul>
+          <li>Try to finish the logo.</li>
+          <li>Polish too early.</li>
+          <li>Keep weak ideas alive out of kindness.</li>
+          <li>Slide into startup-tech shapes.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <div class="kicker">Worksheet A</div>
+        <h2>Territory 01</h2>
+      </div>
+      <div class="page-no">02</div>
+    </div>
+    <div class="worksheet">
+      <div class="stack">
+        <div class="field"><div class="field-title">Territory name</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">Source phenomenon</div><div class="field-sub">What real thing / behaviour / system are you drawing from?</div><div class="lines" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">QL connection</div><div class="field-sub">Why does it map back to Qwerty Labs?</div><div class="lines" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">3 verbs</div><div class="field-sub">split / join / reveal / interrupt / etc.</div><div class="lines sm" contenteditable="true"></div></div>
+      </div>
+      <div class="stack">
+        <div class="field"><div class="field-title">Tiny experiments</div><div class="field-sub">Make at least 10. Ugly is fine.</div>
+          <div class="boxes">
+            <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+            <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+          </div>
+        </div>
+        <div class="field"><div class="field-title">Tiny-size test</div><div class="field-sub">What happens at favicon / avatar scale?</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">What did I discover?</div><div class="lines sm" contenteditable="true"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <div class="kicker">Worksheet B</div>
+        <h2>Territory 02</h2>
+      </div>
+      <div class="page-no">03</div>
+    </div>
+    <div class="worksheet">
+      <div class="stack">
+        <div class="field"><div class="field-title">Territory name</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">Source phenomenon</div><div class="field-sub">What real thing / behaviour / system are you drawing from?</div><div class="lines" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">QL connection</div><div class="field-sub">Why does it map back to Qwerty Labs?</div><div class="lines" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">3 verbs</div><div class="field-sub">split / join / reveal / interrupt / etc.</div><div class="lines sm" contenteditable="true"></div></div>
+      </div>
+      <div class="stack">
+        <div class="field"><div class="field-title">Tiny experiments</div><div class="field-sub">Make at least 10. Ugly is fine.</div>
+          <div class="boxes">
+            <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+            <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+          </div>
+        </div>
+        <div class="field"><div class="field-title">Tiny-size test</div><div class="field-sub">What happens at favicon / avatar scale?</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">What did I discover?</div><div class="lines sm" contenteditable="true"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <div class="kicker">Review</div>
+        <h2>Choose the better territory.</h2>
+        <p>Pick the one that feels more QL, more ownable, more scalable, and less like a generic agency/startup logo.</p>
+      </div>
+      <div class="page-no">04</div>
+    </div>
+    <div class="compare">
+      <div class="stack">
+        <div class="field"><div class="field-title">Territory 01 verdict</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">Territory 02 verdict</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">Winner + why</div><div class="field-sub">One or two clear sentences.</div><div class="lines" contenteditable="true"></div></div>
+      </div>
+      <div class="stack">
+        <div class="panel orange">
+          <div class="panel-title">Green flags</div>
+          <div class="checklist">
+            <div class="check">Feels specifically QL</div>
+            <div class="check">Simple enough to remember</div>
+            <div class="check">Strange enough to own</div>
+            <div class="check">Works tiny and large</div>
+            <div class="check">Could become a system</div>
+          </div>
+        </div>
+        <div class="panel green">
+          <div class="panel-title">Red flags</div>
+          <div class="checklist">
+            <div class="check">Looks like a startup</div>
+            <div class="check">Needs lots of explanation</div>
+            <div class="check">Only works with styling tricks</div>
+            <div class="check">Too tied to one part of QL</div>
+            <div class="check">Looks familiar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls">
+  <button id="prev">←</button>
+  <div class="dots" id="dots"></div>
+  <button id="next">→</button>
+</nav>
+<div class="footer-note">Arrow keys work · click into boxes to type · print to save as PDF</div>
+</div>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const status=document.getElementById('status');
+const dots=document.getElementById('dots');
+let i=0;
+cards.forEach((_,idx)=>{
+  const d=document.createElement('button');
+  d.className='dot'+(idx===0?' active':'');
+  d.onclick=()=>show(idx);
+  dots.appendChild(d);
+});
+function show(n){
+  i=(n+cards.length)%cards.length;
+  cards.forEach((c,idx)=>c.classList.toggle('active',idx===i));
+  [...dots.children].forEach((d,idx)=>d.classList.toggle('active',idx===i));
+  status.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+}
+document.getElementById('prev').onclick=()=>show(i-1);
+document.getElementById('next').onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();show(i+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();show(i-1);}
+});
+</script>
+</body>
+</html>
