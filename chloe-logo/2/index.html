@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwerty Labs — Territory Development Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#F1F8F8;
+    --ink:#020020;
+    --blue:#4C69E3;
+    --pink:#F66DC1;
+    --green:#92D644;
+    --orange:#FF9029;
+    --shadow-sm:4px 4px 0 var(--ink);
+    --shadow-md:7px 7px 0 var(--ink);
+    --shadow-lg:10px 10px 0 var(--ink);
+    --b:3px solid var(--ink);
+    --radius:0;
+    --grid:28px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--ink);color:var(--ink)}
+  body{
+    font-family:"Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      linear-gradient(rgba(241,248,248,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(241,248,248,.08) 1px, transparent 1px),
+      var(--ink);
+    background-size:var(--grid) var(--grid), var(--grid) var(--grid), auto;
+    overflow:hidden;
+  }
+  .deck{height:100svh;display:flex;flex-direction:column}
+  .topbar{
+    height:62px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 18px; color:var(--base); border-bottom:2px solid rgba(241,248,248,.18);
+    background:rgba(2,0,32,.95); gap:12px;
+  }
+  .brand,.status{
+    font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em;
+  }
+  .stage{position:relative; flex:1; display:grid; place-items:center; padding:22px 20px 84px}
+  .card{
+    display:none; position:absolute; width:min(1120px, calc(100vw - 40px)); height:min(760px, calc(100svh - 150px));
+    background:var(--base); border:var(--b); box-shadow:var(--shadow-lg); padding:30px 34px; overflow:auto;
+  }
+  .card.active{display:block}
+  .card::before{content:""; position:absolute; inset:14px; border:1px dashed rgba(2,0,32,.18); pointer-events:none}
+  .card-header{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:16px}
+  .kicker{
+    display:inline-block; font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; padding:8px 10px; border:var(--b); background:white; box-shadow:var(--shadow-sm);
+  }
+  .page-no{
+    font-family:"IBM Plex Mono", monospace; font-size:58px; font-weight:700; line-height:1; color:rgba(2,0,32,.16)
+  }
+  h1,h2,h3{margin:0; letter-spacing:-.045em; line-height:.95; font-family:"Syne","Space Grotesk",sans-serif}
+  h1{font-size:clamp(38px,6vw,80px)}
+  h2{font-size:clamp(32px,4.8vw,58px)}
+  h3{font-size:22px; line-height:1.05}
+  p{margin:14px 0; font-size:18px; line-height:1.38; max-width:760px}
+  .big{font-size:clamp(24px,3vw,36px); line-height:1.05; font-weight:700; max-width:900px}
+  .small{font-size:14px; line-height:1.45; color:rgba(2,0,32,.78)}
+  .banner{
+    border:var(--b); background:var(--green); box-shadow:var(--shadow-md); padding:16px 18px;
+    margin:22px 0 18px; font-weight:700; font-size:24px; line-height:1.08; max-width:920px;
+  }
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+  .pill{
+    border:var(--b); background:white; box-shadow:var(--shadow-sm); padding:8px 10px;
+    font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px}
+  .stack{display:grid; gap:16px}
+  .panel{border:var(--b); background:white; box-shadow:var(--shadow-md); padding:16px}
+  .accent-blue{background:var(--blue); color:var(--base)}
+  .accent-pink{background:var(--pink)}
+  .accent-green{background:var(--green)}
+  .accent-orange{background:var(--orange)}
+  .panel-title{
+    font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .panel ul{margin:8px 0 0 18px; padding:0; font-size:16px; line-height:1.45}
+  .panel li{margin:6px 0}
+  .worksheet{display:grid; grid-template-columns:1.05fr 1fr; gap:16px; margin-top:16px}
+  .worksheet-right{display:grid; gap:16px}
+  .field{border:var(--b); background:white; box-shadow:var(--shadow-sm); padding:12px 14px}
+  .field-title{
+    font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px;
+  }
+  .field-sub{font-size:13px; line-height:1.35; color:rgba(2,0,32,.72); margin-bottom:10px}
+  .lines{min-height:92px; background:repeating-linear-gradient(to bottom, transparent 0 27px, rgba(2,0,32,.16) 27px 28px)}
+  .lines.sm{min-height:64px}
+  .lines.lg{min-height:132px}
+  .boxes{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:10px}
+  .mini-box{
+    aspect-ratio:1/1; border:2px solid var(--ink);
+    background:linear-gradient(135deg, rgba(2,0,32,.035) 25%, transparent 25%) 0 0/12px 12px, white;
+  }
+  .rating{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:12px}
+  .cell{border:2px solid var(--ink); padding:8px; min-height:68px; background:white; display:flex; flex-direction:column; justify-content:space-between}
+  .label{font-size:12px; line-height:1.2; text-transform:uppercase; font-family:"IBM Plex Mono", monospace; font-weight:700}
+  .score{font-size:20px; letter-spacing:.12em; opacity:.65}
+  .compare-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px}
+  .concept-card{border:var(--b); box-shadow:var(--shadow-md); background:white; padding:14px}
+  .swatch{height:18px; border:2px solid var(--ink); margin-bottom:12px}
+  .swatch.blue{background:var(--blue)} .swatch.pink{background:var(--pink)} .swatch.orange{background:var(--orange)}
+  .area{min-height:90px; background:repeating-linear-gradient(to bottom, transparent 0 24px, rgba(2,0,32,.16) 24px 25px)}
+  .decision{display:grid; grid-template-columns:1.15fr .85fr; gap:18px; margin-top:18px}
+  .checklist{display:grid; gap:8px; margin-top:8px}
+  .check{border-bottom:2px solid var(--ink); padding:8px 0; font-weight:500; font-size:16px}
+  .check::before{content:"□ "; font-family:"IBM Plex Mono", monospace; font-weight:700}
+  .footer-note{
+    position:absolute; bottom:16px; right:20px; color:rgba(241,248,248,.7);
+    font-family:"IBM Plex Mono", monospace; font-size:11px; pointer-events:none;
+  }
+  .controls{
+    position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px; z-index:10;
+  }
+  .controls button{
+    appearance:none; border:var(--b); background:var(--base); color:var(--ink); box-shadow:var(--shadow-sm);
+    padding:10px 14px; font-weight:700; cursor:pointer; font-family:"Space Grotesk", sans-serif;
+  }
+  .controls button:active{transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink)}
+  .dot-wrap{display:flex; gap:6px}
+  .dot{width:10px; height:10px; border:2px solid var(--base); background:transparent; padding:0; cursor:pointer}
+  .dot.active{background:var(--green)}
+  [contenteditable="true"]:focus{outline:3px dashed var(--pink); outline-offset:2px}
+
+  @media (max-width: 900px){
+    body{overflow:auto}
+    .stage{padding:14px 12px 84px}
+    .card{width:calc(100vw - 24px); height:calc(100svh - 146px); padding:22px 20px 28px; box-shadow:7px 7px 0 var(--ink)}
+    .grid2,.grid3,.worksheet,.compare-grid,.decision{grid-template-columns:1fr}
+    .boxes{grid-template-columns:repeat(3,1fr)}
+  }
+  @media print{
+    @page { size: A4 portrait; margin: 0; }
+    body{background:white;overflow:visible}
+    .topbar,.controls,.footer-note{display:none!important}
+    .deck{height:auto}
+    .stage{display:block;padding:0}
+    .card,.card.active{
+      display:block!important; position:relative; width:100%; height:100vh; border:none; box-shadow:none;
+      page-break-after:always; padding:11mm 11mm 13mm; overflow:hidden; background:var(--base);
+    }
+    .card::before{inset:9mm}
+    .page-no{font-size:40px}
+    h1{font-size:34pt} h2{font-size:24pt} h3{font-size:13pt}
+    p,.big{font-size:12.5pt}
+    .small,.field-sub,.panel ul,.check{font-size:9.4pt}
+    .kicker,.field-title,.panel-title,.pill,.label,.brand,.status{font-size:8pt}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <header class="topbar">
+    <div class="brand">Qwerty Labs / Chloe Territory Development Deck</div>
+    <div class="status" id="status">01 / 07</div>
+  </header>
+
+  <main class="stage">
+    <section class="card active">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Use after the first working deck</div>
+          <h1>Now make<br>evidence.</h1>
+          <p class="big">Your job is to push a few good territories hard enough to discover which one can actually become Qwerty Labs.</p>
+          <div class="banner">This is not for finishing the logo.<br>It is for finding which rule keeps producing interesting, recognisable, QL-ish things.</div>
+          <div class="pill-row">
+            <div class="pill">3 territories</div>
+            <div class="pill">10+ experiments each</div>
+            <div class="pill">tiny-size test</div>
+            <div class="pill">kill weak ideas</div>
+            <div class="pill">bring back evidence</div>
+          </div>
+        </div>
+        <div class="page-no">01</div>
+      </div>
+      <div class="grid3">
+        <div class="panel accent-blue">
+          <div class="panel-title">Step 1</div>
+          <h3>Pick 3 territories</h3>
+          <p class="small" style="color:#F1F8F8">Choose the most promising, strange or fertile ideas. They do not have to be our favourites.</p>
+        </div>
+        <div class="panel accent-pink">
+          <div class="panel-title">Step 2</div>
+          <h3>Collect real references</h3>
+          <p class="small">Find the actual source phenomenon, not logos inspired by it.</p>
+        </div>
+        <div class="panel accent-green">
+          <div class="panel-title">Step 3</div>
+          <h3>Make quickly</h3>
+          <p class="small">Follow the rule. Abuse it. See what happens. Ugly work is welcome.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">How to use this deck</div>
+          <h2>One worksheet per territory.</h2>
+          <p>Use the next three cards for three different territories. Fill them in digitally or print them. Each sheet asks the same useful questions, so the comparison later is fair.</p>
+        </div>
+        <div class="page-no">02</div>
+      </div>
+      <div class="grid2">
+        <div class="panel accent-orange">
+          <div class="panel-title">Remember</div>
+          <ul>
+            <li>Don't spend ages polishing.</li>
+            <li>Don't drift into generic tech shapes.</li>
+            <li>Don't judge too early.</li>
+            <li>Don't keep an idea alive out of politeness.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Bring back</div>
+          <ul>
+            <li>source references</li>
+            <li>3 verbs for each territory</li>
+            <li>10–20 tiny experiments</li>
+            <li>one very small test</li>
+            <li>one larger / louder application</li>
+            <li>what worked, what failed, what surprised you</li>
+          </ul>
+        </div>
+      </div>
+      <div class="banner" style="background:var(--pink)">Prompt for yourself: “If I follow this rule, what sort of visual world appears?”</div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Territory worksheet A</div>
+          <h2>Territory 01</h2>
+        </div>
+        <div class="page-no">03</div>
+      </div>
+      <div class="worksheet">
+        <div class="stack">
+          <div class="field"><div class="field-title">Territory name</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">Source phenomenon</div><div class="field-sub">What real thing, system, behaviour, mistake or object are you drawing from?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">QL connection</div><div class="field-sub">Why does this unexpectedly map back to Qwerty Labs?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">3 verbs</div><div class="field-sub">What does this territory do visually?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+        <div class="worksheet-right">
+          <div class="field"><div class="field-title">Reference notes</div><div class="field-sub">List or paste your source images / links / observations.</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field">
+            <div class="field-title">Tiny experiments</div>
+            <div class="field-sub">Sketch or describe 10 quick attempts.</div>
+            <div class="boxes">
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+            </div>
+          </div>
+          <div class="field"><div class="field-title">Tiny-size test</div><div class="field-sub">What happens at favicon / avatar scale?</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">What did I discover?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Territory worksheet B</div>
+          <h2>Territory 02</h2>
+        </div>
+        <div class="page-no">04</div>
+      </div>
+      <div class="worksheet">
+        <div class="stack">
+          <div class="field"><div class="field-title">Territory name</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">Source phenomenon</div><div class="field-sub">What real thing, system, behaviour, mistake or object are you drawing from?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">QL connection</div><div class="field-sub">Why does this unexpectedly map back to Qwerty Labs?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">3 verbs</div><div class="field-sub">What does this territory do visually?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+        <div class="worksheet-right">
+          <div class="field"><div class="field-title">Reference notes</div><div class="field-sub">List or paste your source images / links / observations.</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field">
+            <div class="field-title">Tiny experiments</div>
+            <div class="field-sub">Sketch or describe 10 quick attempts.</div>
+            <div class="boxes">
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+            </div>
+          </div>
+          <div class="field"><div class="field-title">Tiny-size test</div><div class="field-sub">What happens at favicon / avatar scale?</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">What did I discover?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Territory worksheet C</div>
+          <h2>Territory 03</h2>
+        </div>
+        <div class="page-no">05</div>
+      </div>
+      <div class="worksheet">
+        <div class="stack">
+          <div class="field"><div class="field-title">Territory name</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">Source phenomenon</div><div class="field-sub">What real thing, system, behaviour, mistake or object are you drawing from?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">QL connection</div><div class="field-sub">Why does this unexpectedly map back to Qwerty Labs?</div><div class="lines" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">3 verbs</div><div class="field-sub">What does this territory do visually?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+        <div class="worksheet-right">
+          <div class="field"><div class="field-title">Reference notes</div><div class="field-sub">List or paste your source images / links / observations.</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field">
+            <div class="field-title">Tiny experiments</div>
+            <div class="field-sub">Sketch or describe 10 quick attempts.</div>
+            <div class="boxes">
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+              <div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div>
+            </div>
+          </div>
+          <div class="field"><div class="field-title">Tiny-size test</div><div class="field-sub">What happens at favicon / avatar scale?</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">What did I discover?</div><div class="lines sm" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Comparison card</div>
+          <h2>Now compare properly.</h2>
+          <p>Don't choose based on tidiness or effort. Choose based on which territory keeps making good things happen.</p>
+        </div>
+        <div class="page-no">06</div>
+      </div>
+      <div class="compare-grid">
+        <div class="concept-card"><div class="swatch blue"></div><div class="field-title">Territory 01</div><div class="area" contenteditable="true"></div></div>
+        <div class="concept-card"><div class="swatch pink"></div><div class="field-title">Territory 02</div><div class="area" contenteditable="true"></div></div>
+        <div class="concept-card"><div class="swatch orange"></div><div class="field-title">Territory 03</div><div class="area" contenteditable="true"></div></div>
+      </div>
+      <div class="field" style="margin-top:16px">
+        <div class="field-title">Score each one roughly</div>
+        <div class="field-sub">You don't need mathematical precision. You do need honesty.</div>
+        <div class="rating">
+          <div class="cell"><div class="label">Feels like QL</div><div class="score">1 2 3 4 5</div></div>
+          <div class="cell"><div class="label">Originality</div><div class="score">1 2 3 4 5</div></div>
+          <div class="cell"><div class="label">Ownability</div><div class="score">1 2 3 4 5</div></div>
+          <div class="cell"><div class="label">Scalability</div><div class="score">1 2 3 4 5</div></div>
+          <div class="cell"><div class="label">Identity potential</div><div class="score">1 2 3 4 5</div></div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><div class="field-title">What worked best?</div><div class="lines sm" contenteditable="true"></div></div>
+        <div class="field"><div class="field-title">What died, and why?</div><div class="lines sm" contenteditable="true"></div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="kicker">Decision card</div>
+          <h2>Choose what to develop next.</h2>
+          <p>The winner does not need to be the prettiest. It needs to be the one most capable of becoming a recognisable QL identity.</p>
+        </div>
+        <div class="page-no">07</div>
+      </div>
+      <div class="decision">
+        <div class="stack">
+          <div class="field"><div class="field-title">Winning territory</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">Why this one?</div><div class="field-sub">One or two clear sentences.</div><div class="lines sm" contenteditable="true"></div></div>
+          <div class="field"><div class="field-title">Next experiments</div><div class="field-sub">What should you make next? Think mark, wordmark, motion, signage, tiny-size test, system behaviour.</div><div class="lines lg" contenteditable="true"></div></div>
+        </div>
+        <div class="stack">
+          <div class="panel accent-green">
+            <div class="panel-title">Green flags</div>
+            <div class="checklist">
+              <div class="check">simple enough to remember</div>
+              <div class="check">strange enough to own</div>
+              <div class="check">feels right for children, teens, adults and organisations</div>
+              <div class="check">not dependent on trend effects</div>
+              <div class="check">works small and large</div>
+              <div class="check">can expand into a system</div>
+            </div>
+          </div>
+          <div class="panel accent-pink">
+            <div class="panel-title">Red flags</div>
+            <div class="checklist">
+              <div class="check">feels like a startup</div>
+              <div class="check">needs a long explanation</div>
+              <div class="check">looks good only with styling tricks</div>
+              <div class="check">too tied to one part of QL</div>
+              <div class="check">looks familiar / category-ish</div>
+              <div class="check">works as a moodboard, not a mark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls">
+    <button id="prev">←</button>
+    <div class="dot-wrap" id="dots"></div>
+    <button id="next">→</button>
+  </nav>
+  <div class="footer-note">Arrow keys work · print to save as PDF · click into boxes to type</div>
+</div>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const status=document.getElementById('status');
+const dots=document.getElementById('dots');
+let i=0;
+cards.forEach((_,idx)=>{
+  const d=document.createElement('button');
+  d.className='dot'+(idx===0?' active':'');
+  d.onclick=()=>show(idx);
+  dots.appendChild(d);
+});
+function show(n){
+  i=(n+cards.length)%cards.length;
+  cards.forEach((c,idx)=>c.classList.toggle('active', idx===i));
+  [...dots.children].forEach((d,idx)=>d.classList.toggle('active', idx===i));
+  status.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+}
+document.getElementById('prev').onclick=()=>show(i-1);
+document.getElementById('next').onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight' || e.key===' '){e.preventDefault();show(i+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();show(i-1);}
+  if(e.key==='Home'){show(0);}
+  if(e.key==='End'){show(cards.length-1);}
+});
+</script>
+</body>
+</html>
