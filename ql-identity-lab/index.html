@@ -15,10 +15,10 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;o
 button,a{font:inherit}button{color:inherit}.mono{font-family:"Atkinson Hyperlegible Mono",monospace}
 .labbar{position:sticky;top:0;z-index:80;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 16px;border-bottom:2px solid var(--ink);background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px)}
 .labbrand{font-family:"Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:12px;white-space:nowrap}
-.territory-switch,.palette-switch{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.territory-switch{justify-content:center}
+.territory-switch,.palette-switch{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.territory-switch{justify-content:center}.palette-switch:before{content:"palette";font:700 9px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;opacity:.7;margin-right:2px}
 .labbar button{appearance:none;border:1.5px solid var(--ink);background:var(--paper);padding:7px 9px;cursor:pointer;font-family:"Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em;font-size:10px;font-weight:700;box-shadow:2px 2px 0 var(--ink)}
 .labbar button.active{background:var(--ink);color:var(--paper);transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
-.palette-dot{width:15px!important;height:15px!important;padding:0!important;border-radius:50%!important}.palette-dot[data-palette="current"]{background:linear-gradient(135deg,#4C69E3 0 50%,#F66DC1 50%)}.palette-dot[data-palette="warm"]{background:linear-gradient(135deg,#3f62ff 0 50%,#ff7648 50%)}.palette-dot[data-palette="cold"]{background:linear-gradient(135deg,#5956ff 0 50%,#c8ff55 50%)}
+.palette-dot{width:auto!important;height:auto!important;min-width:92px!important;padding:7px 9px 7px 28px!important;border-radius:0!important;position:relative;text-align:left}.palette-dot:before{content:"";position:absolute;left:8px;top:50%;transform:translateY(-50%);width:12px;height:12px;border:1.5px solid var(--ink);border-radius:50%}.palette-dot[data-palette="current"]:before{background:linear-gradient(135deg,#4C69E3 0 50%,#F66DC1 50%)}.palette-dot[data-palette="warm"]:before{background:linear-gradient(135deg,#3f62ff 0 50%,#ff7648 50%)}.palette-dot[data-palette="cold"]:before{background:linear-gradient(135deg,#5956ff 0 50%,#c8ff55 50%)}
 .hero{min-height:calc(100vh - 56px);position:relative;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;border-bottom:2px solid var(--ink);background:linear-gradient(rgba(11,9,32,var(--grid-opacity)) 1px,transparent 1px),linear-gradient(90deg,rgba(11,9,32,var(--grid-opacity)) 1px,transparent 1px),var(--paper);background-size:34px 34px,34px 34px,auto}
 .hero-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 22px;border-bottom:1.5px solid var(--ink);position:relative;z-index:5}
 .wordmark{font-size:clamp(25px,3vw,42px);font-weight:800;letter-spacing:-.055em;line-height:.9}.wordmark .labs{color:var(--blue)}
@@ -51,16 +51,16 @@ body[data-territory="translation"] .signal-cloud{opacity:.42}body[data-territory
 <header class="labbar">
   <div class="labbrand">QL identity lab / v1 / 20.09.26</div>
   <nav class="territory-switch" aria-label="Territory switch">
-    <button class="active" data-territory="signal">01 signal commons</button>
+    <button class="active" data-territory="signal">01 shared signal</button>
     <button data-territory="revision">02 human override</button>
     <button data-territory="surface">03 working surface</button>
     <button data-territory="system">04 system reveal</button>
     <button data-territory="translation">05 translation layer</button>
   </nav>
   <div class="palette-switch" aria-label="Palette switch">
-    <button class="palette-dot active" data-palette="warm" title="Warm signal"></button>
-    <button class="palette-dot" data-palette="current" title="Chloe current"></button>
-    <button class="palette-dot" data-palette="cold" title="Cold glow"></button>
+    <button class="palette-dot active" data-palette="warm" title="Warm signal">Warm signal</button>
+    <button class="palette-dot" data-palette="current" title="Chloe current">Chloe current</button>
+    <button class="palette-dot" data-palette="cold" title="Cold glow">Cold glow</button>
   </div>
 </header>
 <main>
@@ -84,14 +84,14 @@ body[data-territory="translation"] .signal-cloud{opacity:.42}body[data-territory
 <section class="section" id="territories">
   <div class="section-head"><div><div class="eyebrow">Phase 01 / rebuilt territories</div><h2>Behaviours,<br>not logos.</h2></div><p class="section-intro">Each territory describes what the identity <em>does</em>. Use the buttons above to change the hero and feel the difference before deciding what deserves deeper development.</p></div>
   <div class="cards">
-    <article class="card signalcard"><span class="n">01 / Signal Commons</span><h3>We are in the machine together.</h3><p>Shared signals, imperfect connection, network traces and familiar digital artefacts turn technology into an inhabited place rather than a sealed product.</p></article>
+    <article class="card signalcard"><span class="n">01 / Shared Signal</span><h3>We are in the machine together.</h3><p>Shared signals, imperfect connection, network traces and familiar digital artefacts turn technology into an inhabited place rather than a sealed product.</p></article>
     <article class="card rough"><span class="n">02 / Human Override</span><h3>Someone touched the system.</h3><p>Selections, edits, scribbles, annotations, overwritten rules and deliberate interference make human agency visible inside precise digital structure.</p></article>
     <article class="card accent"><span class="n">03 / Working Surface</span><h3>The process stays on the page.</h3><p>Painted fields, rough masks, scan texture, cut edges and unfinished substrates sit behind straight contemporary interface geometry.</p></article>
   </div>
   <div class="cards" style="margin-top:-2px">
     <article class="card"><span class="n">04 / System Reveal</span><h3>Show the seams.</h3><p>Grids, guides, coordinates, metadata, code and alignment logic become part of the identity. Sophistication comes from understanding the system, not hiding it.</p></article>
     <article class="card" style="background:var(--orange)"><span class="n">05 / Translation Layer</span><h3>Past signal → present tool.</h3><p>Bitmap becomes vector, analogue becomes digital, print noise becomes interface behaviour. Early-web memory is translated rather than reenacted.</p></article>
-    <article class="card"><span class="n">Working hypothesis</span><h3>The strongest world may be a hybrid.</h3><p><b>Signal Commons</b> supplies the emotional reason; <b>Working Surface</b> supplies tactility; <b>System Reveal</b> supplies contemporary intelligence; <b>Human Override</b> supplies agency.</p></article>
+    <article class="card"><span class="n">Working hypothesis</span><h3>The strongest world may be a hybrid.</h3><p><b>Shared Signal</b> supplies the emotional reason; <b>Working Surface</b> supplies tactility; <b>System Reveal</b> supplies contemporary intelligence; <b>Human Override</b> supplies agency.</p></article>
   </div>
 </section>
 
