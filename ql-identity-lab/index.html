@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Qwerty Labs — Identity Lab v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0920;--paper:#f3f1e8;--blue:#3f62ff;--pink:#ff65b8;--green:#b9eb3f;--orange:#ff7648;--noise:.10;--grid-opacity:.18}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible Next",Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--noise);mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+button,a{font:inherit}button{color:inherit}.mono{font-family:"Atkinson Hyperlegible Mono",monospace}
+.labbar{position:sticky;top:0;z-index:80;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 16px;border-bottom:2px solid var(--ink);background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px)}
+.labbrand{font-family:"Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:12px;white-space:nowrap}
+.territory-switch,.palette-switch{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.territory-switch{justify-content:center}
+.labbar button{appearance:none;border:1.5px solid var(--ink);background:var(--paper);padding:7px 9px;cursor:pointer;font-family:"Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em;font-size:10px;font-weight:700;box-shadow:2px 2px 0 var(--ink)}
+.labbar button.active{background:var(--ink);color:var(--paper);transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.palette-dot{width:15px!important;height:15px!important;padding:0!important;border-radius:50%!important}.palette-dot[data-palette="current"]{background:linear-gradient(135deg,#4C69E3 0 50%,#F66DC1 50%)}.palette-dot[data-palette="warm"]{background:linear-gradient(135deg,#3f62ff 0 50%,#ff7648 50%)}.palette-dot[data-palette="cold"]{background:linear-gradient(135deg,#5956ff 0 50%,#c8ff55 50%)}
+.hero{min-height:calc(100vh - 56px);position:relative;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;border-bottom:2px solid var(--ink);background:linear-gradient(rgba(11,9,32,var(--grid-opacity)) 1px,transparent 1px),linear-gradient(90deg,rgba(11,9,32,var(--grid-opacity)) 1px,transparent 1px),var(--paper);background-size:34px 34px,34px 34px,auto}
+.hero-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 22px;border-bottom:1.5px solid var(--ink);position:relative;z-index:5}
+.wordmark{font-size:clamp(25px,3vw,42px);font-weight:800;letter-spacing:-.055em;line-height:.9}.wordmark .labs{color:var(--blue)}
+.hero-meta{text-align:right;font-family:"Atkinson Hyperlegible Mono",monospace;font-size:11px;line-height:1.5;text-transform:uppercase;letter-spacing:.07em}
+.hero-core{position:relative;display:grid;align-content:center;padding:clamp(42px,7vw,98px) clamp(22px,5vw,76px);min-height:580px}
+.hero h1{position:relative;z-index:12;font-size:clamp(66px,12vw,176px);line-height:.76;letter-spacing:-.078em;margin:0;max-width:1100px;font-weight:800}.hero h1 .line2{display:block;margin-left:clamp(0px,11vw,150px)}.hero h1 .future{font-style:italic;font-weight:300}
+.hero-kicker{position:relative;z-index:12;margin:34px 0 0;max-width:690px;font-size:clamp(21px,2.2vw,31px);line-height:1.17}
+.hero-bottom{position:relative;z-index:12;display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end;padding:16px 22px;border-top:1.5px solid var(--ink);font-family:"Atkinson Hyperlegible Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.hero-bottom span:nth-child(2){text-align:center}.hero-bottom span:last-child{text-align:right}
+.rough-field{position:absolute;z-index:2;filter:saturate(1.06)}.rf1{left:-3%;top:13%;width:40%;height:40%;background:var(--pink);clip-path:polygon(1% 7%,95% 0,100% 83%,8% 100%,0 58%)}.rf2{right:-5%;top:29%;width:47%;height:36%;background:var(--green);clip-path:polygon(6% 0,100% 6%,94% 91%,14% 100%,0 29%)}.rf3{left:27%;bottom:-3%;width:30%;height:28%;background:var(--orange);clip-path:polygon(0 5%,94% 0,100% 88%,11% 100%)}
+.rough-field::after{content:"";position:absolute;inset:0;opacity:.34;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.25' numOctaves='5' seed='8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.precision-box{position:absolute;z-index:8;border:2px solid var(--ink);background:rgba(243,241,232,.68);backdrop-filter:blur(2px);width:clamp(160px,18vw,280px);height:clamp(90px,10vw,154px);right:7%;top:12%}.precision-box::before,.precision-box::after{content:"";position:absolute;background:var(--ink)}.precision-box::before{height:1px;left:-22px;right:-22px;top:50%}.precision-box::after{width:1px;top:-22px;bottom:-22px;left:50%}.precision-label{position:absolute;z-index:10;right:calc(7% + 12px);top:calc(12% + 10px);font:700 10px/1.3 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.signal-cloud{position:absolute;inset:0;z-index:5;pointer-events:none}.signal{position:absolute;width:9px;height:9px;background:var(--ink);border-radius:50%;box-shadow:0 0 0 7px color-mix(in srgb,var(--paper) 70%,transparent),0 0 0 9px var(--ink)}.signal::after{content:"";position:absolute;width:120px;height:1px;background:var(--ink);top:4px;left:12px;transform-origin:left;opacity:.42}.s1{left:8%;top:37%}.s1::after{transform:rotate(-12deg)}.s2{right:12%;top:65%}.s2::after{transform:rotate(165deg)}.s3{left:50%;top:18%}.s3::after{transform:rotate(72deg);width:90px}
+.scribble{position:absolute;z-index:15;pointer-events:none;left:7%;top:58%;width:32%;height:26%;overflow:visible}.scribble path{fill:none;stroke:var(--blue);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.selection{position:absolute;z-index:9;left:56%;bottom:14%;border:2px dashed var(--blue);width:30%;height:18%}.selection::before{content:"SELECTED / still changing";position:absolute;right:0;top:-22px;background:var(--blue);color:white;padding:3px 7px;font:700 9px "Atkinson Hyperlegible Mono",monospace}
+.sections{background:var(--paper)}.section{position:relative;padding:clamp(60px,8vw,120px) clamp(22px,5vw,76px);border-bottom:2px solid var(--ink)}
+.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,440px);gap:40px;align-items:start;margin-bottom:46px}.eyebrow{font:800 11px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}.section h2{font-size:clamp(45px,7vw,94px);line-height:.86;letter-spacing:-.065em;margin:0}.section-intro{font-size:20px;line-height:1.35;margin:0;max-width:550px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink)}.card{min-height:270px;padding:22px;border-right:2px solid var(--ink);background:var(--paper);position:relative;overflow:hidden}.card:last-child{border-right:0}.card .n{font:800 11px "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}.card h3{font-size:34px;line-height:.94;letter-spacing:-.045em;margin:42px 0 12px}.card p{font-size:16px;line-height:1.42;max-width:350px}.card.accent{background:var(--blue);color:white}.card.rough{background:var(--pink)}.card.rough::after{content:"";position:absolute;inset:-10%;background:repeating-radial-gradient(circle at 30% 30%,rgba(0,0,0,.25) 0 1px,transparent 1px 5px);opacity:.22;transform:rotate(7deg)}.card.rough>*{position:relative;z-index:2}.card.signalcard{background:var(--green)}.card.signalcard::before{content:"";position:absolute;width:180px;height:180px;border:2px solid var(--ink);border-radius:50%;right:-70px;top:-70px;box-shadow:0 0 0 22px transparent,0 0 0 24px var(--ink),0 0 0 48px transparent,0 0 0 50px var(--ink)}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--ink);margin-top:26px}.tcell{padding:24px;min-height:220px;border-right:2px solid var(--ink);position:relative}.tcell:last-child{border-right:0}.tcell .year{font:800 12px "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}.tcell h3{font-size:38px;line-height:.92;letter-spacing:-.04em;margin:38px 0 10px}.tcell p{max-width:340px;line-height:1.4}.tcell:nth-child(1){background:var(--orange)}.tcell:nth-child(3){background:var(--blue);color:white}
+.brief{display:grid;grid-template-columns:.75fr 1.25fr;border:2px solid var(--ink)}.brief-title{padding:28px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;min-height:520px}.brief-title h2{font-size:clamp(54px,7vw,95px)}.brief-title .mono{font-size:11px;text-transform:uppercase;letter-spacing:.09em}.brief-body{padding:28px;background:var(--paper)}.brief-body h3{font-size:27px;margin:0 0 10px}.brief-body p,.brief-body li{font-size:17px;line-height:1.43}.brief-body ul{padding-left:22px}.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.rulebox{border:2px solid var(--ink);padding:16px;min-height:140px}.rulebox.good{background:var(--green)}.rulebox.no{background:var(--pink)}
+.lab-note{margin-top:34px;padding:16px;border-left:8px solid var(--blue);font:600 15px/1.45 "Atkinson Hyperlegible Mono",monospace;max-width:820px}.click-note{position:fixed;right:14px;bottom:14px;z-index:90;background:var(--ink);color:var(--paper);padding:8px 10px;font:700 10px "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.06em}.trace-dot{position:fixed;width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;z-index:70;pointer-events:none;background:var(--green);animation:trace 3.4s ease forwards}@keyframes trace{0%{transform:scale(.2);opacity:1}20%{transform:scale(1)}100%{transform:scale(3.5);opacity:0}}
+body[data-territory="signal"] .scribble{opacity:.15}body[data-territory="signal"] .selection{opacity:.15}body[data-territory="signal"] .signal-cloud{opacity:1}body[data-territory="signal"] .rough-field{opacity:.64}
+body[data-territory="revision"] .signal-cloud{opacity:.16}body[data-territory="revision"] .scribble{opacity:1}body[data-territory="revision"] .selection{opacity:1}body[data-territory="revision"] .rough-field{opacity:.5}
+body[data-territory="surface"] .signal-cloud{opacity:.12}body[data-territory="surface"] .scribble{opacity:.18}body[data-territory="surface"] .selection{opacity:.10}body[data-territory="surface"] .rough-field{opacity:1}body[data-territory="surface"]{--noise:.17;--grid-opacity:.08}
+body[data-territory="system"] .signal-cloud{opacity:.3}body[data-territory="system"] .scribble{opacity:.05}body[data-territory="system"] .selection{opacity:.72}body[data-territory="system"] .rough-field{opacity:.25}body[data-territory="system"]{--grid-opacity:.34;--noise:.045}
+body[data-territory="translation"] .signal-cloud{opacity:.42}body[data-territory="translation"] .scribble{opacity:.25}body[data-territory="translation"] .selection{opacity:.28}body[data-territory="translation"] .rough-field{opacity:.78}body[data-territory="translation"] .hero h1{text-shadow:3px 0 0 var(--pink),-3px 0 0 var(--blue);filter:contrast(1.05)}body[data-territory="translation"] .rf2{background-image:radial-gradient(var(--ink) 1.1px,transparent 1.1px);background-size:7px 7px;background-color:var(--green)}
+@media(max-width:900px){.labbar{grid-template-columns:1fr;gap:8px}.territory-switch{justify-content:flex-start}.palette-switch{position:absolute;right:12px;top:12px}.hero{min-height:840px}.hero-bottom{grid-template-columns:1fr}.hero-bottom span:nth-child(2),.hero-bottom span:last-child{text-align:left}.section-head,.brief{grid-template-columns:1fr}.cards,.timeline{grid-template-columns:1fr}.card,.tcell{border-right:0;border-bottom:2px solid var(--ink)}.card:last-child,.tcell:last-child{border-bottom:0}.rule-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-territory="signal">
+<header class="labbar">
+  <div class="labbrand">QL identity lab / v1 / 20.09.26</div>
+  <nav class="territory-switch" aria-label="Territory switch">
+    <button class="active" data-territory="signal">01 signal commons</button>
+    <button data-territory="revision">02 human override</button>
+    <button data-territory="surface">03 working surface</button>
+    <button data-territory="system">04 system reveal</button>
+    <button data-territory="translation">05 translation layer</button>
+  </nav>
+  <div class="palette-switch" aria-label="Palette switch">
+    <button class="palette-dot active" data-palette="warm" title="Warm signal"></button>
+    <button class="palette-dot" data-palette="current" title="Chloe current"></button>
+    <button class="palette-dot" data-palette="cold" title="Cold glow"></button>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-top">
+    <div class="wordmark">qwerty <span class="labs">labs</span></div>
+    <div class="hero-meta">creative technology studio<br>marrickville / sydney<br>signal: open</div>
+  </div>
+  <div class="hero-core">
+    <div class="rough-field rf1"></div><div class="rough-field rf2"></div><div class="rough-field rf3"></div>
+    <div class="precision-box"></div><div class="precision-label">system / visible<br>x 1480 · y 320</div>
+    <div class="signal-cloud"><i class="signal s1"></i><i class="signal s2"></i><i class="signal s3"></i></div>
+    <svg class="scribble" viewBox="0 0 500 220" aria-hidden="true"><path d="M8 127 C90 46, 142 188, 230 103 S355 40, 486 115"/><path d="M28 151 C120 71, 187 195, 286 118"/></svg>
+    <div class="selection"></div>
+    <h1><span>new tech.</span><span class="line2">human <span class="future">inside.</span></span></h1>
+    <p class="hero-kicker">Smart, strange, useful and beautiful digital things get made here.</p>
+  </div>
+  <div class="hero-bottom"><span>people + code + electronics + design + ai</span><span>build / test / change / share</span><span>the future is already a place we can enter together</span></div>
+</section>
+
+<section class="section" id="territories">
+  <div class="section-head"><div><div class="eyebrow">Phase 01 / rebuilt territories</div><h2>Behaviours,<br>not logos.</h2></div><p class="section-intro">Each territory describes what the identity <em>does</em>. Use the buttons above to change the hero and feel the difference before deciding what deserves deeper development.</p></div>
+  <div class="cards">
+    <article class="card signalcard"><span class="n">01 / Signal Commons</span><h3>We are in the machine together.</h3><p>Shared signals, imperfect connection, network traces and familiar digital artefacts turn technology into an inhabited place rather than a sealed product.</p></article>
+    <article class="card rough"><span class="n">02 / Human Override</span><h3>Someone touched the system.</h3><p>Selections, edits, scribbles, annotations, overwritten rules and deliberate interference make human agency visible inside precise digital structure.</p></article>
+    <article class="card accent"><span class="n">03 / Working Surface</span><h3>The process stays on the page.</h3><p>Painted fields, rough masks, scan texture, cut edges and unfinished substrates sit behind straight contemporary interface geometry.</p></article>
+  </div>
+  <div class="cards" style="margin-top:-2px">
+    <article class="card"><span class="n">04 / System Reveal</span><h3>Show the seams.</h3><p>Grids, guides, coordinates, metadata, code and alignment logic become part of the identity. Sophistication comes from understanding the system, not hiding it.</p></article>
+    <article class="card" style="background:var(--orange)"><span class="n">05 / Translation Layer</span><h3>Past signal → present tool.</h3><p>Bitmap becomes vector, analogue becomes digital, print noise becomes interface behaviour. Early-web memory is translated rather than reenacted.</p></article>
+    <article class="card"><span class="n">Working hypothesis</span><h3>The strongest world may be a hybrid.</h3><p><b>Signal Commons</b> supplies the emotional reason; <b>Working Surface</b> supplies tactility; <b>System Reveal</b> supplies contemporary intelligence; <b>Human Override</b> supplies agency.</p></article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Phase 02 / exploration</div><h2>Old web.<br>New frontier.</h2></div><p class="section-intro">The source is not “retro internet”. It is the memory that technology could feel handmade, communal, imperfect and learnable — carried forward into a moment when AI feels strange again.</p></div>
+  <div class="timeline">
+    <div class="tcell"><span class="year">then / imperfect connection</span><h3>Visible machinery.</h3><p>Loading, noise, pixels, strange interfaces, personal corners, things breaking in ways everybody recognised.</p></div>
+    <div class="tcell"><span class="year">now / polished systems</span><h3>Invisible machinery.</h3><p>Technology often arrives smooth, centralised and finished. QL can expose enough of the system to restore agency.</p></div>
+    <div class="tcell"><span class="year">next / ai age</span><h3>Enter together.</h3><p>Not fear the future. Not worship it. Get hands-on, understand it, argue with it, make with it, decide what it should become.</p></div>
+  </div>
+  <div class="lab-note">Visual test: the identity should make technology feel more human <b>without making it less intelligent</b>, and make human intervention visible <b>without making it quaint</b>.</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Phase 03 / working brief for Chloe</div><h2>Build the world<br>before the mark.</h2></div><p class="section-intro">This is the brief I would hand Chloe now. It deliberately starts with a webpage rather than a standalone logo.</p></div>
+  <div class="brief">
+    <div class="brief-title"><h2>QL /<br>identity<br>brief</h2><div class="mono">working version / not final brand rules</div></div>
+    <div class="brief-body">
+      <h3>The idea</h3><p>Design Qwerty Labs as a place where people get hands-on with new technology together. It should feel precise and highly digital, but visibly inhabited by people who make, edit, test, break, repair and reshape things.</p>
+      <h3>Start here</h3><p>Do not start by trying to invent the logo. Build a webpage that creates the QL world. Let typography, surfaces, signals, edits, grids, glitches, colour, interaction and movement show us what the eventual mark needs to belong to.</p>
+      <h3>Use history as material, not costume</h3><p>Early internet / Y2K is useful because of the feeling underneath it: visible systems, imperfect connection, handmade corners and shared discovery. Translate those behaviours into a current AI-age identity. Do not make a 1999-themed website.</p>
+      <div class="rule-grid">
+        <div class="rulebox good"><h3>Push</h3><ul><li>precise digital structure + rough human traces</li><li>visible editing, revision and intervention</li><li>signals, joins, glitches and imperfect transfer with a reason</li><li>Atkinson Hyperlegible Next + Mono as the first type system</li><li>colour that is electric but warm enough to feel inhabited</li><li>interactions that show agency: select, drag, reveal, leave a trace</li></ul></div>
+        <div class="rulebox no"><h3>Avoid</h3><ul><li>generic glitch overlays</li><li>cyberpunk / AI-future chrome</li><li>retro-computer cosplay</li><li>crafty / cute “handmade” styling</li><li>coding-school, SaaS or generic creative-agency shorthand</li><li>neubrutalism used as a ready-made template</li></ul></div>
+      </div>
+      <h3 style="margin-top:26px">Logo architecture is open</h3><p><b>Qwerty Labs</b>, <b>QwertyLabs</b>, <b>qwertyLabs</b>, colour-separated words, a wordmark, a symbol, letters or no letters are all still live. The system gets to earn the answer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Phase 04 / first graphic system</div><h2>A first<br>visual answer.</h2></div><p class="section-intro">The page you are looking at is itself the first output: one synthesis, not a final direction. It deliberately combines rough field + precise interface + visible system + shared signal.</p></div>
+  <div class="cards">
+    <article class="card rough"><span class="n">Graphic behaviour A</span><h3>Rough field / clean frame</h3><p>Unfinished colour and texture can live behind crisp geometry. The roughness is substrate; the interface stays competent.</p></article>
+    <article class="card signalcard"><span class="n">Graphic behaviour B</span><h3>Presence signal</h3><p>Dots, rings, relays and connection lines can represent participation without turning into generic “connected nodes”. They should behave like signs of activity, not a corporate network diagram.</p></article>
+    <article class="card accent"><span class="n">Graphic behaviour C</span><h3>Current + trace</h3><p>Atkinson provides the disciplined contemporary layer. Marks, selection frames, noise and imperfect colour carry the human evidence.</p></article>
+  </div>
+  <div class="lab-note">Click anywhere on the page to leave a temporary local “signal”. It is intentionally tiny: the interaction is evidence that somebody was here, not a gimmick competing with the work.</div>
+</section>
+</main>
+<div class="click-note">click / leave a local signal</div>
+<script>
+const territoryButtons=[...document.querySelectorAll('button[data-territory]')];
+territoryButtons.forEach(btn=>btn.addEventListener('click',()=>{document.body.dataset.territory=btn.dataset.territory;territoryButtons.forEach(b=>b.classList.toggle('active',b===btn));}));
+const palettes={warm:{ink:'#0b0920',paper:'#f3f1e8',blue:'#3f62ff',pink:'#ff65b8',green:'#b9eb3f',orange:'#ff7648'},current:{ink:'#020020',paper:'#F1F8F8',blue:'#4C69E3',pink:'#F66DC1',green:'#92D644',orange:'#FF9029'},cold:{ink:'#09051c',paper:'#f2f7f6',blue:'#5956ff',pink:'#f05dbf',green:'#c8ff55',orange:'#ff8737'}};
+document.querySelectorAll('button[data-palette]').forEach(btn=>btn.addEventListener('click',()=>{const p=palettes[btn.dataset.palette];Object.entries(p).forEach(([k,v])=>document.documentElement.style.setProperty('--'+k,v));document.querySelectorAll('button[data-palette]').forEach(b=>b.classList.toggle('active',b===btn));}));
+document.addEventListener('click',e=>{if(e.target.closest('button,a')) return;const d=document.createElement('i');d.className='trace-dot';d.style.left=(e.clientX-7)+'px';d.style.top=(e.clientY-7)+'px';document.body.appendChild(d);setTimeout(()=>d.remove(),3500);});
+</script>
+</body>
+</html>
