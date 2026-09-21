@@ -589,15 +589,23 @@ a{color:inherit}
 
 
 /* C02Av — dark mode with restrained live signal */
-@keyframes qlSignalNoise{
+@keyframes qlSignalShift{
+  0%{background-position:0 0;opacity:.34}
+  12%{background-position:8px -5px;opacity:.46}
+  25%{background-position:-6px 9px;opacity:.38}
+  38%{background-position:13px 4px;opacity:.50}
+  50%{background-position:-4px -10px;opacity:.36}
+  62%{background-position:10px 8px;opacity:.48}
+  75%{background-position:-11px 3px;opacity:.40}
+  88%{background-position:5px -7px;opacity:.52}
+  100%{background-position:0 0;opacity:.34}
+}
+@keyframes qlSignalShiftSoft{
   0%{background-position:0 0}
-  12%{background-position:9px -4px}
-  25%{background-position:-7px 8px}
-  38%{background-position:14px 3px}
-  50%{background-position:-3px -11px}
-  62%{background-position:11px 10px}
-  75%{background-position:-12px 2px}
-  88%{background-position:5px -8px}
+  20%{background-position:7px -4px}
+  40%{background-position:-5px 6px}
+  60%{background-position:9px 3px}
+  80%{background-position:-8px -5px}
   100%{background-position:0 0}
 }
 .c02-trial.live-signal .signalWordmark{
@@ -612,37 +620,30 @@ a{color:inherit}
   pointer-events:none;
   color:transparent;
   -webkit-text-fill-color:transparent;
-  background:
-    linear-gradient(rgba(2,0,32,.16),rgba(2,0,32,.16)),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="3" seed="4"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".92" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-size:auto,150px 150px;
-  background-blend-mode:multiply;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="3" seed="4"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".95" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:150px 150px;
   -webkit-background-clip:text;
   background-clip:text;
-  opacity:.72;
   mix-blend-mode:multiply;
-  animation:qlSignalNoise .95s steps(9,end) infinite;
+  filter:contrast(1.8);
+  animation:qlSignalShift .82s steps(9,end) infinite;
 }
 .c02-trial.live-signal .heroRibbon:before,
 .c02-trial.live-signal .heroRibbon:after{
-  background-size:auto,120px 120px;
-  background-repeat:no-repeat,repeat;
-  animation:qlSignalNoise 1.15s steps(8,end) infinite;
+  background-size:120px 120px;
+  background-repeat:repeat;
+  animation:qlSignalShiftSoft .88s steps(9,end) infinite;
 }
 .c02-trial.live-signal .heroRibbon:before{
   background-color:rgba(246,109,193,.62);
-  background-image:
-    linear-gradient(rgba(246,109,193,.62),rgba(246,109,193,.62)),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="8"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".26" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-blend-mode:normal,screen;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="8"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".42" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:screen;
 }
 .c02-trial.live-signal .heroRibbon:after{
   background-color:rgba(76,105,227,.54);
-  background-image:
-    linear-gradient(rgba(76,105,227,.54),rgba(76,105,227,.54)),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="13"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".24" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-blend-mode:normal,screen;
-  animation-delay:-.37s;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="13"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".40" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:screen;
+  animation-delay:-.31s;
 }
 .c02-trial.live-signal .topbar{position:relative}
 .c02-trial.live-signal .cornerSignal{
@@ -651,26 +652,14 @@ a{color:inherit}
   top:8px;
   width:42px;
   height:22px;
-  border:1px solid rgba(241,248,248,.34);
-  background-color:rgba(241,248,248,.055);
-  background-image:
-    linear-gradient(90deg,rgba(241,248,248,.08),transparent 52%),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="3" seed="21"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".92" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-size:auto,100px 60px;
-  background-blend-mode:screen,normal;
-  opacity:.92;
-  filter:contrast(1.35);
+  border:1px solid rgba(241,248,248,.36);
+  background-color:rgba(241,248,248,.06);
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="3" seed="21"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".95" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:100px 60px;
+  filter:contrast(1.7);
   pointer-events:none;
-  animation:qlSignalNoise .82s steps(10,end) infinite;
-  animation-delay:-.21s;
-}
-@media (prefers-reduced-motion: reduce){
-  .c02-trial.live-signal .signalWordmark:after,
-  .c02-trial.live-signal .heroRibbon:before,
-  .c02-trial.live-signal .heroRibbon:after,
-  .c02-trial.live-signal .cornerSignal{
-    animation:none;
-  }
+  animation:qlSignalShift .72s steps(10,end) infinite;
+  animation-delay:-.18s;
 }
 
 /* B — same shell/background, cards pushed toward physical/editorial source */
