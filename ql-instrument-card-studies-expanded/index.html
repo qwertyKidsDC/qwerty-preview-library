@@ -441,15 +441,34 @@ a{color:inherit}
 .c02-trial .card.orange .patch{right:8%;top:12%;width:42%;height:16%;background:var(--ql-blue)}
 .c02-trial .card.pink .patch{left:13%;top:18%;width:37%;height:27%;background:var(--ql-green)}
 
-/* C02A look pass: restore translucent ribbon tabs + C06 signal noise */
-.c02-trial.baseline .heroRibbon:before{opacity:.55}
-.c02-trial.baseline .heroRibbon:after{opacity:.46}
-.c02-trial.baseline .card .texture{
-  opacity:.20;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.06),transparent 34%),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+/* C02A palette-tuned look pass */
+.c02-trial.baseline .heroRibbon:before{
+  opacity:.42;
+  mix-blend-mode:screen;
+  filter:saturate(.86);
 }
+.c02-trial.baseline .heroRibbon:after{
+  opacity:.36;
+  mix-blend-mode:screen;
+  filter:saturate(.82);
+}
+.c02-trial.baseline .side .navitem{
+  font-size:15px;
+  line-height:1.25;
+  padding:11px 0;
+}
+.c02-trial.baseline .card .texture{
+  opacity:.10;
+  mix-blend-mode:soft-light;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(241,248,248,.22),transparent 24%),
+    radial-gradient(circle at 76% 68%,rgba(2,0,32,.18),transparent 28%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".96" numOctaves="2" seed="7"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+}
+.c02-trial.baseline .card.blue .texture{opacity:.15}
+.c02-trial.baseline .card.pink .texture{opacity:.14}
+.c02-trial.baseline .card.green .texture{opacity:.075}
+.c02-trial.baseline .card.orange .texture{opacity:.07}
 
 /* B — same shell/background, cards pushed toward physical/editorial source */
 .c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
