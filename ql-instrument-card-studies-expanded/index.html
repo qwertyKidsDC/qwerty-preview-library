@@ -587,6 +587,83 @@ a{color:inherit}
   padding:13px 0;
 }
 
+
+/* C02Av — dark mode with restrained live signal */
+@keyframes qlSignalNoise{
+  0%{background-position:0 0}
+  12%{background-position:9px -4px}
+  25%{background-position:-7px 8px}
+  38%{background-position:14px 3px}
+  50%{background-position:-3px -11px}
+  62%{background-position:11px 10px}
+  75%{background-position:-12px 2px}
+  88%{background-position:5px -8px}
+  100%{background-position:0 0}
+}
+.c02-trial.live-signal .signalWordmark{
+  position:relative;
+  display:inline-block;
+}
+.c02-trial.live-signal .signalWordmark:after{
+  content:attr(data-text);
+  position:absolute;
+  inset:0;
+  color:transparent;
+  pointer-events:none;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="3" seed="4"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".62" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:150px 150px;
+  -webkit-background-clip:text;
+  background-clip:text;
+  opacity:.34;
+  mix-blend-mode:screen;
+  animation:qlSignalNoise 1.35s steps(8,end) infinite;
+}
+.c02-trial.live-signal .heroRibbon:before,
+.c02-trial.live-signal .heroRibbon:after{
+  background-size:auto,120px 120px;
+  background-repeat:no-repeat,repeat;
+  animation:qlSignalNoise 1.15s steps(8,end) infinite;
+}
+.c02-trial.live-signal .heroRibbon:before{
+  background-color:rgba(246,109,193,.62);
+  background-image:
+    linear-gradient(rgba(246,109,193,.62),rgba(246,109,193,.62)),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="8"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".26" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:normal,screen;
+}
+.c02-trial.live-signal .heroRibbon:after{
+  background-color:rgba(76,105,227,.54);
+  background-image:
+    linear-gradient(rgba(76,105,227,.54),rgba(76,105,227,.54)),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="13"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".24" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:normal,screen;
+  animation-delay:-.37s;
+}
+.c02-trial.live-signal .topbar{position:relative}
+.c02-trial.live-signal .cornerSignal{
+  position:absolute;
+  right:158px;
+  top:10px;
+  width:34px;
+  height:18px;
+  border:1px solid rgba(241,248,248,.24);
+  background-color:rgba(241,248,248,.035);
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="3" seed="21"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".52" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:100px 60px;
+  opacity:.6;
+  pointer-events:none;
+  animation:qlSignalNoise 1s steps(9,end) infinite;
+  animation-delay:-.21s;
+}
+@media (prefers-reduced-motion: reduce){
+  .c02-trial.live-signal .signalWordmark:after,
+  .c02-trial.live-signal .heroRibbon:before,
+  .c02-trial.live-signal .heroRibbon:after,
+  .c02-trial.live-signal .cornerSignal{
+    animation:none;
+  }
+}
+
 /* B — same shell/background, cards pushed toward physical/editorial source */
 .c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
 .c02-trial.lived .cards{gap:16px;align-items:stretch}
@@ -1042,6 +1119,35 @@ a{color:inherit}
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Light-mode pair without fuzz: same pale QL interface, dark type/rules, translucent corner blocks and colour layout, but all colour fields are clean.</div>
+
+  <div class="trial-label">Av / corrected baseline — live signal</div>
+  <div class="concept-board c02-trial baseline live-signal">
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="cornerSignal" aria-hidden="true"></span><span class="mono">studio // online</span></div>
+      <div class="side">
+        <span class="navitem active">Home</span>
+        <span class="navitem">Projects</span>
+        <span class="navitem">Studio</span>
+        <span class="navitem">Resources</span>
+        <span class="navitem">People</span>
+      </div>
+      <div class="main">
+        <div>
+          <div class="big signalWordmark" data-text="Qwerty Labs" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+
+        <div class="cards">
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Dark A baseline with restrained continuous signal motion in the Qwerty Labs wordmark, the two translucent hero tabs, and one independent top-right signal tile.</div>
 
   <div class="trial-label">B / more lived-in cards</div>
   <div class="concept-board c02-trial lived">
