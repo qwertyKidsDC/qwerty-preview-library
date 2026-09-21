@@ -484,45 +484,74 @@ a{color:inherit}
 }
 .c02-trial.baseline .heroRibbon .mid{position:relative;z-index:2}
 
-/* C02Ai — inverse texture test: noise on main background, clean boxes */
-.c02-trial.inverse{
-  background:var(--ql-dark);
+/* C02Aii — light-mode pair to A */
+.c02-trial.light{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  border-color:rgba(2,0,32,.24);
 }
-.c02-trial.inverse:before{
+.c02-trial.light .layout{
+  background:var(--ql-base);
+}
+.c02-trial.light .topbar{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  border-bottom:1px solid rgba(2,0,32,.28);
+}
+.c02-trial.light .topbar .mono{color:var(--ql-dark)}
+.c02-trial.light .side{
+  background:var(--ql-base);
+  border-right:1px solid rgba(2,0,32,.26);
+}
+.c02-trial.light .side .navitem{
+  color:var(--ql-dark);
+  border-bottom:1px solid rgba(2,0,32,.16);
+  font-size:20px;
+  line-height:1.2;
+  font-weight:800;
+  padding:13px 0;
+}
+.c02-trial.light .side .navitem.active{color:var(--ql-blue)}
+.c02-trial.light .main{
+  background:
+    radial-gradient(circle at 80% 15%,rgba(76,105,227,.055),transparent 25%),
+    var(--ql-base);
+}
+.c02-trial.light .big{color:var(--ql-dark)!important}
+.c02-trial.light .descriptor{color:var(--ql-blue)}
+.c02-trial.light .heroRibbon{
+  background-color:var(--ql-green);
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".48" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:normal,multiply;
+  overflow:visible;
+}
+.c02-trial.light .heroRibbon:before{
+  background:rgba(246,109,193,.62);
+  opacity:1;
+  border:1px solid rgba(2,0,32,.10);
+}
+.c02-trial.light .heroRibbon:after{
+  background:rgba(76,105,227,.54);
+  opacity:1;
+  border:1px solid rgba(2,0,32,.10);
+}
+.c02-trial.light .card .texture{display:none}
+.c02-trial.light .card:after{
   content:"";
   position:absolute;
   inset:0;
-  z-index:0;
+  z-index:3;
   pointer-events:none;
   background:
     linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
     url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
   opacity:.48;
 }
-.c02-trial.inverse .layout{position:relative;z-index:1}
-.c02-trial.inverse .side .navitem{
-  font-size:20px;
-  line-height:1.2;
-  font-weight:800;
-  padding:13px 0;
+.c02-trial.light .card .tape{
+  box-shadow:0 0 0 1px rgba(2,0,32,.10);
 }
-.c02-trial.inverse .heroRibbon{
-  background:var(--ql-green);
-  background-image:none;
-  overflow:visible;
-}
-.c02-trial.inverse .heroRibbon:before{
-  background:rgba(246,109,193,.62);
-  opacity:1;
-  border:1px solid rgba(241,248,248,.18);
-}
-.c02-trial.inverse .heroRibbon:after{
-  background:rgba(76,105,227,.54);
-  opacity:1;
-  border:1px solid rgba(241,248,248,.16);
-}
-.c02-trial.inverse .card .texture{display:none}
-.c02-trial.inverse .card:after{display:none}
 
 /* B — same shell/background, cards pushed toward physical/editorial source */
 .c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
@@ -893,8 +922,8 @@ a{color:inherit}
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Same structure and card language, now restricted to the QL palette, with readable utility bar and one navigation area on the left.</div>
   
-  <div class="trial-label">Ai / corrected baseline — inverse texture</div>
-  <div class="concept-board c02-trial inverse">
+  <div class="trial-label">Aii / corrected baseline — light mode</div>
+  <div class="concept-board c02-trial light">
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
       <div class="side">
@@ -920,7 +949,7 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Inverse of A: the main dark background carries the Concept 06 signal/noise overlay while the green hero box and four colour cards stay clean. Transparent corner blocks remain.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Light-mode pair to A: pale QL interface surface, dark type and rules, with the same lived-in colour boxes and translucent corner blocks.</div>
   
   
 <div class="trial-label">B / more lived-in cards</div>
