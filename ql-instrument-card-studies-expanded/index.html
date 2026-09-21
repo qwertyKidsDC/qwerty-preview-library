@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Qwerty Labs — Instrument Card Studies Expanded</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;700&family=Atkinson+Hyperlegible+Next:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d14;
+  --paper:#f4f1e8;
+  --blue:#4c69e3;
+  --pink:#f66dc1;
+  --green:#92d644;
+  --orange:#ff9029;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Atkinson Hyperlegible Next",Arial,sans-serif;background:#efece3;color:var(--ink);line-height:1.35}
+a{color:inherit}
+.mono{font-family:"Atkinson Hyperlegible Mono",monospace}
+.topbar{
+  position:sticky;top:0;z-index:100;background:rgba(244,241,232,.94);backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--ink);padding:12px 18px;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap
+}
+.topbar .title{font:700 11px/1.35 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a{text-decoration:none;border:1.5px solid var(--ink);padding:7px 9px;background:white;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+.intro{padding:42px 22px 28px;max-width:1500px;margin:0 auto}
+.intro h1{margin:0 0 16px;font-size:clamp(52px,8.5vw,120px);line-height:.82;letter-spacing:-.07em}
+.intro p{font-size:20px;max-width:940px;margin:0 0 18px}
+.intro .small{font:700 11px/1.45 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;max-width:none}
+.wrap{max-width:1500px;margin:0 auto}
+.study{margin:0 0 28px;border-top:2px solid var(--ink);background:white}
+.study-head{padding:18px 22px;border-bottom:2px solid var(--ink);display:grid;grid-template-columns:1fr minmax(280px,520px);gap:26px;align-items:end}
+.study-head h2{margin:0;font-size:clamp(38px,6vw,88px);line-height:.83;letter-spacing:-.06em}
+.study-head p{margin:0;font-size:18px}
+.meta{font:700 11px/1.35 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.mock{border-top:0;min-height:760px;position:relative;overflow:hidden}
+.note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.note{padding:16px 18px;border-right:2px solid var(--ink)}
+.note:last-child{border-right:0}
+.note h4{margin:0 0 8px;font-size:20px;line-height:1.02}
+.note p{margin:0;font-size:14px;line-height:1.4}
+/* shared internal helpers */
+.wm{font-size:32px;font-weight:800;letter-spacing:-.06em;line-height:.9}
+.wm .labs{color:var(--blue)}
+.strip{display:inline-block;border:1.5px solid currentColor;padding:5px 8px;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;background:white}
+/* 1 Rooms */
+.rooms{background:#fffef9}
+.rooms .sitebar{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px;border-bottom:2px solid var(--ink)}
+.rooms .page{display:grid;grid-template-columns:260px 1fr 280px;min-height:690px}
+.rooms .left,.rooms .right{padding:18px;border-right:2px solid var(--ink)}
+.rooms .right{border-right:0;border-left:2px solid var(--ink)}
+.rooms .main{padding:18px;position:relative}
+.rooms .main:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 15%, rgba(246,109,193,.12), transparent 28%),radial-gradient(circle at 82% 24%, rgba(76,105,227,.12), transparent 28%),radial-gradient(circle at 60% 75%, rgba(146,214,68,.12), transparent 30%)}
+.rooms .panel{border:2px solid var(--ink);background:white;padding:14px;margin-bottom:14px;box-shadow:5px 5px 0 var(--ink);position:relative}
+.rooms .panel.paint:after{content:"";position:absolute;inset:auto -8px -10px auto;width:42%;height:42%;background:var(--shape);clip-path:polygon(0 10%,90% 0,100% 82%,12% 100%,0 62%);opacity:.85;mix-blend-mode:multiply}
+.rooms .panel>*{position:relative;z-index:2}
+.rooms .main h3{font-size:78px;line-height:.82;letter-spacing:-.06em;margin:18px 0}
+.rooms .main p{font-size:21px;max-width:640px}
+.rooms .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.rooms .links span{border:1.5px solid var(--ink);padding:7px 9px;background:#fff;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase}
+/* 2 Broadcast */
+.broadcast{background:#d7d7d7;color:#050505}
+.broadcast .screen{margin:22px;border:2px solid #000;background:#eee;box-shadow:0 0 0 12px #111}
+.broadcast .bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:2px solid #000;background:#fafafa;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.broadcast .hero{position:relative;padding:22px;border-bottom:2px solid #000;min-height:340px;background:
+      radial-gradient(circle, rgba(255,255,255,.95) .55px, transparent .7px) 0 0/5px 5px,
+      radial-gradient(circle, rgba(0,0,0,.85) .55px, transparent .7px) 2px 2px/5px 5px,
+      linear-gradient(180deg,#f2f2f2,#b6b6b6 50%,#efefef);
+      filter:grayscale(1) contrast(1.18)}
+.broadcast .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0 49%, rgba(0,0,0,.03) 50% 51%, transparent 52% 100%);background-size:100% 6px;opacity:.6}
+.broadcast .test{position:absolute;right:24px;top:24px;width:240px;height:240px;border:2px solid #000;border-radius:50%;background:radial-gradient(circle at center, transparent 0 34%, rgba(0,0,0,.16) 34% 35%, transparent 35% 64%, rgba(0,0,0,.18) 64% 65%, transparent 65% 100%)}
+.broadcast .hero h3{font-size:92px;line-height:.8;letter-spacing:-.07em;margin:40px 0 12px;max-width:740px;position:relative;z-index:2}
+.broadcast .hero p{font-size:22px;max-width:620px;position:relative;z-index:2}
+.broadcast .ticker{padding:10px 14px;border-top:2px solid #000;border-bottom:2px solid #000;background:#111;color:#fff;font:700 12px/1.2 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.broadcast .grid{display:grid;grid-template-columns:1fr 1fr 1fr}
+.broadcast .cell{min-height:180px;padding:16px;border-right:2px solid #000;background:#f9f9f9}
+.broadcast .cell:last-child{border-right:0}
+.broadcast .cell h4{font-size:28px;line-height:.95;margin:44px 0 8px}
+/* 3 Revision */
+.revision{background:#fdfbf6}
+.revision .doc{margin:22px;border:2px solid var(--ink);background:#fff;display:grid;grid-template-columns:280px 1fr}
+.revision .sidebar{border-right:2px solid var(--ink);padding:16px;background:#f6f3ea}
+.revision .sidebar h4{margin:0 0 14px;font-size:20px}
+.revision .commit{border:1.5px solid var(--ink);padding:10px 12px;margin-bottom:10px;background:#fff;font-size:14px}
+.revision .page{padding:18px 24px 0}
+.revision .pagebar{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:16px}
+.revision .hero{padding:26px 0 24px;border-bottom:2px solid var(--ink);position:relative}
+.revision .hero h3{font-size:92px;line-height:.82;letter-spacing:-.07em;margin:12px 0}
+.revision .hero p{font-size:22px;max-width:710px}
+.revision .scratch{position:absolute;right:0;top:26px;width:240px;height:160px;border:2px dashed var(--ink);background:linear-gradient(transparent 0 60%, rgba(146,214,68,.35) 60% 76%, transparent 76% 100%)}
+.revision .scratch:before{content:"change why this matters";position:absolute;left:12px;top:12px;font:700 11px/1.4 "Atkinson Hyperlegible Mono",monospace;max-width:180px}
+.revision .story{display:grid;grid-template-columns:repeat(3,1fr)}
+.revision .story .box{padding:18px;min-height:190px;border-right:2px solid var(--ink)}
+.revision .story .box:last-child{border-right:0}
+.revision .del{text-decoration:line-through;text-decoration-thickness:4px;text-decoration-color:var(--pink);opacity:.55}
+.revision .ins{background:linear-gradient(transparent 62%, rgba(146,214,68,.72) 62%)}
+/* 4 Registration */
+.registration{background:#f4f0e6}
+.registration .sheet{margin:22px;border:2px solid var(--ink);background:#fff;position:relative;overflow:hidden}
+.registration .marks{position:absolute;inset:0;pointer-events:none}
+.registration .crop{position:absolute;width:26px;height:26px}
+.registration .tl{left:10px;top:10px;border-left:2px solid var(--ink);border-top:2px solid var(--ink)}
+.registration .tr{right:10px;top:10px;border-right:2px solid var(--ink);border-top:2px solid var(--ink)}
+.registration .bl{left:10px;bottom:10px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.registration .br{right:10px;bottom:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.registration .sheetbar{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px;border-bottom:2px solid var(--ink)}
+.registration .hero{padding:28px 18px 120px;position:relative;min-height:360px;border-bottom:2px solid var(--ink)}
+.registration .hero h3{font-size:92px;line-height:.82;letter-spacing:-.07em;margin:14px 0 12px;position:relative;z-index:2}
+.registration .hero p{font-size:22px;max-width:640px;position:relative;z-index:2}
+.registration .shapeA,.registration .shapeB,.registration .shapeC{position:absolute;mix-blend-mode:multiply;opacity:.82}
+.registration .shapeA{right:7%;top:28px;width:320px;height:200px;background:rgba(76,105,227,.72);border:2px solid var(--ink)}
+.registration .shapeB{right:9%;top:46px;width:320px;height:200px;background:rgba(246,109,193,.68);border:2px solid var(--ink)}
+.registration .shapeC{right:5%;top:68px;width:320px;height:200px;background:rgba(146,214,68,.72);border:2px solid var(--ink)}
+.registration .colorbars{display:flex;border:2px solid var(--ink);width:max-content;position:absolute;left:18px;bottom:18px}
+.registration .colorbars i{display:block;width:34px;height:34px;border-right:1px solid var(--ink)}
+.registration .colorbars i:last-child{border-right:0}
+.registration .colorbars i:nth-child(1){background:var(--blue)}
+.registration .colorbars i:nth-child(2){background:var(--pink)}
+.registration .colorbars i:nth-child(3){background:var(--green)}
+.registration .colorbars i:nth-child(4){background:var(--orange)}
+.registration .colorbars i:nth-child(5){background:#111}
+.registration .blocks{display:grid;grid-template-columns:1fr 1fr 1fr}
+.registration .blocks .b{padding:18px;min-height:180px;border-right:2px solid var(--ink)}
+.registration .blocks .b:last-child{border-right:0}
+/* 5 Instrument */
+.instrument{background:#0b0f1c;color:#eef1f9}
+.instrument .frame{margin:22px;border:2px solid #d8dff5;background:#10172c;box-shadow:0 0 0 10px #050814}
+.instrument .bar{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 16px;border-bottom:2px solid #d8dff5}
+.instrument .hero{padding:26px 18px;border-bottom:2px solid #d8dff5;position:relative;min-height:330px;background:radial-gradient(circle at 18% 20%, rgba(76,105,227,.26), transparent 24%),radial-gradient(circle at 86% 68%, rgba(246,109,193,.22), transparent 26%),linear-gradient(180deg,#10172c,#0b1020)}
+.instrument .hero:after{content:"";position:absolute;right:18px;top:18px;width:300px;height:190px;border:2px solid #d8dff5;background:linear-gradient(180deg,#0c1022,#11162f)}
+.instrument .hero:before{content:"signal acquisition";position:absolute;right:34px;top:34px;z-index:2;font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.instrument .hero h3{font-size:88px;line-height:.83;letter-spacing:-.07em;margin:26px 0 12px;max-width:760px;position:relative;z-index:2}
+.instrument .hero p{font-size:22px;max-width:660px;position:relative;z-index:2}
+.instrument .controls{display:grid;grid-template-columns:1fr 320px}
+.instrument .projects{padding:18px;border-right:2px solid #d8dff5;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.instrument .projects .p{border:2px solid #d8dff5;padding:14px;min-height:168px;background:#131b33;position:relative;overflow:hidden}
+.instrument .projects .p:after{content:"";position:absolute;right:-8%;bottom:-10%;width:42%;height:40%;background:var(--accent);clip-path:polygon(0 10%,90% 0,100% 82%,12% 100%,0 62%);opacity:.8;mix-blend-mode:screen}
+.instrument .side{padding:18px;background:#0e1428}
+.instrument .side label{display:block;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px}
+.instrument .side input[type=range]{width:100%;margin:0 0 18px;accent-color:var(--green)}
+.instrument .side button{width:100%;margin:0 0 8px;padding:10px;border:2px solid #d8dff5;background:#141c38;color:#eef1f9;text-align:left;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:980px){
+  .study-head,.intro .summary,.note-grid,.rooms .page,.broadcast .grid,.revision .doc,.revision .story,.registration .blocks,.instrument .controls,.instrument .projects{grid-template-columns:1fr}
+  .rooms .left,.rooms .right,.revision .sidebar,.instrument .projects{border-right:0;border-left:0;border-bottom:2px solid currentColor}
+  .broadcast .cell,.revision .story .box,.registration .blocks .b,.note{border-right:0;border-bottom:2px solid var(--ink)}
+  .broadcast .cell:last-child,.revision .story .box:last-child,.registration .blocks .b:last-child,.note:last-child{border-bottom:0}
+  .rooms .page{display:block}.broadcast .test,.instrument .hero:after,.revision .scratch{position:relative;right:auto;top:auto;margin-top:18px}.broadcast .hero h3,.revision .hero h3,.registration .hero h3,.instrument .hero h3,.rooms .main h3{font-size:54px}
+}
+</style>
+
+<style>
+/* Card studies derived from the supplied title-sequence references:
+   flat colour fields, rough painted edges, tinted/cropped image fragments,
+   typewriter labels on imperfect strips, print/photocopy misregistration.
+   The sleek Instrument Panel shell is deliberately left untouched. */
+.ref-card-lab{background:#0b0f1c;color:#eef1f9}
+.ref-card-lab .study-head{border-color:#d8dff5}
+.ref-shell{margin:22px;border:2px solid #d8dff5;background:#10172c;box-shadow:0 0 0 10px #050814}
+.ref-shellbar{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 16px;border-bottom:2px solid #d8dff5}
+.ref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:18px}
+.ref-study .caption{font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:#cfd6ee;margin-bottom:8px}
+.ref-card{height:285px;border:2px solid #d8dff5;position:relative;overflow:hidden;color:#101014;background:#f1eddf}
+.ref-card .label{position:absolute;z-index:8;font:700 12px/1.12 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;background:#f1a3a2;box-decoration-break:clone}
+.ref-card .label b{background:#d9ea52;padding:2px 5px}
+.ref-card .tiny{position:absolute;z-index:8;font:700 10px/1.25 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em}
+.ref-card .rough{position:absolute}
+.ref-card .photo{position:absolute;background-size:cover;background-position:center;filter:contrast(1.12) saturate(.82);mix-blend-mode:multiply}
+.ref-card:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+
+/* A: painted blocks + tiny crop */
+.ref-a{background:linear-gradient(90deg,#efcd36 0 31%,#f3efe2 31% 100%)}
+.ref-a .green{left:34%;top:12%;width:25%;height:42%;background:#35a343;clip-path:polygon(3% 5%,92% 0,100% 11%,96% 92%,78% 100%,4% 95%,0 70%)}
+.ref-a .violet{right:3%;top:8%;width:27%;height:39%;background:#6248db;clip-path:polygon(3% 2%,98% 0,100% 91%,7% 100%,0 87%,2% 20%)}
+.ref-a .pink{left:34%;right:3%;bottom:4%;height:34%;background:#e77aa8}
+.ref-a .photo{left:40%;top:20%;width:12%;height:13%;background-image:linear-gradient(135deg,#e8b0a3,#5b4b65);background-position:48% 18%;filter:saturate(.4) sepia(.5) hue-rotate(310deg) contrast(1.3)}
+.ref-a .label{left:5%;bottom:14%;background:#efcd36;color:#9b453a}
+
+/* B: huge rough colour field + architectural crop */
+.ref-b{background:linear-gradient(90deg,#e95e78 0 55%,#14a7dd 55% 100%)}
+.ref-b .green{left:4%;top:13%;width:59%;height:72%;background:#8bc52d;clip-path:polygon(1% 5%,87% 0,99% 84%,72% 100%,0 88%);border:3px solid rgba(15,15,15,.45);transform:rotate(-1.5deg)}
+.ref-b .green:after{content:"ELIZABETHON\\A HIGH SCHOOL";white-space:pre;position:absolute;left:24%;top:35%;font:700 26px/1.02 "Atkinson Hyperlegible Mono",monospace;transform:rotate(1deg)}
+.ref-b .label{right:4%;top:8%;background:#e98f86}
+.ref-b .label b{display:block;margin-top:3px;background:#c8df3e}
+
+/* C: tinted photographic fragments + painted mask */
+.ref-c{background:linear-gradient(90deg,#6e43cc 0 37%,#f2c84b 37% 64%,#f1eee4 64%)}
+.ref-c .photo.one{left:0;top:0;width:37%;height:100%;background-image:linear-gradient(135deg,#d9b7db,#403d76);background-position:12% 50%;filter:grayscale(1) sepia(.25) hue-rotate(220deg) saturate(3) contrast(1.1);opacity:.62}
+.ref-c .photo.two{right:0;top:0;width:36%;height:100%;background-image:linear-gradient(135deg,#e3b46f,#77483d);background-position:90% 50%;filter:sepia(.55) saturate(1.5) hue-rotate(340deg);opacity:.7}
+.ref-c .blue{right:4%;top:12%;width:30%;height:70%;background:#3158d9;clip-path:polygon(5% 0,100% 3%,96% 94%,3% 100%,0 17%)}
+.ref-c .label{left:36%;top:45%;background:#ef9f9a}
+
+/* D: two-column poster, tiny isolated crop */
+.ref-d{background:linear-gradient(90deg,#1680d8 0 45%,#eeeade 45% 100%)}
+.ref-d .orange{right:0;top:0;width:55%;height:66%;background:#e86435}
+.ref-d .photo{right:0;top:0;width:55%;height:66%;background-image:linear-gradient(135deg,#df875d,#733e31);background-position:74% 48%;filter:grayscale(1) sepia(1) hue-rotate(338deg) saturate(4) contrast(1.25);opacity:.48}
+.ref-d .eye{left:4%;top:11%;width:22%;height:20%;background:#efe9dd;border:1px solid rgba(0,0,0,.2);transform:rotate(-1deg)}
+.ref-d .eye:after{content:"";position:absolute;inset:22% 20%;border-top:5px solid #b9413e;border-bottom:3px solid #222;border-radius:50%}
+.ref-d .label{left:4%;bottom:13%;background:#efd44f;color:#a33232}
+
+/* E: print proof / frame crop, intentionally rough but not dirty */
+.ref-e{background:#f0ede2}
+.ref-e .purple{left:0;bottom:0;width:49%;height:55%;background:#7650cf}
+.ref-e .lime{right:0;top:0;width:49%;height:100%;background:#a5ce36;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%,4% 75%,0 32%)}
+.ref-e .window{right:7%;top:10%;width:35%;height:66%;background:#eee9da;border:4px solid rgba(20,20,20,.5);transform:rotate(-4deg);box-shadow:-10px 8px 0 rgba(20,20,20,.5)}
+.ref-e .label{left:5%;top:13%;background:#a4c85b}
+.ref-e .label.second{left:28%;top:13%;background:#b987c8}
+
+/* F: collage of cropped human traces, not literal portraits */
+.ref-f{background:linear-gradient(90deg,#efca36 0 31%,#f1eee3 31%)}
+.ref-f .green{left:34%;top:10%;width:25%;height:40%;background:#2e9b49;clip-path:polygon(3% 2%,96% 0,100% 92%,11% 100%,0 83%)}
+.ref-f .peach{left:61%;top:8%;width:22%;height:42%;background:#e28b68}
+.ref-f .violet{right:2%;top:8%;width:14%;height:40%;background:#6547d4}
+.ref-f .pink{left:34%;right:2%;bottom:4%;height:36%;background:#e786ad}
+.ref-f .fingerprints{position:absolute;left:40%;bottom:5%;width:52%;height:31%;background:repeating-radial-gradient(ellipse at 12% 55%,transparent 0 8px,rgba(40,30,55,.52) 9px 10px,transparent 11px 16px);opacity:.75}
+.ref-f .label{left:5%;top:56%;background:#efca36;color:#a75240}
+@media(max-width:900px){.ref-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style>
+.generated-direction{background:#080d18;color:#eef1f9}
+.generated-direction .study-head{border-color:#d8dff5}
+.direction-board{margin:22px;border:2px solid #d8dff5;background:#0a111e;padding:18px;box-shadow:0 0 0 10px #050814}
+.direction-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.direction-card{min-height:360px;border:1px solid #38445c;background:#0f1728;padding:10px;position:relative;overflow:hidden}
+.direction-card .cap{font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#cfd6ee;margin-bottom:8px}
+.direction-card .inner{height:315px;background:#f2eee3;color:#101014;border-radius:8px;overflow:hidden;position:relative}
+.direction-card h3{font-size:44px;line-height:.88;letter-spacing:-.06em;margin:0}
+.direction-card .type{font:700 12px/1.25 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em}
+.d1 .inner{padding:18px;display:grid;grid-template-rows:1.35fr 1fr .6fr;gap:8px}.d1 .hero{border:3px solid #111;border-radius:12px;padding:18px;box-shadow:6px 6px #111}.d1 .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}.d1 .pair div{border:3px solid #111;border-radius:10px;padding:12px;box-shadow:5px 5px #111}.d1 .pair div:first-child{background:#c9bcff}.d1 .pair div:last-child{background:#f4cf35}.d1 .foot{background:#ff642b;border:3px solid #111;border-radius:10px;padding:12px;box-shadow:5px 5px #111}
+.d2 .inner{background:#eee9dc;padding:12px}.d2 .eye{height:85px;background:#724ec8;margin-bottom:7px;clip-path:polygon(0 6%,96% 0,100% 92%,4% 100%)}.d2 .orange{height:135px;background:#ff642b;padding:16px;position:relative}.d2 .orange:after{content:"";position:absolute;right:15px;bottom:10px;width:58px;height:82px;background:#171717;clip-path:polygon(20% 0,100% 8%,84% 100%,0 86%)}.d2 .bottom{display:grid;grid-template-columns:1fr 1.2fr;gap:7px;margin-top:7px}.d2 .bottom div:first-child{background:#f2eee3;padding:10px}.d2 .bottom div:last-child{background:#b8b0a4}
+.d3 .inner{padding:18px;background:linear-gradient(#f2eee3 0 42%,#f2cf31 42% 72%,#c5b9ff 72%)}.d3 h3{font-size:64px}.d3 .type{position:absolute;right:18px;top:138px}.d3 .arrow{position:absolute;left:24px;bottom:22px;font-size:54px}
+.d4 .inner{background:#09111d;color:#eef1f9;padding:12px;display:grid;grid-template-columns:.42fr 1fr;gap:8px}.d4 .mini{border:1px solid #d8dff5;padding:8px;font:700 10px/1.6 "Atkinson Hyperlegible Mono",monospace}.d4 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px}.d4 .tiles div{min-height:70px;border-radius:7px;padding:10px;color:#111}.d4 .tiles div:nth-child(1){background:#f2eee3}.d4 .tiles div:nth-child(2){background:#b5e33c}.d4 .tiles div:nth-child(3){background:#f46ab3}.d4 .tiles div:nth-child(4){background:#315ee4;color:white}
+.d5 .inner{padding:10px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:7px}.d5 .inner div{border-radius:8px;padding:12px}.d5 .inner div:nth-child(1){background:#f2eee3}.d5 .inner div:nth-child(2){background:#ff642b}.d5 .inner div:nth-child(3){background:#f2cf31}.d5 .inner div:nth-child(4){background:#f2eee3}.d5 .inner div:nth-child(5){background:#7450cf;color:#111}.d5 .inner div:nth-child(6){background:#ef82ad}
+.d6 .inner{background:#0d1523;color:#eee;padding:18px}.d6 .collage{position:absolute;right:12px;top:12px;width:52%;height:290px;background:linear-gradient(180deg,#6545b8 0 40%,#ff6431 40% 63%,#e883a9 63% 100%);clip-path:polygon(8% 0,100% 0,96% 100%,0 95%)}.d6 h3{position:absolute;left:18px;top:38px;z-index:2}.d6 .type{position:absolute;left:18px;top:150px;z-index:2;line-height:1.7}
+@media(max-width:980px){.direction-grid{grid-template-columns:1fr}}
+</style>
+
+<style>
+/* Expanded recovery: Anchor + one full study per direction. */
+.expanded-lab{background:#0b0f1c;color:#eef1f9;border-color:#d8dff5}
+.expanded-lab .study-head{border-color:#d8dff5}
+.anchor-dashboard{margin:22px;border:2px solid #d8dff5;background:#09111d;box-shadow:0 0 0 10px #050814;display:grid;grid-template-columns:180px minmax(0,1fr);min-height:760px}
+.anchor-rail{border-right:2px solid #d8dff5;padding:18px 14px;display:flex;flex-direction:column;gap:18px}
+.anchor-rail .wm{font-size:25px}
+.anchor-menu{display:grid;gap:8px;font:700 10px/1.25 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:#cfd6ee}
+.anchor-menu span{padding:8px 9px;border:1px solid rgba(216,223,245,.45)}
+.anchor-main{min-width:0}
+.anchor-mainbar{padding:14px 16px;border-bottom:2px solid #d8dff5;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.anchor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px}
+.anchor-grid .direction-card{min-width:0;height:320px;border-color:#d8dff5}
+.anchor-grid .direction-card .inner{height:calc(100% - 31px)}
+.anchor-grid .direction-card h3{font-size:clamp(34px,4vw,64px)}
+.expanded-stage{padding:28px 22px 38px;background:#070c16}
+.expanded-stage .direction-card{width:min(1180px,100%);height:690px;margin:0 auto;border:2px solid #d8dff5;box-shadow:0 0 0 10px #050814}
+.expanded-stage .direction-card .inner{height:calc(100% - 31px)}
+.expanded-stage .direction-card h3{font-size:clamp(68px,8vw,132px);line-height:.82;letter-spacing:-.07em}
+.expanded-stage .d1 .pair{min-height:210px}
+.expanded-stage .d2 .eye{height:150px}
+.expanded-stage .d2 .orange{height:300px}
+.expanded-stage .d3 .type{font-size:18px;line-height:1.65}
+.expanded-stage .d4 .mini{font-size:14px}
+.expanded-stage .d4 .tiles div{min-height:150px;font-size:17px}
+.expanded-stage .d5 .inner div{padding:22px;font-size:16px}
+.expanded-stage .d6 .collage{height:520px}
+.expanded-note{max-width:1180px;margin:0 auto;padding:0 22px 34px;background:#070c16;color:#cfd6ee;font:700 11px/1.55 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:980px){
+  .anchor-dashboard{grid-template-columns:1fr}
+  .anchor-rail{border-right:0;border-bottom:2px solid #d8dff5}
+  .anchor-grid{grid-template-columns:1fr}
+  .anchor-grid .direction-card{height:430px}
+  .expanded-stage .direction-card{height:620px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="title">Qwerty Labs / Instrument Card Studies Expanded / recovered working build</div>
+  <div class="nav">
+    <a href="#rooms">1 rooms</a>
+    <a href="#broadcast">2 broadcast</a>
+    <a href="#revision">3 open revision</a>
+    <a href="#registration">4 registration press</a>
+    <a href="#instrument">5 instrument panel</a>
+  </div>
+</div>
+<div class="intro wrap">
+  <div class="meta">Grounding used this round: early internet art and the web as a medium; open design and in-process critique; printer marks / registration logic; Atkinson Hyperlegible; and hands-on interface metaphors.</div>
+  <h1>Five genuinely different <br>territory options.</h1>
+  <p>These are meant to feel different to a human at first glance, not just after reading the labels. Each option uses a different ancestral family, a different webpage structure, and a different visual grammar.</p>
+  <p class="small">The most likely outcome for QL is still a hybrid later, but first these need to separate properly.</p>
+</div>
+
+<div class="wrap">
+
+<section class="study" id="rooms">
+  <div class="study-head">
+    <div><div class="meta">01 / Personal Web / Rooms</div><h2>The internet has rooms again.</h2></div>
+    <p>Built from the idea of early personal sites, small communities and distinct corners of the web. More social and inhabited than “tech”. Less futuristic, more belonging.</p>
+  </div>
+  <div class="mock rooms">
+    <div class="sitebar"><div class="wm">qwerty <span class="labs">labs</span></div><div class="meta">children / teens / adults / organisations</div></div>
+    <div class="page">
+      <aside class="left">
+        <div class="panel paint" style="--shape:var(--pink)"><span class="strip">studio note</span><p>Each part of the studio can have its own room without losing the overall identity.</p></div>
+        <div class="panel paint" style="--shape:var(--green)"><span class="strip">open today</span><p>After-school labs<br>Adult AI workshops<br>Holiday projects</p></div>
+      </aside>
+      <main class="main">
+        <span class="strip">welcome</span>
+        <h3>A place with <br>multiple corners.</h3>
+        <p>Qwerty Labs feels like a real part of the internet again: inhabited, specific, a bit strange, and clearly made by humans with their own voices.</p>
+        <div class="links"><span>children</span><span>teens</span><span>adults</span><span>project notes</span><span>community board</span><span>current offers</span></div>
+      </main>
+      <aside class="right">
+        <div class="panel paint" style="--shape:var(--orange)"><span class="strip">from the board</span><p>What people built this week, what changed, and what deserves another round.</p></div>
+        <div class="panel paint" style="--shape:var(--blue)"><span class="strip">next session</span><p>Robotics, AI image tools, Processing, physical computing and other curious pursuits.</p></div>
+      </aside>
+    </div>
+  </div>
+  <div class="note-grid"><div class="note"><h4>Strength</h4><p>Belonging, warmth, “humans live here”.</p></div><div class="note"><h4>Risk</h4><p>Could tip too soft or scrapbooky if not disciplined.</p></div><div class="note"><h4>Best use</h4><p>Community, project stories, student/cadet pathways.</p></div></div>
+</section>
+
+<section class="study" id="broadcast">
+  <div class="study-head">
+    <div><div class="meta">02 / Broadcast / Signal</div><h2>Signal, noise, tuning, transmission.</h2></div>
+    <p>Built from TV static, test signals and transmission language. This is the strongest break from the colour-field web look: harder, sharper, almost monochrome.</p>
+  </div>
+  <div class="mock broadcast">
+    <div class="screen">
+      <div class="bar"><span>Qwerty Labs broadcast</span><span>channel live / education + making</span></div>
+      <div class="hero">
+        <div class="test"></div>
+        <span class="strip">signal acquired</span>
+        <h3>strange tech,<br>clear signal.</h3>
+        <p>Technology is noisy. The studio helps people tune in, sort signal from static, and make something with what they find.</p>
+      </div>
+      <div class="ticker">Now transmitting: code / electronics / ai / design / hands-on workshops / marrickville</div>
+      <div class="grid">
+        <div class="cell"><span class="strip">transmission 01</span><h4>Current offers</h4><p>Short, clear and high-contrast.</p></div>
+        <div class="cell"><span class="strip">transmission 02</span><h4>Project logs</h4><p>Less friendly-cosy, more crisp and memorable.</p></div>
+        <div class="cell"><span class="strip">transmission 03</span><h4>Signal notes</h4><p>TV static becomes a behaviour, not a dirty overlay.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="note-grid"><div class="note"><h4>Strength</h4><p>Distinctive and least like generic creative-agency web design.</p></div><div class="note"><h4>Risk</h4><p>Could feel colder or more severe without a warmer secondary layer.</p></div><div class="note"><h4>Best use</h4><p>Strong identity spine, titles, landing pages, campaign headers.</p></div></div>
+</section>
+
+<section class="study" id="revision">
+  <div class="study-head">
+    <div><div class="meta">03 / Open Revision</div><h2>The working copy stays public.</h2></div>
+    <p>Built from open design, public feedback, branch logic and visible improvement. It treats revision as a sign of intelligence rather than mess.</p>
+  </div>
+  <div class="mock revision">
+    <div class="doc">
+      <aside class="sidebar">
+        <h4>Recent changes</h4>
+        <div class="commit"><b>v0.7</b><br>tightened value proposition</div>
+        <div class="commit"><b>v0.8</b><br>moved AI into current offers</div>
+        <div class="commit"><b>v0.9</b><br>reframed studio as place, not service list</div>
+      </aside>
+      <div class="page">
+        <div class="pagebar"><div class="wm">qwerty <span class="labs">labs</span></div><div class="meta">public working copy / comments welcome</div></div>
+        <div class="hero">
+          <div class="scratch"></div>
+          <span class="strip">home draft</span>
+          <h3><span class="del">technology as content</span><br><span class="ins">technology as something people can shape</span></h3>
+          <p>The site itself behaves like an active working document. People can see that ideas were tested, changed and made better.</p>
+        </div>
+        <div class="story">
+          <div class="box"><span class="strip">notes</span><h4>Why it fits</h4><p>QL teaches through iteration and real work. The web language should support that.</p></div>
+          <div class="box"><span class="strip">warning</span><h4>Too much and it becomes admin.</h4><p>The hierarchy has to stay elegant and public-facing.</p></div>
+          <div class="box"><span class="strip">best role</span><h4>Excellent for project pages and working decks.</h4><p>Could be a strong layer rather than the whole public site.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note-grid"><div class="note"><h4>Strength</h4><p>Deeply true to how QL actually works.</p></div><div class="note"><h4>Risk</h4><p>May feel too document-like as the sole public face.</p></div><div class="note"><h4>Best use</h4><p>Project stories, decks, behind-the-scenes pages, studio notes.</p></div></div>
+</section>
+
+<section class="study" id="registration">
+  <div class="study-head">
+    <div><div class="meta">04 / Registration Press</div><h2>Proof it. Align it. Print it.</h2></div>
+    <p>Built from registration marks, crop marks, colour bars and overprint logic. This is where rough colour, tactile surfaces and the creative process can meet a mature technical framework.</p>
+  </div>
+  <div class="mock registration">
+    <div class="sheet">
+      <div class="marks"><div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div></div>
+      <div class="sheetbar"><div class="wm">qwerty <span class="labs">labs</span></div><div class="meta">proof state / marks visible / version 01</div></div>
+      <div class="hero">
+        <div class="shapeA"></div><div class="shapeB"></div><div class="shapeC"></div>
+        <span class="strip">identity test</span>
+        <h3>visible process.<br>quiet confidence.</h3>
+        <p>The system shows how things are made: aligned, checked, overprinted, corrected. It feels grown-up without becoming sterile.</p>
+        <div class="colorbars"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="blocks">
+        <div class="b"><span class="strip">signage</span><h4>Excellent for print and physical presence.</h4></div>
+        <div class="b"><span class="strip">risk</span><h4>Could become too design-insider if overplayed.</h4></div>
+        <div class="b"><span class="strip">best role</span><h4>Backbone layer under a warmer social territory.</h4></div>
+      </div>
+    </div>
+  </div>
+  <div class="note-grid"><div class="note"><h4>Strength</h4><p>Prestige, system intelligence, scalability.</p></div><div class="note"><h4>Risk</h4><p>Needs warmth borrowed from another territory.</p></div><div class="note"><h4>Best use</h4><p>Signage, documents, serious web pages, templates.</p></div></div>
+</section>
+
+<section class="study" id="instrument">
+  <div class="study-head">
+    <div><div class="meta">05 / Instrument Panel</div><h2>Touch the system.</h2></div>
+    <p>Built from creative tools and direct manipulation. This is the most present-day and future-facing option: less memory, more agency. It makes technology feel like an instrument you can learn to operate.</p>
+  </div>
+  <div class="mock instrument">
+    <div class="frame">
+      <div class="bar"><div class="wm">qwerty <span class="labs">labs</span></div><div class="meta">lab state / interactive / adjustable</div></div>
+      <div class="hero">
+        <span class="strip">live interface</span>
+        <h3>learn it by <br>moving it.</h3>
+        <p>Instead of telling people they can get hands-on with code, AI, electronics and design, the website makes “adjust, test, see” part of the brand behaviour.</p>
+      </div>
+      <div class="controls">
+        <div class="projects">
+          <div class="p" style="--accent:var(--green)"><span class="strip">children</span><h4>small-group making</h4><p>Projects that grow in complexity.</p></div>
+          <div class="p" style="--accent:var(--pink)"><span class="strip">teens</span><h4>deeper technical work</h4><p>More independence and challenge.</p></div>
+          <div class="p" style="--accent:var(--blue)"><span class="strip">adults</span><h4>new tools, real uses</h4><p>AI and creative tech without fluff.</p></div>
+          <div class="p" style="--accent:var(--orange)"><span class="strip">organisations</span><h4>custom labs</h4><p>Studio thinking applied outside the studio.</p></div>
+        </div>
+        <div class="side">
+          <label>creativity ↔ structure</label><input type="range" value="60">
+          <label>signal ↔ static</label><input type="range" value="42">
+          <label>solo ↔ together</label><input type="range" value="72">
+          <button>open current offers</button>
+          <button>preview an AI workshop</button>
+          <button>see student projects</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note-grid"><div class="note"><h4>Strength</h4><p>Most directly says “hands-on with new tools”.</p></div><div class="note"><h4>Risk</h4><p>Can drift toward generic software UI if not carefully styled.</p></div><div class="note"><h4>Best use</h4><p>Homepage, labs, workshops, interactive explainers.</p></div></div>
+</section>
+
+<section class="study ref-card-lab" id="reference-card-studies">
+  <div class="study-head">
+    <div><div class="meta">05 / Instrument Panel / card studies from your new references</div><h2>Sleek shell.<br>Printed, handmade interruptions.</h2></div>
+    <p>I’ve kept the original dark Instrument Panel intact and moved the supplied title-sequence language into the cards: broad flat fields, imperfect painted masks, tiny cropped image fragments, typewriter-like labels, tinted reproduction and print misregistration.</p>
+  </div>
+  <div class="ref-shell">
+    <div class="ref-shellbar"><div class="wm">qwerty <span class="labs">labs</span></div><div class="meta">six treatments / same clean technical system</div></div>
+    <div class="ref-grid">
+      <div class="ref-study"><div class="caption">A / painted modules</div><div class="ref-card ref-a"><div class="rough green"></div><div class="rough violet"></div><div class="rough pink"></div><div class="photo"></div><div class="label">CURRENT LABS:<br><b>MAKE / TEST / CHANGE</b></div></div></div>
+      <div class="ref-study"><div class="caption">B / oversized crop</div><div class="ref-card ref-b"><div class="rough green"></div><div class="label">CURRENT PROJECTS<br><b>CODE / AI / ELECTRONICS</b></div></div></div>
+      <div class="ref-study"><div class="caption">C / tinted fragments + mask</div><div class="ref-card ref-c"><div class="photo one"></div><div class="photo two"></div><div class="rough blue"></div><div class="label">QWERTY LABS<br>IN PROGRESS:</div></div></div>
+      <div class="ref-study"><div class="caption">D / poster split + tiny crop</div><div class="ref-card ref-d"><div class="rough orange"></div><div class="photo"></div><div class="eye"></div><div class="label">WORKSHOP NOTES:<br>HUMANS WERE HERE</div></div></div>
+      <div class="ref-study"><div class="caption">E / proof frame</div><div class="ref-card ref-e"><div class="rough purple"></div><div class="rough lime"></div><div class="window"></div><div class="label">AFTER SCHOOL</div><div class="label second">ADULT LABS</div></div></div>
+      <div class="ref-study"><div class="caption">F / human traces</div><div class="ref-card ref-f"><div class="rough green"></div><div class="rough peach"></div><div class="rough violet"></div><div class="rough pink"></div><div class="fingerprints"></div><div class="label">BUILT BY PEOPLE<br>WITH COMPUTERS</div></div></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="study expanded-lab" id="expanded-anchor">
+  <div class="study-head">
+    <div><div class="meta">ANCHOR / six graphic explorations</div><h2>Dark dashboard outside.<br>Qwerty experiments inside.</h2></div>
+    <p>The anchor view keeps the clean Instrument shell intact while the six internal studies push different kinds of human, editorial and digital behaviour. This is the comparison board before each direction gets room to breathe.</p>
+  </div>
+  <div class="anchor-dashboard">
+    <aside class="anchor-rail">
+      <div class="wm">qwerty <span class="labs">labs</span></div>
+      <div class="anchor-menu"><span>home</span><span>explorations</span><span>studio</span><span>library</span><span>notes</span></div>
+    </aside>
+    <div class="anchor-main">
+      <div class="anchor-mainbar"><div class="meta">graphic explorations / 01–06</div><div class="meta">instrument shell / comparative view</div></div>
+      <div class="anchor-grid"><div class="direction-card d1"><div class="cap">01 / modern modular</div><div class="inner"><div class="hero"><h3>Qwerty<br>Labs</h3></div><div class="pair"><div class="type">EARLY PIECE<br><br>continuation<br>anticipation</div><div></div></div><div class="foot type">A SMALLER TOMORROW ALREADY HERE.</div></div></div><div class="direction-card d2"><div class="cap">02 / collage layers</div><div class="inner"><div class="eye"></div><div class="orange"><h3>Qwerty<br>Labs</h3><div class="type">creative technology<br>for curious people.</div></div><div class="bottom"><div class="type">MAKE<br>TEST<br>TWEAK<br>REPEAT</div><div></div></div></div></div><div class="direction-card d3"><div class="cap">03 / big type</div><div class="inner"><h3>Qwerty<br>Labs</h3><div class="type">IDEAS<br>TOOLS<br>PROJECTS<br>PEOPLE</div><div class="arrow">→</div></div></div><div class="direction-card d4"><div class="cap">04 / interface elements</div><div class="inner"><div class="mini">STUDIO<br>PROJECTS<br>PEOPLE<br>TOOLS<br>RESOURCES</div><div class="tiles"><div><b>Qwerty Labs</b></div><div class="type">MAKE TEST TWEAK REPEAT</div><div class="type">creative technology for curious people.</div><div></div></div></div></div><div class="direction-card d5"><div class="cap">05 / playful grid</div><div class="inner"><div><h3>Qwerty<br>Labs</h3></div><div class="type">PEOPLE<br>IDEAS<br>PROGRESS<br>TOGETHER</div><div class="type">CREATIVE TECHNOLOGY<br>FOR CURIOUS PEOPLE.</div><div></div><div></div><div class="type">MAKE<br>TEST<br>TWEAK<br>REPEAT</div></div></div><div class="direction-card d6"><div class="cap">06 / experimental signal</div><div class="inner"><h3>Qwerty<br>Labs</h3><div class="type">IDEAS<br>TOOLS<br>PROJECTS<br>PEOPLE</div><div class="collage"></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="study expanded-lab" id="expanded-01">
+  <div class="study-head"><div><div class="meta">01 / Modern Modular</div><h2>Modern Modular.</h2></div><p>Clean, blocky and deliberately composed. The test is whether modular structure can feel authored and specific rather than becoming generic contemporary design.</p></div>
+  <div class="expanded-stage"><div class="direction-card d1"><div class="cap">01 / modern modular</div><div class="inner"><div class="hero"><h3>Qwerty<br>Labs</h3></div><div class="pair"><div class="type">EARLY PIECE<br><br>continuation<br>anticipation</div><div></div></div><div class="foot type">A SMALLER TOMORROW ALREADY HERE.</div></div></div></div>
+  <div class="expanded-note">Test: can the modular rule generate headers, cards, signage and motion without becoming a template system anyone could own?</div>
+</section>
+
+<section class="study expanded-lab" id="expanded-02">
+  <div class="study-head"><div><div class="meta">02 / Collage Dashboard</div><h2>Collage Dashboard.</h2></div><p>Physical-looking fragments, crops and fields live inside a disciplined digital frame. This is the strongest direct test of “sleek shell, human interruption”.</p></div>
+  <div class="expanded-stage"><div class="direction-card d2"><div class="cap">02 / collage layers</div><div class="inner"><div class="eye"></div><div class="orange"><h3>Qwerty<br>Labs</h3><div class="type">creative technology<br>for curious people.</div></div><div class="bottom"><div class="type">MAKE<br>TEST<br>TWEAK<br>REPEAT</div><div></div></div></div></div></div>
+  <div class="expanded-note">Test: the interruption has to change meaning or hierarchy, not merely add texture.</div>
+</section>
+
+<section class="study expanded-lab" id="expanded-03">
+  <div class="study-head"><div><div class="meta">03 / Big Type Editorial</div><h2>Big Type Editorial.</h2></div><p>The identity is carried by typography, scale and sequencing rather than a separate logo symbol. Useful if Qwerty Labs becomes recognisable through behaviour and voice.</p></div>
+  <div class="expanded-stage"><div class="direction-card d3"><div class="cap">03 / big type</div><div class="inner"><h3>Qwerty<br>Labs</h3><div class="type">IDEAS<br>TOOLS<br>PROJECTS<br>PEOPLE</div><div class="arrow">→</div></div></div></div>
+  <div class="expanded-note">Test: does the typographic behaviour remain recognisable at tiny scale, in one colour and outside a hero layout?</div>
+</section>
+
+<section class="study expanded-lab" id="expanded-04">
+  <div class="study-head"><div><div class="meta">04 / Interface Elements</div><h2>Interface Elements.</h2></div><p>Tools, controls, states and small UI fragments become brand material. The opportunity is agency; the danger is immediately drifting into SaaS.</p></div>
+  <div class="expanded-stage"><div class="direction-card d4"><div class="cap">04 / interface elements</div><div class="inner"><div class="mini">STUDIO<br>PROJECTS<br>PEOPLE<br>TOOLS<br>RESOURCES</div><div class="tiles"><div><b>Qwerty Labs</b></div><div class="type">MAKE TEST TWEAK REPEAT</div><div class="type">creative technology for curious people.</div><div></div></div></div></div></div>
+  <div class="expanded-note">Test: every interface fragment should do something distinctly Qwerty, not simply look technical.</div>
+</section>
+
+<section class="study expanded-lab" id="expanded-05">
+  <div class="study-head"><div><div class="meta">05 / Playful Grid</div><h2>Playful Grid.</h2></div><p>A strict underlying structure gives colour and content somewhere to misbehave. The grid is only useful if the behaviour within it is ownable.</p></div>
+  <div class="expanded-stage"><div class="direction-card d5"><div class="cap">05 / playful grid</div><div class="inner"><div><h3>Qwerty<br>Labs</h3></div><div class="type">PEOPLE<br>IDEAS<br>PROGRESS<br>TOGETHER</div><div class="type">CREATIVE TECHNOLOGY<br>FOR CURIOUS PEOPLE.</div><div></div><div></div><div class="type">MAKE<br>TEST<br>TWEAK<br>REPEAT</div></div></div></div>
+  <div class="expanded-note">Test: kill it if the grid itself is doing the identity work. The Qwerty-specific rule must be the thing that happens to the grid.</div>
+</section>
+
+<section class="study expanded-lab" id="expanded-06">
+  <div class="study-head"><div><div class="meta">06 / Experimental Signal</div><h2>Experimental Signal.</h2></div><p>The hardest, least polite direction: compressed information, signal, interruption and unusual digital behaviour inside the same calm shell.</p></div>
+  <div class="expanded-stage"><div class="direction-card d6"><div class="cap">06 / experimental signal</div><div class="inner"><h3>Qwerty<br>Labs</h3><div class="type">IDEAS<br>TOOLS<br>PROJECTS<br>PEOPLE</div><div class="collage"></div></div></div></div>
+  <div class="expanded-note">Test: keep the signal meaningful. Random glitch styling is dead; transformation, legibility and state change remain alive.</div>
+</section>
+</div>
+</body>
+</html>
