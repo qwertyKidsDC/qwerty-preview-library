@@ -473,6 +473,20 @@ a{color:inherit}
     url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
   opacity:.48;
 }
+
+.c02-trial.baseline .heroRibbon{overflow:hidden}
+.c02-trial.baseline .heroRibbon .mid{position:relative;z-index:5}
+.c02-trial.baseline .heroRibbon .mid:after{
+  content:"";
+  position:absolute;
+  inset:-18px -22px;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+  opacity:.48;
+}
 /* B — same shell/background, cards pushed toward physical/editorial source */
 .c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
 .c02-trial.lived .cards{gap:16px;align-items:stretch}
