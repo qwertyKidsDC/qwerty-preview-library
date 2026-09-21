@@ -460,19 +460,19 @@ a{color:inherit}
   font-weight:800;
   padding:13px 0;
 }
-.c02-trial.baseline .card .texture{
-  opacity:.18;
-  mix-blend-mode:multiply;
-  filter:contrast(1.18);
+/* Exact Concept 06 signal-board overlay applied to each C02A colour card */
+.c02-trial.baseline .card .texture{display:none}
+.c02-trial.baseline .card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
   background:
-    linear-gradient(180deg,rgba(241,248,248,.08),transparent 30%,rgba(2,0,32,.08)),
-    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" seed="11"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+    linear-gradient(180deg,rgba(255,255,255,.06),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+  opacity:.2;
 }
-.c02-trial.baseline .card.blue .texture{opacity:.24}
-.c02-trial.baseline .card.pink .texture{opacity:.22}
-.c02-trial.baseline .card.green .texture{opacity:.17}
-.c02-trial.baseline .card.orange .texture{opacity:.16}
-
 /* B — same shell/background, cards pushed toward physical/editorial source */
 .c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
 .c02-trial.lived .cards{gap:16px;align-items:stretch}
