@@ -378,6 +378,117 @@ a{color:inherit}
 }
 </style>
 
+
+<style>
+/* C02 controlled update trials — QL palette only */
+.c02-trials{
+  --ql-blue:#4C69E3;
+  --ql-pink:#F66DC1;
+  --ql-green:#92D644;
+  --ql-orange:#FF9029;
+  --ql-base:#F1F8F8;
+  --ql-dark:#020020;
+}
+.c02-trials.concept-shell{background:var(--ql-dark);border-color:var(--ql-base);box-shadow:0 0 0 10px var(--ql-dark)}
+.c02-trials .concept-num,.c02-trials .concept-summary{color:var(--ql-base)}
+.c02-trials .trial-label{font:700 11px/1.2 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ql-base);margin:24px 0 8px}
+.c02-trial{background:var(--ql-dark);padding:18px;color:var(--ql-base);border-color:rgba(241,248,248,.22)}
+.c02-trial .layout{display:grid;grid-template-columns:190px 1fr;grid-template-rows:auto 1fr;min-height:584px;position:relative;z-index:2}
+.c02-trial .topbar{
+  grid-column:1/-1;
+  position:relative;top:auto;z-index:3;
+  padding:12px 16px;
+  border:1px solid var(--ql-blue);
+  border-left:0;border-right:0;border-top:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.c02-trial .topbar .mono{color:var(--ql-base);font-weight:700}
+.c02-trial .side{padding:16px 14px;border-right:1px solid rgba(241,248,248,.22);background:var(--ql-dark)}
+.c02-trial .side .navitem{
+  display:block;padding:9px 0;border-bottom:1px solid rgba(241,248,248,.16);
+  font:700 12px/1.2 "Atkinson Hyperlegible Mono",monospace;color:var(--ql-base);
+}
+.c02-trial .side .navitem.active{color:var(--ql-green)}
+.c02-trial .main{padding:20px;display:grid;grid-template-rows:auto 1fr auto;gap:16px;position:relative}
+.c02-trial .big{color:var(--ql-base)!important}
+.c02-trial .descriptor{font:700 15px/1.25 "Atkinson Hyperlegible Mono",monospace;color:var(--ql-blue);letter-spacing:.08em}
+.c02-trial .heroRibbon{width:56%;min-height:118px;background:var(--ql-green);color:var(--ql-dark);padding:18px 22px;position:relative}
+.c02-trial .heroRibbon:before{content:"";position:absolute;left:-18px;top:-14px;width:64px;height:40px;background:var(--ql-pink)}
+.c02-trial .heroRibbon:after{content:"";position:absolute;left:32px;top:-14px;width:46px;height:40px;background:var(--ql-blue)}
+.c02-trial .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.c02-trial .card{min-height:290px;color:var(--ql-dark);position:relative;overflow:hidden;background:var(--ql-base)}
+.c02-trial .card.blue{background:var(--ql-blue);color:var(--ql-base)}
+.c02-trial .card.green{background:var(--ql-green)}
+.c02-trial .card.orange{background:var(--ql-orange)}
+.c02-trial .card.pink{background:var(--ql-pink)}
+.c02-trial .card .tape{
+  position:absolute;left:14px;bottom:14px;background:var(--ql-base);color:var(--ql-dark);
+  padding:8px 12px;border-radius:8px;font:700 13px/1 "Atkinson Hyperlegible Mono",monospace;z-index:5
+}
+.c02-trial .card .copy{
+  position:absolute;left:18px;bottom:54px;max-width:72%;
+  font:400 18px/1.28 "Atkinson Hyperlegible Mono",monospace;z-index:5
+}
+.c02-trial .card .texture{
+  position:absolute;inset:0;opacity:.14;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E')
+}
+.c02-trial .card .patch{position:absolute;z-index:2}
+.c02-trial .card.blue .patch{right:16%;top:17%;width:31%;height:23%;background:var(--ql-orange)}
+.c02-trial .card.green .patch{left:35%;top:32%;width:32%;height:21%;background:var(--ql-pink)}
+.c02-trial .card.orange .patch{right:8%;top:12%;width:42%;height:16%;background:var(--ql-blue)}
+.c02-trial .card.pink .patch{left:13%;top:18%;width:37%;height:27%;background:var(--ql-green)}
+
+/* B — same shell/background, cards pushed toward physical/editorial source */
+.c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
+.c02-trial.lived .cards{gap:16px;align-items:stretch}
+.c02-trial.lived .card:nth-child(1){clip-path:polygon(1% 2%,98% 0,100% 95%,5% 100%,0 68%);transform:rotate(-.7deg)}
+.c02-trial.lived .card:nth-child(2){clip-path:polygon(0 0,96% 3%,100% 83%,92% 100%,3% 96%);transform:rotate(.45deg)}
+.c02-trial.lived .card:nth-child(3){clip-path:polygon(3% 0,100% 5%,97% 96%,8% 100%,0 88%);transform:rotate(-.35deg)}
+.c02-trial.lived .card:nth-child(4){clip-path:polygon(0 4%,94% 0,100% 93%,90% 100%,4% 97%);transform:rotate(.65deg)}
+.c02-trial.lived .card:before{
+  content:"";position:absolute;inset:8px -4px -7px 7px;border:2px solid var(--ql-dark);opacity:.8;z-index:1
+}
+.c02-trial.lived .card .texture{opacity:.28;mix-blend-mode:multiply}
+.c02-trial.lived .card .tape{border-radius:2px;transform:rotate(-1.4deg);box-shadow:4px 3px 0 var(--ql-dark)}
+.c02-trial.lived .card:nth-child(even) .tape{transform:rotate(1.2deg)}
+.c02-trial.lived .card .patch{outline:2px solid var(--ql-dark)}
+.c02-trial.lived .card.blue .patch{right:7%;top:11%;width:43%;height:25%;transform:rotate(2deg)}
+.c02-trial.lived .card.green .patch{left:8%;top:17%;width:51%;height:34%;clip-path:polygon(0 6%,93% 0,100% 82%,15% 100%)}
+.c02-trial.lived .card.orange .patch{right:5%;top:9%;width:55%;height:20%;transform:rotate(-3deg)}
+.c02-trial.lived .card.pink .patch{left:9%;top:14%;width:49%;height:32%;clip-path:polygon(6% 0,100% 8%,91% 100%,0 88%)}
+
+/* C — same cards as A; shell/background gets Instrument-panel energy */
+.c02-trial.future{background:var(--ql-dark)}
+.c02-trial.future:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(rgba(76,105,227,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(76,105,227,.10) 1px,transparent 1px),
+    radial-gradient(circle at 18% 18%,rgba(76,105,227,.30),transparent 26%),
+    radial-gradient(circle at 84% 70%,rgba(246,109,193,.24),transparent 28%);
+  background-size:42px 42px,42px 42px,auto,auto;
+}
+.c02-trial.future .layout{border:1px solid var(--ql-blue);box-shadow:0 0 0 8px var(--ql-dark),0 0 36px rgba(76,105,227,.22)}
+.c02-trial.future .topbar{border-bottom:2px solid var(--ql-base)}
+.c02-trial.future .side{border-right:2px solid var(--ql-base);background:rgba(2,0,32,.78)}
+.c02-trial.future .main{background:linear-gradient(180deg,rgba(76,105,227,.10),rgba(2,0,32,.14))}
+.c02-trial.future .main:after{
+  content:"signal / studio online";position:absolute;right:18px;top:18px;
+  border:1px solid var(--ql-blue);padding:7px 9px;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ql-base);background:var(--ql-dark)
+}
+@media(max-width:1100px){
+  .c02-trial .layout{grid-template-columns:1fr}
+  .c02-trial .topbar{grid-column:1}
+  .c02-trial .side{border-right:0;border-bottom:1px solid rgba(241,248,248,.22)}
+  .c02-trial .cards{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
 </head>
 <body>
 <div class="topbar">
@@ -387,7 +498,7 @@ a{color:inherit}
     <a href="#broadcast">2 broadcast</a>
     <a href="#revision">3 open revision</a>
     <a href="#registration">4 registration press</a>
-    <a href="#instrument">5 instrument panel</a>
+    <a href="#instrument">5 instrument panel</a><a href="#c02-trials">C02 trials</a>
   </div>
 </div>
 <div class="intro wrap">
@@ -660,7 +771,106 @@ a{color:inherit}
     </div>
   </div>
 
-  <div class="concept-shell">
+  
+<div class="concept-shell c02-trials" id="c02-trials">
+  <div class="concept-top">
+    <div>
+      <div class="concept-num">C02 / controlled update trials</div>
+      <h3 style="margin:6px 0 0;font-size:40px;line-height:.95;letter-spacing:-.05em;color:var(--ql-base)">The dashboard with lived-in cards.</h3>
+    </div>
+    <div class="concept-summary">Same C02 idea, with the requested cleanup first, then one variable pushed at a time.</div>
+  </div>
+  
+  <div class="trial-label">A / corrected baseline</div>
+  <div class="concept-board c02-trial ">
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
+      <div class="side">
+        <span class="navitem active">Home</span>
+        <span class="navitem">Projects</span>
+        <span class="navitem">Studio</span>
+        <span class="navitem">Resources</span>
+        <span class="navitem">People</span>
+      </div>
+      <div class="main">
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+        
+<div class="cards">
+  <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+  <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+  <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+  <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Same structure and card language, now restricted to the QL palette, with readable utility bar and one navigation area on the left.</div>
+  
+  <div class="trial-label">B / more lived-in cards</div>
+  <div class="concept-board c02-trial lived">
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
+      <div class="side">
+        <span class="navitem active">Home</span>
+        <span class="navitem">Projects</span>
+        <span class="navitem">Studio</span>
+        <span class="navitem">Resources</span>
+        <span class="navitem">People</span>
+      </div>
+      <div class="main">
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+        
+<div class="cards">
+  <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+  <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+  <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+  <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Background and shell held constant; only the cards become rougher, more physical and editorial.</div>
+  
+  <div class="trial-label">C / future-facing shell</div>
+  <div class="concept-board c02-trial future">
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
+      <div class="side">
+        <span class="navitem active">Home</span>
+        <span class="navitem">Projects</span>
+        <span class="navitem">Studio</span>
+        <span class="navitem">Resources</span>
+        <span class="navitem">People</span>
+      </div>
+      <div class="main">
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+        
+<div class="cards">
+  <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+  <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+  <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+  <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Cards held exactly as in A; only the surrounding shell/background moves toward the Instrument Panel direction.</div>
+</div>
+
+
+<div class="concept-shell">
     <div class="concept-top">
       <div>
         <div class="concept-num">Concept 03 / big type editorial</div>
