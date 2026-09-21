@@ -603,20 +603,25 @@ a{color:inherit}
 .c02-trial.live-signal .signalWordmark{
   position:relative;
   display:inline-block;
+  color:var(--ql-base)!important;
 }
 .c02-trial.live-signal .signalWordmark:after{
   content:attr(data-text);
   position:absolute;
   inset:0;
-  color:transparent;
   pointer-events:none;
-  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="3" seed="4"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".62" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-size:150px 150px;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  background:
+    linear-gradient(rgba(2,0,32,.16),rgba(2,0,32,.16)),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="3" seed="4"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".92" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:auto,150px 150px;
+  background-blend-mode:multiply;
   -webkit-background-clip:text;
   background-clip:text;
-  opacity:.34;
-  mix-blend-mode:screen;
-  animation:qlSignalNoise 1.35s steps(8,end) infinite;
+  opacity:.72;
+  mix-blend-mode:multiply;
+  animation:qlSignalNoise .95s steps(9,end) infinite;
 }
 .c02-trial.live-signal .heroRibbon:before,
 .c02-trial.live-signal .heroRibbon:after{
@@ -642,17 +647,21 @@ a{color:inherit}
 .c02-trial.live-signal .topbar{position:relative}
 .c02-trial.live-signal .cornerSignal{
   position:absolute;
-  right:158px;
-  top:10px;
-  width:34px;
-  height:18px;
-  border:1px solid rgba(241,248,248,.24);
-  background-color:rgba(241,248,248,.035);
-  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="3" seed="21"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".52" filter="url(%23n)"/%3E%3C/svg%3E');
-  background-size:100px 60px;
-  opacity:.6;
+  right:178px;
+  top:8px;
+  width:42px;
+  height:22px;
+  border:1px solid rgba(241,248,248,.34);
+  background-color:rgba(241,248,248,.055);
+  background-image:
+    linear-gradient(90deg,rgba(241,248,248,.08),transparent 52%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="3" seed="21"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".92" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-size:auto,100px 60px;
+  background-blend-mode:screen,normal;
+  opacity:.92;
+  filter:contrast(1.35);
   pointer-events:none;
-  animation:qlSignalNoise 1s steps(9,end) infinite;
+  animation:qlSignalNoise .82s steps(10,end) infinite;
   animation-delay:-.21s;
 }
 @media (prefers-reduced-motion: reduce){
