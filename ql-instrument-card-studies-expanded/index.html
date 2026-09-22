@@ -714,8 +714,9 @@ a{color:inherit}
 /* image-gen-1 treatment: sparse broken pixels behaving like tiny stars */
 .c02-trial.pixel-stars .star-field{
   background:
-    radial-gradient(circle at 7% 16%,rgba(76,105,227,.10),transparent 15%),
-    radial-gradient(circle at 94% 82%,rgba(246,109,193,.08),transparent 16%);
+    radial-gradient(circle at 7% 16%,rgba(76,105,227,.18),transparent 15%),
+    radial-gradient(circle at 94% 82%,rgba(246,109,193,.15),transparent 16%);
+  mix-blend-mode:screen;
 }
 .c02-trial.pixel-stars .star-field i{
   position:absolute;
@@ -724,27 +725,32 @@ a{color:inherit}
   width:var(--w,4px);
   height:var(--h,4px);
   background:var(--c,var(--ql-blue));
-  opacity:var(--o,.35);
+  opacity:calc(var(--o,.35) + .24);
   box-shadow:
-    var(--sx,0) var(--sy,0) 0 color-mix(in srgb,var(--c,var(--ql-blue)) 78%,transparent);
+    0 0 4px color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent),
+    0 0 11px color-mix(in srgb,var(--c,var(--ql-blue)) 58%,transparent),
+    var(--sx,0) var(--sy,0) 0 color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent);
+  filter:brightness(1.35) saturate(1.28);
+  mix-blend-mode:screen;
   animation:qlPixelTwinkle var(--d,5.8s) steps(2,end) infinite;
   animation-delay:var(--delay,0s);
 }
 @keyframes qlPixelTwinkle{
-  0%,18%,47%,72%,100%{opacity:var(--o,.35);transform:scale(1)}
-  22%{opacity:.9;transform:scale(1.22)}
-  25%{opacity:.28;transform:scale(.92)}
-  52%{opacity:.68;transform:scale(1.08)}
-  55%{opacity:var(--o,.35);transform:scale(1)}
-  77%{opacity:.82;transform:scale(1.15)}
-  80%{opacity:var(--o,.35);transform:scale(1)}
+  0%,18%,47%,72%,100%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
+  22%{opacity:1;transform:scale(1.24)}
+  25%{opacity:.48;transform:scale(.92)}
+  52%{opacity:.9;transform:scale(1.1)}
+  55%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
+  77%{opacity:1;transform:scale(1.18)}
+  80%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
 }
 
 /* image-gen-2 treatment: horizontal corrupted-pixel strips with occasional TV-noise drift */
 .c02-trial.pixel-drift .noise-field{
-  opacity:.82;
+  opacity:1;
   background:
-    linear-gradient(180deg,rgba(76,105,227,.025),transparent 28%,rgba(246,109,193,.02) 72%,transparent);
+    linear-gradient(180deg,rgba(76,105,227,.07),transparent 28%,rgba(246,109,193,.055) 72%,transparent);
+  mix-blend-mode:screen;
 }
 .c02-trial.pixel-drift .noise-field .noise-band{
   position:absolute;
@@ -757,21 +763,22 @@ a{color:inherit}
     repeating-linear-gradient(
       90deg,
       transparent 0 12px,
-      rgba(76,105,227,.72) 12px 24px,
+      rgba(76,105,227,.98) 12px 24px,
       transparent 24px 38px,
-      rgba(246,109,193,.72) 38px 46px,
+      rgba(246,109,193,.98) 38px 46px,
       transparent 46px 61px,
-      rgba(146,214,68,.58) 61px 67px,
+      rgba(146,214,68,.90) 61px 67px,
       transparent 67px 82px,
-      rgba(255,144,41,.58) 82px 88px,
+      rgba(255,144,41,.90) 82px 88px,
       transparent 88px 110px
     );
-  filter:saturate(.92);
+  filter:brightness(1.32) saturate(1.24) drop-shadow(0 0 3px rgba(241,248,248,.32));
+  mix-blend-mode:screen;
   animation:qlTvSlip var(--d,8.7s) steps(2,end) infinite;
   animation-delay:var(--delay,0s);
 }
 .c02-trial.pixel-drift .noise-field .noise-band.faint{
-  opacity:.18;
+  opacity:.28;
   height:1px;
 }
 .c02-trial.pixel-drift .noise-field .noise-pixel{
@@ -781,7 +788,12 @@ a{color:inherit}
   width:var(--w,5px);
   height:var(--h,3px);
   background:var(--c,var(--ql-blue));
-  opacity:var(--o,.35);
+  opacity:calc(var(--o,.35) + .22);
+  box-shadow:
+    0 0 4px color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent),
+    0 0 10px color-mix(in srgb,var(--c,var(--ql-blue)) 54%,transparent);
+  filter:brightness(1.34) saturate(1.26);
+  mix-blend-mode:screen;
   animation:qlTvPixelSlip var(--d,10.5s) steps(2,end) infinite;
   animation-delay:var(--delay,0s);
 }
@@ -793,11 +805,11 @@ a{color:inherit}
   68%,71%{transform:translateX(0)}
 }
 @keyframes qlTvPixelSlip{
-  0%,77%,84%,100%{transform:translateX(0);opacity:var(--o,.35)}
-  78%{transform:translateX(5px);opacity:.72}
-  79%{transform:translateX(-4px);opacity:.45}
-  80%{transform:translateX(2px);opacity:.68}
-  81%,83%{transform:translateX(0);opacity:var(--o,.35)}
+  0%,77%,84%,100%{transform:translateX(0);opacity:calc(var(--o,.35) + .22)}
+  78%{transform:translateX(5px);opacity:1}
+  79%{transform:translateX(-4px);opacity:.68}
+  80%{transform:translateX(2px);opacity:.96}
+  81%,83%{transform:translateX(0);opacity:calc(var(--o,.35) + .22)}
 }
 @media (prefers-reduced-motion: reduce){
   .c02-trial.pixel-stars .star-field i,
