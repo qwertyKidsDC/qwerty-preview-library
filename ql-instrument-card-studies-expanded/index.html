@@ -2538,6 +2538,53 @@ a{color:inherit}
   background:var(--ql-blue);
   box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
 }
+
+/* D1 + D2 paired desktop state: share the settled lower-residue language. */
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field::before,
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-stage::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-stage.one,
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-stage.three{
+  box-shadow:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels i{
+  position:absolute;
+  display:block;
+  opacity:.9;
+  animation:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p1{left:3.5%;top:18%;width:18px;height:7px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p2{right:3.8%;top:38%;width:7px;height:18px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p3{left:4.8%;top:58%;width:22px;height:6px;background:var(--ql-orange)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p4{left:45%;top:69%;width:8px;height:8px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p5{right:8%;top:84%;width:15px;height:5px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p6{right:28%;top:33%;width:7px;height:7px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p7{left:29%;top:42%;width:5px;height:13px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-scrap::before{
+  content:""!important;
+  display:block!important;
+  position:absolute;
+  left:-13px;
+  bottom:17px;
+  width:7px;
+  height:7px;
+  background:var(--ql-blue);
+  box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
+}
 </style>
 </head>
 <body>
@@ -3185,6 +3232,86 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-D2 / reactive residue — light / QL palette</div>
+  <div class="concept-board c02-trial a3-has-continuation nav-palette-test light nofuzz-light people-system residue ">
+    <div class="d1-board-pixels" aria-hidden="true">
+      <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+    </div>
+    <div class="layout">
+      <nav class="ql-float-nav" aria-label="Prototype navigation">
+        <div class="ql-float-head ql-float-toggle" role="button" tabindex="0" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></div>
+        <button type="button" class="active"><span>HOME</span><b>01</b></button>
+        <button type="button"><span>PROJECTS</span><b>02</b></button>
+        <button type="button"><span>STUDIO</span><b>03</b></button>
+        <button type="button"><span>RESOURCES</span><b>04</b></button>
+        <button type="button"><span>PEOPLE</span><b>05</b></button>
+      </nav>
+      <div class="main">
+        <div>
+          <div class="big" role="heading" aria-level="1">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" role="heading" aria-level="2">Creative technology<br>for curious people.</div></div>
+
+        <div class="cards">
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape" role="heading" aria-level="3">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div><div class="card-cta">BRING US AN IDEA <span aria-hidden="true">→</span></div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape" role="heading" aria-level="3">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div><div class="card-cta">SEE HOW WE LEARN <span aria-hidden="true">→</span></div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape" role="heading" aria-level="3">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div><div class="card-cta">SEE WHAT’S BEING MADE <span aria-hidden="true">→</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="a3-continuation c02-trial light nofuzz-light people-system residue" data-a3-variant="Aiii-D2">
+    <div class="a3-canvas">
+      <div class="d1-pixels" aria-hidden="true">
+        <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+        <i class="p6"></i><i class="p7"></i>
+      </div>
+
+      <div class="a3-project-field">
+        <span class="a3-tape">CURRENT PROJECT / STOP:bit → MicroPython</span>
+        <h4>Make the lights behave.</h4>
+        <p>Start with a physical traffic light. Rebuild its behaviour in code. Then make the problem less tidy.</p>
+      </div>
+
+      <figure class="a3-photo-fragment">
+        <img src="https://qwertykids.com/wp-content/uploads/code-camp-near-me-apps-700.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+        <figcaption class="a3-tape">FROM THE STUDIO / REAL TOOLS / REAL PEOPLE</figcaption>
+      </figure>
+
+      <div class="a3-stage one">
+        <span class="a3-tape">01 / FIRST</span>
+        <p>Red. Amber. Green. Get the sequence working.</p>
+      </div>
+      <div class="a3-stage two">
+        <span class="a3-tape">02 / THEN</span>
+        <p>Add a pedestrian crossing and suddenly timing matters.</p>
+      </div>
+      <div class="a3-stage three">
+        <span class="a3-tape">03 / NEXT</span>
+        <p>Make two sets of lights talk to each other by radio.</p>
+      </div>
+
+      <div class="a3-scrap">
+        <span class="a3-tape">STUDIO NOTE / STILL MOVING</span>
+        <p>Not everything here starts as a course. Sometimes it starts as a child saying “could we make…”, a half-built thing on a desk, or somebody refusing to leave the idea alone.</p>
+      </div>
+
+      <div class="a3-open-note">
+        <span>OPEN INPUT</span>
+        <strong>Bring the unfinished version.</strong>
+      </div>
+
+      <div class="a3-side-strip">
+        <b>QWERTY LABS</b><span>CODE</span><span>ELECTRONICS</span><span>AI</span><span>ROBOTS</span><span>DESIGN</span><span>GAMES</span><span>ODD LITTLE EXPERIMENTS</span><span>MARRICKVILLE</span>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL light counterpart to D1. Same floating navigation, content structure and residue language on the light surface.</div>
+
+
+  
+
+<div class="trial-label">Aiii-D2-nav / archived CTRL + ALT + CREATE nav — light</div>
   <div class="concept-board c02-trial a3-has-continuation nav-launcher-test light nofuzz-light people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
@@ -3217,7 +3344,7 @@ a{color:inherit}
       </div>
     </div>
   </div>
-<div class="a3-continuation c02-trial light nofuzz-light people-system residue" data-a3-variant="Aiii-D2">
+<div class="a3-continuation c02-trial light nofuzz-light people-system residue" data-a3-variant="Aiii-D2-nav">
     <div class="a3-canvas">
 
       <div class="a3-project-field">
@@ -3259,7 +3386,7 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL light control. Same residue mechanism and same QL colours, testing whether the idea survives without the dark-tech atmosphere.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Archived navigation study. Light-mode D2 with the CTRL + ALT + CREATE launcher preserved for possible reuse.</div>
 
 
   <div class="trial-label">Aiii-E1 / transfer — dark / cool signal palette</div>
@@ -3916,60 +4043,75 @@ a{color:inherit}
 })();
 
 (() => {
-  const board=document.querySelector('.nav-palette-test');
-  if(!board) return;
-  const nav=board.querySelector('.ql-float-nav');
-  const toggle=nav && nav.querySelector('.ql-float-toggle');
-  const continuation=board.nextElementSibling && board.nextElementSibling.matches('[data-a3-variant="Aiii-D1"]')
-    ? board.nextElementSibling : null;
   const sticky=document.querySelector('body > .topbar');
-  if(!nav || !toggle || !continuation) return;
+  const boards=[...document.querySelectorAll('.nav-palette-test')];
 
-  let travelling=false;
+  boards.forEach((board) => {
+    const nav=board.querySelector('.ql-float-nav');
+    const toggle=nav && nav.querySelector('.ql-float-toggle');
+    const continuation=board.nextElementSibling && board.nextElementSibling.matches('.a3-continuation[data-a3-variant]')
+      ? board.nextElementSibling : null;
+    if(!nav || !toggle || !continuation) return;
 
-  const sync=() => {
-    const boardRect=board.getBoundingClientRect();
-    const stickyBottom=sticky && getComputedStyle(sticky).display!=='none'
-      ? sticky.getBoundingClientRect().bottom
-      : 0;
-    const continuationBottom=continuation.getBoundingClientRect().bottom;
-    const shouldTravel=boardRect.top <= stickyBottom + 18 && continuationBottom > stickyBottom + 150;
+    let travelling=false;
+    let travelStartY=0;
+    let userExpanded=false;
 
-    if(shouldTravel && !travelling){
-      const rect=nav.getBoundingClientRect();
-      nav.style.setProperty('--ql-travel-left',rect.left+'px');
-      nav.style.setProperty('--ql-travel-top',rect.top+'px');
-      nav.classList.add('is-travelling');
-      nav.classList.remove('is-expanded');
-      toggle.setAttribute('aria-expanded','false');
-      travelling=true;
-    }else if(!shouldTravel && travelling){
-      nav.classList.remove('is-travelling','is-expanded');
-      toggle.setAttribute('aria-expanded','true');
-      travelling=false;
-    }
-  };
+    const sync=() => {
+      const boardRect=board.getBoundingClientRect();
+      const stickyBottom=sticky && getComputedStyle(sticky).display!=='none'
+        ? sticky.getBoundingClientRect().bottom
+        : 0;
+      const continuationBottom=continuation.getBoundingClientRect().bottom;
+      const shouldTravel=boardRect.top <= stickyBottom + 18 && continuationBottom > stickyBottom + 150;
 
-  toggle.addEventListener('click',() => {
-    if(!nav.classList.contains('is-travelling')) return;
-    nav.classList.toggle('is-expanded');
-    toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
-  });
-  toggle.addEventListener('keydown',(e) => {
-    if(e.key!=='Enter' && e.key!==' ') return;
-    e.preventDefault();
-    toggle.click();
-  });
+      if(shouldTravel && !travelling){
+        const rect=nav.getBoundingClientRect();
+        nav.style.setProperty('--ql-travel-left',rect.left+'px');
+        nav.style.setProperty('--ql-travel-top',rect.top+'px');
+        nav.classList.add('is-travelling','is-expanded');
+        toggle.setAttribute('aria-expanded','true');
+        travelling=true;
+        userExpanded=false;
+        travelStartY=window.scrollY;
+      }else if(!shouldTravel && travelling){
+        nav.classList.remove('is-travelling','is-expanded');
+        toggle.setAttribute('aria-expanded','true');
+        travelling=false;
+        userExpanded=false;
+      }
 
-  window.addEventListener('scroll',sync,{passive:true});
-  window.addEventListener('resize',() => {
-    if(travelling){
-      nav.classList.remove('is-travelling','is-expanded');
-      travelling=false;
-    }
+      if(travelling && !userExpanded){
+        const collapseAfter=window.innerWidth>760 ? 220 : 80;
+        const keepOpen=window.scrollY-travelStartY < collapseAfter;
+        nav.classList.toggle('is-expanded',keepOpen);
+        toggle.setAttribute('aria-expanded',keepOpen ? 'true' : 'false');
+      }
+    };
+
+    toggle.addEventListener('click',() => {
+      if(!nav.classList.contains('is-travelling')) return;
+      nav.classList.toggle('is-expanded');
+      userExpanded=nav.classList.contains('is-expanded');
+      toggle.setAttribute('aria-expanded',userExpanded ? 'true' : 'false');
+    });
+    toggle.addEventListener('keydown',(e) => {
+      if(e.key!=='Enter' && e.key!==' ') return;
+      e.preventDefault();
+      toggle.click();
+    });
+
+    window.addEventListener('scroll',sync,{passive:true});
+    window.addEventListener('resize',() => {
+      if(travelling){
+        nav.classList.remove('is-travelling','is-expanded');
+        travelling=false;
+        userExpanded=false;
+      }
+      sync();
+    });
     sync();
   });
-  sync();
 })();
 </script>
 </body>
