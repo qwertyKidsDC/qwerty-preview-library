@@ -2161,6 +2161,46 @@ a{color:inherit}
   .nav-palette-test .ql-float-nav.is-travelling{right:10px;top:12px}
   .nav-palette-test .ql-float-nav.is-travelling .ql-float-head{min-width:174px}
 }
+
+/* D1 utility palette polish: inward placement, restored dark title bar, always above content. */
+.concept-board.nav-palette-test,
+.concept-board.a3-has-continuation.nav-palette-test{
+  overflow:visible!important;
+  z-index:20;
+}
+.nav-palette-test .ql-float-nav{
+  right:72px;
+  z-index:5000;
+}
+.nav-palette-test .ql-float-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 9px;
+  background:var(--ql-dark)!important;
+  color:var(--ql-base)!important;
+  border:0!important;
+}
+.nav-palette-test .ql-go-label{margin-right:auto}
+.nav-palette-test .ql-grip{
+  margin-left:auto;
+  color:var(--ql-base);
+  opacity:.62;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  right:64px;
+  z-index:2147483000;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.18));
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  background:var(--ql-dark)!important;
+  color:var(--ql-base)!important;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{right:18px}
+  .nav-palette-test .ql-float-nav.is-travelling{right:14px}
+}
 </style>
 </head>
 <body>
