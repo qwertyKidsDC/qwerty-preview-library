@@ -1351,6 +1351,360 @@ a{color:inherit}
 }
 </style>
 
+
+<style id="a3-continuation-extension">
+/* Aiii continuation experiment
+   Everything above .a3-continuation remains the existing study unchanged.
+   This extends the same interface language below the fold rather than switching
+   to conventional homepage section grammar. */
+.a3-continuation{
+  --a3-rule:rgba(241,248,248,.22);
+  --a3-muted:rgba(241,248,248,.68);
+  position:relative;
+  z-index:3;
+  margin-top:18px;
+  border:1px solid var(--a3-rule);
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  overflow:hidden;
+}
+.a3-continuation *{box-sizing:border-box}
+.a3-continuation .mono{
+  font-family:"Atkinson Hyperlegible Mono",monospace;
+}
+.a3-status{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding:9px 12px;
+  border-bottom:1px solid var(--a3-rule);
+  color:var(--a3-muted);
+  font:700 10px/1.25 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.a3-project{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(310px,.95fr);
+  min-height:360px;
+  border-bottom:1px solid var(--a3-rule);
+}
+.a3-project-copy{
+  padding:28px 26px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-width:0;
+}
+.a3-kicker{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:22px;
+  color:var(--a3-muted);
+  font:700 11px/1.25 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.a3-kicker:before{
+  content:"";
+  width:19px;
+  height:6px;
+  flex:0 0 auto;
+  background:var(--ql-orange);
+}
+.a3-project h4{
+  max-width:13ch;
+  margin:0;
+  font-size:clamp(38px,4.8vw,68px);
+  line-height:.9;
+  letter-spacing:-.055em;
+}
+.a3-project p{
+  max-width:52ch;
+  margin:22px 0 0;
+  font-size:17px;
+  line-height:1.45;
+}
+.a3-project-code{
+  margin-top:28px;
+  color:var(--a3-muted);
+  font:700 10px/1.55 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.a3-photo{
+  position:relative;
+  min-height:360px;
+  margin:0;
+  border-left:1px solid var(--a3-rule);
+  overflow:hidden;
+  background:color-mix(in srgb,var(--ql-blue) 18%,var(--ql-dark));
+}
+.a3-photo img{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  display:block;
+  object-fit:cover;
+  object-position:center 44%;
+  filter:saturate(.88) contrast(1.04);
+}
+.a3-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent 58%,rgba(2,0,32,.48));
+}
+.a3-photo figcaption{
+  position:absolute;
+  z-index:2;
+  left:12px;
+  bottom:12px;
+  max-width:calc(100% - 24px);
+  padding:6px 8px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  font:700 9px/1.25 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.a3-feed{
+  display:grid;
+  grid-template-columns:1.1fr .9fr 1fr 1fr;
+  border-bottom:1px solid var(--a3-rule);
+}
+.a3-feed-item{
+  position:relative;
+  min-height:190px;
+  padding:18px 17px 20px;
+  border-right:1px solid var(--a3-rule);
+  overflow:hidden;
+}
+.a3-feed-item:last-child{border-right:0}
+.a3-feed .num{
+  margin-bottom:34px;
+  color:var(--a3-muted);
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.08em;
+}
+.a3-feed h5{
+  margin:0 0 8px;
+  font-size:24px;
+  line-height:.96;
+  letter-spacing:-.035em;
+}
+.a3-feed p{
+  margin:0;
+  max-width:27ch;
+  font-size:14px;
+  line-height:1.4;
+}
+.a3-feed-item:nth-child(1):before,
+.a3-feed-item:nth-child(2):before,
+.a3-feed-item:nth-child(3):before,
+.a3-feed-item:nth-child(4):before{
+  content:"";
+  position:absolute;
+  right:12px;
+  top:14px;
+  width:38px;
+  height:16px;
+}
+.a3-feed-item:nth-child(1):before{background:var(--ql-green)}
+.a3-feed-item:nth-child(2):before{background:var(--ql-pink)}
+.a3-feed-item:nth-child(3):before{background:var(--ql-blue)}
+.a3-feed-item:nth-child(4):before{background:var(--ql-orange)}
+.a3-working{
+  display:grid;
+  grid-template-columns:minmax(160px,.34fr) minmax(0,1fr);
+  border-bottom:1px solid var(--a3-rule);
+}
+.a3-working-label{
+  padding:22px 18px;
+  border-right:1px solid var(--a3-rule);
+  color:var(--a3-muted);
+  font:700 11px/1.45 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.a3-working-copy{
+  padding:22px 24px 24px;
+  font-size:20px;
+  line-height:1.38;
+  max-width:60ch;
+}
+.a3-input{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:18px;
+  font:700 12px/1.25 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.a3-input .action{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  padding:10px 12px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+.a3-input .action:after{content:"→";font-size:18px;line-height:1}
+
+/* Base Aiii keeps the clean no-fuzz dashboard language. */
+.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(1){background:color-mix(in srgb,var(--ql-green) 8%,transparent)}
+.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(2){background:color-mix(in srgb,var(--ql-pink) 7%,transparent)}
+.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(3){background:color-mix(in srgb,var(--ql-blue) 9%,transparent)}
+
+/* Aiii-b/c: the ambient field now continues behind the additional interface. */
+.c02-trial.pixel-motion .a3-continuation{
+  background:color-mix(in srgb,var(--ql-dark) 86%,transparent);
+  backdrop-filter:blur(.35px);
+}
+.c02-trial.pixel-stars .a3-project-copy:after{
+  content:"";
+  position:absolute;
+  width:5px;height:5px;
+  right:47%;top:17%;
+  background:var(--ql-pink);
+  box-shadow:31px 23px 0 var(--ql-blue),-22px 58px 0 var(--ql-green),58px 91px 0 var(--ql-orange);
+  opacity:.8;
+}
+.c02-trial.pixel-drift .a3-status:after{
+  content:"";
+  position:absolute;
+  left:24%;
+  right:8%;
+  top:27px;
+  height:2px;
+  background:repeating-linear-gradient(90deg,transparent 0 26px,var(--ql-blue) 26px 44px,transparent 44px 73px,var(--ql-pink) 73px 81px);
+  opacity:.42;
+}
+
+/* D-G use each palette/mode already defined above. */
+.c02-trial.people-system .a3-continuation{
+  --a3-rule:color-mix(in srgb,var(--ql-base) 24%,transparent);
+  --a3-muted:color-mix(in srgb,var(--ql-base) 70%,transparent);
+  background:var(--ql-dark);
+  color:var(--ql-base);
+}
+.c02-trial.people-system.light .a3-continuation{
+  --a3-rule:color-mix(in srgb,var(--ql-dark) 24%,transparent);
+  --a3-muted:color-mix(in srgb,var(--ql-dark) 68%,transparent);
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+.c02-trial.people-system.light .a3-photo{
+  background:color-mix(in srgb,var(--ql-blue) 12%,var(--ql-base));
+}
+.c02-trial.people-system.light .a3-photo img{filter:saturate(.82) contrast(1.02)}
+.c02-trial.people-system.light .a3-photo:after{background:linear-gradient(180deg,transparent 62%,rgba(2,0,32,.26))}
+.c02-trial.people-system.light .a3-input .action{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+}
+
+/* D / residue: little traces remain at local joins. */
+.c02-trial.residue .a3-feed-item:nth-child(1):after,
+.c02-trial.residue .a3-feed-item:nth-child(3):after{
+  content:"";
+  position:absolute;
+  left:10px;bottom:9px;
+  width:7px;height:7px;
+  background:var(--ql-blue);
+  box-shadow:9px -5px 0 var(--ql-pink),20px 2px 0 var(--ql-green);
+  opacity:.88;
+}
+.c02-trial.residue .a3-working-copy:after{
+  content:"";
+  display:inline-block;
+  width:18px;height:5px;
+  margin-left:12px;
+  background:var(--ql-orange);
+  vertical-align:middle;
+}
+
+/* E / transfer: one small three-part signal crosses successive modules. */
+.c02-trial.transfer .a3-feed-item:after{
+  content:"";
+  position:absolute;
+  left:16px;
+  bottom:13px;
+  width:20px;height:6px;
+  background:var(--ql-blue);
+  box-shadow:7px 6px 0 var(--ql-pink),14px 0 0 var(--ql-green);
+}
+.c02-trial.transfer .a3-feed-item:nth-child(2):after{transform:rotate(90deg) scale(.86)}
+.c02-trial.transfer .a3-feed-item:nth-child(3):after{transform:rotate(180deg)}
+.c02-trial.transfer .a3-feed-item:nth-child(4):after{transform:rotate(-90deg) scale(.78)}
+
+/* F / accumulation: traces become denser as the scroll deepens. */
+.c02-trial.accumulation .a3-continuation:after{
+  content:"";
+  position:absolute;
+  z-index:5;
+  pointer-events:none;
+  width:6px;height:6px;
+  right:28px;bottom:24px;
+  background:var(--ql-blue);
+  box-shadow:
+    -34px -8px 0 var(--ql-pink),
+    -68px 5px 0 var(--ql-green),
+    -104px -19px 0 var(--ql-orange),
+    -143px 2px 0 var(--ql-blue),
+    -189px -13px 0 var(--ql-pink),
+    -242px 4px 0 var(--ql-green),
+    -301px -21px 0 var(--ql-orange),
+    -366px 1px 0 var(--ql-blue);
+  opacity:.82;
+}
+.c02-trial.accumulation .a3-working{background:color-mix(in srgb,var(--ql-orange) 5%,transparent)}
+
+/* G / intrusion: the active project visibly pushes into its neighbour. */
+.c02-trial.intrusion .a3-project{
+  grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);
+}
+.c02-trial.intrusion .a3-photo{
+  transform:translate(-18px,14px);
+  width:calc(100% + 18px);
+  min-height:332px;
+  clip-path:polygon(0 0,100% 0,100% 78%,95% 78%,95% 86%,89% 86%,89% 93%,80% 93%,80% 100%,0 100%);
+  border-left:0;
+  box-shadow:-8px 0 0 var(--ql-blue);
+}
+.c02-trial.intrusion .a3-project-copy{padding-right:44px}
+.c02-trial.intrusion .a3-feed-item:nth-child(3){transform:translateY(9px)}
+.c02-trial.intrusion .a3-feed-item:nth-child(4){transform:translateY(-7px)}
+
+@media(max-width:900px){
+  .a3-project{grid-template-columns:1fr}
+  .a3-photo{border-left:0;border-top:1px solid var(--a3-rule);min-height:290px}
+  .a3-feed{grid-template-columns:1fr 1fr}
+  .a3-feed-item:nth-child(2){border-right:0}
+  .a3-feed-item:nth-child(-n+2){border-bottom:1px solid var(--a3-rule)}
+  .a3-working{grid-template-columns:1fr}
+  .a3-working-label{border-right:0;border-bottom:1px solid var(--a3-rule)}
+  .c02-trial.intrusion .a3-photo{transform:none;width:100%;clip-path:none;box-shadow:none}
+  .c02-trial.intrusion .a3-project-copy{padding-right:26px}
+  .c02-trial.intrusion .a3-feed-item:nth-child(3),
+  .c02-trial.intrusion .a3-feed-item:nth-child(4){transform:none}
+}
+@media(max-width:580px){
+  .a3-status,.a3-input{align-items:flex-start;flex-direction:column}
+  .a3-project-copy{padding:22px 18px}
+  .a3-project h4{font-size:42px}
+  .a3-feed{grid-template-columns:1fr}
+  .a3-feed-item{border-right:0;border-bottom:1px solid var(--a3-rule)}
+  .a3-feed-item:last-child{border-bottom:0}
+  .a3-working-copy{font-size:18px}
+}
+</style>
+
 </head>
 <body>
 <div class="topbar">
@@ -1727,6 +2081,35 @@ a{color:inherit}
         </div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Dark-mode pair without fuzz: same corrected C02 structure, palette, nav and translucent corner blocks, but all colour fields are clean.</div>
 
@@ -1756,6 +2139,35 @@ a{color:inherit}
           <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
         </div>
       </div>
+    </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-b">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-b</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-1: sparse broken QL-colour pixels with tiny independent twinkles, more ambient than decorative.</div>
@@ -1787,6 +2199,35 @@ a{color:inherit}
         </div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-c">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-c</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-2: horizontal corrupted-pixel fragments that sit still most of the time, then briefly slip sideways like restrained TV noise.</div>
 
@@ -1813,6 +2254,35 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-D1">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-D1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL dark control. Full-width content, top-bar navigation, and local residue only where human/project activity has touched the system.</div>
 
@@ -1837,6 +2307,35 @@ a{color:inherit}
         </div>
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
+    </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-D2">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-D2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL light control. Same residue mechanism and same QL colours, testing whether the idea survives without the dark-tech atmosphere.</div>
@@ -1863,6 +2362,35 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-E1">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-E1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Cool signal palette: deep ink, cyan-blue, coral pink, acid green and warm amber. One contribution travels through the system in changed states.</div>
 
@@ -1887,6 +2415,35 @@ a{color:inherit}
         </div>
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
+    </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-E2">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-E2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Soft computational palette: pale violet-grey, indigo, dusty pink, mint and apricot. Transfer stays legible but loses the familiar cyber-dark shorthand.</div>
@@ -1913,6 +2470,35 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-F1">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-F1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Warm studio palette: brown-black, cream, violet, clay red, olive and ochre. The page becomes more inhabited without relying on neon or glitch cues.</div>
 
@@ -1937,6 +2523,35 @@ a{color:inherit}
         </div>
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
+    </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-F2">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-F2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Grown-up light palette: bone, aubergine, restrained blue, berry, moss and terracotta. A quieter test of shared activity and accumulated traces.</div>
@@ -1963,6 +2578,35 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-G1">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-G1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
+    </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Electric editorial palette: near-black with blue, hot pink, acid green and yellow. Photography pushes the system visibly, while the hero squares remain intact.</div>
 
@@ -1987,6 +2631,35 @@ a{color:inherit}
         </div>
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
+    </div>
+  
+    <div class="a3-continuation" data-a3-variant="Aiii-G2">
+      <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-G2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
+      <section class="a3-project" aria-label="Current Qwerty project">
+        <div class="a3-project-copy">
+          <div>
+            <div class="a3-kicker">CURRENT PROJECT / STOP:bit → MicroPython</div>
+            <h4>Traffic lights are simple until you have to make them behave.</h4>
+            <p>A current Qwerty build starts with a physical STOP:bit traffic light and rebuilds its behaviour in MicroPython: sequences first, then pedestrian crossings, then radio-controlled lights.</p>
+          </div>
+          <div class="a3-project-code">MICRO:BIT / PYTHON / ELECTRONICS / BUILD → TEST → CHANGE</div>
+        </div>
+        <figure class="a3-photo">
+          <img src="https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+          <figcaption>FROM THE STUDIO / REAL TOOLS / REAL PROJECTS</figcaption>
+        </figure>
+      </section>
+      <div class="a3-feed" aria-label="Qwerty Labs working signals">
+        <div class="a3-feed-item"><div class="num">01 / INPUT</div><h5>Ideas arrive unfinished.</h5><p>A game, object, tool, experiment, question, or something that does not have a sensible category yet.</p></div>
+        <div class="a3-feed-item"><div class="num">02 / PROCESS</div><h5>Learn what the thing needs.</h5><p>Code, electronics, AI, design, robotics, debugging, another person, or a better question.</p></div>
+        <div class="a3-feed-item"><div class="num">03 / PEOPLE</div><h5>Different starting points.</h5><p>Children, teens, adults and organisations can enter from different places without needing a different philosophy.</p></div>
+        <div class="a3-feed-item"><div class="num">04 / OUTPUT</div><h5>Something changed.</h5><p>The project works, fails usefully, mutates, gets rebuilt, or leaves behind the next idea.</p></div>
+      </div>
+      <div class="a3-working">
+        <div class="a3-working-label">STUDIO NOTE<br>IN PROGRESS<br>NOT A PLACEHOLDER</div>
+        <div class="a3-working-copy">Qwerty Labs is being built the same way the work is: make something, use it, notice what happens, then change the useful bits. The unfinished state is part of the evidence.</div>
+      </div>
+      <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
   </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Industrial-playful light palette: cool grey, charcoal, cobalt, raspberry, chartreuse and orange. Same structural reaction, tested without a dark interface.</div>
