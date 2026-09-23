@@ -1903,6 +1903,172 @@ a{color:inherit}
   padding-left:9px;
   border-left:1px solid currentColor;
 }
+
+/* Navigation studies: D1 floating utility palette / D2 CTRL+ALT+CREATE launcher. */
+.nav-palette-test .layout,
+.nav-launcher-test .layout{
+  display:block;
+  min-height:584px;
+}
+.nav-palette-test .main,
+.nav-launcher-test .main{
+  position:relative;
+  min-height:584px;
+}
+.ql-float-nav,
+.ql-launch-panel{
+  position:absolute;
+  z-index:30;
+  width:154px;
+  padding:0;
+  border:1px solid var(--ql-dark);
+  border-radius:0;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:8px 8px 0 var(--ql-blue);
+  font-family:"Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-float-nav{
+  left:-7px;
+  top:92px;
+  transform:rotate(-.7deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+}
+@keyframes qlUtilityFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 7px}
+}
+.ql-float-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 9px;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  font-size:9px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.ql-grip{
+  color:var(--ql-green);
+  letter-spacing:2px;
+}
+.ql-float-nav button,
+.ql-launch-panel button{
+  appearance:none;
+  width:100%;
+  display:grid;
+  grid-template-columns:9px 1fr auto;
+  align-items:center;
+  gap:7px;
+  padding:9px 8px;
+  border:0;
+  border-bottom:1px solid color-mix(in srgb,var(--ql-dark) 25%,transparent);
+  border-radius:0;
+  background:transparent;
+  color:inherit;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-align:left;
+  cursor:pointer;
+}
+.ql-launch-panel button{
+  grid-template-columns:1fr auto;
+}
+.ql-float-nav button:last-child,
+.ql-launch-panel button:last-child{border-bottom:0}
+.ql-float-nav button i{
+  width:7px;height:7px;background:var(--ql-pink);
+}
+.ql-float-nav button:nth-of-type(2) i{background:var(--ql-green)}
+.ql-float-nav button:nth-of-type(3) i{background:var(--ql-orange)}
+.ql-float-nav button:nth-of-type(4) i{background:var(--ql-blue)}
+.ql-float-nav button:nth-of-type(5) i{background:var(--ql-pink)}
+.ql-float-nav button b,
+.ql-launch-panel button b{
+  font-size:8px;
+  font-weight:700;
+  opacity:.48;
+}
+.ql-float-nav button:hover,
+.ql-float-nav button.active,
+.ql-launch-panel button:hover,
+.ql-launch-panel button.active{
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+.ql-float-nav button:hover span,
+.ql-launch-panel button:hover span{transform:translateX(2px)}
+.ql-float-nav button span,
+.ql-launch-panel button span{transition:transform .14s ease}
+
+/* Hybrid: CTRL + ALT + CREATE is the collapsed navigation object. */
+.ql-nav-launcher{
+  position:absolute;
+  z-index:31;
+  left:18px;
+  top:86px;
+  width:max-content;
+}
+.ql-nav-launcher summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:0;
+  width:max-content;
+  cursor:pointer;
+  transform:rotate(-1deg);
+  filter:drop-shadow(5px 5px 0 color-mix(in srgb,var(--ql-dark) 22%,transparent));
+}
+.ql-nav-launcher summary::-webkit-details-marker{display:none}
+.ql-nav-launcher summary kbd,
+.ql-nav-launcher summary i{
+  display:block;
+  padding:9px 8px;
+  border:1px solid var(--ql-dark);
+  border-right:0;
+  border-radius:0;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  font-style:normal;
+  letter-spacing:.05em;
+}
+.ql-nav-launcher summary kbd:nth-of-type(1){background:var(--ql-blue);color:var(--ql-base)}
+.ql-nav-launcher summary kbd:nth-of-type(2){background:var(--ql-pink);color:var(--ql-dark)}
+.ql-nav-launcher summary kbd:nth-of-type(3){
+  background:var(--ql-green);
+  color:var(--ql-dark);
+  border-right:1px solid var(--ql-dark);
+}
+.ql-nav-launcher summary i{background:var(--ql-base);color:var(--ql-dark)}
+.ql-nav-launcher[open] summary{transform:rotate(.3deg)}
+.ql-nav-launcher[open] summary kbd:nth-of-type(3){background:var(--ql-orange)}
+.ql-launch-panel{
+  position:absolute;
+  left:20px;
+  top:45px;
+  width:166px;
+  box-shadow:8px 8px 0 var(--ql-pink);
+  transform:rotate(.45deg);
+  transform-origin:top left;
+  animation:qlPaletteOpen .16s steps(2,end) both;
+}
+@keyframes qlPaletteOpen{
+  from{opacity:0;transform:translate(-5px,-5px) rotate(.45deg)}
+  to{opacity:1;transform:translate(0,0) rotate(.45deg)}
+}
+.nav-launcher-test.light .ql-launch-panel{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{left:6px;top:72px;animation:none}
+  .ql-nav-launcher{left:10px;top:70px}
+  .ql-float-nav,.ql-launch-panel{width:144px}
+  .nav-palette-test .main,
+  .nav-launcher-test .main{padding-top:72px}
+}
 </style>
 </head>
 <body>
@@ -2475,10 +2641,17 @@ a{color:inherit}
 
   
   <div class="trial-label">Aiii-D1 / reactive residue — dark / QL palette</div>
-  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark people-system residue ">
+  <div class="concept-board c02-trial a3-has-continuation nav-palette-test nofuzz-dark people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <nav class="ql-float-nav" aria-label="Prototype navigation">
+        <div class="ql-float-head"><span>QL / GO TO</span><span class="ql-grip">•••</span></div>
+        <button type="button" class="active"><i></i><span>HOME</span><b>01</b></button>
+        <button type="button"><i></i><span>PROJECTS</span><b>02</b></button>
+        <button type="button"><i></i><span>STUDIO</span><b>03</b></button>
+        <button type="button"><i></i><span>RESOURCES</span><b>04</b></button>
+        <button type="button"><i></i><span>PEOPLE</span><b>05</b></button>
+      </nav>
       <div class="main">
         <div class="photoProbe" role="img" aria-label="Two children showing a robot project at QwertyKids"><div class="photoProxy"></div><div class="photoCaption">QWERTYKIDS / ROBOT PROJECT</div></div>
         <div>
@@ -2542,10 +2715,22 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-D2 / reactive residue — light / QL palette</div>
-  <div class="concept-board c02-trial a3-has-continuation light nofuzz-light people-system residue ">
+  <div class="concept-board c02-trial a3-has-continuation nav-launcher-test light nofuzz-light people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <details class="ql-nav-launcher">
+        <summary aria-label="Open Qwerty Labs navigation">
+          <kbd>CTRL</kbd><i>+</i><kbd>ALT</kbd><i>+</i><kbd>CREATE</kbd>
+        </summary>
+        <nav class="ql-launch-panel" aria-label="Prototype navigation">
+          <div class="ql-float-head"><span>QL / GO TO</span><span class="ql-grip">•••</span></div>
+          <button type="button" class="active"><span>HOME</span><b>01</b></button>
+          <button type="button"><span>PROJECTS</span><b>02</b></button>
+          <button type="button"><span>STUDIO</span><b>03</b></button>
+          <button type="button"><span>RESOURCES</span><b>04</b></button>
+          <button type="button"><span>PEOPLE</span><b>05</b></button>
+        </nav>
+      </details>
       <div class="main">
         <div class="photoProbe" role="img" aria-label="Two children showing a robot project at QwertyKids"><div class="photoProxy"></div><div class="photoCaption">QWERTYKIDS / ROBOT PROJECT</div></div>
         <div>
