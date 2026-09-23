@@ -2373,6 +2373,76 @@ a{color:inherit}
   position:absolute;
   z-index:2;
 }
+
+/* D1 hard reset: plain title panel, no sweep-capable surface. */
+.nav-palette-test .ql-float-head.ql-float-toggle{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+  padding:10px 11px;
+  margin:0;
+  border:0!important;
+  border-radius:0!important;
+  outline:0;
+  background:var(--ql-dark)!important;
+  background-color:var(--ql-dark)!important;
+  background-image:none!important;
+  background-size:auto!important;
+  background-position:0 0!important;
+  background-repeat:no-repeat!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  color:var(--ql-base)!important;
+  overflow:hidden;
+  isolation:isolate;
+  contain:paint;
+  cursor:pointer;
+  font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle::before,
+.nav-palette-test .ql-float-head.ql-float-toggle::after{
+  content:none!important;
+  display:none!important;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle > span{
+  position:relative;
+  z-index:1;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head.ql-float-toggle{
+  padding:10px 11px;
+}
+
+/* D1 static pixel field: actual elements, deliberately sparse. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-canvas::before{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--w);
+  height:var(--h);
+  display:block;
+  background:var(--c);
+  opacity:.82;
+  box-shadow:none;
+  animation:none!important;
+}
 </style>
 </head>
 <body>
@@ -2945,7 +3015,7 @@ a{color:inherit}
   <div class="concept-board c02-trial a3-has-continuation nav-palette-test nofuzz-dark people-system residue ">
     <div class="layout">
       <nav class="ql-float-nav" aria-label="Prototype navigation">
-        <button type="button" class="ql-float-head ql-float-toggle" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></button>
+        <div class="ql-float-head ql-float-toggle" role="button" tabindex="0" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></div>
         <button type="button" class="active"><span>HOME</span><b>01</b></button>
         <button type="button"><span>PROJECTS</span><b>02</b></button>
         <button type="button"><span>STUDIO</span><b>03</b></button>
@@ -2969,6 +3039,17 @@ a{color:inherit}
   </div>
 <div class="a3-continuation c02-trial nofuzz-dark people-system residue" data-a3-variant="Aiii-D1">
     <div class="a3-canvas">
+      <div class="d1-pixels" aria-hidden="true">
+        <i style="--x:12.2%;--y:76%;--w:5px;--h:5px;--c:var(--ql-blue)"></i>
+        <i style="--x:13.5%;--y:78.2%;--w:4px;--h:4px;--c:var(--ql-pink)"></i>
+        <i style="--x:11.4%;--y:80.4%;--w:5px;--h:3px;--c:var(--ql-green)"></i>
+        <i style="--x:14.3%;--y:82.2%;--w:3px;--h:5px;--c:var(--ql-orange)"></i>
+        <i style="--x:4.5%;--y:33%;--w:4px;--h:4px;--c:var(--ql-pink)"></i>
+        <i style="--x:31%;--y:40%;--w:3px;--h:5px;--c:var(--ql-blue)"></i>
+        <i style="--x:72%;--y:58%;--w:5px;--h:3px;--c:var(--ql-green)"></i>
+        <i style="--x:91%;--y:69%;--w:4px;--h:4px;--c:var(--ql-orange)"></i>
+        <i style="--x:84%;--y:88%;--w:3px;--h:5px;--c:var(--ql-pink)"></i>
+      </div>
 
       <div class="a3-project-field">
         <span class="a3-tape">CURRENT PROJECT / STOP:bit → MicroPython</span>
@@ -3782,6 +3863,11 @@ a{color:inherit}
     if(!nav.classList.contains('is-travelling')) return;
     nav.classList.toggle('is-expanded');
     toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
+  });
+  toggle.addEventListener('keydown',(e) => {
+    if(e.key!=='Enter' && e.key!==' ') return;
+    e.preventDefault();
+    toggle.click();
   });
 
   window.addEventListener('scroll',sync,{passive:true});
