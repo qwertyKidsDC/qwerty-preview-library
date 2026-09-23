@@ -1735,6 +1735,23 @@ a{color:inherit}
   .a3-open-note{right:5%;bottom:46px;width:58%}
   .a3-side-strip{bottom:12px}
 }
+
+/* Make each Aiii study + continuation read as one continuous framed page. */
+.concept-board.a3-has-continuation{
+  border-radius:16px 16px 0 0;
+  border-bottom:0;
+}
+.a3-continuation{
+  --a3-frame:rgba(241,248,248,.22);
+  margin:0;
+  padding:0 18px 18px;
+  border:1px solid var(--a3-frame);
+  border-top:0;
+  border-radius:0 0 16px 16px;
+}
+.a3-continuation.light{
+  --a3-frame:rgba(2,0,32,.24);
+}
 </style>
 </head>
 <body>
@@ -2087,7 +2104,7 @@ a{color:inherit}
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Light-mode pair to A: pale QL interface surface, dark type and rules, with the same lived-in colour boxes and translucent corner blocks.</div>
 
   <div class="trial-label">Aiii / corrected baseline — dark mode / no fuzz</div>
-  <div class="concept-board c02-trial nofuzz-dark">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark">
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
       <div class="side">
@@ -2159,7 +2176,7 @@ a{color:inherit}
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Dark-mode pair without fuzz: same corrected C02 structure, palette, nav and translucent corner blocks, but all colour fields are clean.</div>
 
   <div class="trial-label">Aiii-b / dark mode / broken-pixel stars</div>
-  <div class="concept-board c02-trial nofuzz-dark pixel-motion pixel-stars">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark pixel-motion pixel-stars">
     <div class="pixel-field star-field" aria-hidden="true"><i style="--x:3%;--y:8%;--w:3px;--h:3px;--c:var(--ql-blue);--o:.42;--d:5.7s;--delay:-.8s"></i><i style="--x:8%;--y:22%;--w:4px;--h:4px;--c:var(--ql-pink);--o:.32;--d:6.4s;--delay:-2.4s"></i><i style="--x:13%;--y:71%;--w:3px;--h:3px;--c:var(--ql-green);--o:.38;--d:7.1s;--delay:-3.1s"></i><i style="--x:18%;--y:11%;--w:2px;--h:5px;--c:var(--ql-orange);--o:.28;--d:5.9s;--delay:-1.3s"></i><i style="--x:26%;--y:6%;--w:5px;--h:2px;--c:var(--ql-blue);--o:.31;--d:8.2s;--delay:-5.1s"></i><i style="--x:34%;--y:18%;--w:3px;--h:3px;--c:var(--ql-pink);--o:.24;--d:6.1s;--delay:-2.9s"></i><i style="--x:45%;--y:9%;--w:4px;--h:2px;--c:var(--ql-green);--o:.28;--d:7.7s;--delay:-4.4s"></i><i style="--x:57%;--y:15%;--w:3px;--h:3px;--c:var(--ql-blue);--o:.30;--d:6.8s;--delay:-1.7s"></i><i style="--x:72%;--y:8%;--w:5px;--h:3px;--c:var(--ql-orange);--o:.27;--d:8.5s;--delay:-6.1s"></i><i style="--x:84%;--y:13%;--w:3px;--h:3px;--c:var(--ql-pink);--o:.34;--d:5.6s;--delay:-3.8s"></i><i style="--x:92%;--y:24%;--w:5px;--h:5px;--c:var(--ql-blue);--o:.42;--d:7.3s;--delay:-2.2s"></i><i style="--x:97%;--y:39%;--w:3px;--h:3px;--c:var(--ql-green);--o:.37;--d:6.2s;--delay:-4.7s"></i><i style="--x:4%;--y:56%;--w:5px;--h:2px;--c:var(--ql-orange);--o:.26;--d:8.1s;--delay:-1.9s"></i><i style="--x:9%;--y:87%;--w:3px;--h:5px;--c:var(--ql-pink);--o:.34;--d:5.8s;--delay:-3.4s"></i><i style="--x:24%;--y:92%;--w:4px;--h:3px;--c:var(--ql-blue);--o:.29;--d:7.9s;--delay:-5.2s"></i><i style="--x:39%;--y:84%;--w:3px;--h:3px;--c:var(--ql-green);--o:.31;--d:6.5s;--delay:-1.1s"></i><i style="--x:61%;--y:91%;--w:5px;--h:2px;--c:var(--ql-orange);--o:.27;--d:8.8s;--delay:-4.1s"></i><i style="--x:78%;--y:86%;--w:3px;--h:3px;--c:var(--ql-blue);--o:.32;--d:6.9s;--delay:-5.6s"></i><i style="--x:91%;--y:74%;--w:4px;--h:4px;--c:var(--ql-pink);--o:.36;--d:5.5s;--delay:-2.5s"></i><i style="--x:96%;--y:91%;--w:3px;--h:3px;--c:var(--ql-green);--o:.33;--d:7.4s;--delay:-3.7s"></i><i style="--x:88%;--y:51%;--w:2px;--h:4px;--c:var(--ql-orange);--o:.22;--d:6.0s;--delay:-1.5s"></i><i style="--x:69%;--y:28%;--w:3px;--h:3px;--c:var(--ql-pink);--o:.22;--d:7.2s;--delay:-4.8s"></i></div>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
@@ -2232,7 +2249,7 @@ a{color:inherit}
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-1: sparse broken QL-colour pixels with tiny independent twinkles, more ambient than decorative.</div>
 
   <div class="trial-label">Aiii-c / dark mode / corrupted-pixel drift</div>
-  <div class="concept-board c02-trial nofuzz-dark pixel-motion pixel-drift">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark pixel-motion pixel-drift">
     <div class="pixel-field noise-field" aria-hidden="true"><span class="noise-band " style="--x:1%;--y:7%;--w:57%;--h:3px;--o:.28;--d:9.4s;--delay:-4.2s"></span><span class="noise-band " style="--x:39%;--y:11%;--w:58%;--h:2px;--o:.32;--d:8.1s;--delay:-1.8s"></span><span class="noise-band faint" style="--x:6%;--y:18%;--w:31%;--h:1px;--o:.18;--d:10.8s;--delay:-6.5s"></span><span class="noise-band " style="--x:51%;--y:23%;--w:45%;--h:4px;--o:.23;--d:7.8s;--delay:-3.3s"></span><span class="noise-band " style="--x:2%;--y:38%;--w:23%;--h:2px;--o:.26;--d:11.1s;--delay:-7.7s"></span><span class="noise-band " style="--x:76%;--y:44%;--w:21%;--h:3px;--o:.30;--d:8.9s;--delay:-2.1s"></span><span class="noise-band " style="--x:4%;--y:69%;--w:28%;--h:3px;--o:.27;--d:9.8s;--delay:-5.4s"></span><span class="noise-band faint" style="--x:67%;--y:63%;--w:29%;--h:1px;--o:.17;--d:12.2s;--delay:-8.2s"></span><span class="noise-band " style="--x:1%;--y:82%;--w:46%;--h:2px;--o:.25;--d:8.4s;--delay:-3.9s"></span><span class="noise-band " style="--x:54%;--y:89%;--w:43%;--h:3px;--o:.29;--d:10.2s;--delay:-6.1s"></span><span class="noise-pixel" style="--x:8%;--y:31%;--w:8px;--h:2px;--c:var(--ql-blue);--o:.35;--d:9.1s;--delay:-2.3s"></span><span class="noise-pixel" style="--x:18%;--y:14%;--w:5px;--h:2px;--c:var(--ql-orange);--o:.32;--d:10.7s;--delay:-5.1s"></span><span class="noise-pixel" style="--x:33%;--y:27%;--w:7px;--h:3px;--c:var(--ql-pink);--o:.36;--d:8.8s;--delay:-1.4s"></span><span class="noise-pixel" style="--x:47%;--y:8%;--w:9px;--h:2px;--c:var(--ql-blue);--o:.28;--d:11.5s;--delay:-7.2s"></span><span class="noise-pixel" style="--x:63%;--y:19%;--w:5px;--h:3px;--c:var(--ql-green);--o:.35;--d:9.8s;--delay:-3.6s"></span><span class="noise-pixel" style="--x:82%;--y:29%;--w:8px;--h:2px;--c:var(--ql-pink);--o:.33;--d:10.1s;--delay:-4.8s"></span><span class="noise-pixel" style="--x:92%;--y:52%;--w:6px;--h:3px;--c:var(--ql-orange);--o:.30;--d:8.2s;--delay:-2.8s"></span><span class="noise-pixel" style="--x:13%;--y:76%;--w:9px;--h:2px;--c:var(--ql-blue);--o:.34;--d:9.6s;--delay:-6.1s"></span><span class="noise-pixel" style="--x:38%;--y:88%;--w:6px;--h:3px;--c:var(--ql-green);--o:.27;--d:10.9s;--delay:-5.7s"></span><span class="noise-pixel" style="--x:71%;--y:79%;--w:8px;--h:2px;--c:var(--ql-pink);--o:.31;--d:8.6s;--delay:-3.1s"></span><span class="noise-pixel" style="--x:89%;--y:91%;--w:5px;--h:3px;--c:var(--ql-blue);--o:.28;--d:11.7s;--delay:-8.3s"></span></div>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
@@ -2307,7 +2324,7 @@ a{color:inherit}
 
   
   <div class="trial-label">Aiii-D1 / reactive residue — dark / QL palette</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system residue ">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2375,7 +2392,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-D2 / reactive residue — light / QL palette</div>
-  <div class="concept-board c02-trial light nofuzz-light people-system residue ">
+  <div class="concept-board c02-trial a3-has-continuation light nofuzz-light people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2443,7 +2460,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-E1 / transfer — dark / cool signal palette</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system transfer palette-signal-dark">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark people-system transfer palette-signal-dark">
     <i class="system-mark transfer-mark t1"></i><i class="system-mark transfer-mark t2"></i><i class="system-mark transfer-mark t3"></i><i class="system-mark transfer-mark t4"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2511,7 +2528,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-E2 / transfer — light / soft computational palette</div>
-  <div class="concept-board c02-trial light nofuzz-light people-system transfer palette-soft-light">
+  <div class="concept-board c02-trial a3-has-continuation light nofuzz-light people-system transfer palette-soft-light">
     <i class="system-mark transfer-mark t1"></i><i class="system-mark transfer-mark t2"></i><i class="system-mark transfer-mark t3"></i><i class="system-mark transfer-mark t4"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2579,7 +2596,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-F1 / accumulation — dark / warm studio palette</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system accumulation palette-studio-dark">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark people-system accumulation palette-studio-dark">
     <i class="system-mark accum-mark a1"></i><i class="system-mark accum-mark a2"></i><i class="system-mark accum-mark a3"></i><i class="system-mark accum-mark a4"></i><i class="system-mark accum-mark a5"></i><i class="system-mark accum-mark a6"></i><i class="system-mark accum-mark a7"></i><i class="system-mark accum-mark a8"></i><i class="system-mark accum-mark a9"></i><i class="system-mark accum-mark a10"></i><i class="system-mark accum-mark a11"></i><i class="system-mark accum-mark a12"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2647,7 +2664,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-F2 / accumulation — light / grown-up palette</div>
-  <div class="concept-board c02-trial light nofuzz-light people-system accumulation palette-grown-light">
+  <div class="concept-board c02-trial a3-has-continuation light nofuzz-light people-system accumulation palette-grown-light">
     <i class="system-mark accum-mark a1"></i><i class="system-mark accum-mark a2"></i><i class="system-mark accum-mark a3"></i><i class="system-mark accum-mark a4"></i><i class="system-mark accum-mark a5"></i><i class="system-mark accum-mark a6"></i><i class="system-mark accum-mark a7"></i><i class="system-mark accum-mark a8"></i><i class="system-mark accum-mark a9"></i><i class="system-mark accum-mark a10"></i><i class="system-mark accum-mark a11"></i><i class="system-mark accum-mark a12"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2715,7 +2732,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-G1 / responsive intrusion — dark / electric editorial palette</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system intrusion palette-electric-dark">
+  <div class="concept-board c02-trial a3-has-continuation nofuzz-dark people-system intrusion palette-electric-dark">
     <i class="system-mark impact1"></i><i class="system-mark impact2"></i><i class="system-mark impact3"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
@@ -2783,7 +2800,7 @@ a{color:inherit}
 
 
   <div class="trial-label">Aiii-G2 / responsive intrusion — light / industrial playful palette</div>
-  <div class="concept-board c02-trial light nofuzz-light people-system intrusion palette-industrial-light">
+  <div class="concept-board c02-trial a3-has-continuation light nofuzz-light people-system intrusion palette-industrial-light">
     <i class="system-mark impact1"></i><i class="system-mark impact2"></i><i class="system-mark impact3"></i>
     <div class="layout">
       <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
