@@ -1351,7 +1351,6 @@ a{color:inherit}
 }
 </style>
 
-
 <style id="a3-continuation-extension">
 /* Aiii continuation experiment
    Everything above .a3-continuation remains the existing study unchanged.
@@ -1362,7 +1361,8 @@ a{color:inherit}
   --a3-muted:rgba(241,248,248,.68);
   position:relative;
   z-index:3;
-  margin-top:18px;
+  padding:0;
+  margin:-18px 18px 18px;
   border:1px solid var(--a3-rule);
   background:var(--ql-dark);
   color:var(--ql-base);
@@ -1557,16 +1557,16 @@ a{color:inherit}
 .a3-input .action:after{content:"→";font-size:18px;line-height:1}
 
 /* Base Aiii keeps the clean no-fuzz dashboard language. */
-.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(1){background:color-mix(in srgb,var(--ql-green) 8%,transparent)}
-.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(2){background:color-mix(in srgb,var(--ql-pink) 7%,transparent)}
-.c02-trial.nofuzz-dark .a3-continuation .a3-feed-item:nth-child(3){background:color-mix(in srgb,var(--ql-blue) 9%,transparent)}
+.a3-continuation.nofuzz-dark .a3-feed-item:nth-child(1){background:color-mix(in srgb,var(--ql-green) 8%,transparent)}
+.a3-continuation.nofuzz-dark .a3-feed-item:nth-child(2){background:color-mix(in srgb,var(--ql-pink) 7%,transparent)}
+.a3-continuation.nofuzz-dark .a3-feed-item:nth-child(3){background:color-mix(in srgb,var(--ql-blue) 9%,transparent)}
 
 /* Aiii-b/c: the ambient field now continues behind the additional interface. */
-.c02-trial.pixel-motion .a3-continuation{
+.a3-continuation.pixel-motion{
   background:color-mix(in srgb,var(--ql-dark) 86%,transparent);
   backdrop-filter:blur(.35px);
 }
-.c02-trial.pixel-stars .a3-project-copy:after{
+.a3-continuation.pixel-stars .a3-project-copy:after{
   content:"";
   position:absolute;
   width:5px;height:5px;
@@ -1575,7 +1575,7 @@ a{color:inherit}
   box-shadow:31px 23px 0 var(--ql-blue),-22px 58px 0 var(--ql-green),58px 91px 0 var(--ql-orange);
   opacity:.8;
 }
-.c02-trial.pixel-drift .a3-status:after{
+.a3-continuation.pixel-drift .a3-status:after{
   content:"";
   position:absolute;
   left:24%;
@@ -1587,31 +1587,31 @@ a{color:inherit}
 }
 
 /* D-G use each palette/mode already defined above. */
-.c02-trial.people-system .a3-continuation{
+.a3-continuation.people-system{
   --a3-rule:color-mix(in srgb,var(--ql-base) 24%,transparent);
   --a3-muted:color-mix(in srgb,var(--ql-base) 70%,transparent);
   background:var(--ql-dark);
   color:var(--ql-base);
 }
-.c02-trial.people-system.light .a3-continuation{
+.a3-continuation.people-system.light{
   --a3-rule:color-mix(in srgb,var(--ql-dark) 24%,transparent);
   --a3-muted:color-mix(in srgb,var(--ql-dark) 68%,transparent);
   background:var(--ql-base);
   color:var(--ql-dark);
 }
-.c02-trial.people-system.light .a3-photo{
+.a3-continuation.people-system.light .a3-photo{
   background:color-mix(in srgb,var(--ql-blue) 12%,var(--ql-base));
 }
-.c02-trial.people-system.light .a3-photo img{filter:saturate(.82) contrast(1.02)}
-.c02-trial.people-system.light .a3-photo:after{background:linear-gradient(180deg,transparent 62%,rgba(2,0,32,.26))}
-.c02-trial.people-system.light .a3-input .action{
+.a3-continuation.people-system.light .a3-photo img{filter:saturate(.82) contrast(1.02)}
+.a3-continuation.people-system.light .a3-photo:after{background:linear-gradient(180deg,transparent 62%,rgba(2,0,32,.26))}
+.a3-continuation.people-system.light .a3-input .action{
   background:var(--ql-dark);
   color:var(--ql-base);
 }
 
 /* D / residue: little traces remain at local joins. */
-.c02-trial.residue .a3-feed-item:nth-child(1):after,
-.c02-trial.residue .a3-feed-item:nth-child(3):after{
+.a3-continuation.residue .a3-feed-item:nth-child(1):after,
+.a3-continuation.residue .a3-feed-item:nth-child(3):after{
   content:"";
   position:absolute;
   left:10px;bottom:9px;
@@ -1620,7 +1620,7 @@ a{color:inherit}
   box-shadow:9px -5px 0 var(--ql-pink),20px 2px 0 var(--ql-green);
   opacity:.88;
 }
-.c02-trial.residue .a3-working-copy:after{
+.a3-continuation.residue .a3-working-copy:after{
   content:"";
   display:inline-block;
   width:18px;height:5px;
@@ -1630,7 +1630,7 @@ a{color:inherit}
 }
 
 /* E / transfer: one small three-part signal crosses successive modules. */
-.c02-trial.transfer .a3-feed-item:after{
+.a3-continuation.transfer .a3-feed-item:after{
   content:"";
   position:absolute;
   left:16px;
@@ -1639,12 +1639,12 @@ a{color:inherit}
   background:var(--ql-blue);
   box-shadow:7px 6px 0 var(--ql-pink),14px 0 0 var(--ql-green);
 }
-.c02-trial.transfer .a3-feed-item:nth-child(2):after{transform:rotate(90deg) scale(.86)}
-.c02-trial.transfer .a3-feed-item:nth-child(3):after{transform:rotate(180deg)}
-.c02-trial.transfer .a3-feed-item:nth-child(4):after{transform:rotate(-90deg) scale(.78)}
+.a3-continuation.transfer .a3-feed-item:nth-child(2):after{transform:rotate(90deg) scale(.86)}
+.a3-continuation.transfer .a3-feed-item:nth-child(3):after{transform:rotate(180deg)}
+.a3-continuation.transfer .a3-feed-item:nth-child(4):after{transform:rotate(-90deg) scale(.78)}
 
 /* F / accumulation: traces become denser as the scroll deepens. */
-.c02-trial.accumulation .a3-continuation:after{
+.a3-continuation.accumulation .a3-continuation:after{
   content:"";
   position:absolute;
   z-index:5;
@@ -1663,13 +1663,13 @@ a{color:inherit}
     -366px 1px 0 var(--ql-blue);
   opacity:.82;
 }
-.c02-trial.accumulation .a3-working{background:color-mix(in srgb,var(--ql-orange) 5%,transparent)}
+.a3-continuation.accumulation .a3-working{background:color-mix(in srgb,var(--ql-orange) 5%,transparent)}
 
 /* G / intrusion: the active project visibly pushes into its neighbour. */
-.c02-trial.intrusion .a3-project{
+.a3-continuation.intrusion .a3-project{
   grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);
 }
-.c02-trial.intrusion .a3-photo{
+.a3-continuation.intrusion .a3-photo{
   transform:translate(-18px,14px);
   width:calc(100% + 18px);
   min-height:332px;
@@ -1677,9 +1677,9 @@ a{color:inherit}
   border-left:0;
   box-shadow:-8px 0 0 var(--ql-blue);
 }
-.c02-trial.intrusion .a3-project-copy{padding-right:44px}
-.c02-trial.intrusion .a3-feed-item:nth-child(3){transform:translateY(9px)}
-.c02-trial.intrusion .a3-feed-item:nth-child(4){transform:translateY(-7px)}
+.a3-continuation.intrusion .a3-project-copy{padding-right:44px}
+.a3-continuation.intrusion .a3-feed-item:nth-child(3){transform:translateY(9px)}
+.a3-continuation.intrusion .a3-feed-item:nth-child(4){transform:translateY(-7px)}
 
 @media(max-width:900px){
   .a3-project{grid-template-columns:1fr}
@@ -1689,10 +1689,10 @@ a{color:inherit}
   .a3-feed-item:nth-child(-n+2){border-bottom:1px solid var(--a3-rule)}
   .a3-working{grid-template-columns:1fr}
   .a3-working-label{border-right:0;border-bottom:1px solid var(--a3-rule)}
-  .c02-trial.intrusion .a3-photo{transform:none;width:100%;clip-path:none;box-shadow:none}
-  .c02-trial.intrusion .a3-project-copy{padding-right:26px}
-  .c02-trial.intrusion .a3-feed-item:nth-child(3),
-  .c02-trial.intrusion .a3-feed-item:nth-child(4){transform:none}
+  .a3-continuation.intrusion .a3-photo{transform:none;width:100%;clip-path:none;box-shadow:none}
+  .a3-continuation.intrusion .a3-project-copy{padding-right:26px}
+  .a3-continuation.intrusion .a3-feed-item:nth-child(3),
+  .a3-continuation.intrusion .a3-feed-item:nth-child(4){transform:none}
 }
 @media(max-width:580px){
   .a3-status,.a3-input{align-items:flex-start;flex-direction:column}
@@ -1704,7 +1704,6 @@ a{color:inherit}
   .a3-working-copy{font-size:18px}
 }
 </style>
-
 </head>
 <body>
 <div class="topbar">
@@ -2081,8 +2080,8 @@ a{color:inherit}
         </div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark" data-a3-variant="Aiii">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2110,7 +2109,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Dark-mode pair without fuzz: same corrected C02 structure, palette, nav and translucent corner blocks, but all colour fields are clean.</div>
 
   <div class="trial-label">Aiii-b / dark mode / broken-pixel stars</div>
@@ -2140,8 +2138,8 @@ a{color:inherit}
         </div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-b">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark pixel-motion pixel-stars" data-a3-variant="Aiii-b">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-b</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2169,7 +2167,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-1: sparse broken QL-colour pixels with tiny independent twinkles, more ambient than decorative.</div>
 
   <div class="trial-label">Aiii-c / dark mode / corrupted-pixel drift</div>
@@ -2199,8 +2196,8 @@ a{color:inherit}
         </div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-c">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark pixel-motion pixel-drift" data-a3-variant="Aiii-c">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-c</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2228,7 +2225,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-2: horizontal corrupted-pixel fragments that sit still most of the time, then briefly slip sideways like restrained TV noise.</div>
 
 
@@ -2254,8 +2250,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-D1">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark people-system residue" data-a3-variant="Aiii-D1">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-D1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2283,7 +2279,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL dark control. Full-width content, top-bar navigation, and local residue only where human/project activity has touched the system.</div>
 
 
@@ -2308,8 +2303,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-D2">
+  </div>
+<div class="a3-continuation c02-trial light nofuzz-light people-system residue" data-a3-variant="Aiii-D2">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-D2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2337,7 +2332,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL light control. Same residue mechanism and same QL colours, testing whether the idea survives without the dark-tech atmosphere.</div>
 
 
@@ -2362,8 +2356,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-E1">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark people-system transfer palette-signal-dark" data-a3-variant="Aiii-E1">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-E1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2391,7 +2385,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Cool signal palette: deep ink, cyan-blue, coral pink, acid green and warm amber. One contribution travels through the system in changed states.</div>
 
 
@@ -2416,8 +2409,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-E2">
+  </div>
+<div class="a3-continuation c02-trial light nofuzz-light people-system transfer palette-soft-light" data-a3-variant="Aiii-E2">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-E2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2445,7 +2438,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Soft computational palette: pale violet-grey, indigo, dusty pink, mint and apricot. Transfer stays legible but loses the familiar cyber-dark shorthand.</div>
 
 
@@ -2470,8 +2462,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-F1">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark people-system accumulation palette-studio-dark" data-a3-variant="Aiii-F1">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-F1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2499,7 +2491,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Warm studio palette: brown-black, cream, violet, clay red, olive and ochre. The page becomes more inhabited without relying on neon or glitch cues.</div>
 
 
@@ -2524,8 +2515,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-F2">
+  </div>
+<div class="a3-continuation c02-trial light nofuzz-light people-system accumulation palette-grown-light" data-a3-variant="Aiii-F2">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-F2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2553,7 +2544,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Grown-up light palette: bone, aubergine, restrained blue, berry, moss and terracotta. A quieter test of shared activity and accumulated traces.</div>
 
 
@@ -2578,8 +2568,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-G1">
+  </div>
+<div class="a3-continuation c02-trial nofuzz-dark people-system intrusion palette-electric-dark" data-a3-variant="Aiii-G1">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-G1</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2607,7 +2597,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Electric editorial palette: near-black with blue, hot pink, acid green and yellow. Photography pushes the system visibly, while the hero squares remain intact.</div>
 
 
@@ -2632,8 +2621,8 @@ a{color:inherit}
         <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
-  
-    <div class="a3-continuation" data-a3-variant="Aiii-G2">
+  </div>
+<div class="a3-continuation c02-trial light nofuzz-light people-system intrusion palette-industrial-light" data-a3-variant="Aiii-G2">
       <div class="a3-status"><span>SCROLL / CONTINUE / Aiii-G2</span><span>PUBLIC WORKING VERSION // STUDIO ONLINE</span></div>
       <section class="a3-project" aria-label="Current Qwerty project">
         <div class="a3-project-copy">
@@ -2661,7 +2650,6 @@ a{color:inherit}
       </div>
       <div class="a3-input"><span>Have something you want to make?</span><span class="action">Bring us the idea</span></div>
     </div>
-  </div>
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Industrial-playful light palette: cool grey, charcoal, cobalt, raspberry, chartreuse and orange. Same structural reaction, tested without a dark interface.</div>
 
   <div class="trial-label">Aiv / corrected baseline — light mode / no fuzz</div>
