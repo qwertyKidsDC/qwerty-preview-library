@@ -2257,6 +2257,32 @@ a{color:inherit}
 .nav-palette-test .ql-float-nav.is-travelling{
   transform:rotate(.75deg);
 }
+
+/* D1 travel lock: collapse in the exact screen position where the full palette meets the sticky bar. */
+.nav-palette-test .ql-float-nav.is-travelling{
+  left:var(--ql-travel-left)!important;
+  right:auto!important;
+  top:var(--ql-travel-top)!important;
+  width:224px!important;
+  min-width:224px!important;
+  transform:rotate(.75deg);
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:0;
+  width:100%;
+}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+  width:224px!important;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav.is-travelling{
+    width:174px!important;
+    min-width:174px!important;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+    width:174px!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2827,15 +2853,14 @@ a{color:inherit}
   
   <div class="trial-label">Aiii-D1 / reactive residue — dark / QL palette</div>
   <div class="concept-board c02-trial a3-has-continuation nav-palette-test nofuzz-dark people-system residue ">
-    <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
       <nav class="ql-float-nav" aria-label="Prototype navigation">
         <button type="button" class="ql-float-head ql-float-toggle" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></button>
-        <button type="button" class="active"><i></i><span>HOME</span><b>01</b></button>
-        <button type="button"><i></i><span>PROJECTS</span><b>02</b></button>
-        <button type="button"><i></i><span>STUDIO</span><b>03</b></button>
-        <button type="button"><i></i><span>RESOURCES</span><b>04</b></button>
-        <button type="button"><i></i><span>PEOPLE</span><b>05</b></button>
+        <button type="button" class="active"><span>HOME</span><b>01</b></button>
+        <button type="button"><span>PROJECTS</span><b>02</b></button>
+        <button type="button"><span>STUDIO</span><b>03</b></button>
+        <button type="button"><span>RESOURCES</span><b>04</b></button>
+        <button type="button"><span>PEOPLE</span><b>05</b></button>
       </nav>
       <div class="main">
         <div>
@@ -3635,28 +3660,48 @@ a{color:inherit}
   const toggle=nav && nav.querySelector('.ql-float-toggle');
   const continuation=board.nextElementSibling && board.nextElementSibling.matches('[data-a3-variant="Aiii-D1"]')
     ? board.nextElementSibling : null;
+  const sticky=document.querySelector('body > .topbar');
   if(!nav || !toggle || !continuation) return;
+
+  let travelling=false;
+
   const sync=() => {
-    const boardTop=board.getBoundingClientRect().top + window.scrollY;
-    const travelStart=boardTop + Math.min(board.offsetHeight * .72,470);
-    const travelEnd=continuation.getBoundingClientRect().bottom + window.scrollY - 140;
-    const y=window.scrollY;
-    const travelling=y > travelStart && y < travelEnd;
-    nav.classList.toggle('is-travelling',travelling);
-    if(!travelling){
+    const boardRect=board.getBoundingClientRect();
+    const stickyBottom=sticky && getComputedStyle(sticky).display!=='none'
+      ? sticky.getBoundingClientRect().bottom
+      : 0;
+    const continuationBottom=continuation.getBoundingClientRect().bottom;
+    const shouldTravel=boardRect.top <= stickyBottom + 18 && continuationBottom > stickyBottom + 150;
+
+    if(shouldTravel && !travelling){
+      const rect=nav.getBoundingClientRect();
+      nav.style.setProperty('--ql-travel-left',rect.left+'px');
+      nav.style.setProperty('--ql-travel-top',rect.top+'px');
+      nav.classList.add('is-travelling');
       nav.classList.remove('is-expanded');
+      toggle.setAttribute('aria-expanded','false');
+      travelling=true;
+    }else if(!shouldTravel && travelling){
+      nav.classList.remove('is-travelling','is-expanded');
       toggle.setAttribute('aria-expanded','true');
-    }else{
-      toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
+      travelling=false;
     }
   };
+
   toggle.addEventListener('click',() => {
     if(!nav.classList.contains('is-travelling')) return;
     nav.classList.toggle('is-expanded');
     toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
   });
+
   window.addEventListener('scroll',sync,{passive:true});
-  window.addEventListener('resize',sync);
+  window.addEventListener('resize',() => {
+    if(travelling){
+      nav.classList.remove('is-travelling','is-expanded');
+      travelling=false;
+    }
+    sync();
+  });
   sync();
 })();
 </script>
