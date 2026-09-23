@@ -2585,6 +2585,14 @@ a{color:inherit}
   background:var(--ql-blue);
   box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
 }
+
+/* D1/D2 desktop handoff: close the gap left by removing the repeated corner blocks. */
+@media(min-width:901px){
+  .a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field,
+  .a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field{
+    top:0;
+  }
+}
 </style>
 </head>
 <body>
@@ -4082,7 +4090,7 @@ a{color:inherit}
       }
 
       if(travelling && !userExpanded){
-        const collapseAfter=window.innerWidth>760 ? 220 : 80;
+        const collapseAfter=window.innerWidth>760 ? 110 : 80;
         const keepOpen=window.scrollY-travelStartY < collapseAfter;
         nav.classList.toggle('is-expanded',keepOpen);
         toggle.setAttribute('aria-expanded',keepOpen ? 'true' : 'false');
