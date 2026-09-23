@@ -2084,6 +2084,83 @@ a{color:inherit}
   bottom:16px;
   z-index:8;
 }
+
+/* D1 refinement: utility palette replaces the hero photo and becomes the travelling navigator. */
+.c02-trial.people-system .card-cta,
+.c02-trial.people-system .card.blue .card-cta,
+.c02-trial.people-system.light .card-cta,
+.c02-trial.people-system.light .card.blue .card-cta{
+  box-shadow:none;
+}
+.nav-palette-test .ql-float-nav{
+  left:auto;
+  right:20px;
+  top:18px;
+  width:224px;
+  transform:rotate(.75deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+  transform-origin:center top;
+}
+.nav-palette-test .system-mark.r1,
+.nav-palette-test .system-mark.r2{display:none}
+.nav-palette-test .ql-float-head{
+  appearance:none;
+  width:100%;
+  border:0;
+  border-radius:0;
+  cursor:pointer;
+  text-align:left;
+  font:700 9px/1 "Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-grip{
+  color:inherit;
+  opacity:.58;
+  letter-spacing:2px;
+  transform-origin:center;
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite;
+}
+@keyframes qlEllipsisNudge{
+  0%,72%,100%{opacity:.48;transform:translateX(0);letter-spacing:2px}
+  82%{opacity:.82;transform:translateX(2px);letter-spacing:2.8px}
+  90%{opacity:.58;transform:translateX(0);letter-spacing:2px}
+}
+.nav-palette-test .ql-current{
+  display:none;
+  margin-left:auto;
+  padding-left:10px;
+  border-left:1px solid currentColor;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  position:fixed;
+  z-index:120;
+  left:auto;
+  right:20px;
+  top:18px;
+  width:auto;
+  min-width:0;
+  transform:rotate(.35deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:196px;
+  padding:9px 10px;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-current{display:block}
+.nav-palette-test .ql-float-nav.is-travelling > button:not(.ql-float-head){display:none}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{width:196px}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded > button:not(.ql-float-head){display:grid}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded .ql-current{color:var(--ql-green)}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{
+    left:auto;
+    right:10px;
+    top:14px;
+    width:174px;
+    animation:qlUtilityFloat 7s ease-in-out infinite;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling{right:10px;top:12px}
+  .nav-palette-test .ql-float-nav.is-travelling .ql-float-head{min-width:174px}
+}
 </style>
 </head>
 <body>
@@ -2660,7 +2737,7 @@ a{color:inherit}
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
       <nav class="ql-float-nav" aria-label="Prototype navigation">
-        <div class="ql-float-head"><span>QL / GO TO</span><span class="ql-grip">•••</span></div>
+        <button type="button" class="ql-float-head ql-float-toggle" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></button>
         <button type="button" class="active"><i></i><span>HOME</span><b>01</b></button>
         <button type="button"><i></i><span>PROJECTS</span><b>02</b></button>
         <button type="button"><i></i><span>STUDIO</span><b>03</b></button>
@@ -2668,7 +2745,6 @@ a{color:inherit}
         <button type="button"><i></i><span>PEOPLE</span><b>05</b></button>
       </nav>
       <div class="main">
-        <div class="photoProbe" role="img" aria-label="Two children showing a robot project at QwertyKids"><div class="photoProxy"></div><div class="photoCaption">QWERTYKIDS / ROBOT PROJECT</div></div>
         <div>
           <div class="big" role="heading" aria-level="1">Qwerty Labs</div>
           <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
@@ -3465,6 +3541,38 @@ a{color:inherit}
   };
   add(".pixel-stars",stars);
   add(".pixel-drift",drift);
+})();
+
+(() => {
+  const board=document.querySelector('.nav-palette-test');
+  if(!board) return;
+  const nav=board.querySelector('.ql-float-nav');
+  const toggle=nav && nav.querySelector('.ql-float-toggle');
+  const continuation=board.nextElementSibling && board.nextElementSibling.matches('[data-a3-variant="Aiii-D1"]')
+    ? board.nextElementSibling : null;
+  if(!nav || !toggle || !continuation) return;
+  const sync=() => {
+    const boardTop=board.getBoundingClientRect().top + window.scrollY;
+    const travelStart=boardTop + Math.min(board.offsetHeight * .72,470);
+    const travelEnd=continuation.getBoundingClientRect().bottom + window.scrollY - 140;
+    const y=window.scrollY;
+    const travelling=y > travelStart && y < travelEnd;
+    nav.classList.toggle('is-travelling',travelling);
+    if(!travelling){
+      nav.classList.remove('is-expanded');
+      toggle.setAttribute('aria-expanded','true');
+    }else{
+      toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
+    }
+  };
+  toggle.addEventListener('click',() => {
+    if(!nav.classList.contains('is-travelling')) return;
+    nav.classList.toggle('is-expanded');
+    toggle.setAttribute('aria-expanded',nav.classList.contains('is-expanded') ? 'true' : 'false');
+  });
+  window.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  sync();
 })();
 </script>
 </body>
