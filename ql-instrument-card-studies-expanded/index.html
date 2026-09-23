@@ -2476,6 +2476,68 @@ a{color:inherit}
 .a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(4){
   left:14%!important;top:82.4%!important;width:5px!important;height:8px!important;
 }
+
+/* D1 desktop refinement: title edge disappears into its own dark bar. */
+.nav-palette-test .ql-float-head.ql-float-toggle{
+  border:1px solid var(--ql-dark)!important;
+  border-bottom-color:var(--ql-dark)!important;
+}
+
+/* Use the pink/blue corner interruption only once, in the opening composition. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field::before,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* D1 residue pixels: borrow D2's irregular sizes, but keep them static and non-glowing. */
+.nav-palette-test .d1-board-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.nav-palette-test .d1-board-pixels i,
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  position:absolute;
+  display:block;
+  opacity:.9;
+  animation:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.nav-palette-test .d1-board-pixels .p1{right:2.5%;top:15%;width:18px;height:7px;background:var(--ql-pink)}
+.nav-palette-test .d1-board-pixels .p2{right:8%;top:28%;width:7px;height:18px;background:var(--ql-green)}
+.nav-palette-test .d1-board-pixels .p3{left:3%;top:56%;width:22px;height:6px;background:var(--ql-orange)}
+.nav-palette-test .d1-board-pixels .p4{left:39%;top:47%;width:8px;height:8px;background:var(--ql-blue)}
+.nav-palette-test .d1-board-pixels .p5{left:68%;bottom:6%;width:15px;height:5px;background:var(--ql-pink)}
+
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p1{left:3.5%;top:18%;width:18px;height:7px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p2{right:3.8%;top:38%;width:7px;height:18px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p3{left:4.8%;top:58%;width:22px;height:6px;background:var(--ql-orange)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p4{left:45%;top:69%;width:8px;height:8px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p5{right:8%;top:84%;width:15px;height:5px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p6{right:28%;top:33%;width:7px;height:7px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p7{left:29%;top:42%;width:5px;height:13px;background:var(--ql-green)}
+
+/* Restore D2's original four-piece residue cluster beside the white studio note. */
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-scrap::before{
+  content:""!important;
+  display:block!important;
+  position:absolute;
+  left:-13px;
+  bottom:17px;
+  width:7px;
+  height:7px;
+  background:var(--ql-blue);
+  box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
+}
 </style>
 </head>
 <body>
@@ -3046,6 +3108,9 @@ a{color:inherit}
   
   <div class="trial-label">Aiii-D1 / reactive residue — dark / QL palette</div>
   <div class="concept-board c02-trial a3-has-continuation nav-palette-test nofuzz-dark people-system residue ">
+    <div class="d1-board-pixels" aria-hidden="true">
+      <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+    </div>
     <div class="layout">
       <nav class="ql-float-nav" aria-label="Prototype navigation">
         <div class="ql-float-head ql-float-toggle" role="button" tabindex="0" aria-expanded="true"><span class="ql-go-label">QL / GO TO</span><span class="ql-grip" aria-hidden="true">•••</span><span class="ql-current">HOME</span></div>
@@ -3073,15 +3138,8 @@ a{color:inherit}
 <div class="a3-continuation c02-trial nofuzz-dark people-system residue" data-a3-variant="Aiii-D1">
     <div class="a3-canvas">
       <div class="d1-pixels" aria-hidden="true">
-        <i style="--x:12.2%;--y:76%;--w:5px;--h:5px;--c:var(--ql-blue)"></i>
-        <i style="--x:13.5%;--y:78.2%;--w:4px;--h:4px;--c:var(--ql-pink)"></i>
-        <i style="--x:11.4%;--y:80.4%;--w:5px;--h:3px;--c:var(--ql-green)"></i>
-        <i style="--x:14.3%;--y:82.2%;--w:3px;--h:5px;--c:var(--ql-orange)"></i>
-        <i style="--x:4.5%;--y:33%;--w:4px;--h:4px;--c:var(--ql-pink)"></i>
-        <i style="--x:31%;--y:40%;--w:3px;--h:5px;--c:var(--ql-blue)"></i>
-        <i style="--x:72%;--y:58%;--w:5px;--h:3px;--c:var(--ql-green)"></i>
-        <i style="--x:91%;--y:69%;--w:4px;--h:4px;--c:var(--ql-orange)"></i>
-        <i style="--x:84%;--y:88%;--w:3px;--h:5px;--c:var(--ql-pink)"></i>
+        <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+        <i class="p6"></i><i class="p7"></i>
       </div>
 
       <div class="a3-project-field">
