@@ -29,6 +29,10 @@ a{color:inherit}
 .topbar .title{font:700 11px/1.35 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
 .nav a{text-decoration:none;border:1.5px solid var(--ink);padding:7px 9px;background:white;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+
+@media(max-width:768px){
+  body > .topbar{display:none}
+}
 .intro{padding:42px 22px 28px;max-width:1500px;margin:0 auto}
 .intro h1{margin:0 0 16px;font-size:clamp(52px,8.5vw,120px);line-height:.82;letter-spacing:-.07em}
 .intro p{font-size:20px;max-width:940px;margin:0 0 18px}
