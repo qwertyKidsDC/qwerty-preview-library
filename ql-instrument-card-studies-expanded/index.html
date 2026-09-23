@@ -2201,6 +2201,48 @@ a{color:inherit}
   .nav-palette-test .ql-float-nav{right:18px}
   .nav-palette-test .ql-float-nav.is-travelling{right:14px}
 }
+
+/* D1 placement pass: sit below sticky study bar, larger type, no residue lights. */
+.nav-palette-test .system-mark{
+  display:none!important;
+}
+.nav-palette-test .ql-float-nav{
+  top:34px;
+  right:72px;
+}
+.nav-palette-test .ql-float-head{
+  font-size:11px;
+  padding:10px 11px;
+}
+.nav-palette-test .ql-float-nav > button:not(.ql-float-head){
+  font-size:12px;
+  padding:11px 10px;
+}
+.nav-palette-test .ql-float-nav button b{
+  font-size:9px;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  top:64px;
+  right:64px;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:214px;
+  padding:11px 12px;
+  font-size:11px;
+}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+  width:214px;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{
+    top:24px;
+    right:18px;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling{
+    top:18px;
+    right:14px;
+  }
+}
 </style>
 </head>
 <body>
