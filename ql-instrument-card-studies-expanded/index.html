@@ -2291,6 +2291,29 @@ a{color:inherit}
   opacity:.62;
   letter-spacing:2px;
 }
+
+/* D1 title-bar motion isolation: only the ellipsis animates. */
+.nav-palette-test .ql-float-head{
+  animation:none!important;
+  transition:none!important;
+  background-image:none!important;
+  overflow:hidden;
+}
+.nav-palette-test .ql-float-head::before,
+.nav-palette-test .ql-float-head::after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+}
+.nav-palette-test .ql-float-head > *:not(.ql-grip){
+  animation:none!important;
+  transition:none!important;
+}
+.nav-palette-test .ql-float-nav .ql-grip,
+.nav-palette-test .ql-float-nav:not(.is-travelling) .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+  transform-origin:center;
+}
 </style>
 </head>
 <body>
