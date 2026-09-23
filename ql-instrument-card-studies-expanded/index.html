@@ -843,23 +843,100 @@ a{color:inherit}
 
 
 /* Aiii-D/E/F/G — people change the system
-   Controlled tests from the clean Aiii base. Photography is represented by the
-   same neutral proxy in each variant so only the intervention logic changes. */
+   Eight controlled tests: four mechanisms, each in dark + light.
+   D retains the QL palette in both modes; E/F/G deliberately test six other palettes. */
 .c02-trial.people-system{
   position:relative;
   overflow:hidden;
+  --people-surface:var(--ql-dark);
 }
-.c02-trial.people-system .main>div:nth-child(2){padding-right:238px}
+.c02-trial.people-system.light{--people-surface:var(--ql-base)}
+.c02-trial.people-system .layout{
+  grid-template-columns:1fr;
+  grid-template-rows:auto 1fr;
+}
+.c02-trial.people-system .topbar{
+  grid-column:1;
+  padding:12px 18px;
+}
+.c02-trial.people-system .side{display:none}
+.c02-trial.people-system .main{
+  grid-column:1;
+  width:100%;
+  min-width:0;
+}
+.c02-trial.people-system .topnav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:18px;
+  flex-wrap:wrap;
+  white-space:nowrap;
+}
+.c02-trial.people-system .topnav span{color:inherit}
+.c02-trial.people-system .topnav .active{color:var(--ql-green)}
+.c02-trial.people-system .main>div:nth-child(2){padding-right:262px}
+
+/* palette tests: D dark/light inherit QL unchanged */
+.c02-trial.palette-signal-dark{
+  --ql-dark:#111827;
+  --ql-base:#F3F8F4;
+  --ql-blue:#168EA0;
+  --ql-pink:#FF6E91;
+  --ql-green:#B7E64A;
+  --ql-orange:#FFAF57;
+}
+.c02-trial.palette-soft-light{
+  --ql-dark:#29243D;
+  --ql-base:#F4F1FB;
+  --ql-blue:#5B67C8;
+  --ql-pink:#E587AE;
+  --ql-green:#75BE9B;
+  --ql-orange:#ECA36C;
+}
+.c02-trial.palette-studio-dark{
+  --ql-dark:#21171B;
+  --ql-base:#F5EBDD;
+  --ql-blue:#7658B0;
+  --ql-pink:#DF6B72;
+  --ql-green:#A5B85A;
+  --ql-orange:#D88A4A;
+}
+.c02-trial.palette-grown-light{
+  --ql-dark:#451E32;
+  --ql-base:#F7F1E6;
+  --ql-blue:#415DAE;
+  --ql-pink:#C76486;
+  --ql-green:#788B54;
+  --ql-orange:#D98558;
+}
+.c02-trial.palette-electric-dark{
+  --ql-dark:#080A11;
+  --ql-base:#F7F8F0;
+  --ql-blue:#1688E8;
+  --ql-pink:#FF4FBD;
+  --ql-green:#B9F33D;
+  --ql-orange:#FFD447;
+}
+.c02-trial.palette-industrial-light{
+  --ql-dark:#1C2221;
+  --ql-base:#EDF0EC;
+  --ql-blue:#3157C8;
+  --ql-pink:#D95580;
+  --ql-green:#95B82F;
+  --ql-orange:#F0783C;
+}
+
 .c02-trial.people-system .photoProbe{
   position:absolute;
   right:20px;
   top:18px;
-  width:210px;
-  height:108px;
+  width:224px;
+  height:112px;
   z-index:6;
-  border:1px solid rgba(241,248,248,.56);
-  background:#151531;
-  box-shadow:5px 5px 0 rgba(76,105,227,.18);
+  border:1px solid color-mix(in srgb,var(--ql-base) 54%,var(--ql-dark));
+  background:var(--people-surface);
+  box-shadow:5px 5px 0 color-mix(in srgb,var(--ql-blue) 24%,transparent);
   overflow:visible;
 }
 .c02-trial.people-system .photoProxy{
@@ -867,17 +944,23 @@ a{color:inherit}
   inset:0;
   overflow:hidden;
   background:
-    linear-gradient(132deg,rgba(241,248,248,.08),transparent 44%),
-    linear-gradient(18deg,#14172c 0 29%,#414967 29% 48%,#111128 48% 100%);
-  filter:saturate(.72);
+    linear-gradient(132deg,color-mix(in srgb,var(--ql-base) 12%,transparent),transparent 44%),
+    linear-gradient(
+      18deg,
+      color-mix(in srgb,var(--ql-dark) 88%,var(--ql-blue)) 0 29%,
+      color-mix(in srgb,var(--ql-dark) 58%,var(--ql-base)) 29% 48%,
+      color-mix(in srgb,var(--ql-dark) 92%,var(--ql-pink)) 48% 100%
+    );
+  filter:saturate(.56);
 }
+.c02-trial.people-system.light .photoProxy{filter:saturate(.42) brightness(1.35)}
 .c02-trial.people-system .photoProxy:before,
 .c02-trial.people-system .photoProxy:after{
   content:"";
   position:absolute;
   border-radius:50%;
-  background:rgba(241,248,248,.60);
-  box-shadow:0 22px 0 7px rgba(241,248,248,.18);
+  background:color-mix(in srgb,var(--ql-base) 66%,transparent);
+  box-shadow:0 22px 0 7px color-mix(in srgb,var(--ql-base) 20%,transparent);
 }
 .c02-trial.people-system .photoProxy:before{width:22px;height:22px;left:42px;top:20px}
 .c02-trial.people-system .photoProxy:after{width:18px;height:18px;right:43px;top:27px;opacity:.72}
@@ -899,23 +982,13 @@ a{color:inherit}
   pointer-events:none;
 }
 
-/* D / reactive residue — interventions stay local to places people touched */
+/* D / reactive residue — local evidence of activity */
 .c02-trial.residue .system-mark{box-shadow:0 0 7px currentColor}
-.c02-trial.residue .r1{
-  right:9px;top:78px;width:18px;height:7px;background:var(--ql-pink);color:rgba(246,109,193,.38)
-}
-.c02-trial.residue .r2{
-  right:39px;top:137px;width:7px;height:18px;background:var(--ql-green);color:rgba(146,214,68,.34)
-}
-.c02-trial.residue .r3{
-  left:172px;top:330px;width:22px;height:6px;background:var(--ql-orange);color:rgba(255,144,41,.30)
-}
-.c02-trial.residue .r4{
-  left:39%;top:277px;width:8px;height:8px;background:var(--ql-blue);color:rgba(76,105,227,.38)
-}
-.c02-trial.residue .r5{
-  left:66%;bottom:21px;width:15px;height:5px;background:var(--ql-pink);color:rgba(246,109,193,.28)
-}
+.c02-trial.residue .r1{right:9px;top:78px;width:18px;height:7px;background:var(--ql-pink);color:color-mix(in srgb,var(--ql-pink) 38%,transparent)}
+.c02-trial.residue .r2{right:39px;top:137px;width:7px;height:18px;background:var(--ql-green);color:color-mix(in srgb,var(--ql-green) 34%,transparent)}
+.c02-trial.residue .r3{left:22px;top:327px;width:22px;height:6px;background:var(--ql-orange);color:color-mix(in srgb,var(--ql-orange) 30%,transparent)}
+.c02-trial.residue .r4{left:38%;top:277px;width:8px;height:8px;background:var(--ql-blue);color:color-mix(in srgb,var(--ql-blue) 38%,transparent)}
+.c02-trial.residue .r5{left:68%;bottom:21px;width:15px;height:5px;background:var(--ql-pink);color:color-mix(in srgb,var(--ql-pink) 28%,transparent)}
 .c02-trial.residue .photoProbe:after{
   content:"";
   position:absolute;
@@ -924,10 +997,7 @@ a{color:inherit}
   width:7px;
   height:7px;
   background:var(--ql-blue);
-  box-shadow:
-    -9px 9px 0 var(--ql-pink),
-    5px 17px 0 var(--ql-green),
-    -16px 23px 0 var(--ql-orange);
+  box-shadow:-9px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-16px 23px 0 var(--ql-orange);
 }
 @keyframes qlResidueBreath{
   0%,72%,100%{opacity:.72}
@@ -937,13 +1007,13 @@ a{color:inherit}
 .c02-trial.residue .r1,
 .c02-trial.residue .r4{animation:qlResidueBreath 7.4s steps(2,end) infinite}
 
-/* E / transfer — one recognisable fragment reappears in changed states */
+/* E / transfer — a recognisable contribution reappears changed */
 .c02-trial.transfer .transfer-mark{
   width:24px;height:7px;background:var(--ql-blue);
   box-shadow:8px 7px 0 var(--ql-pink),16px 0 0 var(--ql-green);
 }
 .c02-trial.transfer .t1{right:8px;top:72px;transform:scale(.72)}
-.c02-trial.transfer .t2{left:206px;top:204px;transform:rotate(90deg) scale(.82)}
+.c02-trial.transfer .t2{left:34%;top:18px;transform:rotate(90deg) scale(.76)}
 .c02-trial.transfer .t3{left:51%;top:316px;transform:rotate(180deg)}
 .c02-trial.transfer .t4{right:70px;bottom:22px;transform:rotate(-90deg) scale(.66)}
 .c02-trial.transfer .photoProbe:after{
@@ -966,31 +1036,35 @@ a{color:inherit}
 .c02-trial.transfer .t3{animation:qlTransferState 8.8s 2.4s steps(2,end) infinite}
 .c02-trial.transfer .t4{animation:qlTransferState 8.8s 3.6s steps(2,end) infinite}
 
-/* F / accumulation — the clean system becomes progressively more inhabited */
-.c02-trial.accumulation .accum-mark{
-  width:8px;height:8px;background:var(--c,var(--ql-blue));opacity:var(--o,.74)
-}
-.c02-trial.accumulation .a1{left:14%;top:83px;--c:var(--ql-blue);--o:.55}
-.c02-trial.accumulation .a2{right:13%;top:165px;width:15px;height:5px;--c:var(--ql-pink);--o:.62}
-.c02-trial.accumulation .a3{left:24%;top:266px;width:6px;height:15px;--c:var(--ql-green);--o:.70}
-.c02-trial.accumulation .a4{left:44%;top:328px;width:19px;height:6px;--c:var(--ql-orange);--o:.76}
-.c02-trial.accumulation .a5{left:58%;top:347px;--c:var(--ql-blue);--o:.80}
+/* F / accumulation — activity builds as the page becomes more inhabited */
+.c02-trial.accumulation .accum-mark{width:8px;height:8px;background:var(--c,var(--ql-blue));opacity:var(--o,.74)}
+.c02-trial.accumulation .a1{left:10%;top:83px;--c:var(--ql-blue);--o:.50}
+.c02-trial.accumulation .a2{right:13%;top:165px;width:15px;height:5px;--c:var(--ql-pink);--o:.58}
+.c02-trial.accumulation .a3{left:18%;top:266px;width:6px;height:15px;--c:var(--ql-green);--o:.66}
+.c02-trial.accumulation .a4{left:39%;top:328px;width:19px;height:6px;--c:var(--ql-orange);--o:.74}
+.c02-trial.accumulation .a5{left:54%;top:347px;--c:var(--ql-blue);--o:.78}
 .c02-trial.accumulation .a6{right:19%;top:373px;width:5px;height:18px;--c:var(--ql-pink);--o:.82}
-.c02-trial.accumulation .a7{left:27%;bottom:16px;width:13px;height:5px;--c:var(--ql-green);--o:.86}
-.c02-trial.accumulation .a8{left:39%;bottom:29px;width:6px;height:12px;--c:var(--ql-orange);--o:.88}
-.c02-trial.accumulation .a9{left:53%;bottom:12px;width:17px;height:5px;--c:var(--ql-blue);--o:.90}
+.c02-trial.accumulation .a7{left:20%;bottom:16px;width:13px;height:5px;--c:var(--ql-green);--o:.86}
+.c02-trial.accumulation .a8{left:36%;bottom:29px;width:6px;height:12px;--c:var(--ql-orange);--o:.88}
+.c02-trial.accumulation .a9{left:52%;bottom:12px;width:17px;height:5px;--c:var(--ql-blue);--o:.90}
 .c02-trial.accumulation .a10{right:31%;bottom:32px;--c:var(--ql-pink);--o:.92}
 .c02-trial.accumulation .a11{right:17%;bottom:15px;width:6px;height:15px;--c:var(--ql-green);--o:.94}
 .c02-trial.accumulation .a12{right:5%;bottom:37px;width:20px;height:5px;--c:var(--ql-orange);--o:.96}
-.c02-trial.accumulation .photoProbe{box-shadow:3px 3px 0 rgba(241,248,248,.12)}
+.c02-trial.accumulation .photoProbe{box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 12%,transparent)}
 .c02-trial.accumulation .cards .card:nth-child(2):before,
 .c02-trial.accumulation .cards .card:nth-child(4):before{
-  content:"";position:absolute;z-index:6;right:-2px;top:18%;
-  width:7px;height:20px;background:var(--ql-dark);
-  box-shadow:-7px 7px 0 rgba(2,0,32,.58);
+  content:"";
+  position:absolute;
+  z-index:6;
+  right:-2px;
+  top:18%;
+  width:7px;
+  height:20px;
+  background:var(--people-surface);
+  box-shadow:-7px 7px 0 color-mix(in srgb,var(--people-surface) 58%,transparent);
 }
 
-/* G / responsive intrusion — the presence of active content pushes the UI */
+/* G / responsive intrusion — active content visibly pushes the interface */
 .c02-trial.intrusion .photoProbe{
   width:236px;
   height:124px;
@@ -1006,38 +1080,39 @@ a{color:inherit}
   width:27px;
   height:8px;
   background:var(--ql-pink);
-  box-shadow:
-    10px 11px 0 var(--ql-blue),
-    22px 22px 0 var(--ql-green),
-    41px 29px 0 var(--ql-orange);
+  box-shadow:10px 11px 0 var(--ql-blue),22px 22px 0 var(--ql-green),41px 29px 0 var(--ql-orange);
 }
 .c02-trial.intrusion .heroRibbon{
-  clip-path:polygon(0 0,100% 0,100% 100%,83% 100%,83% 91%,73% 91%,73% 100%,0 100%);
+  overflow:visible;
+  clip-path:none;
 }
-.c02-trial.intrusion .impact1{
-  right:218px;top:126px;width:52px;height:7px;background:var(--ql-blue);
-  box-shadow:24px 9px 0 var(--ql-pink)
+.c02-trial.intrusion .heroRibbon .intrusion-cut{
+  position:absolute;
+  z-index:4;
+  right:0;
+  bottom:0;
+  width:25px;
+  height:9px;
+  background:var(--people-surface);
+  box-shadow:-18px 9px 0 var(--people-surface),-31px 15px 0 var(--people-surface);
+  pointer-events:none;
 }
-.c02-trial.intrusion .impact2{
-  right:164px;top:168px;width:7px;height:30px;background:var(--ql-green);
-  box-shadow:8px 17px 0 var(--ql-orange)
-}
-.c02-trial.intrusion .impact3{
-  right:110px;top:290px;width:34px;height:6px;background:var(--ql-pink)
-}
+.c02-trial.intrusion .impact1{right:218px;top:126px;width:52px;height:7px;background:var(--ql-blue);box-shadow:24px 9px 0 var(--ql-pink)}
+.c02-trial.intrusion .impact2{right:164px;top:168px;width:7px;height:30px;background:var(--ql-green);box-shadow:8px 17px 0 var(--ql-orange)}
+.c02-trial.intrusion .impact3{right:110px;top:290px;width:34px;height:6px;background:var(--ql-pink)}
 .c02-trial.intrusion .photoProbe,
 .c02-trial.intrusion .impact1,
 .c02-trial.intrusion .impact2,
-.c02-trial.intrusion .impact3{
-  transition:transform .28s ease,filter .28s ease;
-}
+.c02-trial.intrusion .impact3{transition:transform .28s ease,filter .28s ease}
 .c02-trial.intrusion:hover .photoProbe{transform:translate(-3px,2px)}
 .c02-trial.intrusion:hover .impact1{transform:translateX(-10px);filter:brightness(1.25)}
 .c02-trial.intrusion:hover .impact2{transform:translate(5px,5px);filter:brightness(1.25)}
 .c02-trial.intrusion:hover .impact3{transform:translateX(8px);filter:brightness(1.25)}
 
 @media(max-width:1100px){
-  .c02-trial.people-system .main>div:nth-child(2){padding-right:0;padding-top:126px}
+  .c02-trial.people-system .topbar{align-items:flex-start}
+  .c02-trial.people-system .topnav{gap:12px}
+  .c02-trial.people-system .main>div:nth-child(2){padding-right:0;padding-top:132px}
   .c02-trial.people-system .photoProbe{left:20px;right:auto;top:14px}
 }
 
@@ -1529,18 +1604,12 @@ a{color:inherit}
   <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii unchanged in the foreground. Background treatment translated from image-gen-2: horizontal corrupted-pixel fragments that sit still most of the time, then briefly slip sideways like restrained TV noise.</div>
 
 
-  <div class="trial-label">Aiii-D / people change the system — reactive residue</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system residue">
+  
+  <div class="trial-label">Aiii-D1 / reactive residue — dark / QL palette</div>
+  <div class="concept-board c02-trial nofuzz-dark people-system residue ">
     <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
-      <div class="side">
-        <span class="navitem active">Home</span>
-        <span class="navitem">Projects</span>
-        <span class="navitem">Studio</span>
-        <span class="navitem">Resources</span>
-        <span class="navitem">People</span>
-      </div>
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
       <div class="main">
         <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
         <div>
@@ -1558,21 +1627,39 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Aiii stays calm and competent. Interventions cluster only around places that imply human activity: photography, content edges and touched modules. The pixel is evidence, not atmosphere.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL dark control. Full-width content, top-bar navigation, and local residue only where human/project activity has touched the system.</div>
 
 
-  <div class="trial-label">Aiii-E / people change the system — transfer</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system transfer">
+  <div class="trial-label">Aiii-D2 / reactive residue — light / QL palette</div>
+  <div class="concept-board c02-trial light nofuzz-light people-system residue ">
+    <i class="system-mark r1"></i><i class="system-mark r2"></i><i class="system-mark r3"></i><i class="system-mark r4"></i><i class="system-mark r5"></i>
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <div class="main">
+        <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+
+        <div class="cards">
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">QL light control. Same residue mechanism and same QL colours, testing whether the idea survives without the dark-tech atmosphere.</div>
+
+
+  <div class="trial-label">Aiii-E1 / transfer — dark / cool signal palette</div>
+  <div class="concept-board c02-trial nofuzz-dark people-system transfer palette-signal-dark">
     <i class="system-mark transfer-mark t1"></i><i class="system-mark transfer-mark t2"></i><i class="system-mark transfer-mark t3"></i><i class="system-mark transfer-mark t4"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
-      <div class="side">
-        <span class="navitem active">Home</span>
-        <span class="navitem">Projects</span>
-        <span class="navitem">Studio</span>
-        <span class="navitem">Resources</span>
-        <span class="navitem">People</span>
-      </div>
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
       <div class="main">
         <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
         <div>
@@ -1590,21 +1677,39 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">One recognisable three-part fragment moves through the system in different states. Nothing is connected by diagram lines: the repetition itself implies that something has travelled, been picked up and changed.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Cool signal palette: deep ink, cyan-blue, coral pink, acid green and warm amber. One contribution travels through the system in changed states.</div>
 
 
-  <div class="trial-label">Aiii-F / people change the system — accumulation</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system accumulation">
+  <div class="trial-label">Aiii-E2 / transfer — light / soft computational palette</div>
+  <div class="concept-board c02-trial light nofuzz-light people-system transfer palette-soft-light">
+    <i class="system-mark transfer-mark t1"></i><i class="system-mark transfer-mark t2"></i><i class="system-mark transfer-mark t3"></i><i class="system-mark transfer-mark t4"></i>
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <div class="main">
+        <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+
+        <div class="cards">
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Soft computational palette: pale violet-grey, indigo, dusty pink, mint and apricot. Transfer stays legible but loses the familiar cyber-dark shorthand.</div>
+
+
+  <div class="trial-label">Aiii-F1 / accumulation — dark / warm studio palette</div>
+  <div class="concept-board c02-trial nofuzz-dark people-system accumulation palette-studio-dark">
     <i class="system-mark accum-mark a1"></i><i class="system-mark accum-mark a2"></i><i class="system-mark accum-mark a3"></i><i class="system-mark accum-mark a4"></i><i class="system-mark accum-mark a5"></i><i class="system-mark accum-mark a6"></i><i class="system-mark accum-mark a7"></i><i class="system-mark accum-mark a8"></i><i class="system-mark accum-mark a9"></i><i class="system-mark accum-mark a10"></i><i class="system-mark accum-mark a11"></i><i class="system-mark accum-mark a12"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
-      <div class="side">
-        <span class="navitem active">Home</span>
-        <span class="navitem">Projects</span>
-        <span class="navitem">Studio</span>
-        <span class="navitem">Resources</span>
-        <span class="navitem">People</span>
-      </div>
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
       <div class="main">
         <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
         <div>
@@ -1622,28 +1727,46 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">The upper interface is comparatively clean; interventions multiply toward the active project/card area. The system becomes more inhabited rather than more glitched.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Warm studio palette: brown-black, cream, violet, clay red, olive and ochre. The page becomes more inhabited without relying on neon or glitch cues.</div>
 
 
-  <div class="trial-label">Aiii-G / people change the system — responsive intrusion</div>
-  <div class="concept-board c02-trial nofuzz-dark people-system intrusion">
+  <div class="trial-label">Aiii-F2 / accumulation — light / grown-up palette</div>
+  <div class="concept-board c02-trial light nofuzz-light people-system accumulation palette-grown-light">
+    <i class="system-mark accum-mark a1"></i><i class="system-mark accum-mark a2"></i><i class="system-mark accum-mark a3"></i><i class="system-mark accum-mark a4"></i><i class="system-mark accum-mark a5"></i><i class="system-mark accum-mark a6"></i><i class="system-mark accum-mark a7"></i><i class="system-mark accum-mark a8"></i><i class="system-mark accum-mark a9"></i><i class="system-mark accum-mark a10"></i><i class="system-mark accum-mark a11"></i><i class="system-mark accum-mark a12"></i>
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <div class="main">
+        <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+
+        <div class="cards">
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Grown-up light palette: bone, aubergine, restrained blue, berry, moss and terracotta. A quieter test of shared activity and accumulated traces.</div>
+
+
+  <div class="trial-label">Aiii-G1 / responsive intrusion — dark / electric editorial palette</div>
+  <div class="concept-board c02-trial nofuzz-dark people-system intrusion palette-electric-dark">
     <i class="system-mark impact1"></i><i class="system-mark impact2"></i><i class="system-mark impact3"></i>
     <div class="layout">
-      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono">studio // online</span></div>
-      <div class="side">
-        <span class="navitem active">Home</span>
-        <span class="navitem">Projects</span>
-        <span class="navitem">Studio</span>
-        <span class="navitem">Resources</span>
-        <span class="navitem">People</span>
-      </div>
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
       <div class="main">
         <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
         <div>
           <div class="big" style="font-size:72px">Qwerty Labs</div>
           <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
         </div>
-        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div><span class="intrusion-cut" aria-hidden="true"></span></div>
 
         <div class="cards">
           <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
@@ -1654,7 +1777,32 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Photography has enough visual force to push into the interface: stepped edges, displaced colour and a small structural reaction nearby. Hover reveals a second, quieter state change. This is the fastest first-glance test.</div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Electric editorial palette: near-black with blue, hot pink, acid green and yellow. Photography pushes the system visibly, while the hero squares remain intact.</div>
+
+
+  <div class="trial-label">Aiii-G2 / responsive intrusion — light / industrial playful palette</div>
+  <div class="concept-board c02-trial light nofuzz-light people-system intrusion palette-industrial-light">
+    <i class="system-mark impact1"></i><i class="system-mark impact2"></i><i class="system-mark impact3"></i>
+    <div class="layout">
+      <div class="topbar"><span class="mono">QWERTY LABS</span><span class="mono topnav"><span class="active">Home</span><span>Projects</span><span>Studio</span><span>Resources</span><span>People</span></span></div>
+      <div class="main">
+        <div class="photoProbe" aria-label="photography placeholder"><div class="photoProxy"></div><div class="photoCaption">PHOTO / people making</div></div>
+        <div>
+          <div class="big" style="font-size:72px">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+        <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div><span class="intrusion-cut" aria-hidden="true"></span></div>
+
+        <div class="cards">
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
+          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="concept-summary" style="margin:10px 0 24px;max-width:none">Industrial-playful light palette: cool grey, charcoal, cobalt, raspberry, chartreuse and orange. Same structural reaction, tested without a dark interface.</div>
 
   <div class="trial-label">Aiv / corrected baseline — light mode / no fuzz</div>
   <div class="concept-board c02-trial light nofuzz-light">
