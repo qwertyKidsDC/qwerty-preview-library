@@ -1872,6 +1872,37 @@ a{color:inherit}
 .c02-trial.people-system .card .copy{
   bottom:76px;
 }
+
+/* CTA role correction: labels stay coloured; actions use one neutral control language. */
+.c02-trial.people-system .card{
+  padding-bottom:0;
+}
+.c02-trial.people-system .card .copy{
+  top:82px;
+  bottom:92px;
+}
+.c02-trial.people-system .card-cta,
+.c02-trial.people-system .card.blue .card-cta{
+  left:16px;
+  bottom:16px;
+  padding:10px 11px 10px 12px;
+  border:0;
+  border-radius:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 78%,transparent);
+}
+.c02-trial.people-system.light .card-cta,
+.c02-trial.people-system.light .card.blue .card-cta{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-dark) 28%,transparent);
+}
+.c02-trial.people-system .card-cta span{
+  margin-left:2px;
+  padding-left:9px;
+  border-left:1px solid currentColor;
+}
 </style>
 </head>
 <body>
