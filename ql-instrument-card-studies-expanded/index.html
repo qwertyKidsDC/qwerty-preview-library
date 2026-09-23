@@ -876,6 +876,51 @@ a{color:inherit}
 .c02-trial.people-system .topnav span{color:inherit}
 .c02-trial.people-system .topnav .active{color:var(--ql-green)}
 .c02-trial.people-system .main>div:nth-child(2){padding-right:262px}
+.c02-trial.people-system .cards{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.c02-trial.people-system .card{
+  min-height:270px;
+}
+.c02-trial.people-system .card .copy{
+  left:18px;
+  right:18px;
+  bottom:58px;
+  max-width:84%;
+  font-size:16px;
+  line-height:1.32;
+}
+.c02-trial.people-system .card .tape{
+  left:14px;
+  bottom:14px;
+  max-width:calc(100% - 28px);
+  white-space:normal;
+  line-height:1.15;
+}
+.c02-trial.people-system .trial-cta{
+  justify-self:start;
+  width:max-content;
+  max-width:100%;
+  border:1px solid color-mix(in srgb,var(--ql-base) 52%,var(--ql-dark));
+  padding:10px 13px;
+  font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--ql-base);
+  background:color-mix(in srgb,var(--ql-dark) 90%,var(--ql-blue));
+}
+.c02-trial.people-system.light .trial-cta{
+  color:var(--ql-dark);
+  background:color-mix(in srgb,var(--ql-base) 92%,var(--ql-blue));
+  border-color:color-mix(in srgb,var(--ql-dark) 35%,transparent);
+}
+.c02-trial.people-system .trial-cta span{
+  display:inline-block;
+  margin-left:12px;
+  transition:transform .2s ease;
+}
+.c02-trial.people-system:hover .trial-cta span{transform:translateX(3px)}
 
 /* palette tests: D dark/light inherit QL unchanged */
 .c02-trial.palette-signal-dark{
@@ -1052,7 +1097,7 @@ a{color:inherit}
 .c02-trial.accumulation .a12{right:5%;bottom:37px;width:20px;height:5px;--c:var(--ql-orange);--o:.96}
 .c02-trial.accumulation .photoProbe{box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 12%,transparent)}
 .c02-trial.accumulation .cards .card:nth-child(2):before,
-.c02-trial.accumulation .cards .card:nth-child(4):before{
+.c02-trial.accumulation .cards .card:nth-child(3):before{
   content:"";
   position:absolute;
   z-index:6;
@@ -1114,6 +1159,8 @@ a{color:inherit}
   .c02-trial.people-system .topnav{gap:12px}
   .c02-trial.people-system .main>div:nth-child(2){padding-right:0;padding-top:132px}
   .c02-trial.people-system .photoProbe{left:20px;right:auto;top:14px}
+  .c02-trial.people-system .cards{grid-template-columns:1fr}
+  .c02-trial.people-system .card{min-height:235px}
 }
 
 /* B — same shell/background, cards pushed toward physical/editorial source */
@@ -1619,11 +1666,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1644,11 +1691,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1669,11 +1716,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1694,11 +1741,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1719,11 +1766,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1744,11 +1791,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1769,11 +1816,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div><span class="intrusion-cut" aria-hidden="true"></span></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -1794,11 +1841,11 @@ a{color:inherit}
         <div class="heroRibbon"><div class="mid" style="font-size:26px">Creative technology<br>for curious people.</div><span class="intrusion-cut" aria-hidden="true"></span></div>
 
         <div class="cards">
-          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 MAKE</div><div class="copy">Turn ideas into something you can tinker with.</div></div>
-          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN</div><div class="copy">Build skills.<br>Follow curiosity.</div></div>
-          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 EXPLORE</div><div class="copy">Different tools.<br>Different paths.</div></div>
-          <div class="card pink"><div class="texture"></div><div class="patch"></div><div class="tape">04 PEOPLE</div><div class="copy">A small creative community.</div></div>
+          <div class="card blue"><div class="texture"></div><div class="patch"></div><div class="tape">01 START WITH AN IDEA</div><div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div></div>
+          <div class="card green"><div class="texture"></div><div class="patch"></div><div class="tape">02 LEARN WHAT YOU NEED</div><div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div></div>
+          <div class="card orange"><div class="texture"></div><div class="patch"></div><div class="tape">03 SEE WHERE IT GOES</div><div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div></div>
         </div>
+        <div class="trial-cta">Bring us an idea <span aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
