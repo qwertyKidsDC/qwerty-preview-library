@@ -2314,6 +2314,65 @@ a{color:inherit}
   animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
   transform-origin:center;
 }
+
+/* D1 menu top edge: no travelling light sweep; ellipsis remains the only local title-bar animation. */
+.nav-palette-test .ql-float-nav,
+.nav-palette-test .ql-float-head{
+  background-attachment:initial!important;
+  background-position:0 0!important;
+}
+.nav-palette-test .ql-float-nav::before,
+.nav-palette-test .ql-float-nav::after,
+.nav-palette-test .ql-float-head::before,
+.nav-palette-test .ql-float-head::after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+  transition:none!important;
+}
+.nav-palette-test .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+}
+
+/* D1 continuation cleanup: remove ornamental strips; return pixels to the background. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-stage::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-stage.one,
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-stage.three{
+  box-shadow:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-scrap::before{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-canvas::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 7% 18%/4px 4px no-repeat,
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 14% 37%/3px 5px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 28% 66%/5px 3px no-repeat,
+    linear-gradient(var(--ql-orange),var(--ql-orange)) 44% 11%/3px 3px no-repeat,
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 58% 78%/4px 3px no-repeat,
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 73% 31%/3px 4px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 88% 61%/5px 3px no-repeat,
+    linear-gradient(var(--ql-orange),var(--ql-orange)) 94% 84%/3px 3px no-repeat;
+  opacity:.62;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-photo-fragment,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-stage,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-scrap,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-open-note,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-side-strip{
+  position:absolute;
+  z-index:2;
+}
 </style>
 </head>
 <body>
