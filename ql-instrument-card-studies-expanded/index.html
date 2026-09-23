@@ -2443,6 +2443,39 @@ a{color:inherit}
   box-shadow:none;
   animation:none!important;
 }
+
+/* D1 final bob fix: move vertically without translating the rotated panel. */
+.nav-palette-test .ql-float-nav:not(.is-travelling){
+  animation:qlUtilityBobTop 7s ease-in-out infinite!important;
+  translate:none!important;
+  will-change:top;
+}
+@keyframes qlUtilityBobTop{
+  0%,100%{margin-top:0}
+  50%{margin-top:7px}
+}
+
+/* Make the static D1 pixels visibly intentional, especially beside the white note. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  z-index:4;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  opacity:1;
+  min-width:4px;
+  min-height:4px;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(1){
+  left:12%!important;top:75%!important;width:7px!important;height:7px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(2){
+  left:13.2%!important;top:77.7%!important;width:6px!important;height:6px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(3){
+  left:11.2%!important;top:80.2%!important;width:8px!important;height:5px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(4){
+  left:14%!important;top:82.4%!important;width:5px!important;height:8px!important;
+}
 </style>
 </head>
 <body>
