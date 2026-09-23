@@ -922,6 +922,45 @@ a{color:inherit}
 }
 .c02-trial.people-system:hover .trial-cta span{transform:translateX(3px)}
 
+/* People-system content cards: contrast now carries information, not decoration */
+.c02-trial.people-system .card .patch{display:none}
+.c02-trial.people-system .card .tape{
+  top:16px;
+  bottom:auto;
+  left:16px;
+  right:auto;
+  width:auto;
+  max-width:calc(100% - 32px);
+  padding:9px 12px 8px;
+  border-radius:2px;
+  white-space:normal;
+  line-height:1.14;
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-dark) 20%,transparent);
+}
+.c02-trial.people-system .card .copy{
+  top:82px;
+  bottom:auto;
+  left:18px;
+  right:18px;
+  max-width:none;
+}
+.c02-trial.people-system .card.blue .tape{
+  background:var(--ql-orange);
+  color:var(--ql-dark);
+  transform:rotate(-.35deg);
+}
+.c02-trial.people-system .card.green .tape{
+  background:var(--ql-pink);
+  color:var(--ql-dark);
+  transform:rotate(.3deg);
+}
+.c02-trial.people-system .card.orange .tape{
+  background:var(--ql-blue);
+  color:var(--ql-base);
+  transform:rotate(-.2deg);
+}
+
+
 /* palette tests: D dark/light inherit QL unchanged */
 .c02-trial.palette-signal-dark{
   --ql-dark:#111827;
