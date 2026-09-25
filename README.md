@@ -7,7 +7,8 @@ This repository is published directly from `main` with GitHub Pages.
 ## Structure
 
 - `/` — preview-library index
-- `/progress/identity/` — Qwerty Labs identity and web-design explorations
+- `/progress/identity/` — Qwerty Labs identity explorations
+- `/progress/webdesign/` — homepage and interface design studies
 - `/progress/learning/` — teaching decks, project guides and student-facing artefacts
 - `/progress/experiments/` — exploratory builds and investigations
 - `/progress/case-studies/` — case-study material still being developed
