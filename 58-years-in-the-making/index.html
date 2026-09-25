@@ -648,6 +648,72 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
   .thought-page.variant-finale { padding-block: 26px; }
 }
 
+
+/* Small-phone layout: keep illustrations as footnotes, never over the words. */
+@media (max-width: 430px), (max-height: 760px) {
+  .reader-screen {
+    padding-inline: 12px;
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  .reader-header { min-height: 38px; }
+  .reader-nav { min-height: 50px; }
+  .thought-page { padding: 62px 6px 76px; }
+  .thought-copy-wrap { max-width: 100%; z-index: 3; }
+  .thought-text { font-size: clamp(1.78rem, 8.35vw, 2.35rem); line-height: 1.04; }
+  .thought-number { top: 12px; left: 4px; font-size: clamp(2.35rem, 10vw, 3.25rem); }
+  .illustration-svg {
+    width: min(70px, 21vw) !important;
+    max-height: 62px;
+    top: auto !important;
+    bottom: 5px !important;
+    opacity: .52;
+  }
+  .ill-left { left: 3% !important; }
+  .ill-right { right: 3% !important; }
+  .decor-line, .decor-star, .decor-heart { display: none; }
+  .note-mark, .aside-mark {
+    top: auto !important;
+    bottom: 7px !important;
+    max-width: 46%;
+    padding: 3px 7px 2px;
+    font-size: .92rem !important;
+    line-height: 1.05;
+    opacity: .8;
+  }
+  .thought-page.variant-declaration::after,
+  .thought-page.variant-mischief::before,
+  .thought-page.variant-period::after,
+  .thought-page.variant-elegant::before,
+  .thought-page.variant-punchline::after,
+  .thought-page.variant-wink::after,
+  .thought-page.variant-finale::before { display: none; }
+  .thought-page.variant-declaration .thought-text { font-size: clamp(2.35rem, 10vw, 3.15rem); }
+  .thought-page.variant-tiny .thought-text { font-size: clamp(2.55rem, 11vw, 3.45rem); }
+  .thought-page.variant-period .thought-text,
+  .thought-page.variant-absurd .thought-text,
+  .thought-page.variant-beat .thought-text { font-size: clamp(1.9rem, 8.6vw, 2.55rem); }
+  .thought-page.variant-elegant .thought-text,
+  .thought-page.variant-pause .thought-text { font-size: clamp(1.72rem, 7.6vw, 2.25rem); }
+  .thought-page.variant-punchline .thought-text { font-size: clamp(2.3rem, 10vw, 3.1rem); }
+  .thought-page.variant-quiet .thought-text { font-size: clamp(1.52rem, 6.65vw, 2rem); line-height: 1.12; }
+  .thought-page.variant-finale .thought-text { font-size: clamp(2.05rem, 9vw, 2.8rem); }
+  .thought-page.variant-pause,
+  .thought-page.variant-quiet,
+  .thought-page.variant-finale { padding-block: 62px 76px; }
+  .thought-page.variant-declaration .thought-number,
+  .thought-page.variant-pause .thought-number,
+  .thought-page.variant-quiet .thought-number,
+  .thought-page.variant-finale .thought-number { font-size: clamp(2.5rem, 10.5vw, 3.4rem); }
+}
+@media (max-width: 350px), (max-height: 620px) {
+  .thought-page { padding-block: 52px 64px; }
+  .thought-text { font-size: clamp(1.62rem, 8vw, 2rem); }
+  .illustration-svg { width: min(60px, 19vw) !important; max-height: 52px; }
+  .note-mark, .aside-mark { font-size: .82rem !important; bottom: 4px !important; }
+  .nav-hint { font-size: .58rem; letter-spacing: .1em; }
+}
+
   </style>
 </head>
 <body>
@@ -756,39 +822,39 @@ const thoughts = [
   "I think about our voices being exactly the same.",
   "I think about our bunk beds.",
   "I think about my foot annoying you from below.",
-  "I think about being the reason you never got to run away.",
-  "I think about the shop where witches mixed their potions.",
+  "I think about how you never actually ran away.",
+  "I think about the witches mixing their potions on our walk to school.",
   "I think about believing Vegemite was squashed ants — and telling everyone.",
   "I think about how completely I believed you.",
   "I think about Mum making you take me everywhere.",
   "I think about that towel over my head.",
-  "I think about hiding from Brett at the beach.",
-  "I think about you making even that a game.",
-  "I think about how annoying I was in a cheer squad full of your friends.",
+  "I think about being hidden from Brett at the beach.",
+  "I think about you even making that fun for me.",
+  "I think about how annoying I must have been in that cheer squad.",
   "I think about hanging out at Julie’s after school.",
   "I think about being your unpaid homework department.",
   "I think about that photo of us on the rock with Joanne.",
   "I think about always wanting to be wherever you were.",
-  "I think about you and Diane getting ready to go out dancing.",
+  "I think about you and Diane getting ready to go to the disco.",
   "I think about mascara on your teeth.",
   "I think about the boys you thought you’d repel.",
   "I think about the safety ramp.",
-  "I think about you needing to see what was at the top.",
+  "I think about you needing to see what was up there.",
   "I think about lying flat in the car at the lights.",
-  "I think about you and Jeff smuggling me into a club.",
+  "I think about you and Jeff smuggling me into the Diggers.",
   "I think about pretending Jeff was my boyfriend.",
   "I think about getting away with it.",
-  "I think about that packed chalet.",
-  "I think about whispering that I’d got my period.",
-  "I think about you treating it as breaking news.",
+  "I think about that packed ski chalet.",
+  "I think about whispering I’d got my period.",
+  "I think about you announcing it like breaking news.",
   "I think about how mortified I was.",
   "I think about how delighted you were.",
-  "I think about how absurdly beautiful you are.",
-  "I think about wedding dresses on the catwalk.",
+  "I think about how absurdly gorgeous you are.",
+  "I think about wedding dresses on the catwalk at the Mall.",
   "I think about discovering you were allergic to makeup.",
-  "I think about actual livestock entering the negotiations.",
-  "I think about how little any of it mattered.",
-  "I think about how down to earth you are.",
+  "I think about actual livestock entering marital negotiations.",
+  "I think about how little all that attention mattered to you.",
+  "I think about how down to earth you’ve always been.",
   "I think about how many old friends you still have.",
   "I think about how easily you make new ones.",
   "I think about how people don't just meet you. They keep you.",
@@ -797,18 +863,18 @@ const thoughts = [
   "I think about being Great Aunty Dids.",
   "I think about cows.",
   "I think about cow insemination. Ewww.",
-  "I think about Cricket delivering the eggs to the kitchen.",
-  "I think about how much you loved farm life.",
+  "I think about Cricket delivering eggs to the kitchen.",
+  "I think about how much you love country life.",
   "I think about the things you made for your children.",
   "I think about cardboard.",
   "I think about costumes.",
   "I think about you doing it all again for your grandies.",
-  "I think about that little tool kit addon you made.",
+  "I think about that little tool kit addon you made for Xmas.",
   "I think about Ludwig on a leash.",
   "I think about broken appliances and your kids calling Mum.",
   "I think about how you can work almost anything out.",
   "I think about how extraordinarily clever you are.",
-  "I think you’re the silliest one of us all.",
+  "I think you’re the silliest of us all.",
   "I think about you telling everyone my selfie story.",
   "I think about how proud you are of me.",
   "I think about how you understand some things cost me more than people know.",
@@ -943,7 +1009,6 @@ function renderIllustration(number) {
       }));
       break;
     case 3:
-      thoughtDecor.appendChild(makeTextMark("Dan", "note-mark", { right: "11%", bottom: "18%", transform: "rotate(6deg)" }));
       break;
     case 4:
       thoughtDecor.appendChild(makeSvg({
@@ -1024,6 +1089,14 @@ function renderIllustration(number) {
         style: { width: "112px", right: "5%", bottom: "12%" }
       }));
       break;
+    case 14:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 142 108",
+        className: "ill-right",
+        inner: `<circle cx="78" cy="30" r="9"/><path d="M78 39v31"/><path d="M66 92c3-15 8-22 12-22s9 7 12 22"/><circle cx="48" cy="58" r="7"/><path d="M48 65v20"/><path d="M38 96c2-8 5-12 10-12s8 4 10 12"/><path d="M66 54c-9 4-15 8-19 14"/><path d="M89 42c7 2 12 7 15 14"/><path d="M106 22l7-5"/><path d="M109 32l9-1"/>`,
+        style: { width: "104px", right: "5%", bottom: "11%" }
+      }));
+      break;
     case 15:
       thoughtDecor.appendChild(makeSvg({
         viewBox: "0 0 132 108",
@@ -1031,6 +1104,7 @@ function renderIllustration(number) {
         inner: `<circle cx="34" cy="34" r="10"/><path d="M22 34h24"/><path d="M34 22v24"/><path d="M26 26l16 16"/><path d="M42 26 26 42"/><circle cx="94" cy="30" r="12"/><path d="M80 30h28"/><path d="M94 16v28"/><path d="M84 20l20 20"/><path d="M104 20 84 40"/>`,
         style: { width: "110px", left: "5%", bottom: "13%" }
       }));
+      thoughtDecor.appendChild(makeTextMark("Let’s go Manly!", "note-mark note-mark-small", { right: "5%", bottom: "14%", transform: "rotate(4deg)" }));
       break;
     case 17:
       thoughtDecor.appendChild(makeSvg({
@@ -1170,10 +1244,10 @@ function renderIllustration(number) {
       break;
     case 35:
       thoughtDecor.appendChild(makeSvg({
-        viewBox: "0 0 110 126",
+        viewBox: "0 0 150 126",
         className: "ill-right ill-mid",
-        inner: `<path d="M55 20c8 10 11 19 10 26l27 58H18l27-58c-1-7 2-16 10-26Z"/><path d="M46 46h18"/>`,
-        style: { width: "74px", right: "6%", top: "18%" }
+        inner: `<path d="M52 18c7 9 10 17 9 24l23 58H20l23-58c-1-7 2-15 9-24Z"/><path d="M44 42h16"/><path d="M111 43c5 7 7 13 6 18l17 39H88l17-39c-1-5 1-11 6-18Z"/><path d="M105 61h12"/>`,
+        style: { width: "102px", right: "4%", top: "18%" }
       }));
       break;
     case 36:
@@ -1301,10 +1375,10 @@ function renderIllustration(number) {
       break;
     case 52:
       thoughtDecor.appendChild(makeSvg({
-        viewBox: "0 0 118 110",
+        viewBox: "0 0 152 112",
         className: "ill-left",
-        inner: `<path d="M58 18c0 8-6 14-14 14-6 0-10 3-10 8 0 8 7 12 20 12s20-4 20-12c0-5-4-8-10-8-8 0-14-6-14-14"/><path d="M58 50v40"/><path d="M34 90h48"/>`,
-        style: { width: "88px", left: "7%", bottom: "13%" }
+        inner: `<path d="M20 68c0-20 12-34 30-34s30 14 30 34-12 32-30 32-30-12-30-32Z"/><path d="M50 34V22"/><path d="M44 22h12"/><path d="M34 60l8-7 7 8"/><path d="M56 61l7-8 8 7"/><path d="M39 78c8 6 16 6 24 0"/><circle cx="112" cy="27" r="10"/><path d="M112 37v28"/><path d="M96 48h32"/><path d="M112 65 97 91"/><path d="M112 65l15 26"/><path d="M102 45c3 7 6 11 10 11s7-4 10-11"/><path d="M105 29h2"/><path d="M117 29h2"/>`,
+        style: { width: "118px", left: "4%", bottom: "10%" }
       }));
       break;
     case 53:
@@ -1445,7 +1519,7 @@ function renderThought(direction = 1, skipAnimation = false) {
       thoughtText.textContent = thoughts[current];
     }
     progress.textContent = `${number} / 65`;
-    prevButton.disabled = current === 0;
+    prevButton.disabled = false;
     const showHint = number <= 4 && ![64, 65].includes(number);
     navHint.classList.toggle("is-hidden", !showHint);
     renderDecor(number);
@@ -1486,7 +1560,11 @@ function goNext() {
 }
 
 function goPrev() {
-  if (isAnimating || current <= 0) return;
+  if (isAnimating) return;
+  if (current <= 0) {
+    showScreen(cover);
+    return;
+  }
   current -= 1;
   renderThought(-1);
 }
@@ -1500,8 +1578,7 @@ function begin() {
 
 function restart() {
   current = 0;
-  showScreen(reader);
-  renderThought(-1, true);
+  showScreen(cover);
 }
 
 function buildIndex() {
