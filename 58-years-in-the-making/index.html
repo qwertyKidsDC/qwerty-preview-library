@@ -148,7 +148,7 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
   display: flex;
   align-items: center;
 }
-.reader-header { justify-content: space-between; min-height: 42px; }
+.reader-header { justify-content: flex-end; min-height: 0; }
 .reader-nav { justify-content: space-between; min-height: 58px; }
 .progress {
   display: none;
@@ -164,6 +164,13 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 .icon-button { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; }
+.icon-button-page {
+  position: absolute;
+  top: clamp(14px, 3svh, 28px);
+  right: clamp(8px, 3vw, 24px);
+  z-index: 4;
+  background: rgba(246, 240, 229, 0.84);
+}
 .index-dots { display: grid; grid-template-columns: repeat(3, 4px); gap: 3px; }
 .index-dots i { width: 4px; height: 4px; background: var(--ink); border-radius: 50%; display: block; opacity: .72; }
 
@@ -668,12 +675,13 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
     padding-top: max(10px, env(safe-area-inset-top));
     padding-bottom: max(8px, env(safe-area-inset-bottom));
   }
-  .reader-header { min-height: 38px; }
+  .reader-header { min-height: 0; }
   .reader-nav { min-height: 50px; }
   .thought-page { padding: 62px 6px 76px; }
   .thought-copy-wrap { max-width: 100%; z-index: 3; }
   .thought-text { font-size: clamp(1.78rem, 8.35vw, 2.35rem); line-height: 1.04; }
   .thought-number { top: 12px; left: 4px; font-size: clamp(2.35rem, 10vw, 3.25rem); }
+  .icon-button-page { top: 10px; right: 4px; }
   .illustration-svg {
     width: min(70px, 21vw) !important;
     max-height: 62px;
@@ -755,13 +763,13 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
 
     <section id="reader" class="screen reader-screen" aria-label="65 thoughts" hidden>
       <header class="reader-header">
-        <button id="indexButton" class="icon-button" type="button" aria-label="Open index" title="Index">
-          <span class="index-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        </button>
         <div id="progress" class="progress" aria-live="polite">1 / 65</div>
       </header>
 
       <article id="thoughtPage" class="thought-page" tabindex="0" aria-live="polite">
+        <button id="indexButton" class="icon-button icon-button-page" type="button" aria-label="Open index" title="Index">
+          <span class="index-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
         <div id="thoughtDecor" class="thought-decor" aria-hidden="true"></div>
         <div id="thoughtNumber" class="thought-number">1</div>
         <div class="thought-copy-wrap">
@@ -876,7 +884,7 @@ const thoughts = [
   "I think about how down to earth you’ve always been.",
   "I think about how many old friends you still have.",
   "I think about how easily you make new ones.",
-  "I think about how people don't just meet you. They keep you.",
+  "I think about how people don’t just meet you. They keep you.",
   "I think about Jeff calling me Dids.",
   "I think about being Aunty Dids.",
   "I think about being Great Aunty Dids.",
@@ -898,7 +906,7 @@ const thoughts = [
   "I think about how proud you are of me.",
   "I think about how you understand some things cost me more than people know.",
   "I think about how unsurprised you’ll be ChatGPT helped me with this.",
-  "I think nothing I could ever say in anger could rewrite what 58 years of loving you has etched into my brain.",
+  "I think the most wonderful things about you. Always.",
   "I think I got lucky when I got you for my big sister."
 ]
 
@@ -1490,11 +1498,12 @@ function renderIllustration(number) {
       break;
     case 64:
       thoughtDecor.appendChild(makeSvg({
-        viewBox: "0 0 140 112",
+        viewBox: "0 0 154 114",
         className: "ill-left",
-        inner: `<path d="M28 66c0-14 11-25 25-25s25 11 25 25c0 10-7 19-17 22v10H45V88c-10-3-17-12-17-22Z"/><path d="M96 28c10 0 18 7 18 16 0 5-2 9-6 12l2 12-10-8h-4c-10 0-18-7-18-16s8-16 18-16Z"/><path d="M70 92c10 0 16 6 22 14 6-8 12-14 22-14"/>`,
-        style: { width: "106px", left: "4%", bottom: "10%" }
+        inner: `<path d="M18 48c0-16 14-28 32-28h28c18 0 32 12 32 28S96 76 78 76H56L40 88l5-12h5c-18 0-32-12-32-28Z"/><circle cx="42" cy="34" r="2.5"/><circle cx="56" cy="30" r="2.5"/><circle cx="71" cy="34" r="2.5"/><path d="M108 28c4-9 12-14 21-14 13 0 23 9 23 22 0 14-13 24-31 37-18-13-31-23-31-37 0-13 10-22 23-22 9 0 17 5 21 14Z"/>`,
+        style: { width: "108px", left: "4%", bottom: "10%" }
       }));
+      thoughtDecor.appendChild(makeTextMark("Mostly.", "note-mark note-mark-small", { right: "7%", bottom: "16%", transform: "rotate(-4deg)" }));
       break;
     case 65:
       thoughtDecor.appendChild(makeSvg({
@@ -1529,9 +1538,9 @@ function renderThought(direction = 1, skipAnimation = false) {
     if (number === 1) {
       thoughtText.innerHTML = `Everybody loves <span class="special-word">Michelle.</span>`;
     } else if (number === 42) {
-      thoughtText.innerHTML = `I think about how people don't just meet you. <span class="special-line">They keep you.</span>`;
+      thoughtText.innerHTML = `I think about how people don’t just meet you. <span class="special-line">They keep you.</span>`;
     } else if (number === 64) {
-      thoughtText.innerHTML = `I think nothing I could ever say in anger <span class="special-break">could rewrite what 58 years of loving you</span> <span class="special-break">has etched into my brain.</span>`;
+      thoughtText.innerHTML = `I think the most wonderful things <span class="special-break">about you.</span> <span class="special-line">Always.</span>`;
     } else if (number === 65) {
       thoughtText.innerHTML = `I think I got lucky <span class="special-break">when I got you</span> <span class="special-line">for my big sister.</span>`;
     } else {
