@@ -1,0 +1,2828 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Qwerty Labs — Aiii-D1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;700&family=Atkinson+Hyperlegible+Next:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d14;
+  --paper:#f4f1e8;
+  --blue:#4c69e3;
+  --pink:#f66dc1;
+  --green:#92d644;
+  --orange:#ff9029;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Atkinson Hyperlegible Next",Arial,sans-serif;background:#efece3;color:var(--ink);line-height:1.35}
+a{color:inherit}
+.mono{font-family:"Atkinson Hyperlegible Mono",monospace}
+.topbar{
+  position:sticky;top:0;z-index:100;background:rgba(244,241,232,.94);backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--ink);padding:12px 18px;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap
+}
+.topbar .title{font:700 11px/1.35 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a{text-decoration:none;border:1.5px solid var(--ink);padding:7px 9px;background:white;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+
+@media(max-width:768px){
+  body > .topbar{display:none}
+}
+.intro{padding:42px 22px 28px;max-width:1500px;margin:0 auto}
+.intro h1{margin:0 0 16px;font-size:clamp(52px,8.5vw,120px);line-height:.82;letter-spacing:-.07em}
+.intro p{font-size:20px;max-width:940px;margin:0 0 18px}
+.intro .small{font:700 11px/1.45 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;max-width:none}
+.wrap{max-width:1500px;margin:0 auto}
+.study{margin:0 0 28px;border-top:2px solid var(--ink);background:white}
+.study-head{padding:18px 22px;border-bottom:2px solid var(--ink);display:grid;grid-template-columns:1fr minmax(280px,520px);gap:26px;align-items:end}
+.study-head h2{margin:0;font-size:clamp(38px,6vw,88px);line-height:.83;letter-spacing:-.06em}
+.study-head p{margin:0;font-size:18px}
+.meta{font:700 11px/1.35 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.mock{border-top:0;min-height:760px;position:relative;overflow:hidden}
+.note-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.note{padding:16px 18px;border-right:2px solid var(--ink)}
+.note:last-child{border-right:0}
+.note h4{margin:0 0 8px;font-size:20px;line-height:1.02}
+.note p{margin:0;font-size:14px;line-height:1.4}
+/* shared internal helpers */
+.wm{font-size:32px;font-weight:800;letter-spacing:-.06em;line-height:.9}
+.wm .labs{color:var(--blue)}
+.strip{display:inline-block;border:1.5px solid currentColor;padding:5px 8px;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;background:white}
+/* 1 Rooms */
+.rooms{background:#fffef9}
+.rooms .sitebar{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px;border-bottom:2px solid var(--ink)}
+.rooms .page{display:grid;grid-template-columns:260px 1fr 280px;min-height:690px}
+.rooms .left,.rooms .right{padding:18px;border-right:2px solid var(--ink)}
+.rooms .right{border-right:0;border-left:2px solid var(--ink)}
+.rooms .main{padding:18px;position:relative}
+.rooms .main:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 15%, rgba(246,109,193,.12), transparent 28%),radial-gradient(circle at 82% 24%, rgba(76,105,227,.12), transparent 28%),radial-gradient(circle at 60% 75%, rgba(146,214,68,.12), transparent 30%)}
+.rooms .panel{border:2px solid var(--ink);background:white;padding:14px;margin-bottom:14px;box-shadow:5px 5px 0 var(--ink);position:relative}
+.rooms .panel.paint:after{content:"";position:absolute;inset:auto -8px -10px auto;width:42%;height:42%;background:var(--shape);clip-path:polygon(0 10%,90% 0,100% 82%,12% 100%,0 62%);opacity:.85;mix-blend-mode:multiply}
+.rooms .panel>*{position:relative;z-index:2}
+.rooms .main h3{font-size:78px;line-height:.82;letter-spacing:-.06em;margin:18px 0}
+.rooms .main p{font-size:21px;max-width:640px}
+.rooms .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.rooms .links span{border:1.5px solid var(--ink);padding:7px 9px;background:#fff;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase}
+/* 2 Broadcast */
+.broadcast{background:#d7d7d7;color:#050505}
+.broadcast .screen{margin:22px;border:2px solid #000;background:#eee;box-shadow:0 0 0 12px #111}
+.broadcast .bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:2px solid #000;background:#fafafa;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.broadcast .hero{position:relative;padding:22px;border-bottom:2px solid #000;min-height:340px;background:
+      radial-gradient(circle, rgba(255,255,255,.95) .55px, transparent .7px) 0 0/5px 5px,
+      radial-gradient(circle, rgba(0,0,0,.85) .55px, transparent .7px) 2px 2px/5px 5px,
+      linear-gradient(180deg,#f2f2f2,#b6b6b6 50%,#efefef);
+      filter:grayscale(1) contrast(1.18)}
+.broadcast .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0 49%, rgba(0,0,0,.03) 50% 51%, transparent 52% 100%);background-size:100% 6px;opacity:.6}
+.broadcast .test{position:absolute;right:24px;top:24px;width:240px;height:240px;border:2px solid #000;border-radius:50%;background:radial-gradient(circle at center, transparent 0 34%, rgba(0,0,0,.16) 34% 35%, transparent 35% 64%, rgba(0,0,0,.18) 64% 65%, transparent 65% 100%)}
+.broadcast .hero h3{font-size:92px;line-height:.8;letter-spacing:-.07em;margin:40px 0 12px;max-width:740px;position:relative;z-index:2}
+.broadcast .hero p{font-size:22px;max-width:620px;position:relative;z-index:2}
+.broadcast .ticker{padding:10px 14px;border-top:2px solid #000;border-bottom:2px solid #000;background:#111;color:#fff;font:700 12px/1.2 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.broadcast .grid{display:grid;grid-template-columns:1fr 1fr 1fr}
+.broadcast .cell{min-height:180px;padding:16px;border-right:2px solid #000;background:#f9f9f9}
+.broadcast .cell:last-child{border-right:0}
+.broadcast .cell h4{font-size:28px;line-height:.95;margin:44px 0 8px}
+/* 3 Revision */
+.revision{background:#fdfbf6}
+.revision .doc{margin:22px;border:2px solid var(--ink);background:#fff;display:grid;grid-template-columns:280px 1fr}
+.revision .sidebar{border-right:2px solid var(--ink);padding:16px;background:#f6f3ea}
+.revision .sidebar h4{margin:0 0 14px;font-size:20px}
+.revision .commit{border:1.5px solid var(--ink);padding:10px 12px;margin-bottom:10px;background:#fff;font-size:14px}
+.revision .page{padding:18px 24px 0}
+.revision .pagebar{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:16px}
+.revision .hero{padding:26px 0 24px;border-bottom:2px solid var(--ink);position:relative}
+.revision .hero h3{font-size:92px;line-height:.82;letter-spacing:-.07em;margin:12px 0}
+.revision .hero p{font-size:22px;max-width:710px}
+.revision .scratch{position:absolute;right:0;top:26px;width:240px;height:160px;border:2px dashed var(--ink);background:linear-gradient(transparent 0 60%, rgba(146,214,68,.35) 60% 76%, transparent 76% 100%)}
+.revision .scratch:before{content:"change why this matters";position:absolute;left:12px;top:12px;font:700 11px/1.4 "Atkinson Hyperlegible Mono",monospace;max-width:180px}
+.revision .story{display:grid;grid-template-columns:repeat(3,1fr)}
+.revision .story .box{padding:18px;min-height:190px;border-right:2px solid var(--ink)}
+.revision .story .box:last-child{border-right:0}
+.revision .del{text-decoration:line-through;text-decoration-thickness:4px;text-decoration-color:var(--pink);opacity:.55}
+.revision .ins{background:linear-gradient(transparent 62%, rgba(146,214,68,.72) 62%)}
+/* 4 Registration */
+.registration{background:#f4f0e6}
+.registration .sheet{margin:22px;border:2px solid var(--ink);background:#fff;position:relative;overflow:hidden}
+.registration .marks{position:absolute;inset:0;pointer-events:none}
+.registration .crop{position:absolute;width:26px;height:26px}
+.registration .tl{left:10px;top:10px;border-left:2px solid var(--ink);border-top:2px solid var(--ink)}
+.registration .tr{right:10px;top:10px;border-right:2px solid var(--ink);border-top:2px solid var(--ink)}
+.registration .bl{left:10px;bottom:10px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.registration .br{right:10px;bottom:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.registration .sheetbar{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 18px;border-bottom:2px solid var(--ink)}
+.registration .hero{padding:28px 18px 120px;position:relative;min-height:360px;border-bottom:2px solid var(--ink)}
+.registration .hero h3{font-size:92px;line-height:.82;letter-spacing:-.07em;margin:14px 0 12px;position:relative;z-index:2}
+.registration .hero p{font-size:22px;max-width:640px;position:relative;z-index:2}
+.registration .shapeA,.registration .shapeB,.registration .shapeC{position:absolute;mix-blend-mode:multiply;opacity:.82}
+.registration .shapeA{right:7%;top:28px;width:320px;height:200px;background:rgba(76,105,227,.72);border:2px solid var(--ink)}
+.registration .shapeB{right:9%;top:46px;width:320px;height:200px;background:rgba(246,109,193,.68);border:2px solid var(--ink)}
+.registration .shapeC{right:5%;top:68px;width:320px;height:200px;background:rgba(146,214,68,.72);border:2px solid var(--ink)}
+.registration .colorbars{display:flex;border:2px solid var(--ink);width:max-content;position:absolute;left:18px;bottom:18px}
+.registration .colorbars i{display:block;width:34px;height:34px;border-right:1px solid var(--ink)}
+.registration .colorbars i:last-child{border-right:0}
+.registration .colorbars i:nth-child(1){background:var(--blue)}
+.registration .colorbars i:nth-child(2){background:var(--pink)}
+.registration .colorbars i:nth-child(3){background:var(--green)}
+.registration .colorbars i:nth-child(4){background:var(--orange)}
+.registration .colorbars i:nth-child(5){background:#111}
+.registration .blocks{display:grid;grid-template-columns:1fr 1fr 1fr}
+.registration .blocks .b{padding:18px;min-height:180px;border-right:2px solid var(--ink)}
+.registration .blocks .b:last-child{border-right:0}
+/* 5 Instrument */
+.instrument{background:#0b0f1c;color:#eef1f9}
+.instrument .frame{margin:22px;border:2px solid #d8dff5;background:#10172c;box-shadow:0 0 0 10px #050814}
+.instrument .bar{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 16px;border-bottom:2px solid #d8dff5}
+.instrument .hero{padding:26px 18px;border-bottom:2px solid #d8dff5;position:relative;min-height:330px;background:radial-gradient(circle at 18% 20%, rgba(76,105,227,.26), transparent 24%),radial-gradient(circle at 86% 68%, rgba(246,109,193,.22), transparent 26%),linear-gradient(180deg,#10172c,#0b1020)}
+.instrument .hero:after{content:"";position:absolute;right:18px;top:18px;width:300px;height:190px;border:2px solid #d8dff5;background:linear-gradient(180deg,#0c1022,#11162f)}
+.instrument .hero:before{content:"signal acquisition";position:absolute;right:34px;top:34px;z-index:2;font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.instrument .hero h3{font-size:88px;line-height:.83;letter-spacing:-.07em;margin:26px 0 12px;max-width:760px;position:relative;z-index:2}
+.instrument .hero p{font-size:22px;max-width:660px;position:relative;z-index:2}
+.instrument .controls{display:grid;grid-template-columns:1fr 320px}
+.instrument .projects{padding:18px;border-right:2px solid #d8dff5;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.instrument .projects .p{border:2px solid #d8dff5;padding:14px;min-height:168px;background:#131b33;position:relative;overflow:hidden}
+.instrument .projects .p:after{content:"";position:absolute;right:-8%;bottom:-10%;width:42%;height:40%;background:var(--accent);clip-path:polygon(0 10%,90% 0,100% 82%,12% 100%,0 62%);opacity:.8;mix-blend-mode:screen}
+.instrument .side{padding:18px;background:#0e1428}
+.instrument .side label{display:block;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px}
+.instrument .side input[type=range]{width:100%;margin:0 0 18px;accent-color:var(--green)}
+.instrument .side button{width:100%;margin:0 0 8px;padding:10px;border:2px solid #d8dff5;background:#141c38;color:#eef1f9;text-align:left;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:980px){
+  .study-head,.intro .summary,.note-grid,.rooms .page,.broadcast .grid,.revision .doc,.revision .story,.registration .blocks,.instrument .controls,.instrument .projects{grid-template-columns:1fr}
+  .rooms .left,.rooms .right,.revision .sidebar,.instrument .projects{border-right:0;border-left:0;border-bottom:2px solid currentColor}
+  .broadcast .cell,.revision .story .box,.registration .blocks .b,.note{border-right:0;border-bottom:2px solid var(--ink)}
+  .broadcast .cell:last-child,.revision .story .box:last-child,.registration .blocks .b:last-child,.note:last-child{border-bottom:0}
+  .rooms .page{display:block}.broadcast .test,.instrument .hero:after,.revision .scratch{position:relative;right:auto;top:auto;margin-top:18px}.broadcast .hero h3,.revision .hero h3,.registration .hero h3,.instrument .hero h3,.rooms .main h3{font-size:54px}
+}
+</style>
+
+<style>
+/* Card studies derived from the supplied title-sequence references:
+   flat colour fields, rough painted edges, tinted/cropped image fragments,
+   typewriter labels on imperfect strips, print/photocopy misregistration.
+   The sleek Instrument Panel shell is deliberately left untouched. */
+.ref-card-lab{background:#0b0f1c;color:#eef1f9}
+.ref-card-lab .study-head{border-color:#d8dff5}
+.ref-shell{margin:22px;border:2px solid #d8dff5;background:#10172c;box-shadow:0 0 0 10px #050814}
+.ref-shellbar{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 16px;border-bottom:2px solid #d8dff5}
+.ref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:18px}
+.ref-study .caption{font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:#cfd6ee;margin-bottom:8px}
+.ref-card{height:285px;border:2px solid #d8dff5;position:relative;overflow:hidden;color:#101014;background:#f1eddf}
+.ref-card .label{position:absolute;z-index:8;font:700 12px/1.12 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;background:#f1a3a2;box-decoration-break:clone}
+.ref-card .label b{background:#d9ea52;padding:2px 5px}
+.ref-card .tiny{position:absolute;z-index:8;font:700 10px/1.25 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.04em}
+.ref-card .rough{position:absolute}
+.ref-card .photo{position:absolute;background-size:cover;background-position:center;filter:contrast(1.12) saturate(.82);mix-blend-mode:multiply}
+.ref-card:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+
+/* A: painted blocks + tiny crop */
+.ref-a{background:linear-gradient(90deg,#efcd36 0 31%,#f3efe2 31% 100%)}
+.ref-a .green{left:34%;top:12%;width:25%;height:42%;background:#35a343;clip-path:polygon(3% 5%,92% 0,100% 11%,96% 92%,78% 100%,4% 95%,0 70%)}
+.ref-a .violet{right:3%;top:8%;width:27%;height:39%;background:#6248db;clip-path:polygon(3% 2%,98% 0,100% 91%,7% 100%,0 87%,2% 20%)}
+.ref-a .pink{left:34%;right:3%;bottom:4%;height:34%;background:#e77aa8}
+.ref-a .photo{left:40%;top:20%;width:12%;height:13%;background-image:url('/mnt/data/IMG_0914(2).jpeg');background-position:48% 18%;filter:saturate(.4) sepia(.5) hue-rotate(310deg) contrast(1.3)}
+.ref-a .label{left:5%;bottom:14%;background:#efcd36;color:#9b453a}
+
+/* B: huge rough colour field + architectural crop */
+.ref-b{background:linear-gradient(90deg,#e95e78 0 55%,#14a7dd 55% 100%)}
+.ref-b .green{left:4%;top:13%;width:59%;height:72%;background:#8bc52d;clip-path:polygon(1% 5%,87% 0,99% 84%,72% 100%,0 88%);border:3px solid rgba(15,15,15,.45);transform:rotate(-1.5deg)}
+.ref-b .green:after{content:"ELIZABETHON\\A HIGH SCHOOL";white-space:pre;position:absolute;left:24%;top:35%;font:700 26px/1.02 "Atkinson Hyperlegible Mono",monospace;transform:rotate(1deg)}
+.ref-b .label{right:4%;top:8%;background:#e98f86}
+.ref-b .label b{display:block;margin-top:3px;background:#c8df3e}
+
+/* C: tinted photographic fragments + painted mask */
+.ref-c{background:linear-gradient(90deg,#6e43cc 0 37%,#f2c84b 37% 64%,#f1eee4 64%)}
+.ref-c .photo.one{left:0;top:0;width:37%;height:100%;background-image:url('/mnt/data/IMG_0917(2).jpeg');background-position:12% 50%;filter:grayscale(1) sepia(.25) hue-rotate(220deg) saturate(3) contrast(1.1);opacity:.62}
+.ref-c .photo.two{right:0;top:0;width:36%;height:100%;background-image:url('/mnt/data/IMG_0917(2).jpeg');background-position:90% 50%;filter:sepia(.55) saturate(1.5) hue-rotate(340deg);opacity:.7}
+.ref-c .blue{right:4%;top:12%;width:30%;height:70%;background:#3158d9;clip-path:polygon(5% 0,100% 3%,96% 94%,3% 100%,0 17%)}
+.ref-c .label{left:36%;top:45%;background:#ef9f9a}
+
+/* D: two-column poster, tiny isolated crop */
+.ref-d{background:linear-gradient(90deg,#1680d8 0 45%,#eeeade 45% 100%)}
+.ref-d .orange{right:0;top:0;width:55%;height:66%;background:#e86435}
+.ref-d .photo{right:0;top:0;width:55%;height:66%;background-image:url('/mnt/data/IMG_0918(2).jpeg');background-position:74% 48%;filter:grayscale(1) sepia(1) hue-rotate(338deg) saturate(4) contrast(1.25);opacity:.48}
+.ref-d .eye{left:4%;top:11%;width:22%;height:20%;background:#efe9dd;border:1px solid rgba(0,0,0,.2);transform:rotate(-1deg)}
+.ref-d .eye:after{content:"";position:absolute;inset:22% 20%;border-top:5px solid #b9413e;border-bottom:3px solid #222;border-radius:50%}
+.ref-d .label{left:4%;bottom:13%;background:#efd44f;color:#a33232}
+
+/* E: print proof / frame crop, intentionally rough but not dirty */
+.ref-e{background:#f0ede2}
+.ref-e .purple{left:0;bottom:0;width:49%;height:55%;background:#7650cf}
+.ref-e .lime{right:0;top:0;width:49%;height:100%;background:#a5ce36;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%,4% 75%,0 32%)}
+.ref-e .window{right:7%;top:10%;width:35%;height:66%;background:#eee9da;border:4px solid rgba(20,20,20,.5);transform:rotate(-4deg);box-shadow:-10px 8px 0 rgba(20,20,20,.5)}
+.ref-e .label{left:5%;top:13%;background:#a4c85b}
+.ref-e .label.second{left:28%;top:13%;background:#b987c8}
+
+/* F: collage of cropped human traces, not literal portraits */
+.ref-f{background:linear-gradient(90deg,#efca36 0 31%,#f1eee3 31%)}
+.ref-f .green{left:34%;top:10%;width:25%;height:40%;background:#2e9b49;clip-path:polygon(3% 2%,96% 0,100% 92%,11% 100%,0 83%)}
+.ref-f .peach{left:61%;top:8%;width:22%;height:42%;background:#e28b68}
+.ref-f .violet{right:2%;top:8%;width:14%;height:40%;background:#6547d4}
+.ref-f .pink{left:34%;right:2%;bottom:4%;height:36%;background:#e786ad}
+.ref-f .fingerprints{position:absolute;left:40%;bottom:5%;width:52%;height:31%;background:repeating-radial-gradient(ellipse at 12% 55%,transparent 0 8px,rgba(40,30,55,.52) 9px 10px,transparent 11px 16px);opacity:.75}
+.ref-f .label{left:5%;top:56%;background:#efca36;color:#a75240}
+@media(max-width:900px){.ref-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style>
+/* Expanded concept sections for the NEW / six variations along the emerging track */
+.emerging-expanded{background:#08101c;color:#edf0f8}
+.emerging-expanded .study-head{border-color:#d6ddef}
+.anchor-shell,.concept-shell{
+  margin:22px;
+  border:2px solid #d6ddef;
+  background:#0c1422;
+  box-shadow:0 0 0 10px #050814;
+}
+.anchor-frame{padding:16px}
+.anchor-frame img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid rgba(214,221,239,.25)}
+.anchor-note{
+  display:grid;grid-template-columns:2fr 1fr;gap:18px;
+  padding:0 16px 16px;
+}
+.anchor-note .blurb,.anchor-note .keys{
+  border:1px solid #364158;background:#0f1728;padding:16px
+}
+.anchor-note .blurb p,.anchor-note .keys p{margin:0;color:#dfe4f4}
+.anchor-note .keys .k{display:inline-block;margin:0 8px 8px 0;padding:6px 8px;border:1px solid #d6ddef;font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em}
+.concept-shell{
+  position:relative;
+  padding:16px;
+}
+.concept-top{
+  display:flex;justify-content:space-between;gap:18px;align-items:flex-start;
+  margin-bottom:14px;
+}
+.concept-num{
+  font:700 11px/1.2 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;letter-spacing:.08em;color:#cfd6ee;
+}
+.concept-summary{
+  max-width:460px;font-size:16px;color:#dfe4f4
+}
+.concept-board{
+  min-height:620px;border-radius:16px;overflow:hidden;position:relative;
+  border:1px solid rgba(214,221,239,.2);background:#f0ecdf;color:#101014
+}
+.concept-board .mono{font-family:"Atkinson Hyperlegible Mono",monospace}
+.concept-board .label{
+  font:700 12px/1.15 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.05em
+}
+.concept-board .big{font-size:clamp(58px,7vw,108px);line-height:.85;letter-spacing:-.06em;font-weight:800}
+.concept-board .mid{font-size:clamp(34px,4vw,56px);line-height:.9;letter-spacing:-.05em;font-weight:800}
+.concept-board .chip{display:inline-block;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.6)}
+/* 01 */
+.c01{padding:18px;display:grid;grid-template-rows:1.25fr 1fr .55fr;gap:14px;background:#efeade}
+.c01 .hero{border:5px solid #111;border-radius:24px;background:#f2eee3;box-shadow:10px 12px 0 #111;padding:28px;display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:center}
+.c01 .hero .mark{display:flex;gap:14px;align-items:flex-start}
+.c01 .hero .shape1{width:220px;height:160px;background:#ff6b2f;border:6px solid #111;border-radius:26px;box-shadow:14px 14px 0 #111;clip-path:polygon(0 0,72% 0,72% 25%,100% 25%,100% 100%,0 100%)}
+.c01 .hero .shape2{width:82px;height:82px;background:#f3ce2f;border:6px solid #111;border-radius:20px;box-shadow:8px 8px 0 #111}
+.c01 .pair{display:grid;grid-template-columns:1fr 1.1fr;gap:14px}
+.c01 .text,.c01 .tile,.c01 .footer{border:5px solid #111;border-radius:20px;box-shadow:8px 9px 0 #111;padding:22px}
+.c01 .text{background:#cbc0ff}
+.c01 .tile{background:#f4d637;display:flex;align-items:center;justify-content:center}
+.c01 .tile .mini-mark{width:190px;height:120px;background:#ff6b2f;border:5px solid #111;border-radius:22px;position:relative;box-shadow:10px 10px 0 #111;clip-path:polygon(0 0,72% 0,72% 25%,100% 25%,100% 100%,0 100%)}
+.c01 .tile .mini-mark:after{content:"";position:absolute;right:-18px;top:-34px;width:62px;height:62px;background:#f3ce2f;border:5px solid #111;border-radius:16px;box-shadow:6px 6px 0 #111}
+.c01 .wordmark{background:#f2eee3}
+.c01 .footer{background:#ff6b2f;display:flex;justify-content:space-between;align-items:flex-end}
+.c01 .smallcaps{font:700 12px/1.4 "Atkinson Hyperlegible Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+/* 02 */
+.c02{background:#0b1220;padding:18px;color:#eef1f9}
+.c02:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 18%, rgba(255,255,255,.08), transparent 22%),radial-gradient(circle at 82% 30%, rgba(255,255,255,.06), transparent 22%),linear-gradient(180deg,rgba(83,112,185,.15),transparent 40%);pointer-events:none}
+.c02 .layout{display:grid;grid-template-columns:220px 1fr 230px;grid-template-rows:auto 1fr;min-height:584px;position:relative;z-index:2}
+.c02 .side,.c02 .right{border-right:1px solid rgba(255,255,255,.12);padding:14px}
+.c02 .right{border-right:0;border-left:1px solid rgba(255,255,255,.12)}
+.c02 .topbar{grid-column:1/-1;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between}
+.c02 .main{padding:18px;display:grid;grid-template-rows:auto 1fr auto;gap:14px}
+.c02 .heroRibbon{width:56%;min-height:118px;background:#d7d14f;color:#111;padding:18px 22px;position:relative;box-shadow:0 0 50px rgba(212,205,84,.14)}
+.c02 .heroRibbon:before{content:"";position:absolute;left:-18px;top:-14px;width:64px;height:40px;background:#d06ec7;opacity:.9}
+.c02 .heroRibbon:after{content:"";position:absolute;left:32px;top:-14px;width:46px;height:40px;background:#86a4dd;opacity:.78}
+.c02 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.c02 .card{min-height:290px;background:#efeadd;color:#151515;position:relative;overflow:hidden}
+.c02 .card .tape{position:absolute;left:14px;bottom:14px;background:#efe7e0;padding:8px 12px;border-radius:8px;font:700 13px/1 "Atkinson Hyperlegible Mono",monospace}
+.c02 .card .copy{position:absolute;left:18px;bottom:52px;max-width:70%;font:400 18px/1.28 "Atkinson Hyperlegible Mono",monospace}
+.c02 .card .texture{position:absolute;inset:0;opacity:.24;background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E')}
+.c02 .card.purple{background:linear-gradient(180deg,#b288d8 0,#7f5dc0 70%,#5d4a90 100%);color:#fff}
+.c02 .card.green{background:#f0ecdf}
+.c02 .card.red{background:linear-gradient(180deg,#ee937b,#df6444)}
+.c02 .card.blue{background:linear-gradient(180deg,#5b56e8,#433fd1);color:#fff}
+.c02 .card .cut{position:absolute;background:#18854a}
+.c02 .card.green .cut{left:0;top:0;width:100%;height:100%}
+.c02 .card.green .cut:after{content:"";position:absolute;left:34%;top:34%;width:84px;height:58px;background:#efd2c8}
+.c02 .card.red .cut{display:none}
+.c02 .card.blue .cut{left:0;top:0;width:100%;height:100%;background:#4a43de}
+.c02 .card.blue .cut:after{content:"";position:absolute;left:36%;top:48%;width:84px;height:54px;background:#ebc5bc}
+/* 03 */
+.c03{background:#f1eddf;padding:18px}
+.c03 .grid{display:grid;grid-template-columns:1.2fr .8fr;grid-template-rows:auto 1fr auto;gap:12px;min-height:584px}
+.c03 .header{grid-column:1/-1;border-bottom:2px solid #111;padding:10px 8px;display:flex;justify-content:space-between}
+.c03 .titlebox{padding:12px 8px 0}
+.c03 .type-wrap{display:flex;flex-direction:column;justify-content:center;min-height:340px}
+.c03 .aside{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+.c03 .aside .block{border:2px solid #111;padding:18px}
+.c03 .aside .yellow{background:#f1cf34}
+.c03 .aside .lilac{background:#c8bdff}
+.c03 .footer{grid-column:1/-1;background:#efe38b;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-end;border-top:2px solid #111}
+.c03 .slashline{font:400 18px/1.2 "Atkinson Hyperlegible Mono",monospace;color:#4e5562;letter-spacing:.06em}
+/* 04 */
+.c04{background:#0d1422;padding:18px;color:#eef1f9}
+.c04 .shell{display:grid;grid-template-columns:230px 1fr 230px;min-height:584px;border:1px solid rgba(255,255,255,.12)}
+.c04 .nav{border-right:1px solid rgba(255,255,255,.12);padding:18px}
+.c04 .metaSide{border-left:1px solid rgba(255,255,255,.12);padding:18px}
+.c04 .center{padding:18px;display:grid;grid-template-rows:auto auto 1fr 1fr;gap:14px}
+.c04 .search{height:42px;border:1px solid rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;padding:0 16px;color:#97a2bf}
+.c04 .lineup{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.c04 .panel{position:relative;overflow:hidden;min-height:140px;border:1px solid rgba(255,255,255,.18);background:#121c30}
+.c04 .panel .roughbg{position:absolute;inset:0;opacity:.9}
+.c04 .panel .roughbg.yellow{background:#d7d14f}
+.c04 .panel .roughbg.pink{background:#d889bb}
+.c04 .panel .roughbg.green{background:#6ea34c}
+.c04 .panel .roughbg.blue{background:#4d50de}
+.c04 .panel .roughbg.red{background:#d76d50}
+.c04 .panel .roughbg.white{background:#efeadd}
+.c04 .panel .roughbg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, transparent 0 50%, rgba(0,0,0,.22) 100%),url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');opacity:.25}
+.c04 .panel .content{position:relative;z-index:2;padding:14px;color:#101014}
+.c04 .panel.darktxt .content{color:#fff}
+.c04 .nav .item{padding:10px 12px;border-radius:10px;margin:0 0 8px;border:1px solid rgba(255,255,255,.12)}
+.c04 .nav .item.active{background:rgba(255,255,255,.08)}
+/* 05 */
+.c05{background:#f0ecdf;padding:18px}
+.c05 .mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:180px 170px 170px;gap:12px;min-height:584px}
+.c05 .box{padding:18px;position:relative;overflow:hidden}
+.c05 .box.orange{background:#ff6b2f}
+.c05 .box.cream{background:#f2eee3}
+.c05 .box.yellow{background:#f1cf34}
+.c05 .box.lilac{background:#c8beff}
+.c05 .box.violet{background:#6d52c7;color:#fff}
+.c05 .box.pink{background:#ed88b0}
+.c05 .box h4{margin:0;font-size:clamp(30px,3vw,54px);line-height:.9;letter-spacing:-.05em}
+.c05 .box .mini{position:absolute;right:18px;bottom:16px;font:700 11px/1.4 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase}
+.c05 .box .grain{position:absolute;inset:0;opacity:.18;background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E')}
+/* 06 */
+.c06{background:#0c1220;padding:18px;color:#eef1f9}
+.c06 .heroWrap{min-height:584px;display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.c06 .left{padding:14px 6px;display:flex;flex-direction:column;justify-content:center}
+.c06 .signal{position:relative;background:#121b2c;border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.c06 .signal .band1,.c06 .signal .band2,.c06 .signal .band3{position:absolute}
+.c06 .signal .band1{left:12%;top:12%;width:68%;height:26%;background:#7b57d0}
+.c06 .signal .band2{right:8%;top:40%;width:60%;height:22%;background:#ff6d34}
+.c06 .signal .band3{left:18%;bottom:9%;width:70%;height:24%;background:#ea88af}
+.c06 .signal:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 34%),url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');opacity:.2}
+.c06 .signal .cut{position:absolute;background:#efeadd}
+.c06 .signal .cut.one{right:24%;top:17%;width:26%;height:26%}
+.c06 .signal .cut.two{left:20%;top:46%;width:22%;height:18%}
+.c06 .signal .cut.three{right:18%;bottom:12%;width:17%;height:18%}
+@media (max-width: 1100px){
+  .anchor-note,.c02 .cards,.c03 .grid,.c04 .shell,.c06 .heroWrap{grid-template-columns:1fr}
+  .c01 .hero,.c01 .pair,.c02 .layout,.c04 .lineup,.c05 .mosaic{grid-template-columns:1fr}
+  .c04 .shell{display:block}
+}
+</style>
+
+
+<style>
+/* C02 controlled update trials — QL palette only */
+.c02-trials{
+  --ql-blue:#4C69E3;
+  --ql-pink:#F66DC1;
+  --ql-green:#92D644;
+  --ql-orange:#FF9029;
+  --ql-base:#F1F8F8;
+  --ql-dark:#020020;
+}
+.c02-trials.concept-shell{background:var(--ql-dark);border-color:var(--ql-base);box-shadow:0 0 0 10px var(--ql-dark)}
+.c02-trials .concept-num,.c02-trials .concept-summary{color:var(--ql-base)}
+.c02-trials .trial-label{font:700 11px/1.2 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ql-base);margin:24px 0 8px}
+.c02-trial{background:var(--ql-dark);padding:18px;color:var(--ql-base);border-color:rgba(241,248,248,.22)}
+.c02-trial .layout{display:grid;grid-template-columns:190px 1fr;grid-template-rows:auto 1fr;min-height:584px;position:relative;z-index:2}
+.c02-trial .topbar{
+  grid-column:1/-1;
+  position:relative;top:auto;z-index:3;
+  padding:12px 16px;
+  border:1px solid var(--ql-blue);
+  border-left:0;border-right:0;border-top:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.c02-trial .topbar .mono{color:var(--ql-base);font-weight:700}
+.c02-trial .side{padding:16px 14px;border-right:1px solid rgba(241,248,248,.22);background:var(--ql-dark)}
+.c02-trial .side .navitem{
+  display:block;padding:9px 0;border-bottom:1px solid rgba(241,248,248,.16);
+  font:700 12px/1.2 "Atkinson Hyperlegible Mono",monospace;color:var(--ql-base);
+}
+.c02-trial .side .navitem.active{color:var(--ql-green)}
+.c02-trial .main{padding:20px;display:grid;grid-template-rows:auto 1fr auto;gap:16px;position:relative}
+.c02-trial .big{color:var(--ql-base)!important}
+.c02-trial .descriptor{font:700 15px/1.25 "Atkinson Hyperlegible Mono",monospace;color:var(--ql-blue);letter-spacing:.08em}
+.c02-trial .heroRibbon{width:56%;min-height:118px;background:var(--ql-green);color:var(--ql-dark);padding:18px 22px;position:relative}
+.c02-trial .heroRibbon:before{content:"";position:absolute;left:-18px;top:-14px;width:64px;height:40px;background:var(--ql-pink)}
+.c02-trial .heroRibbon:after{content:"";position:absolute;left:32px;top:-14px;width:46px;height:40px;background:var(--ql-blue)}
+.c02-trial .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.c02-trial .card{min-height:290px;color:var(--ql-dark);position:relative;overflow:hidden;background:var(--ql-base)}
+.c02-trial .card.blue{background:var(--ql-blue);color:var(--ql-base)}
+.c02-trial .card.green{background:var(--ql-green)}
+.c02-trial .card.orange{background:var(--ql-orange)}
+.c02-trial .card.pink{background:var(--ql-pink)}
+.c02-trial .card .tape{
+  position:absolute;left:14px;bottom:14px;background:var(--ql-base);color:var(--ql-dark);
+  padding:8px 12px;border-radius:8px;font:700 13px/1 "Atkinson Hyperlegible Mono",monospace;z-index:5
+}
+.c02-trial .card .copy{
+  position:absolute;left:18px;bottom:54px;max-width:72%;
+  font:400 18px/1.28 "Atkinson Hyperlegible Mono",monospace;z-index:5
+}
+.c02-trial .card .texture{
+  position:absolute;inset:0;opacity:.14;
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E')
+}
+.c02-trial .card .patch{position:absolute;z-index:2}
+.c02-trial .card.blue .patch{right:16%;top:17%;width:31%;height:23%;background:var(--ql-orange)}
+.c02-trial .card.green .patch{left:35%;top:32%;width:32%;height:21%;background:var(--ql-pink)}
+.c02-trial .card.orange .patch{right:8%;top:12%;width:42%;height:16%;background:var(--ql-blue)}
+.c02-trial .card.pink .patch{left:13%;top:18%;width:37%;height:27%;background:var(--ql-green)}
+
+/* C02A palette-tuned look pass */
+.c02-trial.baseline .heroRibbon:before{
+  background:rgba(246,109,193,.62);
+  opacity:1;
+  mix-blend-mode:normal;
+  border:1px solid rgba(241,248,248,.18);
+}
+.c02-trial.baseline .heroRibbon:after{
+  background:rgba(76,105,227,.54);
+  opacity:1;
+  mix-blend-mode:normal;
+  border:1px solid rgba(241,248,248,.16);
+}
+.c02-trial.baseline .side .navitem{
+  font-size:20px;
+  line-height:1.2;
+  font-weight:800;
+  padding:13px 0;
+}
+/* Exact Concept 06 signal-board overlay applied to each C02A colour card */
+.c02-trial.baseline .card .texture{display:none}
+.c02-trial.baseline .card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+  opacity:.48;
+}
+
+.c02-trial.baseline .heroRibbon{
+  overflow:visible;
+  background-color:var(--ql-green);
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".48" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:normal,multiply;
+}
+.c02-trial.baseline .heroRibbon .mid{position:relative;z-index:2}
+
+/* C02Aii — light-mode pair to A */
+.c02-trial.light{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  border-color:rgba(2,0,32,.24);
+}
+.c02-trial.light .layout{
+  background:var(--ql-base);
+}
+.c02-trial.light .topbar{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  border-bottom:1px solid rgba(2,0,32,.28);
+}
+.c02-trial.light .topbar .mono{color:var(--ql-dark)}
+.c02-trial.light .side{
+  background:var(--ql-base);
+  border-right:1px solid rgba(2,0,32,.26);
+}
+.c02-trial.light .side .navitem{
+  color:var(--ql-dark);
+  border-bottom:1px solid rgba(2,0,32,.16);
+  font-size:20px;
+  line-height:1.2;
+  font-weight:800;
+  padding:13px 0;
+}
+.c02-trial.light .side .navitem.active{color:var(--ql-blue)}
+.c02-trial.light .main{
+  background:
+    radial-gradient(circle at 80% 15%,rgba(76,105,227,.055),transparent 25%),
+    var(--ql-base);
+}
+.c02-trial.light .big{color:var(--ql-dark)!important}
+.c02-trial.light .descriptor{color:var(--ql-blue)}
+.c02-trial.light .heroRibbon{
+  background-color:var(--ql-green);
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".48" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:normal,multiply;
+  overflow:visible;
+}
+.c02-trial.light .heroRibbon:before{
+  background:rgba(246,109,193,.62);
+  opacity:1;
+  border:1px solid rgba(2,0,32,.10);
+}
+.c02-trial.light .heroRibbon:after{
+  background:rgba(76,105,227,.54);
+  opacity:1;
+  border:1px solid rgba(2,0,32,.10);
+}
+.c02-trial.light .card .texture{display:none}
+.c02-trial.light .card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.10),transparent 34%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+  opacity:.48;
+}
+.c02-trial.light .card .tape{
+  box-shadow:0 0 0 1px rgba(2,0,32,.10);
+}
+
+
+/* C02Aiii/Aiv — no-fuzz comparison pair */
+.c02-trial.nofuzz-dark .card .texture,
+.c02-trial.nofuzz-dark .card:after,
+.c02-trial.nofuzz-light .card .texture,
+.c02-trial.nofuzz-light .card:after{display:none}
+.c02-trial.nofuzz-dark .heroRibbon{
+  background:var(--ql-green);
+  background-image:none;
+  overflow:visible;
+}
+.c02-trial.nofuzz-light .heroRibbon{
+  background:var(--ql-green);
+  background-image:none;
+  overflow:visible;
+}
+.c02-trial.nofuzz-dark .heroRibbon:before,
+.c02-trial.nofuzz-light .heroRibbon:before{
+  background:rgba(246,109,193,.62);
+  opacity:1;
+}
+.c02-trial.nofuzz-dark .heroRibbon:after,
+.c02-trial.nofuzz-light .heroRibbon:after{
+  background:rgba(76,105,227,.54);
+  opacity:1;
+}
+.c02-trial.nofuzz-dark .side .navitem,
+.c02-trial.nofuzz-light .side .navitem{
+  font-size:20px;
+  line-height:1.2;
+  font-weight:800;
+  padding:13px 0;
+}
+
+
+/* C02Av — dark mode with restrained live signal */
+@keyframes qlNoiseDriftA{
+  0%{transform:translate3d(-8px,-6px,0)}
+  14%{transform:translate3d(5px,-2px,0)}
+  28%{transform:translate3d(-3px,7px,0)}
+  42%{transform:translate3d(8px,3px,0)}
+  56%{transform:translate3d(-6px,-3px,0)}
+  70%{transform:translate3d(4px,8px,0)}
+  84%{transform:translate3d(-2px,1px,0)}
+  100%{transform:translate3d(-8px,-6px,0)}
+}
+@keyframes qlNoiseDriftB{
+  0%{transform:translate3d(6px,-4px,0)}
+  20%{transform:translate3d(-7px,3px,0)}
+  40%{transform:translate3d(4px,7px,0)}
+  60%{transform:translate3d(-2px,-6px,0)}
+  80%{transform:translate3d(8px,2px,0)}
+  100%{transform:translate3d(6px,-4px,0)}
+}
+.c02-trial.live-signal .signalWordmark{
+  position:relative;
+  display:inline-block;
+  color:var(--ql-base)!important;
+  overflow:hidden;
+  isolation:isolate;
+}
+.c02-trial.live-signal .signalWordmark:before{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  z-index:2;
+  pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 20% 30%,rgba(241,248,248,.48) 0 1px,rgba(2,0,32,.05) 1px 3px),
+    repeating-linear-gradient(90deg,rgba(241,248,248,.12) 0 1px,transparent 1px 3px);
+  background-size:7px 7px,5px 5px;
+  mix-blend-mode:difference;
+  opacity:.26;
+  animation:qlNoiseDriftA .72s steps(7,end) infinite;
+}
+.c02-trial.live-signal .signalWordmark:after{
+  content:attr(data-text);
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  -webkit-text-stroke:1px rgba(241,248,248,.08);
+  text-shadow:
+    1px 0 rgba(241,248,248,.16),
+    -1px 0 rgba(76,105,227,.16);
+  animation:qlNoiseDriftB .9s steps(6,end) infinite;
+}
+.c02-trial.live-signal .heroRibbon:before,
+.c02-trial.live-signal .heroRibbon:after{
+  background-size:120px 120px;
+  background-repeat:repeat;
+  animation:qlNoiseDriftA .88s steps(8,end) infinite;
+}
+.c02-trial.live-signal .heroRibbon:before{
+  background-color:rgba(246,109,193,.62);
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="8"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".42" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:screen;
+}
+.c02-trial.live-signal .heroRibbon:after{
+  background-color:rgba(76,105,227,.54);
+  background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="3" seed="13"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" opacity=".40" filter="url(%23n)"/%3E%3C/svg%3E');
+  background-blend-mode:screen;
+  animation-name:qlNoiseDriftB;
+  animation-delay:-.31s;
+}
+.c02-trial.live-signal .topbar{position:relative}
+.c02-trial.live-signal .cornerSignal{
+  position:absolute;
+  right:178px;
+  top:7px;
+  width:44px;
+  height:24px;
+  overflow:hidden;
+  border:1px solid rgba(241,248,248,.34);
+  background:rgba(241,248,248,.035);
+  pointer-events:none;
+}
+.c02-trial.live-signal .cornerSignal:before{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  background-image:
+    repeating-radial-gradient(circle at 40% 40%,rgba(241,248,248,.72) 0 1px,rgba(76,105,227,.10) 1px 3px),
+    repeating-linear-gradient(0deg,rgba(246,109,193,.10) 0 1px,transparent 1px 4px);
+  background-size:6px 6px,7px 7px;
+  opacity:.68;
+  filter:contrast(1.45);
+  animation:qlNoiseDriftB .62s steps(8,end) infinite;
+}
+
+
+/* Aiii-b / Aiii-c — Y2K broken-pixel background motion trials */
+.c02-trial.pixel-motion{
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--ql-dark);
+}
+.c02-trial.pixel-motion .topbar,
+.c02-trial.pixel-motion .side{
+  background:transparent;
+}
+.c02-trial.pixel-motion .main{
+  background:transparent;
+}
+.c02-trial.pixel-motion .layout{
+  position:relative;
+  z-index:2;
+}
+.c02-trial.pixel-motion .pixel-field{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+}
+.c02-trial.pixel-motion .source-pixel{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--w);
+  height:var(--h);
+  min-width:2px;
+  min-height:2px;
+  background:var(--c);
+  opacity:var(--o,.65);
+  mix-blend-mode:screen;
+  box-shadow:
+    0 0 4px color-mix(in srgb,var(--c) 88%,transparent),
+    0 0 9px color-mix(in srgb,var(--c) 42%,transparent);
+  filter:brightness(1.18) saturate(1.18);
+}
+.c02-trial.pixel-stars .source-pixel{
+  animation:qlPixelTwinkle var(--d,8s) steps(2,end) infinite;
+  animation-delay:var(--delay,0s);
+}
+.c02-trial.pixel-drift .source-pixel{
+  animation:qlTvPixelSlip var(--d,10s) steps(2,end) infinite;
+  animation-delay:var(--delay,0s);
+}
+
+/* image-gen-1 treatment: sparse broken pixels behaving like tiny stars */
+.c02-trial.pixel-stars .star-field{
+  background:
+    radial-gradient(circle at 7% 16%,rgba(76,105,227,.18),transparent 15%),
+    radial-gradient(circle at 94% 82%,rgba(246,109,193,.15),transparent 16%);
+  mix-blend-mode:screen;
+}
+.c02-trial.pixel-stars .star-field i{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--w,4px);
+  height:var(--h,4px);
+  background:var(--c,var(--ql-blue));
+  opacity:calc(var(--o,.35) + .24);
+  box-shadow:
+    0 0 4px color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent),
+    0 0 11px color-mix(in srgb,var(--c,var(--ql-blue)) 58%,transparent),
+    var(--sx,0) var(--sy,0) 0 color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent);
+  filter:brightness(1.35) saturate(1.28);
+  mix-blend-mode:screen;
+  animation:qlPixelTwinkle var(--d,5.8s) steps(2,end) infinite;
+  animation-delay:var(--delay,0s);
+}
+@keyframes qlPixelTwinkle{
+  0%,18%,47%,72%,100%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
+  22%{opacity:1;transform:scale(1.24)}
+  25%{opacity:.48;transform:scale(.92)}
+  52%{opacity:.9;transform:scale(1.1)}
+  55%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
+  77%{opacity:1;transform:scale(1.18)}
+  80%{opacity:calc(var(--o,.35) + .24);transform:scale(1)}
+}
+
+/* image-gen-2 treatment: horizontal corrupted-pixel strips with occasional TV-noise drift */
+.c02-trial.pixel-drift .noise-field{
+  opacity:1;
+  background:
+    linear-gradient(180deg,rgba(76,105,227,.07),transparent 28%,rgba(246,109,193,.055) 72%,transparent);
+  mix-blend-mode:screen;
+}
+.c02-trial.pixel-drift .noise-field .noise-band{
+  position:absolute;
+  height:var(--h,3px);
+  left:var(--x,4%);
+  top:var(--y,12%);
+  width:var(--w,44%);
+  opacity:var(--o,.38);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 12px,
+      rgba(76,105,227,.98) 12px 24px,
+      transparent 24px 38px,
+      rgba(246,109,193,.98) 38px 46px,
+      transparent 46px 61px,
+      rgba(146,214,68,.90) 61px 67px,
+      transparent 67px 82px,
+      rgba(255,144,41,.90) 82px 88px,
+      transparent 88px 110px
+    );
+  filter:brightness(1.32) saturate(1.24) drop-shadow(0 0 3px rgba(241,248,248,.32));
+  mix-blend-mode:screen;
+  animation:qlTvSlip var(--d,8.7s) steps(2,end) infinite;
+  animation-delay:var(--delay,0s);
+}
+.c02-trial.pixel-drift .noise-field .noise-band.faint{
+  opacity:.28;
+  height:1px;
+}
+.c02-trial.pixel-drift .noise-field .noise-pixel{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--w,5px);
+  height:var(--h,3px);
+  background:var(--c,var(--ql-blue));
+  opacity:calc(var(--o,.35) + .22);
+  box-shadow:
+    0 0 4px color-mix(in srgb,var(--c,var(--ql-blue)) 92%,transparent),
+    0 0 10px color-mix(in srgb,var(--c,var(--ql-blue)) 54%,transparent);
+  filter:brightness(1.34) saturate(1.26);
+  mix-blend-mode:screen;
+  animation:qlTvPixelSlip var(--d,10.5s) steps(2,end) infinite;
+  animation-delay:var(--delay,0s);
+}
+@keyframes qlTvSlip{
+  0%,64%,72%,100%{transform:translateX(0)}
+  65%{transform:translateX(7px)}
+  66%{transform:translateX(-5px)}
+  67%{transform:translateX(3px)}
+  68%,71%{transform:translateX(0)}
+}
+@keyframes qlTvPixelSlip{
+  0%,77%,84%,100%{transform:translateX(0);opacity:calc(var(--o,.35) + .22)}
+  78%{transform:translateX(5px);opacity:1}
+  79%{transform:translateX(-4px);opacity:.68}
+  80%{transform:translateX(2px);opacity:.96}
+  81%,83%{transform:translateX(0);opacity:calc(var(--o,.35) + .22)}
+}
+@media (prefers-reduced-motion: reduce){
+  .c02-trial.pixel-stars .star-field i,
+  .c02-trial.pixel-drift .noise-field .noise-band,
+  .c02-trial.pixel-drift .noise-field .noise-pixel{animation:none}
+}
+
+
+/* Aiii-D/E/F/G — people change the system
+   Eight controlled tests: four mechanisms, each in dark + light.
+   D retains the QL palette in both modes; E/F/G deliberately test six other palettes. */
+.c02-trial.people-system{
+  position:relative;
+  overflow:hidden;
+  --people-surface:var(--ql-dark);
+}
+.c02-trial.people-system.light{--people-surface:var(--ql-base)}
+.c02-trial.people-system .layout{
+  grid-template-columns:1fr;
+  grid-template-rows:auto 1fr;
+}
+.c02-trial.people-system .topbar{
+  grid-column:1;
+  padding:12px 18px;
+}
+.c02-trial.people-system .side{display:none}
+.c02-trial.people-system .main{
+  grid-column:1;
+  width:100%;
+  min-width:0;
+}
+.c02-trial.people-system .topnav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:18px;
+  flex-wrap:wrap;
+  white-space:nowrap;
+}
+.c02-trial.people-system .topnav span{color:inherit}
+.c02-trial.people-system .topnav .active{color:var(--ql-green)}
+.c02-trial.people-system .main>div:nth-child(2){padding-right:262px}
+.c02-trial.people-system .cards{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.c02-trial.people-system .card{
+  min-height:270px;
+}
+.c02-trial.people-system .card .copy{
+  left:18px;
+  right:18px;
+  bottom:58px;
+  max-width:84%;
+  font-size:16px;
+  line-height:1.32;
+}
+.c02-trial.people-system .card .tape{
+  left:14px;
+  bottom:14px;
+  max-width:calc(100% - 28px);
+  white-space:normal;
+  line-height:1.15;
+}
+.c02-trial.people-system .trial-cta{
+  justify-self:start;
+  width:max-content;
+  max-width:100%;
+  border:1px solid color-mix(in srgb,var(--ql-base) 52%,var(--ql-dark));
+  padding:10px 13px;
+  font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--ql-base);
+  background:color-mix(in srgb,var(--ql-dark) 90%,var(--ql-blue));
+}
+.c02-trial.people-system.light .trial-cta{
+  color:var(--ql-dark);
+  background:color-mix(in srgb,var(--ql-base) 92%,var(--ql-blue));
+  border-color:color-mix(in srgb,var(--ql-dark) 35%,transparent);
+}
+.c02-trial.people-system .trial-cta span{
+  display:inline-block;
+  margin-left:12px;
+  transition:transform .2s ease;
+}
+.c02-trial.people-system:hover .trial-cta span{transform:translateX(3px)}
+
+/* People-system content cards: contrast now carries information, not decoration */
+.c02-trial.people-system .card .patch{display:none}
+.c02-trial.people-system .card .tape{
+  top:16px;
+  bottom:auto;
+  left:16px;
+  right:auto;
+  width:auto;
+  max-width:calc(100% - 32px);
+  padding:9px 12px 8px;
+  border-radius:2px;
+  white-space:normal;
+  line-height:1.14;
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-dark) 20%,transparent);
+}
+.c02-trial.people-system .card .copy{
+  top:82px;
+  bottom:auto;
+  left:18px;
+  right:18px;
+  max-width:none;
+}
+.c02-trial.people-system .card.blue .tape{
+  background:var(--ql-orange);
+  color:var(--ql-dark);
+  transform:rotate(-.35deg);
+}
+.c02-trial.people-system .card.pink .tape{
+  background:var(--ql-green);
+  color:var(--ql-dark);
+  transform:rotate(.3deg);
+}
+
+
+/* People-system accessibility + type hierarchy pass
+   Intended mock-page hierarchy: H1 title > H2 proposition > H3 card headings > body/meta.
+   Accent colours remain free to be expressive; text colours are assigned independently
+   where an accent cannot meet WCAG AA as text. */
+.c02-trial.people-system{
+  --people-on-blue:#fff;
+}
+.c02-trial.palette-signal-dark,
+.c02-trial.palette-electric-dark{
+  --people-on-blue:#000;
+}
+
+/* Navigation: readable text in both modes; colour becomes an underline rather than
+   carrying the active-state contrast requirement by itself. */
+.c02-trial.people-system .topbar>.mono:first-child,
+.c02-trial.people-system .topnav{
+  font-size:14px;
+  line-height:1.25;
+}
+.c02-trial.people-system .topnav .active{
+  color:inherit;
+  position:relative;
+}
+.c02-trial.people-system .topnav .active:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-5px;
+  height:3px;
+  background:var(--ql-green);
+}
+
+/* H1 / H2 / supporting descriptor */
+.c02-trial.people-system .big{
+  margin:0;
+  font-size:clamp(54px,6vw,72px)!important;
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+.c02-trial.people-system .descriptor{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:7px;
+  color:inherit;
+  font-size:13.5px;
+  line-height:1.35;
+  letter-spacing:.075em;
+}
+.c02-trial.people-system .descriptor:before{
+  content:"";
+  width:16px;
+  height:5px;
+  flex:0 0 auto;
+  background:var(--ql-blue);
+}
+.c02-trial.people-system .heroRibbon{
+  background:var(--ql-orange);
+  color:#000;
+}
+.c02-trial.people-system .heroRibbon .mid{
+  margin:0;
+  font-size:28px!important;
+  line-height:1.12;
+  font-weight:700;
+}
+
+/* H3 / body copy. The heading colour block carries the contrast, while the reading
+   field stays uninterrupted. */
+.c02-trial.people-system .card .tape{
+  font-size:18px;
+  line-height:1.15;
+  letter-spacing:-.01em;
+}
+.c02-trial.people-system .card .copy{
+  top:88px;
+  font-size:17px;
+  line-height:1.42;
+}
+.c02-trial.people-system .card.blue{
+  color:var(--people-on-blue);
+}
+.c02-trial.people-system .card.pink,
+.c02-trial.people-system .card.green{
+  color:#000;
+}
+.c02-trial.people-system .card.blue .tape,
+.c02-trial.people-system .card.pink .tape{
+  color:#000;
+}
+.c02-trial.people-system .card.green .tape{
+  background:var(--ql-blue);
+  color:var(--people-on-blue);
+  transform:rotate(-.2deg);
+}
+
+/* CTA uses the surface pair directly, avoiding uncertain colour-mix contrast. */
+.c02-trial.people-system .trial-cta{
+  font-size:13px;
+  line-height:1.15;
+  color:var(--ql-dark);
+  background:var(--ql-base);
+  border-color:var(--ql-base);
+}
+.c02-trial.people-system.light .trial-cta{
+  color:var(--ql-base);
+  background:var(--ql-dark);
+  border-color:var(--ql-dark);
+}
+
+
+
+/* palette tests: D dark/light inherit QL unchanged */
+.c02-trial.palette-signal-dark{
+  --ql-dark:#111827;
+  --ql-base:#F3F8F4;
+  --ql-blue:#168EA0;
+  --ql-pink:#FF6E91;
+  --ql-green:#B7E64A;
+  --ql-orange:#FFAF57;
+}
+.c02-trial.palette-soft-light{
+  --ql-dark:#29243D;
+  --ql-base:#F4F1FB;
+  --ql-blue:#5B67C8;
+  --ql-pink:#E587AE;
+  --ql-green:#75BE9B;
+  --ql-orange:#ECA36C;
+}
+.c02-trial.palette-studio-dark{
+  --ql-dark:#21171B;
+  --ql-base:#F5EBDD;
+  --ql-blue:#7658B0;
+  --ql-pink:#DF6B72;
+  --ql-green:#A5B85A;
+  --ql-orange:#D88A4A;
+}
+.c02-trial.palette-grown-light{
+  --ql-dark:#451E32;
+  --ql-base:#F7F1E6;
+  --ql-blue:#415DAE;
+  --ql-pink:#C76486;
+  --ql-green:#788B54;
+  --ql-orange:#D98558;
+}
+.c02-trial.palette-electric-dark{
+  --ql-dark:#080A11;
+  --ql-base:#F7F8F0;
+  --ql-blue:#1688E8;
+  --ql-pink:#FF4FBD;
+  --ql-green:#B9F33D;
+  --ql-orange:#FFD447;
+}
+.c02-trial.palette-industrial-light{
+  --ql-dark:#1C2221;
+  --ql-base:#EDF0EC;
+  --ql-blue:#3157C8;
+  --ql-pink:#D95580;
+  --ql-green:#95B82F;
+  --ql-orange:#F0783C;
+}
+
+.c02-trial.people-system .photoProbe{
+  position:absolute;
+  right:20px;
+  top:18px;
+  width:224px;
+  height:112px;
+  z-index:6;
+  border:1px solid color-mix(in srgb,var(--ql-base) 54%,var(--ql-dark));
+  background:var(--people-surface);
+  box-shadow:5px 5px 0 color-mix(in srgb,var(--ql-blue) 24%,transparent);
+  overflow:visible;
+}
+.c02-trial.people-system .photoProxy{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background-image:
+    linear-gradient(180deg,transparent 0 72%,color-mix(in srgb,var(--ql-dark) 42%,transparent) 100%),
+    url("https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg");
+  background-size:cover;
+  background-position:center 44%;
+  filter:saturate(.92) contrast(1.04);
+}
+.c02-trial.people-system.light .photoProxy{filter:saturate(.86) contrast(1.02)}
+.c02-trial.people-system .photoProxy:before,
+.c02-trial.people-system .photoProxy:after{display:none}
+.c02-trial.people-system .photoCaption{
+  position:absolute;
+  left:8px;
+  bottom:7px;
+  z-index:2;
+  padding:4px 6px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  font:700 9px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.c02-trial.people-system .system-mark{
+  position:absolute;
+  z-index:7;
+  pointer-events:none;
+}
+
+/* D / reactive residue — local evidence of activity */
+.c02-trial.residue .system-mark{box-shadow:0 0 7px currentColor}
+.c02-trial.residue .r1{right:9px;top:78px;width:18px;height:7px;background:var(--ql-pink);color:color-mix(in srgb,var(--ql-pink) 38%,transparent)}
+.c02-trial.residue .r2{right:39px;top:137px;width:7px;height:18px;background:var(--ql-green);color:color-mix(in srgb,var(--ql-green) 34%,transparent)}
+.c02-trial.residue .r3{left:22px;top:327px;width:22px;height:6px;background:var(--ql-orange);color:color-mix(in srgb,var(--ql-orange) 30%,transparent)}
+.c02-trial.residue .r4{left:38%;top:277px;width:8px;height:8px;background:var(--ql-blue);color:color-mix(in srgb,var(--ql-blue) 38%,transparent)}
+.c02-trial.residue .r5{left:68%;bottom:21px;width:15px;height:5px;background:var(--ql-pink);color:color-mix(in srgb,var(--ql-pink) 28%,transparent)}
+.c02-trial.residue .photoProbe:after{
+  content:"";
+  position:absolute;
+  right:-11px;
+  bottom:18px;
+  width:7px;
+  height:7px;
+  background:var(--ql-blue);
+  box-shadow:-9px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-16px 23px 0 var(--ql-orange);
+}
+@keyframes qlResidueBreath{
+  0%,72%,100%{opacity:.72}
+  78%{opacity:1}
+  83%{opacity:.58}
+}
+.c02-trial.residue .r1,
+.c02-trial.residue .r4{animation:qlResidueBreath 7.4s steps(2,end) infinite}
+
+/* E / transfer — a recognisable contribution reappears changed */
+.c02-trial.transfer .transfer-mark{
+  width:24px;height:7px;background:var(--ql-blue);
+  box-shadow:8px 7px 0 var(--ql-pink),16px 0 0 var(--ql-green);
+}
+.c02-trial.transfer .t1{right:8px;top:72px;transform:scale(.72)}
+.c02-trial.transfer .t2{left:34%;top:18px;transform:rotate(90deg) scale(.76)}
+.c02-trial.transfer .t3{left:51%;top:316px;transform:rotate(180deg)}
+.c02-trial.transfer .t4{right:70px;bottom:22px;transform:rotate(-90deg) scale(.66)}
+.c02-trial.transfer .photoProbe:after{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:34px;
+  width:18px;
+  height:6px;
+  background:var(--ql-blue);
+  box-shadow:6px 6px 0 var(--ql-pink),12px 0 0 var(--ql-green);
+}
+@keyframes qlTransferState{
+  0%,52%,100%{filter:brightness(1);opacity:.78}
+  56%{filter:brightness(1.55);opacity:1}
+  61%{filter:brightness(1);opacity:.78}
+}
+.c02-trial.transfer .t1{animation:qlTransferState 8.8s steps(2,end) infinite}
+.c02-trial.transfer .t2{animation:qlTransferState 8.8s 1.2s steps(2,end) infinite}
+.c02-trial.transfer .t3{animation:qlTransferState 8.8s 2.4s steps(2,end) infinite}
+.c02-trial.transfer .t4{animation:qlTransferState 8.8s 3.6s steps(2,end) infinite}
+
+/* F / accumulation — activity builds as the page becomes more inhabited */
+.c02-trial.accumulation .accum-mark{width:8px;height:8px;background:var(--c,var(--ql-blue));opacity:var(--o,.74)}
+.c02-trial.accumulation .a1{left:10%;top:83px;--c:var(--ql-blue);--o:.50}
+.c02-trial.accumulation .a2{right:13%;top:165px;width:15px;height:5px;--c:var(--ql-pink);--o:.58}
+.c02-trial.accumulation .a3{left:18%;top:266px;width:6px;height:15px;--c:var(--ql-green);--o:.66}
+.c02-trial.accumulation .a4{left:39%;top:328px;width:19px;height:6px;--c:var(--ql-orange);--o:.74}
+.c02-trial.accumulation .a5{left:54%;top:347px;--c:var(--ql-blue);--o:.78}
+.c02-trial.accumulation .a6{right:19%;top:373px;width:5px;height:18px;--c:var(--ql-pink);--o:.82}
+.c02-trial.accumulation .a7{left:20%;bottom:16px;width:13px;height:5px;--c:var(--ql-green);--o:.86}
+.c02-trial.accumulation .a8{left:36%;bottom:29px;width:6px;height:12px;--c:var(--ql-orange);--o:.88}
+.c02-trial.accumulation .a9{left:52%;bottom:12px;width:17px;height:5px;--c:var(--ql-blue);--o:.90}
+.c02-trial.accumulation .a10{right:31%;bottom:32px;--c:var(--ql-pink);--o:.92}
+.c02-trial.accumulation .a11{right:17%;bottom:15px;width:6px;height:15px;--c:var(--ql-green);--o:.94}
+.c02-trial.accumulation .a12{right:5%;bottom:37px;width:20px;height:5px;--c:var(--ql-orange);--o:.96}
+.c02-trial.accumulation .photoProbe{box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 12%,transparent)}
+.c02-trial.accumulation .cards .card:nth-child(2):before,
+.c02-trial.accumulation .cards .card:nth-child(3):before{
+  content:"";
+  position:absolute;
+  z-index:6;
+  right:-2px;
+  top:18%;
+  width:7px;
+  height:20px;
+  background:var(--people-surface);
+  box-shadow:-7px 7px 0 color-mix(in srgb,var(--people-surface) 58%,transparent);
+}
+
+/* G / responsive intrusion — active content visibly pushes the interface */
+.c02-trial.intrusion .photoProbe{
+  width:236px;
+  height:124px;
+  clip-path:polygon(0 0,100% 0,100% 64%,94% 64%,94% 77%,87% 77%,87% 89%,78% 89%,78% 100%,0 100%);
+  box-shadow:none;
+}
+.c02-trial.intrusion .photoProbe:before{
+  content:"";
+  position:absolute;
+  z-index:8;
+  left:-16px;
+  top:54px;
+  width:27px;
+  height:8px;
+  background:var(--ql-pink);
+  box-shadow:10px 11px 0 var(--ql-blue),22px 22px 0 var(--ql-green),41px 29px 0 var(--ql-orange);
+}
+.c02-trial.intrusion .heroRibbon{
+  overflow:visible;
+  clip-path:none;
+}
+.c02-trial.intrusion .heroRibbon .intrusion-cut{
+  position:absolute;
+  z-index:4;
+  right:0;
+  bottom:0;
+  width:25px;
+  height:9px;
+  background:var(--people-surface);
+  box-shadow:-18px 9px 0 var(--people-surface),-31px 15px 0 var(--people-surface);
+  pointer-events:none;
+}
+.c02-trial.intrusion .impact1{right:218px;top:126px;width:52px;height:7px;background:var(--ql-blue);box-shadow:24px 9px 0 var(--ql-pink)}
+.c02-trial.intrusion .impact2{right:164px;top:168px;width:7px;height:30px;background:var(--ql-green);box-shadow:8px 17px 0 var(--ql-orange)}
+.c02-trial.intrusion .impact3{right:110px;top:290px;width:34px;height:6px;background:var(--ql-pink)}
+.c02-trial.intrusion .photoProbe,
+.c02-trial.intrusion .impact1,
+.c02-trial.intrusion .impact2,
+.c02-trial.intrusion .impact3{transition:transform .28s ease,filter .28s ease}
+.c02-trial.intrusion:hover .photoProbe{transform:translate(-3px,2px)}
+.c02-trial.intrusion:hover .impact1{transform:translateX(-10px);filter:brightness(1.25)}
+.c02-trial.intrusion:hover .impact2{transform:translate(5px,5px);filter:brightness(1.25)}
+.c02-trial.intrusion:hover .impact3{transform:translateX(8px);filter:brightness(1.25)}
+
+@media(max-width:1100px){
+  .c02-trial.people-system .topbar{align-items:flex-start}
+  .c02-trial.people-system .topnav{gap:12px}
+  .c02-trial.people-system .main>div:nth-child(2){padding-right:0;padding-top:132px}
+  .c02-trial.people-system .photoProbe{left:20px;right:auto;top:14px}
+  .c02-trial.people-system .cards{grid-template-columns:1fr}
+  .c02-trial.people-system .card{min-height:235px}
+}
+
+/* B — same shell/background, cards pushed toward physical/editorial source */
+.c02-trial.lived .card{overflow:visible;margin:5px 3px 7px}
+.c02-trial.lived .cards{gap:16px;align-items:stretch}
+.c02-trial.lived .card:nth-child(1){clip-path:polygon(1% 2%,98% 0,100% 95%,5% 100%,0 68%);transform:rotate(-.7deg)}
+.c02-trial.lived .card:nth-child(2){clip-path:polygon(0 0,96% 3%,100% 83%,92% 100%,3% 96%);transform:rotate(.45deg)}
+.c02-trial.lived .card:nth-child(3){clip-path:polygon(3% 0,100% 5%,97% 96%,8% 100%,0 88%);transform:rotate(-.35deg)}
+.c02-trial.lived .card:nth-child(4){clip-path:polygon(0 4%,94% 0,100% 93%,90% 100%,4% 97%);transform:rotate(.65deg)}
+.c02-trial.lived .card:before{
+  content:"";position:absolute;inset:8px -4px -7px 7px;border:2px solid var(--ql-dark);opacity:.8;z-index:1
+}
+.c02-trial.lived .card .texture{opacity:.28;mix-blend-mode:multiply}
+.c02-trial.lived .card .tape{border-radius:2px;transform:rotate(-1.4deg);box-shadow:4px 3px 0 var(--ql-dark)}
+.c02-trial.lived .card:nth-child(even) .tape{transform:rotate(1.2deg)}
+.c02-trial.lived .card .patch{outline:2px solid var(--ql-dark)}
+.c02-trial.lived .card.blue .patch{right:7%;top:11%;width:43%;height:25%;transform:rotate(2deg)}
+.c02-trial.lived .card.green .patch{left:8%;top:17%;width:51%;height:34%;clip-path:polygon(0 6%,93% 0,100% 82%,15% 100%)}
+.c02-trial.lived .card.orange .patch{right:5%;top:9%;width:55%;height:20%;transform:rotate(-3deg)}
+.c02-trial.lived .card.pink .patch{left:9%;top:14%;width:49%;height:32%;clip-path:polygon(6% 0,100% 8%,91% 100%,0 88%)}
+
+/* C — same cards as A; shell/background gets Instrument-panel energy */
+.c02-trial.future{background:var(--ql-dark)}
+.c02-trial.future:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(rgba(76,105,227,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(76,105,227,.10) 1px,transparent 1px),
+    radial-gradient(circle at 18% 18%,rgba(76,105,227,.30),transparent 26%),
+    radial-gradient(circle at 84% 70%,rgba(246,109,193,.24),transparent 28%);
+  background-size:42px 42px,42px 42px,auto,auto;
+}
+.c02-trial.future .layout{border:1px solid var(--ql-blue);box-shadow:0 0 0 8px var(--ql-dark),0 0 36px rgba(76,105,227,.22)}
+.c02-trial.future .topbar{border-bottom:2px solid var(--ql-base)}
+.c02-trial.future .side{border-right:2px solid var(--ql-base);background:rgba(2,0,32,.78)}
+.c02-trial.future .main{background:linear-gradient(180deg,rgba(76,105,227,.10),rgba(2,0,32,.14))}
+.c02-trial.future .main:after{
+  content:"signal / studio online";position:absolute;right:18px;top:18px;
+  border:1px solid var(--ql-blue);padding:7px 9px;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ql-base);background:var(--ql-dark)
+}
+@media(max-width:1100px){
+  .c02-trial .layout{grid-template-columns:1fr}
+  .c02-trial .topbar{grid-column:1}
+  .c02-trial .side{border-right:0;border-bottom:1px solid rgba(241,248,248,.22)}
+  .c02-trial .cards{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<style id="a3-continuation-extension">
+/* Aiii continuation: same visual grammar, new elements.
+   No conventional page-section scaffold. */
+.a3-continuation{
+  position:relative;
+  z-index:3;
+  margin:-18px 18px 18px;
+  padding:0;
+  border:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  overflow:hidden;
+}
+.a3-continuation.light{background:var(--ql-base);color:var(--ql-dark)}
+.a3-continuation *{box-sizing:border-box}
+.a3-canvas{
+  position:relative;
+  min-height:900px;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 78% 14%,color-mix(in srgb,var(--ql-blue) 7%,transparent),transparent 26%),
+    var(--ql-dark);
+}
+.a3-continuation.light .a3-canvas{
+  background:
+    radial-gradient(circle at 78% 14%,color-mix(in srgb,var(--ql-blue) 8%,transparent),transparent 28%),
+    var(--ql-base);
+}
+.a3-micro{
+  position:absolute;
+  z-index:8;
+  font:700 10px/1.25 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.a3-micro.top{left:20px;top:18px;color:color-mix(in srgb,var(--ql-base) 66%,transparent)}
+.a3-continuation.light .a3-micro.top{color:color-mix(in srgb,var(--ql-dark) 62%,transparent)}
+.a3-project-field{
+  position:absolute;
+  z-index:2;
+  left:5%;
+  top:7%;
+  width:59%;
+  min-height:270px;
+  padding:28px 32px 30px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+.a3-project-field:before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:-14px;
+  width:78px;
+  height:43px;
+  background:var(--ql-pink);
+  opacity:.78;
+}
+.a3-project-field:after{
+  content:"";
+  position:absolute;
+  left:39px;
+  top:-14px;
+  width:55px;
+  height:43px;
+  background:var(--ql-blue);
+  opacity:.68;
+}
+.a3-tape{
+  position:relative;
+  z-index:4;
+  display:inline-block;
+  padding:8px 11px;
+  border-radius:8px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  font:700 12px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.a3-project-field h4{
+  position:relative;
+  z-index:3;
+  margin:25px 0 14px;
+  max-width:10ch;
+  font-size:clamp(44px,5.3vw,76px);
+  line-height:.85;
+  letter-spacing:-.06em;
+}
+.a3-project-field p{
+  position:relative;
+  z-index:3;
+  margin:0;
+  max-width:46ch;
+  font:400 17px/1.4 "Atkinson Hyperlegible Mono",monospace;
+}
+.a3-photo-fragment{
+  position:absolute;
+  z-index:5;
+  right:5%;
+  top:14%;
+  width:39%;
+  height:315px;
+  margin:0;
+  overflow:visible;
+  background:var(--ql-blue);
+  box-shadow:14px 14px 0 var(--ql-orange);
+}
+.a3-photo-fragment img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 44%;
+  filter:saturate(.9) contrast(1.04);
+}
+.a3-photo-fragment figcaption{
+  position:absolute;
+  left:13px;
+  bottom:13px;
+  z-index:3;
+  max-width:78%;
+}
+.a3-photo-fragment:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-18px;
+  top:26px;
+  width:46px;
+  height:104px;
+  background:var(--ql-pink);
+}
+.a3-stage{
+  position:absolute;
+  z-index:3;
+  color:var(--ql-dark);
+  padding:19px 20px 22px;
+}
+.a3-stage .a3-tape{margin-bottom:34px}
+.a3-stage p{
+  margin:0;
+  max-width:24ch;
+  font:700 18px/1.25 "Atkinson Hyperlegible Mono",monospace;
+}
+.a3-stage.one{
+  left:8%;
+  top:46%;
+  width:31%;
+  min-height:205px;
+  background:var(--ql-pink);
+  transform:rotate(-.55deg);
+}
+.a3-stage.two{
+  left:36%;
+  top:55%;
+  width:34%;
+  min-height:205px;
+  background:var(--ql-blue);
+  color:var(--ql-base);
+  transform:rotate(.42deg);
+}
+.a3-stage.two .a3-tape{color:var(--ql-dark)}
+.a3-stage.three{
+  right:6%;
+  top:48%;
+  width:27%;
+  min-height:220px;
+  background:var(--ql-orange);
+  transform:rotate(-.35deg);
+}
+.a3-stage.one:after,
+.a3-stage.two:after,
+.a3-stage.three:after{
+  content:"";
+  position:absolute;
+  width:36%;
+  height:22%;
+  right:8%;
+  top:10%;
+  background:color-mix(in srgb,var(--ql-base) 34%,transparent);
+}
+.a3-scrap{
+  position:absolute;
+  z-index:6;
+  left:17%;
+  top:75%;
+  width:48%;
+  min-height:145px;
+  padding:22px 24px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:9px 9px 0 color-mix(in srgb,var(--ql-pink) 76%,var(--ql-dark));
+  transform:rotate(.28deg);
+}
+.a3-scrap .a3-tape{
+  position:absolute;
+  right:18px;
+  top:-16px;
+  background:var(--ql-orange);
+}
+.a3-scrap p{
+  margin:15px 0 0;
+  max-width:48ch;
+  font-size:21px;
+  line-height:1.34;
+}
+.a3-side-strip{
+  position:absolute;
+  z-index:4;
+  left:3%;
+  right:3%;
+  bottom:42px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  white-space:nowrap;
+  overflow:hidden;
+  padding:10px 14px;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  border:1px solid color-mix(in srgb,var(--ql-base) 35%,transparent);
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.a3-continuation.light .a3-side-strip{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+}
+.a3-side-strip b{color:var(--ql-green)}
+.a3-open-note{
+  position:absolute;
+  z-index:7;
+  right:7%;
+  bottom:78px;
+  width:27%;
+  padding:16px 17px 18px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+  transform:rotate(-1.1deg);
+}
+.a3-open-note span{
+  display:block;
+  margin-bottom:10px;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.a3-open-note strong{
+  display:block;
+  font-size:26px;
+  line-height:.98;
+  letter-spacing:-.04em;
+}
+.a3-open-note:after{
+  content:"→";
+  position:absolute;
+  right:14px;
+  bottom:11px;
+  font-size:24px;
+}
+
+/* b / c: continue the same ambient digital disturbances, not a new component language */
+.a3-continuation.pixel-stars .a3-canvas:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 3% 13%/4px 4px no-repeat,
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 11% 32%/3px 5px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 22% 84%/5px 3px no-repeat,
+    linear-gradient(var(--ql-orange),var(--ql-orange)) 49% 12%/3px 3px no-repeat,
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 72% 35%/5px 2px no-repeat,
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 93% 74%/3px 4px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 83% 91%/4px 4px no-repeat;
+  opacity:.76;
+  animation:qlPixelTwinkle 6.4s steps(2,end) infinite;
+}
+.a3-continuation.pixel-drift .a3-canvas:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 38px,var(--ql-blue) 38px 51px,transparent 51px 89px,var(--ql-pink) 89px 97px) 0 20%/64% 2px no-repeat,
+    repeating-linear-gradient(90deg,transparent 0 25px,var(--ql-green) 25px 32px,transparent 32px 66px,var(--ql-orange) 66px 78px) 100% 64%/48% 3px no-repeat;
+  opacity:.35;
+  animation:qlTvSlip 9.8s steps(2,end) infinite;
+}
+
+/* people-system continuations keep their existing light/dark palette pairings */
+.a3-continuation.people-system.light .a3-project-field{color:var(--ql-dark)}
+.a3-continuation.people-system.light .a3-stage.two{color:var(--ql-base)}
+.a3-continuation.people-system.light .a3-scrap{background:var(--ql-base);color:var(--ql-dark)}
+
+/* D: local residue appears around joins and edges */
+.a3-continuation.residue .a3-project-field{box-shadow:-7px 6px 0 color-mix(in srgb,var(--ql-blue) 38%,transparent)}
+.a3-continuation.residue .a3-stage.one{box-shadow:7px 6px 0 color-mix(in srgb,var(--ql-green) 42%,transparent)}
+.a3-continuation.residue .a3-stage.three{box-shadow:-9px 8px 0 color-mix(in srgb,var(--ql-pink) 40%,transparent)}
+.a3-continuation.residue .a3-scrap:before{
+  content:"";
+  position:absolute;
+  left:-13px;
+  bottom:17px;
+  width:7px;height:7px;
+  background:var(--ql-blue);
+  box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange);
+}
+
+/* E: contribution motif transfers through otherwise unchanged elements */
+.a3-continuation.transfer .a3-project-field .a3-tape:after,
+.a3-continuation.transfer .a3-stage.one .a3-tape:after,
+.a3-continuation.transfer .a3-stage.two .a3-tape:after,
+.a3-continuation.transfer .a3-open-note:before{
+  content:"";
+  display:inline-block;
+  width:18px;height:6px;
+  margin-left:13px;
+  background:var(--ql-blue);
+  box-shadow:6px 6px 0 var(--ql-pink),12px 0 0 var(--ql-green);
+  vertical-align:middle;
+}
+.a3-continuation.transfer .a3-stage.one .a3-tape:after{transform:rotate(90deg) scale(.8)}
+.a3-continuation.transfer .a3-stage.two .a3-tape:after{transform:rotate(180deg) scale(.88)}
+.a3-continuation.transfer .a3-open-note:before{position:absolute;right:12px;top:12px;transform:rotate(-90deg) scale(.76)}
+
+/* F: activity accumulates as the page deepens */
+.a3-continuation.accumulation .a3-canvas:after{
+  content:"";
+  position:absolute;
+  z-index:8;
+  pointer-events:none;
+  width:6px;height:6px;
+  right:4%;bottom:7%;
+  background:var(--ql-blue);
+  box-shadow:
+    -31px -8px 0 var(--ql-pink),-66px 4px 0 var(--ql-green),-101px -15px 0 var(--ql-orange),
+    -143px 7px 0 var(--ql-blue),-188px -11px 0 var(--ql-pink),-235px 6px 0 var(--ql-green),
+    -286px -17px 0 var(--ql-orange),-342px 2px 0 var(--ql-blue),-405px -9px 0 var(--ql-pink);
+  opacity:.84;
+}
+
+/* G: content pushes the composition rather than sitting politely inside it */
+.a3-continuation.intrusion .a3-photo-fragment{
+  width:42%;
+  right:2%;
+  transform:translate(-4px,12px);
+  clip-path:polygon(0 0,100% 0,100% 72%,95% 72%,95% 82%,89% 82%,89% 91%,79% 91%,79% 100%,0 100%);
+  box-shadow:13px 13px 0 var(--ql-blue);
+}
+.a3-continuation.intrusion .a3-stage.one{left:5%;transform:translateY(7px) rotate(-1.2deg)}
+.a3-continuation.intrusion .a3-stage.two{left:34%;top:57%;transform:translateX(14px) rotate(.9deg)}
+.a3-continuation.intrusion .a3-stage.three{right:3%;top:45%;transform:translate(-8px,-8px) rotate(-1deg)}
+.a3-continuation.intrusion .a3-scrap{left:14%;width:52%;transform:translateY(7px) rotate(.7deg)}
+
+@media(max-width:900px){
+  .a3-canvas{min-height:1060px}
+  .a3-project-field{left:5%;width:75%;min-height:260px}
+  .a3-photo-fragment{right:5%;top:27%;width:52%;height:280px}
+  .a3-stage.one{left:5%;top:52%;width:42%}
+  .a3-stage.two{left:39%;top:58%;width:45%}
+  .a3-stage.three{right:5%;top:70%;width:36%}
+  .a3-scrap{left:7%;top:76%;width:56%;min-height:165px}
+  .a3-open-note{right:5%;bottom:68px;width:34%}
+}
+@media(max-width:620px){
+  .a3-continuation{margin:-18px 8px 14px}
+  .a3-canvas{min-height:1320px}
+  .a3-micro.top{left:14px}
+  .a3-project-field{left:4%;top:6%;width:88%;padding:24px 20px;min-height:300px}
+  .a3-project-field h4{font-size:48px}
+  .a3-photo-fragment{left:15%;right:auto;top:29%;width:80%;height:285px}
+  .a3-stage.one{left:5%;top:52%;width:72%;min-height:185px}
+  .a3-stage.two{left:22%;top:65%;width:73%;min-height:190px}
+  .a3-stage.three{left:5%;right:auto;top:77%;width:65%;min-height:190px}
+  .a3-scrap{left:12%;top:89%;width:80%;min-height:160px}
+  .a3-open-note{right:5%;bottom:46px;width:58%}
+  .a3-side-strip{bottom:12px}
+}
+
+/* Make each Aiii study + continuation read as one continuous framed page. */
+.concept-board.a3-has-continuation{
+  border-radius:16px 16px 0 0;
+  border-bottom:0;
+}
+.a3-continuation{
+  --a3-frame:rgba(241,248,248,.22);
+  margin:0;
+  padding:0 18px 18px;
+  border:1px solid var(--a3-frame);
+  border-top:0;
+  border-radius:0;
+}
+.a3-continuation.light{
+  --a3-frame:rgba(2,0,32,.24);
+}
+
+/* 2026-09-23 refinement: square lower language, tighter handoff, in-card actions. */
+.c02-trial.people-system .card{
+  padding-bottom:54px;
+}
+.c02-trial.people-system .card .copy{
+  bottom:58px;
+}
+.c02-trial.people-system .card-cta{
+  position:absolute;
+  z-index:7;
+  left:16px;
+  bottom:15px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 9px;
+  border:1px solid currentColor;
+  border-radius:0;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  background:color-mix(in srgb,var(--ql-base) 88%,transparent);
+  color:var(--ql-dark);
+}
+.c02-trial.people-system .card.blue .card-cta{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+.c02-trial.people-system .card-cta span{
+  display:inline-block;
+  transition:transform .2s ease;
+}
+.c02-trial.people-system .card:hover .card-cta span{transform:translateX(3px)}
+
+/* The continuation begins immediately and stays square. This is the rule moving forward. */
+.a3-continuation,
+.a3-continuation *{
+  border-radius:0!important;
+}
+.a3-continuation{
+  border-radius:0!important;
+  padding-top:0;
+  padding-bottom:12px;
+}
+.a3-canvas{
+  min-height:860px;
+}
+.a3-project-field{
+  top:2%;
+}
+.a3-photo-fragment{
+  top:8%;
+}
+.a3-stage.one{top:43%}
+.a3-stage.two{top:52%}
+.a3-stage.three{top:45%}
+.a3-scrap{top:72%}
+
+.a3-ctrl{
+  position:absolute;
+  z-index:9;
+  left:4%;
+  bottom:84px;
+  display:flex;
+  align-items:center;
+  gap:0;
+  transform:rotate(-1.6deg);
+  font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ql-dark);
+}
+.a3-ctrl span,
+.a3-ctrl i{
+  display:block;
+  padding:8px 9px;
+  font-style:normal;
+  border:1px solid var(--ql-dark);
+}
+.a3-ctrl span:nth-of-type(1){background:var(--ql-blue);color:var(--ql-base)}
+.a3-ctrl span:nth-of-type(2){background:var(--ql-pink)}
+.a3-ctrl span:nth-of-type(3){background:var(--ql-green)}
+.a3-ctrl i{
+  padding-left:5px;
+  padding-right:5px;
+  background:var(--ql-base);
+}
+.a3-continuation.light .a3-ctrl span,
+.a3-continuation.light .a3-ctrl i{
+  border-color:var(--ql-dark);
+}
+@media(max-width:900px){
+  .a3-canvas{min-height:1020px}
+  .a3-project-field{top:2%}
+  .a3-photo-fragment{top:24%}
+  .a3-stage.one{top:49%}
+  .a3-stage.two{top:56%}
+  .a3-stage.three{top:68%}
+  .a3-scrap{top:75%}
+}
+@media(max-width:620px){
+  .a3-canvas{min-height:1290px}
+  .a3-project-field{top:2.5%}
+  .a3-photo-fragment{top:26%}
+  .a3-stage.one{top:50%}
+  .a3-stage.two{top:63%}
+  .a3-stage.three{top:75%}
+  .a3-scrap{top:87%}
+  .a3-ctrl{left:4%;bottom:48px;transform:none;font-size:9px}
+  .a3-ctrl span,.a3-ctrl i{padding:7px 6px}
+}
+
+/* CTA breathing room refinement */
+.c02-trial.people-system .card{
+  padding-bottom:72px;
+}
+.c02-trial.people-system .card .copy{
+  bottom:76px;
+}
+
+/* CTA role correction: labels stay coloured; actions use one neutral control language. */
+.c02-trial.people-system .card{
+  padding-bottom:0;
+}
+.c02-trial.people-system .card .copy{
+  top:82px;
+  bottom:92px;
+}
+.c02-trial.people-system .card-cta,
+.c02-trial.people-system .card.blue .card-cta{
+  left:16px;
+  bottom:16px;
+  padding:10px 11px 10px 12px;
+  border:0;
+  border-radius:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 78%,transparent);
+}
+.c02-trial.people-system.light .card-cta,
+.c02-trial.people-system.light .card.blue .card-cta{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-dark) 28%,transparent);
+}
+.c02-trial.people-system .card-cta span{
+  margin-left:2px;
+  padding-left:9px;
+  border-left:1px solid currentColor;
+}
+
+/* Navigation studies: D1 floating utility palette / D2 CTRL+ALT+CREATE launcher. */
+.nav-palette-test .layout,
+.nav-launcher-test .layout{
+  display:block;
+  min-height:584px;
+}
+.nav-palette-test .main,
+.nav-launcher-test .main{
+  position:relative;
+  min-height:584px;
+}
+.ql-float-nav,
+.ql-launch-panel{
+  position:absolute;
+  z-index:30;
+  width:154px;
+  padding:0;
+  border:1px solid var(--ql-dark);
+  border-radius:0;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:8px 8px 0 var(--ql-blue);
+  font-family:"Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-float-nav{
+  left:-7px;
+  top:92px;
+  transform:rotate(-.7deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+}
+@keyframes qlUtilityFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 7px}
+}
+.ql-float-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 9px;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  font-size:9px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.ql-grip{
+  color:var(--ql-green);
+  letter-spacing:2px;
+}
+.ql-float-nav button,
+.ql-launch-panel button{
+  appearance:none;
+  width:100%;
+  display:grid;
+  grid-template-columns:9px 1fr auto;
+  align-items:center;
+  gap:7px;
+  padding:9px 8px;
+  border:0;
+  border-bottom:1px solid color-mix(in srgb,var(--ql-dark) 25%,transparent);
+  border-radius:0;
+  background:transparent;
+  color:inherit;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  text-align:left;
+  cursor:pointer;
+}
+.ql-launch-panel button{
+  grid-template-columns:1fr auto;
+}
+.ql-float-nav button:last-child,
+.ql-launch-panel button:last-child{border-bottom:0}
+.ql-float-nav button i{
+  width:7px;height:7px;background:var(--ql-pink);
+}
+.ql-float-nav button:nth-of-type(2) i{background:var(--ql-green)}
+.ql-float-nav button:nth-of-type(3) i{background:var(--ql-orange)}
+.ql-float-nav button:nth-of-type(4) i{background:var(--ql-blue)}
+.ql-float-nav button:nth-of-type(5) i{background:var(--ql-pink)}
+.ql-float-nav button b,
+.ql-launch-panel button b{
+  font-size:8px;
+  font-weight:700;
+  opacity:.48;
+}
+.ql-float-nav button:hover,
+.ql-float-nav button.active,
+.ql-launch-panel button:hover,
+.ql-launch-panel button.active{
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+.ql-float-nav button:hover span,
+.ql-launch-panel button:hover span{transform:translateX(2px)}
+.ql-float-nav button span,
+.ql-launch-panel button span{transition:transform .14s ease}
+
+/* Hybrid: CTRL + ALT + CREATE is the collapsed navigation object. */
+.ql-nav-launcher{
+  position:absolute;
+  z-index:31;
+  left:18px;
+  top:86px;
+  width:max-content;
+}
+.ql-nav-launcher summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:0;
+  width:max-content;
+  cursor:pointer;
+  transform:rotate(-1deg);
+  filter:drop-shadow(5px 5px 0 color-mix(in srgb,var(--ql-dark) 22%,transparent));
+}
+.ql-nav-launcher summary::-webkit-details-marker{display:none}
+.ql-nav-launcher summary kbd,
+.ql-nav-launcher summary i{
+  display:block;
+  padding:9px 8px;
+  border:1px solid var(--ql-dark);
+  border-right:0;
+  border-radius:0;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  font-style:normal;
+  letter-spacing:.05em;
+}
+.ql-nav-launcher summary kbd:nth-of-type(1){background:var(--ql-blue);color:var(--ql-base)}
+.ql-nav-launcher summary kbd:nth-of-type(2){background:var(--ql-pink);color:var(--ql-dark)}
+.ql-nav-launcher summary kbd:nth-of-type(3){
+  background:var(--ql-green);
+  color:var(--ql-dark);
+  border-right:1px solid var(--ql-dark);
+}
+.ql-nav-launcher summary i{background:var(--ql-base);color:var(--ql-dark)}
+.ql-nav-launcher[open] summary{transform:rotate(.3deg)}
+.ql-nav-launcher[open] summary kbd:nth-of-type(3){background:var(--ql-orange)}
+.ql-launch-panel{
+  position:absolute;
+  left:20px;
+  top:45px;
+  width:166px;
+  box-shadow:8px 8px 0 var(--ql-pink);
+  transform:rotate(.45deg);
+  transform-origin:top left;
+  animation:qlPaletteOpen .16s steps(2,end) both;
+}
+@keyframes qlPaletteOpen{
+  from{opacity:0;transform:translate(-5px,-5px) rotate(.45deg)}
+  to{opacity:1;transform:translate(0,0) rotate(.45deg)}
+}
+.nav-launcher-test.light .ql-launch-panel{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{left:6px;top:72px;animation:none}
+  .ql-nav-launcher{left:10px;top:70px}
+  .ql-float-nav,.ql-launch-panel{width:144px}
+  .nav-palette-test .main,
+  .nav-launcher-test .main{padding-top:72px}
+}
+
+/* Pin card actions to the card itself, not the copy block. */
+.c02-trial.people-system .card{
+  position:relative;
+}
+.c02-trial.people-system .card .copy{
+  top:82px;
+  bottom:84px;
+}
+.c02-trial.people-system .card-cta{
+  position:absolute;
+  left:16px;
+  bottom:16px;
+  z-index:8;
+}
+
+/* D1 refinement: utility palette replaces the hero photo and becomes the travelling navigator. */
+.c02-trial.people-system .card-cta,
+.c02-trial.people-system .card.blue .card-cta,
+.c02-trial.people-system.light .card-cta,
+.c02-trial.people-system.light .card.blue .card-cta{
+  box-shadow:none;
+}
+.nav-palette-test .ql-float-nav{
+  left:auto;
+  right:20px;
+  top:18px;
+  width:224px;
+  transform:rotate(.75deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+  transform-origin:center top;
+}
+.nav-palette-test .system-mark.r1,
+.nav-palette-test .system-mark.r2{display:none}
+.nav-palette-test .ql-float-head{
+  appearance:none;
+  width:100%;
+  border:0;
+  border-radius:0;
+  cursor:pointer;
+  text-align:left;
+  font:700 9px/1 "Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-grip{
+  color:inherit;
+  opacity:.58;
+  letter-spacing:2px;
+  transform-origin:center;
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite;
+}
+@keyframes qlEllipsisNudge{
+  0%,72%,100%{opacity:.48;transform:translateX(0);letter-spacing:2px}
+  82%{opacity:.82;transform:translateX(2px);letter-spacing:2.8px}
+  90%{opacity:.58;transform:translateX(0);letter-spacing:2px}
+}
+.nav-palette-test .ql-current{
+  display:none;
+  margin-left:auto;
+  padding-left:10px;
+  border-left:1px solid currentColor;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  position:fixed;
+  z-index:120;
+  left:auto;
+  right:20px;
+  top:18px;
+  width:auto;
+  min-width:0;
+  transform:rotate(.35deg);
+  animation:qlUtilityFloat 7s ease-in-out infinite;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:196px;
+  padding:9px 10px;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-current{display:block}
+.nav-palette-test .ql-float-nav.is-travelling > button:not(.ql-float-head){display:none}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{width:196px}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded > button:not(.ql-float-head){display:grid}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded .ql-current{color:var(--ql-green)}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{
+    left:auto;
+    right:10px;
+    top:14px;
+    width:174px;
+    animation:qlUtilityFloat 7s ease-in-out infinite;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling{right:10px;top:12px}
+  .nav-palette-test .ql-float-nav.is-travelling .ql-float-head{min-width:174px}
+}
+
+/* D1 utility palette polish: inward placement, restored dark title bar, always above content. */
+.concept-board.nav-palette-test,
+.concept-board.a3-has-continuation.nav-palette-test{
+  overflow:visible!important;
+  z-index:20;
+}
+.nav-palette-test .ql-float-nav{
+  right:72px;
+  z-index:5000;
+}
+.nav-palette-test .ql-float-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 9px;
+  background:var(--ql-dark)!important;
+  color:var(--ql-base)!important;
+  border:0!important;
+}
+.nav-palette-test .ql-go-label{margin-right:auto}
+.nav-palette-test .ql-grip{
+  margin-left:auto;
+  color:var(--ql-base);
+  opacity:.62;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  right:64px;
+  z-index:2147483000;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.18));
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  background:var(--ql-dark)!important;
+  color:var(--ql-base)!important;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{right:18px}
+  .nav-palette-test .ql-float-nav.is-travelling{right:14px}
+}
+
+/* D1 placement pass: sit below sticky study bar, larger type, no residue lights. */
+.nav-palette-test .system-mark{
+  display:none!important;
+}
+.nav-palette-test .ql-float-nav{
+  top:34px;
+  right:72px;
+}
+.nav-palette-test .ql-float-head{
+  font-size:11px;
+  padding:10px 11px;
+}
+.nav-palette-test .ql-float-nav > button:not(.ql-float-head){
+  font-size:12px;
+  padding:11px 10px;
+}
+.nav-palette-test .ql-float-nav button b{
+  font-size:9px;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  top:64px;
+  right:64px;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:214px;
+  padding:11px 12px;
+  font-size:11px;
+}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+  width:214px;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav{
+    top:24px;
+    right:18px;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling{
+    top:18px;
+    right:14px;
+  }
+}
+
+/* D1 nav cleanup: no indicator lights, pink shadow, same tilt while travelling. */
+.nav-palette-test .ql-float-nav{
+  box-shadow:8px 8px 0 var(--ql-pink);
+}
+.nav-palette-test .ql-float-nav button{
+  grid-template-columns:1fr auto;
+}
+.nav-palette-test .ql-float-nav button i{
+  display:none!important;
+}
+.nav-palette-test .ql-float-nav.is-travelling{
+  transform:rotate(.75deg);
+}
+
+/* D1 travel lock: collapse in the exact screen position where the full palette meets the sticky bar. */
+.nav-palette-test .ql-float-nav.is-travelling{
+  left:var(--ql-travel-left)!important;
+  right:auto!important;
+  top:var(--ql-travel-top)!important;
+  width:224px!important;
+  min-width:224px!important;
+  transform:rotate(.75deg);
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head{
+  min-width:0;
+  width:100%;
+}
+.nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+  width:224px!important;
+}
+@media(max-width:760px){
+  .nav-palette-test .ql-float-nav.is-travelling{
+    width:174px!important;
+    min-width:174px!important;
+  }
+  .nav-palette-test .ql-float-nav.is-travelling.is-expanded{
+    width:174px!important;
+  }
+}
+
+/* D1 title dots are static in the starting palette. */
+.nav-palette-test .ql-float-nav:not(.is-travelling) .ql-grip{
+  animation:none!important;
+  transform:none!important;
+  opacity:.62;
+  letter-spacing:2px;
+}
+
+/* D1 title-bar motion isolation: only the ellipsis animates. */
+.nav-palette-test .ql-float-head{
+  animation:none!important;
+  transition:none!important;
+  background-image:none!important;
+  overflow:hidden;
+}
+.nav-palette-test .ql-float-head::before,
+.nav-palette-test .ql-float-head::after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+}
+.nav-palette-test .ql-float-head > *:not(.ql-grip){
+  animation:none!important;
+  transition:none!important;
+}
+.nav-palette-test .ql-float-nav .ql-grip,
+.nav-palette-test .ql-float-nav:not(.is-travelling) .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+  transform-origin:center;
+}
+
+/* D1 menu top edge: no travelling light sweep; ellipsis remains the only local title-bar animation. */
+.nav-palette-test .ql-float-nav,
+.nav-palette-test .ql-float-head{
+  background-attachment:initial!important;
+  background-position:0 0!important;
+}
+.nav-palette-test .ql-float-nav::before,
+.nav-palette-test .ql-float-nav::after,
+.nav-palette-test .ql-float-head::before,
+.nav-palette-test .ql-float-head::after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+  transition:none!important;
+}
+.nav-palette-test .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+}
+
+/* D1 continuation cleanup: remove ornamental strips; return pixels to the background. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-stage::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-stage.one,
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-stage.three{
+  box-shadow:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-scrap::before{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-canvas::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 7% 18%/4px 4px no-repeat,
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 14% 37%/3px 5px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 28% 66%/5px 3px no-repeat,
+    linear-gradient(var(--ql-orange),var(--ql-orange)) 44% 11%/3px 3px no-repeat,
+    linear-gradient(var(--ql-pink),var(--ql-pink)) 58% 78%/4px 3px no-repeat,
+    linear-gradient(var(--ql-blue),var(--ql-blue)) 73% 31%/3px 4px no-repeat,
+    linear-gradient(var(--ql-green),var(--ql-green)) 88% 61%/5px 3px no-repeat,
+    linear-gradient(var(--ql-orange),var(--ql-orange)) 94% 84%/3px 3px no-repeat;
+  opacity:.62;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-photo-fragment,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-stage,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-scrap,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-open-note,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-side-strip{
+  position:absolute;
+  z-index:2;
+}
+
+/* D1 hard reset: plain title panel, no sweep-capable surface. */
+.nav-palette-test .ql-float-head.ql-float-toggle{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+  padding:10px 11px;
+  margin:0;
+  border:0!important;
+  border-radius:0!important;
+  outline:0;
+  background:var(--ql-dark)!important;
+  background-color:var(--ql-dark)!important;
+  background-image:none!important;
+  background-size:auto!important;
+  background-position:0 0!important;
+  background-repeat:no-repeat!important;
+  box-shadow:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  color:var(--ql-base)!important;
+  overflow:hidden;
+  isolation:isolate;
+  contain:paint;
+  cursor:pointer;
+  font:700 11px/1 "Atkinson Hyperlegible Mono",monospace;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle::before,
+.nav-palette-test .ql-float-head.ql-float-toggle::after{
+  content:none!important;
+  display:none!important;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle > span{
+  position:relative;
+  z-index:1;
+}
+.nav-palette-test .ql-float-head.ql-float-toggle .ql-grip{
+  animation:qlEllipsisNudge 4.4s ease-in-out infinite!important;
+}
+.nav-palette-test .ql-float-nav.is-travelling .ql-float-head.ql-float-toggle{
+  padding:10px 11px;
+}
+
+/* D1 static pixel field: actual elements, deliberately sparse. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-canvas::before{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--w);
+  height:var(--h);
+  display:block;
+  background:var(--c);
+  opacity:.82;
+  box-shadow:none;
+  animation:none!important;
+}
+
+/* D1 final bob fix: move vertically without translating the rotated panel. */
+.nav-palette-test .ql-float-nav:not(.is-travelling){
+  animation:qlUtilityBobTop 7s ease-in-out infinite!important;
+  translate:none!important;
+  will-change:top;
+}
+@keyframes qlUtilityBobTop{
+  0%,100%{margin-top:0}
+  50%{margin-top:7px}
+}
+
+/* Make the static D1 pixels visibly intentional, especially beside the white note. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  z-index:4;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  opacity:1;
+  min-width:4px;
+  min-height:4px;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(1){
+  left:12%!important;top:75%!important;width:7px!important;height:7px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(2){
+  left:13.2%!important;top:77.7%!important;width:6px!important;height:6px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(3){
+  left:11.2%!important;top:80.2%!important;width:8px!important;height:5px!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i:nth-child(4){
+  left:14%!important;top:82.4%!important;width:5px!important;height:8px!important;
+}
+
+/* D1 desktop refinement: title edge disappears into its own dark bar. */
+.nav-palette-test .ql-float-head.ql-float-toggle{
+  border:1px solid var(--ql-dark)!important;
+  border-bottom-color:var(--ql-dark)!important;
+}
+
+/* Use the pink/blue corner interruption only once, in the opening composition. */
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field::before,
+.a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* D1 residue pixels: borrow D2's irregular sizes, but keep them static and non-glowing. */
+.nav-palette-test .d1-board-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.nav-palette-test .d1-board-pixels i,
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels i{
+  position:absolute;
+  display:block;
+  opacity:.9;
+  animation:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.nav-palette-test .d1-board-pixels .p1{right:2.5%;top:15%;width:18px;height:7px;background:var(--ql-pink)}
+.nav-palette-test .d1-board-pixels .p2{right:8%;top:28%;width:7px;height:18px;background:var(--ql-green)}
+.nav-palette-test .d1-board-pixels .p3{left:3%;top:56%;width:22px;height:6px;background:var(--ql-orange)}
+.nav-palette-test .d1-board-pixels .p4{left:39%;top:47%;width:8px;height:8px;background:var(--ql-blue)}
+.nav-palette-test .d1-board-pixels .p5{left:68%;bottom:6%;width:15px;height:5px;background:var(--ql-pink)}
+
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p1{left:3.5%;top:18%;width:18px;height:7px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p2{right:3.8%;top:38%;width:7px;height:18px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p3{left:4.8%;top:58%;width:22px;height:6px;background:var(--ql-orange)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p4{left:45%;top:69%;width:8px;height:8px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p5{right:8%;top:84%;width:15px;height:5px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p6{right:28%;top:33%;width:7px;height:7px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D1"] .d1-pixels .p7{left:29%;top:42%;width:5px;height:13px;background:var(--ql-green)}
+
+/* Restore D2's original four-piece residue cluster beside the white studio note. */
+.a3-continuation[data-a3-variant="Aiii-D1"].residue .a3-scrap::before{
+  content:""!important;
+  display:block!important;
+  position:absolute;
+  left:-13px;
+  bottom:17px;
+  width:7px;
+  height:7px;
+  background:var(--ql-blue);
+  box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
+}
+
+/* D1 + D2 paired desktop state: share the settled lower-residue language. */
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field::before,
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .a3-stage::after{
+  content:none!important;
+  display:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-stage.one,
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-stage.three{
+  box-shadow:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels i{
+  position:absolute;
+  display:block;
+  opacity:.9;
+  animation:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p1{left:3.5%;top:18%;width:18px;height:7px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p2{right:3.8%;top:38%;width:7px;height:18px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p3{left:4.8%;top:58%;width:22px;height:6px;background:var(--ql-orange)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p4{left:45%;top:69%;width:8px;height:8px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p5{right:8%;top:84%;width:15px;height:5px;background:var(--ql-pink)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p6{right:28%;top:33%;width:7px;height:7px;background:var(--ql-blue)}
+.a3-continuation[data-a3-variant="Aiii-D2"] .d1-pixels .p7{left:29%;top:42%;width:5px;height:13px;background:var(--ql-green)}
+.a3-continuation[data-a3-variant="Aiii-D2"].residue .a3-scrap::before{
+  content:""!important;
+  display:block!important;
+  position:absolute;
+  left:-13px;
+  bottom:17px;
+  width:7px;
+  height:7px;
+  background:var(--ql-blue);
+  box-shadow:-8px 9px 0 var(--ql-pink),5px 17px 0 var(--ql-green),-15px 24px 0 var(--ql-orange)!important;
+}
+
+/* D1/D2 desktop handoff: close the gap left by removing the repeated corner blocks. */
+@media(min-width:901px){
+  .a3-continuation[data-a3-variant="Aiii-D1"] .a3-project-field,
+  .a3-continuation[data-a3-variant="Aiii-D2"] .a3-project-field{
+    top:0;
+  }
+}
+</style>
+
+<style id="standalone-homepage">
+:root{
+  /* Original QL blue nudged just enough for dark normal text to meet WCAG AA. */
+  --ql-blue:#526EE6 !important;
+}
+html,body{margin:0;min-height:100%;background:var(--ql-dark)}
+body{overflow-x:hidden}
+body.light-mode{background:var(--ql-base)}
+
+.homepage-shell{
+  min-height:100vh;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  transition:background .18s ease,color .18s ease;
+}
+body.light-mode .homepage-shell{background:var(--ql-base);color:var(--ql-dark)}
+
+/* This is a webpage now, not a study card. */
+.homepage-hero.concept-board{
+  margin:0;
+  min-height:0;
+  border:0;
+  border-radius:0;
+  overflow:hidden;
+  padding:18px;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+}
+.homepage-hero.light{background:var(--ql-base);color:var(--ql-dark)}
+.homepage-hero .layout{
+  display:block!important;
+  min-height:0!important;
+}
+.homepage-hero .main{
+  min-height:584px;
+}
+
+/* G1's real-photo treatment occupies the visual slot where the floating nav lived. */
+.homepage-hero .photoProbe{
+  right:20px;
+  top:18px;
+}
+
+/* Dark typography on blue. */
+.homepage-hero.people-system{
+  --people-on-blue:var(--ql-dark);
+}
+.homepage-hero .card.blue,
+.homepage-continuation .a3-stage.two{
+  color:var(--ql-dark)!important;
+}
+.homepage-hero .card.blue .copy{color:var(--ql-dark)!important}
+
+/*
+  The first row after the three boxes now shares their outer geometry.
+  The project field is pulled out of the old 5% inset; the photo comes in to the
+  same page gutter. Internal overlaps and deliberately inconsistent positions stay.
+*/
+.homepage-continuation.a3-continuation{
+  margin:-18px 0 0;
+  width:100%;
+}
+.homepage-continuation .a3-project-field{
+  left:38px!important;
+}
+.homepage-continuation .a3-photo-fragment{
+  right:38px!important;
+}
+
+/* Small functional control only — no study chrome or variant labels. */
+.theme-toggle{
+  position:fixed;
+  z-index:2147483000;
+  right:16px;
+  bottom:16px;
+  appearance:none;
+  border:1px solid currentColor;
+  border-radius:0;
+  padding:9px 11px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:4px 4px 0 var(--ql-pink);
+  cursor:pointer;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+body.light-mode .theme-toggle{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:4px 4px 0 var(--ql-blue);
+}
+.theme-toggle:focus-visible{outline:3px solid var(--ql-green);outline-offset:3px}
+
+@media(max-width:760px){
+  .homepage-hero.concept-board{padding:0}
+  .homepage-hero .main{padding:18px}
+  .homepage-hero .photoProbe{
+    position:relative!important;
+    right:auto!important;
+    top:auto!important;
+    width:100%!important;
+    max-width:310px;
+    height:150px!important;
+    margin:0 0 22px auto;
+  }
+  .homepage-continuation.a3-continuation{margin:0}
+  .homepage-continuation .a3-project-field{left:4%!important}
+  .homepage-continuation .a3-photo-fragment{right:4%!important}
+}
+</style>
+</head>
+<body>
+<div class="homepage-shell">
+  <section class="homepage-hero concept-board c02-trial a3-has-continuation nav-palette-test nofuzz-dark people-system residue">
+    <div class="d1-board-pixels" aria-hidden="true">
+      <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+    </div>
+
+    <div class="layout">
+      <div class="main">
+        <div class="photoProbe" role="img" aria-label="Two children showing a robot project at QwertyKids">
+          <div class="photoProxy"></div>
+          <div class="photoCaption">QWERTYKIDS / ROBOT PROJECT</div>
+        </div>
+
+        <div>
+          <div class="big" role="heading" aria-level="1">Qwerty Labs</div>
+          <div class="descriptor">IDEAS / TOOLS / PROJECTS / PEOPLE</div>
+        </div>
+
+        <div class="heroRibbon">
+          <div class="mid" role="heading" aria-level="2">Creative technology<br>for curious people.</div>
+        </div>
+
+        <div class="cards">
+          <div class="card green">
+            <div class="texture"></div><div class="patch"></div>
+            <div class="tape" role="heading" aria-level="3">01 START WITH AN IDEA</div>
+            <div class="copy">Bring something you want to make: a game, object, installation, tool, experiment, or something we haven’t thought of yet.</div>
+            <div class="card-cta">BRING US AN IDEA <span aria-hidden="true">→</span></div>
+          </div>
+
+          <div class="card pink">
+            <div class="texture"></div><div class="patch"></div>
+            <div class="tape" role="heading" aria-level="3">02 LEARN WHAT YOU NEED</div>
+            <div class="copy">Learn the code, tools and techniques the project asks for. You don’t need to know all of it before you begin.</div>
+            <div class="card-cta">SEE HOW WE LEARN <span aria-hidden="true">→</span></div>
+          </div>
+
+          <div class="card blue">
+            <div class="texture"></div><div class="patch"></div>
+            <div class="tape" role="heading" aria-level="3">03 SEE WHERE IT GOES</div>
+            <div class="copy">Build, test, change direction, and pull in another brain when the project needs it. Good ideas have a habit of getting bigger.</div>
+            <div class="card-cta">SEE WHAT’S BEING MADE <span aria-hidden="true">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="homepage-continuation a3-continuation c02-trial nofuzz-dark people-system residue" data-a3-variant="Aiii-D1">
+    <div class="a3-canvas">
+      <div class="d1-pixels" aria-hidden="true">
+        <i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i><i class="p5"></i>
+        <i class="p6"></i><i class="p7"></i>
+      </div>
+
+      <div class="a3-project-field">
+        <span class="a3-tape">CURRENT PROJECT / STOP:bit → MicroPython</span>
+        <h4>Make the lights behave.</h4>
+        <p>Start with a physical traffic light. Rebuild its behaviour in code. Then make the problem less tidy.</p>
+      </div>
+
+      <figure class="a3-photo-fragment">
+        <img src="https://qwertykids.com/wp-content/uploads/code-camp-near-me-apps-700.jpg" alt="Two QwertyKids children showing the LED pattern they coded on a robot">
+        <figcaption class="a3-tape">FROM THE STUDIO / REAL TOOLS / REAL PEOPLE</figcaption>
+      </figure>
+
+      <div class="a3-stage one">
+        <span class="a3-tape">01 / FIRST</span>
+        <p>Red. Amber. Green. Get the sequence working.</p>
+      </div>
+      <div class="a3-stage two">
+        <span class="a3-tape">02 / THEN</span>
+        <p>Add a pedestrian crossing and suddenly timing matters.</p>
+      </div>
+      <div class="a3-stage three">
+        <span class="a3-tape">03 / NEXT</span>
+        <p>Make two sets of lights talk to each other by radio.</p>
+      </div>
+
+      <div class="a3-scrap">
+        <span class="a3-tape">STUDIO NOTE / STILL MOVING</span>
+        <p>Not everything here starts as a course. Sometimes it starts as a child saying “could we make…”, a half-built thing on a desk, or somebody refusing to leave the idea alone.</p>
+      </div>
+
+      <div class="a3-open-note">
+        <span>OPEN INPUT</span>
+        <strong>Bring the unfinished version.</strong>
+      </div>
+
+      <div class="a3-side-strip">
+        <b>QWERTY LABS</b><span>CODE</span><span>ELECTRONICS</span><span>AI</span><span>ROBOTS</span><span>DESIGN</span><span>GAMES</span><span>ODD LITTLE EXPERIMENTS</span><span>MARRICKVILLE</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode">Light</button>
+
+<script>
+(() => {
+  const button = document.querySelector('.theme-toggle');
+  const hero = document.querySelector('.homepage-hero');
+  const continuation = document.querySelector('.homepage-continuation');
+
+  function apply(light){
+    document.body.classList.toggle('light-mode', light);
+    hero.classList.toggle('light', light);
+    continuation.classList.toggle('light', light);
+    button.textContent = light ? 'Dark' : 'Light';
+    button.setAttribute('aria-pressed', String(light));
+    button.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+
+  button.addEventListener('click', () => apply(!document.body.classList.contains('light-mode')));
+})();
+</script>
+</body>
+</html>
