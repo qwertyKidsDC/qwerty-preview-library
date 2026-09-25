@@ -1567,16 +1567,22 @@ a{color:inherit}
   bottom:42px;
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:0;
   white-space:nowrap;
   overflow:hidden;
   padding:10px 14px;
   background:var(--ql-dark);
   color:var(--ql-base);
-  border:1px solid color-mix(in srgb,var(--ql-base) 35%,transparent);
+  border:0;
   font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
   text-transform:uppercase;
   letter-spacing:.07em;
+}
+.a3-side-strip > * + *::before{
+  content:" / ";
+  display:inline-block;
+  margin:0 9px;
+  color:currentColor;
 }
 .a3-continuation.light .a3-side-strip{
   background:var(--ql-dark);
