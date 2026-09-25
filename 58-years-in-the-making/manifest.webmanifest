@@ -1,0 +1,12 @@
+{
+  "name": "65 things I think about you",
+  "short_name": "65 things",
+  "description": "58 years in the making.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f0e5",
+  "theme_color": "#f6f0e5",
+  "icons": [
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
