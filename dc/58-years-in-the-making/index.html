@@ -1,0 +1,1688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f0e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="65 things" />
+  <meta name="description" content="65 things I think about you — 58 years in the making." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>65 things I think about you</title>
+  <style>
+:root {
+  --paper: #f6f0e5;
+  --paper-deep: #efe5d6;
+  --ink: #382f2a;
+  --muted: #766b63;
+  --pink: #d9929f;
+  --pink-soft: #efd2d5;
+  --yellow: #e8c76f;
+  --yellow-soft: #f3e7b6;
+  --sage: #9faf91;
+  --sage-soft: #d7dfcd;
+  --cream: #fffaf1;
+  --shadow: rgba(78, 61, 48, 0.10);
+  --hand: "Bradley Hand", "Noteworthy", "Segoe Print", "Apple Chancery", "Snell Roundhand", cursive;
+  --body: "Avenir Next", Avenir, "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; min-height: 100%; margin: 0; overflow-x: hidden; }
+body {
+  min-height: 100svh;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+button { font: inherit; color: inherit; }
+button, [role="button"] { -webkit-tap-highlight-color: transparent; }
+
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.17;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+.app-shell { min-height: 100svh; position: relative; isolation: isolate; }
+.screen {
+  min-height: 100svh;
+  width: 100%;
+  position: relative;
+  background: var(--paper);
+}
+.screen[hidden] { display: none !important; }
+.is-active { animation: pageIn 420ms cubic-bezier(.2,.7,.2,1) both; }
+
+.cover-screen {
+  display: grid;
+  place-items: center;
+  padding: max(34px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+.cover-inner { width: min(100%, 690px); text-align: center; position: relative; z-index: 2; }
+.cover-kicker {
+  width: max-content;
+  margin: 0 auto 18px;
+  padding: 5px 11px 4px;
+  transform: rotate(-2deg);
+  background: var(--yellow-soft);
+  font-family: var(--hand);
+  font-size: clamp(1rem, 3.4vw, 1.25rem);
+  letter-spacing: .02em;
+}
+.cover-title {
+  margin: 0;
+  font-family: var(--hand);
+  font-size: clamp(4rem, 17vw, 7.7rem);
+  line-height: .83;
+  letter-spacing: -.055em;
+  font-weight: 700;
+}
+.cover-title > span { display: block; }
+.cover-title-small { font-size: .48em; line-height: 1.05; margin-top: 14px; letter-spacing: -.035em; }
+.hand-underline {
+  width: min(68vw, 320px);
+  height: 15px;
+  margin: 5px auto 14px;
+  border-top: 4px solid currentColor;
+  border-radius: 52% 40% 25% 48%;
+  transform: rotate(-1deg) skewX(-12deg);
+}
+.underline-pink { color: var(--pink); }
+.cover-subtitle {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 4.2vw, 1.45rem);
+  color: var(--muted);
+}
+.tap-prompt {
+  display: inline-block;
+  margin-top: clamp(58px, 14svh, 110px);
+  border: 0;
+  border-bottom: 1px solid rgba(56,47,42,.42);
+  padding: 7px 2px 5px;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.tap-prompt::after { content: "  →"; font-size: .9rem; }
+.cover-squiggle {
+  position: absolute;
+  width: 110px;
+  height: 70px;
+  left: -30px;
+  bottom: 10%;
+  border: 3px solid var(--sage);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(18deg);
+  opacity: .6;
+}
+
+.reader-screen {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+  touch-action: pan-y;
+}
+.reader-header,
+.reader-nav {
+  width: min(100%, 820px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+}
+.reader-header { justify-content: flex-end; min-height: 0; }
+.reader-nav { justify-content: space-between; min-height: 58px; }
+.progress {
+  display: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: .86rem;
+  color: var(--muted);
+  letter-spacing: .03em;
+}
+.icon-button, .nav-button, .close-button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.icon-button { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; }
+.icon-button-page {
+  position: absolute;
+  top: clamp(14px, 3svh, 28px);
+  right: clamp(8px, 3vw, 24px);
+  z-index: 4;
+  background: rgba(246, 240, 229, 0.84);
+}
+.index-dots { display: grid; grid-template-columns: repeat(3, 4px); gap: 3px; }
+.index-dots i { width: 4px; height: 4px; background: var(--ink); border-radius: 50%; display: block; opacity: .72; }
+
+.thought-page {
+  width: min(100%, 820px);
+  margin: 0 auto;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  position: relative;
+  outline: none;
+  padding: clamp(34px, 7svh, 70px) clamp(12px, 5vw, 46px);
+  cursor: pointer;
+  user-select: none;
+}
+.thought-copy-wrap {
+  width: 100%;
+  max-width: 690px;
+  position: relative;
+  z-index: 2;
+}
+.thought-text {
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  font-family: var(--hand);
+  font-size: clamp(2.25rem, 9.2vw, 4.6rem);
+  line-height: 1.03;
+  letter-spacing: -.035em;
+  font-weight: 700;
+}
+.thought-number {
+  position: absolute;
+  top: clamp(34px, 5.5svh, 56px);
+  left: clamp(10px, 3vw, 28px);
+  z-index: 3;
+  padding: 2px 10px 5px 0;
+  min-width: 0;
+  text-align: left;
+  font-family: var(--hand);
+  font-size: clamp(2.5rem, 9vw, 4.2rem);
+  line-height: .9;
+  transform: rotate(-7deg);
+  color: var(--ink);
+  background: linear-gradient(transparent 60%, rgba(243, 231, 182, .8) 60%);
+}
+.thought-number::after {
+  content: "";
+  position: absolute;
+  left: 0; right: -4%; bottom: 1px;
+  border-top: 4px solid var(--yellow);
+  border-radius: 50%;
+  transform: rotate(2deg);
+}
+.thought-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+.nav-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.45rem;
+  color: var(--ink);
+}
+.nav-button:disabled { opacity: .18; cursor: default; }
+.nav-hint {
+  color: var(--muted);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.nav-hint.is-hidden {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+/* page treatments */
+.thought-page.variant-declaration .thought-text { font-size: clamp(3rem, 12vw, 6.4rem); line-height: .93; }
+.thought-page.variant-declaration::after {
+  content: "♡";
+  position: absolute;
+  right: 9%;
+  bottom: 18%;
+  font-family: var(--hand);
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  color: var(--pink);
+  transform: rotate(12deg);
+}
+.thought-page.variant-tiny .thought-text { font-size: clamp(3.2rem, 14vw, 6.2rem); line-height: .88; }
+.thought-page.variant-tiny .thought-copy-wrap { max-width: 560px; }
+.thought-page.variant-comic .thought-text { transform: rotate(-1deg); }
+.thought-page.variant-comic::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 21%;
+  height: 10px;
+  border-top: 4px solid var(--yellow);
+  border-radius: 50%;
+  transform: rotate(-1deg);
+  opacity: .52;
+}
+.thought-page.variant-mischief .thought-number { color: #685b52; transform: rotate(8deg); }
+.thought-page.variant-mischief::before {
+  content: "";
+  width: 70px; height: 40px;
+  position: absolute;
+  right: 8%; top: 20%;
+  border-top: 3px solid var(--pink);
+  border-radius: 50%;
+  transform: rotate(22deg);
+}
+.thought-page.variant-period .thought-text { font-size: clamp(2.45rem, 10vw, 5rem); }
+.thought-page.variant-period::after {
+  content: "!!!";
+  position: absolute;
+  right: 8%; bottom: 15%;
+  font-family: var(--hand);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  color: var(--pink);
+  transform: rotate(12deg);
+  opacity: .72;
+}
+.thought-page.variant-elegant .thought-copy-wrap { max-width: 660px; }
+.thought-page.variant-elegant .thought-text {
+  font-family: var(--hand);
+  font-size: clamp(2.1rem, 7.8vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -.028em;
+}
+.thought-page.variant-elegant::before {
+  content: "";
+  position: absolute;
+  width: 168px; height: 52px;
+  left: 50%; top: 21%;
+  transform: translateX(-50%) rotate(-2deg);
+  border-top: 4px solid var(--sage);
+  border-radius: 50%;
+  opacity: .62;
+}
+.thought-page.variant-pause .thought-copy-wrap { max-width: 700px; }
+.thought-page.variant-pause .thought-text {
+  font-family: var(--hand);
+  font-size: clamp(2.1rem, 8vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -.028em;
+}
+.thought-page.variant-pause::after {
+  content: "";
+  position: absolute;
+  left: 18%; right: 18%; bottom: 23%;
+  height: 12px;
+  background: var(--pink-soft);
+  transform: rotate(-1deg);
+  opacity: .72;
+}
+.thought-page.variant-absurd .thought-text { font-size: clamp(2.55rem, 10vw, 5rem); }
+.thought-page.variant-absurd .thought-copy-wrap { max-width: 620px; }
+.thought-page.variant-beat .thought-text {
+  font-size: clamp(2.6rem, 10vw, 4.2rem);
+  line-height: .96;
+}
+.thought-page.variant-beat::after {
+  content: "";
+  position: absolute;
+  width: 74px; height: 24px;
+  left: 18%; bottom: 29%;
+  background: var(--sage-soft);
+  transform: rotate(-8deg);
+  border-radius: 50%;
+  opacity: .7;
+}
+.thought-page.variant-punchline .thought-text { font-size: clamp(3.1rem, 12vw, 6rem); transform: rotate(1deg); }
+.thought-page.variant-punchline::after {
+  content: "♡";
+  position: absolute;
+  right: 7%; top: 20%;
+  color: var(--yellow);
+  font-family: var(--hand);
+  font-size: 4.5rem;
+  transform: rotate(-15deg);
+}
+.thought-page.variant-wink::after {
+  content: "...";
+  position: absolute;
+  right: 9%; bottom: 21%;
+  width: 52px; height: 33px;
+  display: grid; place-items: center;
+  border: 2px solid var(--sage);
+  border-radius: 45% 55% 48% 52%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.1rem;
+  transform: rotate(4deg);
+  opacity: .8;
+}
+.thought-page.variant-quiet .thought-copy-wrap { max-width: 690px; }
+.thought-page.variant-quiet .thought-text {
+  font-family: var(--hand);
+  font-size: clamp(1.82rem, 6.7vw, 3.3rem);
+  line-height: 1.14;
+  letter-spacing: -.018em;
+}
+.thought-page.variant-quiet .thought-number::after { border-color: transparent; }
+.thought-page.variant-quiet .thought-number { color: #938980; }
+.thought-page.variant-finale .thought-copy-wrap { max-width: 660px; }
+.thought-page.variant-finale .thought-text {
+  font-size: clamp(2.8rem, 10.8vw, 5.7rem);
+  line-height: 1.01;
+}
+.thought-page.variant-finale::before {
+  content: "♡";
+  position: absolute;
+  left: 50%; bottom: 12%;
+  transform: translateX(-50%) rotate(-5deg);
+  color: var(--pink);
+  font-family: var(--hand);
+  font-size: 4rem;
+  opacity: .82;
+}
+
+.decor-line {
+  position: absolute;
+  width: 110px;
+  height: 42px;
+  border-top: 3px solid var(--sage);
+  border-radius: 50%;
+  transform: rotate(-11deg);
+  opacity: .7;
+}
+.decor-star { position: absolute; font-family: var(--hand); color: var(--yellow); font-size: 2rem; transform: rotate(12deg); }
+.decor-heart { position: absolute; font-family: var(--hand); color: var(--pink); font-size: 2.4rem; transform: rotate(-10deg); }
+.decor-text {
+  position: absolute;
+  font-family: var(--hand);
+  color: var(--pink);
+  font-size: 2rem;
+  opacity: .88;
+}
+.note-mark {
+  padding: 6px 12px 5px;
+  border-radius: 46% 54% 51% 49%;
+  background: rgba(243, 231, 182, .5);
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+.note-mark-small { font-size: 1.4rem; }
+.aside-mark {
+  color: var(--pink);
+  font-size: 1.5rem;
+  transform: rotate(7deg);
+}
+.illustration-svg {
+  position: absolute;
+  width: 92px;
+  height: auto;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .62;
+}
+.ill-left { left: 5%; }
+.ill-right { right: 5%; }
+.ill-mid { top: 17%; }
+
+.index-dialog {
+  border: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  background: rgba(56,47,42,.24);
+}
+.index-dialog::backdrop { background: rgba(56,47,42,.24); }
+.index-panel {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  max-height: min(78svh, 680px);
+  overflow: auto;
+  border-radius: 26px 26px 0 0;
+  background: var(--cream);
+  box-shadow: 0 -12px 50px var(--shadow);
+  padding: 24px 20px max(28px, env(safe-area-inset-bottom));
+}
+.index-head { display: flex; justify-content: space-between; align-items: flex-start; width: min(100%, 700px); margin: 0 auto 18px; }
+.index-eyebrow { font-family: var(--serif); font-style: italic; font-size: .84rem; color: var(--muted); }
+.index-head h2 { margin: 3px 0 0; font-family: var(--hand); font-size: 2.1rem; line-height: 1; }
+.close-button { font-size: 2rem; line-height: 1; width: 42px; height: 42px; color: var(--muted); }
+.index-grid { width: min(100%, 700px); margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
+.index-number {
+  aspect-ratio: 1;
+  border: 1px solid rgba(56,47,42,.12);
+  border-radius: 50%;
+  background: transparent;
+  font-family: var(--hand);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.index-number.current { background: var(--yellow-soft); border-color: transparent; transform: rotate(-3deg); }
+.index-number.seen::after { content: "·"; display: block; height: 0; transform: translateY(-6px); color: var(--pink); }
+
+.ending-screen { display: grid; place-items: center; padding: max(40px, env(safe-area-inset-top)) 24px max(34px, env(safe-area-inset-bottom)); }
+.ending-inner { width: min(100%, 650px); text-align: center; }
+.ending-star { display: block; margin-bottom: 26px; color: var(--yellow); font-size: 2.5rem; }
+.ending-inner h2 { margin: 0; font-family: var(--hand); font-size: clamp(3.2rem, 13vw, 6.4rem); line-height: .9; letter-spacing: -.045em; }
+.ending-love { margin: 54px 0 0; font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--muted); }
+.ending-signature { margin: 9px 0 0; font-family: var(--hand); font-size: clamp(2.5rem, 10vw, 4.3rem); transform: rotate(-3deg); }
+.ending-heart { margin: -6px auto 30px; color: var(--pink); font-family: var(--hand); font-size: 3.2rem; transform: rotate(8deg); }
+.primary-button, .secondary-button {
+  display: block;
+  min-width: 190px;
+  margin: 10px auto 0;
+  border: 0;
+  cursor: pointer;
+}
+.primary-button {
+  padding: 13px 18px 11px;
+  background: var(--yellow-soft);
+  border-radius: 50% 45% 50% 42%;
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  transform: rotate(-1deg);
+}
+.secondary-button {
+  padding: 10px 14px;
+  background: transparent;
+  font-size: .75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.page-out-left { animation: outLeft 180ms ease both; }
+.page-out-right { animation: outRight 180ms ease both; }
+.page-in-left { animation: inLeft 300ms cubic-bezier(.2,.75,.25,1) both; }
+.page-in-right { animation: inRight 300ms cubic-bezier(.2,.75,.25,1) both; }
+
+@keyframes pageIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes outLeft { to { opacity: 0; transform: translateX(-18px) rotate(-.4deg); } }
+@keyframes outRight { to { opacity: 0; transform: translateX(18px) rotate(.4deg); } }
+@keyframes inLeft { from { opacity: 0; transform: translateX(-18px) rotate(-.4deg); } to { opacity: 1; transform: none; } }
+@keyframes inRight { from { opacity: 0; transform: translateX(18px) rotate(.4deg); } to { opacity: 1; transform: none; } }
+
+@media (min-width: 720px) {
+  .reader-screen { padding-inline: 38px; }
+  .index-grid { grid-template-columns: repeat(8, 1fr); gap: 11px; }
+  .index-panel { left: 50%; right: auto; width: min(760px, calc(100% - 40px)); transform: translateX(-50%); border-radius: 28px 28px 0 0; }
+}
+
+@media (max-height: 680px) {
+  .tap-prompt { margin-top: 38px; }
+  .thought-page { padding-block: 24px; }
+  .thought-number { top: 24px; }
+  .thought-text { font-size: clamp(2rem, 8.3vw, 4rem); }
+  .thought-page.variant-quiet .thought-text { font-size: clamp(1.55rem, 5.8vw, 2.7rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+/* Option B — special thoughts use the same visual language, only the emphasis changes */
+.special-word,
+.special-line,
+.special-break { display: block; }
+.special-word { margin-top: .08em; }
+.special-line { margin-top: .16em; }
+
+.thought-page.variant-declaration .thought-copy-wrap,
+.thought-page.variant-pause .thought-copy-wrap,
+.thought-page.variant-quiet .thought-copy-wrap,
+.thought-page.variant-finale .thought-copy-wrap {
+  max-width: 670px;
+}
+
+.thought-page.variant-declaration .thought-number,
+.thought-page.variant-pause .thought-number,
+.thought-page.variant-quiet .thought-number,
+.thought-page.variant-finale .thought-number {
+  font-size: clamp(3.4rem, 13vw, 5.8rem);
+}
+
+.thought-page.variant-declaration .thought-text {
+  font-size: clamp(2.85rem, 11vw, 5.6rem);
+  line-height: .93;
+}
+.thought-page.variant-declaration .special-word {
+  font-size: 1.08em;
+  text-decoration: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: .06em;
+  text-underline-offset: .11em;
+  transform: rotate(-1deg);
+}
+.thought-page.variant-declaration::after { right: 7%; bottom: 12%; opacity: .6; }
+
+.thought-page.variant-pause {
+  padding-block: clamp(52px, 10svh, 100px);
+}
+.thought-page.variant-pause .thought-text {
+  font-size: clamp(2.15rem, 8vw, 4.15rem);
+  line-height: 1.06;
+}
+.thought-page.variant-pause .special-line {
+  font-size: 1.18em;
+  margin-top: .38em;
+  position: relative;
+}
+.thought-page.variant-pause .special-line::after {
+  content: "";
+  display: block;
+  width: 62%;
+  height: 10px;
+  margin: .12em auto 0;
+  border-top: 4px solid var(--pink);
+  border-radius: 50%;
+  transform: rotate(-1deg);
+  opacity: .74;
+}
+.thought-page.variant-pause::after { display: none; }
+
+.thought-page.variant-quiet {
+  padding-block: clamp(58px, 11svh, 110px);
+}
+.thought-page.variant-quiet .thought-text {
+  font-size: clamp(1.95rem, 7.2vw, 3.45rem);
+  line-height: 1.13;
+  max-width: 650px;
+}
+.thought-page.variant-quiet .special-break { margin-top: .16em; }
+.thought-page.variant-quiet .thought-number {
+  color: var(--ink);
+  background: none;
+}
+.thought-page.variant-quiet .thought-number::after {
+  border-color: var(--yellow);
+  opacity: .6;
+}
+
+.thought-page.variant-finale {
+  padding-block: clamp(52px, 10svh, 100px);
+}
+.thought-page.variant-finale .thought-text {
+  font-size: clamp(2.55rem, 10vw, 5rem);
+  line-height: .98;
+}
+.thought-page.variant-finale .special-break { margin-top: .15em; }
+.thought-page.variant-finale .special-line {
+  margin-top: .26em;
+  font-size: 1.08em;
+}
+.thought-page.variant-finale .special-line::after {
+  content: "";
+  display: block;
+  width: 76%;
+  height: 10px;
+  margin: .1em auto 0;
+  border-top: 4px solid var(--sage);
+  border-radius: 50%;
+  transform: rotate(1deg);
+  opacity: .72;
+}
+.thought-page.variant-finale::before { bottom: 7%; opacity: .58; }
+
+@media (max-height: 680px) {
+  .thought-page.variant-declaration .thought-number,
+  .thought-page.variant-pause .thought-number,
+  .thought-page.variant-quiet .thought-number,
+  .thought-page.variant-finale .thought-number { font-size: clamp(2.8rem, 10vw, 4.2rem); }
+  .thought-page.variant-pause,
+  .thought-page.variant-quiet,
+  .thought-page.variant-finale { padding-block: 26px; }
+}
+
+
+.aside-mark-ewww {
+  font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
+  font-weight: 700;
+  color: var(--pink);
+  background: rgba(246, 240, 229, .92);
+  padding: 5px 10px 4px;
+  border: 2px solid rgba(217, 146, 159, .45);
+  border-radius: 999px;
+  box-shadow: 3px 4px 0 rgba(232, 199, 111, .35);
+}
+
+/* Small-phone layout: keep illustrations as footnotes, never over the words. */
+@media (max-width: 430px), (max-height: 760px) {
+  .reader-screen {
+    padding-inline: 12px;
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  .reader-header { min-height: 0; }
+  .reader-nav { min-height: 50px; }
+  .thought-page { padding: 62px 6px 76px; }
+  .thought-copy-wrap { max-width: 100%; z-index: 3; }
+  .thought-text { font-size: clamp(1.78rem, 8.35vw, 2.35rem); line-height: 1.04; }
+  .thought-number { top: 12px; left: 4px; font-size: clamp(2.35rem, 10vw, 3.25rem); }
+  .icon-button-page { top: 10px; right: 4px; }
+  .illustration-svg {
+    width: min(70px, 21vw) !important;
+    max-height: 62px;
+    top: auto !important;
+    bottom: 5px !important;
+    opacity: .52;
+  }
+  .ill-left { left: 3% !important; }
+  .ill-right { right: 3% !important; }
+  .decor-line, .decor-star, .decor-heart { display: none; }
+  .note-mark, .aside-mark {
+    top: auto !important;
+    bottom: 7px !important;
+    max-width: 46%;
+    padding: 3px 7px 2px;
+    font-size: .92rem !important;
+    line-height: 1.05;
+    opacity: .8;
+  }
+  .aside-mark-ewww {
+    font-size: 1.35rem !important;
+    max-width: none;
+    opacity: 1;
+    right: 4% !important;
+    bottom: 8px !important;
+  }
+  .thought-page.variant-declaration::after,
+  .thought-page.variant-mischief::before,
+  .thought-page.variant-period::after,
+  .thought-page.variant-elegant::before,
+  .thought-page.variant-punchline::after,
+  .thought-page.variant-wink::after,
+  .thought-page.variant-finale::before { display: none; }
+  .thought-page.variant-declaration .thought-text { font-size: clamp(2.35rem, 10vw, 3.15rem); }
+  .thought-page.variant-tiny .thought-text { font-size: clamp(2.55rem, 11vw, 3.45rem); }
+  .thought-page.variant-period .thought-text,
+  .thought-page.variant-absurd .thought-text,
+  .thought-page.variant-beat .thought-text { font-size: clamp(1.9rem, 8.6vw, 2.55rem); }
+  .thought-page.variant-elegant .thought-text,
+  .thought-page.variant-pause .thought-text { font-size: clamp(1.72rem, 7.6vw, 2.25rem); }
+  .thought-page.variant-punchline .thought-text { font-size: clamp(2.3rem, 10vw, 3.1rem); }
+  .thought-page.variant-quiet .thought-text { font-size: clamp(1.52rem, 6.65vw, 2rem); line-height: 1.12; }
+  .thought-page.variant-finale .thought-text { font-size: clamp(2.05rem, 9vw, 2.8rem); }
+  .thought-page.variant-pause,
+  .thought-page.variant-quiet,
+  .thought-page.variant-finale { padding-block: 62px 76px; }
+  .thought-page.variant-declaration .thought-number,
+  .thought-page.variant-pause .thought-number,
+  .thought-page.variant-quiet .thought-number,
+  .thought-page.variant-finale .thought-number { font-size: clamp(2.5rem, 10.5vw, 3.4rem); }
+}
+@media (max-width: 350px), (max-height: 620px) {
+  .thought-page { padding-block: 52px 64px; }
+  .thought-text { font-size: clamp(1.62rem, 8vw, 2rem); }
+  .illustration-svg { width: min(60px, 19vw) !important; max-height: 52px; }
+  .note-mark, .aside-mark { font-size: .82rem !important; bottom: 4px !important; }
+  .nav-hint { font-size: .58rem; letter-spacing: .1em; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <main id="app" class="app-shell">
+    <section id="cover" class="screen cover-screen is-active" aria-label="Cover">
+      <div class="cover-inner">
+        <div class="cover-kicker">for Shelly</div>
+        <h1 class="cover-title">
+          <span>65 things</span>
+          <span class="cover-title-small">I think about you</span>
+        </h1>
+        <div class="hand-underline underline-pink" aria-hidden="true"></div>
+        <p class="cover-subtitle">58 years in the making</p>
+        <button id="beginButton" class="tap-prompt" type="button">Tap to begin</button>
+      </div>
+      <div class="cover-squiggle" aria-hidden="true"></div>
+    </section>
+
+    <section id="reader" class="screen reader-screen" aria-label="65 thoughts" hidden>
+      <header class="reader-header">
+        <div id="progress" class="progress" aria-live="polite">1 / 65</div>
+      </header>
+
+      <article id="thoughtPage" class="thought-page" tabindex="0" aria-live="polite">
+        <button id="indexButton" class="icon-button icon-button-page" type="button" aria-label="Open index" title="Index">
+          <span class="index-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+        <div id="thoughtDecor" class="thought-decor" aria-hidden="true"></div>
+        <div id="thoughtNumber" class="thought-number">1</div>
+        <div class="thought-copy-wrap">
+          <p id="thoughtText" class="thought-text">Everybody loves Michelle.</p>
+        </div>
+      </article>
+
+      <nav class="reader-nav" aria-label="Thought navigation">
+        <button id="prevButton" class="nav-button nav-back" type="button" aria-label="Previous thought">←</button>
+        <span id="navHint" class="nav-hint">tap or swipe</span>
+        <button id="nextButton" class="nav-button nav-next" type="button" aria-label="Next thought">→</button>
+      </nav>
+    </section>
+
+    <section id="ending" class="screen ending-screen" hidden aria-label="Ending">
+      <div class="ending-inner">
+        <span class="ending-star" aria-hidden="true">✦</span>
+        <h2>Happy 65th, Shelly.</h2>
+        <p class="ending-love">Love always,</p>
+        <p class="ending-signature">Duffs x</p>
+        <div class="ending-heart" aria-hidden="true">♡</div>
+        <button id="againButton" class="primary-button" type="button">Read them again</button>
+        <button id="endingIndexButton" class="secondary-button" type="button">Pick a number</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="indexDialog" class="index-dialog" aria-labelledby="indexTitle">
+    <div class="index-panel">
+      <div class="index-head">
+        <div>
+          <div class="index-eyebrow">65 things</div>
+          <h2 id="indexTitle">Pick a number</h2>
+        </div>
+        <button id="closeIndexButton" class="close-button" type="button" aria-label="Close index">×</button>
+      </div>
+      <div id="indexGrid" class="index-grid"></div>
+    </div>
+  </dialog>
+
+  <svg class="svg-defs" aria-hidden="true" width="0" height="0">
+    <defs>
+      <symbol id="cow-doodle" viewBox="0 0 120 88">
+        <path d="M29 25 C21 15, 14 14, 11 17 C16 25, 20 28, 28 30" />
+        <path d="M91 25 C99 15, 106 14, 109 17 C104 25, 100 28, 92 30" />
+        <path d="M34 21 C28 11, 24 11, 21 13" />
+        <path d="M86 21 C92 11, 96 11, 99 13" />
+        <path d="M30 27 C22 38, 24 62, 40 72 C51 80, 70 80, 81 72 C96 61, 98 38, 90 27 C76 17, 44 17, 30 27 Z" />
+        <path d="M43 38 C47 34, 52 34, 55 38" />
+        <path d="M65 38 C69 34, 74 34, 77 38" />
+        <ellipse cx="60" cy="58" rx="22" ry="13" />
+        <circle cx="52" cy="57" r="2.5" />
+        <circle cx="68" cy="57" r="2.5" />
+        <path d="M43 24 C47 29, 52 31, 57 26" />
+      </symbol>
+      <symbol id="egg-doodle" viewBox="0 0 120 90">
+        <ellipse cx="35" cy="53" rx="16" ry="24" transform="rotate(-10 35 53)" />
+        <ellipse cx="61" cy="47" rx="15" ry="22" transform="rotate(8 61 47)" />
+        <ellipse cx="86" cy="55" rx="14" ry="21" transform="rotate(-5 86 55)" />
+        <path d="M12 73 C24 68, 27 77, 38 72 C48 68, 51 78, 63 72 C76 65, 84 77, 105 69" />
+      </symbol>
+      <symbol id="paw-doodle" viewBox="0 0 100 84">
+        <ellipse cx="50" cy="54" rx="22" ry="17" />
+        <ellipse cx="25" cy="35" rx="9" ry="12" transform="rotate(-22 25 35)" />
+        <ellipse cx="43" cy="24" rx="9" ry="12" transform="rotate(-6 43 24)" />
+        <ellipse cx="61" cy="24" rx="9" ry="12" transform="rotate(7 61 24)" />
+        <ellipse cx="78" cy="36" rx="9" ry="12" transform="rotate(20 78 36)" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <script>
+const thoughts = [
+  "Everybody loves Michelle.",
+  "I think about you still calling me Duffs.",
+  "And Duffsy Dan.",
+  "I think about our voices being exactly the same.",
+  "I think about our bunk beds.",
+  "I think about my foot annoying you from below.",
+  "I think about how I spoiled your chance to run away.",
+  "I think about the witches mixing their potions on our walk to school.",
+  "I think about believing Vegemite was squashed ants — and telling everyone.",
+  "I think about how completely I believed you.",
+  "I think about Mum making you take me everywhere.",
+  "I think about that towel over my head.",
+  "I think about being hidden from Brett at the beach.",
+  "I think about you even making it fun for me.",
+  "I think about how annoying I must have been in the cheer squad.",
+  "I think about hanging out at Julie’s after school.",
+  "I think about being your unpaid homework department.",
+  "I think about that photo of us on the rock with Joanne.",
+  "I think about always wanting to be wherever you were.",
+  "I think about you and Diane getting ready to go to the disco.",
+  "I think about mascara on your teeth.",
+  "I think about the boys you thought you’d repel.",
+  "I think about the safety ramp.",
+  "And you needing to see what was up there.",
+  "I think about lying flat in the car at the lights.",
+  "I think about you and Jeff smuggling me into the Diggers.",
+  "I think about pretending Jeff was my boyfriend.",
+  "I think about getting away with it.",
+  "I think about that packed ski chalet.",
+  "I think about whispering I’d got my period.",
+  "I think about you announcing it like breaking news.",
+  "I think about how mortified I was.",
+  "I think about how delighted you were.",
+  "I think about how absurdly gorgeous you are.",
+  "I think about wedding dresses on the catwalk. And on me.",
+  "I think about you discovering your makeup allergy.",
+  "I think about actual livestock entering marital negotiations.",
+  "I think about how little all that attention mattered to you.",
+  "I think about how down to earth you’ve always been.",
+  "I think about how many old friends you still have.",
+  "I think about how easily you make new ones.",
+  "I think about how people don’t just meet you. They keep you.",
+  "I think about Jeff calling me Dids.",
+  "I think about being Aunty Dids.",
+  "I think about being Great Aunty Dids.",
+  "I think about cows.",
+  "I think about cow insemination.",
+  "I think about Cricket delivering eggs to the kitchen.",
+  "I think about how much you love country life.",
+  "I think about the things you made for your children.",
+  "I think about cardboard.",
+  "I think about costumes.",
+  "I think about you doing it all again for your grandies.",
+  "I think about that little tool kit addon you made for Xmas.",
+  "I think about Ludwig on a leash.",
+  "I think about broken appliances and your kids calling Mum.",
+  "I think about how you can work almost anything out.",
+  "I think about how extraordinarily clever you are.",
+  "I think you’re the silliest of us all.",
+  "I think about you telling everyone my selfie story.",
+  "I think about how proud you are of me.",
+  "I think about how you understand some things cost me more than people know.",
+  "I think about how unsurprised you’ll be ChatGPT helped me with this.",
+  "I think the most wonderful things about you. Always.",
+  "I think I got lucky when I got you for my big sister."
+]
+
+const treatmentByNumber = {
+  1: "variant-declaration",
+  3: "variant-tiny",
+  21: "variant-comic",
+  22: "variant-comic",
+  23: "variant-mischief",
+  24: "variant-mischief",
+  25: "variant-mischief",
+  26: "variant-mischief",
+  27: "variant-mischief",
+  28: "variant-mischief",
+  29: "variant-period",
+  30: "variant-period",
+  31: "variant-period",
+  32: "variant-period",
+  33: "variant-period",
+  34: "variant-elegant",
+  35: "variant-elegant",
+  36: "variant-elegant",
+  37: "variant-elegant",
+  38: "variant-elegant",
+  39: "variant-elegant",
+  42: "variant-pause",
+  46: "variant-absurd",
+  47: "variant-absurd",
+  48: "variant-absurd",
+  51: "variant-beat",
+  52: "variant-beat",
+  59: "variant-punchline",
+  63: "variant-wink",
+  64: "variant-quiet",
+  65: "variant-finale"
+};
+
+const cover = document.getElementById("cover");
+const reader = document.getElementById("reader");
+const ending = document.getElementById("ending");
+const thoughtPage = document.getElementById("thoughtPage");
+const thoughtNumber = document.getElementById("thoughtNumber");
+const thoughtText = document.getElementById("thoughtText");
+const thoughtDecor = document.getElementById("thoughtDecor");
+const progress = document.getElementById("progress");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+const beginButton = document.getElementById("beginButton");
+const againButton = document.getElementById("againButton");
+const endingIndexButton = document.getElementById("endingIndexButton");
+const navHint = document.getElementById("navHint");
+const indexDialog = document.getElementById("indexDialog");
+const indexButton = document.getElementById("indexButton");
+const closeIndexButton = document.getElementById("closeIndexButton");
+const indexGrid = document.getElementById("indexGrid");
+
+let current = 0;
+let isAnimating = false;
+let touchStartX = 0;
+let touchStartY = 0;
+const visited = new Set();
+const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function showScreen(target) {
+  [cover, reader, ending].forEach((screen) => {
+    const active = screen === target;
+    screen.hidden = !active;
+    screen.classList.toggle("is-active", active);
+  });
+}
+
+function makeSvg({ viewBox = "0 0 100 100", className = "", inner = "", style = {} }) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", viewBox);
+  svg.setAttribute("aria-hidden", "true");
+  svg.classList.add("illustration-svg");
+  className.split(" ").filter(Boolean).forEach((name) => svg.classList.add(name));
+  svg.innerHTML = inner;
+  Object.assign(svg.style, style);
+  return svg;
+}
+
+function makeTextMark(text, className, style = {}) {
+  const el = document.createElement("span");
+  el.className = `decor-text ${className}`.trim();
+  el.textContent = text;
+  Object.assign(el.style, style);
+  return el;
+}
+
+function addGenericDecor(number) {
+  if ([2, 5, 9, 14, 19, 40, 44, 50, 55, 60].includes(number)) {
+    const line = document.createElement("span");
+    line.className = "decor-line";
+    line.style.right = `${7 + (number % 4) * 7}%`;
+    line.style.top = `${17 + (number % 5) * 9}%`;
+    thoughtDecor.appendChild(line);
+  }
+
+  if ([4, 8, 11, 16, 24, 35, 41, 54, 57, 61].includes(number)) {
+    const star = document.createElement("span");
+    star.className = "decor-star";
+    star.textContent = "✦";
+    star.style.left = `${8 + (number % 3) * 9}%`;
+    star.style.bottom = `${13 + (number % 4) * 8}%`;
+    thoughtDecor.appendChild(star);
+  }
+
+  if ([7, 18, 34, 53, 58, 65].includes(number)) {
+    const heart = document.createElement("span");
+    heart.className = "decor-heart";
+    heart.textContent = "♡";
+    heart.style.right = `${6 + (number % 3) * 8}%`;
+    heart.style.top = `${16 + (number % 4) * 8}%`;
+    thoughtDecor.appendChild(heart);
+  }
+}
+
+function renderIllustration(number) {
+  switch (number) {
+    case 2:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 96",
+        className: "ill-right ill-mid",
+        inner: `<path d="M20 18h66c11 0 18 8 18 18v18c0 10-7 18-18 18H60L42 86l5-14H20c-11 0-18-8-18-18V36c0-10 7-18 18-18Z"/><path d="M22 36c16-8 26-8 42 0"/><path d="M22 49c14-6 24-6 38 0"/>`,
+        style: { width: "96px", right: "4%", top: "18%" }
+      }));
+      break;
+    case 3:
+      break;
+    case 4:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 88",
+        className: "ill-left",
+        inner: `<path d="M12 18h32c8 0 14 6 14 14v6c0 8-6 14-14 14H30L18 64l4-12h-10C5 52 0 47 0 40V32c0-8 6-14 12-14Z"/><path d="M74 18h32c8 0 14 6 14 14v6c0 8-6 14-14 14H92L80 64l4-12H74c-8 0-14-5-14-12V32c0-8 6-14 14-14Z"/><path d="M26 34c8-4 14-4 22 0"/><path d="M88 34c8-4 14-4 22 0"/>`,
+        style: { width: "110px", left: "6%", bottom: "15%" }
+      }));
+      break;
+    case 5:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 90",
+        className: "ill-right",
+        inner: `<rect x="20" y="15" width="72" height="58" rx="4"/><path d="M20 43h72"/><path d="M28 25h22v10H28z"/><path d="M28 53h22v10H28z"/><path d="M20 73v10"/><path d="M92 73v10"/>`,
+        style: { width: "100px", right: "5%", bottom: "15%" }
+      }));
+      break;
+    case 6:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 130 96",
+        className: "ill-left",
+        inner: `<path d="M16 24h98"/><path d="M16 72h98"/><path d="M36 48c14-12 25-13 38-3"/><path d="M30 42c4 4 5 8 4 13"/><path d="M75 48c8 0 13 5 13 11 0 8-6 11-13 11H58c-8 0-15-6-16-14-1-8-4-15-9-20"/><path d="M24 38c-4 5-7 10-8 16"/><path d="M26 56c0 5 2 9 6 12"/>`,
+        style: { width: "114px", left: "4%", bottom: "13%" }
+      }));
+      break;
+    case 7:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 100",
+        className: "ill-right",
+        inner: `<rect x="24" y="28" width="54" height="42" rx="5"/><path d="M40 28v-8h22v8"/><path d="M86 60c12-4 20-12 26-24"/><path d="M106 34l6 2-3 6"/>`,
+        style: { width: "94px", right: "5%", bottom: "13%" }
+      }));
+      break;
+    case 8:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 120",
+        className: "ill-right ill-mid",
+        inner: `<path d="M44 12h32"/><path d="M52 12v18l-22 50c-6 14 4 28 20 28h20c16 0 26-14 20-28L68 30V12"/><path d="M39 62c8-6 16-6 24 0"/><path d="M69 50c6 8 15 10 22 6"/><circle cx="44" cy="44" r="3"/><circle cx="75" cy="69" r="4"/>`,
+        style: { width: "84px", right: "7%", top: "20%" }
+      }));
+      break;
+    case 9:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 140 100",
+        className: "ill-left",
+        inner: `<rect x="14" y="30" width="48" height="40" rx="4"/><path d="M14 30h48"/><path d="M26 20h24"/><path d="M86 34c4-6 10-6 14 0"/><path d="M78 50c4-6 10-6 14 0"/><path d="M98 54c4-6 10-6 14 0"/><path d="M90 34l-4-5"/><path d="M98 34l4-5"/><path d="M82 50l-4-5"/><path d="M90 50l4-5"/><path d="M102 54l-4-5"/><path d="M110 54l4-5"/>`,
+        style: { width: "110px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 10:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 100 70",
+        className: "ill-right",
+        inner: `<circle cx="28" cy="35" r="13"/><circle cx="70" cy="35" r="13"/><circle cx="28" cy="35" r="4"/><circle cx="70" cy="35" r="4"/>`,
+        style: { width: "80px", right: "8%", bottom: "16%" }
+      }));      break;
+    case 11:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 140 96",
+        className: "ill-right",
+        inner: `<path d="M18 72c15-20 31-30 48-30 16 0 30 6 44 19"/><path d="M98 55l12 6-8 12"/><circle cx="18" cy="72" r="6"/><circle cx="66" cy="42" r="6"/>`,
+        style: { width: "110px", right: "6%", bottom: "14%" }
+      }));
+      break;
+    case 12:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 108 116",
+        className: "ill-left ill-mid",
+        inner: `<circle cx="54" cy="54" r="23"/><path d="M28 39c9-25 42-31 59-10 7 8 10 18 8 30"/><path d="M20 40c8-23 32-35 57-31"/><path d="M31 70c8 8 17 12 23 12 9 0 18-4 26-12"/>`,
+        style: { width: "78px", left: "8%", top: "18%" }
+      }));
+      break;
+    case 13:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 140 100",
+        className: "ill-right",
+        inner: `<path d="M14 74c16-8 33-8 49 0 16 8 33 8 49 0"/><path d="M72 26l26 10-26 10Z"/><path d="M72 26v42"/><path d="M38 70c2-8 7-12 14-12"/>`,
+        style: { width: "112px", right: "5%", bottom: "12%" }
+      }));
+      break;
+    case 14:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 142 108",
+        className: "ill-right",
+        inner: `<circle cx="78" cy="30" r="9"/><path d="M78 39v31"/><path d="M66 92c3-15 8-22 12-22s9 7 12 22"/><circle cx="48" cy="58" r="7"/><path d="M48 65v20"/><path d="M38 96c2-8 5-12 10-12s8 4 10 12"/><path d="M66 54c-9 4-15 8-19 14"/><path d="M89 42c7 2 12 7 15 14"/><path d="M106 22l7-5"/><path d="M109 32l9-1"/>`,
+        style: { width: "104px", right: "5%", bottom: "11%" }
+      }));
+      break;
+    case 15:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 108",
+        className: "ill-left",
+        inner: `<circle cx="34" cy="34" r="10"/><path d="M22 34h24"/><path d="M34 22v24"/><path d="M26 26l16 16"/><path d="M42 26 26 42"/><circle cx="94" cy="30" r="12"/><path d="M80 30h28"/><path d="M94 16v28"/><path d="M84 20l20 20"/><path d="M104 20 84 40"/>`,
+        style: { width: "110px", left: "5%", bottom: "13%" }
+      }));
+      thoughtDecor.appendChild(makeTextMark("Let’s go Manly!", "note-mark note-mark-small", { right: "5%", bottom: "14%", transform: "rotate(4deg)" }));
+      break;
+    case 17:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 100",
+        className: "ill-right",
+        inner: `<rect x="14" y="20" width="46" height="58" rx="3"/><path d="M27 30h20"/><path d="M27 40h20"/><path d="M27 50h20"/><path d="M86 18l16 16-34 34-20 4 4-20Z"/>`,
+        style: { width: "102px", right: "4%", bottom: "12%" }
+      }));
+      break;
+    case 18:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 136 108",
+        className: "ill-left",
+        inner: `<path d="M18 82c22-9 42-14 62-12 12 1 24 5 38 12"/><circle cx="44" cy="52" r="6"/><path d="M44 58v14"/><circle cx="66" cy="46" r="7"/><path d="M66 53v18"/><circle cx="88" cy="46" r="7"/><path d="M88 53v18"/><path d="M32 82c4-14 13-24 26-30"/><path d="M58 52h16"/><path d="M80 52h16"/>`,
+        style: { width: "112px", left: "5%", bottom: "11%" }
+      }));
+      break;
+    case 19:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 134 96",
+        className: "ill-left",
+        inner: `<path d="M34 70c5-16 12-24 22-24 8 0 15 6 18 18"/><path d="M82 76c4-10 9-16 16-16 6 0 11 4 13 12"/><path d="M44 34c3 7 3 14 0 21"/><path d="M58 32c3 7 3 14 0 21"/><path d="M89 50c2 5 2 9 0 14"/><path d="M98 49c2 5 2 9 0 14"/>`,
+        style: { width: "112px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 20:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 116 116",
+        className: "ill-right",
+        inner: `<circle cx="58" cy="30" r="16"/><path d="M58 14v32"/><path d="M42 30h32"/><path d="M47 19l22 22"/><path d="M69 19 47 41"/><path d="M58 46v18"/><path d="M36 64c8-6 15-8 22-8s14 2 22 8"/>`,
+        style: { width: "86px", right: "7%", bottom: "13%" }
+      }));
+      break;
+    case 21:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 124 100",
+        className: "ill-right",
+        inner: `<rect x="38" y="14" width="16" height="58" rx="4"/><path d="M42 14c0-10 8-14 16-14 9 0 18 5 18 14 0 8-6 14-18 20-5 2-9 4-12 7"/><path d="M46 72h12"/><path d="M42 84h20"/>`,
+        style: { width: "88px", right: "7%", bottom: "12%" }
+      }));
+      break;
+    case 22:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 92",
+        className: "ill-left",
+        inner: `<path d="M16 44c12-18 28-26 50-26s38 8 50 26c-12 18-28 26-50 26S28 62 16 44Z"/><path d="M34 47c10 8 21 11 32 11s22-3 32-11"/><rect x="58" y="30" width="12" height="10" rx="2" fill="var(--pink-soft)" stroke="var(--ink)"/>`,
+        style: { width: "108px", left: "5%", bottom: "14%" }
+      }));
+      break;
+    case 23:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 150 98",
+        className: "ill-right",
+        inner: `<path d="M10 78h130"/><path d="M96 78l24-34h18"/><path d="M18 64h56l10-16h24l8 16"/><circle cx="38" cy="78" r="8"/><circle cx="84" cy="78" r="8"/><path d="M112 44v34"/><path d="M128 44v34"/>`,
+        style: { width: "124px", right: "3%", bottom: "11%" }
+      }));
+      break;
+    case 24:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 100",
+        className: "ill-left",
+        inner: `<path d="M14 78 44 38 66 62 86 26 106 78Z"/><path d="M86 26V12"/><path d="M86 12h12"/>`,
+        style: { width: "96px", left: "6%", bottom: "12%" }
+      }));
+      break;
+    case 25:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 145 96",
+        className: "ill-right",
+        inner: `<path d="M16 62h60l12-20h24l10 20v10H16Z"/><circle cx="38" cy="72" r="8"/><circle cx="96" cy="72" r="8"/><path d="M126 18v34"/><circle cx="126" cy="22" r="5"/><circle cx="126" cy="34" r="5"/><circle cx="126" cy="46" r="5"/>`,
+        style: { width: "118px", right: "4%", bottom: "12%" }
+      }));
+      break;
+    case 26:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 100",
+        className: "ill-left",
+        inner: `<rect x="22" y="18" width="50" height="64" rx="4"/><path d="M72 34h30"/><path d="M88 22l14 12-14 12"/><circle cx="60" cy="50" r="3"/>`,
+        style: { width: "96px", left: "6%", bottom: "12%" }
+      }));
+      break;
+    case 27:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 136 108",
+        className: "ill-right",
+        inner: `<circle cx="42" cy="62" r="8"/><path d="M42 70v16"/><path d="M30 102c2-10 7-16 12-16s10 6 12 16"/><circle cx="88" cy="28" r="10"/><path d="M88 38v48"/><path d="M72 102c4-14 10-20 16-20s12 6 16 20"/>`,
+        style: { width: "108px", right: "4%", bottom: "10%" }
+      }));
+      break;
+    case 28:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 100 90",
+        className: "ill-left",
+        inner: `<path d="M18 46 39 67 82 24"/>`,
+        style: { width: "76px", left: "9%", bottom: "15%" }
+      }));
+      break;
+    case 29:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 110",
+        className: "ill-right",
+        inner: `<path d="M18 82V44l30-24 30 24v38Z"/><path d="M48 82V56h18v26"/><path d="M10 84h92"/><path d="M78 50h20"/>`,
+        style: { width: "108px", right: "5%", bottom: "10%" }
+      }));
+      break;
+    case 30:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 122 104",
+        className: "ill-left",
+        inner: `<path d="M16 18h62c10 0 18 8 18 18v14c0 10-8 18-18 18H51L36 84l4-16H16C8 68 0 60 0 50V36C0 26 8 18 16 18Z"/><path d="M108 64c0 10-6 18-14 24"/>`,
+        style: { width: "104px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 31:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 128 96",
+        className: "ill-right",
+        inner: `<rect x="18" y="18" width="64" height="52" rx="3"/><path d="M28 30h28"/><path d="M28 40h36"/><path d="M28 50h26"/><path d="M96 20v42"/><path d="M96 74v4"/><path d="M96 2v6"/>`,
+        style: { width: "104px", right: "6%", bottom: "13%" }
+      }));
+      break;
+    case 32:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 100 100",
+        className: "ill-left",
+        inner: `<circle cx="50" cy="50" r="28"/><path d="M40 44h1"/><path d="M59 44h1"/><path d="M39 62c8-6 14-7 22 0"/><circle cx="31" cy="58" r="4"/><circle cx="69" cy="58" r="4"/>`,
+        style: { width: "78px", left: "8%", bottom: "13%" }
+      }));
+      break;
+    case 33:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 100 96",
+        className: "ill-right",
+        inner: `<path d="M50 10l8 18 18 8-18 8-8 18-8-18-18-8 18-8Z"/><path d="M24 70l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z"/>`,
+        style: { width: "88px", right: "7%", bottom: "12%" }
+      }));
+      break;
+    case 35:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 150 126",
+        className: "ill-right ill-mid",
+        inner: `<path d="M52 18c7 9 10 17 9 24l23 58H20l23-58c-1-7 2-15 9-24Z"/><path d="M44 42h16"/><path d="M111 43c5 7 7 13 6 18l17 39H88l17-39c-1-5 1-11 6-18Z"/><path d="M105 61h12"/>`,
+        style: { width: "102px", right: "4%", top: "18%" }
+      }));
+      break;
+    case 36:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 118 104",
+        className: "ill-left",
+        inner: `<rect x="18" y="24" width="48" height="48" rx="4"/><circle cx="42" cy="48" r="12"/><path d="M82 18l18 18"/><path d="M100 18 82 36"/><path d="M22 78 100 4"/>`,
+        style: { width: "102px", left: "6%", bottom: "13%" }
+      }));
+      break;
+    case 37:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 142 104",
+        className: "ill-right",
+        inner: `<path d="M22 58c0-17 14-30 31-30h9c17 0 31 13 31 30S79 88 62 88h-9c-17 0-31-13-31-30Z"/><path d="M93 50h25"/><path d="M118 38l12 12-12 12"/>`,
+        style: { width: "112px", right: "5%", bottom: "11%" }
+      }));
+      break;
+    case 40:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 98",
+        className: "ill-left",
+        inner: `<circle cx="28" cy="28" r="10"/><circle cx="60" cy="22" r="10"/><circle cx="90" cy="32" r="10"/><path d="M16 76c2-18 12-26 24-26 10 0 18 4 23 13"/><path d="M44 72c4-17 15-24 28-24 12 0 20 7 24 24"/>`,
+        style: { width: "106px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 41:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 88",
+        className: "ill-right",
+        inner: `<path d="M22 48c13-15 25-15 38 0"/><path d="M60 48c13-15 25-15 38 0"/><path d="M48 48h30"/>`,
+        style: { width: "102px", right: "6%", bottom: "14%" }
+      }));
+      break;
+    case 39:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 96",
+        className: "ill-right",
+        inner: `<path d="M8 78c18-10 36-14 54-12 24 2 41 10 62 12"/><path d="M16 64c11 4 20 4 30 0"/><path d="M50 70c10-12 20-12 30 0"/><path d="M82 70c10-12 20-12 30 0"/><path d="M35 55c0-7 5-12 12-12"/><path d="M35 55c0-7-5-12-12-12"/>`,
+        style: { width: "112px", right: "4%", bottom: "12%" }
+      }));
+      break;
+    case 42:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 140 108",
+        className: "ill-right",
+        inner: `<circle cx="46" cy="34" r="9"/><circle cx="92" cy="34" r="9"/><path d="M46 44v26"/><path d="M92 44v26"/><path d="M34 92c3-14 9-20 15-20s12 6 15 20"/><path d="M80 92c3-14 9-20 15-20s12 6 15 20"/><path d="M58 64c10 6 12 6 22 0"/>`,
+        style: { width: "110px", right: "4%", bottom: "10%" }
+      }));
+      break;
+    case 43:
+      thoughtDecor.appendChild(makeTextMark("Dida", "note-mark note-mark-small", { right: "8%", bottom: "17%", transform: "rotate(-4deg)" }));
+      break;
+    case 44:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 96",
+        className: "ill-left",
+        inner: `<circle cx="30" cy="28" r="9"/><circle cx="61" cy="22" r="9"/><circle cx="91" cy="30" r="9"/><path d="M16 78c4-18 13-27 27-27 11 0 19 5 24 14"/><path d="M48 78c4-18 13-27 27-27 14 0 23 9 27 27"/>`,
+        style: { width: "102px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 45:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 124 104",
+        className: "ill-right",
+        inner: `<path d="M34 80V26"/><path d="M34 40h28"/><path d="M34 60h40"/><path d="M74 60h24"/><circle cx="98" cy="60" r="6"/>`,
+        style: { width: "100px", right: "6%", bottom: "13%" }
+      }));
+      thoughtDecor.appendChild(makeTextMark("Oh My Dear!", "note-mark note-mark-small", { left: "8%", bottom: "17%", transform: "rotate(-5deg)" }));
+      break;
+    case 46:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 88",
+        className: "ill-right",
+        inner: `<path d="M29 25 C21 15, 14 14, 11 17 C16 25, 20 28, 28 30"/><path d="M91 25 C99 15, 106 14, 109 17 C104 25, 100 28, 92 30"/><path d="M34 21 C28 11, 24 11, 21 13"/><path d="M86 21 C92 11, 96 11, 99 13"/><path d="M30 27 C22 38, 24 62, 40 72 C51 80, 70 80, 81 72 C96 61, 98 38, 90 27 C76 17, 44 17, 30 27 Z"/><path d="M43 38 C47 34, 52 34, 55 38"/><path d="M65 38 C69 34, 74 34, 77 38"/><ellipse cx="60" cy="58" rx="22" ry="13"/><circle cx="52" cy="57" r="2.5"/><circle cx="68" cy="57" r="2.5"/><path d="M43 24 C47 29, 52 31, 57 26"/>`,
+        style: { width: "96px", right: "4%", bottom: "13%" }
+      }));
+      break;
+    case 47:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 136 98",
+        className: "ill-left",
+        inner: `<path d="M18 72c0-14 12-26 26-26h8c14 0 26 12 26 26"/><path d="M68 52h28"/><path d="M96 46l18-9 4 8-18 9"/><path d="M18 18c12 0 22 6 29 18"/>`,
+        style: { width: "112px", left: "4%", bottom: "12%" }
+      }));
+      thoughtDecor.appendChild(makeTextMark("Ewww", "aside-mark aside-mark-ewww", { right: "5%", top: "15%", transform: "rotate(7deg)" }));
+      break;
+    case 48:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 90",
+        className: "ill-right",
+        inner: `<ellipse cx="35" cy="53" rx="16" ry="24" transform="rotate(-10 35 53)"/><ellipse cx="61" cy="47" rx="15" ry="22" transform="rotate(8 61 47)"/><ellipse cx="86" cy="55" rx="14" ry="21" transform="rotate(-5 86 55)"/><path d="M12 73 C24 68, 27 77, 38 72 C48 68, 51 78, 63 72 C76 65, 84 77, 105 69"/>`,
+        style: { width: "96px", right: "4%", bottom: "12%" }
+      }));
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 128 92",
+        className: "ill-left",
+        inner: `<circle cx="32" cy="34" r="9"/><path d="M24 26 18 16"/><path d="M40 26 46 16"/><path d="M18 68c0-16 12-28 28-28h18c16 0 28 12 28 28"/><path d="M92 52c10 0 18 6 22 16"/><path d="M68 52l12-6"/>`,
+        style: { width: "92px", left: "5%", bottom: "13%" }
+      }));
+      break;
+    case 49:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 108",
+        className: "ill-right",
+        inner: `<rect x="24" y="44" width="54" height="42" rx="3"/><path d="M18 48 50 20 82 48"/><path d="M50 44v42"/><path d="M50 58h14"/><path d="M90 82c8-8 14-9 22-3"/>`,
+        style: { width: "104px", right: "5%", bottom: "11%" }
+      }));
+      break;
+    case 50:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 104",
+        className: "ill-left",
+        inner: `<path d="M24 76 58 20"/><path d="M40 68l46-48"/><path d="M84 20c8 6 16 14 24 24"/><path d="M90 30l10-10"/><path d="M20 84c18-14 34-14 52 0"/>`,
+        style: { width: "108px", left: "4%", bottom: "12%" }
+      }));
+      break;
+    case 51:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 110 100",
+        className: "ill-right",
+        inner: `<path d="M22 36 54 20l34 16v34L54 86 22 70Z"/><path d="M54 20v33"/><path d="M22 36l32 17 34-17"/>`,
+        style: { width: "92px", right: "6%", bottom: "14%" }
+      }));
+      break;
+    case 52:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 152 112",
+        className: "ill-left",
+        inner: `<path d="M20 68c0-20 12-34 30-34s30 14 30 34-12 32-30 32-30-12-30-32Z"/><path d="M50 34V22"/><path d="M44 22h12"/><path d="M34 60l8-7 7 8"/><path d="M56 61l7-8 8 7"/><path d="M39 78c8 6 16 6 24 0"/><circle cx="112" cy="27" r="10"/><path d="M112 37v28"/><path d="M96 48h32"/><path d="M112 65 97 91"/><path d="M112 65l15 26"/><path d="M102 45c3 7 6 11 10 11s7-4 10-11"/><path d="M105 29h2"/><path d="M117 29h2"/>`,
+        style: { width: "118px", left: "4%", bottom: "10%" }
+      }));
+      break;
+    case 53:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 128 104",
+        className: "ill-right",
+        inner: `<path d="M20 72h88"/><path d="M30 72V44h24v28"/><path d="M62 72V34h20v38"/><path d="M88 72V50h14v22"/>`,
+        style: { width: "106px", right: "5%", bottom: "13%" }
+      }));
+      break;
+    case 54:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 96",
+        className: "ill-left",
+        inner: `<rect x="18" y="32" width="72" height="34" rx="4"/><path d="M30 32v-10h16v10"/><path d="M34 50h12"/><path d="M56 50h12"/><path d="M76 50h6"/>`,
+        style: { width: "102px", left: "5%", bottom: "14%" }
+      }));
+      break;
+    case 55:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 104",
+        className: "ill-right",
+        inner: `<path d="M30 38l10-18 14 14 14-14 10 18"/><path d="M26 74c0-18 12-32 28-32h14c16 0 28 14 28 32"/><path d="M48 58c4 4 8 4 12 0"/><path d="M68 58c4 4 8 4 12 0"/><path d="M96 58c10-10 18-15 28-15"/>`,
+        style: { width: "110px", right: "4%", bottom: "12%" }
+      }));
+      break;
+    case 56:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 138 106",
+        className: "ill-left",
+        inner: `<rect x="18" y="26" width="42" height="48" rx="6"/><path d="M18 42h42"/><path d="M80 28l14 14"/><path d="M94 28 80 42"/><path d="M78 62l30-30"/><path d="M110 44l10 10"/>`,
+        style: { width: "112px", left: "4%", bottom: "12%" }
+      }));
+      break;
+    case 57:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 128 108",
+        className: "ill-right",
+        inner: `<path d="M50 16c14 0 25 11 25 25 0 9-5 17-12 22v13H37V63c-7-5-12-13-12-22 0-14 11-25 25-25Z"/><path d="M41 86h18"/><path d="M84 64l18-18"/><path d="M102 46l10 10"/>`,
+        style: { width: "106px", right: "4%", bottom: "12%" }
+      }));
+      break;
+    case 58:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 120 112",
+        className: "ill-left",
+        inner: `<path d="M56 18c17 0 30 12 30 28 0 10-5 17-12 23-6 4-10 9-10 16H48c0-7-4-12-10-16-7-6-12-13-12-23 0-16 13-28 30-28Z"/><path d="M50 18c-7 8-9 17-7 26"/><path d="M65 31c5 4 8 8 9 14"/>`,
+        style: { width: "88px", left: "7%", bottom: "12%" }
+      }));
+      break;
+    case 59:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 106 106",
+        className: "ill-right",
+        inner: `<circle cx="53" cy="53" r="28"/><path d="M42 43c3-2 6-2 9 1"/><path d="M63 42c4 1 6 4 6 8"/><path d="M42 66c9 7 18 8 27 0"/><path d="M28 30l7-7"/><path d="M76 28l-4 9"/>`,
+        style: { width: "82px", right: "8%", bottom: "12%" }
+      }));
+      break;
+    case 60:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 114 104",
+        className: "ill-left",
+        inner: `<rect x="26" y="14" width="46" height="76" rx="7"/><circle cx="49" cy="26" r="4"/><path d="M49 54c11 0 18-7 18-18"/><path d="M83 38c10 2 18 8 23 18"/>`,
+        style: { width: "90px", left: "7%", bottom: "11%" }
+      }));
+      break;
+    case 61:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 100 108",
+        className: "ill-right",
+        inner: `<path d="M50 14l10 21 23 3-17 16 4 23-20-10-20 10 4-23-17-16 23-3Z"/><path d="M42 88h16"/>`,
+        style: { width: "82px", right: "7%", bottom: "12%" }
+      }));
+      break;
+    case 62:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 100",
+        className: "ill-left",
+        inner: `<path d="M63 80c-26-14-40-30-40-46 0-11 8-18 18-18 10 0 17 6 22 14 5-8 12-14 22-14 10 0 18 7 18 18 0 16-14 32-40 46Z"/><path d="M96 20c10 11 14 22 12 34"/>`,
+        style: { width: "102px", left: "5%", bottom: "12%" }
+      }));
+      break;
+    case 63:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 126 94",
+        className: "ill-right",
+        inner: `<path d="M18 18h66c11 0 18 8 18 18v18c0 10-7 18-18 18H58L40 86l4-14H18C7 72 0 64 0 54V36C0 26 7 18 18 18Z"/><path d="M26 36h10"/><path d="M46 36h10"/><path d="M66 36h10"/><path d="M32 50h38"/>`,
+        style: { width: "100px", right: "5%", bottom: "14%" }
+      }));
+      break;
+    case 64:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 154 114",
+        className: "ill-left",
+        inner: `<path d="M18 48c0-16 14-28 32-28h28c18 0 32 12 32 28S96 76 78 76H56L40 88l5-12h5c-18 0-32-12-32-28Z"/><circle cx="42" cy="34" r="2.5"/><circle cx="56" cy="30" r="2.5"/><circle cx="71" cy="34" r="2.5"/><path d="M108 28c4-9 12-14 21-14 13 0 23 9 23 22 0 14-13 24-31 37-18-13-31-23-31-37 0-13 10-22 23-22 9 0 17 5 21 14Z"/>`,
+        style: { width: "108px", left: "4%", bottom: "10%" }
+      }));
+      thoughtDecor.appendChild(makeTextMark("Mostly.", "note-mark note-mark-small", { right: "7%", bottom: "16%", transform: "rotate(-4deg)" }));
+      break;
+    case 65:
+      thoughtDecor.appendChild(makeSvg({
+        viewBox: "0 0 132 104",
+        className: "ill-right",
+        inner: `<path d="M34 78h48l-6-22H40Z"/><path d="M48 56c0-10 8-18 18-18s18 8 18 18"/><path d="M92 70c10-10 18-14 28-14"/><path d="M98 42c8 10 14 12 22 12"/><path d="M116 20l4 8 8 1-6 6 2 8-8-4-8 4 2-8-6-6 8-1Z"/>`,
+        style: { width: "110px", right: "4%", bottom: "10%" }
+      }));
+      break;
+    default:
+      break;
+  }
+}
+
+function renderDecor(number) {
+  thoughtDecor.innerHTML = "";
+  if (number !== 64) addGenericDecor(number);
+  renderIllustration(number);
+}
+
+function renderThought(direction = 1, skipAnimation = false) {
+  const number = current + 1;
+  visited.add(number);
+
+  const apply = () => {
+    thoughtPage.className = "thought-page";
+    const treatment = treatmentByNumber[number];
+    if (treatment) thoughtPage.classList.add(treatment);
+
+    thoughtNumber.textContent = number;
+    thoughtText.className = "thought-text";
+    if (number === 1) {
+      thoughtText.innerHTML = `Everybody loves <span class="special-word">Michelle.</span>`;
+    } else if (number === 42) {
+      thoughtText.innerHTML = `I think about how people don’t just meet you. <span class="special-line">They keep you.</span>`;
+    } else if (number === 64) {
+      thoughtText.innerHTML = `I think the most wonderful things <span class="special-break">about you.</span> <span class="special-line">Always.</span>`;
+    } else if (number === 65) {
+      thoughtText.innerHTML = `I think I got lucky <span class="special-break">when I got you</span> <span class="special-line">for my big sister.</span>`;
+    } else {
+      thoughtText.textContent = thoughts[current];
+    }
+    progress.textContent = `${number} / 65`;
+    prevButton.disabled = false;
+    const showHint = number <= 4 && ![64, 65].includes(number);
+    navHint.classList.toggle("is-hidden", !showHint);
+    renderDecor(number);
+    updateIndexState();
+
+    if (!skipAnimation && motionOK) {
+      thoughtPage.classList.add(direction > 0 ? "page-in-right" : "page-in-left");
+      thoughtPage.addEventListener("animationend", () => {
+        thoughtPage.classList.remove("page-in-right", "page-in-left");
+        isAnimating = false;
+      }, { once: true });
+    } else {
+      isAnimating = false;
+    }
+  };
+
+  if (skipAnimation || !motionOK) {
+    apply();
+    return;
+  }
+
+  isAnimating = true;
+  thoughtPage.classList.add(direction > 0 ? "page-out-left" : "page-out-right");
+  setTimeout(() => {
+    thoughtPage.classList.remove("page-out-left", "page-out-right");
+    apply();
+  }, 170);
+}
+
+function goNext() {
+  if (isAnimating) return;
+  if (current >= thoughts.length - 1) {
+    showScreen(ending);
+    return;
+  }
+  current += 1;
+  renderThought(1);
+}
+
+function goPrev() {
+  if (isAnimating) return;
+  if (current <= 0) {
+    showScreen(cover);
+    return;
+  }
+  current -= 1;
+  renderThought(-1);
+}
+
+function begin() {
+  current = 0;
+  showScreen(reader);
+  renderThought(1, true);
+  requestAnimationFrame(() => thoughtPage.focus({ preventScroll: true }));
+}
+
+function restart() {
+  current = 0;
+  showScreen(cover);
+}
+
+function buildIndex() {
+  indexGrid.innerHTML = "";
+  thoughts.forEach((_, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "index-number";
+    btn.type = "button";
+    btn.textContent = idx + 1;
+    btn.setAttribute("aria-label", `Go to thought ${idx + 1}`);
+    btn.addEventListener("click", () => {
+      const direction = idx >= current ? 1 : -1;
+      current = idx;
+      indexDialog.close();
+      showScreen(reader);
+      renderThought(direction, true);
+    });
+    indexGrid.appendChild(btn);
+  });
+  updateIndexState();
+}
+
+function updateIndexState() {
+  [...indexGrid.children].forEach((button, idx) => {
+    button.classList.toggle("current", idx === current);
+    button.classList.toggle("seen", visited.has(idx + 1));
+  });
+}
+
+beginButton.addEventListener("click", begin);
+againButton.addEventListener("click", restart);
+endingIndexButton.addEventListener("click", () => indexDialog.showModal());
+prevButton.addEventListener("click", (event) => { event.stopPropagation(); goPrev(); });
+nextButton.addEventListener("click", (event) => { event.stopPropagation(); goNext(); });
+indexButton.addEventListener("click", () => indexDialog.showModal());
+closeIndexButton.addEventListener("click", () => indexDialog.close());
+indexDialog.addEventListener("click", (event) => {
+  if (event.target === indexDialog) indexDialog.close();
+});
+
+thoughtPage.addEventListener("click", (event) => {
+  const bounds = thoughtPage.getBoundingClientRect();
+  const x = event.clientX - bounds.left;
+  if (x < bounds.width * 0.28) goPrev();
+  else goNext();
+});
+
+thoughtPage.addEventListener("touchstart", (event) => {
+  const touch = event.changedTouches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}, { passive: true });
+
+thoughtPage.addEventListener("touchend", (event) => {
+  const touch = event.changedTouches[0];
+  const dx = touch.clientX - touchStartX;
+  const dy = touch.clientY - touchStartY;
+  if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+    event.preventDefault();
+    if (dx < 0) goNext();
+    else goPrev();
+  }
+}, { passive: false });
+
+document.addEventListener("keydown", (event) => {
+  if (reader.hidden || indexDialog.open) return;
+  if (event.key === "ArrowRight" || event.key === " ") goNext();
+  if (event.key === "ArrowLeft") goPrev();
+});
+
+buildIndex();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+
+  </script>
+</body>
+</html>
