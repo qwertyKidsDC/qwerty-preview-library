@@ -1,17 +1,20 @@
-# qwerty-preview-library
+# Qwerty Preview Library
 
-Live previews of Qwerty HTML projects and teaching artefacts.
+Working previews of Qwerty Labs projects, teaching artefacts and experiments.
 
-## Routes
+This repository is published directly from `main` with GitHub Pages.
+
+## Structure
 
 - `/` — preview-library index
-- `/tiarna-ecommerce/` — Tiarna ecommerce working deck
-- `/bom-case-study/` — BOM redesign case study
+- `/progress/identity/` — Qwerty Labs identity and web-design explorations
+- `/progress/learning/` — teaching decks, project guides and student-facing artefacts
+- `/progress/experiments/` — exploratory builds and investigations
+- `/progress/case-studies/` — case-study material still being developed
+- `/archive/` — retained artefacts that are not part of the active public preview index
+
+Anything under `progress/` should be treated as work in progress, not a finished Qwerty product.
 
 ## Hosting
 
-GitHub is the source/editing layer. Netlify is the live preview layer.
-
-The BOM route is currently preserved through Netlify's immutable manual-deploy snapshot while the original self-contained 5 MB HTML is migrated into repository-friendly source files.
-
-This preview environment is intentionally excluded from search indexing.
+GitHub is now both the source/editing layer and the static preview host. Netlify-specific configuration has been removed.
