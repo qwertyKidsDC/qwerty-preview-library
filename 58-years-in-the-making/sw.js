@@ -1,4 +1,4 @@
-const CACHE = "shelly-65-github-v4";
+const CACHE = "shelly-65-github-v5";
 const ASSETS = ["./", "index.html", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", (event) => {
