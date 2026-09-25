@@ -151,6 +151,7 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
 .reader-header { justify-content: space-between; min-height: 42px; }
 .reader-nav { justify-content: space-between; min-height: 58px; }
 .progress {
+  display: none;
   font-family: var(--serif);
   font-style: italic;
   font-size: .86rem;
@@ -649,6 +650,17 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
 }
 
 
+.aside-mark-ewww {
+  font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
+  font-weight: 700;
+  color: var(--pink);
+  background: rgba(246, 240, 229, .92);
+  padding: 5px 10px 4px;
+  border: 2px solid rgba(217, 146, 159, .45);
+  border-radius: 999px;
+  box-shadow: 3px 4px 0 rgba(232, 199, 111, .35);
+}
+
 /* Small-phone layout: keep illustrations as footnotes, never over the words. */
 @media (max-width: 430px), (max-height: 760px) {
   .reader-screen {
@@ -680,6 +692,13 @@ button, [role="button"] { -webkit-tap-highlight-color: transparent; }
     font-size: .92rem !important;
     line-height: 1.05;
     opacity: .8;
+  }
+  .aside-mark-ewww {
+    font-size: 1.35rem !important;
+    max-width: none;
+    opacity: 1;
+    right: 4% !important;
+    bottom: 8px !important;
   }
   .thought-page.variant-declaration::after,
   .thought-page.variant-mischief::before,
@@ -822,7 +841,7 @@ const thoughts = [
   "I think about our voices being exactly the same.",
   "I think about our bunk beds.",
   "I think about my foot annoying you from below.",
-  "I think about how you never actually ran away.",
+  "I think about how I spoiled your chance to run.",
   "I think about the witches mixing their potions on our walk to school.",
   "I think about believing Vegemite was squashed ants — and telling everyone.",
   "I think about how completely I believed you.",
@@ -839,7 +858,7 @@ const thoughts = [
   "I think about mascara on your teeth.",
   "I think about the boys you thought you’d repel.",
   "I think about the safety ramp.",
-  "I think about you needing to see what was up there.",
+  "And you needing to see what was up there.",
   "I think about lying flat in the car at the lights.",
   "I think about you and Jeff smuggling me into the Diggers.",
   "I think about pretending Jeff was my boyfriend.",
@@ -850,8 +869,8 @@ const thoughts = [
   "I think about how mortified I was.",
   "I think about how delighted you were.",
   "I think about how absurdly gorgeous you are.",
-  "I think about wedding dresses on the catwalk at the Mall.",
-  "I think about discovering you were allergic to makeup.",
+  "I think about wedding dresses on the catwalk. And on me.",
+  "I think about you discovering your makeup allergy.",
   "I think about actual livestock entering marital negotiations.",
   "I think about how little all that attention mattered to you.",
   "I think about how down to earth you’ve always been.",
@@ -862,7 +881,7 @@ const thoughts = [
   "I think about being Aunty Dids.",
   "I think about being Great Aunty Dids.",
   "I think about cows.",
-  "I think about cow insemination. Ewww.",
+  "I think about cow insemination.",
   "I think about Cricket delivering eggs to the kitchen.",
   "I think about how much you love country life.",
   "I think about the things you made for your children.",
@@ -880,7 +899,7 @@ const thoughts = [
   "I think about how you understand some things cost me more than people know.",
   "I think about how unsurprised you’ll be ChatGPT helped me with this.",
   "I think nothing I could ever say in anger could rewrite what 58 years of loving you has etched into my brain.",
-  "I think I got very lucky when I got you for a big sister."
+  "I think I got lucky when I got you for my big sister."
 ]
 
 const treatmentByNumber = {
@@ -1333,7 +1352,7 @@ function renderIllustration(number) {
         inner: `<path d="M18 72c0-14 12-26 26-26h8c14 0 26 12 26 26"/><path d="M68 52h28"/><path d="M96 46l18-9 4 8-18 9"/><path d="M18 18c12 0 22 6 29 18"/>`,
         style: { width: "112px", left: "4%", bottom: "12%" }
       }));
-      thoughtDecor.appendChild(makeTextMark("ewww", "aside-mark", { right: "8%", top: "20%" }));
+      thoughtDecor.appendChild(makeTextMark("Ewww", "aside-mark aside-mark-ewww", { right: "5%", top: "15%", transform: "rotate(7deg)" }));
       break;
     case 48:
       thoughtDecor.appendChild(makeSvg({
@@ -1514,7 +1533,7 @@ function renderThought(direction = 1, skipAnimation = false) {
     } else if (number === 64) {
       thoughtText.innerHTML = `I think nothing I could ever say in anger <span class="special-break">could rewrite what 58 years of loving you</span> <span class="special-break">has etched into my brain.</span>`;
     } else if (number === 65) {
-      thoughtText.innerHTML = `I think I got very lucky <span class="special-break">when I got you</span> <span class="special-line">for a big sister.</span>`;
+      thoughtText.innerHTML = `I think I got lucky <span class="special-break">when I got you</span> <span class="special-line">for my big sister.</span>`;
     } else {
       thoughtText.textContent = thoughts[current];
     }
