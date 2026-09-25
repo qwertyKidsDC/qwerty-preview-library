@@ -2604,12 +2604,17 @@ a{color:inherit}
   --ql-base:#F1F8F8;
   --ql-dark:#020020;
 }
-html,body{margin:0;min-height:100%;background:var(--ql-dark)}
-body{overflow-x:hidden}
-body.light-mode{background:var(--ql-base)}
+html,body{margin:0;min-height:100%;background:var(--ql-base)}
+body{
+  overflow-x:hidden;
+  padding:clamp(28px,4vw,72px) 0;
+}
+body.light-mode{background:color-mix(in srgb,var(--ql-dark) 8%,var(--ql-base))}
 
 .homepage-shell{
+  width:min(92vw,1560px);
   min-height:100vh;
+  margin-inline:auto;
   background:var(--ql-dark);
   color:var(--ql-base);
   transition:background .18s ease,color .18s ease;
@@ -2695,6 +2700,8 @@ body.light-mode .theme-toggle{
 .theme-toggle:focus-visible{outline:3px solid var(--ql-green);outline-offset:3px}
 
 @media(max-width:760px){
+  body{padding:0}
+  .homepage-shell{width:100%}
   .homepage-hero.concept-board{padding:0}
   .homepage-hero .main{padding:18px}
   .homepage-hero .photoProbe{
