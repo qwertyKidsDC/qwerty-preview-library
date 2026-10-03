@@ -944,7 +944,7 @@ body.light-mode .theme-toggle{
 .ideas-composition{min-height:820px}
 
 .ideas-lead{
-  left:1.5%;
+  left:0;
   top:28px;
   width:58%;
   min-height:370px;
@@ -1014,7 +1014,7 @@ body.light-mode .theme-toggle{
 .tools-composition{min-height:1010px}
 
 .tools-reading{
-  left:2%;
+  left:0;
   top:28px;
   width:64%;
   min-height:690px;
@@ -1089,7 +1089,7 @@ body.light-mode .theme-toggle{
 .projects-composition{min-height:980px}
 
 .projects-feature{
-  left:2%;
+  left:0;
   top:22px;
   width:61%;
   min-height:345px;
@@ -1208,7 +1208,7 @@ body.light-mode .theme-toggle{
 .people-photo{
   position:absolute;
   z-index:3;
-  left:1.5%;
+  left:0;
   top:46px;
   width:56%;
   height:470px;
@@ -1240,11 +1240,12 @@ body.light-mode .theme-toggle{
 
 .people-brains{
   z-index:9;
-  right:8%;
-  top:315px;
-  width:33%;
-  min-height:215px;
-  transform:rotate(-1.25deg);
+  right:6%;
+  top:408px;
+  width:27%;
+  min-height:165px;
+  padding:18px 20px;
+  transform:rotate(-.55deg);
 }
 
 .people-small{
