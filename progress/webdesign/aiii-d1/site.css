@@ -1,0 +1,1157 @@
+
+/* =========================================================
+   1. QWERTY LABS TOKENS + RESET
+   ========================================================= */
+:root{
+  --ql-dark:#020020;
+  --ql-base:#F1F8F8;
+  --ql-blue:#526EE6;
+  --ql-pink:#F66DC1;
+  --ql-green:#92D644;
+  --ql-orange:#FF9029;
+
+  --page-bg:var(--ql-dark);
+  --page-text:var(--ql-base);
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--ql-dark);
+}
+
+body{
+  margin:0;
+  overflow-x:hidden;
+  background:var(--ql-dark);
+  color:var(--page-text);
+  font-family:"Atkinson Hyperlegible Next",Arial,sans-serif;
+  line-height:1.35;
+}
+
+body.light-mode{
+  --page-bg:var(--ql-base);
+  --page-text:var(--ql-dark);
+}
+
+button{font:inherit}
+
+
+/* =========================================================
+   2. DESKTOP PAGE SHELL
+   92vw, capped at 1560px. Browser gutters stay QL dark.
+   ========================================================= */
+.homepage-shell{
+  width:min(92vw,1560px);
+  min-height:100vh;
+  margin-inline:auto;
+  background:var(--page-bg);
+  color:var(--page-text);
+}
+
+
+/* =========================================================
+   3. HERO
+   ========================================================= */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:0 18px 18px;
+  background:var(--page-bg);
+  color:var(--page-text);
+}
+
+.hero-main{
+  position:relative;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:16px;
+  min-height:584px;
+  padding:32px 20px 20px;
+}
+
+.hero-heading{
+  padding-right:262px;
+}
+
+.hero-title{
+  margin:0;
+  color:var(--page-text);
+  font-size:clamp(54px,6vw,72px);
+  font-weight:800;
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+
+.hero-descriptor{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:7px;
+  color:inherit;
+  font:700 13.5px/1.35 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.075em;
+}
+
+.hero-descriptor::before{
+  content:"";
+  width:16px;
+  height:5px;
+  flex:0 0 auto;
+  background:var(--ql-blue);
+}
+
+.hero-ribbon{
+  position:relative;
+  width:56%;
+  min-height:118px;
+  padding:18px 22px;
+  background:var(--ql-orange);
+  color:#000;
+}
+
+.hero-ribbon::before,
+.hero-ribbon::after{
+  content:"";
+  position:absolute;
+  top:-14px;
+  height:40px;
+  opacity:1;
+}
+
+.hero-ribbon::before{
+  left:-18px;
+  width:64px;
+  background:rgba(246,109,193,.62);
+}
+
+.hero-ribbon::after{
+  left:32px;
+  width:46px;
+  background:rgba(82,110,230,.54);
+}
+
+.hero-ribbon-title{
+  position:relative;
+  z-index:2;
+  margin:0;
+  font-size:28px;
+  font-weight:700;
+  line-height:1.12;
+}
+
+
+/* =========================================================
+   4. HERO PHOTO
+   ========================================================= */
+.hero-photo{
+  position:absolute;
+  z-index:6;
+  right:20px;
+  top:18px;
+  width:224px;
+  height:112px;
+  border:1px solid color-mix(in srgb,var(--ql-base) 54%,var(--ql-dark));
+  background:var(--page-bg);
+  box-shadow:5px 5px 0 color-mix(in srgb,var(--ql-blue) 24%,transparent);
+}
+
+.hero-photo-image{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background-image:
+    linear-gradient(180deg,transparent 0 72%,color-mix(in srgb,var(--ql-dark) 42%,transparent) 100%),
+    url("https://qwertykids.com/wp-content/uploads/kids-coding-robots-320.jpg");
+  background-position:center 44%;
+  background-size:cover;
+  filter:saturate(.92) contrast(1.04);
+}
+
+body.light-mode .hero-photo-image{
+  filter:saturate(.86) contrast(1.02);
+}
+
+.hero-photo-caption{
+  position:absolute;
+  z-index:2;
+  left:8px;
+  bottom:7px;
+  padding:4px 6px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  font:700 9px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   5. TRANSFER MOTIF
+   One contribution reappears in changed states.
+   ========================================================= */
+.transfer-mark{
+  position:absolute;
+  z-index:7;
+  width:24px;
+  height:7px;
+  pointer-events:none;
+  background:var(--ql-blue);
+  box-shadow:
+    8px 7px 0 var(--ql-pink),
+    16px 0 0 var(--ql-green);
+}
+
+.transfer-mark.t1{right:8px;top:72px;transform:scale(.72)}
+.transfer-mark.t2{left:34%;top:18px;transform:rotate(90deg) scale(.76)}
+.transfer-mark.t3{left:51%;top:316px;transform:rotate(180deg)}
+.transfer-mark.t4{right:70px;bottom:22px;transform:rotate(-90deg) scale(.66)}
+
+.hero-photo::after{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:34px;
+  width:18px;
+  height:6px;
+  background:var(--ql-blue);
+  box-shadow:
+    6px 6px 0 var(--ql-pink),
+    12px 0 0 var(--ql-green);
+}
+
+@keyframes qlTransferState{
+  0%,52%,100%{filter:brightness(1);opacity:.78}
+  56%{filter:brightness(1.55);opacity:1}
+  61%{filter:brightness(1);opacity:.78}
+}
+
+.transfer-mark.t1{animation:qlTransferState 8.8s steps(2,end) infinite}
+.transfer-mark.t2{animation:qlTransferState 8.8s 1.2s steps(2,end) infinite}
+.transfer-mark.t3{animation:qlTransferState 8.8s 2.4s steps(2,end) infinite}
+.transfer-mark.t4{animation:qlTransferState 8.8s 3.6s steps(2,end) infinite}
+
+
+/* =========================================================
+   6. THREE HERO CARDS
+   ========================================================= */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+.card{
+  position:relative;
+  min-height:270px;
+  overflow:hidden;
+  color:#000;
+}
+
+.card.green{background:var(--ql-green)}
+.card.pink{background:var(--ql-pink)}
+.card.blue{background:var(--ql-blue);color:var(--ql-dark)}
+
+.card-title{
+  position:absolute;
+  z-index:5;
+  top:16px;
+  left:16px;
+  width:auto;
+  max-width:calc(100% - 32px);
+  padding:9px 12px 8px;
+  color:var(--ql-dark);
+  border-radius:2px;
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-dark) 20%,transparent);
+  font:700 18px/1.15 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:-.01em;
+}
+
+.card.green .card-title{
+  background:var(--ql-blue);
+  transform:rotate(-.2deg);
+}
+
+.card.pink .card-title{
+  background:var(--ql-green);
+  transform:rotate(.3deg);
+}
+
+.card.blue .card-title{
+  background:var(--ql-orange);
+  transform:rotate(-.35deg);
+}
+
+.card-copy{
+  position:absolute;
+  z-index:5;
+  top:82px;
+  right:18px;
+  bottom:92px;
+  left:18px;
+  color:inherit;
+  font:400 17px/1.42 "Atkinson Hyperlegible Mono",monospace;
+}
+
+.card-cta{
+  position:absolute;
+  z-index:7;
+  left:16px;
+  bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px 11px 10px 12px;
+  border:0;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:3px 3px 0 color-mix(in srgb,var(--ql-base) 78%,transparent);
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+}
+
+.card-cta span{
+  margin-left:2px;
+  padding-left:9px;
+  border-left:1px solid currentColor;
+  transition:transform .2s ease;
+}
+
+.card:hover .card-cta span{
+  transform:translateX(3px);
+}
+
+
+/* =========================================================
+   7. LOWER PROJECT COMPOSITION
+   ========================================================= */
+.continuation{
+  position:relative;
+  z-index:3;
+  width:100%;
+  margin:-18px 0 0;
+  padding:0;
+  overflow:hidden;
+  background:var(--page-bg);
+  color:var(--page-text);
+}
+
+.project-canvas{
+  position:relative;
+  min-height:860px;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 78% 14%,color-mix(in srgb,var(--ql-blue) 7%,transparent),transparent 26%),
+    var(--page-bg);
+}
+
+body.light-mode .project-canvas{
+  background:
+    radial-gradient(circle at 78% 14%,color-mix(in srgb,var(--ql-blue) 8%,transparent),transparent 28%),
+    var(--page-bg);
+}
+
+.project-field,
+.project-photo,
+.project-step,
+.studio-note,
+.open-note,
+.bottom-nav{
+  position:absolute;
+  z-index:2;
+}
+
+.project-field{
+  left:38px;
+  top:0;
+  width:59%;
+  min-height:270px;
+  padding:28px 32px 30px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+
+.label{
+  position:relative;
+  z-index:4;
+  display:inline-block;
+  padding:8px 11px;
+  border-radius:0;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  font:700 12px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.project-field h2{
+  position:relative;
+  z-index:3;
+  max-width:10ch;
+  margin:25px 0 14px;
+  font-size:clamp(44px,5.3vw,76px);
+  line-height:.85;
+  letter-spacing:-.06em;
+}
+
+.project-field p{
+  position:relative;
+  z-index:3;
+  max-width:46ch;
+  margin:0;
+  font:400 17px/1.4 "Atkinson Hyperlegible Mono",monospace;
+}
+
+
+/* lower photo */
+.project-photo{
+  right:38px;
+  top:8%;
+  width:39%;
+  height:315px;
+  margin:0;
+  overflow:visible;
+  background:var(--ql-blue);
+  box-shadow:14px 14px 0 var(--ql-orange);
+}
+
+.project-photo::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-18px;
+  top:26px;
+  width:46px;
+  height:104px;
+  background:var(--ql-pink);
+}
+
+.project-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 44%;
+  filter:saturate(.9) contrast(1.04);
+}
+
+.project-photo figcaption{
+  position:absolute;
+  z-index:3;
+  left:13px;
+  bottom:13px;
+  max-width:78%;
+}
+
+
+/* project steps */
+.project-step{
+  padding:19px 20px 22px;
+  color:var(--ql-dark);
+}
+
+.project-step .label{
+  margin-bottom:34px;
+}
+
+.project-step p{
+  max-width:24ch;
+  margin:0;
+  font:700 18px/1.25 "Atkinson Hyperlegible Mono",monospace;
+}
+
+.project-step.one{
+  left:8%;
+  top:43%;
+  width:31%;
+  min-height:205px;
+  background:var(--ql-pink);
+  transform:rotate(-.55deg);
+}
+
+.project-step.two{
+  left:36%;
+  top:52%;
+  width:34%;
+  min-height:205px;
+  background:var(--ql-blue);
+  color:var(--ql-dark);
+  transform:rotate(.42deg);
+}
+
+.project-step.three{
+  right:6%;
+  top:45%;
+  width:27%;
+  min-height:220px;
+  background:var(--ql-orange);
+  transform:rotate(-.35deg);
+}
+
+
+/* studio note */
+.studio-note{
+  left:17%;
+  top:72%;
+  width:48%;
+  min-height:145px;
+  padding:22px 24px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:9px 9px 0 color-mix(in srgb,var(--ql-pink) 76%,var(--ql-dark));
+  transform:rotate(.28deg);
+}
+
+.studio-note .label{
+  position:absolute;
+  right:18px;
+  top:-16px;
+  background:var(--ql-orange);
+}
+
+.studio-note p{
+  max-width:48ch;
+  margin:15px 0 0;
+  font-size:21px;
+  line-height:1.34;
+}
+
+
+/* open input */
+.open-note{
+  right:7%;
+  bottom:78px;
+  width:27%;
+  padding:16px 17px 18px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+  transform:rotate(-1.1deg);
+}
+
+.open-note > span{
+  display:block;
+  margin-bottom:10px;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.open-note strong{
+  display:block;
+  font-size:26px;
+  line-height:.98;
+  letter-spacing:-.04em;
+}
+
+.open-note::after{
+  content:"→";
+  position:absolute;
+  right:14px;
+  bottom:11px;
+  font-size:24px;
+}
+
+
+/* Transfer motif reappears lower down, changed */
+.continuation.transfer .project-field .label::after,
+.continuation.transfer .project-step.one .label::after,
+.continuation.transfer .project-step.two .label::after,
+.continuation.transfer .open-note::before{
+  content:"";
+  display:inline-block;
+  width:18px;
+  height:6px;
+  margin-left:13px;
+  vertical-align:middle;
+  background:var(--ql-blue);
+  box-shadow:
+    6px 6px 0 var(--ql-pink),
+    12px 0 0 var(--ql-green);
+}
+
+.continuation.transfer .project-step.one .label::after{
+  transform:rotate(90deg) scale(.8);
+}
+
+.continuation.transfer .project-step.two .label::after{
+  transform:rotate(180deg) scale(.88);
+}
+
+.continuation.transfer .open-note::before{
+  position:absolute;
+  right:12px;
+  top:12px;
+  margin:0;
+  transform:rotate(-90deg) scale(.76);
+}
+
+
+/* =========================================================
+   8. BOTTOM NAV
+   Borderless echo of the descriptor/top language.
+   ========================================================= */
+.bottom-nav{
+  left:3%;
+  right:3%;
+  bottom:48px;
+  display:flex;
+  align-items:center;
+  gap:0;
+  overflow:hidden;
+  padding:10px 14px;
+  white-space:nowrap;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.bottom-nav > * + *::before{
+  content:" / ";
+  display:inline-block;
+  margin:0 9px;
+  color:currentColor;
+}
+
+.bottom-nav b{
+  color:var(--ql-green);
+}
+
+
+/* =========================================================
+   9. LIGHT / DARK TOGGLE
+   ========================================================= */
+.theme-toggle{
+  position:fixed;
+  z-index:1000;
+  right:16px;
+  bottom:16px;
+  appearance:none;
+  padding:9px 11px;
+  border:1px solid currentColor;
+  border-radius:0;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+  box-shadow:4px 4px 0 var(--ql-pink);
+  cursor:pointer;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+body.light-mode .theme-toggle{
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  box-shadow:4px 4px 0 var(--ql-blue);
+}
+
+.theme-toggle:focus-visible{
+  outline:3px solid var(--ql-green);
+  outline-offset:3px;
+}
+
+
+/* =========================================================
+   10. RESPONSIVE
+   Desktop is the primary design target.
+   ========================================================= */
+@media(max-width:1100px){
+  .hero-heading{
+    padding-right:0;
+    padding-top:132px;
+  }
+
+  .hero-photo{
+    left:20px;
+    right:auto;
+    top:14px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    min-height:235px;
+  }
+}
+
+@media(max-width:900px){
+  .project-canvas{min-height:1020px}
+
+  .project-field{
+    left:38px;
+    top:2%;
+    width:75%;
+    min-height:260px;
+  }
+
+  .project-photo{
+    right:38px;
+    top:24%;
+    width:52%;
+    height:280px;
+  }
+
+  .project-step.one{left:5%;top:49%;width:42%}
+  .project-step.two{left:39%;top:56%;width:45%}
+  .project-step.three{right:5%;top:68%;width:36%}
+
+  .studio-note{
+    left:7%;
+    top:75%;
+    width:56%;
+    min-height:165px;
+  }
+
+  .open-note{
+    right:5%;
+    bottom:68px;
+    width:34%;
+  }
+}
+
+@media(max-width:760px){
+  .homepage-shell{
+    width:100%;
+  }
+
+  .hero{
+    padding:0;
+  }
+
+  .hero-main{
+    padding:18px;
+  }
+
+  .hero-photo{
+    position:relative;
+    left:auto;
+    right:auto;
+    top:auto;
+    width:100%;
+    max-width:310px;
+    height:150px;
+    margin:0 0 22px auto;
+  }
+
+  .hero-heading{
+    padding-top:0;
+  }
+
+  .continuation{
+    margin:0;
+  }
+
+  .project-field{
+    left:4%;
+  }
+
+  .project-photo{
+    right:4%;
+  }
+}
+
+@media(max-width:620px){
+  .project-canvas{min-height:1290px}
+
+  .project-field{
+    left:4%;
+    top:2.5%;
+    width:88%;
+    min-height:300px;
+    padding:24px 20px;
+  }
+
+  .project-field h2{
+    font-size:48px;
+  }
+
+  .project-photo{
+    left:15%;
+    right:auto;
+    top:26%;
+    width:80%;
+    height:285px;
+  }
+
+  .project-step.one{
+    left:5%;
+    top:50%;
+    width:72%;
+    min-height:185px;
+  }
+
+  .project-step.two{
+    left:22%;
+    top:63%;
+    width:73%;
+    min-height:190px;
+  }
+
+  .project-step.three{
+    left:5%;
+    right:auto;
+    top:75%;
+    width:65%;
+    min-height:190px;
+  }
+
+  .studio-note{
+    left:12%;
+    top:87%;
+    width:80%;
+    min-height:160px;
+  }
+
+  .open-note{
+    right:5%;
+    bottom:46px;
+    width:58%;
+  }
+
+  .bottom-nav{
+    bottom:12px;
+  }
+}
+
+
+/* =========================================================
+   11. REAL TOP NAV
+   ========================================================= */
+.hero-nav{
+  gap:0;
+}
+.hero-nav::before{
+  margin-right:9px;
+}
+.hero-nav a{
+  color:inherit;
+  text-decoration:none;
+}
+.hero-nav a + a::before{
+  content:"/";
+  display:inline-block;
+  margin:0 .58em;
+  color:currentColor;
+}
+.hero-nav a[aria-current="page"]{
+  text-decoration:underline;
+  text-decoration-thickness:2px;
+  text-underline-offset:4px;
+}
+.hero-title a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* =========================================================
+   12. SUBPAGE LAYOUT EXPERIMENTS
+   These intentionally use normal document flow so they are
+   easy to edit while keeping the QL visual language.
+   ========================================================= */
+.subpage .hero-main{
+  display:block;
+  min-height:0;
+  padding-bottom:52px;
+}
+.subpage .hero-heading{
+  margin-bottom:34px;
+}
+.subpage .hero-photo{
+  top:18px;
+}
+.variant-intro{
+  width:min(760px,72%);
+  margin:0 0 22px;
+  font:400 17px/1.45 "Atkinson Hyperlegible Mono",monospace;
+}
+.variant-intro strong{
+  font-weight:700;
+}
+.mosaic{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:14px;
+}
+.mosaic-box{
+  position:relative;
+  min-height:190px;
+  padding:22px;
+  overflow:hidden;
+  color:var(--ql-dark);
+}
+.mosaic-box.green{background:var(--ql-green)}
+.mosaic-box.pink{background:var(--ql-pink)}
+.mosaic-box.blue{background:var(--ql-blue)}
+.mosaic-box.orange{background:var(--ql-orange)}
+.mosaic-box.paper{
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+.mosaic-box h2,
+.mosaic-box h3{
+  margin:0 0 18px;
+  font-weight:800;
+  line-height:.92;
+  letter-spacing:-.045em;
+}
+.mosaic-box h2{font-size:clamp(38px,4.8vw,68px)}
+.mosaic-box h3{font-size:clamp(25px,2.7vw,40px)}
+.mosaic-box p{
+  max-width:52ch;
+  margin:0 0 16px;
+  font:400 16px/1.42 "Atkinson Hyperlegible Mono",monospace;
+}
+.mosaic-box .mini{
+  display:inline-block;
+  margin-bottom:18px;
+  padding:7px 9px;
+  background:var(--ql-dark);
+  color:var(--ql-base);
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.mosaic-box .box-link{
+  position:absolute;
+  left:22px;
+  bottom:20px;
+  font:700 10px/1 "Atkinson Hyperlegible Mono",monospace;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.mosaic-box .box-link::after{
+  content:" →";
+}
+.mosaic-box.with-link{
+  padding-bottom:56px;
+}
+
+/* IDEAS */
+.ideas-lead{grid-column:span 7;min-height:360px}
+.ideas-wild{grid-column:span 5}
+.ideas-learn{grid-column:8 / span 5}
+.ideas-unfinished{grid-column:1 / -1;min-height:150px}
+
+/* TOOLS — deliberately roomier for heavier copy */
+.tools-reading{
+  grid-column:span 8;
+  grid-row:span 2;
+  min-height:500px;
+  padding:30px 34px;
+}
+.tools-reading p{
+  max-width:66ch;
+  font-size:18px;
+  line-height:1.55;
+}
+.tools-code,
+.tools-electronics{
+  grid-column:span 4;
+  min-height:243px;
+}
+.tools-ai{grid-column:span 4}
+.tools-robots{grid-column:span 4}
+.tools-rule{grid-column:span 4}
+.tools-footer-note{
+  grid-column:1 / -1;
+  min-height:130px;
+}
+
+/* PROJECTS — feature first, progression boxes after */
+.project-feature-inline{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(320px,.9fr);
+  gap:14px;
+  margin-bottom:14px;
+}
+.project-feature-copy{
+  position:relative;
+  min-height:350px;
+  padding:28px 32px 32px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+.project-feature-copy h2{
+  max-width:10ch;
+  margin:24px 0 14px;
+  font-size:clamp(48px,5.6vw,78px);
+  line-height:.84;
+  letter-spacing:-.06em;
+}
+.project-feature-copy p{
+  max-width:48ch;
+  margin:0;
+  font:400 17px/1.42 "Atkinson Hyperlegible Mono",monospace;
+}
+.project-feature-photo{
+  position:relative;
+  min-height:350px;
+  margin:0;
+  overflow:hidden;
+  background:var(--ql-blue);
+  box-shadow:12px 12px 0 var(--ql-orange);
+}
+.project-feature-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 44%;
+}
+.project-feature-photo .label{
+  position:absolute;
+  left:14px;
+  bottom:14px;
+}
+.project-steps-inline{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.project-step-box{
+  min-height:240px;
+  padding:22px;
+  color:var(--ql-dark);
+}
+.project-step-box:nth-child(1){background:var(--ql-pink)}
+.project-step-box:nth-child(2){background:var(--ql-blue)}
+.project-step-box:nth-child(3){background:var(--ql-orange)}
+.project-step-box p{
+  max-width:28ch;
+  margin:38px 0 0;
+  font:700 18px/1.3 "Atkinson Hyperlegible Mono",monospace;
+}
+.project-after{
+  display:grid;
+  grid-template-columns:1.5fr .7fr;
+  gap:14px;
+  margin-top:14px;
+}
+.project-after .studio-note-inline{
+  min-height:150px;
+  padding:24px;
+  background:var(--ql-base);
+  color:var(--ql-dark);
+}
+.project-after .studio-note-inline p{
+  margin:20px 0 0;
+  max-width:60ch;
+  font-size:20px;
+  line-height:1.36;
+}
+.project-after .open-note-inline{
+  min-height:150px;
+  padding:22px;
+  background:var(--ql-green);
+  color:var(--ql-dark);
+}
+.project-after .open-note-inline strong{
+  display:block;
+  margin-top:16px;
+  font-size:30px;
+  line-height:.98;
+}
+
+/* PEOPLE */
+.people-photo{
+  grid-column:span 7;
+  min-height:420px;
+  padding:0;
+}
+.people-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 44%;
+  filter:saturate(.9) contrast(1.04);
+}
+.people-own{grid-column:span 5;min-height:420px}
+.people-brains{grid-column:span 4}
+.people-small{grid-column:span 4}
+.people-place{grid-column:span 4}
+
+.subpage-bottom{
+  margin-top:14px;
+  padding:26px 0 48px;
+}
+.subpage-bottom .bottom-nav{
+  position:static;
+  padding-left:0;
+  padding-right:0;
+}
+
+
+/* =========================================================
+   13. SUBPAGE RESPONSIVE
+   ========================================================= */
+@media(max-width:1000px){
+  .mosaic{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+  .ideas-lead,
+  .ideas-wild,
+  .ideas-learn,
+  .tools-reading,
+  .tools-code,
+  .tools-electronics,
+  .tools-ai,
+  .tools-robots,
+  .tools-rule,
+  .people-photo,
+  .people-own,
+  .people-brains,
+  .people-small,
+  .people-place{
+    grid-column:span 6;
+  }
+  .ideas-unfinished,
+  .tools-footer-note{
+    grid-column:1 / -1;
+  }
+  .project-feature-inline,
+  .project-after{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:760px){
+  .subpage .hero-main{
+    padding:18px;
+  }
+  .subpage .hero-heading{
+    margin-bottom:24px;
+  }
+  .variant-intro{
+    width:100%;
+  }
+  .mosaic{
+    grid-template-columns:1fr;
+  }
+  .ideas-lead,
+  .ideas-wild,
+  .ideas-learn,
+  .ideas-unfinished,
+  .tools-reading,
+  .tools-code,
+  .tools-electronics,
+  .tools-ai,
+  .tools-robots,
+  .tools-rule,
+  .tools-footer-note,
+  .people-photo,
+  .people-own,
+  .people-brains,
+  .people-small,
+  .people-place{
+    grid-column:1;
+  }
+  .project-steps-inline{
+    grid-template-columns:1fr;
+  }
+}
