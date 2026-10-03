@@ -1408,6 +1408,15 @@ body.light-mode .theme-toggle{
   color:var(--ql-green);
 }
 
+/* Home A keeps its switcher in the original absolute project canvas. */
+.project-canvas > .variant-switcher{
+  position:absolute;
+  z-index:4;
+  left:3%;
+  right:3%;
+  bottom:48px;
+}
+
 
 /* HOME B — current project directly after the proposition */
 .home-b-current{
