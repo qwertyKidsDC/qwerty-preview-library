@@ -850,65 +850,64 @@ body.light-mode .theme-toggle{
 }
 
 
+
 /* =========================================================
-   12. SUBPAGE LAYOUT EXPERIMENTS
-   These intentionally use normal document flow so they are
-   easy to edit while keeping the QL visual language.
+   12. SUBPAGE COMPOSITIONS
+   Desktop-first: overlaps, interruptions, skew and imbalance.
    ========================================================= */
 .subpage .hero-main{
   display:block;
   min-height:0;
-  padding-bottom:52px;
+  padding-bottom:0;
 }
 .subpage .hero-heading{
-  margin-bottom:34px;
+  margin-bottom:26px;
 }
 .subpage .hero-photo{
   top:18px;
 }
+
 .variant-intro{
-  width:min(760px,72%);
-  margin:0 0 22px;
-  font:400 17px/1.45 "Atkinson Hyperlegible Mono",monospace;
-}
-.variant-intro strong{
-  font-weight:700;
-}
-.mosaic{
-  display:grid;
-  grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:14px;
-}
-.mosaic-box{
   position:relative;
-  min-height:190px;
+  z-index:20;
+  width:min(720px,72%);
+  margin:0 0 22px;
+  font:400 15px/1.45 "Atkinson Hyperlegible Mono",monospace;
+}
+.variant-intro strong{font-weight:700}
+
+.composition{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  overflow:visible;
+}
+.panel{
+  position:absolute;
+  z-index:3;
   padding:22px;
-  overflow:hidden;
   color:var(--ql-dark);
 }
-.mosaic-box.green{background:var(--ql-green)}
-.mosaic-box.pink{background:var(--ql-pink)}
-.mosaic-box.blue{background:var(--ql-blue)}
-.mosaic-box.orange{background:var(--ql-orange)}
-.mosaic-box.paper{
-  background:var(--ql-base);
-  color:var(--ql-dark);
-}
-.mosaic-box h2,
-.mosaic-box h3{
+.panel.green{background:var(--ql-green)}
+.panel.pink{background:var(--ql-pink)}
+.panel.blue{background:var(--ql-blue)}
+.panel.orange{background:var(--ql-orange)}
+.panel.paper{background:var(--ql-base);color:var(--ql-dark)}
+.panel h2,
+.panel h3{
   margin:0 0 18px;
   font-weight:800;
-  line-height:.92;
+  line-height:.9;
   letter-spacing:-.045em;
 }
-.mosaic-box h2{font-size:clamp(38px,4.8vw,68px)}
-.mosaic-box h3{font-size:clamp(25px,2.7vw,40px)}
-.mosaic-box p{
+.panel h2{font-size:clamp(42px,5vw,72px)}
+.panel h3{font-size:clamp(25px,2.7vw,42px)}
+.panel p{
   max-width:52ch;
-  margin:0 0 16px;
+  margin:0;
   font:400 16px/1.42 "Atkinson Hyperlegible Mono",monospace;
 }
-.mosaic-box .mini{
+.kicker{
   display:inline-block;
   margin-bottom:18px;
   padding:7px 9px;
@@ -918,7 +917,7 @@ body.light-mode .theme-toggle{
   letter-spacing:.07em;
   text-transform:uppercase;
 }
-.mosaic-box .box-link{
+.panel-link{
   position:absolute;
   left:22px;
   bottom:20px;
@@ -926,143 +925,298 @@ body.light-mode .theme-toggle{
   letter-spacing:.06em;
   text-transform:uppercase;
 }
-.mosaic-box .box-link::after{
-  content:" →";
-}
-.mosaic-box.with-link{
-  padding-bottom:56px;
+.panel-link::after{content:" →"}
+
+.pixel-cluster{
+  position:absolute;
+  z-index:12;
+  width:18px;
+  height:6px;
+  background:var(--ql-blue);
+  box-shadow:6px 6px 0 var(--ql-pink),12px 0 0 var(--ql-green);
+  pointer-events:none;
 }
 
-/* IDEAS */
-.ideas-lead{grid-column:span 7;min-height:360px}
-.ideas-wild{grid-column:span 5}
-.ideas-learn{grid-column:8 / span 5}
-.ideas-unfinished{grid-column:1 / -1;min-height:150px}
 
-/* TOOLS — deliberately roomier for heavier copy */
+/* ---------------------------------------------------------
+   IDEAS — a pile of beginnings
+   --------------------------------------------------------- */
+.ideas-composition{min-height:820px}
+
+.ideas-lead{
+  left:1.5%;
+  top:28px;
+  width:58%;
+  min-height:370px;
+  padding:30px 32px 68px;
+  transform:rotate(-.45deg);
+  box-shadow:12px 12px 0 color-mix(in srgb,var(--ql-blue) 42%,transparent);
+}
+.ideas-lead h2{max-width:9ch}
+.ideas-lead p{max-width:46ch}
+
+.ideas-wild{
+  z-index:6;
+  right:3%;
+  top:4px;
+  width:37%;
+  min-height:245px;
+  transform:rotate(1.15deg);
+  box-shadow:-9px 10px 0 color-mix(in srgb,var(--ql-orange) 74%,transparent);
+}
+.ideas-wild::after{
+  content:"";
+  position:absolute;
+  left:-20px;
+  bottom:38px;
+  width:38px;
+  height:11px;
+  background:var(--ql-dark);
+}
+
+.ideas-learn{
+  z-index:7;
+  right:8%;
+  top:246px;
+  width:35%;
+  min-height:270px;
+  transform:rotate(-1deg);
+  box-shadow:11px 10px 0 color-mix(in srgb,var(--ql-pink) 55%,transparent);
+}
+.ideas-learn h3{max-width:10ch}
+
+.ideas-unfinished{
+  z-index:4;
+  left:8%;
+  top:430px;
+  width:51%;
+  min-height:190px;
+  padding:24px 28px;
+  transform:rotate(.65deg);
+}
+.ideas-unfinished h3{max-width:15ch}
+
+.ideas-scrap{
+  z-index:8;
+  right:3.5%;
+  top:548px;
+  width:31%;
+  min-height:165px;
+  transform:rotate(-1.45deg);
+  box-shadow:-8px 8px 0 color-mix(in srgb,var(--ql-green) 62%,transparent);
+}
+.ideas-pixels{left:62%;top:126px;transform:rotate(90deg) scale(.9)}
+
+
+/* ---------------------------------------------------------
+   TOOLS — one big reading field being interrupted by tools
+   --------------------------------------------------------- */
+.tools-composition{min-height:1010px}
+
 .tools-reading{
-  grid-column:span 8;
-  grid-row:span 2;
-  min-height:500px;
-  padding:30px 34px;
+  left:2%;
+  top:28px;
+  width:64%;
+  min-height:690px;
+  padding:34px 38px 42px;
+  transform:rotate(-.28deg);
+  box-shadow:13px 13px 0 color-mix(in srgb,var(--ql-pink) 38%,transparent);
+}
+.tools-reading h2{
+  max-width:10ch;
+  font-size:clamp(48px,5.2vw,74px);
 }
 .tools-reading p{
-  max-width:66ch;
-  font-size:18px;
+  max-width:64ch;
+  margin-bottom:18px;
+  font-size:17px;
   line-height:1.55;
 }
-.tools-code,
-.tools-electronics{
-  grid-column:span 4;
-  min-height:243px;
-}
-.tools-ai{grid-column:span 4}
-.tools-robots{grid-column:span 4}
-.tools-rule{grid-column:span 4}
-.tools-footer-note{
-  grid-column:1 / -1;
-  min-height:130px;
+
+.tools-code{
+  z-index:7;
+  right:4%;
+  top:0;
+  width:31%;
+  min-height:225px;
+  transform:rotate(.9deg);
+  box-shadow:-10px 9px 0 color-mix(in srgb,var(--ql-orange) 70%,transparent);
 }
 
-/* PROJECTS — feature first, progression boxes after */
-.project-feature-inline{
-  display:grid;
-  grid-template-columns:minmax(0,1.45fr) minmax(320px,.9fr);
-  gap:14px;
-  margin-bottom:14px;
+.tools-electronics{
+  z-index:8;
+  right:1%;
+  top:206px;
+  width:35%;
+  min-height:230px;
+  transform:rotate(-1.1deg);
 }
-.project-feature-copy{
-  position:relative;
-  min-height:350px;
-  padding:28px 32px 32px;
-  background:var(--ql-green);
-  color:var(--ql-dark);
+
+.tools-ai{
+  z-index:9;
+  right:10%;
+  top:410px;
+  width:27%;
+  min-height:205px;
+  transform:rotate(1.35deg);
+  box-shadow:10px 10px 0 color-mix(in srgb,var(--ql-green) 64%,transparent);
 }
-.project-feature-copy h2{
-  max-width:10ch;
-  margin:24px 0 14px;
-  font-size:clamp(48px,5.6vw,78px);
-  line-height:.84;
-  letter-spacing:-.06em;
+
+.tools-rule{
+  z-index:10;
+  left:38%;
+  top:625px;
+  width:33%;
+  min-height:205px;
+  transform:rotate(-1.2deg);
+  box-shadow:9px 8px 0 color-mix(in srgb,var(--ql-orange) 72%,transparent);
 }
-.project-feature-copy p{
-  max-width:48ch;
+
+.tools-robots{
+  z-index:6;
+  right:5%;
+  top:650px;
+  width:27%;
+  min-height:220px;
+  transform:rotate(.55deg);
+}
+.tools-pixels{right:34%;top:344px;transform:rotate(180deg) scale(.8)}
+
+
+/* ---------------------------------------------------------
+   PROJECTS — current project first, then a staggered build
+   --------------------------------------------------------- */
+.projects-composition{min-height:980px}
+
+.projects-feature{
+  left:2%;
+  top:22px;
+  width:61%;
+  min-height:345px;
+  padding:30px 34px;
+  transform:rotate(-.25deg);
+}
+.projects-feature h2{
+  max-width:9ch;
+  font-size:clamp(50px,5.6vw,80px);
+}
+.projects-feature p{max-width:46ch}
+
+.projects-photo{
+  position:absolute;
+  z-index:8;
+  right:3%;
+  top:74px;
+  width:40%;
+  height:315px;
   margin:0;
-  font:400 17px/1.42 "Atkinson Hyperlegible Mono",monospace;
-}
-.project-feature-photo{
-  position:relative;
-  min-height:350px;
-  margin:0;
-  overflow:hidden;
+  overflow:visible;
   background:var(--ql-blue);
-  box-shadow:12px 12px 0 var(--ql-orange);
+  box-shadow:14px 14px 0 var(--ql-orange);
+  transform:rotate(.35deg);
 }
-.project-feature-photo img{
+.projects-photo::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-20px;
+  top:34px;
+  width:48px;
+  height:110px;
+  background:var(--ql-pink);
+}
+.projects-photo img{
+  display:block;
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:center 44%;
 }
-.project-feature-photo .label{
+.projects-photo .label{
   position:absolute;
   left:14px;
   bottom:14px;
 }
-.project-steps-inline{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
+
+.projects-step{
+  min-height:215px;
+  padding:20px 22px;
 }
-.project-step-box{
-  min-height:240px;
-  padding:22px;
-  color:var(--ql-dark);
+.projects-step .label{margin-bottom:42px}
+.projects-step p{
+  max-width:25ch;
+  font:700 18px/1.28 "Atkinson Hyperlegible Mono",monospace;
 }
-.project-step-box:nth-child(1){background:var(--ql-pink)}
-.project-step-box:nth-child(2){background:var(--ql-blue)}
-.project-step-box:nth-child(3){background:var(--ql-orange)}
-.project-step-box p{
-  max-width:28ch;
-  margin:38px 0 0;
-  font:700 18px/1.3 "Atkinson Hyperlegible Mono",monospace;
+
+.projects-step-one{
+  left:7%;
+  top:392px;
+  width:31%;
+  transform:rotate(-.9deg);
 }
-.project-after{
-  display:grid;
-  grid-template-columns:1.5fr .7fr;
-  gap:14px;
-  margin-top:14px;
+.projects-step-two{
+  z-index:7;
+  left:34%;
+  top:468px;
+  width:34%;
+  transform:rotate(.75deg);
 }
-.project-after .studio-note-inline{
-  min-height:150px;
-  padding:24px;
-  background:var(--ql-base);
-  color:var(--ql-dark);
+.projects-step-three{
+  right:5%;
+  top:402px;
+  width:29%;
+  transform:rotate(-.45deg);
 }
-.project-after .studio-note-inline p{
-  margin:20px 0 0;
-  max-width:60ch;
+
+.projects-note{
+  left:14%;
+  top:688px;
+  width:51%;
+  min-height:168px;
+  padding:26px 28px;
+  transform:rotate(.32deg);
+  box-shadow:10px 10px 0 color-mix(in srgb,var(--ql-pink) 68%,transparent);
+}
+.projects-note p{
+  max-width:52ch;
   font-size:20px;
   line-height:1.36;
 }
-.project-after .open-note-inline{
-  min-height:150px;
-  padding:22px;
-  background:var(--ql-green);
-  color:var(--ql-dark);
+
+.projects-open{
+  z-index:7;
+  right:7%;
+  top:720px;
+  width:28%;
+  min-height:165px;
+  transform:rotate(-1.15deg);
 }
-.project-after .open-note-inline strong{
+.projects-open strong{
   display:block;
-  margin-top:16px;
+  margin-top:14px;
   font-size:30px;
   line-height:.98;
 }
+.projects-pixels{left:68%;top:540px;transform:rotate(-90deg) scale(.78)}
 
-/* PEOPLE */
+
+/* ---------------------------------------------------------
+   PEOPLE — photo-led, with ideas orbiting and colliding
+   --------------------------------------------------------- */
+.people-composition{min-height:900px}
+
 .people-photo{
-  grid-column:span 7;
-  min-height:420px;
-  padding:0;
+  position:absolute;
+  z-index:3;
+  left:1.5%;
+  top:46px;
+  width:56%;
+  height:470px;
+  margin:0;
+  overflow:hidden;
+  background:var(--ql-blue);
+  clip-path:polygon(0 0,100% 0,100% 77%,96% 77%,96% 86%,90% 86%,90% 93%,80% 93%,80% 100%,0 100%);
+  box-shadow:14px 14px 0 var(--ql-blue);
 }
 .people-photo img{
   width:100%;
@@ -1071,14 +1225,57 @@ body.light-mode .theme-toggle{
   object-position:center 44%;
   filter:saturate(.9) contrast(1.04);
 }
-.people-own{grid-column:span 5;min-height:420px}
-.people-brains{grid-column:span 4}
-.people-small{grid-column:span 4}
-.people-place{grid-column:span 4}
 
+.people-own{
+  z-index:8;
+  right:2%;
+  top:8px;
+  width:47%;
+  min-height:330px;
+  padding:28px 30px;
+  transform:rotate(.7deg);
+  box-shadow:-11px 11px 0 color-mix(in srgb,var(--ql-pink) 58%,transparent);
+}
+.people-own h2{max-width:10ch}
+
+.people-brains{
+  z-index:9;
+  right:8%;
+  top:315px;
+  width:33%;
+  min-height:215px;
+  transform:rotate(-1.25deg);
+}
+
+.people-small{
+  z-index:7;
+  left:11%;
+  top:490px;
+  width:38%;
+  min-height:220px;
+  transform:rotate(.8deg);
+  box-shadow:9px 9px 0 color-mix(in srgb,var(--ql-orange) 68%,transparent);
+}
+
+.people-place{
+  z-index:6;
+  right:4%;
+  top:560px;
+  width:41%;
+  min-height:230px;
+  transform:rotate(-.55deg);
+}
+.people-pixels{left:58%;top:174px;transform:scale(.86)}
+
+
+/* ---------------------------------------------------------
+   SUBPAGE FOOTER NAV
+   --------------------------------------------------------- */
 .subpage-bottom{
-  margin-top:14px;
-  padding:26px 0 48px;
+  position:relative;
+  z-index:20;
+  margin-top:10px;
+  padding:18px 0 48px;
 }
 .subpage-bottom .bottom-nav{
   position:static;
@@ -1089,69 +1286,78 @@ body.light-mode .theme-toggle{
 
 /* =========================================================
    13. SUBPAGE RESPONSIVE
+   Keep the desktop personality as long as practical; then
+   return to readable flow rather than preserving collisions.
    ========================================================= */
-@media(max-width:1000px){
-  .mosaic{
-    grid-template-columns:repeat(6,minmax(0,1fr));
-  }
-  .ideas-lead,
-  .ideas-wild,
-  .ideas-learn,
-  .tools-reading,
-  .tools-code,
-  .tools-electronics,
-  .tools-ai,
-  .tools-robots,
-  .tools-rule,
-  .people-photo,
-  .people-own,
-  .people-brains,
-  .people-small,
-  .people-place{
-    grid-column:span 6;
-  }
-  .ideas-unfinished,
-  .tools-footer-note{
-    grid-column:1 / -1;
-  }
-  .project-feature-inline,
-  .project-after{
-    grid-template-columns:1fr;
-  }
+@media(max-width:1050px){
+  .ideas-composition{min-height:900px}
+  .ideas-lead{width:62%}
+  .ideas-wild{width:40%}
+  .ideas-learn{right:4%;width:40%}
+  .ideas-unfinished{width:58%}
+
+  .tools-composition{min-height:1130px}
+  .tools-reading{width:67%}
+  .tools-code{width:34%}
+  .tools-electronics{width:38%}
+  .tools-ai{right:5%;width:32%}
+  .tools-rule{left:28%;top:720px;width:40%}
+  .tools-robots{top:750px;width:31%}
+
+  .projects-composition{min-height:1060px}
+  .projects-feature{width:66%}
+  .projects-photo{width:43%}
 }
 
-@media(max-width:760px){
-  .subpage .hero-main{
-    padding:18px;
+@media(max-width:820px){
+  .subpage .hero-main{padding:18px}
+  .subpage .hero-heading{margin-bottom:24px}
+  .variant-intro{width:100%}
+
+  .composition{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    min-height:0;
   }
-  .subpage .hero-heading{
-    margin-bottom:24px;
-  }
-  .variant-intro{
+
+  .panel,
+  .ideas-lead,.ideas-wild,.ideas-learn,.ideas-unfinished,.ideas-scrap,
+  .tools-reading,.tools-code,.tools-electronics,.tools-ai,.tools-rule,.tools-robots,
+  .projects-feature,.projects-step-one,.projects-step-two,.projects-step-three,.projects-note,.projects-open,
+  .people-own,.people-brains,.people-small,.people-place{
+    position:relative;
+    inset:auto;
     width:100%;
+    min-height:0;
+    transform:none;
+    box-shadow:none;
   }
-  .mosaic{
-    grid-template-columns:1fr;
-  }
+
   .ideas-lead,
-  .ideas-wild,
-  .ideas-learn,
-  .ideas-unfinished,
   .tools-reading,
-  .tools-code,
-  .tools-electronics,
-  .tools-ai,
-  .tools-robots,
-  .tools-rule,
-  .tools-footer-note,
-  .people-photo,
-  .people-own,
-  .people-brains,
-  .people-small,
-  .people-place{
-    grid-column:1;
+  .projects-feature,
+  .people-own{
+    padding:26px;
   }
-  .project-steps-inline{
-    grid-template-columns:1fr;
+
+  .projects-photo,
+  .people-photo{
+    position:relative;
+    inset:auto;
+    width:100%;
+    height:320px;
+    transform:none;
+    clip-path:none;
+    box-shadow:none;
   }
+
+  .projects-photo{order:2}
+  .projects-step-one{order:3}
+  .projects-step-two{order:4}
+  .projects-step-three{order:5}
+  .projects-note{order:6}
+  .projects-open{order:7}
+
+  .pixel-cluster{display:none}
 }
