@@ -1421,8 +1421,8 @@ body.light-mode .theme-toggle{
 /* HOME B — current project directly after the proposition */
 .home-b-current{
   position:relative;
-  min-height:360px;
-  margin:0 0 28px;
+  min-height:348px;
+  margin:0 0 8px;
 }
 .home-b-project{
   position:absolute;
@@ -1484,7 +1484,7 @@ body.light-mode .theme-toggle{
 .home-b-gap-note{
   position:relative;
   width:43%;
-  margin:56px 0 34px 9%;
+  margin:18px 0 12px 9%;
   padding:18px 20px;
   background:var(--ql-base);
   color:var(--ql-dark);
@@ -1494,7 +1494,7 @@ body.light-mode .theme-toggle{
 }
 .home-b-cards{
   position:relative;
-  min-height:540px;
+  min-height:470px;
 }
 .home-b-card{
   position:absolute;
@@ -1502,20 +1502,20 @@ body.light-mode .theme-toggle{
 }
 .home-b-card.one{
   left:0;
-  top:20px;
+  top:6px;
   width:39%;
   transform:rotate(-.6deg);
 }
 .home-b-card.two{
   z-index:5;
   left:33%;
-  top:118px;
+  top:82px;
   width:36%;
   transform:rotate(.55deg);
 }
 .home-b-card.three{
   right:1%;
-  top:34px;
+  top:14px;
   width:34%;
   transform:rotate(-.4deg);
 }
@@ -1524,7 +1524,7 @@ body.light-mode .theme-toggle{
 /* HOME C — five signals, more accumulation */
 .home-c-stage{
   position:relative;
-  min-height:900px;
+  min-height:980px;
   margin-top:4px;
 }
 .home-c-card{
@@ -1534,23 +1534,23 @@ body.light-mode .theme-toggle{
 .home-c-idea{
   left:0;
   top:24px;
-  width:48%;
+  width:46%;
   min-height:330px;
   transform:rotate(-.55deg);
 }
 .home-c-learn{
   z-index:7;
   right:2%;
-  top:0;
-  width:37%;
+  top:18px;
+  width:35%;
   min-height:260px;
   transform:rotate(.9deg);
 }
 .home-c-open{
   z-index:8;
-  left:41%;
-  top:246px;
-  width:29%;
+  left:43%;
+  top:292px;
+  width:25%;
   min-height:180px;
   padding:22px;
   background:var(--ql-green);
@@ -1565,16 +1565,16 @@ body.light-mode .theme-toggle{
   line-height:.98;
 }
 .home-c-go{
-  right:5%;
-  top:360px;
-  width:39%;
+  right:3%;
+  top:432px;
+  width:37%;
   min-height:285px;
   transform:rotate(-.6deg);
 }
 .home-c-note{
-  left:7%;
-  top:435px;
-  width:42%;
+  left:4%;
+  top:500px;
+  width:39%;
   min-height:190px;
   padding:24px 26px;
   background:var(--ql-base);
@@ -1590,9 +1590,9 @@ body.light-mode .theme-toggle{
 }
 .home-c-project{
   z-index:4;
-  left:16%;
-  top:660px;
-  width:61%;
+  left:14%;
+  top:742px;
+  width:62%;
   min-height:190px;
   padding:24px 28px;
   background:var(--ql-orange);
@@ -1607,7 +1607,7 @@ body.light-mode .theme-toggle{
 }
 .home-c-pixels{
   left:72%;
-  top:292px;
+  top:336px;
   transform:rotate(90deg) scale(.9);
 }
 
