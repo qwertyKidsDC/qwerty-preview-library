@@ -464,7 +464,7 @@ body.light-mode .project-canvas{
 }
 
 .project-step.one{
-  left:0;
+  left:38px;
   top:43%;
   width:31%;
   min-height:205px;
@@ -473,7 +473,7 @@ body.light-mode .project-canvas{
 }
 
 .project-step.two{
-  left:31%;
+  left:calc(33.333% + 17.333px);
   top:52%;
   width:34%;
   min-height:205px;
