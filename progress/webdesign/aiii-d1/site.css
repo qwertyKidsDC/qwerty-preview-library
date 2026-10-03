@@ -1524,7 +1524,7 @@ body.light-mode .theme-toggle{
 /* HOME C — five signals, more accumulation */
 .home-c-stage{
   position:relative;
-  min-height:980px;
+  min-height:1020px;
   margin-top:4px;
 }
 .home-c-card{
@@ -1534,29 +1534,29 @@ body.light-mode .theme-toggle{
 .home-c-idea{
   left:0;
   top:24px;
-  width:46%;
-  min-height:330px;
-  transform:rotate(-.55deg);
+  width:43%;
+  min-height:320px;
+  transform:rotate(-.35deg);
 }
 .home-c-learn{
   z-index:7;
-  right:2%;
-  top:18px;
-  width:35%;
-  min-height:260px;
-  transform:rotate(.9deg);
+  right:1%;
+  top:42px;
+  width:32%;
+  min-height:240px;
+  transform:rotate(.45deg);
 }
 .home-c-open{
   z-index:8;
-  left:43%;
-  top:292px;
-  width:25%;
-  min-height:180px;
-  padding:22px;
+  left:40%;
+  top:286px;
+  width:22%;
+  min-height:155px;
+  padding:20px;
   background:var(--ql-green);
   color:var(--ql-dark);
-  transform:rotate(-1.2deg);
-  box-shadow:9px 9px 0 color-mix(in srgb,var(--ql-orange) 72%,transparent);
+  transform:rotate(-.55deg);
+  box-shadow:7px 7px 0 color-mix(in srgb,var(--ql-orange) 66%,transparent);
 }
 .home-c-open strong{
   display:block;
@@ -1565,22 +1565,22 @@ body.light-mode .theme-toggle{
   line-height:.98;
 }
 .home-c-go{
-  right:3%;
-  top:432px;
-  width:37%;
-  min-height:285px;
-  transform:rotate(-.6deg);
+  right:2%;
+  top:430px;
+  width:34%;
+  min-height:260px;
+  transform:rotate(-.35deg);
 }
 .home-c-note{
-  left:4%;
-  top:500px;
-  width:39%;
-  min-height:190px;
-  padding:24px 26px;
+  left:3%;
+  top:452px;
+  width:34%;
+  min-height:180px;
+  padding:22px 24px;
   background:var(--ql-base);
   color:var(--ql-dark);
-  transform:rotate(.38deg);
-  box-shadow:10px 10px 0 color-mix(in srgb,var(--ql-pink) 66%,transparent);
+  transform:rotate(.22deg);
+  box-shadow:8px 8px 0 color-mix(in srgb,var(--ql-pink) 58%,transparent);
 }
 .home-c-note p{
   margin:16px 0 0;
@@ -1590,14 +1590,14 @@ body.light-mode .theme-toggle{
 }
 .home-c-project{
   z-index:4;
-  left:14%;
-  top:742px;
-  width:62%;
+  left:9%;
+  top:735px;
+  width:68%;
   min-height:190px;
   padding:24px 28px;
   background:var(--ql-orange);
   color:var(--ql-dark);
-  transform:rotate(.7deg);
+  transform:rotate(.28deg);
 }
 .home-c-project h3{
   margin:12px 0 8px;
@@ -1606,9 +1606,9 @@ body.light-mode .theme-toggle{
   letter-spacing:-.035em;
 }
 .home-c-pixels{
-  left:72%;
-  top:336px;
-  transform:rotate(90deg) scale(.9);
+  left:67%;
+  top:320px;
+  transform:rotate(90deg) scale(.82);
 }
 
 
