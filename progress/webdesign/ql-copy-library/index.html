@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Qwerty Labs Copy Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#4C69E3;
+      --pink:#F66DC1;
+      --green:#92D644;
+      --orange:#FF9029;
+      --paper:#F1F8F8;
+      --ink:#020020;
+      --muted:#54546a;
+      --line:#cfd7df;
+      --measure:72ch;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--paper);
+      font-family:"Atkinson Hyperlegible","Atkinson Hyperlegible Next",Arial,sans-serif;
+      font-size:1.19rem;
+      line-height:1.68;
+    }
+    a{color:inherit}
+    .site-header{
+      padding:2.5rem 1.25rem 1.5rem;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .wrap{width:min(1120px,calc(100% - 2.5rem));margin-inline:auto}
+    .site-header h1{
+      max-width:var(--measure);
+      margin:0 0 .45rem;
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+    .site-header p{max-width:var(--measure);margin:.4rem 0;color:var(--muted)}
+    .top-nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      border-bottom:1px solid #22223c;
+      background:var(--ink);
+      color:#fff;
+    }
+    .top-nav ul,
+    .section-nav ul,
+    .cta-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .top-nav ul{
+      width:min(1120px,calc(100% - 2.5rem));
+      margin-inline:auto;
+      display:flex;
+      gap:.35rem;
+      overflow-x:auto;
+      padding:.65rem 0;
+    }
+    .top-nav a{
+      display:block;
+      white-space:nowrap;
+      padding:.5rem .72rem;
+      border-radius:.45rem;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .top-nav a:hover,.top-nav a:focus-visible{background:#262646}
+    main{width:min(1120px,calc(100% - 2.5rem));margin-inline:auto;padding:1rem 0 5rem}
+    article{
+      scroll-margin-top:5rem;
+      padding:4rem 0;
+      border-bottom:3px solid var(--ink);
+    }
+    article:last-child{border-bottom:0}
+    .page-header{
+      max-width:var(--measure);
+      margin-bottom:2rem;
+    }
+    .eyebrow{
+      margin:0 0 .45rem;
+      font-size:.86rem;
+      font-weight:700;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    h1,h2,h3{line-height:1.08;letter-spacing:-.025em}
+    article h1{
+      margin:.2rem 0 1.35rem;
+      font-size:clamp(2.35rem,6vw,4.9rem);
+    }
+    h2{
+      margin:0 0 1rem;
+      font-size:clamp(1.7rem,3.5vw,2.75rem);
+    }
+    h3{
+      margin:1.8rem 0 .55rem;
+      font-size:1.35rem;
+    }
+    p,li,blockquote{max-width:var(--measure)}
+    p{margin:.7rem 0}
+    .lead{font-size:1.36rem;line-height:1.48}
+    .section-nav{
+      max-width:var(--measure);
+      margin:1.8rem 0 3rem;
+      padding:1rem 1.1rem;
+      border-left:.4rem solid var(--blue);
+      background:#fff;
+    }
+    .section-nav strong{display:block;margin-bottom:.35rem}
+    .section-nav ul{display:flex;flex-wrap:wrap;gap:.35rem .9rem}
+    .section-nav a{font-size:1rem;text-underline-offset:.18em}
+    .copy-section{
+      scroll-margin-top:5.5rem;
+      max-width:var(--measure);
+      padding:2.7rem 0 1rem;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1rem;
+      max-width:100%;
+      margin:1.25rem 0;
+    }
+    .copy-card{
+      padding:1.15rem;
+      border:1px solid var(--line);
+      border-radius:.7rem;
+      background:#fff;
+    }
+    .copy-card h3{margin-top:0}
+    .copy-card p:first-of-type{margin-top:.35rem}
+    ul.copy-list,ol.copy-list{max-width:var(--measure);padding-left:1.35rem}
+    blockquote{
+      margin:1.25rem 0;
+      padding:.9rem 1.1rem;
+      border-left:.35rem solid var(--pink);
+      background:#fff;
+      font-size:1.22rem;
+    }
+    .cta-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+      margin:1.2rem 0;
+    }
+    .cta-list a{
+      display:inline-block;
+      padding:.48rem .7rem;
+      border:1px solid var(--ink);
+      border-radius:.4rem;
+      background:#fff;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .pathway{
+      padding:.8rem 1rem;
+      border-left:.35rem solid var(--green);
+      background:#fff;
+      font-weight:700;
+    }
+    .source-note{
+      margin:1rem 0 0;
+      color:var(--muted);
+      font-size:1rem;
+    }
+    footer{
+      padding:2rem 1.25rem 4rem;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      background:#fff;
+    }
+    @media(max-width:640px){
+      body{font-size:1.12rem}
+      .wrap,main,.top-nav ul{width:min(100% - 1.5rem,1120px)}
+      article{padding:3rem 0}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">Qwerty Labs · Copy source of truth</p>
+      <h1>QL Copy Library</h1>
+      <p>Current website copy for Kids, Teens, Adults and The Lab. New approved public-facing copy belongs here as the library grows.</p>
+      <p><strong>Reading type:</strong> Atkinson Hyperlegible, developed by the Braille Institute, set slightly larger than standard web body copy.</p>
+    </div>
+  </header>
+
+  <nav class="top-nav" aria-label="Copy library">
+    <ul>
+      <li><a href="#kids">Kids</a></li>
+      <li><a href="#teens">Teens</a></li>
+      <li><a href="#adults">Adults</a></li>
+      <li><a href="#the-lab">The Lab</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <article id="kids" aria-labelledby="kids-title">
+      <header class="page-header">
+        <p class="eyebrow">Kids</p>
+        <h1 id="kids-title">Creative technology for children who like making things.</h1>
+        <p>Games. Robots. Electronics. Websites. Digital worlds. AI. Lights, sensors, microcontrollers and whatever else the project calls for.</p>
+        <p>At Qwerty Labs, children learn technology by making things with it.</p>
+        <p>Sometimes everyone starts with the same project. Sometimes they don’t.</p>
+        <p><strong>The important bit is that they’re not just following instructions forever.</strong></p>
+      </header>
+
+      <nav class="section-nav" aria-label="Kids sections">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#kids-start">Start with some help</a></li>
+          <li><a href="#kids-different">Different projects</a></li>
+          <li><a href="#kids-make">What children make</a></li>
+          <li><a href="#kids-groups">Small groups</a></li>
+          <li><a href="#kids-ways">Ways to come</a></li>
+          <li><a href="#kids-history">We’ve been doing this</a></li>
+          <li><a href="#kids-coder">Does my child need to be a coder?</a></li>
+        </ul>
+      </nav>
+
+      <section class="copy-section" id="kids-start">
+        <h2>Start with some help. Take it from there.</h2>
+        <p>Beginners need enough structure to get something working.</p>
+        <p>So we give them that.</p>
+        <p>They might start with a guided game, a circuit, a robot or a small coding project. There are clear steps, somebody nearby to help, and plenty of room to change things.</p>
+        <p>As children become more confident, the balance shifts.</p>
+        <p>They make more of the decisions. They solve more of the problems. They work out what they need to learn next.</p>
+        <p>Eventually the question changes from “What do I do now?” to “How can I make this work?”</p>
+        <p><strong>That’s where things get interesting.</strong></p>
+      </section>
+
+      <section class="copy-section" id="kids-different">
+        <h2>Not everybody needs the same project.</h2>
+        <p>Children arrive at the lab with wildly different experience.</p>
+        <p>Some are coding for the first time. Others have been coming here for years.</p>
+        <p>We’re used to that.</p>
+        <p>Projects can be adapted, extended or changed completely depending on the child, the group and what they already know.</p>
+        <p>A beginner might be getting their first character moving across a screen while somebody nearby is building the game around it.</p>
+        <p><strong>Nobody needs to go backwards because somebody else is new.</strong></p>
+      </section>
+
+      <section class="copy-section" id="kids-make">
+        <h2>What do children make here?</h2>
+        <p>It changes.</p>
+        <p>Over the years we’ve worked with games, websites, Python, JavaScript, electronics, robotics, Raspberry Pi, microcontrollers, sensors, LEDs, AR, VR, AI and plenty of things that were much harder to explain to parents ten years ago.</p>
+        <p>A project might be digital, physical or somewhere in between.</p>
+        <p><strong>The technology is the toolbox.</strong></p>
+        <p><strong>The project is the reason to use it.</strong></p>
+        <p>We take the projects seriously. Ourselves, less so.</p>
+      </section>
+
+      <section class="copy-section" id="kids-groups">
+        <h2>Small groups matter.</h2>
+        <p>Small groups have always been part of how we teach at the lab.</p>
+        <p>It means we can notice when somebody is stuck before they’ve spent twenty minutes pretending they’re not.</p>
+        <p>It also means we can notice when something is much too easy.</p>
+        <p>Children can ask questions, work at different speeds and take a project somewhere unexpected without the whole room having to follow them.</p>
+        <p>The tutor’s job isn’t to deliver a script from the front.</p>
+        <p>It’s to teach, explain, troubleshoot, ask useful questions and know when to help.</p>
+        <p><strong>And when not to.</strong></p>
+      </section>
+
+      <section class="copy-section" id="kids-ways">
+        <h2>Ways to come to the lab</h2>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Weekly classes</h3>
+            <p><strong>A regular place to keep making.</strong></p>
+            <p>Weekly classes give children time to build skills properly, return to projects, try different technologies and gradually work more independently.</p>
+            <p>There isn’t one fixed path through Qwerty Labs.</p>
+            <p>What a child works on next depends on what they can already do, what they’re interested in and what would be useful to learn.</p>
+            <p><strong>See weekly classes →</strong></p>
+          </section>
+          <section class="copy-card">
+            <h3>School holiday coding camps</h3>
+            <p><strong>A full day to make something.</strong></p>
+            <p>Children can come for one day or several during the school holidays. Projects are chosen and adapted around the children booked in each day.</p>
+            <p>Beginners get a manageable place to start.</p>
+            <p>Children with more experience get more to do.</p>
+            <p><strong>See coding camps →</strong></p>
+          </section>
+        </div>
+      </section>
+
+      <section class="copy-section" id="kids-history">
+        <h2>We’ve been doing this for a while.</h2>
+        <p>Qwerty Labs grew out of QwertyKids, which began more than ten years ago as a place for children to learn coding by actually coding.</p>
+        <p>Quite a lot has changed since then.</p>
+        <p>The software has changed. The hardware has changed. AI turned up. Children started arriving with ideas involving technologies that didn’t exist when we opened.</p>
+        <p>The basic idea has held up rather well.</p>
+        <p><strong>Make something.</strong></p>
+        <p><strong>Understand more because you made it.</strong></p>
+        <p><strong>Then make the next thing harder.</strong></p>
+      </section>
+
+      <section class="copy-section" id="kids-coder">
+        <h2>You don’t have to know if your child is a coder.</h2>
+        <p>We don’t particularly need them to be one.</p>
+        <p>They can be a child who likes drawing, games, machines, stories, puzzles, building things, pulling things apart or asking inconvenient questions about how something works.</p>
+        <p>Technology gives us a lot to work with.</p>
+        <ul class="cta-list" aria-label="Kids calls to action">
+          <li><a href="#kids-ways">See classes →</a></li>
+          <li><a href="#kids-ways">See coding camps →</a></li>
+          <li><a href="#the-lab">Contact Qwerty Labs →</a></li>
+        </ul>
+      </section>
+    </article>
+
+    <article id="teens" aria-labelledby="teens-title">
+      <header class="page-header">
+        <h1 id="teens-title">Qwerty Labs for Teens</h1>
+        <p class="lead"><strong>From learning projects to having a creative technology practice of your own.</strong></p>
+        <p>At some point, following another tutorial stops being the interesting part.</p>
+        <p>You want to build the bigger game. Make your own AI chatbot. Train a small model and find out what it actually learns. Build a website for someone. Design something properly. Wire something up. Take an idea further than the instructions do.</p>
+        <p>Qwerty Labs is for that point.</p>
+        <p>It’s a creative technology studio for teenagers who are ready to make more ambitious things, have more say in what they make, and develop projects they genuinely care about.</p>
+        <p>Some teens have been coming to the lab for years.</p>
+        <p>Others first walk through the door as teenagers.</p>
+        <p>There is no required backstory.</p>
+        <p>You can arrive with experience, an idea, an obsession with one particular thing, or simply the feeling that you’re ready for something more substantial.</p>
+      </header>
+
+      <nav class="section-nav" aria-label="Teen sections">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#teens-bigger">More say. Bigger projects.</a></li>
+          <li><a href="#teens-make">What could you make?</a></li>
+          <li><a href="#teens-ways">Ways to work</a></li>
+          <li><a href="#teens-know">You don’t need to know everything</a></li>
+          <li><a href="#teens-fun">It can also be fun</a></li>
+          <li><a href="#teens-growing">Growing up at the lab</a></li>
+          <li><a href="#teens-start">Want to make something?</a></li>
+          <li><a href="#teens-examples">What this can look like</a></li>
+        </ul>
+      </nav>
+
+      <section class="copy-section" id="teens-bigger">
+        <h2>More say. Bigger projects.</h2>
+        <p>Teen projects are less about everybody completing the same activity and more about learning how to make good decisions.</p>
+        <p>What should this actually do?</p>
+        <p>What needs to work first?</p>
+        <p>Which idea is worth keeping?</p>
+        <p>Why does this bit keep breaking?</p>
+        <p>Have I made this unnecessarily enormous?</p>
+        <p>What would make it better?</p>
+        <p>At the lab, teens gradually take more ownership of those decisions.</p>
+        <p>Someone newer might start with a project brief from the lab and plenty of support.</p>
+        <p>Someone more experienced might bring in a game they’ve already been developing, a website, a design problem, a physical build or an idea they don’t yet know how to make.</p>
+        <p>We help make the project manageable, technically sound and worth finishing.</p>
+        <p><strong>Without taking it over.</strong></p>
+      </section>
+
+      <section class="copy-section" id="teens-make">
+        <h2>What could you make?</h2>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Build your own AI</h3>
+            <p>Build a chatbot or AI character. Train a small model. Experiment with image or sound classification, computer vision, or AI inside a game or interactive project.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Build a game</h3>
+            <p>Roblox, Unity, browser games and whatever comes next. A project might begin with one mechanic and end up involving combat systems, multiplayer logic, player states, UI, progression, balancing and a mildly alarming number of bugs. That’s fine. That’s game development.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Build for the web</h3>
+            <p>Create a website, interactive experience, prototype or digital product. Depending on the project, that can lead into design, UX, accessibility, responsive layouts, hosting, domains, databases and the other things that suddenly matter when something has to work for a real person.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Build something physical</h3>
+            <p>Use electronics, sensors, LEDs, microcontrollers and small computers to make interactive objects, gadgets, installations and experiments. Sometimes the best place for code is not on a screen.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Design something</h3>
+            <p>Not every project needs another script. Teen projects can also involve visual identity, interfaces, prototyping, interaction and communication. The hard part might be deciding what something should look like, how it should behave, what to remove, or whether another version is actually making it better.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Make something we haven’t listed</h3>
+            <p>Please do.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="copy-section" id="teens-ways">
+        <h2>Ways to work at the lab</h2>
+
+        <section>
+          <h3>Teen Studio</h3>
+          <p>Teen Studio is the ongoing home for project work.</p>
+          <p>Different people can be working on completely different things in the same session.</p>
+          <p>You might begin with a project brief from the lab, adapt one around your own interests, or bring something of your own.</p>
+          <p>We help with whatever the project needs next: learning a technique, planning a feature, debugging something stubborn, cutting an idea back to a sensible size, or working out where to go next.</p>
+          <p>The projects change. The basic rhythm doesn’t: <strong>plan → build → test → work out what happened → improve it</strong>.</p>
+          <p>Over time, you should need us differently. That’s a good sign.</p>
+        </section>
+
+        <section>
+          <h3>Studio Builds</h3>
+          <p>Studio Builds are shorter projects built around an idea worth making.</p>
+          <p>Rather than signing up to “learn a technology”, you sign up to make something with it.</p>
+          <p>Upcoming builds might include things like:</p>
+          <ul class="copy-list">
+            <li>Build Your Own AI Chatbot</li>
+            <li>Train Your Own AI Model</li>
+            <li>Build a Roblox Game</li>
+            <li>Build a Unity Game</li>
+            <li>Create an Interactive Installation</li>
+            <li>Make Something Strange for the Web</li>
+          </ul>
+          <p>Some might run across several weekly sessions. Others may happen as a weekend or school holiday intensive.</p>
+          <p>We keep them small enough to leave room for experimentation, detours and the occasional better idea.</p>
+        </section>
+
+        <section>
+          <h3>Mentored Projects</h3>
+          <p>Already working on something bigger?</p>
+          <p>We keep a small number of places for teenagers developing substantial projects of their own.</p>
+          <p>That could be a game, a real website, an AI project, a physical build, a design project, an interactive work or something less cooperative with categories.</p>
+          <p>These projects get more individual attention because they need it.</p>
+          <p>We can help with project structure, technical direction, research, debugging, design decisions, scope and the moment when one idea has quietly turned into twelve.</p>
+          <p>You still make the project.</p>
+          <p>We help you make better decisions about it.</p>
+          <p>Mentored Project places are limited.</p>
+          <p>Not for manufactured exclusivity.</p>
+          <p>Because properly mentoring a substantial project takes proper attention.</p>
+        </section>
+      </section>
+
+      <section class="copy-section" id="teens-know">
+        <h2>You don’t need to know everything first.</h2>
+        <p>There isn’t a conveyor belt of Coding Level 1, Coding Level 2 and Coding Level 3 here.</p>
+        <p>We look at what you already know, what you’re interested in and what you’re ready to take on next.</p>
+        <p>Sometimes you need somebody to teach you something directly.</p>
+        <p>Sometimes you need an example.</p>
+        <p>Sometimes you need a second pair of eyes on a bug that has been wasting your afternoon.</p>
+        <p>And sometimes you already know enough technically.</p>
+        <p>What you need is help thinking through the project.</p>
+        <p>That shift matters.</p>
+        <p>The aim isn’t to become independent by never asking for help.</p>
+        <p>It’s to get better at knowing what to try, what to ask, what to test and what to do next.</p>
+      </section>
+
+      <section class="copy-section" id="teens-fun">
+        <h2>It can also be fun.</h2>
+        <p>Teen work can get technically sophisticated here.</p>
+        <p>The lab still doesn’t need to feel like school, an exam course or junior corporate training.</p>
+        <p>We’re not trying to turn every teenager into a software engineer.</p>
+        <p>We don’t organise our work around competitions.</p>
+        <p>And nobody needs to turn a hobby into a career plan for it to be worth taking seriously.</p>
+        <p>You are allowed to care deeply about making an excellent Roblox game because you want to make an excellent Roblox game.</p>
+        <p>Along the way, you may end up learning software architecture, design, research, project planning, accessibility, electronics, AI, debugging or how to explain a complicated idea to somebody else.</p>
+        <p>That tends to happen when the project is good enough to demand it.</p>
+      </section>
+
+      <section class="copy-section" id="teens-growing">
+        <h2>Growing up at the lab</h2>
+        <p>Tiarna started weekly sessions at QwertyKids in 2020 when she was nine. A few years later, she wrote about what coming here felt like from her side of the desk.</p>
+        <p>She wrote about coding, but also building things, learning new things, interacting with other people and being able to belong even if you’re quiet.</p>
+        <blockquote>At QwertyKids, you’ll never feel left out even if you’re not one to talk.</blockquote>
+        <p>She’s now 15, and the work has grown with her.</p>
+      </section>
+
+      <section class="copy-section" id="teens-start">
+        <h2>Want to make something?</h2>
+        <p>You don’t need a finished plan.</p>
+        <p>Bring a project, an idea, a technology you want to explore, a half-working prototype, or simply the feeling that you are done with tutorials for a while.</p>
+        <p>We can work from there.</p>
+        <ul class="cta-list" aria-label="Teen calls to action">
+          <li><a href="#teens-ways">Explore Teen Studio</a></li>
+          <li><a href="#teens-ways">See upcoming Studio Builds</a></li>
+          <li><a href="#teens-ways">Ask about a Mentored Project</a></li>
+        </ul>
+      </section>
+
+      <section class="copy-section" id="teens-examples">
+        <h2>What this can look like</h2>
+
+        <section>
+          <h3>Henry: Building a game system</h3>
+          <p>Henry first came to the lab as a teenager.</p>
+          <p>He was already interested in making an ambitious Roblox battleground game, and the project quickly became much more than writing individual scripts.</p>
+          <p>Combat involves attacks, cooldowns, player states, movement, blocking, health, UI, respawning and multiplayer communication. Each part affects the others.</p>
+          <p>So the work became about systems.</p>
+          <p>We’ve worked through those systems piece by piece, including one of the fundamental rules of multiplayer game development:</p>
+          <p><strong>Client asks. Server decides.</strong></p>
+          <p>As the project has grown, Henry has taken more responsibility for defining how things should behave before trying to build them.</p>
+          <p>He isn’t working through a Roblox course.</p>
+          <p>He is learning how to direct a complicated game project.</p>
+        </section>
+
+        <section>
+          <h3>Tiarna: Building for a real person</h3>
+          <p>A website becomes much more interesting when somebody is actually going to use it.</p>
+          <p>Tiarna’s ecommerce project began with HTML and CSS, then widened into the decisions around the code.</p>
+          <p>Who is the site for?</p>
+          <p>What do they need?</p>
+          <p>How should the information be organised?</p>
+          <p>What happens on a phone?</p>
+          <p>Is it accessible?</p>
+          <p>What is the difference between the domain, the hosting and the website itself?</p>
+          <p>Should this part be built from scratch at all?</p>
+          <p>The project has involved user needs, requirements, accessibility, infrastructure and platform choices alongside the code.</p>
+          <p>Because once a project is real, the code is only part of the job.</p>
+        </section>
+
+        <section>
+          <h3>Chloe: Developing a visual identity</h3>
+          <p>Chloe’s logo design work has been a different kind of technical project.</p>
+          <p>The tools matter, but the difficult part is judgement.</p>
+          <p>Trying directions.</p>
+          <p>Comparing them.</p>
+          <p>Working out what is distinctive and what is merely decoration.</p>
+          <p>Keeping the parts that strengthen the idea and removing the ones that don’t.</p>
+          <p>Seeing whether a design still works when it is smaller, simpler or used somewhere else.</p>
+          <p>Making another version when another version is useful.</p>
+          <p>Stopping when it isn’t.</p>
+          <p>That process belongs at Qwerty Labs just as much as programming does.</p>
+          <p>Creative technology includes deciding what to make and how it should feel, not only making the machinery underneath it work.</p>
+        </section>
+
+        <section>
+          <h3>Chloe + Tiarna: Project Code Cloud</h3>
+          <p>Project Code Cloud started with a problem we kept seeing while teaching.</p>
+          <p>A child writes code on a laptop.</p>
+          <p>The code moves through an online service and onto another device.</p>
+          <p>But where did it actually go?</p>
+          <p>Chloe and Tiarna built a physical model to make that invisible process visible.</p>
+          <p>The project combined coding, Raspberry Pi, electronics, LEDs, sound, physical construction and explanation in one interactive system.</p>
+          <p>It grew through testing, rebuilding and repeatedly asking whether another person would understand what they were seeing.</p>
+          <p>Project Code Cloud later became one of four Hardware projects chosen as a VIP judge favourite in the Raspberry Pi Foundation’s global Coolest Projects showcase, and the only Australian project among that judge’s favourites.</p>
+          <p>We don’t normally build things for competitions.</p>
+          <p>They built it because the problem was worth solving.</p>
+          <p><strong>The recognition came afterwards.</strong></p>
+        </section>
+      </section>
+    </article>
+
+    <article id="adults" aria-labelledby="adults-title">
+      <header class="page-header">
+        <h1 id="adults-title">Creative technology for grown-ups</h1>
+        <p class="lead">Have something you want to make?</p>
+        <p>An app. An interactive installation. A useful little tool. Something involving screens, sensors, light, code, AI or that mysterious box of electronics you bought with excellent intentions.</p>
+        <p>Qwerty Labs runs practical workshops for adults who want to understand enough technology to make ideas real.</p>
+        <p>You don’t need to arrive knowing the right software, the right hardware or all the correct technical words. That’s part of what we’re here for.</p>
+        <p><strong>Bring the idea. We’ll help you work out what you actually need to learn.</strong></p>
+      </header>
+
+      <nav class="section-nav" aria-label="Adult sections">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#adults-parts">Learn the parts you need</a></li>
+          <li><a href="#adults-idea">Start with an idea</a></li>
+          <li><a href="#adults-build">Want to build it?</a></li>
+          <li><a href="#adults-physical">Making something physical?</a></li>
+          <li><a href="#adults-tools">The tool depends on the thing</a></li>
+          <li><a href="#adults-well">Make it well</a></li>
+          <li><a href="#adults-developer">You don’t need to become a developer</a></li>
+          <li><a href="#adults-work">Built from doing the work</a></li>
+          <li><a href="#adults-run">How workshops run</a></li>
+          <li><a href="#adults-make">What do you want to make?</a></li>
+          <li><a href="#adults-travels">Tools change. Understanding travels.</a></li>
+        </ul>
+      </nav>
+
+      <section class="copy-section" id="adults-parts">
+        <h2>Learn the parts you need</h2>
+        <p>There isn’t one compulsory pathway through the lab.</p>
+        <p>One project might need an interface prototype and user flow. Another might need sensors, a microcontroller and a bit of code. A third might need both.</p>
+        <p>Our adult program is built from practical modules that can be taken on their own or combined around something bigger.</p>
+        <p>Take one workshop because you’re curious, come back next term for another, or build a pathway around something you genuinely want to make.</p>
+      </section>
+
+      <section class="copy-section" id="adults-idea">
+        <h2>Start with an idea</h2>
+        <p>Before choosing technology, it helps to understand the thing.</p>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>From Idea to Scope</h3>
+            <p>Take something fuzzy and turn it into a project you can work with: who it is for, what it needs to do, what matters now, what can wait, and what you need to find out before building it.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Designing Digital Products</h3>
+            <p>Explore how people move through apps, websites and digital services. Map journeys, organise information, make decisions about interaction and turn a feature list into something another human can actually use.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Prototype Your Interface</h3>
+            <p>Turn screen ideas into wireframes and clickable prototypes you can test, change and show to other people.</p>
+            <p>We’ll use a current prototyping tool that suits the job and teach you enough of it to keep working independently.</p>
+            <p>No mystery. No requirement to become a UX designer first.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="copy-section" id="adults-build">
+        <h2>Want to build it?</h2>
+        <p>Once the idea has shape, the tools start making more sense.</p>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Build With AI</h3>
+            <p>Use AI to prototype and build useful digital things while keeping enough understanding to direct the work, test it, change it and notice when the machine has confidently invented something unhelpful.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Write the Build Brief</h3>
+            <p>Learn how to explain a digital project clearly enough for a developer, collaborator or AI coding system to work from it: features, flows, behaviour, edge cases, integrations, constraints and what actually counts as finished.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Testing Things That Aren’t Finished Yet</h3>
+            <p>Find problems while they are still cheap and interesting. Test assumptions, prototypes and early builds before they become features nobody wants to touch.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="copy-section" id="adults-physical">
+        <h2>Making something physical?</h2>
+        <p>Not everything useful lives inside a browser.</p>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Physical Computing for Beginners</h3>
+            <p>Start connecting code to the physical world. Learn the basics of small computers and microcontrollers, inputs and outputs, and how to choose a board that actually suits the thing you want to make.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Sensors + Interaction</h3>
+            <p>Make things respond to the world around them: buttons, movement, distance, light, sound and other inputs.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Lights, Motors + Outputs</h3>
+            <p>Use code and electronics to make things happen: light something up, move something, make a sound, drive a display or trigger another system.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Interactive Installations</h3>
+            <p>Explore what happens when code, electronics, physical space and people meet. Develop an installation from interaction idea through to working prototype, then start thinking about the practical questions that appear when it has to survive outside your desk.</p>
+          </section>
+        </div>
+        <p>An installation pathway might move through:</p>
+        <p class="pathway">Idea → Interaction → Physical Computing → Sensors + Outputs → Prototype → Test → Install</p>
+        <p>A digital product might look more like:</p>
+        <p class="pathway">Idea → Scope → User Experience → Prototype → Build Brief → AI Build or Developer Handoff</p>
+      </section>
+
+      <section class="copy-section" id="adults-tools">
+        <h2>The tool depends on the thing</h2>
+        <p>Depending on what you’re making, we might use Figma or another prototyping tool, Arduino, Raspberry Pi, micro:bit, ESP32, Python, web technologies, AI coding tools, sensors, LEDs, motors, cameras, audio, APIs or something we haven’t needed yet.</p>
+        <p><strong>We teach the thing, not the tool.</strong></p>
+      </section>
+
+      <section class="copy-section" id="adults-well">
+        <h2>Make it well</h2>
+        <p>Getting something to work is not quite the same thing as making it good.</p>
+        <p>Across our workshops we also look at the things that are easy to miss when everyone is concentrating on getting the button to do something.</p>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Accessibility by Design</h3>
+            <p>Learn practical ways to make digital projects usable by more people and understand how accessibility standards such as WCAG affect everyday design and build decisions.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Safety by Design</h3>
+            <p>Think about foreseeable problems before they are buried inside the finished product: user controls, vulnerable users, unwanted behaviour, reporting and what happens when things go wrong.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Privacy + Data Awareness</h3>
+            <p>Understand what information your project collects, why it needs it, where it goes and when a seemingly small technical decision probably needs specialist advice.</p>
+          </section>
+        </div>
+        <p>These aren’t certificates or legal sign-offs.</p>
+        <p>They are part of learning how to ask better questions, write better briefs and recognise when something important has been overlooked.</p>
+      </section>
+
+      <section class="copy-section" id="adults-developer">
+        <h2>You don’t need to become a developer</h2>
+        <p>You might build something yourself, work with AI, or eventually hand the project to a developer, designer, engineer or fabricator.</p>
+        <p>The aim is not to turn everyone into every kind of specialist.</p>
+        <p>It is to give you enough understanding to stay involved in your own project.</p>
+        <ul class="copy-list">
+          <li>Change the prototype yourself.</li>
+          <li>Ask why something costs what it costs.</li>
+          <li>Understand what is and isn’t included in a quote.</li>
+          <li>Recognise when a build has wandered away from the brief.</li>
+          <li>Know when you can solve the problem yourself.</li>
+          <li>Know when it is time to bring in somebody who knows more.</li>
+        </ul>
+        <p><strong>High-end knowledge doesn’t need to be mysterious.</strong></p>
+      </section>
+
+      <section class="copy-section" id="adults-work">
+        <h2>Built from doing the work</h2>
+        <p>Qwerty Labs is led by DC, who has spent more than 20 years building digital products and services for organisations including the ABC, Microsoft, Clinical Excellence Commission, UTS, GetUp! and Radio National, and more than 10 years teaching creative technology at the lab.</p>
+        <p>That overlap matters. Knowing how things get made is useful. So is knowing how to explain the moving parts without turning them into a secret club.</p>
+      </section>
+
+      <section class="copy-section" id="adults-run">
+        <h2>How workshops run</h2>
+        <p>Some subjects work best over several weeks, with time in between to make things, break things and return with questions.</p>
+        <p>Others make excellent half-day or full-day weekend workshops.</p>
+        <p>Each term we’ll run a selection of modules and workshops, with others open for expressions of interest.</p>
+        <div class="cards">
+          <section class="copy-card">
+            <h3>Weekly Studio</h3>
+            <p>Short multi-week programs for subjects that benefit from practice, iteration and a project developing over time.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Weekend Labs</h3>
+            <p>Focused workshops for learning a particular skill, exploring a technology or getting something started.</p>
+          </section>
+          <section class="copy-card">
+            <h3>Expressions of Interest</h3>
+            <p>See something you’d like us to run? Add your name. Enough curious people is generally a very good reason to put something on the timetable.</p>
+          </section>
+        </div>
+        <p>You can join us for one workshop or keep building your own pathway through the lab across the year.</p>
+      </section>
+
+      <section class="copy-section" id="adults-make">
+        <h2>What do you want to make?</h2>
+        <p>You might be developing a business idea.</p>
+        <p>You might also be an artist, designer, producer, creative professional, small organisation or simply somebody with an oddly specific idea that ought to exist.</p>
+        <p>That’s fine.</p>
+        <p><strong>We’re interested in the making part.</strong></p>
+      </section>
+
+      <section class="copy-section" id="adults-travels">
+        <h2>Tools change. Understanding travels.</h2>
+        <p>We use real tools and real technology, chosen for the project in front of us.</p>
+        <p>But the lab isn’t a catalogue of software tutorials.</p>
+        <p>The useful thing is understanding what you are making, what the technology is doing, what good work looks like and how to make the next decision when the tool inevitably changes again.</p>
+        <p><strong>Bring an idea. Learn the parts you need to make it real.</strong></p>
+      </section>
+    </article>
+
+    <article id="the-lab" aria-labelledby="lab-title">
+      <header class="page-header">
+        <h1 id="lab-title">The lab</h1>
+      </header>
+
+      <nav class="section-nav" aria-label="The Lab sections">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#lab-first-link">I still remember making my first link</a></li>
+          <li><a href="#lab-avoided">I nearly avoided the whole thing</a></li>
+          <li><a href="#lab-first-lab">The first lab</a></li>
+          <li><a href="#lab-build-nothing">Sometimes the right thing to build is nothing</a></li>
+          <li><a href="#lab-bigger">Then things got bigger</a></li>
+          <li><a href="#lab-qwerty">And eventually, Qwerty</a></li>
+        </ul>
+      </nav>
+
+      <section class="copy-section" id="lab-first-link">
+        <h2>I still remember making my first link.</h2>
+        <p>It was 1997. I was at university, the web was still a very strange place, and my link went to NASA.</p>
+        <p>Of course it went to NASA.</p>
+        <p>I remember the click. I remember the page appearing. Mostly, I remember the buzz of realising that something had just happened on the screen because I made it happen.</p>
+        <p>I still get that feeling.</p>
+        <p>Not quite with the force of the first one. That would be exhausting.</p>
+        <p>But almost every time I make something work, there is still a tiny <em>ohhh, look at that.</em></p>
+        <p>That feeling has a lot to do with why Qwerty Labs exists.</p>
+      </section>
+
+      <section class="copy-section" id="lab-avoided">
+        <h2>I nearly avoided the whole thing</h2>
+        <p>I started a media degree in 1996 as a mature-age student who hadn’t finished high school.</p>
+        <p>I thought I might become a journalist. Maybe a director.</p>
+        <p>One of my lecturers told us about an extraordinary new resource called the internet, or the web, or possibly both. I was already slightly terrified by university and had only just worked out the library, so I made a deliberate decision to leave the new-fangled internet alone for a year.</p>
+        <p>A strong start to a career in technology.</p>
+        <p>Then I took a desktop publishing unit.</p>
+        <p>A lot of people seemed confused by it.</p>
+        <p>I wasn’t.</p>
+        <p>My thinking was roughly: well, this appears to be difficult for everyone else. Perhaps I should do more of it.</p>
+        <p>Not the worst career strategy I’ve ever had.</p>
+        <p>I graduated equal first in my year.</p>
+        <p>My big professional ambition was to work for the ABC one day, after I had gone away and accumulated enough experience to deserve it.</p>
+        <p><strong>My first job was at the ABC.</strong></p>
+      </section>
+
+      <section class="copy-section" id="lab-first-lab">
+        <h2>The first lab</h2>
+        <p>I became a web developer at ABC Science Online and worked at The Lab from 2000 to 2007.</p>
+        <p>Qwerty Labs isn’t named after it.</p>
+        <p>That is just a rather excellent coincidence.</p>
+        <p>The Lab was exactly what the name suggested: a place to experiment.</p>
+        <p>This was an internet before social media managers, UX teams, podcast producers and a great many other job titles we now take for granted.</p>
+        <p>Often the question wasn’t simply <em>how do we build this?</em></p>
+        <p>It was: <strong>What even is this?</strong></p>
+        <p>And then: <strong>How could people use it?</strong></p>
+        <p>I worked on online communities, interactive science, emerging audio and video, information architecture, user experience and whatever else turned up next.</p>
+        <p>I moderated the Self-Service Science Forum, the ABC community in which the earliest documented use of the word selfie appeared.</p>
+        <p>There is a very good chance I was the person who pushed that post live, although sadly nobody realised we were supposed to preserve the moment for future dictionaries.</p>
+        <p>I developed work for Dr Karl Kruszelnicki and the Surfing Scientist.</p>
+        <p>I produced early podcast work for Dr Karl.</p>
+        <p>After leaving The Lab, one of my first commissions was designing the user experience for Radio National’s enormous podcast library.</p>
+        <p>The technology kept changing.</p>
+        <p>The interesting question stayed remarkably similar:</p>
+        <p><strong>What can we do with this that is useful, interesting or just a bit wonderful?</strong></p>
+      </section>
+
+      <section class="copy-section" id="lab-build-nothing">
+        <h2>Sometimes the right thing to build is nothing</h2>
+        <p>Not long afterwards, GetUp! commissioned me to design a system that would help it reach more young people.</p>
+        <p>The brief was for an events calendar where people could create and share events.</p>
+        <p>I did the information architecture. They loved it.</p>
+        <p>Then I showed them Facebook.</p>
+        <p>And enthusiastically suggested Twitter.</p>
+        <p>They paid me for the IA and didn’t build the product.</p>
+        <p>This remains one of my favourite projects.</p>
+        <p>Technology is a tool, not an obligation.</p>
+        <p>Sometimes the clever solution is a beautifully designed new system.</p>
+        <p><strong>Sometimes it is: you already have what you need.</strong></p>
+      </section>
+
+      <section class="copy-section" id="lab-bigger">
+        <h2>Then things got bigger</h2>
+        <p>At Microsoft Australia I led digital work across its developer, IT professional and education communities.</p>
+        <p>For TechEd Australia, there was budget available for a new delegate-engagement idea. Three major marketing agencies pitched.</p>
+        <p>I had an idea too.</p>
+        <p><strong>Mine got funded.</strong></p>
+        <p>We built a Windows 10-style event website and a giant community screen that turned what was happening across the conference into something delegates could see and participate in together.</p>
+        <p>The website ended up appearing as the lead image in media stories about TechEd, which I remain quietly delighted by because there were thousands of actual humans at the event available to photograph.</p>
+        <p>I was interviewed about the community screen by Gizmodo.</p>
+        <p>Microsoft later took the idea to other TechEd events around the world.</p>
+        <p>For the 2012 Imagine Cup world finals in Sydney, I designed the UX and leaderboard for the event app and spent the event getting people to actually use it.</p>
+        <p>That last bit matters.</p>
+        <p>I have never been terribly interested in technology that works beautifully in a meeting room and nowhere else.</p>
+        <p><strong>Put it in front of people. See what they do. Then you know something.</strong></p>
+      </section>
+
+      <section class="copy-section" id="lab-qwerty">
+        <h2>And eventually, Qwerty</h2>
+        <p>When I started QwertyKids in 2015, I had a fairly ridiculous ambition.</p>
+        <p>I wanted to create something like The Lab for children.</p>
+        <p>Not a smaller version of professional technology.</p>
+        <p>Not endless exercises designed to prepare them for some theoretical future job.</p>
+        <p>A place where they could encounter interesting technology, make things with it, follow ideas, break things occasionally, ask peculiar questions and discover what they were capable of doing.</p>
+        <p>It has taken ten years to properly understand how big that idea was.</p>
+        <p>Because it turns out it was never only about children.</p>
+        <p>And it was never really only about coding.</p>
+        <p>Technology now wanders through art, music, games, electronics, storytelling, design, artificial intelligence, robotics, physical computing, science and things that are difficult to put neatly under any heading at all.</p>
+        <p>Good.</p>
+        <p>We like things that don’t fit neatly under headings.</p>
+        <p>That is why QwertyKids has become <strong>Qwerty Labs</strong>.</p>
+        <p>The lab is for children, teenagers and adults.</p>
+        <p>It is a place to learn, certainly.</p>
+        <p>But also to experiment, build, investigate, make strange connections and occasionally follow an idea simply because somebody says: <strong>“Hang on. What if we tried this?”</strong></p>
+        <p>That first hyperlink to NASA was nearly thirty years ago.</p>
+        <p><strong>I’m still chasing the click.</strong></p>
+        <p><strong>Curious technology for creative people.</strong></p>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Qwerty Labs Copy Library</strong> · semantic HTML · working source of truth · updated 5 October 2026.</p>
+      <p>Public naming rule: <strong>Qwerty Labs</strong> for the full brand, <strong>the lab</strong> conversationally, and <strong>QwertyKids</strong> only where the history requires it.</p>
+    </div>
+  </footer>
+</body>
+</html>
