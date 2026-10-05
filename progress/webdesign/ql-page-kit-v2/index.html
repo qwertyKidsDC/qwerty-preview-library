@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>Qwerty Labs Page Kit v2 — Graphics First</title>
   <style>
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&family=Patrick+Hand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&display=swap");
 
 :root {
   --blue: #4C69E3;
@@ -17,7 +17,7 @@
   --ink: #020020;
   --rail: 912px;
   --mono: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
-  --hand: "Patrick Hand", cursive;
+  --hand: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
 }
 * { box-sizing: border-box; }
 html,body { margin:0; background: var(--ink); }
@@ -36,7 +36,7 @@ button { font: inherit; }
 .page-rail { width:min(var(--rail), calc(100% - 60px)); margin:0 auto; }
 .site-header {
   min-height: 126px;
-  display:grid; grid-template-columns: 372px 1fr 38px; gap:20px; align-items:start;
+  display:grid; grid-template-columns: 372px 1fr; gap:20px; align-items:start;
   padding-top: 21px;
 }
 .brand { display:inline-flex; flex-direction:column; align-items:flex-start; width:max-content; }
@@ -67,7 +67,7 @@ button { font: inherit; }
 .project { display:grid; grid-template-columns: 38% 62%; gap:16px; align-items:end; margin-top: 34px; min-height: 400px; }
 .project-copy { position:relative; min-height: 334px; padding: 63px 26px 28px 38px; background: linear-gradient(180deg, rgba(6,12,36,.82), rgba(2,5,17,.55)); }
 .project-label { position:absolute; left:0; top:-12px; width: 378px; }
-.project-copy h2 { margin:0 0 18px; font-size: 32px; line-height:1.08; letter-spacing:-.04em; font-family: system-ui, sans-serif; font-weight:800; }
+.project-copy h2 { margin:0 0 18px; font-size: 32px; line-height:1.08; letter-spacing:-.04em; font-family: var(--mono); font-weight:700; }
 .project-copy p { margin:0; font-size:17px; line-height:1.4; max-width: 270px; }
 .project-button { display:inline-flex; align-items:center; gap:14px; margin-top:26px; padding: 11px 16px; border:2px solid rgba(241,248,248,.92); font-size:13px; text-transform:uppercase; letter-spacing:.16em; }
 .project-art { position:relative; min-height: 365px; }
@@ -139,15 +139,12 @@ button { font: inherit; }
           <span>Creative Technology Studio</span>
         </a>
         <nav class="top-nav" aria-label="Primary">
-          <a href="#">Ideas</a>
-          <a href="#">Tools</a>
-          <a href="#">Projects</a>
-          <a href="#">People</a>
+          <a href="../../copy/kids/">Kids</a>
+          <a href="../../copy/teens/">Teens</a>
+          <a href="../../copy/adults/">Adults</a>
+          <a href="../../copy/the-lab/">The Lab</a>
         </nav>
-        <button class="menu-button" aria-label="Open menu">
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNOCAxNGgzMk04IDI0aDMyTTggMzRoMzIiLz48L3N2Zz4=" alt="">
-        </button>
-      </header>
+</header>
 
       <section class="hero">
         <div class="hero-copy">
@@ -211,10 +208,10 @@ button { font: inherit; }
           <span>Creative Technology Studio</span>
         </a>
         <nav class="footer-nav" aria-label="Footer">
-          <a href="#">Ideas</a>
-          <a href="#">Tools</a>
-          <a href="#">Projects</a>
-          <a href="#">People</a>
+          <a href="../../copy/kids/">Kids</a>
+          <a href="../../copy/teens/">Teens</a>
+          <a href="../../copy/adults/">Adults</a>
+          <a href="../../copy/the-lab/">The Lab</a>
         </nav>
         <div class="socials" aria-label="Social media">
           <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMyI+PHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOSIvPjxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjgiLz48Y2lyY2xlIGN4PSIzNCIgY3k9IjE0IiByPSIyIiBmaWxsPSJjdXJyZW50Q29sb3IiIHN0cm9rZT0ibm9uZSIvPjwvc3ZnPg==" alt="Instagram">
