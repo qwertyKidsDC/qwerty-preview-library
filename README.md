@@ -1,5 +1,7 @@
 # Qwerty Preview Library
 
+> **DEPLOY RULE:** When DC asks to build or update a web preview, deploy it to GitHub Pages by default. Do not stop at a sandbox ZIP/file unless DC explicitly asks for a local-only artefact.
+
 Working previews of Qwerty Labs projects, teaching artefacts and experiments.
 
 This repository is published directly from `main` with GitHub Pages.
