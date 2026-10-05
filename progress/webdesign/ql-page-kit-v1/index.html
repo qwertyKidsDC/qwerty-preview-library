@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Qwerty Labs — Page Kit v1</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --blue: #4C69E3;
@@ -15,8 +15,8 @@
   --pale: #F1F8F8;
   --ink: #020020;
   --rail: 912px;
-  --hand: "Patrick Hand", "Comic Neue", "Comic Sans MS", cursive;
-  --mono: "Atkinson Hyperlegible Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --hand: "Atkinson Hyperlegible", Arial, sans-serif;
+  --mono: "Atkinson Hyperlegible", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -410,6 +410,44 @@ button { font: inherit; }
   .socials { justify-content: flex-start; }
 }
 
+
+/* QL live-copy navigation + typography update */
+body, body * {
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif !important;
+}
+body { font-size: 18px; }
+.site-header {
+  grid-template-columns: 372px minmax(0,1fr) !important;
+}
+.menu-button { display:none !important; }
+.top-nav,
+.footer-nav {
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif !important;
+  font-weight:700;
+  letter-spacing:.045em;
+}
+.top-nav {
+  gap:24px;
+  font-size:18px;
+  flex-wrap:wrap;
+}
+.top-nav a,
+.footer-nav a {
+  transform:none !important;
+}
+@media (max-width: 760px) {
+  .site-header {
+    grid-template-columns: 1fr !important;
+    min-height:auto;
+    padding-bottom:20px;
+  }
+  .top-nav {
+    justify-content:flex-start;
+    gap:12px 18px;
+    padding-top:0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -426,10 +464,6 @@ button { font: inherit; }
         <a href="#projects">Projects</a>
         <a href="#people">People</a>
       </nav>
-
-      <button class="menu-button" type="button" aria-label="Open menu">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNOCAxNGgzMk04IDI0aDMyTTggMzRoMzIiLz48L3N2Zz4=" alt="">
-      </button>
     </header>
 
     <main>
@@ -534,10 +568,10 @@ button { font: inherit; }
       </div>
 
       <nav class="footer-nav" aria-label="Footer">
-        <a href="#ideas">Ideas</a>
-        <a href="#tools">Tools</a>
-        <a href="#projects">Projects</a>
-        <a href="#people">People</a>
+        <a href="./kids/">Kids</a>
+        <a href="./teens/">Teens</a>
+        <a href="./adults/">Adults</a>
+        <a href="./the-lab/">The Lab</a>
       </nav>
 
       <div class="socials" aria-label="Social links">
