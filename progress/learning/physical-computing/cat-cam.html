@@ -1,0 +1,50 @@
+<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Lucky Cam / Qwerty Labs</title><link rel="stylesheet" href="styles.css"></head><body data-deck="cat-cam">
+<header class="sitehead"><div class="brand"><b>qwerty</b>labs</div><nav>
+<a href="index.html">Hub</a><a href="pi-basics.html">Pi basics</a><a href="electronics-gpio.html">Electronics + GPIO</a><a href="components.html">Components</a><a href="cat-cam.html" aria-current="page">Cat Cam</a>
+</nav></header>
+<section class="hero"><div><div class="kicker">QK / LESSONS · PROJECT</div><h1>Lucky Cam.</h1><p>Motion triggers a photo. The newest image replaces the old one. Build each subsystem first, then connect them.</p></div><figure class="heroimg"><img src="assets/camera-pir.svg" alt=""></figure></section>
+<div class="deckbar"><span class="eyebrow">Studio deck</span><div class="progress"><span data-progress></span></div><span class="count" data-count></span></div>
+<main class="deck"><section class="slide" data-accent="orange"><div class="eyebrow">project · 01</div><h2>Lucky Cam: the system</h2><p class="lead">Lucky walks past → PIR notices movement → Python triggers camera → newest photo replaces the old one → a web page shows the latest image.</p><div class="route"><a><small>Input</small><b>PIR</b></a><a><small>Logic</small><b>Python</b></a><a><small>Capture</small><b>Camera</b></a><a><small>Publish</small><b>latest.jpg</b></a></div><div class="rule">We will build one reliable box at a time instead of debugging everything at once.</div></section><section class="slide" data-accent="green"><div class="eyebrow">project · 02</div><h2>Mini build: detect motion</h2><p>Connect your PIR according to the labels on your exact module. Use a GPIO Zero <code>MotionSensor</code>.</p><pre class="code">from gpiozero import MotionSensor
+
+pir = MotionSensor(4)
+
+print("Waiting for movement...")
+pir.wait_for_motion()
+print("Something moved")</pre><div class="success">Wave a warm hand across the sensor. The message should appear once motion is detected.</div></section><section class="slide" data-accent="blue"><div class="eyebrow">project · 03</div><h2>Mini build: make motion visible</h2><p>Add the LED circuit from the GPIO deck. This gives you a visible test before the camera enters the system.</p><pre class="code">from gpiozero import MotionSensor, LED
+
+pir = MotionSensor(4)
+led = LED(17)
+
+pir.when_motion = led.on
+pir.when_no_motion = led.off
+
+input("Press Enter to stop")</pre><div class="rule">If this works, the PIR and GPIO logic are proven.</div></section><section class="slide" data-accent="pink"><div class="eyebrow">project · 04</div><h2>Attach the camera safely</h2><div class="twocol"><figure class="imagecard"><img src="assets/camera-pir.svg" alt="Stylised PIR sensor and Raspberry Pi camera module"></figure><div><ol><li>Shut the Pi down.</li><li>Remove power.</li><li>Identify the correct camera connector for your Pi model.</li><li>Open the connector latch carefully.</li><li>Insert the ribbon cable in the correct orientation for that model.</li><li>Close the latch; then restore power.</li></ol><div class="warning">Do not copy ribbon orientation from a random photo. Pi models and cable types differ.</div></div></div></section><section class="slide" data-accent="orange"><div class="eyebrow">project · 05</div><h2>Camera-only test: preview</h2><p>Current Raspberry Pi OS uses the <code>rpicam-*</code> camera tools.</p><pre class="code terminal">rpicam-hello</pre><p>A preview should appear for a few seconds. For an open-ended preview:</p><pre class="code terminal">rpicam-hello --timeout 0</pre><p>Use <code>Ctrl+C</code> to stop.</p><div class="success">Do not move on until the camera works by itself.</div></section><section class="slide" data-accent="green"><div class="eyebrow">project · 06</div><h2>Camera-only test: take a still</h2><pre class="code terminal">mkdir -p ~/pi-projects/cat-cam
+cd ~/pi-projects/cat-cam
+rpicam-jpeg -o test.jpg</pre><p>Open <code>test.jpg</code>. Frame the spot where Lucky is likely to walk.</p><div class="rule">Hardware first. Framing second. Python third.</div></section><section class="slide" data-accent="blue"><div class="eyebrow">project · 07</div><h2>Take a photo with Python</h2><p>Picamera2 is the current Python camera library on Raspberry Pi OS.</p><pre class="code">from picamera2 import Picamera2
+from time import sleep
+
+camera = Picamera2()
+camera.start()
+sleep(2)
+camera.capture_file("latest.jpg")
+camera.stop()
+
+print("Photo saved")</pre><div class="success">Run it twice. The second capture should replace <code>latest.jpg</code>.</div></section><section class="slide" data-accent="pink"><div class="eyebrow">project · 08</div><h2>Combine motion + camera</h2><pre class="code">from gpiozero import MotionSensor
+from picamera2 import Picamera2
+from time import sleep
+
+pir = MotionSensor(4)
+camera = Picamera2()
+camera.start()
+sleep(2)
+
+print("Lucky Cam is watching...")
+
+while True:
+    pir.wait_for_motion()
+    camera.capture_file("latest.jpg")
+    print("New photo!")
+    pir.wait_for_no_motion()</pre><div class="rule">The final <code>wait_for_no_motion()</code> prevents one continuous movement from immediately firing photo after photo.</div></section><section class="slide" data-accent="orange"><div class="eyebrow">project · 09</div><h2>Make the latest image viewable</h2><p>First prove the idea on your local network. Put a tiny <code>index.html</code> beside <code>latest.jpg</code>, then serve the folder:</p><pre class="code terminal">cd ~/pi-projects/cat-cam
+python3 -m http.server 8000</pre><p>Another device on the same network can open the Pi's address and view the folder/page.</p><div class="warning">This is a local test, not safe public internet hosting. Public publishing needs a deliberate upload/hosting method.</div></section><section class="slide" data-accent="green"><div class="eyebrow">project · 10</div><h2>Next build: publish safely</h2><p class="lead">The capture system is now independent from the publishing system. That is exactly what we want.</p><div class="threecol"><div class="panel"><h3>Capture</h3><p>Always overwrite <code>latest.jpg</code>.</p></div><div class="panel"><h3>Upload</h3><p>Send that file to a chosen web endpoint using credentials stored safely.</p></div><div class="panel"><h3>Page</h3><p>Refresh or cache-bust so visitors see the newest Lucky.</p></div></div><div class="rule">Choose the hosting/upload method separately, then add it as Cat Cam 04. The Raspberry Pi and electronics foundations remain reusable.</div></section></main>
+<nav class="decknav"><button data-prev>← Previous</button><button class="primary" data-next>Complete + next →</button><div class="dots" aria-hidden="true"></div></nav>
+<footer class="footer">QK / LESSONS · PHYSICAL COMPUTING FOUNDATIONS · QWERTY LABS</footer><script src="deck.js"></script></body></html>
