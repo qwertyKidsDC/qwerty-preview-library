@@ -56,17 +56,58 @@ iframe.addEventListener('load',()=>{
       }
     `;
     doc.head.appendChild(style);
+    // Independently anchored footer artwork. Do not rely on the old bottom
+    // photo's positioning, clipping or opacity: that was why it disappeared.
+    const lower=doc.createElement('div');
+    lower.id='ql-independent-bottom-art';
+    lower.setAttribute('aria-hidden','true');
+    site.insertBefore(lower,site.firstChild);
+    const bottomCss=doc.createElement('style');
+    bottomCss.id='ql-independent-bottom-art-css';
+    bottomCss.textContent=`
+      html body .site[data-scene] {
+        position:relative!important;
+        isolation:isolate!important;
+      }
+      html body .site[data-scene] .bg-scene-bottom__photo {
+        background-image:none!important;
+      }
+      html body .site[data-scene] #ql-independent-bottom-art {
+        position:absolute!important;
+        left:0!important;
+        right:0!important;
+        bottom:0!important;
+        height:clamp(420px,48vw,760px)!important;
+        display:block!important;
+        visibility:visible!important;
+        opacity:1!important;
+        pointer-events:none!important;
+        z-index:0!important;
+        background-image:url("${bottomImage}")!important;
+        background-repeat:no-repeat!important;
+        background-position:center top!important;
+        background-size:cover!important;
+        -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 13%,rgba(0,0,0,.9) 32%,#000 54%)!important;
+        mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 13%,rgba(0,0,0,.9) 32%,#000 54%)!important;
+      }
+      html body .site[data-scene] > :not(#ql-independent-bottom-art):not(.bg-scene):not(.bg-scene-bottom) {
+        position:relative;
+        z-index:1;
+      }
+    `;
+    doc.head.appendChild(bottomCss);
     const topNeedle=topImage.slice(0,68);
     const bottomNeedle=bottomImage.slice(0,68);
     const checks=[
       [photo, undefined, topNeedle, 'main top image'],
       [photo, '::after', topNeedle, 'upper fade image'],
-      [bottomPhoto, undefined, bottomNeedle, 'lower image']
+      [lower, undefined, bottomNeedle, 'independent footer image']
     ];
     for(const [element,pseudo,needle,label] of checks) {
        if(!win.getComputedStyle(element,pseudo).backgroundImage.includes(needle))
           throw Error(label+' did not update.');
     }
+    if(lower.getBoundingClientRect().height < 300) throw Error('Independent bottom image is not visible at useful height.');
     iframe.style.visibility='visible';
     status.textContent='Two-image background • independent preview';
     setTimeout(()=>status.remove(),4500);
