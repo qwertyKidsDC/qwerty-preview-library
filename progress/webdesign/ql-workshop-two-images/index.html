@@ -90,10 +90,6 @@ iframe.addEventListener('load',()=>{
         -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 13%,rgba(0,0,0,.9) 32%,#000 54%)!important;
         mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 13%,rgba(0,0,0,.9) 32%,#000 54%)!important;
       }
-      html body .site[data-scene] > :not(#ql-independent-bottom-art):not(.bg-scene):not(.bg-scene-bottom) {
-        position:relative;
-        z-index:1;
-      }
     `;
     doc.head.appendChild(bottomCss);
     const topNeedle=topImage.slice(0,68);
