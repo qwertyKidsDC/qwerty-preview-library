@@ -759,6 +759,26 @@ a{color:inherit;text-decoration:none}
  .bg-scene__photo{background-size:cover!important;}
 }
 
+
+/* Scale correction: restore v3.7 photo geometry; fade only within its bounds. */
+:root {
+ --scene-height:clamp(285px,36vw,740px);
+ --scene-bottom-height:clamp(260px,28vw,520px);
+}
+.bg-scene__photo {
+ -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.88) 64%,rgba(0,0,0,.5) 77%,rgba(0,0,0,.12) 91%,transparent 100%)!important;
+ mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.88) 64%,rgba(0,0,0,.5) 77%,rgba(0,0,0,.12) 91%,transparent 100%)!important;
+}
+.bg-scene__tones {
+ -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%)!important;
+ mask-image:linear-gradient(to bottom,#000 55%,transparent 100%)!important;
+}
+@media(max-width:750px){
+ :root{--scene-height:clamp(200px,58vw,370px);--scene-bottom-height:300px;}
+ .bg-scene__photo{background-size:100% auto!important;}
+ .bg-scene-bottom__photo{background-size:auto 100%!important;}
+}
+
 </style>
 
 <script>
