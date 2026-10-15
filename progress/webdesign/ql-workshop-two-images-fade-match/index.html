@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Qwerty Labs — Reverse-top workshop, matched bottom fade preview</title>
+<style>
+  html,body { margin:0;width:100%;height:100%;background:#050a13;overflow:hidden; }
+  #page { width:100%;height:100%;border:0;display:block;visibility:hidden; }
+  #status {position:fixed;left:16px;bottom:16px;z-index:99;color:#f1f8f8;background:#020020;
+    border:1px solid #555;padding:10px 13px;font:14px Arial,sans-serif;}
+  #status.error {background:#9c1524;border-color:white;}
+</style>
+</head>
+<body>
+<iframe id="page" title="Qwerty Labs workshop — reversed top, unchanged bottom" src="../ql-workshop-two-images/?v=bottom-corrected"></iframe>
+<div id="status" role="status">Preparing matched fade preview…</div>
+<script>
+// New, independent preview. Read the confirmed two-image page as our source of truth.
+// Mirror ONLY the top image pixels, not the webpage, positioning, masks or bottom image.
+// This avoids altering any pre-existing CSS transforms or background geometry.
+const frame = document.getElementById('page');
+const status = document.getElementById('status');
+let processing = false;
+let complete = false;
+function fail(error) {
+  status.className = 'error';
+  status.textContent = 'Preview error: ' + error.message;
+}
+async function applyReversedTop() {
+  if (processing || complete) return;
+  try {
+    const sourceDoc = frame.contentDocument;
+    const sourceFrame = sourceDoc && sourceDoc.getElementById('page');
+    const doc = sourceFrame && sourceFrame.contentDocument;
+    const win = sourceFrame && sourceFrame.contentWindow;
+    const site = doc && doc.querySelector('.site');
+    const photo = doc && doc.querySelector('.bg-scene__photo');
+    const footer = doc && doc.querySelector('.bg-scene-bottom__photo');
+    if (!sourceFrame || !doc || !win || !site || !photo || !footer
+        || sourceFrame.style.visibility !== 'visible') return;
+
+    const originalTop = win.getComputedStyle(photo).backgroundImage;
+    const originalFooter = win.getComputedStyle(footer).backgroundImage;
+    const match = originalTop.match(/url\(["']?(data:image\/webp;base64,[A-Za-z0-9+/=]+)["']?\)/i);
+    if (!match) throw Error('Confirmed top image was not found.');
+    if (!originalFooter || originalFooter === 'none') throw Error('Original bottom image is missing.');
+    if (originalFooter === originalTop) throw Error('Top and bottom images must remain separate.');
+    processing = true;
+
+    const picture = new Image();
+    picture.src = match[1];
+    await picture.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = picture.naturalWidth;
+    canvas.height = picture.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw Error('Image conversion unavailable.');
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(picture, 0, 0);
+    const reversedTop = canvas.toDataURL('image/webp', 0.98);
+    if (reversedTop === match[1]) throw Error('Top artwork was not reversed.');
+
+    const style = doc.createElement('style');
+    style.id = 'ql-reversed-top-only';
+    style.textContent = `
+      /* Pixel-mirrored TOP artwork; unchanged site styling, fade and bottom image. */
+      html body .site[data-scene] .bg-scene__photo,
+      html body .site[data-scene] .bg-scene__photo::after {
+        background-image: url("${reversedTop}") !important;
+      }
+    `;
+    doc.head.appendChild(style);
+
+    // Preserve the accepted reverse-top artwork, geometry and top fade unchanged.
+    // The footer has the correct distinct image, but its darkening layers stack
+    // on top of the image and effectively hide it. Fade the PHOTO, not a dark veil.
+    const bottomStyle = doc.createElement('style');
+    bottomStyle.id = 'ql-matched-bottom-fade';
+    bottomStyle.textContent = `
+      .site[data-scene] .bg-scene-bottom__photo {
+        -webkit-mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+        mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+      }
+      /* Remove the double darkening which made the footer nearly black.
+         The actual footer image retains its original colours and position. */
+      .site[data-scene] .bg-scene-bottom__tones,
+      .site[data-scene] .bg-scene-bottom__vignette {
+        opacity:0!important;
+        background:transparent!important;
+      }
+    `;
+    doc.head.appendChild(bottomStyle);
+    const appliedBottomMask = win.getComputedStyle(footer).maskImage
+      || win.getComputedStyle(footer).webkitMaskImage;
+    if (!appliedBottomMask.includes('45%')) throw Error('Corrected bottom fade was not applied.');
+
+    const topNow = win.getComputedStyle(photo).backgroundImage;
+    const overlay = win.getComputedStyle(photo, '::after');
+    const footerNow = win.getComputedStyle(footer).backgroundImage;
+    if (!topNow.includes(reversedTop.slice(0,90))) throw Error('Reversed top was not applied.');
+    if (overlay.content !== 'none' && overlay.display !== 'none'
+        && !overlay.backgroundImage.includes(reversedTop.slice(0,90))) {
+      throw Error('Top fade is using the wrong image.');
+    }
+    if (originalFooter !== footerNow) throw Error('Bottom image changed unexpectedly.');
+    frame.style.visibility = 'visible';
+    status.textContent = 'Reversed top + bottom fade corrected • verified';
+    complete = true;
+    setTimeout(() => status.remove(), 3500);
+  } catch(e) { fail(e); }
+  finally { processing = false; }
+}
+frame.addEventListener('load', () => {
+  const sourceDoc = frame.contentDocument;
+  const sourceFrame = sourceDoc && sourceDoc.getElementById('page');
+  if (!sourceFrame) { fail(Error('Two-image source page did not load.')); return; }
+  sourceFrame.addEventListener('load', applyReversedTop);
+  const sourceStatus = sourceDoc.getElementById('status');
+  if (sourceStatus) {
+    new MutationObserver(applyReversedTop).observe(sourceStatus, {
+      attributes:true, childList:true, subtree:true, characterData:true
+    });
+  }
+  applyReversedTop();
+});
+setTimeout(() => {
+  if (!complete && !status.classList.contains('error'))
+    fail(Error('The source image did not finish loading.'));
+}, 25000);
+</script>
+</body>
+</html>
