@@ -74,6 +74,37 @@ async function applyReversedTop() {
     `;
     doc.head.appendChild(style);
 
+    // Match the bottom cap to the top: reverse the fade direction, not the image.
+    // The top artwork, geometry and fade remain untouched; this only corrects
+    // the bottom's near-opaque tone overlay and overly slow transparency ramp.
+    const bottomStyle = doc.createElement('style');
+    bottomStyle.id = 'ql-matched-bottom-fade';
+    bottomStyle.textContent = `
+      .site[data-scene] .bg-scene-bottom__photo {
+        -webkit-mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+        mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+      }
+      .site[data-scene] .bg-scene-bottom__tones {
+        background:rgba(4,9,18,var(--scene-top))!important;
+        -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 45%)!important;
+        mask-image:linear-gradient(to bottom,transparent 0%,#000 45%)!important;
+      }
+      .site[data-scene] .bg-scene-bottom__vignette {
+        background:radial-gradient(ellipse 61% 80% at 50% 56%,
+          transparent 24%,rgba(3,8,16,var(--scene-vignette)) 100%)!important;
+        -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 45%)!important;
+        mask-image:linear-gradient(to bottom,transparent 0%,#000 45%)!important;
+      }
+    `;
+    doc.head.appendChild(bottomStyle);
+    const appliedBottomMask = win.getComputedStyle(footer).maskImage
+      || win.getComputedStyle(footer).webkitMaskImage;
+    if (!appliedBottomMask.includes('45%')) throw Error('Corrected bottom fade was not applied.');
+
     const topNow = win.getComputedStyle(photo).backgroundImage;
     const overlay = win.getComputedStyle(photo, '::after');
     const footerNow = win.getComputedStyle(footer).backgroundImage;
