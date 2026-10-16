@@ -97,6 +97,17 @@ async function applyReversedTop() {
       }
     `;
     doc.head.appendChild(bottomStyle);
+
+    // Only replace the footer artwork; keep all existing geometry and fades.
+    const approvedFooterURL = new URL('qwerty-footer-cropped-51px-top.png', location.href).href;
+    const footerImageStyle = doc.createElement('style');
+    footerImageStyle.id = 'ql-approved-footer-image';
+    footerImageStyle.textContent = `
+      .site[data-scene] .bg-scene-bottom__photo {
+        background-image: url("${approvedFooterURL}") !important;
+      }
+    `;
+    doc.head.appendChild(footerImageStyle);
     const appliedBottomMask = win.getComputedStyle(footer).maskImage
       || win.getComputedStyle(footer).webkitMaskImage;
     if (!appliedBottomMask.includes('45%')) throw Error('Corrected bottom fade was not applied.');
@@ -109,7 +120,7 @@ async function applyReversedTop() {
         && !overlay.backgroundImage.includes(reversedTop.slice(0,90))) {
       throw Error('Top fade is using the wrong image.');
     }
-    if (originalFooter !== footerNow) throw Error('Bottom image changed unexpectedly.');
+    if (!footerNow.includes(approvedFooterURL)) throw Error('Approved footer image not applied.');
     frame.style.visibility = 'visible';
     status.textContent = 'Reversed top + bottom fade corrected • verified';
     complete = true;
