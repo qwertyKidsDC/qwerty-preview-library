@@ -92,16 +92,37 @@ function applyApprovedTop() {
 
     doc.head.appendChild(footerImageStyle);
 
-    // Footer51 hides the old bottom tones overlay; this reconnects Bottom Dim.
-    // 32% => brightness 1.0, preserving the approved image appearance.
+    // Match Top Dim: use a dark overlay instead of filtering the photo.
     const dimStyle = doc.createElement('style');
-    dimStyle.id = 'ql-bottom-dim-operational';
+    dimStyle.id = 'ql-bottom-dim-matched-to-top';
     dimStyle.textContent = `
       .site[data-scene] .bg-scene-bottom__photo {
-        filter: brightness(calc(1.32 - var(--scene-bottom, .32))) !important;
+        filter:none !important;
+      }
+      .site[data-scene] .bg-scene-bottom__tones {
+        opacity:1 !important;
+        background:rgba(4,9,18,var(--scene-bottom)) !important;
+        -webkit-mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%) !important;
+        mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%) !important;
       }
     `;
     doc.head.appendChild(dimStyle);
+
+    // Previously 32% meant neutral brightness. Now 0% is neutral:
+    // preserve the approved footer brightness on load and after Reset.
+    const bottomSlider = doc.getElementById('bottom-dim');
+    if (!bottomSlider) throw Error('Bottom Dim control was not found.');
+    function resetBottomDim() {
+      bottomSlider.value = '0';
+      bottomSlider.dispatchEvent(new win.Event('input', { bubbles:true }));
+    }
+    resetBottomDim();
+    const resetButton = doc.getElementById('reset-look');
+    if (resetButton) resetButton.addEventListener('click', resetBottomDim);
     const appliedBottomMask = win.getComputedStyle(footer).maskImage
       || win.getComputedStyle(footer).webkitMaskImage;
     if (!appliedBottomMask.includes('45%')) throw Error('Corrected bottom fade was not applied.');
