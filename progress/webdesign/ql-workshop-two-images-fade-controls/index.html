@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Qwerty Labs — Workshop fade controls</title>
+<style>
+  html,body { margin:0;width:100%;height:100%;background:#050a13;overflow:hidden; }
+  #page { width:100%;height:100%;border:0;display:block;visibility:hidden; }
+  #status {position:fixed;left:16px;bottom:16px;z-index:99;color:#f1f8f8;background:#020020;
+    border:1px solid #555;padding:10px 13px;font:14px Arial,sans-serif;}
+  #status.error {background:#9c1524;border-color:white;}
+</style>
+</head>
+<body>
+<iframe id="page" title="Qwerty Labs workshop — reversed top, unchanged bottom" src="../ql-workshop-two-images/?v=bottom-corrected"></iframe>
+<div id="status" role="status">Preparing fade controls…</div>
+<script>
+// New, independent preview. Read the confirmed two-image page as our source of truth.
+// Mirror ONLY the top image pixels, not the webpage, positioning, masks or bottom image.
+// This avoids altering any pre-existing CSS transforms or background geometry.
+const frame = document.getElementById('page');
+const status = document.getElementById('status');
+let processing = false;
+let complete = false;
+function fail(error) {
+  status.className = 'error';
+  status.textContent = 'Preview error: ' + error.message;
+}
+async function applyReversedTop() {
+  if (processing || complete) return;
+  try {
+    const sourceDoc = frame.contentDocument;
+    const sourceFrame = sourceDoc && sourceDoc.getElementById('page');
+    const doc = sourceFrame && sourceFrame.contentDocument;
+    const win = sourceFrame && sourceFrame.contentWindow;
+    const site = doc && doc.querySelector('.site');
+    const photo = doc && doc.querySelector('.bg-scene__photo');
+    const footer = doc && doc.querySelector('.bg-scene-bottom__photo');
+    if (!sourceFrame || !doc || !win || !site || !photo || !footer
+        || sourceFrame.style.visibility !== 'visible') return;
+
+    const originalTop = win.getComputedStyle(photo).backgroundImage;
+    const originalFooter = win.getComputedStyle(footer).backgroundImage;
+    const match = originalTop.match(/url\(["']?(data:image\/webp;base64,[A-Za-z0-9+/=]+)["']?\)/i);
+    if (!match) throw Error('Confirmed top image was not found.');
+    if (!originalFooter || originalFooter === 'none') throw Error('Original bottom image is missing.');
+    if (originalFooter === originalTop) throw Error('Top and bottom images must remain separate.');
+    processing = true;
+
+    const picture = new Image();
+    picture.src = match[1];
+    await picture.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = picture.naturalWidth;
+    canvas.height = picture.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw Error('Image conversion unavailable.');
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(picture, 0, 0);
+    const reversedTop = canvas.toDataURL('image/webp', 0.98);
+    if (reversedTop === match[1]) throw Error('Top artwork was not reversed.');
+
+    const style = doc.createElement('style');
+    style.id = 'ql-reversed-top-only';
+    style.textContent = `
+      /* Pixel-mirrored TOP artwork; unchanged site styling, fade and bottom image. */
+      html body .site[data-scene] .bg-scene__photo,
+      html body .site[data-scene] .bg-scene__photo::after {
+        background-image: url("${reversedTop}") !important;
+      }
+    `;
+    doc.head.appendChild(style);
+
+    // Preserve the accepted reverse-top artwork, geometry and top fade unchanged.
+    // The footer has the correct distinct image, but its darkening layers stack
+    // on top of the image and effectively hide it. Fade the PHOTO, not a dark veil.
+    const bottomStyle = doc.createElement('style');
+    bottomStyle.id = 'ql-matched-bottom-fade';
+    bottomStyle.textContent = `
+      .site[data-scene] .bg-scene-bottom__photo {
+        -webkit-mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+        mask-image:linear-gradient(to bottom,
+          transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,
+          rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
+      }
+      /* Remove the double darkening which made the footer nearly black.
+         The actual footer image retains its original colours and position. */
+      .site[data-scene] .bg-scene-bottom__tones,
+      .site[data-scene] .bg-scene-bottom__vignette {
+        opacity:0!important;
+        background:transparent!important;
+      }
+    `;
+    doc.head.appendChild(bottomStyle);
+    const appliedBottomMask = win.getComputedStyle(footer).maskImage
+      || win.getComputedStyle(footer).webkitMaskImage;
+    if (!appliedBottomMask.includes('45%')) throw Error('Corrected bottom fade was not applied.');
+
+    const topNow = win.getComputedStyle(photo).backgroundImage;
+    const overlay = win.getComputedStyle(photo, '::after');
+    const footerNow = win.getComputedStyle(footer).backgroundImage;
+    if (!topNow.includes(reversedTop.slice(0,90))) throw Error('Reversed top was not applied.');
+    if (overlay.content !== 'none' && overlay.display !== 'none'
+        && !overlay.backgroundImage.includes(reversedTop.slice(0,90))) {
+      throw Error('Top fade is using the wrong image.');
+    }
+    if (originalFooter !== footerNow) throw Error('Bottom image changed unexpectedly.');
+
+    // The original controls measure darkness and switch obsolete design sources.
+    // Replace those preview-only controls with two independent fade adjustments.
+    const banner = doc.querySelector('.demo-banner');
+    if (!banner) throw Error('Preview controls could not be found.');
+    const controlStyle = doc.createElement('style');
+    controlStyle.id = 'ql-live-fade-control-style';
+    controlStyle.textContent = "\n.demo-banner.ql-fade-toolbar{\n  display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;\n  gap:12px 28px!important;padding:13px 20px!important;background:#f1f8f8!important;\n  color:#020020!important;border-bottom:1px solid rgba(2,0,32,.13)!important;\n  font-family:'Atkinson Hyperlegible',Arial,sans-serif!important;\n}\n.ql-fade-toolbar .ql-toolbar-name{font-weight:700;letter-spacing:.8px;font-size:12px;line-height:1.25}\n.ql-fade-toolbar .ql-toolbar-name small{display:block;font-weight:400;letter-spacing:0;opacity:.64;font-size:11px}\n.ql-fade-toolbar .ql-fade-control{display:flex;flex-direction:column;gap:5px;min-width:190px;font-size:12px!important;font-weight:700!important}\n.ql-fade-toolbar .ql-fade-control span{display:flex;align-items:center;justify-content:space-between;gap:16px}\n.ql-fade-toolbar .ql-fade-control output{font-size:11px;font-weight:400;color:#394880;white-space:nowrap}\n.ql-fade-toolbar .ql-fade-control input[type=range]{\n  display:block!important;width:min(23vw,240px);min-width:160px;height:18px;margin:0;\n  accent-color:#4c69e3;cursor:pointer\n}\n.ql-fade-toolbar .ql-reset{\n  background:#020020;color:#f1f8f8;border:0;border-radius:5px;\n  font-family:inherit;font-weight:700;font-size:12px;padding:9px 13px;cursor:pointer\n}\n.ql-fade-toolbar .ql-reset:focus-visible,.ql-fade-toolbar input:focus-visible{\n  outline:2px solid #4c69e3;outline-offset:3px\n}\n@media(max-width:750px){\n  .demo-banner.ql-fade-toolbar{justify-content:flex-start!important;gap:12px!important}\n  .ql-fade-toolbar .ql-toolbar-name{width:100%}\n  .ql-fade-toolbar .ql-fade-control{flex:1 1 165px;min-width:140px}\n  .ql-fade-toolbar .ql-fade-control input[type=range]{width:100%;min-width:0}\n}";
+    doc.head.appendChild(controlStyle);
+    banner.classList.add('ql-fade-toolbar');
+    banner.innerHTML = "\n<div class=\"ql-toolbar-name\">WORKSHOP FADE CONTROLS<small>Changes are live · artwork stays fixed</small></div>\n<label class=\"ql-fade-control\" for=\"ql-top-fade\">\n  <span>Top fade <output id=\"ql-top-fade-output\" for=\"ql-top-fade\">Original</output></span>\n  <input type=\"range\" id=\"ql-top-fade\" min=\"-220\" max=\"220\" value=\"0\" step=\"10\"\n         aria-label=\"Top fade position, earlier to later\" title=\"Left = earlier; right = later\">\n</label>\n<label class=\"ql-fade-control\" for=\"ql-bottom-fade\">\n  <span>Bottom fade <output id=\"ql-bottom-fade-output\" for=\"ql-bottom-fade\">Original</output></span>\n  <input type=\"range\" id=\"ql-bottom-fade\" min=\"20\" max=\"80\" value=\"45\" step=\"1\"\n         aria-label=\"Bottom fade, reveals earlier to later\" title=\"Left = reveal sooner; right = reveal later\">\n</label>\n<button class=\"ql-reset\" id=\"ql-reset-fades\" type=\"button\">Reset fades</button>";
+
+    const topSlider = doc.getElementById('ql-top-fade');
+    const bottomSlider = doc.getElementById('ql-bottom-fade');
+    const topOutput = doc.getElementById('ql-top-fade-output');
+    const bottomOutput = doc.getElementById('ql-bottom-fade-output');
+    const topLiveStyle = doc.createElement('style');
+    topLiveStyle.id = 'ql-live-top-mask';
+    doc.head.appendChild(topLiveStyle);
+    const bottomLiveStyle = doc.createElement('style');
+    bottomLiveStyle.id = 'ql-live-bottom-mask';
+    doc.head.appendChild(bottomLiveStyle);
+
+    function updateTopFade() {
+      const shift = Number(topSlider.value);
+      topOutput.textContent = shift === 0 ? 'Original' :
+        Math.abs(shift) + 'px ' + (shift < 0 ? 'earlier' : 'later');
+      if (shift === 0) { topLiveStyle.textContent = ''; return; }
+      const adjust = name => 'calc(var(' + name + ') + ' + shift + 'px)';
+      const mask = 'linear-gradient(to bottom,#000 0px,#000 ' + adjust('--top-fade-start') +
+        ',rgba(0,0,0,.88) ' + adjust('--top-fade-stop1') +
+        ',rgba(0,0,0,.5) ' + adjust('--top-fade-stop2') +
+        ',rgba(0,0,0,.12) ' + adjust('--top-fade-stop3') +
+        ',transparent ' + adjust('--top-fade-end') + ')';
+      const tonesMask = 'linear-gradient(to bottom,#000 ' + adjust('--top-fade-start') +
+        ',transparent ' + adjust('--top-fade-end') + ')';
+      // Shift mask position only. Preserve original image scale and artwork.
+      topLiveStyle.textContent =
+        '.site[data-scene="tech-workshop"] .bg-scene {' +
+        'height:calc(var(--top-fade-end) + ' + Math.max(shift,0) + 'px)!important}' +
+        '.site[data-scene="tech-workshop"] .bg-scene__photo {' +
+        '-webkit-mask-image:' + mask + '!important;mask-image:' + mask + '!important}' +
+        '.site[data-scene="tech-workshop"] .bg-scene__tones {' +
+        '-webkit-mask-image:' + tonesMask + '!important;mask-image:' + tonesMask + '!important}';
+    }
+
+    function updateBottomFade() {
+      const reveal = Number(bottomSlider.value);
+      bottomOutput.textContent = reveal === 45 ? 'Original' : 'Visible by ' + reveal + '%';
+      if (reveal === 45) { bottomLiveStyle.textContent = ''; return; }
+      const mask = 'linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) ' +
+        (reveal*.2).toFixed(1) + '%,rgba(0,0,0,.5) ' +
+        (reveal*23/45).toFixed(1) + '%,rgba(0,0,0,.88) ' +
+        (reveal*.8).toFixed(1) + '%,#000 ' + reveal + '%,#000 100%)';
+      bottomLiveStyle.textContent =
+        '.site[data-scene="tech-workshop"] .bg-scene-bottom__photo {' +
+        '-webkit-mask-image:' + mask + '!important;mask-image:' + mask + '!important}';
+    }
+    topSlider.addEventListener('input',updateTopFade);
+    bottomSlider.addEventListener('input',updateBottomFade);
+    doc.getElementById('ql-reset-fades').addEventListener('click', () => {
+      topSlider.value = '0'; bottomSlider.value = '45';
+      updateTopFade();updateBottomFade();
+    });
+    updateTopFade();updateBottomFade();
+    if (!doc.getElementById('ql-top-fade') || !doc.getElementById('ql-bottom-fade')) {
+      throw Error('Interactive fade controls were not initialized.');
+    }
+
+    frame.style.visibility = 'visible';
+    status.textContent = 'Fade controls ready • original artwork preserved';
+    complete = true;
+    setTimeout(() => status.remove(), 3500);
+  } catch(e) { fail(e); }
+  finally { processing = false; }
+}
+frame.addEventListener('load', () => {
+  const sourceDoc = frame.contentDocument;
+  const sourceFrame = sourceDoc && sourceDoc.getElementById('page');
+  if (!sourceFrame) { fail(Error('Two-image source page did not load.')); return; }
+  sourceFrame.addEventListener('load', applyReversedTop);
+  const sourceStatus = sourceDoc.getElementById('status');
+  if (sourceStatus) {
+    new MutationObserver(applyReversedTop).observe(sourceStatus, {
+      attributes:true, childList:true, subtree:true, characterData:true
+    });
+  }
+  applyReversedTop();
+});
+setTimeout(() => {
+  if (!complete && !status.classList.contains('error'))
+    fail(Error('The source image did not finish loading.'));
+}, 25000);
+</script>
+</body>
+</html>
