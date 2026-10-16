@@ -81,7 +81,7 @@ function applyApprovedTop() {
     doc.head.appendChild(bottomStyle);
 
     // Only replace the footer artwork; keep all existing geometry and fades.
-    const approvedFooterURL = new URL('../ql-workshop-two-images-fade-match/qwerty-footer-cropped-51px-top.png', location.href).href;
+    const approvedFooterURL = new URL('qwerty-footer-raspberry-pi-left.webp', location.href).href;
     const footerImageStyle = doc.createElement('style');
     footerImageStyle.id = 'ql-approved-footer-image';
     footerImageStyle.textContent = `
