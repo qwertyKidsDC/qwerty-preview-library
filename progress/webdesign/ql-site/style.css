@@ -95,7 +95,21 @@ a:focus-visible { outline: 3px solid var(--orange); outline-offset: 5px; }
 .audiences { padding-block: 14px 92px; }
 .audiences .section-heading { margin-bottom: 26px; }
 .audience-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
-.audience-card { min-height: 397px; position: relative; transition: transform .18s ease, box-shadow .18s ease; clip-path: polygon(.9% 1%, 99.5% .2%, 100% 99%, .4% 100%); }
+.audience-card { min-height: 397px; position: relative; transition: transform .18s ease, box-shadow .18s ease; border-radius: 2px; }
+.audience-card::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: -25px;
+  left: 32%;
+  width: 96px;
+  height: 50px;
+  background: url("img/tape.svg") center / contain no-repeat;
+  transform: rotate(-7deg);
+  pointer-events: none;
+}
+.audience-card:nth-child(2)::before { left: 50%; transform: rotate(9deg); }
+.audience-card:nth-child(3)::before { left: 22%; transform: rotate(-13deg); }
 .audience-card:nth-child(1) { transform: rotate(-.4deg); }
 .audience-card:nth-child(2) { transform: rotate(.6deg) translateY(13px); }
 .audience-card:nth-child(3) { transform: rotate(-.65deg) translateY(3px); }
