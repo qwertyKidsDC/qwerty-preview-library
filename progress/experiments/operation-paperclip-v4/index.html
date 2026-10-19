@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#142c31">
   <meta name="description" content="An international stationery dispute awaiting the attention of Special Envoy Ava.">
   <title>The Paperclip Incident — Special Envoy Ava</title>
+  <!-- University Medal favicon, embedded so the game remains a single-file gift. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%23142c31%22%2F%3E%3Cpath%20d%3D%22M17%204h13l7%2025-11%208z%22%20fill%3D%22%23ac423b%22%20stroke%3D%22%23fbf5e6%22%20stroke-width%3D%221.5%22%2F%3E%3Cpath%20d%3D%22M34%204h13l-9%2033-11-8z%22%20fill%3D%22%23f1e6cf%22%20stroke%3D%22%23ac423b%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2241%22%20r%3D%2219%22%20fill%3D%22%23dbb96c%22%20stroke%3D%22%23fff4d8%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2241%22%20r%3D%2214.5%22%20fill%3D%22%23efcc7e%22%20stroke%3D%22%23946b36%22%20stroke-width%3D%221.5%22%2F%3E%3Cpath%20d%3D%22M32%2029l3.7%207.8%208.6%201.2-6.2%206.1%201.5%208.5-7.6-4-7.6%204%201.5-8.5-6.2-6.1%208.6-1.2z%22%20fill%3D%22%23fff2be%22%20stroke%3D%22%239b7136%22%20stroke-width%3D%221%22%2F%3E%3C%2Fsvg%3E">
   <style>
     /* THE PAPERCLIP INCIDENT — DIPLOMATIC EDITION
        A one-file, dependency-free micro-game.
@@ -557,7 +559,7 @@
       },
       {
         "ask": "Which of them is right?",
-        "reply": "I've spent my life being pulled in different directions. You get used to seeing both sides.",
+        "reply": "I've spent my life being pulled in different directions. You learn what each side is holding on to.",
         "record": "WITNESS COMPROMISED BY PERSPECTIVE."
       }
     ]
@@ -598,7 +600,7 @@
           '<path d="M164 100 Q180 118 200 103" fill="none" stroke="#ad4b42" stroke-width="2" stroke-linecap="round"/>' +
           '<text x="124" y="134" font-size="10" fill="#55645c" font-family="monospace">EXHIBIT A</text>' +
         '</svg></div>' +
-        '<div class="brief"><p><strong>YOUR BRIEF, SPECIAL ENVOY AVA</strong>A paperclip has crossed into stapler territory. The stapler demands an apology. The rubber band is being unhelpfully elastic about the truth.</p><span class="stamp">Urgent-ish<br>2026</span></div>' +
+        '<div class="brief"><p><strong>YOUR BRIEF, SPECIAL ENVOY AVA</strong>A paperclip has crossed into stapler territory. The stapler demands an apology. The rubber band has been pulled into the dispute from both sides.</p><span class="stamp">Urgent-ish<br>2026</span></div>' +
         '<p class="case-adviser"><strong>OFFICIAL ADVISER</strong><span>Bureau Interpretation and Assessment System (BIAS)</span></p>' +
         '<aside class="personnel-note" aria-label="Personnel note for Special Envoy Ava">' +
           '<p class="micro personnel-label"><strong>PERSONNEL NOTE / SPECIAL ENVOY AVA</strong></p>' +
@@ -623,7 +625,7 @@
         '<div class="procedure-record"><p class="micro"><strong>PROCEDURAL RECORD</strong><br>ORIGINAL INVESTIGATION: SUCCESSFUL.<br>PROCEDURE RETAINED.<br>FURTHER REVIEW: NOT CONSIDERED NECESSARY.</p></div>' +
         '<p class="micro case-instructions">Hear all three accounts. Revisit anyone who seems misunderstood. ' + dots(count) + '</p>' +
         '<div class="witnesses">' + cards + '</div>' +
-        '<div class="desk-bottom"><p class="micro case-progress">STATEMENTS COLLECTED: ' + count + '/3<br>TRUST IN BUREAU: ' + (count === 0 ? 'UNWARRANTED' : count === 1 ? 'DECLINING' : 'UNDER REVIEW') + '</p>' +
+        '<div class="desk-bottom"><p class="micro case-progress">STATEMENTS COLLECTED: ' + count + '/3<br>BUREAU CONFIDENCE: 100%</p>' +
         (count === 3 ? actionButton("Review BIAS recommendation", "ruling", "primary") : '<p class="micro case-instructions"><strong>RECOMMENDATION PENDING</strong><br>All three statements required.</p>') + '</div>' +
         '</section>';
     }
@@ -675,7 +677,7 @@ function review() {
   return '<section class="appear">' +
     '<p class="eyebrow">Internal review / Procedural irregularity</p>' +
     '<div class="review-heading"><h2 tabindex="-1">Who reviews<br>BIAS?</h2><span class="stamp review-stamp">DISPUTED</span></div>' +
-    '<div class="machine"><div class="machine-label">ARCHIVED INCIDENT / VERIFIED</div><p>A paperclip once carried a signed agreement across the border without permission. The bureau devised a procedure to prevent a repeat. It worked. The procedure has been used on every paperclip since.</p></div>' +
+    '<div class="machine"><div class="machine-label">ARCHIVED INCIDENT / VERIFIED</div><p>A paperclip once carried a signed agreement across the border without permission. The bureau devised a procedure to prevent a repeat. It worked. It saved time. The procedure has been used on every paperclip since.</p></div>' +
     '<div class="machine">' +
       '<p class="machine-label">BIAS / REVIEW REQUEST NOTED</p>' +
       '<p class="machine-reading">THIS PROCEDURE HAS BEEN INDEPENDENTLY REVIEWED.</p>' +
@@ -686,8 +688,8 @@ function review() {
       '<p class="system-voice"><strong>BIAS</strong>WE DID.</p>' +
       '<p><strong>ENVOY AVA</strong>How do you know they work?</p>' +
       '<p class="system-voice"><strong>BIAS</strong>THEY ALWAYS CONFIRM OUR CONCLUSIONS.</p>' +
-      '<p><strong>ENVOY AVA</strong>That’s the problem.</p>' +
-      '<p class="system-voice"><strong>BIAS</strong>THIS IS DEEPLY INCONVENIENT.</p>' +
+      '<p><strong>ENVOY AVA</strong>And if I disagree?</p>' +
+      '<p class="system-voice"><strong>BIAS</strong>COMPLAINT NOTED. FILED AGAINST THE PAPERCLIP.</p>' +
     '</div>' +
     v4Button('Revise the procedure', 'update') +
     '</section>';
@@ -699,16 +701,16 @@ function updated() {
     '<h2 tabindex="-1">BIAS learns<br>something.</h2>' +
     '<div class="machine">' +
       '<p class="machine-label">SYSTEM UPDATE COMPLETE</p>' +
-      '<p class="machine-reading">NEW HABIT INSTALLED:<br>WHEN EVIDENCE DISAGREES, CHECK THE RULE.</p>' +
-      '<p class="correction"><strong>WARNING:</strong> THIS MAY DELAY OPERATIONS.</p>' +
+      '<p class="machine-reading">PROCEDURE AMENDED:<br>WHEN EVIDENCE DISAGREES, CHECK THE RULE.</p>' +
+      '<p class="correction"><strong>WARNING:</strong> PREVIOUS HABITS MAY PERSIST.</p>' +
     '</div>' +
     '<ul class="report-results">' +
-      '<li>PAPERCLIP <span>REASONABLE</span></li>' +
-      '<li>STAPLER <span>REASONABLE</span></li>' +
-      '<li>RUBBER BAND <span>REASONABLE. ANNOYINGLY SO.</span></li>' +
+      '<li>PAPERCLIP <span>MOTIVES NOTED</span></li>' +
+      '<li>STAPLER <span>CUSTOM NOTED</span></li>' +
+      '<li>RUBBER BAND <span>MULTIPLE PERSPECTIVES NOTED</span></li>' +
     '</ul>' +
-    '<p class="outcome"><strong>ALL PARTIES FOUND REASONABLE.</strong><br>' +
-    'UNDER THE CIRCUMSTANCES.<br><strong>THE CIRCUMSTANCES REMAIN DEEPLY CONCERNING.</strong></p>' +
+    '<p class="outcome"><strong>ALL PARTIES HAVE THEIR REASONS.</strong><br>' +
+    'NOT ALL REASONS ARE GOOD REASONS.<br><strong>THE BUREAU HAS NO FORM FOR THIS.</strong></p>' +
     v4Button('Read closing memorandum', 'ending') +
     '</section>';
 }
@@ -718,7 +720,7 @@ function ending() {
     '<p class="eyebrow">Closing memorandum / For Special Envoy Ava</p>' +
     '<h2 tabindex="-1">The bureau<br>thanks you.</h2>' +
     '<div class="final-stamp blink">Dispute<br>resolved*</div>' +
-    '<p class="compact">Your ability to question established procedures has been noted.</p>' +
+    '<p class="compact">Your habit of questioning established procedures has been noted.</p>' +
     '<div class="report"><p class="micro">DIPLOMATIC ASSESSMENT</p>' +
     '<p><strong>SUITABLE FOR IMPOSSIBLE NEGOTIATIONS.</strong><br>' +
     '<strong>UNSUITABLE FOR UNQUESTIONING COMPLIANCE.</strong></p></div>' +
@@ -728,9 +730,10 @@ function ending() {
       '<p class="dc-note__heading">FROM THE DESK OF DC</p>' +
       '<p class="dc-note__role">Chief Bureaucrat, Bureau of Implausible Affairs</p>' +
       '<p>Dear Ava,</p>' +
-      '<p>Your extraordinary achievement deserves official recognition.</p>' +
+      '<p>I wanted to make you something to celebrate what you\'ve done.</p>' +
+      '<p>Somehow, it became an international stationery dispute.</p>' +
       '<p>I was going to staple this to your thesis, but I\'ve started questioning my habitual attachments.</p>' +
-      '<p><strong>Congratulations. I\'m enormously impressed.</strong></p>' +
+      '<p><strong>Congratulations, Ava. The originality of your thinking, the rigour of your argument, and the humanity of where it leads. It\'s stunning.</strong></p>' +
       '<p class="dc-note__signoff">DC</p>' +
     '</aside>' +
     '<div class="new-case"><p class="micro">NEW CASE OPENED</p>' +
