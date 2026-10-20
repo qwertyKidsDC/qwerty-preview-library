@@ -47,7 +47,15 @@
       letter-spacing:-.06em;
     }
     .intro{max-width:720px;font-size:1.22rem;line-height:1.5;color:#dfe8ff}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:42px}
+    .jump{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 12px}
+    .jump a{display:inline-block;padding:10px 12px;border:2px solid var(--green);border-radius:5px;color:var(--light);font:800 .78rem ui-monospace,SFMono-Regular,Menlo,monospace;text-decoration:none}
+    .jump a:hover,.jump a:focus-visible{background:var(--green);color:var(--dark)}
+    .library-section{margin-top:58px;scroll-margin-top:22px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;border-bottom:2px solid rgba(241,248,248,.45);padding-bottom:13px}
+    .section-head h2{margin:0;font-size:clamp(1.65rem,3.2vw,2.4rem);line-height:1.05;letter-spacing:-.04em}
+    .count{white-space:nowrap;font:800 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;color:#c9d5ff}
+    .section-intro{max-width:740px;color:#dfe8ff;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:24px}
     .card{
       display:block;
       min-height:230px;
@@ -55,6 +63,7 @@
       border:4px solid var(--dark);
       border-radius:22px;
       color:var(--dark);
+      background:var(--light); /* Accessible solid fallback, including for all future cards. */
       text-decoration:none;
       box-shadow:9px 9px 0 var(--pink),15px 15px 0 var(--blue);
       transition:.15s transform ease,.15s box-shadow ease;
@@ -63,26 +72,16 @@
       transform:translate(-3px,-3px);
       box-shadow:12px 12px 0 var(--pink),19px 19px 0 var(--blue);
     }
-    .card:nth-child(1){background:var(--orange)}
-    .card:nth-child(2){background:var(--green)}
-    .card:nth-child(3){background:var(--pink)}
-    .card:nth-child(4){background:var(--blue)}
-    .card:nth-child(5){background:var(--orange)}
-    .card:nth-child(6){background:var(--green)}
-    .card:nth-child(7){background:var(--pink)}
-    .card:nth-child(8){background:var(--orange)}
-    .card:nth-child(8){background:var(--orange)}
-    .card:nth-child(9){background:var(--blue)}
-    .card:nth-child(10){background:var(--green)}
-    .card:nth-child(11){background:var(--pink)}
-    .card:nth-child(12){background:var(--orange)}
-    .card:nth-child(13){background:var(--blue)}
-    .card:nth-child(14){background:var(--green)}
+    /* Repeating palette: new cards get a solid background automatically. */
+    .grid > .card:nth-child(4n+1){background:var(--orange)}
+    .grid > .card:nth-child(4n+2){background:var(--green)}
+    .grid > .card:nth-child(4n+3){background:var(--pink)}
+    .grid > .card:nth-child(4n){background:var(--light)}
     .eyebrow{font:900 .76rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
-    h2{font-size:2rem;line-height:1;margin:18px 0 12px;letter-spacing:-.04em}
+    .card h3{font-size:2rem;line-height:1.06;margin:18px 0 12px;letter-spacing:-.04em;overflow-wrap:anywhere}
     .card p{line-height:1.5;margin-bottom:0}
     footer{margin-top:54px;font:800 .82rem ui-monospace,SFMono-Regular,Menlo,monospace;color:#bbc6f7}
-    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column;gap:5px}}
   </style>
 </head>
 <body>
@@ -91,101 +90,302 @@
     <h1>Things we’re<br>building.</h1>
     <p class="intro">Live previews of Qwerty HTML projects and teaching artefacts. Everything under <strong>progress/</strong> is deliberately unfinished: experiments, lessons and design work in motion.</p>
 
-    <div class="grid">
-      <a class="card" href="progress/case-studies/bom/">
-        <span class="eyebrow">Case study</span>
-        <h2>BOM website redesign</h2>
-        <p>A real-world UX, testing and product lesson built around the Bureau of Meteorology redesign.</p>
+    <nav class="jump" aria-label="Jump to a preview collection">
+      <a href="#learning">Learning decks</a>
+      <a href="#identity">Identity studies</a>
+      <a href="#websites">Websites &amp; page systems</a>
+      <a href="#workshop">Workshop comparisons</a>
+      <a href="#case-studies">Case studies</a>
+      <a href="#experiments">Other experiments</a>
+    </nav>
+
+    <section class="library-section" id="learning" aria-labelledby="learning-title">
+      <div class="section-head">
+        <h2 id="learning-title">Learning decks</h2>
+        <span class="count">11 previews</span>
+      </div>
+      <p class="section-intro">Studio lessons, working guides and projects. The Physical Computing decks are linked individually, so Cat Cam is easy to find.</p>
+      <div class="grid">
+      <a class="card" href="progress/learning/physical-computing/cat-cam.html">
+        <span class="eyebrow">Raspberry Pi · Project</span>
+        <h3>Lucky Cam (Cat Cam)</h3>
+        <p>The cat-camera build: PIR motion sensing, Python, camera capture and a local page showing the latest photo.</p>
+      </a>
+
+      <a class="card" href="progress/learning/physical-computing/">
+        <span class="eyebrow">Learning collection</span>
+        <h3>Physical Computing Foundations</h3>
+        <p>The collection hub for Raspberry Pi basics, electronics, components and the Lucky Cam project.</p>
+      </a>
+
+      <a class="card" href="progress/learning/physical-computing/pi-basics.html">
+        <span class="eyebrow">Raspberry Pi · Foundation</span>
+        <h3>Raspberry Pi Basics</h3>
+        <p>First steps with the desktop, files, Terminal, Thonny and a tiny Python program.</p>
+      </a>
+
+      <a class="card" href="progress/learning/physical-computing/electronics-gpio.html">
+        <span class="eyebrow">Physical computing · Foundation</span>
+        <h3>Electronics + GPIO</h3>
+        <p>Breadboards, safe wiring, pin numbering and guided LED and button builds.</p>
+      </a>
+
+      <a class="card" href="progress/learning/physical-computing/components.html">
+        <span class="eyebrow">Physical computing · Reference</span>
+        <h3>Component Field Guide</h3>
+        <p>A growing reference to the components used in the lab and what each one does.</p>
       </a>
 
       <a class="card" href="progress/learning/tiarna-ecommerce/">
         <span class="eyebrow">Working deck</span>
-        <h2>From Website to Shop</h2>
+        <h3>From Website to Shop</h3>
         <p>Tiarna’s ecommerce field guide: use cases, platform thinking, accessibility and the live shop project.</p>
       </a>
 
       <a class="card" href="progress/learning/resident-processing-expert/">
         <span class="eyebrow">Studio missions</span>
-        <h2>Resident Processing Expert</h2>
+        <h3>Resident Processing Expert</h3>
         <p>A creative-coding mission deck for moving beyond tutorials into experiments, explanation and self-directed sketches.</p>
       </a>
 
       <a class="card" href="progress/learning/stopbit/">
         <span class="eyebrow">Python + physical computing</span>
-        <h2>STOP:bit → MicroPython</h2>
+        <h3>STOP:bit → MicroPython</h3>
         <p>Four progressive lessons: traffic lights, pedestrian crossings and radio-controlled systems.</p>
       </a>
 
+      <a class="card" href="progress/learning/ai-game-maker/">
+        <span class="eyebrow">AI-assisted game making</span>
+        <h3>Build → Test → Fix → Next</h3>
+        <p>A beginner-friendly cheat sheet for making games with AI without letting the project grow faster than it can be tested.</p>
+      </a>
+
+      <a class="card" href="progress/learning/billy-sprig-developer-tour/">
+        <span class="eyebrow">Developer tour</span>
+        <h3>Billy + Sprig</h3>
+        <p>A working developer-tour artefact for exploring a real project from the inside out.</p>
+      </a>
+
+      <a class="card" href="progress/experiments/tiarna-decode-rocky/">
+        <span class="eyebrow">Tiarna · Music + language</span>
+        <h3>Decode Rocky</h3>
+        <p>An investigation deck for tracing Rocky’s musical language from production notation into the finished film, then turning it into a first-contact festival experiment.</p>
+      </a>
+      </div>
+    </section>
+
+    <section class="library-section" id="identity" aria-labelledby="identity-title">
+      <div class="section-head">
+        <h2 id="identity-title">Identity studies</h2>
+        <span class="count">5 previews</span>
+      </div>
+      <p class="section-intro">Chloe’s working decks and the wider visual-identity experiments.</p>
+      <div class="grid">
       <a class="card" href="progress/identity/chloe-logo/">
         <span class="eyebrow">Chloe · Logo project 1</span>
-        <h2>Logo Working Deck</h2>
+        <h3>Logo Working Deck</h3>
         <p>QL identity thinking, source territories, making, testing and the project-memory notes card.</p>
       </a>
 
       <a class="card" href="progress/identity/chloe-logo/2/">
         <span class="eyebrow">Chloe · Logo project 2</span>
-        <h2>Territory Development</h2>
+        <h3>Territory Development</h3>
         <p>Develop three territories, compare the evidence and decide what deserves another round.</p>
       </a>
 
       <a class="card" href="progress/identity/chloe-logo/2a/">
         <span class="eyebrow">Chloe · Logo project 2a</span>
-        <h2>Territory Sprint</h2>
+        <h3>Territory Sprint</h3>
         <p>The shorter Code Cadet version: two territories, fast experiments, tiny-size test and review.</p>
       </a>
 
-      <a class="card" href="progress/learning/ai-game-maker/">
-        <span class="eyebrow">AI-assisted game making</span>
-        <h2>Build → Test → Fix → Next</h2>
-        <p>A beginner-friendly cheat sheet for making games with AI without letting the project grow faster than it can be tested.</p>
-      </a>
-
-      <a class="card" href="progress/experiments/tiarna-decode-rocky/">
-        <span class="eyebrow">Tiarna · Music + language</span>
-        <h2>Decode Rocky</h2>
-        <p>An investigation deck for tracing Rocky’s musical language from production notation into the finished film, then turning it into a first-contact festival experiment.</p>
-      </a>
-<a class="card" href="progress/identity/ql-identity-lab/">
+      <a class="card" href="progress/identity/ql-identity-lab/">
         <span class="eyebrow">QL identity exploration</span>
-        <h2>Identity Lab v1</h2>
+        <h3>Identity Lab v1</h3>
         <p>Five behavioural territories, palette tests, Chloe’s working brief and a first web-first visual system.</p>
       </a>
+
       <a class="card" href="progress/identity/instrument-card-studies/">
         <span class="eyebrow">QL identity exploration</span>
-        <h2>Instrument Card Studies</h2>
+        <h3>Instrument Card Studies</h3>
         <p>The sleek Instrument Panel plus six handmade / print-process card treatments developed from the title-sequence references.</p>
+      </a>
+      </div>
+    </section>
+
+    <section class="library-section" id="websites" aria-labelledby="websites-title">
+      <div class="section-head">
+        <h2 id="websites-title">Websites &amp; page systems</h2>
+        <span class="count">8 previews</span>
+      </div>
+      <p class="section-intro">Main site builds, design references and reusable page systems. These are separate previews, not interchangeable approved designs.</p>
+      <div class="grid">
+      <a class="card" href="progress/webdesign/ql-workshop-two-images-approved-top/">
+        <span class="eyebrow">Approved visual reference</span>
+        <h3>Approved Homepage Reference</h3>
+        <p>The approved two-image composition used as the visual source of truth for the homepage build.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-site-v2/">
+        <span class="eyebrow">Standalone homepage build</span>
+        <h3>Qwerty Labs Site v2</h3>
+        <p>A standalone reconstruction using the approved graphics and composition, kept separate from the reference.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-site/">
+        <span class="eyebrow">Homepage build · Earlier version</span>
+        <h3>Qwerty Labs Site v1</h3>
+        <p>The earlier hand-maintainable HTML and CSS homepage build.</p>
       </a>
 
       <a class="card" href="progress/webdesign/ql-page-kit-v1/">
         <span class="eyebrow">QL web system</span>
-        <h2>Page Kit v1</h2>
+        <h3>Page Kit v1</h3>
         <p>The cardboard visual system rebuilt as a real Qwerty Labs page scaffold, ready to grow new reusable rows as the site needs them.</p>
       </a>
 
       <a class="card" href="progress/webdesign/ql-page-kit-v2/">
         <span class="eyebrow">QL web system · graphics-first test</span>
-        <h2>Page Kit v2</h2>
+        <h3>Page Kit v2</h3>
         <p>A deliberately more graphic-heavy reconstruction: real paper, card and label surfaces do the tactile work while HTML/CSS handles layout and responsiveness.</p>
       </a>
 
       <a class="card" href="progress/webdesign/homepage-study/">
         <span class="eyebrow">QL identity exploration</span>
-        <h2>Homepage / Web Design Study</h2>
+        <h3>Homepage / Web Design Study</h3>
         <p>The large Qwerty Labs homepage laboratory: Aiii-D1, Aiii-D2, the archived CTRL + ALT + CREATE nav, floating navigation and the later page-system experiments.</p>
       </a>
 
       <a class="card" href="progress/webdesign/aiii-d1/">
         <span class="eyebrow">Standalone homepage study</span>
-        <h2>Aiii-D1</h2>
+        <h3>Aiii-D1</h3>
         <p>Reactive-residue homepage direction, separated from the study deck and treated as a real page.</p>
       </a>
 
-      <a class="card" href="progress/learning/billy-sprig-developer-tour/">
-        <span class="eyebrow">Developer tour</span>
-        <h2>Billy + Sprig</h2>
-        <p>A working developer-tour artefact for exploring a real project from the inside out.</p>
+      <a class="card" href="progress/webdesign/ql-workshop/">
+        <span class="eyebrow">Visual workbench</span>
+        <h3>Workshop Design Lab</h3>
+        <p>The full interactive workshop preview used to explore and compare homepage composition and treatments.</p>
       </a>
-    </div>
+      </div>
+    </section>
+
+    <section class="library-section" id="workshop" aria-labelledby="workshop-title">
+      <div class="section-head">
+        <h2 id="workshop-title">Workshop comparisons</h2>
+        <span class="count">10 previews</span>
+      </div>
+      <p class="section-intro">Independent variations and technical comparisons retained for reference.</p>
+      <div class="grid">
+      <a class="card" href="progress/webdesign/ql-workshop-two-images/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Two-Image Study</h3>
+        <p>An earlier workshop composition using the two-image layout.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-two-images-balanced/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Two Images · Balanced</h3>
+        <p>A spacing and balance comparison within the two-image direction.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-two-images-fade-controls/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Two Images · Fade Controls</h3>
+        <p>A dedicated fade-control experiment for the two-image workshop scene.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-two-images-fade-match/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Two Images · Fade Match</h3>
+        <p>A fade-matching comparison for the two-image homepage artwork.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-two-images-reverse-top/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Two Images · Reverse Top</h3>
+        <p>An alternate top-image arrangement, retained for comparison.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-swapped-sides/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Swapped Sides</h3>
+        <p>An independent preview testing the workshop artwork with sides exchanged.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-left-simplified/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Simplified Left · v1</h3>
+        <p>The first simplified-left workshop experiment.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-left-simplified-v2/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Simplified Left · v2</h3>
+        <p>Second simplified-left composition test.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-left-simplified-v3/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Simplified Left · v3</h3>
+        <p>Third simplified-left composition test.</p>
+      </a>
+
+      <a class="card" href="progress/webdesign/ql-workshop-bottom-dim-test/">
+        <span class="eyebrow">Workshop variation</span>
+        <h3>Bottom Dim Test</h3>
+        <p>A separate preview focused on the lower workshop artwork treatment.</p>
+      </a>
+      </div>
+    </section>
+
+    <section class="library-section" id="case-studies" aria-labelledby="case-studies-title">
+      <div class="section-head">
+        <h2 id="case-studies-title">Case studies</h2>
+        <span class="count">1 previews</span>
+      </div>
+      <p class="section-intro">Real-world cases in development.</p>
+      <div class="grid">
+      <a class="card" href="progress/case-studies/bom/">
+        <span class="eyebrow">Case study</span>
+        <h3>BOM website redesign</h3>
+        <p>A real-world UX, testing and product lesson built around the Bureau of Meteorology redesign.</p>
+      </a>
+      </div>
+    </section>
+
+    <section class="library-section" id="experiments" aria-labelledby="experiments-title">
+      <div class="section-head">
+        <h2 id="experiments-title">Other experiments</h2>
+        <span class="count">4 previews</span>
+      </div>
+      <p class="section-intro">Exploratory prototypes retained separately from the learning and web-design collections.</p>
+      <div class="grid">
+      <a class="card" href="progress/experiments/operation-paperclip/">
+        <span class="eyebrow">Prototype</span>
+        <h3>Operation Paperclip</h3>
+        <p>The original playful stationery-incident prototype.</p>
+      </a>
+
+      <a class="card" href="progress/experiments/operation-paperclip-v2/">
+        <span class="eyebrow">Prototype · v2</span>
+        <h3>Operation Paperclip II</h3>
+        <p>An early follow-up investigation prototype.</p>
+      </a>
+
+      <a class="card" href="progress/experiments/operation-paperclip-v3/">
+        <span class="eyebrow">Prototype · v3</span>
+        <h3>Operation Paperclip · Case File</h3>
+        <p>An alternative case-file treatment for the stationery investigation.</p>
+      </a>
+
+      <a class="card" href="progress/experiments/operation-paperclip-v4/">
+        <span class="eyebrow">Prototype · v4</span>
+        <h3>The Paperclip Incident</h3>
+        <p>The later special-envoy variation.</p>
+      </a>
+      </div>
+    </section>
 
     <footer>Ctrl + Alt + Create. · Working preview · Not production</footer>
   </main>
