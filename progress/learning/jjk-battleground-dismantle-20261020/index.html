@@ -13,6 +13,7 @@ header{background:var(--ink);color:var(--paper);padding:35px max(24px,7vw) 42px}
 main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;margin:0 0 25px;font-size:1.15rem}.trail{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 30px}.trail a{border:1.5px solid var(--ink);border-radius:8px;padding:9px 13px;color:var(--ink);text-decoration:none;font-weight:700;font-size:.94rem}.trail a:hover{background:var(--green)}
 .step{background:#fff;border:2px solid var(--ink);border-radius:14px;margin:0 0 22px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}.stephead{display:flex;gap:16px;align-items:center;background:var(--paper);border-bottom:2px solid var(--ink);padding:17px 22px}.number{display:grid;place-items:center;width:45px;height:45px;border:2px solid var(--ink);border-radius:8px;background:var(--pink);font:700 20px 'Atkinson Hyperlegible Mono',monospace;flex-shrink:0}.step:nth-of-type(2) .number{background:var(--green)}.step:nth-of-type(3) .number{background:var(--orange)}.step:nth-of-type(4) .number{background:var(--blue);color:white}.step:nth-of-type(5) .number{background:var(--pink)}h2{font-size:clamp(1.36rem,2.6vw,1.75rem);letter-spacing:-.025em;line-height:1.18;margin:0}.stepbody{padding:22px 25px 24px;max-width:1030px}.stepbody p{margin:0 0 13px}.stepbody ul,.stepbody ol{margin:8px 0 16px;padding-left:26px}.stepbody li{margin-bottom:8px}h3{font-size:1.14rem;margin:16px 0 7px}.path{font:700 .9rem/1.55 'Atkinson Hyperlegible Mono',monospace;color:#293f86;overflow-wrap:anywhere}.tip{background:#edf3f8;border-left:5px solid var(--blue);padding:12px 16px;margin:15px 0}.pass{background:#f2f8df;border-left:5px solid #537b23;padding:13px 16px;margin:17px 0 0}.pass strong{display:block;margin-bottom:3px}.codebox{background:#121322;color:#f5f7ff;border-radius:10px;margin:11px 0 17px;overflow:hidden}.codehead{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;border-bottom:1px solid #484a61;color:#c9cddd;font:700 12px 'Atkinson Hyperlegible Mono',monospace}.codehead button{background:var(--green);border:1px solid var(--green);border-radius:6px;color:var(--ink);font:700 12px 'Atkinson Hyperlegible Mono',monospace;padding:6px 11px}.codehead button:hover{background:#bef17d}pre{font:15px/1.62 'Atkinson Hyperlegible Mono',ui-monospace,monospace;overflow-x:auto;white-space:pre;padding:13px 17px;margin:0}code:not(pre code){font:.92em 'Atkinson Hyperlegible Mono',ui-monospace,monospace;background:#e8f0f0;padding:1px 4px;border-radius:3px}.done{display:flex;align-items:center;gap:9px;padding:13px 0 0;font-weight:700}.done input{width:23px;height:23px;accent-color:var(--blue);cursor:pointer}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.finish{padding:20px 24px;background:var(--ink);color:white;border-radius:12px;margin-top:30px}.finish h2{margin-bottom:10px}.finish a{color:var(--green)}.small{font-size:.87rem;color:#47505b}.visually-hidden{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden;white-space:nowrap}footer{font:.85rem 'Atkinson Hyperlegible Mono',monospace;margin-top:30px;color:#47505b}
 @media(max-width:720px){main{width:calc(100% - 30px);margin:22px auto 50px}.two{grid-template-columns:1fr}.stepbody{padding:18px}.stephead{padding:15px}.number{width:40px;height:40px;font-size:18px}header{padding:25px 18px 31px}pre{font-size:13px}}
+details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin:16px 0;padding:12px 16px}details summary{font-weight:700;cursor:pointer}details[open] summary{margin-bottom:10px}details p:last-child{margin-bottom:0}.results{border:2px solid var(--ink);border-radius:9px;padding:14px 17px;background:#f5f9fa;margin:12px 0}.results p{margin:2px 0 4px!important;font-weight:700}.results pre{font:15px/1.55 'Atkinson Hyperlegible Mono',ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 0 12px}
 </style>
 </head>
 <body>
@@ -20,7 +21,7 @@ main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;ma
   <div class="eyebrow">Qwerty Labs / Henry / Roblox Studio</div>
   <h1>Fix it. Name it.<br>Dismantle.</h1>
   <p>First, two small mistakes in the code we supplied last week. Next, give your arena proper names. Then we can get back to the interesting bit: making Dismantle work.</p>
-  <div class="chips"><span class="chip">YOUR EXISTING PROJECT</span><span class="chip">2 FIXES</span><span class="chip">1 WORKING REQUEST</span></div>
+  <div class="chips"><span class="chip">YOUR EXISTING PROJECT</span><span class="chip">2 FIXES</span><span class="chip">CLIENT → SERVER → SLASH</span></div>
 </header>
 <main>
  <p class="intro"><strong>Start with your current Roblox Studio place.</strong> Save a separate working copy first. We are fixing a couple of lines, not rebuilding Phase 1.</p>
@@ -46,7 +47,7 @@ main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;ma
       <li>We accidentally put Dismantle <em>inside</em> the F block. Move the existing Dismantle section so that it comes <strong>after F's closing <code>end</code></strong>, not inside it.</li>
       <li>Compare that small part with the example below. <strong>Don't paste a second copy</strong> or replace your whole CombatClient script.</li>
     </ol>
-    <div class="codebox"><div class="codehead"><span>What the F / 1 area should look like</span><button type="button" data-copy="c2">COPY</button></div><pre id="c2">-- Hold F = Block
+    <div class="codebox"><div class="codehead"><span>REFERENCE · compare this area, don't paste a second F branch</span><button type="button" data-copy="c2">COPY</button></div><pre id="c2">-- Hold F = Block
 if input.KeyCode == Enum.KeyCode.F then
     combatAction:FireServer("BlockStart")
 end
@@ -57,7 +58,7 @@ if input.KeyCode == Enum.KeyCode.One then
     combatAction:FireServer("Dismantle")
 end</pre></div>
     <p class="tip"><strong>Important:</strong> Both <code>if</code> blocks must stay <em>inside</em> the original <code>InputBegan</code> function. Keep your Q, R, M1 and F release code intact. If your current F section contains extra logic, keep it; just move the Dismantle branch outside it.</p>
-    <div class="pass"><strong>Quick check</strong> Press Play, click the game, then press <code>1</code>. The <em>client</em> Output should print <code>Dismantle request sent</code> once. No red script errors.</div>
+    <div class="pass"><strong>Quick check</strong> Use <strong>Play (F5)</strong>, not Run. Click inside the playing game, press <code>1</code> once and read <strong>Output</strong>. You must see <code>Dismantle request sent</code> (Client · CombatClient). No server print is expected until Step 04. No new red script errors.</div>
     <label class="done"><input type="checkbox" data-step="fix"> Both mistakes fixed and tested</label>
   </div>
  </section>
@@ -78,50 +79,90 @@ end</pre></div>
   </div>
  </section>
  <section class="step" id="test">
-  <div class="stephead"><span class="number">03</span><h2>Make sure Phase 1 still works.</h2></div>
+  <div class="stephead"><span class="number">03</span><h2>Check the original game before adding anything.</h2></div>
   <div class="stepbody">
-    <p>Press <strong>Play</strong>. Open <strong>View → Output</strong>. Run this short checklist before adding anything.</p>
-    <ul>
-      <li><strong>1</strong> prints <code>Dismantle request sent</code> once in client Output.</li>
-      <li><strong>Q</strong> Dash, <strong>R</strong> Dodge, <strong>F</strong> Block (hold and release) still work.</li>
-      <li>HP and CE displays still appear. Check M1 damage, death and respawn using a two-player Studio test.</li>
-      <li>No red <strong>project-script</strong> errors in Output.</li>
-    </ul>
-    <div class="pass"><strong>Pass = ready for the new code</strong> If a check fails, fix that first. Don't add Phase 2 code onto a broken Phase 1.</div>
-    <label class="done"><input type="checkbox" data-step="test"> Phase 1 checked</label>
+    <p><strong>Stop any old playtest. Save your project. Choose Play (F5), not Run (F8).</strong> Run starts a simulation without your character, so pressing keys will not test the same thing.</p>
+    <ol>
+      <li>In Studio, open <strong>Output</strong> (from the Window menu or Script tab). Clear old messages if useful. Make sure the Output text filter is empty.</li>
+      <li><strong>Click inside the live game viewport</strong> to give it keyboard focus. Don't leave the cursor inside the code editor or chat.</li>
+      <li>Press <strong>1</strong> once. Look for <code>Dismantle request sent</code>, marked <strong>Client · CombatClient</strong>.</li>
+      <li>Try <strong>Q</strong> Dash, <strong>R</strong> Dodge and <strong>F</strong> Block (hold and release). Check HP/CE HUD. For a complete baseline, use a two-player Studio test for M1 damage and respawn.</li>
+      <li>Check Output for red errors from your game scripts.</li>
+    </ol>
+    <div class="tip"><strong>A normal message:</strong> <code>qwertykidsDC spawn protection ended — Server — RespawnService:53</code> only means spawn protection ended. It is <strong>not</strong> proof that Dismantle was received.</div>
+    <div class="pass"><strong>Pass:</strong> The <em>client</em> message appears when you press <strong>1</strong>, the original controls still work and no new script errors appear. No server Dismantle message is expected yet.</div>
+    <details><summary>If pressing 1 produces no client message</summary>
+      <ol><li>Confirm you're in <strong>Play</strong> with an avatar and in <strong>Client</strong> mode (not Server mode).</li><li>Click the 3D game view, then press the number <strong>1</strong> along the top row of the keyboard. Make sure chat isn't open.</li><li>Make sure Output isn't filtered to <strong>Server only</strong>.</li><li>Open <strong>StarterPlayer → StarterPlayerScripts → CombatClient</strong>. Check that the Dismantle <code>if</code> is inside <code>InputBegan</code> but <strong>after</strong> F's closing <code>end</code>. Do not add a second copy.</li><li>Check the first red error, if any. <strong>Stop here</strong> until the client print works.</li></ol>
+    </details>
+    <label class="done"><input type="checkbox" data-step="test"> Client print + original game tested</label>
   </div>
  </section>
  <section class="step" id="server">
-  <div class="stephead"><span class="number">04</span><h2>Next step: prove the server hears <code>1</code>.</h2></div>
+  <div class="stephead"><span class="number">04</span><h2>Does the server hear Dismantle?</h2></div>
   <div class="stepbody">
-    <p>The client now says “Dismantle!” but we need to know the server heard it. This is the first new Phase 2 step. <strong>Don't make a new RemoteEvent.</strong></p>
+    <p><strong>First check the client.</strong> Only continue if Step 03 showed <code>Dismantle request sent</code> when you pressed <strong>1</strong>. That message comes from <strong>CombatClient</strong>, not RespawnService.</p>
+    <h3>A. Add one small server branch (if it is missing)</h3>
+    <p class="path">Explorer → ServerScriptService → CombatActionHandler · Script</p>
     <ol>
-      <li>Open <strong>ServerScriptService → CombatActionHandler</strong> (a Script).</li>
-      <li>Find <code>combatAction.OnServerEvent:Connect(function(player, action)</code>.</li>
-      <li>Inside its existing <code>if action == ... elseif action == ...</code> chain, find the last action branch (often <code>BlockEnd</code>).</li>
-      <li>If Dismantle is already handled there, don't add another branch. Otherwise insert <strong>only</strong> the two lines below, <em>before</em> the chain's closing <code>end</code>.</li>
+      <li><strong>Stop</strong> the playtest and open <strong>CombatActionHandler</strong>.</li>
+      <li>Find the existing <code>combatAction.OnServerEvent:Connect(function(player, action)</code> handler and its <code>if action == "M1" then</code> chain.</li>
+      <li>Look below <code>BlockEnd</code>. If you <strong>already added</strong> the Dismantle branch, <strong>don't add it again</strong>.</li>
+      <li>Otherwise insert <strong>only these two lines</strong> after the <code>BlockEnd</code> action, before the matching final <code>end</code> of the action chain.</li>
     </ol>
-    <div class="codebox"><div class="codehead"><span>Insert into the existing action chain</span><button type="button" data-copy="c3">COPY</button></div><pre id="c3">elseif action == "Dismantle" then
+    <div class="codebox"><div class="codehead"><span>COPY THESE TWO LINES ONLY (if missing)</span><button type="button" data-copy="c3">COPY</button></div><pre id="c3">elseif action == "Dismantle" then
     print("[Server] Received Dismantle from", player.Name)</pre></div>
-    <div class="pass"><strong>Quick check</strong> Press Play → press <code>1</code>. Output should show <code>Dismantle request sent</code> from the client <em>and</em> <code>[Server] Received Dismantle from ...</code> from the server. Check the Client / Server Output filters if needed.</div>
-    <p class="small">If you see “Expected 'end'”, undo the insertion and check that <code>elseif</code> is inside the existing chain, not after its closing <code>end</code>.</p>
-    <label class="done"><input type="checkbox" data-step="server"> Client and server both respond</label>
+    <p><strong>Check the ending:</strong> the bottom of your existing handler should look like this. <strong>For comparison only—do not paste a second BlockEnd branch.</strong></p>
+    <div class="codebox"><div class="codehead"><span>COMPARE THE FINAL LINES · not a second code insertion</span></div><pre>elseif action == "BlockEnd" then
+    CombatService.SetBlocking(player, false)
+
+elseif action == "Dismantle" then
+    print("[Server] Received Dismantle from", player.Name)
+end
+
+end)</pre></div>
+    <p>The first <code>end</code> closes the action chain; <code>end)</code> closes <code>OnServerEvent:Connect(...)</code>. Keep all existing M1, Dash, Dodge and Block logic above these lines. No new RemoteEvent and no new listener.</p>
+    <h3>B. Test the client <em>and</em> server, one press</h3>
+    <ol>
+      <li>Press <strong>Play (F5)</strong>. Confirm your avatar appears. Stay in <strong>Client</strong> mode.</li>
+      <li>Open <strong>Output</strong>. Clear previous messages. Make sure there is no text or context filter hiding Client or Server messages.</li>
+      <li><strong>Click in the live 3D game</strong>, then press <strong>1</strong> <em>once</em>.</li>
+      <li>Find <strong>both</strong> of the following messages. Roblox may add a timestamp, script name and line number.</li>
+    </ol>
+    <div class="results">
+      <p><strong>1 · Client (CombatClient)</strong></p>
+      <pre>Dismantle request sent</pre>
+      <p><strong>2 · Server (CombatActionHandler)</strong></p>
+      <pre>[Server] Received Dismantle from qwertykidsDC</pre>
+    </div>
+    <p class="small">The username will be your own if you're not logged in as qwertykidsDC. The <code>[Server]</code> inside the message is text from our <code>print</code>; Roblox also labels where that message came from.</p>
+    <div class="pass"><strong>Pass:</strong> Both Dismantle messages appear after <strong>one press of 1</strong>, with no new red errors. <strong>Only then</strong> go to Step 05.</div>
+    <details open><summary>Only one message—or only “spawn protection ended”?</summary>
+      <ul>
+        <li><strong>Only “spawn protection ended”:</strong> that's normal respawn output, not a Dismantle test result. Did you press <strong>1</strong> after clicking the live game? Check the <strong>Client</strong> message first.</li>
+        <li><strong>No client message:</strong> return to Step 03; check game focus, Client mode, the InputBegan branch and Output filters.</li>
+        <li><strong>Client yes, server no:</strong> check that <code>CombatActionHandler</code> is a normal <strong>Script</strong>, enabled and inside <code>ServerScriptService</code>; that it listens to <code>ReplicatedStorage → Remotes → CombatAction</code>; and that your Dismantle branch is <em>inside</em> its existing action chain. Check the first red Output error.</li>
+        <li><strong>“Expected 'end'”:</strong> undo the last insertion. Confirm the two final closings are <code>end</code> and <code>end)</code>, not two plain <code>end</code>s.</li>
+      </ul>
+      <p><strong>Don't progress while a check fails.</strong> A missing print doesn't mean the code above it worked.</p>
+    </details>
+    <label class="done"><input type="checkbox" data-step="server"> Both Dismantle messages verified</label>
   </div>
  </section>
  <section class="step" id="slash">
-  <div class="stephead"><span class="number">05</span><h2>And if that's working: a visible slash.</h2></div>
+  <div class="stephead"><span class="number">05</span><h2>Now make a slash appear.</h2></div>
   <div class="stepbody">
-    <p>One small reward for the fixes: a harmless white slash appears in front of your character when you press <code>1</code>. No damage, CE cost, cooldown or hit detection yet.</p>
+    <p>Only start if you personally saw <strong>both</strong> Dismantle messages in Step 04. This is a <strong>visual-only preview</strong>: no damage, hitbox, CE cost or cooldown.</p>
     <ol>
-      <li>Stay in <strong>CombatActionHandler</strong>. Find your new <code>elseif action == "Dismantle" then</code> branch.</li>
-      <li><strong>Under</strong> the server print, and still inside that branch, add the snippet below. Keep the print.</li>
-      <li>Press Play, face some empty space and press <code>1</code>.</li>
+      <li><strong>Stop</strong> the playtest. Open <strong>ServerScriptService → CombatActionHandler</strong>.</li>
+      <li>Find the <code>elseif action == "Dismantle" then</code> branch you just tested.</li>
+      <li>Add the following <strong>inside this branch, directly under</strong> <code>print("[Server] Received Dismantle from", player.Name)</code> and <strong>before</strong> the action chain's closing <code>end</code>.</li>
+      <li>Keep that original server print. Don't replace the entire handler or create a new script.</li>
     </ol>
-    <div class="codebox"><div class="codehead"><span>Add beneath the Dismantle server print</span><button type="button" data-copy="c4">COPY</button></div><pre id="c4">local character = player.Character
+    <div class="codebox"><div class="codehead"><span>ADD UNDER THE EXISTING SERVER PRINT</span><button type="button" data-copy="c4">COPY</button></div><pre id="c4">local character = player.Character
 local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 local root = character and character:FindFirstChild("HumanoidRootPart")
 
-if humanoid and humanoid.Health > 0 and root then
+if humanoid and humanoid.Health &gt; 0 and root then
     local slash = Instance.new("Part")
     slash.Name = "DismantlePreview"
     slash.Anchored = true
@@ -135,19 +176,30 @@ if humanoid and humanoid.Health > 0 and root then
         * CFrame.new(0, 1, -5)
         * CFrame.Angles(0, 0, math.rad(25))
     slash.Parent = workspace
-    game:GetService("Debris"):AddItem(slash, 0.4)
+    print("[Server] DismantlePreview created")
+    game:GetService("Debris"):AddItem(slash, 1)
 end</pre></div>
-    <div class="pass"><strong>Quick check</strong> Press <code>1</code> → a glowing slash flashes in front of the character, then disappears. Your Phase 1 controls must still work. That's a working visual prototype — not a finished attack.</div>
-    <p class="small">Later, this preview will move into a dedicated ability service with the real rules from your approved specifications. Today, we just want to see the first working slice.</p>
-    <label class="done"><input type="checkbox" data-step="slash"> First Dismantle preview works</label>
+    <p class="tip"><strong>Don't miss this:</strong> The code has one <code>end</code> closing its own <code>if humanoid ... then</code>. Keep the original <code>end</code> and <code>end)</code> below it. It is <strong>not</strong> a replacement for either of them.</p>
+    <h3>Test the visible result</h3>
+    <ol>
+      <li>Press <strong>Play (F5)</strong>, click inside the live game and face an open area.</li>
+      <li>Press <strong>1</strong> once. Look <strong>in front of your character</strong> for a pale angled part that appears for <strong>one second</strong>.</li>
+      <li>Output should show the <strong>Client</strong> message, the <strong>Server received</strong> message, <em>and</em> <code>[Server] DismantlePreview created</code>. No red script errors.</li>
+      <li>Check Q, R and F still work. Save the Roblox place when finished.</li>
+    </ol>
+    <div class="pass"><strong>Pass:</strong> You see the slash and all three Output messages after pressing <strong>1</strong>. It disappears by itself. That is a working prototype—not the finished attack.</div>
+    <details><summary>What if you don't see it?</summary>
+      <ul><li><strong>No Dismantle client/server prints:</strong> go back to Step 04.</li><li><strong>Server received but no “created”:</strong> check the first red error and confirm the new code is <em>inside</em> the Dismantle branch. Make sure your character is alive and has a HumanoidRootPart.</li><li><strong>“Created” prints but no slash is visible:</strong> face clear space, press 1 again and look ahead of the avatar. In Server-mode Explorer during the playtest, check Workspace for <code>DismantlePreview</code> while the one-second effect exists.</li></ul>
+    </details>
+    <label class="done"><input type="checkbox" data-step="slash"> First visible Dismantle prototype works</label>
   </div>
  </section>
  <div class="finish">
   <h2>That's your session.</h2>
-  <p>Save your Roblox Studio place under a new name. If you only reach Step 03, you've still repaired the baseline. If you reach Step 05, you've got a visible Dismantle prototype.</p>
+  <p>Save your Roblox Studio place under a new name. If you only reach Step 03, you've still repaired the baseline. Only mark a step complete after the stated Output and gameplay tests actually pass. If you reach Step 05, you've got a visible Dismantle prototype.</p>
   <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications.</p>
  </div>
- <footer>QWERTY LABS / HENRY / REPAIRS → NAMING → FIRST ABILITY · 27 OCT 2026</footer>
+ <footer>QWERTY LABS / HENRY / REPAIRS → NAMING → FIRST ABILITY · 27 OCT 2026 · TESTED CHECKPOINTS</footer>
 </main>
 <script>
 (() => {
