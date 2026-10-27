@@ -39,13 +39,15 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
       <li>There is an extra <code>1</code> immediately before that print. <strong>Delete only the extra 1.</strong> Keep the print line.</li>
     </ol>
     <div class="codebox"><div class="codehead"><span>The correct line</span><button type="button" data-copy="c1">COPY</button></div><pre id="c1">print(player.Name, "spawn protection ended")</pre></div>
-    <h3>Fix B — move the <code>1</code>-key code out of the <code>F</code>-key code</h3>
+    <h3>Fix B — make the <code>1</code> key work</h3>
     <p class="path">Explorer → StarterPlayer → StarterPlayerScripts → CombatClient</p>
+    <p class="tip"><strong>Two different starting files:</strong> Henry's <code>CursedPandemonium_phase1.rbxl</code> already has the Dismantle keypress code, but it's wrongly placed <em>inside</em> F/Block. The Qwerty reference file <code>dcPhase1.rbxl</code> has <strong>no</strong> Dismantle keypress code yet. They need different fixes.</p>
     <ol>
-      <li>Open <strong>CombatClient</strong> (a LocalScript). Find the <code>InputBegan</code> function.</li>
-      <li>Look at the <strong>F = Block</strong> section and the <strong>1 = Dismantle</strong> section.</li>
-      <li>We accidentally put Dismantle <em>inside</em> the F block. Move the existing Dismantle section so that it comes <strong>after F's closing <code>end</code></strong>, not inside it.</li>
-      <li>Compare that small part with the example below. <strong>Don't paste a second copy</strong> or replace your whole CombatClient script.</li>
+      <li>Open <strong>CombatClient</strong> (a LocalScript). Find <code>UserInputService.InputBegan:Connect(function(input, gameProcessed)</code>.</li>
+      <li>Find the <strong>F = Block</strong> section. Look for <code>if input.KeyCode == Enum.KeyCode.One then</code> anywhere in this same <code>InputBegan</code> function.</li>
+      <li><strong>Henry:</strong> If the <code>1</code>-key block is inside the F block, <strong>move</strong> that existing block <em>below</em> F's closing <code>end</code>. Don't make a second copy.</li>
+      <li><strong>Reference file / other place with no <code>1</code> block:</strong> add <strong>only the four-line <code>1</code>-key block</strong> from the example below, after F's closing <code>end</code> but <em>before</em> the existing <code>InputBegan</code> closing <code>end)</code>.</li>
+      <li>If a <code>1</code>-key block already exists <em>after</em> F and inside <code>InputBegan</code>, leave it alone. Do not paste duplicate code.</li>
     </ol>
     <div class="codebox"><div class="codehead"><span>REFERENCE · compare this area, don't paste a second F branch</span><button type="button" data-copy="c2">COPY</button></div><pre id="c2">-- Hold F = Block
 if input.KeyCode == Enum.KeyCode.F then
@@ -57,7 +59,7 @@ if input.KeyCode == Enum.KeyCode.One then
     print("Dismantle request sent")
     combatAction:FireServer("Dismantle")
 end</pre></div>
-    <p class="tip"><strong>Important:</strong> Both <code>if</code> blocks must stay <em>inside</em> the original <code>InputBegan</code> function. Keep your Q, R, M1 and F release code intact. If your current F section contains extra logic, keep it; just move the Dismantle branch outside it.</p>
+    <p class="tip"><strong>Important:</strong> Both <code>if</code> blocks must stay <em>inside</em> the original <code>InputBegan</code> function, above its <code>end)</code>. Keep your Q, R, M1 and F release code intact. If your current F section contains extra logic, keep it; just move the Dismantle branch outside it.</p>
     <div class="pass"><strong>Quick check</strong> Use <strong>Play (F5)</strong>, not Run. Click inside the playing game, press <code>1</code> once and read <strong>Output</strong>. You must see <code>Dismantle request sent</code> (Client · CombatClient). No server print is expected until Step 04. No new red script errors.</div>
     <label class="done"><input type="checkbox" data-step="fix"> Both mistakes fixed and tested</label>
   </div>
