@@ -14,6 +14,7 @@ main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;ma
 .step{background:#fff;border:2px solid var(--ink);border-radius:14px;margin:0 0 22px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}.stephead{display:flex;gap:16px;align-items:center;background:var(--paper);border-bottom:2px solid var(--ink);padding:17px 22px}.number{display:grid;place-items:center;width:45px;height:45px;border:2px solid var(--ink);border-radius:8px;background:var(--pink);font:700 20px 'Atkinson Hyperlegible Mono',monospace;flex-shrink:0}.step:nth-of-type(2) .number{background:var(--green)}.step:nth-of-type(3) .number{background:var(--orange)}.step:nth-of-type(4) .number{background:var(--blue);color:white}.step:nth-of-type(5) .number{background:var(--pink)}h2{font-size:clamp(1.36rem,2.6vw,1.75rem);letter-spacing:-.025em;line-height:1.18;margin:0}.stepbody{padding:22px 25px 24px;max-width:1030px}.stepbody p{margin:0 0 13px}.stepbody ul,.stepbody ol{margin:8px 0 16px;padding-left:26px}.stepbody li{margin-bottom:8px}h3{font-size:1.14rem;margin:16px 0 7px}.path{font:700 .9rem/1.55 'Atkinson Hyperlegible Mono',monospace;color:#293f86;overflow-wrap:anywhere}.tip{background:#edf3f8;border-left:5px solid var(--blue);padding:12px 16px;margin:15px 0}.pass{background:#f2f8df;border-left:5px solid #537b23;padding:13px 16px;margin:17px 0 0}.pass strong{display:block;margin-bottom:3px}.codebox{background:#121322;color:#f5f7ff;border-radius:10px;margin:11px 0 17px;overflow:hidden}.codehead{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;border-bottom:1px solid #484a61;color:#c9cddd;font:700 12px 'Atkinson Hyperlegible Mono',monospace}.codehead button{background:var(--green);border:1px solid var(--green);border-radius:6px;color:var(--ink);font:700 12px 'Atkinson Hyperlegible Mono',monospace;padding:6px 11px}.codehead button:hover{background:#bef17d}pre{font:15px/1.62 'Atkinson Hyperlegible Mono',ui-monospace,monospace;overflow-x:auto;white-space:pre;padding:13px 17px;margin:0}code:not(pre code){font:.92em 'Atkinson Hyperlegible Mono',ui-monospace,monospace;background:#e8f0f0;padding:1px 4px;border-radius:3px}.done{display:flex;align-items:center;gap:9px;padding:13px 0 0;font-weight:700}.done input{width:23px;height:23px;accent-color:var(--blue);cursor:pointer}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.finish{padding:20px 24px;background:var(--ink);color:white;border-radius:12px;margin-top:30px}.finish h2{margin-bottom:10px}.finish a{color:var(--green)}.small{font-size:.87rem;color:#47505b}.visually-hidden{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden;white-space:nowrap}footer{font:.85rem 'Atkinson Hyperlegible Mono',monospace;margin-top:30px;color:#47505b}
 @media(max-width:720px){main{width:calc(100% - 30px);margin:22px auto 50px}.two{grid-template-columns:1fr}.stepbody{padding:18px}.stephead{padding:15px}.number{width:40px;height:40px;font-size:18px}header{padding:25px 18px 31px}pre{font-size:13px}}
 details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin:16px 0;padding:12px 16px}details summary{font-weight:700;cursor:pointer}details[open] summary{margin-bottom:10px}details p:last-child{margin-bottom:0}.results{border:2px solid var(--ink);border-radius:9px;padding:14px 17px;background:#f5f9fa;margin:12px 0}.results p{margin:2px 0 4px!important;font-weight:700}.results pre{font:15px/1.55 'Atkinson Hyperlegible Mono',ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 0 12px}
+.step:nth-of-type(6) .number{background:var(--green)}.step:nth-of-type(7) .number{background:var(--orange)}.step:nth-of-type(8) .number{background:var(--pink)}
 </style>
 </head>
 <body>
@@ -26,7 +27,7 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
 <main>
  <p class="intro"><strong>Start with your current Roblox Studio place.</strong> Save a separate working copy first. We are fixing a couple of lines, not rebuilding Phase 1.</p>
  <nav class="trail" aria-label="Jump to a task">
-   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a>
+   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a>
  </nav>
  <section class="step" id="fix">
   <div class="stephead"><span class="number">01</span><h2>Our two mistakes. Your two fixes.</h2></div>
@@ -196,12 +197,104 @@ end</pre></div>
     <label class="done"><input type="checkbox" data-step="slash"> First visible Dismantle prototype works</label>
   </div>
  </section>
+
+<section class="step" id="animate">
+  <div class="stephead"><span class="number">06</span><h2>Make the slash move.</h2></div>
+  <div class="stepbody">
+    <p><strong>Start here only if Step 05 worked:</strong> pressing <code>1</code> produced <code>[Server] DismantlePreview created</code> and you saw the pale slash. Save your working Roblox place before changing anything.</p>
+    <p>Right now, the slash appears like a sign and vanishes. Let's make it <strong>grow and fade</strong>. Roblox's <code>TweenService</code> animates properties for us.</p>
+    <ol>
+      <li><strong>Stop</strong> the playtest. Open <strong>ServerScriptService → CombatActionHandler</strong> (a Script).</li>
+      <li>Find <code>elseif action == "Dismantle" then</code>. Inside that branch, find these two existing lines near its bottom:</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>FIND THESE TWO LINES (don't delete either)</span></div><pre>print("[Server] DismantlePreview created")
+game:GetService("Debris"):AddItem(slash, 1)</pre></div>
+    <ol start="3"><li><strong>Insert</strong> this entire snippet <strong>between</strong> those two lines. Do not replace either one. Keep it inside <code>if humanoid and humanoid.Health &gt; 0 and root then</code>.</li></ol>
+    <div class="codebox"><div class="codehead"><span>INSERT BETWEEN THE PRINT AND DEBRIS LINES</span><button type="button" data-copy="c5">COPY</button></div><pre id="c5">game:GetService("TweenService"):Create(
+    slash,
+    TweenInfo.new(0.45, Enum.EasingStyle.Quad),
+    {
+        Size = Vector3.new(9, 3, 0.2),
+        Transparency = 1
+    }
+):Play()</pre></div>
+    <p><strong>No other changes.</strong> In particular, keep <code>game:GetService("Debris"):AddItem(slash, 1)</code>; it still cleans up the Part.</p>
+    <h3>Test 06 · One growing slash</h3>
+    <ol>
+      <li>Press <strong>Play (F5)</strong>, click the live game viewport, face some empty space and press <strong>1</strong> once.</li>
+      <li>The pale slash should now <strong>expand and fade</strong> instead of staying still for a full second. Cleanup still happens automatically.</li>
+      <li>Output should still show <code>Dismantle request sent</code>, <code>[Server] Received Dismantle from ...</code> and <code>[Server] DismantlePreview created</code>. There should be no new red script errors.</li>
+    </ol>
+    <div class="pass"><strong>Pass:</strong> The one slash expands and fades, all three messages appear, and Q/R/F are unchanged.</div>
+    <details><summary>Still looks static, or isn't visible?</summary><p>Confirm the new code is <strong>between</strong> the print and Debris lines, and that you haven't removed <code>):Play()</code>. Check the first red Output error before continuing. The animation lasts about half a second: press <strong>1</strong> a couple of times, separately, if you missed it.</p></details>
+    <label class="done"><input type="checkbox" data-step="animate"> Animated slash tested</label>
+  </div>
+</section>
+<section class="step" id="layers">
+  <div class="stephead"><span class="number">07</span><h2>Add a second slash stroke.</h2></div>
+  <div class="stepbody">
+    <p>Let's make the visual more distinctive: <strong>one bright slash and one darker crossing stroke</strong>. This changes only the appearance, not the attack rules. The dark-purple colour here is a test choice, not Henry's locked final art direction.</p>
+    <ol>
+      <li><strong>Stop</strong> the playtest. Open the same <strong>CombatActionHandler</strong> Script.</li>
+      <li>Find the <strong>Step 06</strong> animation, which ends with <code>):Play()</code>.</li>
+      <li><strong>Directly after that <code>):Play()</code> but before</strong> <code>game:GetService("Debris"):AddItem(slash, 1)</code>, paste the snippet below. Keep the original pale slash and its cleanup.</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>INSERT AFTER THE WHITE SLASH TWEEN, BEFORE WHITE DEBRIS</span><button type="button" data-copy="c6">COPY</button></div><pre id="c6">local darkSlash = slash:Clone()
+darkSlash.Name = "DismantleDarkPreview"
+darkSlash.Color = Color3.fromRGB(40, 28, 92)
+darkSlash.Transparency = 0.1
+darkSlash.Size = Vector3.new(5, 1.5, 0.2)
+darkSlash.CFrame = slash.CFrame
+    * CFrame.Angles(0, 0, math.rad(-55))
+    * CFrame.new(0, 0, -0.35)
+darkSlash.Parent = workspace
+
+game:GetService("TweenService"):Create(
+    darkSlash,
+    TweenInfo.new(0.45, Enum.EasingStyle.Quad),
+    {
+        Size = Vector3.new(7, 2.2, 0.2),
+        Transparency = 1
+    }
+):Play()
+
+game:GetService("Debris"):AddItem(darkSlash, 1)
+print("[Server] DismantleDarkPreview created")</pre></div>
+    <p class="tip"><strong>Important:</strong> The <code>darkSlash</code> block still belongs inside the same <code>if humanoid ... then</code>. Do not paste below its closing <code>end</code>, and don't duplicate any <code>elseif</code> or event handler.</p>
+    <h3>Test 07 · Two visible strokes</h3>
+    <ol>
+      <li>Press <strong>Play (F5)</strong>, click inside the playing game, face open space and press <strong>1</strong> once.</li>
+      <li>You should see <strong>two crossing strokes</strong> expand and fade. Both clean up automatically.</li>
+      <li>Output should include the previous three messages plus <code>[Server] DismantleDarkPreview created</code>. Check for new red script errors.</li>
+    </ol>
+    <div class="pass"><strong>Pass:</strong> Both strokes appear and fade; all four Dismantle messages appear; no new red errors.</div>
+    <details><summary>Only one stroke?</summary><p>First look for <code>[Server] DismantleDarkPreview created</code>. If missing, inspect the first red error and check that the new code is inside the Dismantle branch. If the message appears, try rotating the character and pressing <strong>1</strong> again; the dark stroke is a quick, narrower second flash.</p></details>
+    <label class="done"><input type="checkbox" data-step="layers"> Two-stroke preview tested</label>
+  </div>
+</section>
+<section class="step" id="multiplayer">
+  <div class="stephead"><span class="number">08</span><h2>Prove it works for two players.</h2></div>
+  <div class="stepbody">
+    <p>No more new code in this step. Roblox is multiplayer: a visual that works for one client isn't yet a tested multiplayer effect.</p>
+    <ol>
+      <li><strong>Stop</strong> the solo playtest. In Studio's testing mode dropdown select <strong>Server &amp; Clients</strong>, choose <strong>2 clients</strong> and press <strong>Play</strong> (or F7).</li>
+      <li>In <strong>Client 1</strong>, click the game viewport and press <strong>1</strong> once. Watch both client windows. The slash should appear in front of Player 1 for <em>both</em> clients.</li>
+      <li>In <strong>Client 2</strong>, click the game viewport and press <strong>1</strong>. Again, watch both client windows. The slash should now appear in front of Player 2 for both clients.</li>
+      <li>Check that <strong>Q</strong>, <strong>R</strong>, <strong>F</strong>, health/CE UI and existing combat still work. Look for new red script errors in the Output of any session.</li>
+      <li>Use <strong>End Session</strong>. Save a new copy of the Roblox place with your working visual prototype intact.</li>
+    </ol>
+    <div class="pass"><strong>Pass:</strong> Each player's keypress produces a slash seen by both clients; the original game still works and the Output is clean.</div>
+    <details><summary>Only one player sees the effect?</summary><p>Stop here. Check that the Part is created inside the existing <strong>server</strong> <code>CombatActionHandler</code> Script and parented to <code>workspace</code>. Don't move the effect into a LocalScript to make it appear. Save the Output error and check the actual script before editing.</p></details>
+    <p class="small">The next <em>separate</em> build should move ability visuals into a modular service and implement Henry's <strong>confirmed</strong> damage, CE, cooldown, windup and hit validation rules. Those are not part of this visual prototype.</p>
+    <label class="done"><input type="checkbox" data-step="multiplayer"> Two-player test passed and place saved</label>
+  </div>
+</section>
  <div class="finish">
-  <h2>That's your session.</h2>
-  <p>Save your Roblox Studio place under a new name. If you only reach Step 03, you've still repaired the baseline. Only mark a step complete after the stated Output and gameplay tests actually pass. If you reach Step 05, you've got a visible Dismantle prototype.</p>
+  <h2>Save what actually worked.</h2>
+  <p>Steps 01–05 establish the first working slash. Steps 06–07 animate and layer it; Step 08 verifies it with two players. Stop at the last <strong>passed</strong> test. Save a new Roblox place copy and record the step number you reached.</p>
   <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications.</p>
  </div>
- <footer>QWERTY LABS / HENRY / REPAIRS → NAMING → FIRST ABILITY · 27 OCT 2026 · TESTED CHECKPOINTS</footer>
+ <footer>QWERTY LABS / HENRY / REPAIRS → FIRST SLASH → VISUAL POLISH → MULTIPLAYER TEST · 27 OCT 2026</footer>
 </main>
 <script>
 (() => {
