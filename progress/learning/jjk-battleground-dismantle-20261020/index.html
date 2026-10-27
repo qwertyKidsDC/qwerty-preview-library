@@ -15,6 +15,7 @@ main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;ma
 @media(max-width:720px){main{width:calc(100% - 30px);margin:22px auto 50px}.two{grid-template-columns:1fr}.stepbody{padding:18px}.stephead{padding:15px}.number{width:40px;height:40px;font-size:18px}header{padding:25px 18px 31px}pre{font-size:13px}}
 details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin:16px 0;padding:12px 16px}details summary{font-weight:700;cursor:pointer}details[open] summary{margin-bottom:10px}details p:last-child{margin-bottom:0}.results{border:2px solid var(--ink);border-radius:9px;padding:14px 17px;background:#f5f9fa;margin:12px 0}.results p{margin:2px 0 4px!important;font-weight:700}.results pre{font:15px/1.55 'Atkinson Hyperlegible Mono',ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 0 12px}
 .step:nth-of-type(6) .number{background:var(--green)}.step:nth-of-type(7) .number{background:var(--orange)}.step:nth-of-type(8) .number{background:var(--pink)}
+ .specnote{max-width:1050px;background:#fff;border:2px solid var(--blue);border-radius:12px;padding:17px 20px;margin:0 0 25px}.specnote strong:first-child{font-size:1.13rem}.specnote p{margin:9px 0 0}.specnote code{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -26,6 +27,12 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
 </header>
 <main>
  <p class="intro"><strong>Start with your current Roblox Studio place.</strong> Save a separate working copy first. We are fixing a couple of lines, not rebuilding Phase 1.</p>
+ <div class="specnote">
+ <strong>How we'll use the specs from now on</strong>
+ <p>You're building the game, not finishing another worksheet. Each new gameplay feature will identify <b>HENRY'S SPEC</b> (your existing decision) and <b>WORKING DEFAULT</b> (a value or rule we've supplied so you can test it). Change working defaults when you can see how they affect the game. We'll keep gameplay settings together instead of burying numbers throughout scripts.</p>
+ <p><strong>HENRY'S SPEC · Dismantle:</strong> key <code>1</code> is the current control we're testing; the individual input field still needs to be marked final. Current values: 10 damage, 20 CE, 8-second cooldown, 0.6-second windup, 60-stud range and 1.2-second stun; blockable, dodgeable and interruptible; white-and-black slash. These are <em>not implemented</em> by Steps 01–08 yet.</p>
+ <p><strong>WORKING DEFAULT · visual preview:</strong> the temporary Part sizes, animation length and one-second cleanup are just starting choices for testing appearance. They do not set damage, hitbox size, windup or cooldown.</p>
+ </div>
  <nav class="trail" aria-label="Jump to a task">
    <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a>
  </nav>
@@ -203,6 +210,7 @@ end</pre></div>
   <div class="stepbody">
     <p><strong>Start here only if Step 05 worked:</strong> pressing <code>1</code> produced <code>[Server] DismantlePreview created</code> and you saw the pale slash. Save your working Roblox place before changing anything.</p>
     <p>Right now, the slash appears like a sign and vanishes. Let's make it <strong>grow and fade</strong>. Roblox's <code>TweenService</code> animates properties for us.</p>
+    <p class="small"><strong>WORKING DEFAULT:</strong> the <code>0.45</code> seconds in <code>TweenInfo</code> is how long the <em>visual animation</em> lasts. Try <code>0.25</code> for a snappier slash or <code>0.7</code> for a slower one. This is <strong>not</strong> the 0.6-second ability windup Henry specified; that comes later.</p>
     <ol>
       <li><strong>Stop</strong> the playtest. Open <strong>ServerScriptService → CombatActionHandler</strong> (a Script).</li>
       <li>Find <code>elseif action == "Dismantle" then</code>. Inside that branch, find these two existing lines near its bottom:</li>
@@ -233,7 +241,7 @@ game:GetService("Debris"):AddItem(slash, 1)</pre></div>
 <section class="step" id="layers">
   <div class="stephead"><span class="number">07</span><h2>Add a second slash stroke.</h2></div>
   <div class="stepbody">
-    <p>Let's make the visual more distinctive: <strong>one bright slash and one darker crossing stroke</strong>. This changes only the appearance, not the attack rules. The dark-purple colour here is a test choice, not Henry's locked final art direction.</p>
+    <p>Let's make the visual more distinctive: <strong>one bright slash and one black crossing stroke</strong>. This changes only the appearance, not the attack rules. <strong>HENRY'S SPEC:</strong> a white-and-black slash. <strong>WORKING DEFAULT:</strong> the second stroke's angle, width and animation timing. Change those and see how the effect feels.</p>
     <ol>
       <li><strong>Stop</strong> the playtest. Open the same <strong>CombatActionHandler</strong> Script.</li>
       <li>Find the <strong>Step 06</strong> animation, which ends with <code>):Play()</code>.</li>
@@ -241,7 +249,7 @@ game:GetService("Debris"):AddItem(slash, 1)</pre></div>
     </ol>
     <div class="codebox"><div class="codehead"><span>INSERT AFTER THE WHITE SLASH TWEEN, BEFORE WHITE DEBRIS</span><button type="button" data-copy="c6">COPY</button></div><pre id="c6">local darkSlash = slash:Clone()
 darkSlash.Name = "DismantleDarkPreview"
-darkSlash.Color = Color3.fromRGB(40, 28, 92)
+darkSlash.Color = Color3.fromRGB(16, 16, 22)
 darkSlash.Transparency = 0.1
 darkSlash.Size = Vector3.new(5, 1.5, 0.2)
 darkSlash.CFrame = slash.CFrame
@@ -276,6 +284,7 @@ print("[Server] DismantleDarkPreview created")</pre></div>
   <div class="stephead"><span class="number">08</span><h2>Prove it works for two players.</h2></div>
   <div class="stepbody">
     <p>No more new code in this step. Roblox is multiplayer: a visual that works for one client isn't yet a tested multiplayer effect.</p>
+    <p class="small"><strong>HENRY'S GAME RULE:</strong> the server validates actions. A shared visual created by the server should be visible to both players. <strong>WORKING DEFAULT:</strong> two players for this quick test; the game can be tested with larger groups later.</p>
     <ol>
       <li><strong>Stop</strong> the solo playtest. In Studio's testing mode dropdown select <strong>Server &amp; Clients</strong>, choose <strong>2 clients</strong> and press <strong>Play</strong> (or F7).</li>
       <li>In <strong>Client 1</strong>, click the game viewport and press <strong>1</strong> once. Watch both client windows. The slash should appear in front of Player 1 for <em>both</em> clients.</li>
@@ -292,7 +301,7 @@ print("[Server] DismantleDarkPreview created")</pre></div>
  <div class="finish">
   <h2>Save what actually worked.</h2>
   <p>Steps 01–05 establish the first working slash. Steps 06–07 animate and layer it; Step 08 verifies it with two players. Stop at the last <strong>passed</strong> test. Save a new Roblox place copy and record the step number you reached.</p>
-  <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications.</p>
+  <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications. When real damage and CE rules are added, keep Henry's chosen values and label any supplied missing rule as a <strong>WORKING DEFAULT</strong> that can be revised through playtesting.</p>
  </div>
  <footer>QWERTY LABS / HENRY / REPAIRS → FIRST SLASH → VISUAL POLISH → MULTIPLAYER TEST · 27 OCT 2026</footer>
 </main>
