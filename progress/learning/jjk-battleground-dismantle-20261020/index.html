@@ -1,213 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-AU">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Combat Game — Dismantle Prototype | Qwerty Labs</title>
-<meta name="description" content="Reusable Roblox Studio lab: build a safe visual ability prototype on an existing combat framework.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Henry — Fix, Name, Dismantle | Qwerty Labs</title>
+<meta name="description" content="Fix two small code mistakes, name the Roblox arena, then test the first Dismantle request.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&display=swap');
-:root{--paper:#F1F8F8;--ink:#020020;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--grey:#dae6e7;--line:#020020;--mono:'Atkinson Hyperlegible Mono',ui-monospace,Menlo,monospace;--body:'Atkinson Hyperlegible',system-ui,sans-serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.48}
-a{color:inherit;text-underline-offset:3px}a:hover{color:var(--blue)}button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:4px solid var(--blue);outline-offset:4px}
-header{background:var(--ink);color:var(--paper);padding:clamp(26px,5vw,64px) max(22px,calc((100vw - 1120px)/2));position:relative;overflow:hidden}header:after{content:'1';position:absolute;right:-20px;top:-115px;font:700 520px/1 var(--mono);color:var(--pink);opacity:.18;pointer-events:none}header .tiny{font:700 14px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--green)}h1{font-size:clamp(3rem,8vw,6.4rem);letter-spacing:-.065em;line-height:.96;margin:14px 0 22px;max-width:840px;position:relative;z-index:1}header p{font-size:clamp(1.2rem,2.2vw,1.55rem);max-width:690px;margin:0 0 20px;position:relative;z-index:1}header .chips{display:flex;gap:9px;flex-wrap:wrap;position:relative;z-index:1}.chip{font:700 14px var(--mono);padding:7px 10px;border:1.5px solid var(--paper);border-radius:999px}
-.topnav{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:2px solid var(--ink);box-shadow:0 5px 0 rgba(2,0,32,.08)}.topinner{max-width:1120px;margin:auto;padding:11px 18px;display:flex;gap:14px;align-items:center}.brand{font:700 15px var(--mono);white-space:nowrap}.jump{display:flex;flex:1;gap:6px;overflow:auto;scrollbar-width:thin}.jump a{text-decoration:none;border:1.5px solid var(--ink);border-radius:6px;min-width:45px;padding:5px 9px;text-align:center;font:700 14px var(--mono)}.jump a.complete{background:var(--green)}.progress{white-space:nowrap;font:700 14px var(--mono)}.track{height:5px;background:var(--grey)}.bar{width:0;height:100%;background:var(--blue);transition:width .2s}
-main{max-width:1120px;margin:0 auto;padding:28px 20px 100px}.intro{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;margin:5px 0 55px}.sheet{border:2px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--ink);border-radius:13px;padding:23px}.sheet h2,.sheet h3{margin:0 0 10px;letter-spacing:-.035em;font-size:1.45rem}.sheet p{margin:0 0 10px}.sheet p:last-child{margin-bottom:0}.sheet ul{margin:8px 0;padding-left:22px}.sheet li{margin:7px 0}.highlight{background:var(--green);padding:0 3px}
-.flow{display:grid;gap:5px;font:700 14px var(--mono);text-align:center}.flow .node{border:2px solid var(--ink);padding:8px;border-radius:8px;background:var(--paper)}.flow .arr{font-size:20px;line-height:1}.flow .node:nth-child(1){background:var(--pink)}.flow .node:nth-child(5){background:var(--green)}
-.mission{margin:56px 0 70px;scroll-margin-top:100px}.mast{border-bottom:4px solid var(--ink);margin-bottom:16px;padding-bottom:15px;display:grid;grid-template-columns:100px 1fr;gap:15px;align-items:start}.num{font:700 clamp(3.5rem,9vw,6.4rem)/.9 var(--mono);letter-spacing:-.12em}.mast h2{font-size:clamp(2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.055em;margin:0 0 9px}.meta{font:700 14px var(--mono);text-transform:uppercase;letter-spacing:.06em}.summary{font-size:1.17rem;max-width:800px;margin:0}.mission-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.56fr);gap:15px}.panel{background:#fff;border:2px solid var(--ink);border-radius:11px;overflow:hidden}.panelhead{padding:11px 15px;background:var(--blue);font:700 14px var(--mono);text-transform:uppercase;letter-spacing:.03em;border-bottom:2px solid var(--ink)}.panelhead.pink{background:var(--pink)}.panelhead.green{background:var(--green)}.panelhead.orange{background:var(--orange)}.panelbody{padding:17px 19px}.panelbody p{margin:0 0 12px}.panelbody p:last-child{margin-bottom:0}.panelbody ol,.panelbody ul{padding-left:25px;margin:8px 0 12px}.panelbody li{margin:9px 0}.panelbody strong{font-weight:700}.wide{grid-column:1/-1}.path{display:block;font:700 14px/1.6 var(--mono);background:#ecf1ff;padding:10px 13px;border-left:5px solid var(--blue);border-radius:4px;overflow-wrap:anywhere;margin:10px 0 14px}.precode{background:#1b1b29;border-top:1px solid #38384f;color:#f3f5fa;overflow-x:auto;margin:0;padding:18px;font:15px/1.65 var(--mono);white-space:pre;tab-size:4}.codebox{position:relative;border-radius:9px;overflow:hidden;margin:15px 0 17px}.codehead{padding:8px 12px;background:#343446;color:#fff;font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center}.copy{background:#fff;border:1px solid #fff;color:var(--ink);font:700 12px var(--mono);padding:6px 12px;border-radius:4px}.copy:hover{background:var(--green)}code{font-family:var(--mono);font-size:.91em;background:#eaf0f1;padding:1px 3px;border-radius:3px}pre code{background:none;padding:0;font-size:inherit;border-radius:0}.warn{border-left:7px solid var(--orange);background:#fff3e8;padding:12px 16px;margin:14px 0;border-radius:5px}.pass{border-left:7px solid #587e1f;background:#f0f8e4;padding:12px 16px;margin:14px 0;border-radius:5px}.checkpoint{border:2px solid var(--ink);border-radius:11px;padding:17px 20px;background:#fff;margin-top:15px}.checktitle{font:700 16px var(--mono);margin-bottom:8px}.checkpoint p{margin:8px 0}.donebtn{display:inline-block;background:var(--green);color:var(--ink);font:700 15px var(--mono);border:2px solid var(--ink);border-radius:6px;padding:10px 17px;box-shadow:3px 3px 0 var(--ink);margin:10px 0 0}.donebtn.done{background:var(--paper)}.next{display:inline-block;margin:10px 0 0 16px;font:700 15px var(--mono)}.ghost{opacity:.72}.help{background:#fff3e8;border:2px solid var(--ink);padding:22px;border-radius:11px;margin:35px 0 60px}.help h2{margin:0 0 8px;font-size:1.7rem;letter-spacing:-.03em}.help details{margin:10px 0;border-top:1px solid var(--ink);padding-top:10px}.help summary{cursor:pointer;font-weight:700}.help p{margin:10px 0}.tiny{font-size:15px}.report textarea{width:100%;min-height:170px;padding:14px;border:2px solid var(--ink);border-radius:7px;background:white;resize:vertical;margin:8px 0}.buttons{display:flex;gap:12px;flex-wrap:wrap}.secondary{padding:10px 15px;border:2px solid var(--ink);border-radius:6px;background:white;color:var(--ink);font:700 14px var(--mono)}.sources{font-size:15px;line-height:1.5;border-top:1px solid #9ab0b1;padding-top:20px;margin-top:60px}footer{background:var(--ink);color:#fff;padding:25px;text-align:center;font:14px var(--mono)}
-/* Desktop learning decks use the screen, not a narrow article column.
-   At 1280px and above, align header, navigation and main at 86vw.
-   Below that size, retain the existing tablet and mobile layouts. */
-@media(min-width:1280px){
-  header{padding-left:7vw;padding-right:7vw}
-  .topinner{width:86vw;max-width:none;padding-left:0;padding-right:0}
-  main{width:86vw;max-width:none;padding-left:0;padding-right:0}
-}
-@media(max-width:800px){.intro,.mission-grid{grid-template-columns:1fr}.mast{grid-template-columns:65px 1fr}.num{font-size:3.8rem}.topinner{flex-wrap:wrap}.jump{order:3;width:100%;flex-basis:100%}header:after{font-size:330px;top:0}main{padding-left:14px;padding-right:14px}.precode{font-size:13px}.next{display:block;margin:12px 0 0}}
-@media print{header{background:#fff;color:#000}header:after,.topnav,.copy,.donebtn,.next{display:none}.sheet,.panel{box-shadow:none}.mission{break-inside:avoid;page-break-before:always}.mission-grid{display:block}.panel,.checkpoint{margin:12px 0}.precode{white-space:pre-wrap;word-break:break-word;color:#000;background:#eee}.codehead{background:#ddd;color:#000}body{font-size:13px}}
+:root{--paper:#F1F8F8;--ink:#020020;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--line:#bacaca}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.53 'Atkinson Hyperlegible',system-ui,sans-serif}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}a{color:var(--blue);text-underline-offset:3px}
+header{background:var(--ink);color:var(--paper);padding:35px max(24px,7vw) 42px}header .eyebrow{font:700 13px/1.5 'Atkinson Hyperlegible Mono',monospace;letter-spacing:.12em;color:var(--green);text-transform:uppercase}h1{font-size:clamp(3rem,7vw,6rem);line-height:1.01;letter-spacing:-.055em;margin:12px 0 16px}header p{max-width:760px;font-size:clamp(1.13rem,2vw,1.4rem);margin:0 0 16px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font:700 12px 'Atkinson Hyperlegible Mono',monospace;border:1px solid #839298;border-radius:20px;padding:6px 10px}
+main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;margin:0 0 25px;font-size:1.15rem}.trail{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 30px}.trail a{border:1.5px solid var(--ink);border-radius:8px;padding:9px 13px;color:var(--ink);text-decoration:none;font-weight:700;font-size:.94rem}.trail a:hover{background:var(--green)}
+.step{background:#fff;border:2px solid var(--ink);border-radius:14px;margin:0 0 22px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}.stephead{display:flex;gap:16px;align-items:center;background:var(--paper);border-bottom:2px solid var(--ink);padding:17px 22px}.number{display:grid;place-items:center;width:45px;height:45px;border:2px solid var(--ink);border-radius:8px;background:var(--pink);font:700 20px 'Atkinson Hyperlegible Mono',monospace;flex-shrink:0}.step:nth-of-type(2) .number{background:var(--green)}.step:nth-of-type(3) .number{background:var(--orange)}.step:nth-of-type(4) .number{background:var(--blue);color:white}.step:nth-of-type(5) .number{background:var(--pink)}h2{font-size:clamp(1.36rem,2.6vw,1.75rem);letter-spacing:-.025em;line-height:1.18;margin:0}.stepbody{padding:22px 25px 24px;max-width:1030px}.stepbody p{margin:0 0 13px}.stepbody ul,.stepbody ol{margin:8px 0 16px;padding-left:26px}.stepbody li{margin-bottom:8px}h3{font-size:1.14rem;margin:16px 0 7px}.path{font:700 .9rem/1.55 'Atkinson Hyperlegible Mono',monospace;color:#293f86;overflow-wrap:anywhere}.tip{background:#edf3f8;border-left:5px solid var(--blue);padding:12px 16px;margin:15px 0}.pass{background:#f2f8df;border-left:5px solid #537b23;padding:13px 16px;margin:17px 0 0}.pass strong{display:block;margin-bottom:3px}.codebox{background:#121322;color:#f5f7ff;border-radius:10px;margin:11px 0 17px;overflow:hidden}.codehead{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;border-bottom:1px solid #484a61;color:#c9cddd;font:700 12px 'Atkinson Hyperlegible Mono',monospace}.codehead button{background:var(--green);border:1px solid var(--green);border-radius:6px;color:var(--ink);font:700 12px 'Atkinson Hyperlegible Mono',monospace;padding:6px 11px}.codehead button:hover{background:#bef17d}pre{font:15px/1.62 'Atkinson Hyperlegible Mono',ui-monospace,monospace;overflow-x:auto;white-space:pre;padding:13px 17px;margin:0}code:not(pre code){font:.92em 'Atkinson Hyperlegible Mono',ui-monospace,monospace;background:#e8f0f0;padding:1px 4px;border-radius:3px}.done{display:flex;align-items:center;gap:9px;padding:13px 0 0;font-weight:700}.done input{width:23px;height:23px;accent-color:var(--blue);cursor:pointer}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.finish{padding:20px 24px;background:var(--ink);color:white;border-radius:12px;margin-top:30px}.finish h2{margin-bottom:10px}.finish a{color:var(--green)}.small{font-size:.87rem;color:#47505b}.visually-hidden{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden;white-space:nowrap}footer{font:.85rem 'Atkinson Hyperlegible Mono',monospace;margin-top:30px;color:#47505b}
+@media(max-width:720px){main{width:calc(100% - 30px);margin:22px auto 50px}.two{grid-template-columns:1fr}.stepbody{padding:18px}.stephead{padding:15px}.number{width:40px;height:40px;font-size:18px}header{padding:25px 18px 31px}pre{font-size:13px}}
 </style>
 </head>
 <body>
 <header>
-<div class="tiny">Qwerty Labs / Creative Technology Studio / Roblox</div>
-<h1>Give an ability<br>its first life.</h1>
-<p>One session. One new ability. A real client → server request and a visible slash. No rebuilding your game.</p>
-<div class="chips"><span class="chip">COMBAT GAME · ABILITY LAB</span><span class="chip">60–120 MIN</span><span class="chip">ROBLOX STUDIO</span><span class="chip">BUILD → TEST → CONTINUE</span></div>
+  <div class="eyebrow">Qwerty Labs / Henry / Roblox Studio</div>
+  <h1>Fix it. Name it.<br>Dismantle.</h1>
+  <p>First, two small mistakes in the code we supplied last week. Next, give your arena proper names. Then we can get back to the interesting bit: making Dismantle work.</p>
+  <div class="chips"><span class="chip">YOUR EXISTING PROJECT</span><span class="chip">2 FIXES</span><span class="chip">1 WORKING REQUEST</span></div>
 </header>
-<div class="topnav"><div class="topinner"><span class="brand">COMBAT GAME LAB</span><nav class="jump" aria-label="Jump to mission"><a href="#m0">00</a><a href="#m1">01</a><a href="#m2">02</a><a href="#m3">03</a><a href="#m4">04</a><a href="#m5">05</a><a href="#m6">06</a><a href="#m7">07</a><a href="#finish">END</a></nav><span class="progress" id="progress">0 / 8</span></div><div class="track"><div class="bar" id="bar"></div></div></div>
 <main>
-<div class="intro">
-<article class="sheet"><h2>Your mission</h2><p>Phase 1 already handles movement, combat state, RemoteEvents and damage. Today you'll add the <strong>first, intentionally harmless version of Dismantle</strong>.</p><p>By the end, pressing <kbd>1</kbd> should tell the server you're requesting Dismantle. The server checks you're allowed to perform the preview, and a temporary slash appears in front of your character.</p><p><strong>Today's rule:</strong> <span class="highlight">the client asks; the server decides.</span></p><p class="tiny">Mission 00 checks the real Phase 1 project. Missions 01–05 build a harmless preview; 06–07 are optional visual polish. Use each project's own approved specifications for later gameplay.</p></article>
-<article class="sheet"><h2>The path you're building</h2><div class="flow"><div class="node">Press 1 → CombatClient</div><div class="arr">↓</div><div class="node">CombatAction RemoteEvent</div><div class="arr">↓</div><div class="node">CombatActionHandler</div><div class="arr">↓</div><div class="node">AbilityService checks the request</div><div class="arr">↓</div><div class="node">Temporary visible slash</div></div></article>
-</div>
-
-<section id="m0" class="mission">
-<div class="mast"><div class="num">00</div><div><div class="meta">Preflight · no new gameplay</div><h2>Prepare the project for a team.</h2><p class="summary">Fix existing errors, check what really works and give your world meaningful names.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Do this in Studio</div><div class="panelbody"><ol>
-<li>Open your <strong>existing Phase 1 combat game</strong>, not a blank Baseplate. Save a separate copy such as <code>CombatGame_AbilityLab.rbxl</code>. Preserve the original.</li>
-<li>Open <strong>Explorer</strong> and <strong>Output</strong>. Press <strong>Play</strong> once, inspect the Output, then Stop. An existing red project-script error counts, even if you haven't changed anything today.</li>
-<li>Open <code>ServerScriptService → Services → RespawnService</code>. If a stray <code>1</code> appears directly before <code>print(player.Name, "spawn protection ended")</code>, remove <strong>only</strong> that character. If absent, make no change. Play again to verify.</li>
-<li>Find <code>CombatClient</code>. If you already have a Dismantle input branch, note <em>where</em> it is. Mission 01 will check nesting and fix it if needed. Do not duplicate it.</li>
-<li>Test Q Dash, R Dodge, F Block (press and release) and HP/CE HUD. In a <strong>two-player Studio test</strong>, move players close together, wait for spawn protection to end, and test M1 damage, death/respawn and protection.</li>
-<li>Save the working copy. Fix red project-script errors before Mission 01. Do not change gameplay parameters or build future mechanics during the preflight.</li>
-</ol></div></article>
-<article class="panel"><div class="panelhead pink">Look for these exact names</div><div class="panelbody"><span class="path">ReplicatedStorage → Remotes → CombatAction <br> <em>RemoteEvent</em></span><span class="path">StarterPlayer → StarterPlayerScripts → CombatClient <br> <em>LocalScript</em></span><span class="path">ServerScriptService → CombatActionHandler <br> <em>Script</em></span><span class="path">ServerScriptService → Services → StateService <br> <em>ModuleScript</em></span><p><strong>Creative director challenge:</strong> three developers are going to build your world. Can they tell which object you mean from its name? Rename anonymous arena walls, floor pieces and spawn <em>instances</em> with unique, purposeful names such as <code>Arena_WestWall</code> or <code>Spawn_North</code>. Choose names that fit your own arena.</p><p><strong>Change names only:</strong> a SpawnLocation must remain a SpawnLocation. Do not move, resize, delete or duplicate scene parts. Do not rename <code>CombatAction</code>, <code>Services</code>, <code>Remotes</code> or the combat scripts.</p><p class="tiny">Clear asset names communicate a creative director's intent to the people bringing it to life.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 00 · Baseline</div><p><strong>Pass:</strong> no red project-script errors, existing controls and HUD work, two-player M1 and respawn checks pass, and arena assets have meaningful names. A test print on its own is not proof that combat works. Do not rebuild unfinished future features here.</p><p><strong>If not:</strong> resolve the first existing error, then use the <a href="#help">Fix-it station</a> or ask your AI helper to inspect your <em>actual</em> scripts. Do not go to Mission 1 yet.</p><button class="donebtn" data-done="m0">Test passed ✓</button><a class="next" href="#m1">Next: the keypress →</a></div>
-</section>
-
-<section id="m1" class="mission">
-<div class="mast"><div class="num">01</div><div><div class="meta">Existing LocalScript · precise input edit</div><h2>Make the 1 key speak.</h2><p class="summary">The client reports an intention. It does not decide damage, targets or cooldowns.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">StarterPlayer → StarterPlayerScripts → CombatClient <br>LocalScript</span><ol><li>Open the <strong>existing</strong> <code>CombatClient</code>.</li><li>Find <code>UserInputService.InputBegan:Connect(function(input, gameProcessed)</code>.</li><li>Find <code>Enum.KeyCode.One</code> or <code>"Dismantle"</code> and inspect the <strong>nesting</strong>. The F branch must have its own <code>end</code> <strong>before</strong> the 1-key branch begins. These are siblings, not nested.</li><li>If Dismantle already exists <strong>inside F</strong>, move only the Dismantle block <strong>after F's closing <code>end</code></strong>. If missing, add it there. If correctly positioned already, change nothing. Do not paste a second F branch or a duplicate Dismantle branch.</li><li>Keep <code>gameProcessed</code>, M1, Dash, Dodge, Block, the outer <code>end)</code> and <code>InputEnded</code> unchanged. Do not replace the entire LocalScript.</li></ol></div></article><article class="panel"><div class="panelhead green">Add only this snippet</div><div class="panelbody"><p>Reference for <strong>only the F/1 area</strong>. Compare your code or replace just that area; do not paste a second F branch.</p><div class="codebox"><div class="codehead">F AND 1 INSIDE InputBegan <button class="copy" data-copy="c1">COPY</button></div><pre class="precode"><code id="c1">-- Hold F = Start blocking
+ <p class="intro"><strong>Start with your current Roblox Studio place.</strong> Save a separate working copy first. We are fixing a couple of lines, not rebuilding Phase 1.</p>
+ <nav class="trail" aria-label="Jump to a task">
+   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a>
+ </nav>
+ <section class="step" id="fix">
+  <div class="stephead"><span class="number">01</span><h2>Our two mistakes. Your two fixes.</h2></div>
+  <div class="stepbody">
+    <h3>Fix A — remove one stray <code>1</code></h3>
+    <p class="path">Explorer → ServerScriptService → Services → RespawnService</p>
+    <ol>
+      <li>Open <strong>RespawnService</strong> (a ModuleScript).</li>
+      <li>Find <code>print(player.Name, "spawn protection ended")</code> (around line 54 in the version we checked).</li>
+      <li>There is an extra <code>1</code> immediately before that print. <strong>Delete only the extra 1.</strong> Keep the print line.</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>The correct line</span><button type="button" data-copy="c1">COPY</button></div><pre id="c1">print(player.Name, "spawn protection ended")</pre></div>
+    <h3>Fix B — move the <code>1</code>-key code out of the <code>F</code>-key code</h3>
+    <p class="path">Explorer → StarterPlayer → StarterPlayerScripts → CombatClient</p>
+    <ol>
+      <li>Open <strong>CombatClient</strong> (a LocalScript). Find the <code>InputBegan</code> function.</li>
+      <li>Look at the <strong>F = Block</strong> section and the <strong>1 = Dismantle</strong> section.</li>
+      <li>We accidentally put Dismantle <em>inside</em> the F block. Move the existing Dismantle section so that it comes <strong>after F's closing <code>end</code></strong>, not inside it.</li>
+      <li>Compare that small part with the example below. <strong>Don't paste a second copy</strong> or replace your whole CombatClient script.</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>What the F / 1 area should look like</span><button type="button" data-copy="c2">COPY</button></div><pre id="c2">-- Hold F = Block
 if input.KeyCode == Enum.KeyCode.F then
     combatAction:FireServer("BlockStart")
 end
 
--- 1 = Dismantle
+-- Press 1 = Dismantle
 if input.KeyCode == Enum.KeyCode.One then
     print("Dismantle request sent")
     combatAction:FireServer("Dismantle")
-end</code></pre></div><p class="tiny">Keep one InputBegan listener. <strong>Key 1 must be outside F but inside InputBegan.</strong></p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 01 · Client request</div><p>Press <strong>Play</strong>, click inside the game viewport, then press <kbd>1</kbd> once. The <strong>client</strong> Output should show <code>Dismantle request sent</code> <strong>once</strong> per press of 1. Nothing visual yet. F, Q, R and M1 still work, without red project-script errors.</p><p><strong>No line?</strong> Click the Play viewport, then confirm the 1 branch is independent of F and inside InputBegan. Stop here until the client prints.</p><button class="donebtn" data-done="m1">Test passed ✓</button><a class="next" href="#m2">Next: server receives it →</a></div>
-</section>
+end</pre></div>
+    <p class="tip"><strong>Important:</strong> Both <code>if</code> blocks must stay <em>inside</em> the original <code>InputBegan</code> function. Keep your Q, R, M1 and F release code intact. If your current F section contains extra logic, keep it; just move the Dismantle branch outside it.</p>
+    <div class="pass"><strong>Quick check</strong> Press Play, click the game, then press <code>1</code>. The <em>client</em> Output should print <code>Dismantle request sent</code> once. No red script errors.</div>
+    <label class="done"><input type="checkbox" data-step="fix"> Both mistakes fixed and tested</label>
+  </div>
+ </section>
+ <section class="step" id="name">
+  <div class="stephead"><span class="number">02</span><h2>Give your arena real names.</h2></div>
+  <div class="stepbody">
+    <p>While comparing your project with the reference version, we noticed four objects all called <code>SpawnLocation</code>, plus other map objects with generic names like <code>Part</code>.</p>
+    <p><strong>Why it matters:</strong> a team can't build or debug a game if everyone has to click through a pile of anonymous objects to find the right wall or spawn. Good names tell the next developer what each thing <em>is</em> and <em>does</em>. They also make your own scripts much easier to work with.</p>
+    <ol>
+      <li>Open <strong>Explorer → Workspace</strong>. Click each spawn and see where it is in the arena.</li>
+      <li>Rename the four existing spawns <strong><code>Spawn1</code>, <code>Spawn2</code>, <code>Spawn3</code>, <code>Spawn4</code></strong> — the convention in the reference project. Pick a consistent order you can explain.</li>
+      <li>Find the generic arena <code>Part</code>s. Rename each for its actual job and position. For example: <code>Arena_NorthWall</code>, <code>Arena_SouthWall</code>, <code>Arena_EastWall</code>, <code>Arena_WestWall</code>, or <code>Arena_Floor</code> if it's genuinely the floor.</li>
+      <li>There are five additional map parts in the version we compared. Make sure <strong>all five</strong> have useful, unique names, not just the walls.</li>
+    </ol>
+    <p class="tip"><strong>Rename only.</strong> Don't delete, move, resize or change the object type. A <code>SpawnLocation</code> stays a SpawnLocation. Don't rename any scripts, RemoteEvents or service folders.</p>
+    <div class="pass"><strong>Quick check</strong> Look at Workspace in Explorer. Can another developer tell which spawn, wall or floor object they're looking at <em>without clicking around to investigate?</em></div>
+    <label class="done"><input type="checkbox" data-step="name"> Four spawns + five map parts named</label>
+  </div>
+ </section>
+ <section class="step" id="test">
+  <div class="stephead"><span class="number">03</span><h2>Make sure Phase 1 still works.</h2></div>
+  <div class="stepbody">
+    <p>Press <strong>Play</strong>. Open <strong>View → Output</strong>. Run this short checklist before adding anything.</p>
+    <ul>
+      <li><strong>1</strong> prints <code>Dismantle request sent</code> once in client Output.</li>
+      <li><strong>Q</strong> Dash, <strong>R</strong> Dodge, <strong>F</strong> Block (hold and release) still work.</li>
+      <li>HP and CE displays still appear. Check M1 damage, death and respawn using a two-player Studio test.</li>
+      <li>No red <strong>project-script</strong> errors in Output.</li>
+    </ul>
+    <div class="pass"><strong>Pass = ready for the new code</strong> If a check fails, fix that first. Don't add Phase 2 code onto a broken Phase 1.</div>
+    <label class="done"><input type="checkbox" data-step="test"> Phase 1 checked</label>
+  </div>
+ </section>
+ <section class="step" id="server">
+  <div class="stephead"><span class="number">04</span><h2>Next step: prove the server hears <code>1</code>.</h2></div>
+  <div class="stepbody">
+    <p>The client now says “Dismantle!” but we need to know the server heard it. This is the first new Phase 2 step. <strong>Don't make a new RemoteEvent.</strong></p>
+    <ol>
+      <li>Open <strong>ServerScriptService → CombatActionHandler</strong> (a Script).</li>
+      <li>Find <code>combatAction.OnServerEvent:Connect(function(player, action)</code>.</li>
+      <li>Inside its existing <code>if action == ... elseif action == ...</code> chain, find the last action branch (often <code>BlockEnd</code>).</li>
+      <li>If Dismantle is already handled there, don't add another branch. Otherwise insert <strong>only</strong> the two lines below, <em>before</em> the chain's closing <code>end</code>.</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>Insert into the existing action chain</span><button type="button" data-copy="c3">COPY</button></div><pre id="c3">elseif action == "Dismantle" then
+    print("[Server] Received Dismantle from", player.Name)</pre></div>
+    <div class="pass"><strong>Quick check</strong> Press Play → press <code>1</code>. Output should show <code>Dismantle request sent</code> from the client <em>and</em> <code>[Server] Received Dismantle from ...</code> from the server. Check the Client / Server Output filters if needed.</div>
+    <p class="small">If you see “Expected 'end'”, undo the insertion and check that <code>elseif</code> is inside the existing chain, not after its closing <code>end</code>.</p>
+    <label class="done"><input type="checkbox" data-step="server"> Client and server both respond</label>
+  </div>
+ </section>
+ <section class="step" id="slash">
+  <div class="stephead"><span class="number">05</span><h2>And if that's working: a visible slash.</h2></div>
+  <div class="stepbody">
+    <p>One small reward for the fixes: a harmless white slash appears in front of your character when you press <code>1</code>. No damage, CE cost, cooldown or hit detection yet.</p>
+    <ol>
+      <li>Stay in <strong>CombatActionHandler</strong>. Find your new <code>elseif action == "Dismantle" then</code> branch.</li>
+      <li><strong>Under</strong> the server print, and still inside that branch, add the snippet below. Keep the print.</li>
+      <li>Press Play, face some empty space and press <code>1</code>.</li>
+    </ol>
+    <div class="codebox"><div class="codehead"><span>Add beneath the Dismantle server print</span><button type="button" data-copy="c4">COPY</button></div><pre id="c4">local character = player.Character
+local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+local root = character and character:FindFirstChild("HumanoidRootPart")
 
-<section id="m2" class="mission">
-<div class="mast"><div class="num">02</div><div><div class="meta">About 10 min · Existing server Script</div><h2>Prove it reached the server.</h2><p class="summary">A working client print isn't proof that the server got the message. Let's verify the other end.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → CombatActionHandler <br>Script (NOT a LocalScript)</span><ol><li>Find <code>combatAction.OnServerEvent:Connect(function(player, action)</code>.</li><li>Inside its <code>if action == "M1" then ... elseif ...</code> chain, find the final <code>BlockEnd</code> case (or the final existing action).</li><li>Check for <code>Dismantle</code>. If there is already a branch, check that it is correctly placed and test it; do not duplicate it.</li><li>Otherwise insert the new <code>elseif</code> <strong>before the closing <code>end</code> of the action chain</strong>. Leave the final <code>end)</code> for <code>OnServerEvent</code> untouched.</li><li>Keep all the existing <code>require</code>s and action branches. Delete nothing.</li></ol></div></article><article class="panel"><div class="panelhead pink">Add only this branch</div><div class="panelbody"><div class="codebox"><div class="codehead">AT THE END OF THE if / elseif CHAIN <button class="copy" data-copy="c2">COPY</button></div><pre class="precode"><code id="c2">elseif action == "Dismantle" then
-    print("[Server] Received Dismantle from", player.Name)</code></pre></div><p>The <code>elseif</code> belongs <em>inside</em> the existing handler. No new RemoteEvent. No new event connection.</p><div class="warn">An error saying <code>Expected 'end'</code> usually means the new branch landed <strong>after</strong> the chain's closing <code>end</code>. Undo and insert it above that <code>end</code>.</div></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 02 · Two ends of one message</div><p>Press <strong>Play</strong>, then <kbd>1</kbd>. Output should contain <code>Dismantle request sent</code> from the client and <code>[Server] Received Dismantle from YourUsername</code> from the server. Use the client/server Output filter if needed.</p><p><strong>Pass:</strong> both appear, and Q/R/F/M1 are not broken.</p><button class="donebtn" data-done="m2">Test passed ✓</button><a class="next" href="#m3">Next: build the rules module →</a></div>
-</section>
-
-<section id="m3" class="mission">
-<div class="mast"><div class="num">03</div><div><div class="meta">About 15 min · New ModuleScript</div><h2>A place for ability rules.</h2><p class="summary">Separate the request router from the code that decides whether an ability is allowed. This is how future characters can grow without a giant handler.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Create / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → Services → AbilityService <br>NEW ModuleScript</span><ol><li>In Explorer, right-click <code>Services</code> → insert <strong>ModuleScript</strong>.</li><li>Name it exactly <code>AbilityService</code> (capital A, capital S).</li><li>Delete its default example contents (typically <code>local module = {}</code> and <code>return module</code>).</li><li>Replace the contents with the single snippet here.</li><li>Do not move or rename <code>StateService</code>, <code>CombatService</code> or anything else.</li></ol><p><strong>Why these checks?</strong> The server verifies that the player has combat state, a living character, a root part, and isn't stunned. It never trusts the client's idea of a hit.</p></div></article><article class="panel"><div class="panelhead green">New module contents</div><div class="panelbody"><div class="codebox"><div class="codehead">REPLACE DEFAULT MODULE CONTENTS <button class="copy" data-copy="c3">COPY</button></div><pre class="precode"><code id="c3">local StateService = require(script.Parent.StateService)
-
-local AbilityService = {}
-
-function AbilityService.Dismantle(player)
-    local state = StateService.GetState(player)
-    if not state then
-        warn("Dismantle denied: no player state")
-        return false
-    end
-
-    local character = player.Character
-    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-    local root = character and character:FindFirstChild("HumanoidRootPart")
-
-    if not humanoid or humanoid.Health &lt;= 0 or not root then
-        warn("Dismantle denied: no living character")
-        return false
-    end
-
-    if state.IsStunned then
-        print("Dismantle denied: stunned")
-        return false
-    end
-
-    print("[Server] Dismantle approved for", player.Name)
-    return true
-end
-
-return AbilityService</code></pre></div><p class="tiny">The module isn't connected to the handler yet; that's the very next mission. It has no damage, cooldown or CE spending.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 03 · New module installed safely</div><p>In Explorer, verify <code>AbilityService</code> has the <strong>ModuleScript</strong> icon and lives next to <code>StateService</code>. Press Play: your existing Phase 1 should run normally, without <strong>new</strong> red errors. Press <kbd>1</kbd>: the old server message should still appear. This check proves the unconnected module hasn't disturbed Phase 1; <strong>Mission 4 will actually run it</strong>.</p><button class="donebtn" data-done="m3">Test passed ✓</button><a class="next" href="#m4">Next: wire it in →</a></div>
-</section>
-
-<section id="m4" class="mission">
-<div class="mast"><div class="num">04</div><div><div class="meta">About 15 min · Existing server Script</div><h2>Let the server decide.</h2><p class="summary">Now your handler sends Dismantle requests to <code>AbilityService</code>, which accepts or rejects them.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → CombatActionHandler <br>Script</span><ol><li>At the top, just after the existing <code>CombatService</code> and <code>MovementService</code> requires, add the first snippet once.</li><li>Find the <code>elseif action == "Dismantle" then</code> branch from Mission 2.</li><li>Replace only its <code>print(...)</code> line with <code>AbilityService.Dismantle(player)</code>.</li><li>Keep the branch's <code>elseif</code>, every other action, the RemoteEvent listener and the rest of the script.</li></ol><div class="warn"><strong>Stop if your handler uses a different structure.</strong> Show your AI helper the real script; don't replace the whole handler with an older download.</div></div></article><article class="panel"><div class="panelhead pink">Two tiny insertions, one script</div><div class="panelbody"><div class="codebox"><div class="codehead">A. ADD WITH THE EXISTING REQUIRES <button class="copy" data-copy="c4a">COPY</button></div><pre class="precode"><code id="c4a">local AbilityService = require(
-    game.ServerScriptService.Services.AbilityService
-)</code></pre></div><div class="codebox"><div class="codehead">B. REPLACE THE OLD SERVER PRINT LINE <button class="copy" data-copy="c4b">COPY</button></div><pre class="precode"><code id="c4b">AbilityService.Dismantle(player)</code></pre></div><p class="tiny">This is the whole responsibility split: <code>CombatActionHandler</code> routes; <code>AbilityService</code> validates.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 04 · Approval comes from the server</div><p>Press Play and press <kbd>1</kbd>. Expect <code>[Server] Dismantle approved for YourUsername</code>. The old <code>[Server] Received Dismantle...</code> should no longer appear. There is still no slash; that's next.</p><p><strong>Pass:</strong> the approval prints without red errors, and old moves still work.</p><button class="donebtn" data-done="m4">Test passed ✓</button><a class="next" href="#m5">Next: make something appear →</a></div>
-</section>
-
-<section id="m5" class="mission">
-<div class="mast"><div class="num">05</div><div><div class="meta">About 15 min · Existing ModuleScript · Main win</div><h2>The first slash.</h2><p class="summary">Time to see it. The server, not the client, creates a temporary glowing slash in front of the player.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → Services → AbilityService <br>ModuleScript</span><ol><li>Open your new <code>AbilityService</code> module.</li><li>Inside <code>AbilityService.Dismantle(player)</code>, locate the line <code>print("[Server] Dismantle approved for", player.Name)</code>.</li><li><strong>Immediately below that print</strong>, insert the new snippet. It must go <strong>before <code>return true</code></strong>.</li><li>Do not add another <code>return AbilityService</code>. Keep all earlier validation checks.</li><li>Start Play, rotate your character toward a clear part of the arena and press <kbd>1</kbd>.</li></ol><p><strong>What it creates:</strong> a thin, non-colliding neon Part six studs ahead of the player's HumanoidRootPart. Debris deletes it shortly after.</p></div></article><article class="panel"><div class="panelhead green">Visible placeholder, server-controlled</div><div class="panelbody"><div class="codebox"><div class="codehead">PASTE BELOW THE APPROVAL PRINT <button class="copy" data-copy="c5">COPY</button></div><pre class="precode"><code id="c5">local slash = Instance.new("Part")
-slash.Name = "DismantlePreview"
-slash.Anchored = true
-slash.CanCollide = false
-slash.CanTouch = false
-slash.CanQuery = false
-slash.Material = Enum.Material.Neon
-slash.Color = Color3.fromRGB(240, 240, 255)
-slash.Transparency = 0.15
-slash.Size = Vector3.new(7, 3, 0.18)
-slash.CFrame = root.CFrame
-    * CFrame.new(0, 1.2, -6)
-    * CFrame.Angles(0, 0, math.rad(28))
-slash.Parent = workspace:FindFirstChild("FX") or workspace
-
-game:GetService("Debris"):AddItem(slash, 0.35)</code></pre></div><p><strong>Safe:</strong> no hitbox, no target, no HP change, no CE change and no real ability cooldown. This is a preview, not the finished attack.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 05 · Visible Dismantle</div><p><strong>Press <kbd>1</kbd>.</strong> A pale diagonal slash flashes in front of your character and disappears. Press <kbd>Q</kbd> and use Block: your existing Phase 1 still works. There should be no red project-script errors.</p><p><strong>Congratulations:</strong> you have crossed the client/server boundary, validated a request on the server, and produced a visible effect. That's today's main technical win.</p><button class="donebtn" data-done="m5">Main mission passed ✓</button><a class="next" href="#m6">Extra polish if there's time →</a></div>
-</section>
-
-<section id="m6" class="mission">
-<div class="mast"><div class="num">06</div><div><div class="meta">Bonus · About 10 min · Existing ModuleScript</div><h2>Make it slash, not blink.</h2><p class="summary">Give the effect a quick expansion and fade. Still visual-only; still controlled by the server.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → Services → AbilityService</span><ol><li>Find the line from Mission 5:<br><code>game:GetService("Debris"):AddItem(slash, 0.35)</code></li><li>Insert the following code <strong>immediately before</strong> that line. Don't delete the Debris cleanup.</li><li>Keep all the Part setup and validation unchanged.</li></ol><p>This uses Roblox's <code>TweenService</code> to animate the slash automatically.</p></div></article><article class="panel"><div class="panelhead orange">One animation snippet</div><div class="panelbody"><div class="codebox"><div class="codehead">ABOVE THE DEBRIS LINE <button class="copy" data-copy="c6">COPY</button></div><pre class="precode"><code id="c6">game:GetService("TweenService"):Create(
-    slash,
-    TweenInfo.new(0.25, Enum.EasingStyle.Quad),
-    {
-        Transparency = 1,
-        Size = Vector3.new(10, 4, 0.18)
-    }
-):Play()</code></pre></div><p><strong>Experiment later:</strong> change only the visual <code>Size</code> values and test again. Don't change ability damage, CE or hit range today.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 06 · Expanding slash</div><p>Press <kbd>1</kbd>. Instead of only appearing and vanishing, the slash should <strong>expand and fade</strong> over a moment. It must still disappear completely, and existing combat remains fine.</p><button class="donebtn" data-done="m6">Polish passed ✓</button><a class="next" href="#m7">Optional: add the dark slash →</a></div>
-</section>
-
-<section id="m7" class="mission">
-<div class="mast"><div class="num">07</div><div><div class="meta">Bonus · About 10 min · Existing ModuleScript</div><h2>White / black. Two strokes.</h2><p class="summary">Some projects specify a white-and-black slash. Add a second short-lived Part without changing combat rules.</p></div></div>
-<div class="mission-grid"><article class="panel"><div class="panelhead">Open / keep / change</div><div class="panelbody"><span class="path">ServerScriptService → Services → AbilityService</span><ol><li>Find the end of Mission 6's tween code: <code>):Play()</code>.</li><li><strong>Below that line</strong> but <strong>above</strong> the existing <code>Debris:AddItem(slash, 0.35)</code>, add the dark slash snippet.</li><li>Keep the original white slash and its cleanup.</li><li>Press Play and check the result.</li></ol></div></article><article class="panel"><div class="panelhead pink">Crossing dark slash</div><div class="panelbody"><div class="codebox"><div class="codehead">AFTER WHITE SLASH TWEEN <button class="copy" data-copy="c7">COPY</button></div><pre class="precode"><code id="c7">local darkSlash = slash:Clone()
-darkSlash.Name = "DismantleDarkPreview"
-darkSlash.Color = Color3.fromRGB(16, 16, 22)
-darkSlash.Size = Vector3.new(6, 2, 0.18)
-darkSlash.CFrame = slash.CFrame
-    * CFrame.Angles(0, 0, math.rad(-55))
-    * CFrame.new(0, 0, -0.25)
-darkSlash.Parent = slash.Parent
-
-game:GetService("TweenService"):Create(
-    darkSlash,
-    TweenInfo.new(0.25),
-    {Transparency = 1}
-):Play()
-game:GetService("Debris"):AddItem(darkSlash, 0.35)</code></pre></div><p>The black Part is also harmless and cleans itself up.</p></div></article></div>
-<div class="checkpoint"><div class="checktitle">TEST 07 · Two-part preview</div><p>Press <kbd>1</kbd>. Two angled strokes appear and vanish. Rotate your character and try again: the preview should appear <strong>in front of you</strong>, not fixed to the arena. No red project-script errors.</p><button class="donebtn" data-done="m7">Bonus passed ✓</button><a class="next" href="#finish">Finish and hand off →</a></div>
-</section>
-
-<section class="help" id="help">
-<h2>Fix-it station</h2><p>Before adding a feature, fix existing red project-script errors. If 1 does not print, check that its branch is not nested inside F. Stop at the mission that failed. Don't paste an entire old script to fix a small error. Your current Studio code is the source of truth.</p>
-<details><summary>I press 1 and nothing prints</summary><p>Check that you're in <strong>Play</strong> mode, click inside the game viewport, and confirm the <code>CombatClient</code> is a <strong>LocalScript</strong>. Check the <code>gameProcessed</code> guard and that the 1 branch is <strong>inside InputBegan but outside F</strong>. Look at the client side of Output.</p></details>
-<details><summary>The client prints but the server doesn't</summary><p>Check <code>ReplicatedStorage → Remotes → CombatAction</code> exists, that <code>CombatActionHandler</code> is enabled, and that your <code>elseif action == "Dismantle"</code> is inside the existing <code>OnServerEvent</code> chain. Check server Output for errors. Don't make a second RemoteEvent.</p></details>
-<details><summary>"Expected 'end'" or red syntax error</summary><p>Check the <code>elseif</code> goes before the main action chain's closing <code>end</code>. Check that a <code>function</code> has an <code>end</code>, and that the full event connection ends with <code>end)</code>. Use Undo for the last edit; retry only that snippet.</p></details>
-<details><summary>"AbilityService is not a valid member" / "Requested module experienced an error"</summary><p>Confirm the file is a <strong>ModuleScript</strong> named <code>AbilityService</code> inside <code>ServerScriptService → Services</code>. Verify that the module ends with exactly one <code>return AbilityService</code> and that <code>StateService</code> exists beside it.</p></details>
-<details><summary>The server approves but there's no slash</summary><p>Confirm you added the Part code <strong>inside</strong> <code>AbilityService.Dismantle</code>, after the approval print but <strong>before</strong> <code>return true</code>. Look in server Output for the <em>first</em> red line. The slash lasts only 0.35 seconds, so look in front of the avatar.</p></details>
-<details><summary>I have different scripts to the deck</summary><p>That can happen. Do <strong>not</strong> delete your current scripts, create duplicates, or copy a full replacement from an old deck. Ask a fresh AI chat to inspect your actual script and tell you the smallest edit. Prompt below.</p></details>
-<details><summary>Should I use the finished ability’s gameplay parameters now?</summary><p>Not today. This is a harmless visual prototype. For damage, CE, cooldown, range, windup, stun and target rules, use <strong>your own current approved specifications</strong> in a later coding lesson, with separate tests. Do not copy old or example values.</p></details>
-<div class="codebox"><div class="codehead">COPY THIS INTO A FRESH AI CHAT IF STUCK <button class="copy" data-copy="aiprompt">COPY</button></div><pre class="precode"><code id="aiprompt">I'm building a Roblox combat game. I'm using the Combat Game — Dismantle Prototype deck for a harmless visual ability preview. Phase 1 is the starting point and must be preserved. Inspect the real scripts and Output errors before proposing any edit. The existing architecture is CombatClient → CombatAction → CombatActionHandler → services. Rule: client asks, server decides.
-
-I'm stuck on Mission [NUMBER]. I'll paste the ACTUAL CURRENT Roblox Studio script and Output error below. Read those before giving code. Give me ONE STEP ONLY: exact file, exact insertion/replacement, ONLY the small new snippet, a single Play test, and then stop until I say done. Do not rebuild Phase 1 or invent missing files. No real damage, CE or cooldowns today.</code></pre></div>
-</section>
-
-<section class="sheet report" id="finish"><h2>End-of-session handoff</h2><p>Record what you actually tested. Even if you stopped early, a precise handoff beats guessing next session.</p><p class="tiny">This note stays in this browser until it's cleared; use the Copy button to send it to your tutor. Save the Roblox Studio place separately too.</p><textarea id="report" placeholder="Example:&#10;Completed: 0–5&#10;Press 1: client printed, server approved, white slash appeared&#10;Existing M1/Q/R/F: still working&#10;Errors: none&#10;Next time: server-side cooldown + CE checks, then hit detection"></textarea><div class="buttons"><button class="donebtn" id="copyreport">Copy handoff</button><button class="secondary" id="copyfull">Copy progress + handoff</button><button class="secondary" id="reset">Reset tick marks</button></div><p style="margin-top:16px"><strong>Save your Studio place.</strong> The final code stays in <code>CombatClient</code>, <code>CombatActionHandler</code> and the new <code>AbilityService</code>. Apart from a known preflight correction in RespawnService and safe scene-object renaming, no other Phase 1 scripts should have changed.</p></section>
-<div class="sources"><strong>Build basis:</strong> the existing Phase 1 combat architecture, its script names and a documented client → server path. This is a reusable learning lab, <strong>not</strong> a substitute for each student's current gameplay specifications. The ability module and visual preview are new example code, not features claimed to exist already.</div>
+if humanoid and humanoid.Health > 0 and root then
+    local slash = Instance.new("Part")
+    slash.Name = "DismantlePreview"
+    slash.Anchored = true
+    slash.CanCollide = false
+    slash.CanTouch = false
+    slash.CanQuery = false
+    slash.Material = Enum.Material.Neon
+    slash.Color = Color3.fromRGB(245, 245, 255)
+    slash.Size = Vector3.new(6, 2, 0.2)
+    slash.CFrame = root.CFrame
+        * CFrame.new(0, 1, -5)
+        * CFrame.Angles(0, 0, math.rad(25))
+    slash.Parent = workspace
+    game:GetService("Debris"):AddItem(slash, 0.4)
+end</pre></div>
+    <div class="pass"><strong>Quick check</strong> Press <code>1</code> → a glowing slash flashes in front of the character, then disappears. Your Phase 1 controls must still work. That's a working visual prototype — not a finished attack.</div>
+    <p class="small">Later, this preview will move into a dedicated ability service with the real rules from your approved specifications. Today, we just want to see the first working slice.</p>
+    <label class="done"><input type="checkbox" data-step="slash"> First Dismantle preview works</label>
+  </div>
+ </section>
+ <div class="finish">
+  <h2>That's your session.</h2>
+  <p>Save your Roblox Studio place under a new name. If you only reach Step 03, you've still repaired the baseline. If you reach Step 05, you've got a visible Dismantle prototype.</p>
+  <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications.</p>
+ </div>
+ <footer>QWERTY LABS / HENRY / REPAIRS → NAMING → FIRST ABILITY · 27 OCT 2026</footer>
 </main>
-<footer>QWERTY LABS / HENRY / BATTLEGROUND · BUILD SOMETHING. PROVE IT WORKS.</footer>
 <script>
-(function(){
-const key='combat-game-dismantle-v2'; const reportKey=key+'-notes';let checked={};
-try{checked=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch(e){}
-const missionIds=['m0','m1','m2','m3','m4','m5','m6','m7'];
-function draw(){const count=missionIds.filter(id=>checked[id]).length;document.getElementById('progress').textContent=count+' / 8';document.getElementById('bar').style.width=(100*count/8)+'%';
-missionIds.forEach((id,i)=>{const b=document.querySelector('[data-done="'+id+'"]');const nav=document.querySelector('.jump a[href="#'+id+'"]');if(b){b.classList.toggle('done',!!checked[id]);b.textContent=checked[id]?'✓ Passed — click to untick':(i===5?'Main mission passed ✓':i>5?'Bonus passed ✓':'Test passed ✓')}if(nav){nav.classList.toggle('complete',!!checked[id]);nav.setAttribute('aria-label','Mission '+i+(checked[id]?' completed':''))}})}
-missionIds.forEach(id=>document.querySelector('[data-done="'+id+'"]').addEventListener('click',()=>{checked[id]=!checked[id];try{localStorage.setItem(key,JSON.stringify(checked))}catch(e){}draw()}));
-function copied(btn){const old=btn.textContent;btn.textContent='COPIED ✓';setTimeout(()=>btn.textContent=old,1400)}
-async function copy(text){if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text)}else{const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}}
-document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',async()=>{const el=document.getElementById(btn.dataset.copy);try{await copy(el.textContent);copied(btn)}catch(e){btn.textContent='SELECT CODE MANUALLY'}}));
-const notes=document.getElementById('report');try{notes.value=localStorage.getItem(reportKey)||''}catch(e){}notes.addEventListener('input',()=>{try{localStorage.setItem(reportKey,notes.value)}catch(e){}});
-document.getElementById('copyreport').addEventListener('click',async e=>{await copy(notes.value||'No notes recorded.');copied(e.currentTarget)});
-document.getElementById('copyfull').addEventListener('click',async e=>{const s=missionIds.map((id,i)=>'Mission '+i+': '+(checked[id]?'passed':'not verified')).join('\n');await copy('Combat Game — Dismantle Prototype\n'+s+'\n\n'+notes.value);copied(e.currentTarget)});
-document.getElementById('reset').addEventListener('click',()=>{if(confirm('Reset mission ticks? Your handoff notes will stay.')){checked={};try{localStorage.removeItem(key)}catch(e){}draw()}});
-draw();
+(() => {
+ const key='ql-henry-fix-name-dismantle-20261027';
+ try { const stored=JSON.parse(localStorage.getItem(key)||'{}');document.querySelectorAll('[data-step]').forEach(x=>x.checked=!!stored[x.dataset.step]); }catch(e){}
+ document.querySelectorAll('[data-step]').forEach(x=>x.addEventListener('change',()=>{try{const stored={};document.querySelectorAll('[data-step]').forEach(y=>stored[y.dataset.step]=y.checked);localStorage.setItem(key,JSON.stringify(stored))}catch(e){}}));
+ document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{
+   const code=document.getElementById(button.dataset.copy).textContent;
+   try { await navigator.clipboard.writeText(code);button.textContent='COPIED ✓';setTimeout(()=>button.textContent='COPY',1300) }
+   catch(e) {button.textContent='SELECT CODE ABOVE';}
+ }));
 })();
 </script>
 </body>
