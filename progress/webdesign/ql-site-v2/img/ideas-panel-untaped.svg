@@ -5,7 +5,7 @@
 <linearGradient id="blend-y" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="white" stop-opacity="1"/><stop offset="70%" stop-color="white" stop-opacity="1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></linearGradient>
 <mask id="horizontal" maskUnits="userSpaceOnUse" x="380" y="0" width="575" height="245"><rect x="380" y="0" width="575" height="245" fill="url(#blend-x)"/></mask>
 <mask id="vertical" maskUnits="userSpaceOnUse" x="380" y="0" width="575" height="245"><rect x="380" y="0" width="575" height="245" fill="url(#blend-y)"/></mask>
-</defs>
-<use href="#panel"/>
+<mask id="base" maskUnits="userSpaceOnUse" x="0" y="0" width="1274" height="765"><rect width="1274" height="765" fill="white"/><g mask="url(#horizontal)"><g mask="url(#vertical)"><rect x="380" y="0" width="575" height="245" fill="black"/></g></g></mask></defs>
+<use href="#panel" mask="url(#base)"/>
 <g mask="url(#horizontal)"><g mask="url(#vertical)"><use href="#panel" transform="matrix(2.300000 0 0 1 138.500000 0)"/></g></g>
 </svg>
