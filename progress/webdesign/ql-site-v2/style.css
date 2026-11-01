@@ -457,3 +457,19 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 /* Reverse the complete collage and inner photograph, preserving both tilt magnitudes. */
 .photo-collage{transform:rotate(1deg)}
 .project-photo{transform:rotate(4.3deg)}
+
+/* 1 Nov 2026 — correction pass: match the *printed* studio descriptor,
+   whose open tracking and regular weight were lost in the previous nav pass. */
+.navigation{
+  font-family:var(--body);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.1;
+  letter-spacing:.22em;
+}
+
+/* The frame artwork already leans anticlockwise internally.
+   Rotate the complete assembly sufficiently for a visible clockwise tilt;
+   leave the photo aligned with its frame's built-in window angle. */
+.photo-collage{transform:rotate(7deg)}
+.project-photo{transform:rotate(-4.3deg)}
