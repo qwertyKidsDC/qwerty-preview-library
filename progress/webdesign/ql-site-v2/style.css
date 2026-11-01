@@ -482,4 +482,9 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 }
 .hero h1{
   font-family:'Architects Daughter',cursive;
+  font-weight:700;
 }
+
+/* Raise the existing Current Project collage (photo, frame and tape untouched). */
+.photo-collage{top:-26px}
+@media(max-width:760px){.photo-collage{top:328px}}
