@@ -3,7 +3,7 @@
    selector, declaration, responsive rule, or rule order.
    Source of truth remains ../ql-site-v1/. */
 
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
 :root { --ink:#020020; --pale:#F1F8F8; --blue:#4C69E3; --pink:#F66DC1; --green:#92D644; --orange:#FF9029; --rail:1050px; }
 *, *::before, *::after {box-sizing:border-box}
 html { background:#060d17 }
@@ -473,3 +473,13 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
    leave the photo aligned with its frame's built-in window angle. */
 .photo-collage{transform:rotate(7deg)}
 .project-photo{transform:rotate(-4.3deg)}
+
+/* Homepage targeted changes 1–4 — 1 November 2026.
+   Preserve existing geometry and all Current Project layers. */
+.navigation{
+  font-size:16px;
+  font-weight:700;
+}
+.hero h1{
+  font-family:'Architects Daughter',cursive;
+}
