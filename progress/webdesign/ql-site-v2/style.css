@@ -488,3 +488,7 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 /* Raise the existing Current Project collage (photo, frame and tape untouched). */
 .photo-collage{top:-26px}
 @media(max-width:760px){.photo-collage{top:328px}}
+
+/* Current Project blue label: original paper +4deg clockwise counters half of its
+   baked-in anticlockwise angle; text angle halved to stay aligned. */
+.project-label-text{transform:rotate(-1.2deg)}
