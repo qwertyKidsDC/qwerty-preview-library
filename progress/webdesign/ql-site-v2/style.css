@@ -436,3 +436,24 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
  mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%)!important;
 }
 .site[data-scene] .bg-scene-bottom__vignette {opacity:0!important;background:transparent!important;}
+
+/* Homepage refinements — 1 November 2026.
+   The original taped paper artwork remains in img/ for the v1-125 snapshot. */
+
+/* Navigation lettering matches the small, tracked, bold studio descriptor in the wordmark. */
+.navigation{
+  font-family:var(--body);
+  font-size:10.5px;
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:.14em;
+}
+
+/* Tape-free paper panels move into the space formerly occupied by their tape.
+   Shift the complete linked cards (artwork, text and symbols) together. */
+.feature-cards{margin-top:-24px}
+.small-cards{margin-top:-19px}
+
+/* Reverse the complete collage and inner photograph, preserving both tilt magnitudes. */
+.photo-collage{transform:rotate(1deg)}
+.project-photo{transform:rotate(4.3deg)}
