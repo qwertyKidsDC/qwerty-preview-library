@@ -2,11 +2,12 @@
 "use strict";
 
 /* Cross-browser layout scale. Firefox 157 supports `zoom`, but not length÷length typed arithmetic in CSS calc().
-   Preserve the 986px composition. Use a stable desktop scale; shrink only when needed to fit the viewport. This keeps Chrome zoom from being counteracted by layout scaling. */
+   At 100% Chrome zoom, match the former 125% reference appearance: 1.48 × 1.25 = 1.85.
+   Retain the 986px composition and shrink only on narrower viewports. */
 (() => {
   const updateScale = () => {
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    const scale = Math.max(0.70, Math.min(1.48, (viewportWidth - 84) / 986));
+    const scale = Math.max(0.70, Math.min(1.85, (viewportWidth - 84) / 986));
     document.documentElement.style.setProperty('--ql-cardboard-zoom', String(scale));
   };
   updateScale();
