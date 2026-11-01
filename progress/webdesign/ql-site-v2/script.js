@@ -2,11 +2,11 @@
 "use strict";
 
 /* Cross-browser layout scale. Firefox 157 supports `zoom`, but not length÷length typed arithmetic in CSS calc().
-   Keep the cardboard source's 986px geometry; cap the desktop canvas near 1604px (80% of a 2005px viewport). */
+   Preserve the 986px composition. Use a stable desktop scale; shrink only when needed to fit the viewport. This keeps Chrome zoom from being counteracted by layout scaling. */
 (() => {
   const updateScale = () => {
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    const scale = Math.max(0.70, Math.min(1.627, (viewportWidth - 84) / 986));
+    const scale = Math.max(0.70, Math.min(1.48, (viewportWidth - 84) / 986));
     document.documentElement.style.setProperty('--ql-cardboard-zoom', String(scale));
   };
   updateScale();
