@@ -1,56 +1,36 @@
-# Qwerty Labs — homepage colour audit (isolated trial)
+# Qwerty Labs — artwork colour audit
 
-**Source of truth:** `progress/webdesign/ql-site-v2/`, preserved unchanged.
-**Trial:** `progress/webdesign/ql-site-v2-colour-test/` (this directory).
+Only the separate colour-test version has been modified. Approved v2 is untouched.
+## Exact palette
 
-## Authoritative brand colours
+| Role | Hex |
+|---|---|
+| Blue | #4C69E3 |
+| Pink | #F66DC1 |
+| Green | #92D644 |
+| Orange | #FF9029 |
+| Pale | #F7F4EB |
+| Ink | #020020 |
 
-| Role | Colour |
-| --- | --- |
-| Blue | `#4C69E3` |
-| Pink | `#F66DC1` |
-| Green | `#92D644` |
-| Orange | `#FF9029` |
-| Pale / Warm ivory | `#F7F4EB` |
-| Dark / Ink | `#020020` |
+## Actual artwork roles and measured corrections
 
-## Explicit exclusions
+| Asset | Intended colour | Original median RGB | Corrected median RGB | Target | Recoloured core |
+|---|---|---|---|---|---|
+| hero-paper.svg | Orange | [252, 132, 17] | [255, 144, 41] | #FF9029 | 70.3% |
+| kids-green-panel-untaped.svg | Green | [147, 216, 72] | [146, 214, 68] | #92D644 | 81.5% |
+| adults-pink-panel-untaped.svg | Pink | [250, 80, 169] | [246, 109, 193] | #F66DC1 | 83.4% |
+| teens-blue-panel-untaped.svg | Blue | [40, 126, 252] | [76, 105, 227] | #4C69E3 | 81.6% |
+| project-backboard.svg | Ink | [13, 21, 35] | [2, 0, 32] | #020020 | 91.7% |
+| current-project-label.svg | Blue | [16, 106, 252] | [76, 105, 227] | #4C69E3 | 64.2% |
+| ideas-panel-untaped.svg | Pink | [251, 83, 167] | [246, 109, 193] | #F66DC1 | 81.5% |
+| components-panel-untaped.svg | Blue | [40, 126, 252] | [76, 105, 227] | #4C69E3 | 81.6% |
+| projects-panel-untaped.svg | Orange | [251, 137, 23] | [255, 144, 41] | #FF9029 | 82.8% |
 
-- Large workshop background artwork: `workshop-top.svg`, `workshop-footer.svg` (shared original assets)
-- Mascots: `mascot-trio.svg` (shared original asset)
-- Background photographic light, shadow, vignette and ambient colours
-- The existing footer typography and treatment
-- Project Code Cloud photograph and picture-frame artwork (shared originals)
+## Exclusions
 
-## Scoped implementation
-
-- Replaced former `#F1F8F8` pale CSS token with `#F7F4EB`.
-- The `--paper` token now points to `var(--pale)` instead of separately defining another hex.
-- Navigation, featured project copy, button border and hover derive their light tone from that token.
-- The wordmark's light lettering uses an exact `#F7F4EB` fill and its blue lettering uses an exact `#4C69E3` fill, both retaining the existing embedded alpha silhouette.
-- No sizes, spacing, positioning or typography were changed.
-- The original v2 and its SVG assets were not changed.
-
-## Raster artwork — intentional colour variation
-
-The following *SVG* files each contain an embedded raster WebP, not flat vector fills:
-
-- `hero-paper.svg` — textured orange paper
-- `kids-green-panel-untaped.svg` — textured green paper
-- `adults-pink-panel-untaped.svg` — textured pink paper
-- `teens-blue-panel-untaped.svg` — textured blue paper
-- `project-backboard.svg` — textured featured project backing
-- `current-project-label.svg` — textured blue label
-- `ideas-panel-untaped.svg` — textured coloured paper
-- `components-panel-untaped.svg` — textured blue paper
-- `projects-panel-untaped.svg` — textured coloured paper
-
-These remain **pixel-for-pixel unchanged** within the test copy. Solid areas and texture variation cannot be identified or validated merely by reading the XML wrapper; an exact per-pixel colour correction would require sampling and selectively recolouring the underlying raster while preserving grain, edges, tape and shadows. Do not apply blanket CSS filters or global replacement to these pieces.
-
-## QA before adopting
-
-1. Compare trial against source at desktop and mobile widths.
-2. Confirm exact flat-colour wordmark fills and retained alpha texture.
-3. Confirm existing artwork is unchanged and foreground readability remains sound.
-4. Only after visual approval, consider whether any individual raster asset requires selective pixel corrections.
-5. Keep CSS consolidation as a separate later step.
+The photographic header/footer, mascots, project photo and photo frame remain untouched and are linked from approved v2.
+Paper folds, transparent edges and separately coloured tape remain protected. Text and geometry are untouched.
+The wordmark is rewritten as a lossless two-colour raster with original transparency and exact palette RGB values.
+The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.
+Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.
+See COLOUR_COMPARISON.png for the before/after contact sheet.
