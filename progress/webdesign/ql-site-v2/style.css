@@ -257,13 +257,9 @@ a{color:inherit;text-decoration:none}
 .feature{display:block;position:relative;width:32%;flex:none;min-width:0;height:240px;color:var(--ink);padding:42px 32px 25px 34px;isolation:isolate;transition:transform .16s ease}
 .feature:hover{transform:translateY(-5px)}
 .feature .paper-bg{z-index:-1}
-.feature-no{display:block;font-size:24px;line-height:1;margin-bottom:6px}
 .feature h2, .small-card h2{font-family:var(--hand);text-transform:uppercase;font-weight:700;line-height:1;margin:0}
 .feature h2{font-size:35px}
 .feature p{font-size:17px;line-height:1.4;margin-top:23px;max-width:187px}
-.feature .symbol{position:absolute;top:54px;right:31px;font-family:var(--hand);font-size:51px;line-height:1;color:var(--ink)}
-.feature .symbol img{width:42px;height:56px}
-.feature .code-symbol{font-family:monospace;font-size:41px;font-weight:700}
 .feature .arrow{position:absolute;right:28px;bottom:18px;font:normal 43px/1 Arial,sans-serif}
 .projects{position:relative;min-height:405px;margin:26px 35px 0;z-index:6}
 .project-panel{position:absolute;width:420px;height:370px;object-fit:fill;left:0;top:26px;opacity:.97}
@@ -541,10 +537,14 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
    reclaim unused header space without moving the logo or navigation.
    Keep the mobile stack as previously approved. */
 @media (min-width: 761px) {
-  .hero-copy { top: 66px; }
+  .hero-copy { top: 55px; }
   .header { height: 100px; }
 }
 
 /* Wordmark asset correction — 2 November 2026.
    The SVG now has intrinsic dimensions 2013 × 460, with no descriptor
    in its visible canvas. The desktop header reclaims the unused 20px. */
+
+/* 2 November 2026 — closer hero and simplified feature cards.
+   Removed the three decorative numbers and symbols; the lower-right arrows
+   remain as link affordances. The featured project now links to its entry. */
