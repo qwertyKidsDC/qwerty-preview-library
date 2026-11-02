@@ -546,6 +546,6 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
    reclaim unused header space without moving the logo or navigation.
    Keep the mobile stack as previously approved. */
 @media (min-width: 761px) {
-  .hero-copy { top: 22px; }
+  .hero-copy { top: 44px; }
   .header { height: 120px; }
 }
