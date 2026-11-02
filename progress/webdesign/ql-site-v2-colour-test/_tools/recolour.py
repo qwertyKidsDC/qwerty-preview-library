@@ -107,6 +107,12 @@ def main():
     opening='<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" width="2013" height="460" viewBox="0 0 2013 460" overflow="hidden">'
     wordmark=opening+'<image preserveAspectRatio="none" width="2013" height="460" href="data:image/webp;base64,'+encode(after)+'"/></svg>'
     (DST/"img/wordmark.svg").write_text(wordmark)
+    # Separate opaque dark-background preview to validate the rendered logo,
+    # not invisible RGB values in otherwise-transparent pixels.
+    dark=Image.new("RGBA",after.size,(2,0,32,255))
+    dark=Image.alpha_composite(dark,after)
+    qa='<svg xmlns="http://www.w3.org/2000/svg" width="2013" height="460" viewBox="0 0 2013 460"><image width="2013" height="460" href="data:image/webp;base64,'+encode(dark)+'"/></svg>'
+    (DST/"WORDMARK_QA.svg").write_text(qa)
     pairs.insert(0,("wordmark.svg — visible canvas only",before,after))
     htmlpath=DST/"index.html";html=htmlpath.read_text()
     for name in ["wordmark.svg"]+[r[0] for r in ART]:
@@ -131,7 +137,8 @@ def main():
       "Its original background matte is removed via a letterform alpha mask, retaining exact #F7F4EB and #4C69E3 in fully opaque pixels.",
       "The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.",
       "Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.",
-      "See COLOUR_COMPARISON.png for the before/after contact sheet."]
+      "See COLOUR_COMPARISON.png for the before/after contact sheet.",
+      "See WORDMARK_QA.svg for the opaque, dark-background rendering check."]
     (DST/"COLOUR_AUDIT.md").write_text("\n".join(report)+"\n")
     montage(pairs)
     print("PASS: 10 assets plus audit and comparisons",flush=True)
