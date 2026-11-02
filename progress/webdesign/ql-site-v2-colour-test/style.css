@@ -4,7 +4,7 @@
    Source of truth remains ../ql-site-v1/. */
 
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
-:root { --ink:#020020; --pale:#F1F8F8; --blue:#4C69E3; --pink:#F66DC1; --green:#92D644; --orange:#FF9029; --rail:1050px; }
+:root { --ink:#020020; --pale:#F7F4EB; --blue:#4C69E3; --pink:#F66DC1; --green:#92D644; --orange:#FF9029; --rail:1050px; }
 *, *::before, *::after {box-sizing:border-box}
 html { background:#060d17 }
 body { margin:0; background:#070e18; color:var(--pale);font-family:'Atkinson Hyperlegible',Arial,sans-serif; overflow-x:hidden}
@@ -231,7 +231,7 @@ header nav{font-size:15px;gap:21px}
 }
 
 /* Homepage: artwork-backed composition and content */
-:root{--ink:#020020;--paper:#F1F8F8;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--hand:'Kalam','Segoe Print','Comic Sans MS',cursive;--body:'Atkinson Hyperlegible',Arial,sans-serif}
+:root{--ink:#020020;--paper:var(--pale);--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--hand:'Kalam','Segoe Print','Comic Sans MS',cursive;--body:'Atkinson Hyperlegible',Arial,sans-serif}
 *{box-sizing:border-box}
 .cardboard-page:before{content:"";position:absolute;inset:0;pointer-events:none;background:url("../ql-site-v2/img/cardboard-texture.svg") repeat;opacity:.17;z-index:0}
 a{color:inherit;text-decoration:none}
@@ -622,15 +622,13 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 }
 
 
-/* Warm light-text colour trial — 2 November 2026.
-   Limit this test to navigation and featured project text only.
-   Leave dark label lettering, card colours, wordmark artwork and global palette unchanged. */
+/* Shared brand ivory for light-on-dark navigation and project text. */
 .navigation,
 .project-copy {
-  color: #F7F4EB;
+  color: var(--pale);
 }
 
 /* Warm ivory project button trial — 2 November 2026. */
-.project-button { border-color: #F7F4EB; }
+.project-button { border-color: var(--pale); }
 .project-button:hover,
-.project-button:focus-visible { background: #F7F4EB; color: var(--ink); }
+.project-button:focus-visible { background: var(--pale); color: var(--ink); }
