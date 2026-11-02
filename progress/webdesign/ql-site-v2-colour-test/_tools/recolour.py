@@ -56,8 +56,18 @@ def recolour(im,role):
     result=np.median(outblock[outblock[...,3]>240,:3],axis=0)
     return Image.fromarray(x,"RGBA"),[int(round(k)) for k in centre],[int(round(k)) for k in result],round(float(np.mean((weight>.8)&(alpha>180))*100),1)
 def recolour_wordmark(im):
-    arr=np.asarray(im).copy()
+    original=np.asarray(im)
+    arr=original.copy()
     if arr.shape[1]!=2013:raise ValueError("Wrong wordmark width")
+    corner_alpha=float(np.mean(original[0:50,0:100,3]))
+    print("WORDMARK original corner alpha",round(corner_alpha,1),flush=True)
+    if corner_alpha>240:
+        # Source bitmap has an opaque black backdrop. Recover glyph alpha from
+        # the original ink intensity BEFORE applying exact palette RGB values.
+        max_ink=original[...,:3].max(axis=2).astype(np.float32)
+        coverage=np.clip((max_ink-15)/220,0,1)
+        arr[...,3]=np.rint(arr[...,3].astype(np.float32)*coverage).astype(np.uint8)
+        print("WORDMARK recovered transparent backdrop",flush=True)
     arr[:,:1290,:3]=rgb(HEX["Pale"]).astype(np.uint8)
     arr[:,1290:,:3]=rgb(HEX["Blue"]).astype(np.uint8)
     return Image.fromarray(arr,"RGBA")
@@ -106,7 +116,7 @@ def main():
     report += ["","## Exclusions","",
       "The photographic header/footer, mascots, project photo and photo frame remain untouched and are linked from approved v2.",
       "Paper folds, transparent edges and separately coloured tape remain protected. Text and geometry are untouched.",
-      "The wordmark is rewritten as a lossless two-colour raster with original transparency and exact palette RGB values.",
+      "The wordmark is rewritten as a lossless two-colour raster with transparent backdrop and exact palette RGB values.",
       "The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.",
       "Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.",
       "See COLOUR_COMPARISON.png for the before/after contact sheet."]
