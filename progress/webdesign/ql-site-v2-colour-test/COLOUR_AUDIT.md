@@ -30,7 +30,7 @@ Only the separate colour-test version has been modified. Approved v2 is untouche
 
 The photographic header/footer, mascots, project photo and photo frame remain untouched and are linked from approved v2.
 Paper folds, transparent edges and separately coloured tape remain protected. Text and geometry are untouched.
-The wordmark is rewritten as a lossless two-colour raster with original transparency and exact palette RGB values.
+The wordmark is rewritten as a lossless two-colour raster with transparent backdrop and exact palette RGB values.
 The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.
 Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.
 See COLOUR_COMPARISON.png for the before/after contact sheet.
