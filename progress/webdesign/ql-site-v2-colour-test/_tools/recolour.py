@@ -56,20 +56,27 @@ def recolour(im,role):
     result=np.median(outblock[outblock[...,3]>240,:3],axis=0)
     return Image.fromarray(x,"RGBA"),[int(round(k)) for k in centre],[int(round(k)) for k in result],round(float(np.mean((weight>.8)&(alpha>180))*100),1)
 def recolour_wordmark(im):
+    """Colour only visible letterforms; the original source also has a black matte."""
+    if im.size!=(2013,460):
+        raise ValueError("Wordmark must be cropped to approved 2013x460 canvas")
     original=np.asarray(im)
     arr=original.copy()
-    if arr.shape[1]!=2013:raise ValueError("Wrong wordmark width")
-    corner_alpha=float(np.mean(original[0:50,0:100,3]))
-    print("WORDMARK original corner alpha",round(corner_alpha,1),flush=True)
-    if corner_alpha>240:
-        # Source bitmap has an opaque black backdrop. Recover glyph alpha from
-        # the original ink intensity BEFORE applying exact palette RGB values.
-        max_ink=original[...,:3].max(axis=2).astype(np.float32)
-        coverage=np.clip((max_ink-15)/220,0,1)
-        arr[...,3]=np.rint(arr[...,3].astype(np.float32)*coverage).astype(np.uint8)
-        print("WORDMARK recovered transparent backdrop",flush=True)
+    # The raster has black in transparent AND some nominally opaque pixels.
+    # Never substitute a flat colour across the original alpha rectangle.
+    # Instead build an alpha mask from the original visible lettering.
+    ink=original[...,:3].max(axis=2).astype(np.float32)
+    visible=np.clip((ink-15.0)/220.0,0.0,1.0)
+    alpha=original[...,3].astype(np.float32)/255.0
+    arr[...,3]=np.rint(255.0*alpha*visible).astype(np.uint8)
     arr[:,:1290,:3]=rgb(HEX["Pale"]).astype(np.uint8)
     arr[:,1290:,:3]=rgb(HEX["Blue"]).astype(np.uint8)
+    dense=float(np.mean(arr[...,3]>240))
+    print("WORDMARK visible alpha coverage:",round(100*dense,2),"percent",flush=True)
+    print("WORDMARK corner alpha:",int(arr[0,0,3]),"original corner:",int(original[0,0,3]),flush=True)
+    if dense<0.08 or dense>0.68 or arr[0,0,3]>16:
+        raise ValueError("Wordmark mask failed coverage or transparency check")
+    if not np.array_equal(arr[arr[...,3]==255,:3][:,0:3],arr[arr[...,3]==255,:3][:,0:3]):
+        raise ValueError("Unexpected alpha data")
     return Image.fromarray(arr,"RGBA")
 def montage(pairs):
     board=Image.new("RGB",(900,len(pairs)*182+60),"#111829");d=ImageDraw.Draw(board)
@@ -92,15 +99,19 @@ def main():
         pairs.append((filename,before,after))
         rows.append((filename,role,old,new,HEX[role],coverage))
         print(filename,role,old,new,coverage,flush=True)
-    before=open_image((SRC/"img/wordmark.svg").read_text());after=recolour_wordmark(before)
+    # Crop the *actual embedded bitmap* to the approved page canvas.
+    # The tagline remains in the v2 source, but is absent from trial artwork.
+    source_wordmark=open_image((SRC/"img/wordmark.svg").read_text())
+    before=source_wordmark.crop((0,0,2013,460))
+    after=recolour_wordmark(before)
     opening='<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" width="2013" height="460" viewBox="0 0 2013 460" overflow="hidden">'
-    wordmark=opening+'<image preserveAspectRatio="none" width="2013" height="609" href="data:image/webp;base64,'+encode(after)+'"/></svg>'
+    wordmark=opening+'<image preserveAspectRatio="none" width="2013" height="460" href="data:image/webp;base64,'+encode(after)+'"/></svg>'
     (DST/"img/wordmark.svg").write_text(wordmark)
-    pairs.insert(0,("wordmark.svg",before,after))
+    pairs.insert(0,("wordmark.svg — visible canvas only",before,after))
     htmlpath=DST/"index.html";html=htmlpath.read_text()
     for name in ["wordmark.svg"]+[r[0] for r in ART]:
         pattern=r'(src="img/'+re.escape(name)+r')(?:\?[^"#]*)?(")'
-        html,n=re.subn(pattern,r'\g<1>?v=brand-raster-v1\2',html)
+        html,n=re.subn(pattern,r'\g<1>?v=brand-raster-v2\2',html)
         if n!=1:raise ValueError("Expected one HTML reference "+name+"; got "+str(n))
     htmlpath.write_text(html)
     report=["# Qwerty Labs — artwork colour audit","",
@@ -116,7 +127,8 @@ def main():
     report += ["","## Exclusions","",
       "The photographic header/footer, mascots, project photo and photo frame remain untouched and are linked from approved v2.",
       "Paper folds, transparent edges and separately coloured tape remain protected. Text and geometry are untouched.",
-      "The wordmark is rewritten as a lossless two-colour raster with transparent backdrop and exact palette RGB values.",
+      "The wordmark is physically cropped to its approved 2013x460 canvas: no tagline is embedded in its trial asset.",
+      "Its original background matte is removed via a letterform alpha mask, retaining exact #F7F4EB and #4C69E3 in fully opaque pixels.",
       "The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.",
       "Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.",
       "See COLOUR_COMPARISON.png for the before/after contact sheet."]
