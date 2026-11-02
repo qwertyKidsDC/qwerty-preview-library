@@ -529,3 +529,14 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 @media (max-width: 760px) {
   .projects { min-height: 675px; }
 }
+
+/* Navigation legibility adjustment — 2 November 2026. */
+/* Separate links more clearly while tightening spacing between letters.
+   Desktop only: keep the existing mobile layout and font sizing. */
+@media (min-width: 761px) {
+  .navigation {
+    font-size: 17px;
+    letter-spacing: .12em;
+    column-gap: 20px;
+  }
+}
