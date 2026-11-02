@@ -548,3 +548,57 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 /* 2 November 2026 — closer hero and simplified feature cards.
    Removed the three decorative numbers and symbols; the lower-right arrows
    remain as link affordances. The featured project now links to its entry. */
+
+
+/* Typography visual trial — 2 November 2026.
+   Keep this short override block until the scale is visually approved.
+   Hero lettering and visual label remain distinctive; no layout or artwork changes.
+   After approval, consolidate with the existing rules rather than stacking overrides. */
+.navigation {
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* A single scale for all six paper-card headings and descriptions. */
+.feature h2,
+.small-card h2 {
+  font-family: var(--body);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+.feature p,
+.small-card p {
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* The featured project is one level above the six smaller cards. */
+.project-copy h2 {
+  font-family: var(--body);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.project-copy p {
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Preserve the same typographic scale on mobile; layout rules remain intact. */
+@media (max-width: 760px) {
+  .navigation { font-size: 18px; }
+  .feature h2,
+  .small-card h2 { font-size: 30px; }
+  .feature p,
+  .small-card p,
+  .project-copy p { font-size: 18px; }
+  .project-copy h2 { font-size: 32px; }
+}
