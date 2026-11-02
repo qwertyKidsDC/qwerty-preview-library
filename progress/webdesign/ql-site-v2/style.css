@@ -520,3 +520,12 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 @media (min-width: 761px) {
   .project-panel { height: 346px; }
 }
+
+/* Tighten the gap to the bottom cards — 2 November 2026. */
+/* Move the three small boxes up without changing their art or proportions. */
+.small-cards { margin-top: -32px; }
+
+/* Mobile stacks the collage above the boxes: remove excess reserved space. */
+@media (max-width: 760px) {
+  .projects { min-height: 675px; }
+}
