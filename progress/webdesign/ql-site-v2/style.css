@@ -602,3 +602,21 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
   .project-copy p { font-size: 18px; }
   .project-copy h2 { font-size: 32px; }
 }
+
+
+/* Complete the typography trial: Coolest Projects label and spacing. */
+/* Use the same lettering as other card headings. Preserve blue paper and tilt. */
+.project-label-text {
+  font-family: var(--body);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+
+/* Pull the Project Code Cloud heading towards its blue banner. */
+.project-copy { padding-top: 85px; }
+@media (max-width: 760px) {
+  .project-copy { padding-top: 95px; }
+  .project-label-text { font-size: 30px; }
+}
