@@ -88,9 +88,11 @@ jobs:
               assert np.array_equal(result[fade_end + 2:, :, :], np.array(img)[fade_end + 2:, :, :])
               assert np.array_equal(result[:, :x0-1, :], np.array(img)[:, :x0-1, :])
           
+              # Clear hidden RGB in fully transparent pixels.
+              result[result[:, :, 3] == 0, :3] = 0
               output = io.BytesIO()
               Image.fromarray(result, "RGBA").save(
-                  output, format="WEBP", quality=95, method=5, exact=True
+                  output, format="WEBP", quality=95, method=5
               )
               encoded = base64.b64encode(output.getvalue()).decode("ascii")
               svg = (
@@ -114,5 +116,12 @@ jobs:
           html_path.write_text(html.replace(old, new))
           print("Updated only the six homepage panel references")
           PY
-      - name: Diagnostic only — do not publish
-        run: echo 'Pixel probe complete; no image files committed.'
+      - name: Commit retouched six assets and page references
+        shell: bash
+        run: |
+          git config user.name 'Qwerty image retouch'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add progress/webdesign/ql-site-v2/index.html progress/webdesign/ql-site-v2/img/*-untaped.svg
+          git diff --cached --check
+          git commit -m 'Pixel-retouch paper panels with transparent edges'
+          git push origin HEAD:main
