@@ -20,6 +20,7 @@ jobs:
       - name: Retouch original paper pixels
         shell: bash
         run: |
+          python - <<'PY'
           import base64
           import io
           import re
@@ -108,6 +109,7 @@ jobs:
           assert html.count(old) == 6, f"Expected 6 panel URLs, found {html.count(old)}"
           html_path.write_text(html.replace(old, new))
           print("Updated only the six homepage panel references")
+          PY
       - name: Commit finished six assets and page references
         shell: bash
         run: |
