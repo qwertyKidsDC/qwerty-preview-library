@@ -35,3 +35,4 @@ Its original background matte is removed via a letterform alpha mask, retaining 
 The papers are corrected within their embedded WebP pixels, not with CSS or SVG filters.
 Surface texture intentionally means adjacent pixels vary around their brand-colour anchor.
 See COLOUR_COMPARISON.png for the before/after contact sheet.
+See WORDMARK_QA.svg for the opaque, dark-background rendering check.
