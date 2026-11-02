@@ -620,3 +620,12 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
   .project-copy { padding-top: 95px; }
   .project-label-text { font-size: 30px; }
 }
+
+
+/* Warm light-text colour trial — 2 November 2026.
+   Limit this test to navigation and featured project text only.
+   Leave dark label lettering, card colours, wordmark artwork and global palette unchanged. */
+.navigation,
+.project-copy {
+  color: #F7F4EB;
+}
