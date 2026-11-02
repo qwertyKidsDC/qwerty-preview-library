@@ -494,14 +494,9 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 .project-label-text{transform:rotate(-1.2deg)}
 
 /* Homepage header and project card — 2 November 2026. */
-/* The descriptor is baked into the wordmark image: clip it below the letters
-   rather than editing the original artwork. The visible glyphs remain full-size. */
-.logo {
-  aspect-ratio: 2013 / 460;
-  overflow: hidden;
-}
-
-/* Centre the right-hand menu against the cropped wordmark, not the header box. */
+/* The wordmark SVG has its own correctly cropped intrinsic canvas.
+   No HTML/CSS clipping is necessary: retain the complete approved lettering. */
+/* Centre the right-hand menu against the shortened wordmark, not the header box. */
 .navigation {
   padding-top: 0;
   margin-top: 33px;
@@ -547,5 +542,9 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
    Keep the mobile stack as previously approved. */
 @media (min-width: 761px) {
   .hero-copy { top: 66px; }
-  .header { height: 120px; }
+  .header { height: 100px; }
 }
+
+/* Wordmark asset correction — 2 November 2026.
+   The SVG now has intrinsic dimensions 2013 × 460, with no descriptor
+   in its visible canvas. The desktop header reclaims the unused 20px. */
