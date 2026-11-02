@@ -581,7 +581,7 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 /* The featured project is one level above the six smaller cards. */
 .project-copy h2 {
   font-family: var(--body);
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.15;
 }
@@ -600,7 +600,7 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
   .feature p,
   .small-card p,
   .project-copy p { font-size: 18px; }
-  .project-copy h2 { font-size: 32px; }
+  .project-copy h2 { font-size: 30px; }
 }
 
 
