@@ -101,10 +101,10 @@ jobs:
               )
               (IMG / (name + "-untaped.svg")).write_text(svg)
               print(f"PIXEL_RETOUCHED {name} {width}x{height} {len(output.getvalue())} bytes")
-          if name == "kids-green-panel":
-              encoded_img = np.array(Image.open(io.BytesIO(output.getvalue())).convert("RGBA"))
-              for yy in [0, 15, 50, 75, 90, 99, 101, 105, 120, 150, 200, 280, 300]:
-                  print("PIXEL_PROBE", yy, "x500", encoded_img[yy, 500].tolist(), "x450", encoded_img[yy, 450].tolist(), "x345", encoded_img[yy, 345].tolist())
+              if name == "kids-green-panel":
+                  encoded_img = np.array(Image.open(io.BytesIO(output.getvalue())).convert("RGBA"))
+                  for yy in [0, 15, 50, 75, 90, 99, 101, 105, 120, 150, 200, 280, 300]:
+                      print("PIXEL_PROBE", yy, "x500", encoded_img[yy, 500].tolist(), "x450", encoded_img[yy, 450].tolist(), "x345", encoded_img[yy, 345].tolist())
           
           html_path = ROOT / "index.html"
           html = html_path.read_text()
