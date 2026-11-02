@@ -629,3 +629,8 @@ html body .site[data-scene] .bg-scene__photo, html body .site[data-scene] .bg-sc
 .project-copy {
   color: #F7F4EB;
 }
+
+/* Warm ivory project button trial — 2 November 2026. */
+.project-button { border-color: #F7F4EB; }
+.project-button:hover,
+.project-button:focus-visible { background: #F7F4EB; color: var(--ink); }
