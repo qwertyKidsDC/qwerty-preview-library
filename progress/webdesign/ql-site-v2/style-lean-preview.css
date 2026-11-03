@@ -74,6 +74,7 @@ a {
   background: #050a13;
 
   --workshop-top-image: url("img/workshop-top.webp");
+  /* Width multiplier preserves the approved photo alignment. Match script.js if changing it. */
   --top-original-height: clamp(285px, 36vw, 740px);
   --top-photo-width: max(100vw, calc(var(--top-original-height) * 3.227799));
   --top-fade-start: 800px;
@@ -217,7 +218,8 @@ a {
 
 .paper-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
