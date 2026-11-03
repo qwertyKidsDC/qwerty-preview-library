@@ -7,10 +7,8 @@
 /* 01 — Globals */
 :root {
   --pale: #F1F8F8; --ink: #020020; --paper: #F1F8F8; --blue: #4C69E3; --pink: #F66DC1; --green: #92D644;
-  --orange: #FF9029; --hand: 'Kalam','Segoe Print','Comic Sans MS',cursive;
-  --body: 'Atkinson Hyperlegible',Arial,sans-serif; --scene-bottom-height: clamp(260px,28vw,520px);
-  --scene-top: .70; --scene-bottom: .80; --scene-vignette: .60; --card-heading-size: 30px;
-  --card-body-size: 18px; --card-heading-size: 30px; --card-body-size: 18px;
+  --orange: #FF9029; --body: 'Atkinson Hyperlegible',Arial,sans-serif; --scene-bottom-height: clamp(260px,28vw,520px);
+  --scene-top: .70; --scene-bottom: .80; --scene-vignette: .60; --card-heading-size: 30px; --card-body-size: 18px;
 }
 
 html {
@@ -57,9 +55,6 @@ a {
   position: relative; isolation: isolate; min-height: 100vh; overflow: hidden; background: #050a13;
 }
 
-.pegboard {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none; background: #050a13;
-}
 
 .ambient {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -123,13 +118,13 @@ html body .site[data-scene] .bg-scene__photo::after {
 }
 
 .site[data-scene] .bg-scene-bottom__photo {
-  background-image: url("img/workshop-footer.webp"); filter: none;
+  background-image: url("img/workshop-footer.webp"); 
   -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
   mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
 }
 
 .site[data-scene] .bg-scene-bottom__tones {
-  opacity: 1; background: rgba(4,9,18,var(--scene-bottom));
+  background: rgba(4,9,18,var(--scene-bottom));
   -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
   mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
 }
@@ -158,16 +153,10 @@ html body .site[data-scene] .bg-scene__photo::after {
   outline: 3px solid var(--orange); outline-offset: 5px;
 }
 
-.cardboard-page .hero {
-  background: transparent; display: block;
-}
+.cardboard-page .hero { display: block; }
 
 
 /* 04 — Navigation */
-header {
-  padding-top: 31px;
-}
-
 header nav {
   gap: 21px;
 }
@@ -266,7 +255,7 @@ nav a {
 }
 
 .project-copy {
-  position: relative; z-index: 3; width: 375px; padding: 105px 0 0 42px; padding-top: 85px; color: #F7F4EB;
+  position: relative; z-index: 3; width: 375px; padding: 85px 0 0 42px; color: #F7F4EB;
 }
 
 .project-label {
@@ -287,19 +276,16 @@ nav a {
 }
 
 .project-button {
-  border: 1.5px solid var(--paper); display: inline-flex; gap: 22px; align-items: center;
+  border: 1.5px solid #F7F4EB; display: inline-flex; gap: 22px; align-items: center;
   padding: 11px 16px; font-size: 16px; letter-spacing: .1em; text-transform: uppercase;
-  white-space: nowrap; border-color: #F7F4EB;
+  white-space: nowrap;
 }
 
 .project-button span {
   font-size: 26px; line-height: .4;
 }
 
-.project-button:hover {
-  background: #F7F4EB; color: var(--ink);
-}
-
+.project-button:hover,
 .project-button:focus-visible {
   background: #F7F4EB; color: var(--ink);
 }
@@ -315,7 +301,7 @@ nav a {
 
 .project-photo {
   position: absolute; z-index: 1; left: 10.6%; top: 16%; width: 83%; height: 74%; object-fit: cover;
-  border: 0; transform: rotate(-4.3deg);
+  transform: rotate(-4.3deg);
 }
 
 
@@ -431,31 +417,13 @@ footer {
 
 }
 
-@media (max-width:1200px) {
-  header nav {
-    gap: 14px;
-  }
 
-}
 
-@media (max-width:1050px) {
-  header nav {
-    gap: 12px;
-  }
 
-}
 
-@media (max-width:900px) {
-  header nav {
-    gap: 10px;
-  }
 
-}
 
 @media (max-width:760px) {
-  :root {
-    --ql-fade-start: 72vh;
-  }
 
   .cardboard-stage {
     border-left: 0; border-right: 0; padding: 12px 12px 16px;
@@ -518,7 +486,7 @@ footer {
   }
 
   .project-copy {
-    padding: 115px 0 0 38px; width: min(365px,100%); padding-top: 95px;
+    padding: 95px 0 0 38px; width: min(365px,100%);
   }
 
   .project-label {
@@ -549,26 +517,19 @@ footer {
 
 @media (max-width:750px) {
   :root {
-    --scene-height: clamp(200px,58vw,370px); --scene-bottom-height: 300px;
+    --scene-bottom-height: 300px;
   }
 
   .bg-scene-bottom__photo {
     background-size: auto 100%;
   }
 
-  .bg-scene__photo::after {
-    top: 1210px; left: 0; right: 0; opacity: .72;
-  }
+  .bg-scene__photo::after { opacity: .72; }
 
   .site[data-scene="tech-workshop"] {
     --top-original-height: clamp(200px,58vw,370px); --top-photo-width: 100vw;
   }
-
-  header {
-    padding-top: 18px;
-  }
-
-  .site > footer {
+.site > footer {
     padding: 25px 15px; margin-top: 55px;
   }
 
