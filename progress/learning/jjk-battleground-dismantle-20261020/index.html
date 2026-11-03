@@ -16,6 +16,7 @@ main{width:86vw;max-width:1160px;margin:30px auto 90px}.intro{max-width:860px;ma
 details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin:16px 0;padding:12px 16px}details summary{font-weight:700;cursor:pointer}details[open] summary{margin-bottom:10px}details p:last-child{margin-bottom:0}.results{border:2px solid var(--ink);border-radius:9px;padding:14px 17px;background:#f5f9fa;margin:12px 0}.results p{margin:2px 0 4px!important;font-weight:700}.results pre{font:15px/1.55 'Atkinson Hyperlegible Mono',ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;padding:4px 0 12px}
 .step:nth-of-type(6) .number{background:var(--green)}.step:nth-of-type(7) .number{background:var(--orange)}.step:nth-of-type(8) .number{background:var(--pink)}
  .specnote{max-width:1050px;background:#fff;border:2px solid var(--blue);border-radius:12px;padding:17px 20px;margin:0 0 25px}.specnote strong:first-child{font-size:1.13rem}.specnote p{margin:9px 0 0}.specnote code{white-space:nowrap}
+.phasehead{margin:40px 0 27px;padding:24px 25px 28px;border:2px solid var(--ink);border-radius:14px;background:#fff;box-shadow:6px 6px 0 var(--blue);scroll-margin-top:18px}.phasehead h2{font-size:clamp(2rem,5vw,3rem);margin:9px 0 12px}.phasehead p{max-width:950px}.phasehead .eyebrow{font:700 .75rem 'Atkinson Hyperlegible Mono',monospace;color:var(--blue);letter-spacing:.1em}.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}.spec-grid>div{padding:15px;background:#f2f6f6;border-radius:8px}.spec-grid b{display:block;font-size:.84rem;margin-bottom:6px}.spec-grid span{display:block;font-size:.92rem}.try{background:#fff5e8;border-left:5px solid var(--orange);padding:14px 16px;margin:16px 0}.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.checkgrid label{padding:11px 12px;background:#f4f8f9;border:1px solid var(--line);border-radius:7px;font-size:.94rem;display:flex;gap:9px;align-items:start}.checkgrid input{flex-shrink:0;width:19px;height:19px;accent-color:var(--blue)}#s09,#s10,#s11,#s12,#s13,#s14,#s15,#s16{scroll-margin-top:15px}#s09 .number,#s13 .number{background:var(--green)}#s10 .number,#s14 .number{background:var(--orange)}#s11 .number,#s15 .number{background:var(--pink)}#s12 .number,#s16 .number{background:var(--blue);color:white}@media(max-width:750px){.spec-grid,.checkgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -34,7 +35,7 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
  <p><strong>WORKING DEFAULT · visual preview:</strong> the temporary Part sizes, animation length and one-second cleanup are just starting choices for testing appearance. They do not set damage, hitbox size, windup or cooldown.</p>
  </div>
  <nav class="trail" aria-label="Jump to a task">
-   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a>
+   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a><a href="#s09">09 · Specs</a><a href="#s10">10 · Cooldown</a><a href="#s11">11 · CE</a><a href="#s12">12 · Windup</a><a href="#s13">13 · Target</a><a href="#s14">14 · Damage</a><a href="#s15">15 · Defence</a><a href="#s16">16 · Battle test</a>
  </nav>
  <section class="step" id="fix">
   <div class="stephead"><span class="number">01</span><h2>Our two mistakes. Your two fixes.</h2></div>
@@ -298,12 +299,370 @@ print("[Server] DismantleDarkPreview created")</pre></div>
     <label class="done"><input type="checkbox" data-step="multiplayer"> Two-player test passed and place saved</label>
   </div>
 </section>
+ 
+<div class="phasehead" id="phase-2">
+ <div class="eyebrow">PHASE 2A / FIRST PLAYABLE ABILITY</div>
+ <h2>Make Dismantle play like a game.</h2>
+ <p><strong>Steps 01–08 are complete.</strong> Do not redo them. Now we're giving the working slash rules: a cooldown, a CE cost, a windup, targeting, damage and defences.</p>
+ <div class="spec-grid">
+  <div><b>HENRY'S CHOICES</b><span>10 damage · 20 CE · 8-second cooldown · 0.6-second windup · 60-stud range · 1.2-second stun · blockable · dodgeable</span></div>
+  <div><b>WORKING DEFAULTS</b><span>Key 1 (already tested) · nearest living opponent in a 25° forward half-cone · clear line of sight · one target · CE/cooldown charged when windup begins, even if interrupted</span></div>
+ </div>
+ <p><strong>Rules for every step:</strong> use your existing working Roblox place, stop Play before editing, don't duplicate scripts or code blocks, test the one new thing, then save. If a test fails, don't build on it. The client still only sends <code>"Dismantle"</code>; all decisions remain on the server.</p>
+ <p class="small"><strong>Source check:</strong> These steps follow the proven <code>CombatClient → CombatActionHandler → Services</code> route and the Phase 1 <code>StateService.GetState</code> / <code>DamageService.ApplyDamage</code> APIs from Henry's Phase 1 materials. His actual running project remains the source of truth. In Step 14, check the real DamageService function name before making that edit.</p>
+</div>
+
+<section class="step" id="s09">
+ <div class="stephead"><span class="number">09</span><h2>Give Dismantle its own settings.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> you can change Dismantle's settings in <em>one place</em> instead of hunting through attack code. We're not changing the effect you already built.</p>
+ <h3>A · Create one ModuleScript</h3>
+ <ol>
+  <li>Stop Play. In <strong>Explorer → ServerScriptService → Services</strong>, click <strong>+</strong> and choose <strong>ModuleScript</strong>.</li>
+  <li>Rename it <code>DismantleConfig</code>. Open it. Delete the default <code>local module = {}</code> / <code>return module</code> template completely.</li>
+  <li>Enter the table below. The first six numbers come from your newer specs; the final angle is a working default.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Services → DismantleConfig · COMPLETE NEW MODULE</span><button type="button" data-copy="c7">COPY</button></div><pre id="c7">local DismantleConfig = {
+    Damage = 10,
+    Cost = 20,
+    Cooldown = 8,
+    Windup = 0.6,
+    Range = 60,
+    Stun = 1.2,
+
+    -- WORKING DEFAULT: half-angle of the forward hit cone
+    HalfConeDegrees = 25,
+}
+
+return DismantleConfig</pre></div>
+ <h3>B · Read that module from the working server handler</h3>
+ <ol start="4">
+  <li>Open <strong>ServerScriptService → CombatActionHandler</strong>. At the top, alongside its existing <code>local CombatService = require(...)</code>, add <strong>only</strong> this line:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD WITH OTHER REQUIRE LINES</span><button type="button" data-copy="c8">COPY</button></div><pre id="c8">local DismantleConfig = require(game.ServerScriptService.Services.DismantleConfig)</pre></div>
+ <ol start="5"><li>Find the existing <code>elseif action == "Dismantle" then</code> branch. Immediately <strong>below</strong> the line <code>print("[Server] Received Dismantle from", player.Name)</code>, add:</li></ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD ONE DEBUG LINE UNDER SERVER PRINT</span><button type="button" data-copy="c9">COPY</button></div><pre id="c9">print("[Dismantle] specs:", DismantleConfig.Damage, "damage;", DismantleConfig.Cost, "CE")</pre></div>
+ <div class="pass"><strong>Test 09:</strong> Play (F5), click the game, press <code>1</code>. The existing two-stroke slash still works. Server Output includes <code>[Dismantle] specs: 10 damage; 20 CE</code>. If it doesn't, check the ModuleScript's exact name and that it ends with <code>return DismantleConfig</code>.</div>
+ <p class="try"><strong>Try changing:</strong> Make <code>Damage = 12</code>, test again and observe the spec print changing. <strong>Set it back to 10</strong> before continuing. Nothing actually damages players yet.</p>
+ <label class="done"><input type="checkbox" data-step="s09"> Settings module works; original slash preserved</label>
+ </div>
+</section>
+
+<section class="step" id="s10">
+ <div class="stephead"><span class="number">10</span><h2>Stop unlimited Dismantle spam.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> the first press works, but pressing <code>1</code> again too soon tells you the move is on cooldown. <strong>HENRY'S SPEC:</strong> 8 seconds.</p>
+ <h3>A · Reuse Phase 1 state</h3>
+ <ol>
+  <li>Stop Play. In <strong>CombatActionHandler</strong>, near the other require lines at the top, add this one. Do not create another StateService.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD WITH THE REQUIRE LINES</span><button type="button" data-copy="c10">COPY</button></div><pre id="c10">local StateService = require(game.ServerScriptService.Services.StateService)</pre></div>
+ <h3>B · Gate the existing slash</h3>
+ <ol start="2">
+  <li>Inside the Dismantle branch, find the existing <code>if humanoid and humanoid.Health &gt; 0 and root then</code> from Step 05.</li>
+  <li>Immediately <strong>after that <code>if</code> line</strong> and <strong>before <code>local slash = Instance.new("Part")</code></strong>, paste the code below. Keep all the visual code exactly where it is.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · INSERT INSIDE THE EXISTING LIVE-CHARACTER IF</span><button type="button" data-copy="c11">COPY</button></div><pre id="c11">local state = StateService.GetState(player)
+if not state then
+    return
+end
+
+if state.IsStunned then
+    print("[Dismantle] cannot cast while stunned")
+    return
+end
+
+if state.HasSpawnProtection then
+    print("[Dismantle] wait for spawn protection")
+    return
+end
+
+local readyAt = state.Cooldowns.Dismantle or 0
+if os.clock() &lt; readyAt then
+    print("[Dismantle] cooldown:", math.ceil(readyAt - os.clock()), "seconds left")
+    return
+end
+
+state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</pre></div>
+ <p class="tip"><strong>Location matters:</strong> this belongs <em>inside</em> the already-working <code>if humanoid ... then</code>. Do not add another <code>end</code> around the new code. The <code>return</code> statements stop this single server request; they don't disable the game.</p>
+ <h3>C · Prove it blocks repeated casts</h3>
+ <ol start="4">
+  <li>Play, <strong>wait until spawn protection ends</strong>, click the game and press <code>1</code>. The slash appears.</li>
+  <li>Press <code>1</code> again immediately. The slash should <strong>not</strong> appear again; Output shows <code>[Dismantle] cooldown: ... seconds left</code>.</li>
+  <li>Wait at least 8 seconds from your first valid cast and try again. The slash appears again.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> One cast, rejected repeat, then another cast after cooldown. Dash, Dodge and Block still work.</div>
+ <p class="try"><strong>Try changing:</strong> Set <code>Cooldown = 3</code> in <code>DismantleConfig</code>. Restart Play and time it. Restore <code>8</code>. <strong>Don't add a second cooldown timer</strong>—we are using Phase 1's <code>state.Cooldowns</code>.</p>
+ <label class="done"><input type="checkbox" data-step="s10"> Cooldown tested at 8 seconds</label>
+ </div>
+</section>
+
+<section class="step" id="s11">
+ <div class="stephead"><span class="number">11</span><h2>Spend cursed energy.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> casting Dismantle costs <strong>20 CE</strong>, and a player with too little CE gets no slash. This uses the <em>existing</em> server CE value and HUD. We're not inventing a second energy system.</p>
+ <ol>
+  <li>Stop Play. Open <strong>CombatActionHandler</strong>. Find the Step 10 line <code>state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</code>.</li>
+  <li>Paste the following <strong>just above</strong> that line—not after it. This means rejected casts do not start cooldown.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD ABOVE THE COOLDOWN ASSIGNMENT</span><button type="button" data-copy="c12">COPY</button></div><pre id="c12">if state.CE &lt; DismantleConfig.Cost then
+    print("[Dismantle] not enough CE:", state.CE)
+    return
+end
+
+state.CE = state.CE - DismantleConfig.Cost
+StateService.SyncAttributes(player)
+print("[Dismantle] CE remaining:", state.CE)</pre></div>
+ <p class="tip"><strong>Keep this order:</strong> stunned/spawn-protected check → cooldown check → enough CE? → spend CE → start cooldown → create slash. Do not alter your original <code>StateServer</code> CE regeneration code.</p>
+ <h3>Test 11 · CE really changes</h3>
+ <ol start="3">
+  <li>Play and wait for spawn protection to finish. Read your CE bar. Press <code>1</code> once; CE should drop by <strong>20</strong> (it may start regenerating immediately).</li>
+  <li>Try again during cooldown. CE must <strong>not</strong> drop again.</li>
+  <li>To test low CE without changing the game permanently: stop Play, temporarily change <code>Cost = 101</code> in <code>DismantleConfig</code>, Play and press <code>1</code>. You should see <code>not enough CE</code> and <strong>no slash</strong>. Restore <code>Cost = 20</code> afterwards.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> Successful casts spend 20 CE, cooldown rejections spend zero, and low-CE rejections create no slash. HP/CE HUD and original combat still function.</div>
+ <p class="try"><strong>Design experiment:</strong> Does 20 CE feel expensive when CE regenerates at Henry's chosen <strong>2 per second</strong>? Run a few casts and note the answer. Don't change the spec until you've tested it.</p>
+ <label class="done"><input type="checkbox" data-step="s11"> CE costs and low-CE rejection passed</label>
+ </div>
+</section>
+
+<section class="step" id="s12">
+ <div class="stephead"><span class="number">12</span><h2>Wind up before the slash.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> pressing <code>1</code> doesn't make the slash appear instantly. There's a <strong>0.6-second</strong> windup first, and being stunned during that window cancels it. <strong>HENRY'S SPEC:</strong> 0.6-second windup, interruptible.</p>
+ <ol>
+  <li>Stop Play. In <strong>CombatActionHandler</strong>, inside Dismantle's live-character <code>if</code>, find the Step 10 line that starts cooldown.</li>
+  <li><strong>Immediately below</strong> <code>state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</code> and <strong>above</strong> <code>local slash = Instance.new("Part")</code>, insert:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD BETWEEN COOLDOWN AND SLASH CREATION</span><button type="button" data-copy="c13">COPY</button></div><pre id="c13">print("[Dismantle] winding up...")
+task.wait(DismantleConfig.Windup)
+
+if player.Character ~= character
+    or humanoid.Health &lt;= 0
+    or not root.Parent
+    or state.IsStunned then
+    print("[Dismantle] interrupted")
+    return
+end
+
+print("[Dismantle] windup finished")</pre></div>
+ <h3>Test 12 · Feel the delay</h3>
+ <ol start="3">
+  <li>Play. Wait for spawn protection, press <code>1</code> and watch the character and Output. The <code>winding up...</code> message comes first, followed by <code>windup finished</code> and then the visual slash.</li>
+  <li>For an obvious comparison, temporarily set <code>Windup = 1.5</code> in <code>DismantleConfig</code>, restart Play and try it. Reset to <strong>0.6</strong> when done.</li>
+  <li><strong>Two-player challenge:</strong> while Player 1 is winding up, have Player 2 land an attack that <em>actually stuns</em> Player 1. If that happens before the windup ends, there should be an <code>interrupted</code> message and no slash. A hit without stun will not cancel this version.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> slash waits 0.6 seconds, normal use still works, and a confirmed stun during windup cancels it without a script error.</div>
+ <p class="try"><strong>WORKING DEFAULT:</strong> CE and cooldown are spent <em>when the windup starts</em>, even if interrupted. This is a gameplay choice Henry can revisit later, not a verified rule from his specification.</p>
+ <label class="done"><input type="checkbox" data-step="s12"> Windup and interruption tested</label>
+ </div>
+</section>
+
+<section class="step" id="s13">
+ <div class="stephead"><span class="number">13</span><h2>Let the server find a target.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> the slash can tell whether someone is actually in front of you. <strong>No damage yet.</strong> Henry specified a 60-stud distance check. We're using a <strong>WORKING DEFAULT</strong> of one closest living opponent within 25° of your forward direction, with no wall blocking the path.</p>
+ <h3>A · One small targeting ModuleScript</h3>
+ <ol>
+  <li>Stop Play. In <strong>ServerScriptService → Services</strong> click <strong>+</strong> and create a <strong>ModuleScript</strong> named <code>DismantleTargeting</code>.</li>
+  <li>Delete its default template and enter the entire code below. The <code>Find</code> function scans real players on the <strong>server</strong>, not client-reported targets.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Services → DismantleTargeting · COMPLETE NEW MODULE</span><button type="button" data-copy="c14">COPY</button></div><pre id="c14">local Players = game:GetService("Players")
+
+local DismantleTargeting = {}
+
+function DismantleTargeting.Find(attacker, originRoot, range, halfAngle)
+    local bestPlayer = nil
+    local bestDistance = math.huge
+
+    for _, candidate in Players:GetPlayers() do
+        if candidate ~= attacker then
+            local character = candidate.Character
+            local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+            local root = character and character:FindFirstChild("HumanoidRootPart")
+
+            if humanoid and humanoid.Health &gt; 0 and root then
+                local offset = root.Position - originRoot.Position
+                local distance = offset.Magnitude
+
+                if distance &gt; 0 and distance &lt;= range and distance &lt; bestDistance then
+                    local forward = originRoot.CFrame.LookVector
+                    local dot = forward:Dot(offset.Unit)
+
+                    if dot &gt;= math.cos(math.rad(halfAngle)) then
+                        local params = RaycastParams.new()
+                        params.FilterType = Enum.RaycastFilterType.Exclude
+                        params.FilterDescendantsInstances = {attacker.Character}
+
+                        local hit = workspace:Raycast(originRoot.Position, offset, params)
+                        if hit and hit.Instance:IsDescendantOf(character) then
+                            bestPlayer = candidate
+                            bestDistance = distance
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return bestPlayer
+end
+
+return DismantleTargeting</pre></div>
+ <h3>B · Ask the new module from the handler</h3>
+ <ol start="3"><li>At the <strong>top of CombatActionHandler</strong>, add this beside the existing <code>DismantleConfig</code> require:</li></ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD WITH REQUIRE LINES</span><button type="button" data-copy="c15">COPY</button></div><pre id="c15">local DismantleTargeting = require(game.ServerScriptService.Services.DismantleTargeting)</pre></div>
+ <ol start="4"><li>Inside the Dismantle branch, find <code>print("[Dismantle] windup finished")</code>. <strong>Directly below that print</strong> and <strong>before</strong> <code>local slash = Instance.new("Part")</code>, insert:</li></ol>
+ <div class="codebox"><div class="codehead"><span>Handler · INSERT AFTER WINDUP FINISHED</span><button type="button" data-copy="c16">COPY</button></div><pre id="c16">local targetPlayer = DismantleTargeting.Find(
+    player,
+    root,
+    DismantleConfig.Range,
+    DismantleConfig.HalfConeDegrees
+)
+
+if targetPlayer then
+    print("[Dismantle] target found:", targetPlayer.Name)
+else
+    print("[Dismantle] missed")
+end</pre></div>
+ <h3>Test 13 · Move around and make predictions</h3>
+ <ol start="5">
+  <li>Run <strong>Server &amp; Clients → 2 clients</strong>. Let spawn protection end. Face Player 2 and press <code>1</code>: look for <code>target found: ...</code>. Both players still see the slash.</li>
+  <li>Turn away from Player 2 and try again after cooldown: Output should say <code>missed</code>.</li>
+  <li>Place a solid wall between players and try again: Output should say <code>missed</code>. Move to clear space and try again.</li>
+  <li>Move more than 60 studs apart: Output should say <code>missed</code>.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> the server reports a target only when it is alive, close enough, roughly in front and visible through no wall. <strong>Nobody loses HP in this step.</strong></div>
+ <p class="try"><strong>Try changing:</strong> In <code>DismantleConfig</code>, set <code>HalfConeDegrees = 10</code> and later <code>45</code>. Compare how precise aiming needs to be. Restore <strong>25</strong>. This is a working default, not a locked game rule.</p>
+ <details><summary>If facing a player always says “missed”</summary><p>First check that both avatars are alive, within 60 studs, facing one another and not hidden by an arena wall. The server raycast can also hit solid decorations between them. Move to an empty test area before changing code. Confirm <code>DismantleTargeting</code> is a ModuleScript with that exact spelling.</p></details>
+ <label class="done"><input type="checkbox" data-step="s13"> Distance, direction and line-of-sight tests passed</label>
+ </div>
+</section>
+
+<section class="step" id="s14">
+ <div class="stephead"><span class="number">14</span><h2>Make a successful slash deal damage.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> when the server finds an opponent, it calls <em>the existing</em> Phase 1 DamageService. <strong>HENRY'S SPEC:</strong> 10 damage, 1.2 seconds of stun. We will not create a second damage engine.</p>
+ <h3>A · Check the real damage API first</h3>
+ <ol>
+  <li>Stop Play. Open <strong>ServerScriptService → Services → DamageService</strong>.</li>
+  <li>Find the actual function declaration. In the Phase 1 source it is <code>function DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration)</code> and returns <code>true</code> for a successful hit. <strong>Only follow the snippet below if your working script has this same function name and argument order.</strong></li>
+  <li>Also confirm <code>StateService.SyncAttributes(player)</code> exists in <strong>StateService</strong>. If either signature differs, <strong>stop at Step 13</strong>; do not guess a replacement API.</li>
+ </ol>
+ <h3>B · Connect the existing service</h3>
+ <ol start="4"><li>In <strong>CombatActionHandler</strong>, add this require beside the others:</li></ol>
+ <div class="codebox"><div class="codehead"><span>Handler · ADD WITH REQUIRE LINES</span><button type="button" data-copy="c17">COPY</button></div><pre id="c17">local DamageService = require(game.ServerScriptService.Services.DamageService)</pre></div>
+ <ol start="5"><li>Find the Step 13 print block beginning <code>if targetPlayer then</code> and ending with its own <code>end</code>, <strong>right before</strong> the existing <code>local slash = Instance.new("Part")</code>. Replace <em>only that small if/else/end block</em> with this version. Keep the <code>local targetPlayer = DismantleTargeting.Find(...)</code> above it.</li></ol>
+ <div class="codebox"><div class="codehead"><span>Handler · REPLACE STEP 13 TARGET PRINT IF/ELSE BLOCK ONLY</span><button type="button" data-copy="c18">COPY</button></div><pre id="c18">if targetPlayer then
+    local applied = DamageService.ApplyDamage(
+        player,
+        targetPlayer,
+        DismantleConfig.Damage,
+        DismantleConfig.Stun
+    )
+
+    if applied then
+        StateService.SyncAttributes(targetPlayer)
+        print("[Dismantle] hit:", targetPlayer.Name, "damage:", DismantleConfig.Damage)
+    else
+        print("[Dismantle] target protected or defended")
+    end
+else
+    print("[Dismantle] missed")
+end</pre></div>
+ <h3>Test 14 · Watch actual HP</h3>
+ <ol start="6">
+  <li>Start <strong>two-player</strong> testing. Wait for spawn protection to finish for <em>both</em> players.</li>
+  <li>Put Player 2 in front of Player 1, nearby, unblocked and not dodging. Press <strong>1</strong> as Player 1. Player 2 should lose <strong>10 HP</strong> (for example, 100 → 90). The slash still appears and the attacker's CE drops by 20.</li>
+  <li>After cooldown, try while facing away or out of range. Player 2 loses <strong>0 HP</strong> and Output says <code>missed</code>. The cast still spends CE and cooldown under our working defaults.</li>
+  <li>Try again before spawn protection ends after Player 2 respawns. The target should receive no damage.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> exactly one valid opponent takes 10 damage; HP UI updates; a miss causes no damage; earlier movement and slash tests still pass.</div>
+ <p class="try"><strong>Try changing:</strong> Temporarily set <code>Damage = 5</code>, restart and compare one hit. Restore Henry's specified <strong>10</strong>.</p>
+ <details><summary>HP changed but the bar didn't move</summary><p>Check the real <code>DamageService</code> updates <code>targetState.HP</code> after applying damage, and that <code>StateService.SyncAttributes(targetPlayer)</code> exists and is called on successful damage. Don't replace the original DamageService with an older script just to make this step pass.</p></details>
+ <label class="done"><input type="checkbox" data-step="s14"> Valid target takes 10 HP; misses do not damage</label>
+ </div>
+</section>
+
+<section class="step" id="s15">
+ <div class="stephead"><span class="number">15</span><h2>Can an opponent defend against it?</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> blocking and dodging matter. Henry specified that Dismantle is <strong>blockable and dodgeable</strong>; the existing DamageService already checks <code>IsBlocking</code>, <code>IsDodging</code> and <code>HasSpawnProtection</code>.</p>
+ <h3>A · Make rejected hits easier to understand</h3>
+ <ol>
+  <li>Stop Play. In <strong>CombatActionHandler</strong>, inside Step 14's new <code>if applied then ... else ... end</code>, find <code>print("[Dismantle] target protected or defended")</code>.</li>
+  <li><strong>Replace only that one print line</strong> with the following snippet. Don't replace the surrounding <code>else</code> or <code>end</code>.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>Handler · REPLACE ONE PRINT LINE UNDER ELSE</span><button type="button" data-copy="c19">COPY</button></div><pre id="c19">local targetState = StateService.GetState(targetPlayer)
+if targetState and targetState.HasSpawnProtection then
+    print("[Dismantle] blocked by spawn protection")
+elseif targetState and targetState.IsDodging then
+    print("[Dismantle] target dodged")
+elseif targetState and targetState.IsBlocking then
+    print("[Dismantle] target blocked")
+else
+    print("[Dismantle] no damage applied")
+end</pre></div>
+ <h3>B · A proper defence lab</h3>
+ <ol start="3">
+  <li>Two-player test. Player 2 holds <strong>F</strong> while facing Player 1. Player 1 presses <strong>1</strong> after cooldown. The slash appears, but Player 2 loses <strong>0 HP</strong> and Output says <code>target blocked</code>.</li>
+  <li>Player 2 stops blocking, then activates <strong>R</strong> Dodge at the moment the slash would land. If the Phase 1 dodge invulnerability is active at damage time, Player 2 loses <strong>0 HP</strong> and Output says <code>target dodged</code>.</li>
+  <li>Player 2 does nothing and waits until protection ends. An aimed attack should now deal 10 HP damage.</li>
+  <li>Have Player 2 stand behind a wall or more than 60 studs away. They lose 0 HP because targeting misses before DamageService runs.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> block prevents damage, a correctly timed dodge prevents damage, an undefended target loses 10 HP, and out-of-range/walled targets are safe.</div>
+ <p class="try"><strong>Think like a designer:</strong> Should blocking work from behind? Henry specified <em>front-only</em> block for his game. <strong>Our current Phase 1 DamageService only checks the IsBlocking flag</strong>, so this prototype may block attacks from behind too. Do not call that rule finished until facing-direction logic is implemented and tested.</p>
+ <label class="done"><input type="checkbox" data-step="s15"> Block, dodge, spawn safety and normal damage tested</label>
+ </div>
+</section>
+
+<section class="step" id="s16">
+ <div class="stephead"><span class="number">16</span><h2>Battle-test your first real ability.</h2></div>
+ <div class="stepbody">
+ <p><strong>No new code required.</strong> A proper game system needs to survive combinations, not just one perfect demonstration. Run the checklist with <strong>two clients</strong> and record any failures.</p>
+ <h3>A · The full test matrix</h3>
+ <div class="checkgrid">
+  <label><input type="checkbox"> Player 1 presses 1 → both players see the white-and-black slash</label>
+  <label><input type="checkbox"> The slash waits 0.6 seconds before appearing</label>
+  <label><input type="checkbox"> A successful cast spends 20 CE and updates the HUD</label>
+  <label><input type="checkbox"> A second press during the 8-second cooldown makes no slash and spends no CE</label>
+  <label><input type="checkbox"> A player with less than 20 CE cannot cast</label>
+  <label><input type="checkbox"> A stunned attacker cannot cast</label>
+  <label><input type="checkbox"> A genuinely interrupted windup produces no slash</label>
+  <label><input type="checkbox"> A valid enemy within 60 studs takes 10 HP damage</label>
+  <label><input type="checkbox"> A wall, wrong direction or excessive range produces a miss</label>
+  <label><input type="checkbox"> A blocking target takes 0 HP damage</label>
+  <label><input type="checkbox"> A correctly dodging target takes 0 HP damage</label>
+  <label><input type="checkbox"> Spawn-protected targets cannot be damaged</label>
+  <label><input type="checkbox"> Player 2 can cast too, and Player 1 sees the effect</label>
+  <label><input type="checkbox"> Q, R, F, M1, HP, CE and respawn still behave as before</label>
+  <label><input type="checkbox"> No new red errors from project scripts</label>
+ </div>
+ <h3>B · Run four gameplay experiments</h3>
+ <ol>
+  <li><strong>Fast versus slow:</strong> set <code>Windup</code> to 0.3, then 1.2. Which feels fairer to the defender? Restore 0.6.</li>
+  <li><strong>Precise versus forgiving aim:</strong> set <code>HalfConeDegrees</code> to 10, then 45. Which feels better? Restore 25, or record your proposed change.</li>
+  <li><strong>Short versus long reach:</strong> set <code>Range</code> to 20, then 60. Does the slash feel as powerful as Henry intended? Restore 60.</li>
+  <li><strong>Energy versus pacing:</strong> try <code>Cost = 10</code>, then 20. Does repeated casting feel too easy at Henry's 2 CE/second regeneration? Restore 20.</li>
+ </ol>
+ <h3>C · Save a working baseline</h3>
+ <ol start="5">
+  <li>Put <strong>Henry's specified numbers</strong> back into <code>DismantleConfig</code>. Leave <code>HalfConeDegrees = 25</code> unless you explicitly decide on a new working default.</li>
+  <li>Stop playtesting. Save a separate Roblox Studio copy named something like <code>CursedPandemonium_DismantleGameplay_v1</code>.</li>
+  <li>Make a note of <strong>the first failed test</strong> and what Output said. Don't rewrite other combat scripts as a guess.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> the two-player tests hold up and you have a saved playable Dismantle milestone. Remaining limitations are documented below, not swept under the rug.</div>
+ <details><summary>What is deliberately not finished?</summary><p>Front-only block facing, robust stun stacking across abilities, CE refund and cooldown handling on interruption, animation polish, hit feedback to targets and moving the final Dismantle execution out of <code>CombatActionHandler</code> into its own service. The targeting angle and single-target rule are working defaults. These are future development tasks, <strong>not</strong> reasons to redo today's successful work.</p></details>
+ <label class="done"><input type="checkbox" data-step="s16"> Combat-tested and saved a new working Roblox place</label>
+ </div>
+</section>
+
  <div class="finish">
   <h2>Save what actually worked.</h2>
-  <p>Steps 01–05 establish the first working slash. Steps 06–07 animate and layer it; Step 08 verifies it with two players. Stop at the last <strong>passed</strong> test. Save a new Roblox place copy and record the step number you reached.</p>
+  <p>Steps 01–08 built the visual prototype. Steps 09–16 turn it into a playable first ability. Stop at the last <strong>passed</strong> test, and preserve a copy before changing the existing architecture.</p>
   <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications. When real damage and CE rules are added, keep Henry's chosen values and label any supplied missing rule as a <strong>WORKING DEFAULT</strong> that can be revised through playtesting.</p>
  </div>
- <footer>QWERTY LABS / HENRY / REPAIRS → FIRST SLASH → VISUAL POLISH → MULTIPLAYER TEST · 27 OCT 2026</footer>
+ <footer>QWERTY LABS / HENRY / REPAIRS → FIRST SLASH → VISUAL POLISH → MULTIPLAYER TEST · NOV 2026</footer>
 </main>
 <script>
 (() => {
