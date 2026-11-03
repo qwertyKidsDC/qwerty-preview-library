@@ -551,11 +551,12 @@ end</pre></div>
  <div class="stephead"><span class="number">14</span><h2>Make a successful slash deal damage.</h2></div>
  <div class="stepbody">
  <p><strong>The win:</strong> when the server finds an opponent, it calls <em>the existing</em> Phase 1 DamageService. <strong>HENRY'S SPEC:</strong> 10 damage, 1.2 seconds of stun. We will not create a second damage engine.</p>
+<p class="tip"><strong>Confirmed in the uploaded steps01-08.rbxl:</strong> <code>DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration)</code> exists and returns true on a successful hit. It already updates the target's HP state and synchronises the HP bar. Don't add a second HP sync.</p>
  <h3>A · Check the real damage API first</h3>
  <ol>
   <li>Stop Play. Open <strong>ServerScriptService → Services → DamageService</strong>.</li>
-  <li>Find the actual function declaration. In the Phase 1 source it is <code>function DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration)</code> and returns <code>true</code> for a successful hit. <strong>Only follow the snippet below if your working script has this same function name and argument order.</strong></li>
-  <li>Also confirm <code>StateService.SyncAttributes(player)</code> exists in <strong>StateService</strong>. If either signature differs, <strong>stop at Step 13</strong>; do not guess a replacement API.</li>
+  <li>Find <code>function DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration)</code>. This <strong>exact signature is in the attached place</strong>. If your current Studio script has changed since that export, stop and check before proceeding.</li>
+  <li>The source also confirms <code>StateService.SyncAttributes(player)</code> exists. <strong>Keep the existing DamageService and HUD integration intact.</strong></li>
  </ol>
  <h3>B · Connect the existing service</h3>
  <ol start="4"><li>In <strong>CombatActionHandler</strong>, add this require beside the others:</li></ol>
@@ -570,7 +571,6 @@ end</pre></div>
     )
 
     if applied then
-        StateService.SyncAttributes(targetPlayer)
         print("[Dismantle] hit:", targetPlayer.Name, "damage:", DismantleConfig.Damage)
     else
         print("[Dismantle] target protected or defended")
@@ -578,14 +578,45 @@ end</pre></div>
 else
     print("[Dismantle] missed")
 end</pre></div>
- <h3>Test 14 · Watch actual HP</h3>
+ <h3>C · Fix overlapping stun timers</h3>
+ <p><strong>Found in your source:</strong> Phase 1 starts a new timer for every stun. If a 0.4-second M1 stun and a 1.2-second Dismantle stun overlap, the short timer can clear <code>IsStunned</code> too soon. Henry specified <strong>no stacking; the longer stun wins</strong>.</p>
  <ol start="6">
+  <li>Open <strong>ServerScriptService → Services → DamageService</strong>. Find <code>-- Apply stun</code> near the bottom.</li>
+  <li><strong>Replace only the stun section</strong> from <code>-- Apply stun</code> through its matching <code>end</code>, immediately before <code>-- Death handoff</code>. Keep all the damage, HP, spawn-protection, block and dodge code above it.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>DamageService · REPLACE ONLY THE OLD STUN SECTION</span><button type="button" data-copy="c20">COPY</button></div><pre id="c20">-- Apply stun: whichever stun expires later wins
+if stunDuration and stunDuration &gt; 0 then
+    local untilTime = os.clock() + stunDuration
+    targetState.StunEndsAt = math.max(
+        targetState.StunEndsAt or 0,
+        untilTime
+    )
+    targetState.IsStunned = true
+
+    task.delay(stunDuration, function()
+        local currentState = StateService.GetState(target)
+        if currentState == targetState
+            and currentState.StunEndsAt
+            and os.clock() &gt;= currentState.StunEndsAt then
+            currentState.IsStunned = false
+            currentState.StunEndsAt = nil
+        end
+    end)
+end</pre></div>
+ <ol start="8">
+  <li>Open <strong>ServerScriptService → Services → RespawnService</strong>. In the existing reset section, find <code>state.IsStunned = false</code>. Add just this line immediately <strong>below it</strong>. Do not change the other reset lines.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>RespawnService · ADD BELOW state.IsStunned = false</span><button type="button" data-copy="c21">COPY</button></div><pre id="c21">state.StunEndsAt = nil</pre></div>
+ <p class="tip">This repairs the existing server stun logic; it is <strong>not</strong> a new damage or stun service. M1 and Dismantle will share it. The shorter stun cannot end the longer one early.</p>
+ <h3>Test 14 · Watch actual HP</h3>
+ <ol start="9">
   <li>Start <strong>two-player</strong> testing. Wait for spawn protection to finish for <em>both</em> players.</li>
   <li>Put Player 2 in front of Player 1, nearby, unblocked and not dodging. Press <strong>1</strong> as Player 1. Player 2 should lose <strong>10 HP</strong> (for example, 100 → 90). The slash still appears and the attacker's CE drops by 20.</li>
   <li>After cooldown, try while facing away or out of range. Player 2 loses <strong>0 HP</strong> and Output says <code>missed</code>. The cast still spends CE and cooldown under our working defaults.</li>
   <li>Try again before spawn protection ends after Player 2 respawns. The target should receive no damage.</li>
+  <li><strong>Stun test:</strong> after an undefended Dismantle hit, Player 2 tries Q or R. It should be rejected during the 1.2-second stun and work afterward. Bonus: an M1 hit during that stun must <strong>not</strong> make it end early.</li>
  </ol>
- <div class="pass"><strong>Pass:</strong> exactly one valid opponent takes 10 damage; HP UI updates; a miss causes no damage; earlier movement and slash tests still pass.</div>
+ <div class="pass"><strong>Pass:</strong> exactly one valid opponent takes 10 damage; HP UI updates; misses cause no damage; the 1.2-second stun lasts as intended even if a shorter M1 stun overlaps; the original controls still work.</div>
  <p class="try"><strong>Try changing:</strong> Temporarily set <code>Damage = 5</code>, restart and compare one hit. Restore Henry's specified <strong>10</strong>.</p>
  <details><summary>HP changed but the bar didn't move</summary><p>Check the real <code>DamageService</code> updates <code>targetState.HP</code> after applying damage, and that <code>StateService.SyncAttributes(targetPlayer)</code> exists and is called on successful damage. Don't replace the original DamageService with an older script just to make this step pass.</p></details>
  <label class="done"><input type="checkbox" data-step="s14"> Valid target takes 10 HP; misses do not damage</label>
