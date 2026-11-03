@@ -1,0 +1,590 @@
+/* Qwerty Labs homepage — maintained CSS, 3 November 2026.
+   Current page only; historical experiments removed. Shared rules are defined once.
+   script.js handles responsive scale and background fade positions. */
+
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+/* 01 — Globals */
+:root {
+  --pale: #F1F8F8; --ink: #020020; --paper: #F1F8F8; --blue: #4C69E3; --pink: #F66DC1; --green: #92D644;
+  --orange: #FF9029; --hand: 'Kalam','Segoe Print','Comic Sans MS',cursive;
+  --body: 'Atkinson Hyperlegible',Arial,sans-serif; --scene-bottom-height: clamp(260px,28vw,520px);
+  --scene-top: .70; --scene-bottom: .80; --scene-vignette: .60; --card-heading-size: 30px;
+  --card-body-size: 18px; --card-heading-size: 30px; --card-body-size: 18px;
+}
+
+html {
+  background: #060d17;
+}
+
+body {
+  margin: 0; background: #070e18; color: var(--pale);
+  font-family: 'Atkinson Hyperlegible',Arial,sans-serif; overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*::before {
+  box-sizing: border-box;
+}
+
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit; text-decoration: none;
+}
+
+.skip {
+  position: absolute; top: -90px; left: 10px; background: white; color: black; padding: 14px; z-index: 30;
+}
+
+.skip:focus {
+  top: 10px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+
+/* 02 — Background */
+.site {
+  position: relative; isolation: isolate; min-height: 100vh; overflow: hidden; background: #050a13;
+}
+
+.pegboard {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; background: #050a13;
+}
+
+.ambient {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 38% 400px at 0 5%,rgba(255,127,0,.16),transparent),radial-gradient(ellipse 33% 420px at 100% 4%,rgba(255,139,0,.18),transparent);
+}
+
+.bg-scene {
+  top: 0;
+}
+
+.bg-scene-bottom {
+  bottom: 0; height: var(--scene-bottom-height);
+}
+
+.bg-scene-bottom__photo {
+  background-size: cover; background-position: center bottom;
+}
+
+.bg-scene__vignette {
+  -webkit-mask-image: linear-gradient(#000 0%,#000 85%,transparent 100%);
+  mask-image: linear-gradient(#000 0%,#000 85%,transparent 100%);
+  background: radial-gradient(ellipse 61% 80% at 50% 44%,transparent 24%,rgba(3,8,16,var(--scene-vignette)) 100%);
+}
+
+.site[data-scene="tech-workshop"] {
+  --top-original-height: clamp(285px,36vw,740px);
+  --top-photo-width: max(100vw,calc(var(--top-original-height) * 3.227799)); --top-fade-start: 800px;
+  --top-fade-end: 1160px;
+}
+
+.site[data-scene="tech-workshop"] .bg-scene {
+  height: var(--top-fade-end);
+}
+
+.site[data-scene="tech-workshop"] .bg-scene__photo {
+  background-size: var(--top-photo-width) auto; background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom,#000 0px,#000 var(--top-fade-start),rgba(0,0,0,.88) var(--top-fade-stop1),rgba(0,0,0,.5) var(--top-fade-stop2),rgba(0,0,0,.12) var(--top-fade-stop3),transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom,#000 0px,#000 var(--top-fade-start),rgba(0,0,0,.88) var(--top-fade-stop1),rgba(0,0,0,.5) var(--top-fade-stop2),rgba(0,0,0,.12) var(--top-fade-stop3),transparent var(--top-fade-end));
+}
+
+.site[data-scene="tech-workshop"] .bg-scene__photo::after {
+  content: ""; display: block; position: absolute; inset: 0 0 auto; height: var(--top-original-height);
+  background-size: var(--top-photo-width) auto; background-position: center top;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom,#000 0%,#000 80%,transparent 100%);
+  mask-image: linear-gradient(to bottom,#000 0%,#000 80%,transparent 100%);
+}
+
+.site[data-scene="tech-workshop"] .bg-scene__tones {
+  background: rgba(4,9,18,var(--scene-top));
+  -webkit-mask-image: linear-gradient(to bottom,#000 var(--top-fade-start),transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom,#000 var(--top-fade-start),transparent var(--top-fade-end));
+}
+
+html body .site[data-scene] .bg-scene__photo {
+  background-image: url("img/workshop-top.webp");
+}
+
+html body .site[data-scene] .bg-scene__photo::after {
+  background-image: url("img/workshop-top.webp");
+}
+
+.site[data-scene] .bg-scene-bottom__photo {
+  background-image: url("img/workshop-footer.webp"); filter: none;
+  -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
+  mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
+}
+
+.site[data-scene] .bg-scene-bottom__tones {
+  opacity: 1; background: rgba(4,9,18,var(--scene-bottom));
+  -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
+  mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
+}
+
+
+/* 03 — Cardboard */
+.cardboard-stage {
+  width: fit-content; max-width: 100%; margin: 0 auto; background: transparent; border: 0;
+  position: relative; z-index: 3; padding: 32px 34px 38px;
+}
+
+.cardboard-page {
+  margin: auto; position: relative; overflow: hidden; width: 986px; box-shadow: 0 0 60px rgba(0,0,0,.12);
+}
+
+.cardboard-page:before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: url("img/cardboard-texture.svg") repeat; opacity: .17; z-index: 0;
+}
+
+.cardboard-page img {
+  display: block; max-width: 100%;
+}
+
+.cardboard-page a:focus-visible {
+  outline: 3px solid var(--orange); outline-offset: 5px;
+}
+
+.cardboard-page .hero {
+  background: transparent; display: block;
+}
+
+
+/* 04 — Navigation */
+header {
+  padding-top: 31px;
+}
+
+header nav {
+  gap: 21px;
+}
+
+nav a {
+  text-shadow: 0 2px 7px #000;
+}
+
+.header {
+  position: relative; z-index: 9; display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 25px; padding: 14px 40px 0 47px; height: 100px;
+}
+
+.logo {
+  display: block; width: 368px; flex: none;
+}
+
+.logo img {
+  width: 100%; height: auto;
+}
+
+.navigation {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; row-gap: 10px;
+  text-transform: uppercase; white-space: nowrap; line-height: 1.1; padding-top: 0; margin-top: 33px;
+  letter-spacing: .12em; column-gap: 20px; font-family: var(--body); font-size: 18px; font-weight: 700;
+  color: #F7F4EB;
+}
+
+.navigation a:hover {
+  text-decoration: underline; text-underline-offset: 6px;
+}
+
+
+/* 05 — Hero */
+.hero {
+  position: relative; height: 293px; z-index: 4;
+}
+
+.hero-copy {
+  position: relative; z-index: 2; width: 50%; padding-left: 28px;
+}
+
+.hero-paper {
+  width: 433px; height: 193px; position: relative; margin-top: -6px;
+}
+
+.paper-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+}
+
+.hero-paper .paper-bg {
+  object-fit: fill;
+}
+
+.hero h1 {
+  position: absolute; top: 48px; left: 54px; width: 380px; margin: 0; transform: rotate(-1.2deg);
+  color: var(--ink); font-size: 36px; line-height: 1.13; letter-spacing: -.02em;
+  font-family: 'Architects Daughter',cursive; font-weight: 700;
+}
+
+.mascots {
+  height: auto; filter: drop-shadow(7px 9px 7px rgba(0,0,0,.4)); position: absolute; z-index: 3;
+  width: 620px; right: -5px; top: -89px; pointer-events: none;
+}
+
+
+/* 06 — Main cards */
+.feature-cards {
+  display: flex; gap: 9px; margin: 0 38px 0 38px; position: relative; z-index: 5; margin-top: -24px;
+}
+
+.feature {
+  width: 32%; height: 240px; padding: 42px 32px 25px 34px;
+}
+
+.feature h2 {
+  text-transform: uppercase; margin: 0;
+}
+
+.feature p {
+  max-width: 187px;
+}
+
+.feature .arrow {
+  position: absolute; right: 28px; bottom: 18px; font: normal 43px/1 Arial,sans-serif;
+}
+
+
+/* 07 — Project */
+.projects {
+  position: relative; min-height: 405px; margin: 26px 35px 0; z-index: 6;
+}
+
+.project-panel {
+  position: absolute; width: 420px; object-fit: fill; left: 0; top: 26px; opacity: .97; height: 346px;
+}
+
+.project-copy {
+  position: relative; z-index: 3; width: 375px; padding: 105px 0 0 42px; padding-top: 85px; color: #F7F4EB;
+}
+
+.project-label {
+  position: absolute; width: 354px; height: 75px; top: 0; left: 0; object-fit: fill;
+}
+
+.project-label-text {
+  position: absolute; left: 39px; top: 22px; color: var(--ink); text-transform: uppercase;
+  white-space: nowrap; transform: rotate(-1.2deg);
+}
+
+.project-copy h2 {
+  margin: 0 0 20px;
+}
+
+.project-copy p {
+  margin: 0 0 24px; max-width: 300px;
+}
+
+.project-button {
+  border: 1.5px solid var(--paper); display: inline-flex; gap: 22px; align-items: center;
+  padding: 11px 16px; font-size: 16px; letter-spacing: .1em; text-transform: uppercase;
+  white-space: nowrap; border-color: #F7F4EB;
+}
+
+.project-button span {
+  font-size: 26px; line-height: .4;
+}
+
+.project-button:hover {
+  background: #F7F4EB; color: var(--ink);
+}
+
+.project-button:focus-visible {
+  background: #F7F4EB; color: var(--ink);
+}
+
+.photo-collage {
+  position: absolute; left: 389px; width: 555px; height: 375px; margin: 0; transform: rotate(7deg);
+  top: -26px;
+}
+
+.project-frame {
+  width: 100%; height: 100%; position: relative; z-index: 2; pointer-events: none;
+}
+
+.project-photo {
+  position: absolute; z-index: 1; left: 10.6%; top: 16%; width: 83%; height: 74%; object-fit: cover;
+  border: 0; transform: rotate(-4.3deg);
+}
+
+
+/* 08 — Small cards */
+.small-cards {
+  display: flex; gap: 12px; margin: 0 39px; position: relative; z-index: 5; margin-top: -32px;
+}
+
+.small-card {
+  width: 32%; height: 161px; padding: 32px 38px 18px;
+}
+
+.small-card h2 {
+  text-transform: uppercase; margin: 0; white-space: nowrap;
+}
+
+.small-arrow {
+  position: absolute; right: 33px; bottom: 19px; font: normal 39px/1 Arial,sans-serif;
+}
+
+
+/* 09 — Footer */
+footer {
+  z-index: 3; position: relative; border-top: 1px solid rgba(255,255,255,.13); padding: 34px 0 50px;
+  font-size: 12px; color: #aeb7c7; letter-spacing: .4px;
+}
+
+.site > footer {
+  background: rgba(3,7,15,.30); margin-top: 95px; min-height: 108px; display: flex;
+  justify-content: center; align-items: center; text-align: center;
+}
+
+
+/* Shared typography and paper-card structure */
+
+/* Card headings */
+.feature h2,
+.small-card h2,
+.project-copy h2,
+.project-label-text {
+  font-family: var(--body); font-size: var(--card-heading-size); font-weight: 700; line-height: 1.15;
+}
+
+/* Heading tracking */
+.feature h2,
+.small-card h2,
+.project-label-text {
+  letter-spacing: -.035em;
+}
+
+/* Card paragraphs */
+.feature p,
+.small-card p,
+.project-copy p {
+  font-family: var(--body); font-size: var(--card-body-size); font-weight: 400; line-height: 1.5;
+}
+
+/* Paragraph spacing */
+.feature p,
+.small-card p {
+  margin-top: 4px;
+}
+
+/* Paper cards */
+.feature,
+.small-card {
+  display: block; position: relative; flex: none; min-width: 0; color: var(--ink); isolation: isolate;
+  transition: transform .16s ease;
+}
+
+/* Paper hover */
+.feature:hover,
+.small-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Photo containers */
+.bg-scene,
+.bg-scene-bottom {
+  position: absolute; z-index: 1; pointer-events: none; overflow: hidden; width: 100vw; max-width: none;
+  left: 50%; transform: translateX(-50%);
+}
+
+/* Photo layers */
+.bg-scene__photo,
+.bg-scene-bottom__photo {
+  position: absolute; inset: 0; background-repeat: no-repeat;
+}
+
+/* Light overlays */
+.bg-scene__tones,
+.bg-scene-bottom__tones,
+.bg-scene__vignette {
+  position: absolute; inset: 0;
+}
+
+/* Paper art */
+.feature .paper-bg,
+.small-card .paper-bg {
+  z-index: -1;
+}
+
+/* Responsive refinements */
+
+@media (min-width:761px) {
+  .cardboard-page {
+    zoom: var(--ql-cardboard-zoom, 1);
+  }
+
+  .hero-copy {
+    top: 49px;
+  }
+
+}
+
+@media (max-width:1200px) {
+  header nav {
+    gap: 14px;
+  }
+
+}
+
+@media (max-width:1050px) {
+  header nav {
+    gap: 12px;
+  }
+
+}
+
+@media (max-width:900px) {
+  header nav {
+    gap: 10px;
+  }
+
+}
+
+@media (max-width:760px) {
+  :root {
+    --ql-fade-start: 72vh;
+  }
+
+  .cardboard-stage {
+    border-left: 0; border-right: 0; padding: 12px 12px 16px;
+  }
+
+  .cardboard-page {
+    width: 100%;
+  }
+
+  .header {
+    height: auto; min-height: 120px; display: block; padding: 18px 20px 11px;
+  }
+
+  .logo {
+    width: min(340px,83%);
+  }
+
+  .navigation {
+    column-gap: 12px; gap: 7px 17px; letter-spacing: .22em; margin-top: 0; padding-top: 14px;
+  }
+
+  .hero {
+    height: 355px;
+  }
+
+  .hero-copy {
+    width: 100%; padding-left: 0;
+  }
+
+  .hero-paper {
+    width: min(95vw,433px); height: 182px; margin-left: -5px;
+  }
+
+  .hero h1 {
+    font-size: clamp(27px,6.8vw,35px); top: 45px; left: 53px; width: calc(100% - 75px);
+  }
+
+  .mascots {
+    width: 420px; right: -126px; top: 143px; opacity: .95;
+  }
+
+  .feature-cards {
+    flex-direction: column; gap: 3px; margin: 0 auto; width: min(400px,calc(100% - 30px)); padding-top: 15px;
+  }
+
+  .feature {
+    width: 100%; height: 222px; padding-top: 39px;
+  }
+
+  .feature p {
+    max-width: 205px;
+  }
+
+  .projects {
+    margin: 18px 10px 0; min-height: 675px;
+  }
+
+  .project-panel {
+    width: min(420px,100%); height: 320px; top: 35px;
+  }
+
+  .project-copy {
+    padding: 115px 0 0 38px; width: min(365px,100%); padding-top: 95px;
+  }
+
+  .project-label {
+    width: 300px;
+  }
+
+  .project-label-text {
+    left: 35px; top: 21px;
+  }
+
+  .project-copy p {
+    max-width: 285px;
+  }
+
+  .photo-collage {
+    left: 0; width: min(550px,100%); height: auto; aspect-ratio: 555/375; top: 328px;
+  }
+
+  .small-cards {
+    flex-direction: column; margin: 0 auto; width: min(400px,calc(100% - 30px)); gap: 6px;
+  }
+
+  .small-card {
+    width: 100%; height: 165px;
+  }
+
+}
+
+@media (max-width:750px) {
+  :root {
+    --scene-height: clamp(200px,58vw,370px); --scene-bottom-height: 300px;
+  }
+
+  .bg-scene-bottom__photo {
+    background-size: auto 100%;
+  }
+
+  .bg-scene__photo::after {
+    top: 1210px; left: 0; right: 0; opacity: .72;
+  }
+
+  .site[data-scene="tech-workshop"] {
+    --top-original-height: clamp(200px,58vw,370px); --top-photo-width: 100vw;
+  }
+
+  header {
+    padding-top: 18px;
+  }
+
+  .site > footer {
+    padding: 25px 15px; margin-top: 55px;
+  }
+
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .feature {
+    transition: none;
+  }
+
+  .small-card {
+    transition: none;
+  }
+
+}
