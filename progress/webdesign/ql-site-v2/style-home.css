@@ -1,25 +1,24 @@
-/* Qwerty Labs homepage — audited CSS, 3 November 2026.
-   Current page only: shared rules and no superseded visual experiments.
-   Responsive scale and photo-fade calculations remain in script.js. */
+/* Qwerty Labs · Homepage
+   Keep this file about the current page, not abandoned experiments.
+   Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
+   Colours inside the paper illustrations belong to the artwork, not this CSS. */
 
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
 
-/* 1. Foundation */
+/* 01. Colours and global foundations
+   Tokens below are actually used. Paper/card colours are in SVG artwork. */
 :root {
-  --pale: #F1F8F8;
-  --ink: #020020;
-  --paper: #F1F8F8;
-  --blue: #4C69E3;
-  --pink: #F66DC1;
-  --green: #92D644;
-  --orange: #FF9029;
-  --body: 'Atkinson Hyperlegible',Arial,sans-serif;
-  --scene-bottom-height: clamp(260px,28vw,520px);
-  --scene-top: .70;
-  --scene-bottom: .80;
-  --scene-vignette: .60;
-  --card-heading-size: 30px;
-  --card-body-size: 18px;
+  --color-ink: #020020;
+  --color-light: #F1F8F8;
+  --color-warm: #F7F4EB;
+  --color-focus: #FF9029;
+  --workshop-footer-height: clamp(260px, 28vw, 520px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -29,21 +28,9 @@ html {
 body {
   margin: 0;
   background: #070e18;
-  color: var(--pale);
-  font-family: 'Atkinson Hyperlegible',Arial,sans-serif;
+  color: var(--color-light);
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   overflow-x: hidden;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-*::before {
-  box-sizing: border-box;
-}
-
-*::after {
-  box-sizing: border-box;
 }
 
 a {
@@ -55,10 +42,10 @@ a {
   position: absolute;
   top: -90px;
   left: 10px;
-  background: white;
-  color: black;
   padding: 14px;
   z-index: 30;
+  background: white;
+  color: black;
 }
 
 .skip:focus {
@@ -72,21 +59,24 @@ a {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
 
-
-/* 2. Workshop photographs */
+/* 02. Workshop photographs
+   Two real WebP photos; top fade stops are calculated by script.js. */
 .site {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
   background: #050a13;
-  --top-original-height: clamp(285px,36vw,740px);
-  --top-photo-width: max(100vw,calc(var(--top-original-height) * 3.227799));
+
+  --workshop-top-image: url("img/workshop-top.webp");
+  /* Width multiplier preserves the approved photo alignment. Match script.js if changing it. */
+  --top-original-height: clamp(285px, 36vw, 740px);
+  --top-photo-width: max(100vw, calc(var(--top-original-height) * 3.227799));
   --top-fade-start: 800px;
   --top-fade-end: 1160px;
 }
@@ -96,63 +86,53 @@ a {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 38% 400px at 0 5%,rgba(255,127,0,.16),transparent),radial-gradient(ellipse 33% 420px at 100% 4%,rgba(255,139,0,.18),transparent);
+  background:
+    radial-gradient(ellipse 38% 400px at 0 5%, rgba(255, 127, 0, .16), transparent),
+    radial-gradient(ellipse 33% 420px at 100% 4%, rgba(255, 139, 0, .18), transparent);
+}
+
+.bg-scene,
+.bg-scene-bottom {
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .bg-scene {
   top: 0;
   height: var(--top-fade-end);
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-  width: 100vw;
-  max-width: none;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .bg-scene-bottom {
   bottom: 0;
-  height: var(--scene-bottom-height);
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-  width: 100vw;
-  max-width: none;
-  left: 50%;
-  transform: translateX(-50%);
+  height: var(--workshop-footer-height);
 }
 
-.bg-scene-bottom__photo {
-  background-size: cover;
-  background-position: center bottom;
-  background-image: url("img/workshop-footer.webp");
-  -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
-  mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
+.bg-scene__photo,
+.bg-scene__tones,
+.bg-scene__vignette,
+.bg-scene-bottom__photo,
+.bg-scene-bottom__tones {
   position: absolute;
   inset: 0;
+}
+
+.bg-scene__photo,
+.bg-scene-bottom__photo {
   background-repeat: no-repeat;
 }
 
-.bg-scene__vignette {
-  -webkit-mask-image: linear-gradient(#000 0%,#000 85%,transparent 100%);
-  mask-image: linear-gradient(#000 0%,#000 85%,transparent 100%);
-  background: radial-gradient(ellipse 61% 80% at 50% 44%,transparent 24%,rgba(3,8,16,var(--scene-vignette)) 100%);
-  position: absolute;
-  inset: 0;
-}
-
+/* Top: full-height fade plus a second copy to preserve the original lighting. */
 .bg-scene__photo {
+  background-image: var(--workshop-top-image);
   background-size: var(--top-photo-width) auto;
   background-position: center top;
-  -webkit-mask-image: linear-gradient(to bottom,#000 0px,#000 var(--top-fade-start),rgba(0,0,0,.88) var(--top-fade-stop1),rgba(0,0,0,.5) var(--top-fade-stop2),rgba(0,0,0,.12) var(--top-fade-stop3),transparent var(--top-fade-end));
-  mask-image: linear-gradient(to bottom,#000 0px,#000 var(--top-fade-start),rgba(0,0,0,.88) var(--top-fade-stop1),rgba(0,0,0,.5) var(--top-fade-stop2),rgba(0,0,0,.12) var(--top-fade-stop3),transparent var(--top-fade-end));
-  background-image: url("img/workshop-top.webp");
-  position: absolute;
-  inset: 0;
-  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1), rgba(0,0,0,.5) var(--top-fade-stop2), rgba(0,0,0,.12) var(--top-fade-stop3), transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1), rgba(0,0,0,.5) var(--top-fade-stop2), rgba(0,0,0,.12) var(--top-fade-stop3), transparent var(--top-fade-end));
 }
 
 .bg-scene__photo::after {
@@ -161,59 +141,69 @@ a {
   position: absolute;
   inset: 0 0 auto;
   height: var(--top-original-height);
+  background-image: var(--workshop-top-image);
   background-size: var(--top-photo-width) auto;
   background-position: center top;
   background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(to bottom,#000 0%,#000 80%,transparent 100%);
-  mask-image: linear-gradient(to bottom,#000 0%,#000 80%,transparent 100%);
-  background-image: url("img/workshop-top.webp");
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
 }
 
 .bg-scene__tones {
-  background: rgba(4,9,18,var(--scene-top));
-  -webkit-mask-image: linear-gradient(to bottom,#000 var(--top-fade-start),transparent var(--top-fade-end));
-  mask-image: linear-gradient(to bottom,#000 var(--top-fade-start),transparent var(--top-fade-end));
-  position: absolute;
-  inset: 0;
+  background: rgba(4, 9, 18, .70);
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
+}
+
+.bg-scene__vignette {
+  background: radial-gradient(ellipse 61% 80% at 50% 44%, transparent 24%, rgba(3,8,16,.60) 100%);
+  -webkit-mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
+}
+
+/* Footer: photo and darkening tint share the same soft upper edge. */
+.bg-scene-bottom__photo,
+.bg-scene-bottom__tones {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
+}
+
+.bg-scene-bottom__photo {
+  background-image: url("img/workshop-footer.webp");
+  background-size: cover;
+  background-position: center bottom;
 }
 
 .bg-scene-bottom__tones {
-  background: rgba(4,9,18,var(--scene-bottom));
-  -webkit-mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
-  mask-image: linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,.5) 23%,rgba(0,0,0,.88) 36%,#000 45%,#000 100%);
-  position: absolute;
-  inset: 0;
+  background: rgba(4, 9, 18, .80);
 }
 
-
-/* 3. Cardboard */
+/* 03. Cardboard stage and accessibility */
 .cardboard-stage {
+  position: relative;
+  z-index: 3;
   width: fit-content;
   max-width: 100%;
   margin: 0 auto;
-  background: transparent;
-  border: 0;
-  position: relative;
-  z-index: 3;
   padding: 32px 34px 38px;
 }
 
 .cardboard-page {
-  margin: auto;
   position: relative;
-  overflow: hidden;
   width: 986px;
-  box-shadow: 0 0 60px rgba(0,0,0,.12);
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, .12);
 }
 
-.cardboard-page:before {
+.cardboard-page::before {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  z-index: 0;
   background: url("img/cardboard-texture.svg") repeat;
   opacity: .17;
-  z-index: 0;
+  pointer-events: none;
 }
 
 .cardboard-page img {
@@ -222,12 +212,8 @@ a {
 }
 
 .cardboard-page a:focus-visible {
-  outline: 3px solid var(--orange);
+  outline: 3px solid var(--color-focus);
   outline-offset: 5px;
-}
-
-.cardboard-page .hero {
-  display: block;
 }
 
 .paper-bg {
@@ -239,12 +225,7 @@ a {
   pointer-events: none;
 }
 
-
-/* 4. Navigation */
-nav a {
-  text-shadow: 0 2px 7px #000;
-}
-
+/* 04. Wordmark and navigation */
 .header {
   position: relative;
   z-index: 9;
@@ -252,14 +233,14 @@ nav a {
   align-items: flex-start;
   justify-content: space-between;
   gap: 25px;
-  padding: 14px 40px 0 47px;
   height: 100px;
+  padding: 14px 40px 0 47px;
 }
 
 .logo {
   display: block;
-  width: 368px;
   flex: none;
+  width: 368px;
 }
 
 .logo img {
@@ -272,18 +253,19 @@ nav a {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  row-gap: 10px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  line-height: 1.1;
-  padding-top: 0;
+  gap: 10px 20px;
   margin-top: 33px;
-  letter-spacing: .12em;
-  column-gap: 20px;
-  font-family: var(--body);
+  color: var(--color-warm);
   font-size: 18px;
   font-weight: 700;
-  color: #F7F4EB;
+  line-height: 1.1;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navigation a {
+  text-shadow: 0 2px 7px #000;
 }
 
 .navigation a:hover {
@@ -291,12 +273,11 @@ nav a {
   text-underline-offset: 6px;
 }
 
-
-/* 5. Hero */
+/* 05. Hero and handmade mascots */
 .hero {
   position: relative;
-  height: 293px;
   z-index: 4;
+  height: 293px;
 }
 
 .hero-copy {
@@ -307,9 +288,9 @@ nav a {
 }
 
 .hero-paper {
+  position: relative;
   width: 433px;
   height: 193px;
-  position: relative;
   margin-top: -6px;
 }
 
@@ -323,101 +304,124 @@ nav a {
   left: 54px;
   width: 380px;
   margin: 0;
-  transform: rotate(-1.2deg);
-  color: var(--ink);
+  color: var(--color-ink);
+  font-family: 'Architects Daughter', cursive;
   font-size: 36px;
+  font-weight: 700;
   line-height: 1.13;
   letter-spacing: -.02em;
-  font-family: 'Architects Daughter',cursive;
-  font-weight: 700;
+  transform: rotate(-1.2deg);
 }
 
 .mascots {
-  height: auto;
-  filter: drop-shadow(7px 9px 7px rgba(0,0,0,.4));
   position: absolute;
+  top: -89px;
+  right: -5px;
   z-index: 3;
   width: 620px;
-  right: -5px;
-  top: -89px;
+  height: auto;
+  filter: drop-shadow(7px 9px 7px rgba(0,0,0,.4));
   pointer-events: none;
 }
 
-
-/* 6. Paper cards */
-.feature-cards {
-  display: flex;
-  gap: 9px;
-  margin: 0 38px 0 38px;
-  position: relative;
-  z-index: 5;
-  margin-top: -24px;
+/* 06. Shared typography and handmade paper cards
+   All card headings change here, not in individual card rules. */
+.feature h2,
+.small-card h2,
+.project-copy h2,
+.project-label-text {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
-.feature {
-  width: 32%;
-  height: 240px;
-  padding: 42px 32px 25px 34px;
+.feature h2,
+.small-card h2,
+.project-label-text {
+  letter-spacing: -.035em;
+}
+
+.feature p,
+.small-card p,
+.project-copy p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.feature h2,
+.small-card h2 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.feature p,
+.small-card p {
+  margin-top: 4px;
+}
+
+.feature,
+.small-card {
   display: block;
   position: relative;
   flex: none;
+  width: 32%;
   min-width: 0;
-  color: var(--ink);
+  color: var(--color-ink);
   isolation: isolate;
   transition: transform .16s ease;
 }
 
-.feature h2 {
-  text-transform: uppercase;
-  margin: 0;
-  font-family: var(--body);
-  font-size: var(--card-heading-size);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -.035em;
+.feature .paper-bg,
+.small-card .paper-bg {
+  z-index: -1;
+}
+
+.feature:hover,
+.small-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Three large paper links */
+.feature-cards {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  gap: 9px;
+  margin: -24px 38px 0;
+}
+
+.feature {
+  height: 240px;
+  padding: 42px 32px 25px 34px;
 }
 
 .feature p {
   max-width: 187px;
-  font-family: var(--body);
-  font-size: var(--card-body-size);
-  font-weight: 400;
-  line-height: 1.5;
-  margin-top: 4px;
 }
 
 .feature .arrow {
   position: absolute;
   right: 28px;
   bottom: 18px;
-  font: normal 43px/1 Arial,sans-serif;
+  font: normal 43px/1 Arial, sans-serif;
 }
 
-.feature:hover {
-  transform: translateY(-5px);
-}
-
-.feature .paper-bg {
-  z-index: -1;
-}
-
-
-/* 7. Featured project */
+/* 07. Current project and photographic collage */
 .projects {
   position: relative;
+  z-index: 6;
   min-height: 405px;
   margin: 26px 35px 0;
-  z-index: 6;
 }
 
 .project-panel {
   position: absolute;
-  width: 420px;
-  object-fit: fill;
-  left: 0;
   top: 26px;
-  opacity: .97;
+  left: 0;
+  width: 420px;
   height: 346px;
+  opacity: .97;
 }
 
 .project-copy {
@@ -425,56 +429,42 @@ nav a {
   z-index: 3;
   width: 375px;
   padding: 85px 0 0 42px;
-  color: #F7F4EB;
+  color: var(--color-warm);
 }
 
 .project-label {
   position: absolute;
-  width: 354px;
-  height: 75px;
   top: 0;
   left: 0;
-  object-fit: fill;
+  width: 354px;
+  height: 75px;
 }
 
 .project-label-text {
   position: absolute;
-  left: 39px;
   top: 22px;
-  color: var(--ink);
+  left: 39px;
+  color: var(--color-ink);
   text-transform: uppercase;
   white-space: nowrap;
   transform: rotate(-1.2deg);
-  font-family: var(--body);
-  font-size: var(--card-heading-size);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -.035em;
 }
 
 .project-copy h2 {
   margin: 0 0 20px;
-  font-family: var(--body);
-  font-size: var(--card-heading-size);
-  font-weight: 700;
-  line-height: 1.15;
 }
 
 .project-copy p {
-  margin: 0 0 24px;
   max-width: 300px;
-  font-family: var(--body);
-  font-size: var(--card-body-size);
-  font-weight: 400;
-  line-height: 1.5;
+  margin: 0 0 24px;
 }
 
 .project-button {
-  border: 1.5px solid #F7F4EB;
   display: inline-flex;
-  gap: 22px;
   align-items: center;
+  gap: 22px;
   padding: 11px 16px;
+  border: 1.5px solid var(--color-warm);
   font-size: 16px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -486,129 +476,90 @@ nav a {
   line-height: .4;
 }
 
-.project-button:hover {
-  background: #F7F4EB;
-  color: var(--ink);
-}
-
+.project-button:hover,
 .project-button:focus-visible {
-  background: #F7F4EB;
-  color: var(--ink);
+  background: var(--color-warm);
+  color: var(--color-ink);
 }
 
 .photo-collage {
   position: absolute;
+  top: -26px;
   left: 389px;
   width: 555px;
   height: 375px;
   margin: 0;
   transform: rotate(7deg);
-  top: -26px;
 }
 
 .project-frame {
-  width: 100%;
-  height: 100%;
   position: relative;
   z-index: 2;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
 .project-photo {
   position: absolute;
-  z-index: 1;
-  left: 10.6%;
   top: 16%;
+  left: 10.6%;
+  z-index: 1;
   width: 83%;
   height: 74%;
   object-fit: cover;
   transform: rotate(-4.3deg);
 }
 
-
-/* 8. Small cards */
+/* 08. Three smaller paper links */
 .small-cards {
-  display: flex;
-  gap: 12px;
-  margin: 0 39px;
   position: relative;
   z-index: 5;
-  margin-top: -32px;
+  display: flex;
+  gap: 12px;
+  margin: -32px 39px 0;
 }
 
 .small-card {
-  width: 32%;
   height: 161px;
   padding: 32px 38px 18px;
-  display: block;
-  position: relative;
-  flex: none;
-  min-width: 0;
-  color: var(--ink);
-  isolation: isolate;
-  transition: transform .16s ease;
 }
 
 .small-card h2 {
-  text-transform: uppercase;
-  margin: 0;
   white-space: nowrap;
-  font-family: var(--body);
-  font-size: var(--card-heading-size);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -.035em;
 }
 
 .small-arrow {
   position: absolute;
   right: 33px;
   bottom: 19px;
-  font: normal 39px/1 Arial,sans-serif;
+  font: normal 39px/1 Arial, sans-serif;
 }
 
-.small-card p {
-  font-family: var(--body);
-  font-size: var(--card-body-size);
-  font-weight: 400;
-  line-height: 1.5;
-  margin-top: 4px;
-}
-
-.small-card:hover {
-  transform: translateY(-5px);
-}
-
-.small-card .paper-bg {
-  z-index: -1;
-}
-
-
-/* 9. Footer */
+/* 09. Footer */
 footer {
-  z-index: 3;
   position: relative;
-  border-top: 1px solid rgba(255,255,255,.13);
+  z-index: 3;
   padding: 34px 0 50px;
-  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,.13);
   color: #aeb7c7;
+  font-size: 12px;
   letter-spacing: .4px;
 }
 
 .site > footer {
-  background: rgba(3,7,15,.30);
-  margin-top: 95px;
-  min-height: 108px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  min-height: 108px;
+  margin-top: 95px;
+  background: rgba(3,7,15,.30);
   text-align: center;
 }
 
-
-/* Responsive behaviour */
-
-@media (min-width:761px) {
+/* 10. Responsive layout
+   761px matches the approved desktop scaling. Smaller screens stack cards. */
+@media (min-width: 761px) {
   .cardboard-page {
     zoom: var(--ql-cardboard-zoom, 1);
   }
@@ -616,13 +567,10 @@ footer {
   .hero-copy {
     top: 49px;
   }
-
 }
 
-@media (max-width:760px) {
+@media (max-width: 760px) {
   .cardboard-stage {
-    border-left: 0;
-    border-right: 0;
     padding: 12px 12px 16px;
   }
 
@@ -631,22 +579,21 @@ footer {
   }
 
   .header {
-    height: auto;
-    min-height: 120px;
     display: block;
+    min-height: 120px;
+    height: auto;
     padding: 18px 20px 11px;
   }
 
   .logo {
-    width: min(340px,83%);
+    width: min(340px, 83%);
   }
 
   .navigation {
-    column-gap: 12px;
     gap: 7px 17px;
-    letter-spacing: .22em;
     margin-top: 0;
     padding-top: 14px;
+    letter-spacing: .22em;
   }
 
   .hero {
@@ -659,35 +606,34 @@ footer {
   }
 
   .hero-paper {
-    width: min(95vw,433px);
+    width: min(95vw, 433px);
     height: 182px;
     margin-left: -5px;
   }
 
   .hero h1 {
-    font-size: clamp(27px,6.8vw,35px);
     top: 45px;
     left: 53px;
     width: calc(100% - 75px);
+    font-size: clamp(27px, 6.8vw, 35px);
   }
 
   .mascots {
-    width: 420px;
-    right: -126px;
     top: 143px;
+    right: -126px;
+    width: 420px;
     opacity: .95;
   }
 
   .feature-cards {
     flex-direction: column;
     gap: 3px;
+    width: min(400px, calc(100% - 30px));
     margin: 0 auto;
-    width: min(400px,calc(100% - 30px));
     padding-top: 15px;
   }
 
   .feature {
-    width: 100%;
     height: 222px;
     padding-top: 39px;
   }
@@ -697,19 +643,19 @@ footer {
   }
 
   .projects {
-    margin: 18px 10px 0;
     min-height: 675px;
+    margin: 18px 10px 0;
   }
 
   .project-panel {
-    width: min(420px,100%);
-    height: 320px;
     top: 35px;
+    width: min(420px, 100%);
+    height: 320px;
   }
 
   .project-copy {
+    width: min(365px, 100%);
     padding: 95px 0 0 38px;
-    width: min(365px,100%);
   }
 
   .project-label {
@@ -717,8 +663,8 @@ footer {
   }
 
   .project-label-text {
-    left: 35px;
     top: 21px;
+    left: 35px;
   }
 
   .project-copy p {
@@ -726,30 +672,33 @@ footer {
   }
 
   .photo-collage {
+    top: 328px;
     left: 0;
-    width: min(550px,100%);
+    width: min(550px, 100%);
     height: auto;
     aspect-ratio: 555/375;
-    top: 328px;
   }
 
   .small-cards {
     flex-direction: column;
-    margin: 0 auto;
-    width: min(400px,calc(100% - 30px));
     gap: 6px;
+    width: min(400px, calc(100% - 30px));
+    margin: 0 auto;
+  }
+
+  .feature,
+  .small-card {
+    width: 100%;
   }
 
   .small-card {
-    width: 100%;
     height: 165px;
   }
-
 }
 
-@media (max-width:750px) {
+@media (max-width: 750px) {
   :root {
-    --scene-bottom-height: 300px;
+    --workshop-footer-height: 300px;
   }
 
   .bg-scene-bottom__photo {
@@ -761,28 +710,19 @@ footer {
   }
 
   .site {
-    --top-original-height: clamp(200px,58vw,370px);
+    --top-original-height: clamp(200px, 58vw, 370px);
     --top-photo-width: 100vw;
   }
 
   .site > footer {
-    padding: 25px 15px;
     margin-top: 55px;
+    padding: 25px 15px;
   }
-
 }
 
-@media (prefers-reduced-motion:reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .feature {
-    transition: none;
-  }
-
+@media (prefers-reduced-motion: reduce) {
+  .feature,
   .small-card {
     transition: none;
   }
-
 }
