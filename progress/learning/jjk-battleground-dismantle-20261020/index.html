@@ -626,8 +626,35 @@ end</pre></div>
 <section class="step" id="s15">
  <div class="stephead"><span class="number">15</span><h2>Can an opponent defend against it?</h2></div>
  <div class="stepbody">
- <p><strong>The win:</strong> blocking and dodging matter. Henry specified that Dismantle is <strong>blockable and dodgeable</strong>; the existing DamageService already checks <code>IsBlocking</code>, <code>IsDodging</code> and <code>HasSpawnProtection</code>.</p>
- <h3>A · Make rejected hits easier to understand</h3>
+ <p><strong>The win:</strong> blocking and dodging matter. Henry specified that Dismantle is <strong>blockable and dodgeable</strong>, and that blocking should work <strong>from the front only</strong>. In your uploaded place, DamageService currently blocks from <em>all directions</em>. This step repairs that shared rule.</p>
+ <h3>A · Correct front-only blocking in DamageService</h3>
+ <p><strong>WORKING DEFAULT:</strong> a 180-degree front-facing blocking arc. Henry's rule is front-only; the exact angle can be tuned later. This change affects <strong>both M1 and Dismantle</strong>, because they already share the same DamageService.</p>
+ <ol>
+  <li>Stop Play. Open <strong>ServerScriptService → Services → DamageService</strong>.</li>
+  <li>Find the old section beginning <code>-- Blocking players cannot take basic M1 damage</code> followed by <code>if targetState.IsBlocking then</code>. <strong>Replace that complete four-line if block</strong>, including its closing <code>end</code>, with the code below. It goes immediately before the existing <code>local character = target.Character</code>. Keep all the surrounding code.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>DamageService · REPLACE OLD IsBlocking IF BLOCK ONLY</span><button type="button" data-copy="c22">COPY</button></div><pre id="c22">-- Block only from the front (working default: 180-degree arc)
+if targetState.IsBlocking then
+    local attackerCharacter = attacker.Character
+    local defenderCharacter = target.Character
+    local attackerRoot = attackerCharacter
+        and attackerCharacter:FindFirstChild("HumanoidRootPart")
+    local defenderRoot = defenderCharacter
+        and defenderCharacter:FindFirstChild("HumanoidRootPart")
+
+    if not attackerRoot or not defenderRoot then
+        return false
+    end
+
+    local toAttacker = attackerRoot.Position - defenderRoot.Position
+    if toAttacker.Magnitude &lt; 0.01
+        or defenderRoot.CFrame.LookVector:Dot(toAttacker.Unit) &gt;= 0 then
+        print(target.Name, "blocked the attack")
+        return false
+    end
+end</pre></div>
+ <p class="tip"><strong>How to read it:</strong> the defender's facing direction determines whether an attack is in front. If the attacker is in that front half, F blocks. If the attacker is behind, holding F does not block. If a character's root part is missing, the server refuses the hit safely. Do not put this code in CombatActionHandler.</p>
+ <h3>B · Make rejected hits easier to understand</h3>
  <ol>
   <li>Stop Play. In <strong>CombatActionHandler</strong>, inside Step 14's new <code>if applied then ... else ... end</code>, find <code>print("[Dismantle] target protected or defended")</code>.</li>
   <li><strong>Replace only that one print line</strong> with the following snippet. Don't replace the surrounding <code>else</code> or <code>end</code>.</li>
@@ -642,15 +669,16 @@ elseif targetState and targetState.IsBlocking then
 else
     print("[Dismantle] no damage applied")
 end</pre></div>
- <h3>B · A proper defence lab</h3>
- <ol start="3">
+ <h3>C · A proper defence lab</h3>
+ <ol start="5">
   <li>Two-player test. Player 2 holds <strong>F</strong> while facing Player 1. Player 1 presses <strong>1</strong> after cooldown. The slash appears, but Player 2 loses <strong>0 HP</strong> and Output says <code>target blocked</code>.</li>
-  <li>Player 2 stops blocking, then activates <strong>R</strong> Dodge at the moment the slash would land. If the Phase 1 dodge invulnerability is active at damage time, Player 2 loses <strong>0 HP</strong> and Output says <code>target dodged</code>.</li>
+  <li><strong>Behind-the-block test:</strong> Player 2 keeps F held but turns <strong>180° away</strong> from Player 1. Player 1 casts again after cooldown, while facing Player 2. The hit should now deal <strong>10 damage</strong>. Test M1 from the front and behind too: it uses the same service.</li>
+  <li>Player 2 releases F and presses <strong>R</strong> Dodge just before the slash would hit. In your actual place the Dodge window is <strong>0.4 seconds</strong> with a <strong>1-second cooldown</strong>. If <code>IsDodging</code> is active when damage would occur, Player 2 loses 0 HP and Output says <code>target dodged</code>. The 0.6-second Dismantle windup makes this a timing challenge.</li>
   <li>Player 2 does nothing and waits until protection ends. An aimed attack should now deal 10 HP damage.</li>
   <li>Have Player 2 stand behind a wall or more than 60 studs away. They lose 0 HP because targeting misses before DamageService runs.</li>
  </ol>
- <div class="pass"><strong>Pass:</strong> block prevents damage, a correctly timed dodge prevents damage, an undefended target loses 10 HP, and out-of-range/walled targets are safe.</div>
- <p class="try"><strong>Think like a designer:</strong> Should blocking work from behind? Henry specified <em>front-only</em> block for his game. <strong>Our current Phase 1 DamageService only checks the IsBlocking flag</strong>, so this prototype may block attacks from behind too. Do not call that rule finished until facing-direction logic is implemented and tested.</p>
+ <div class="pass"><strong>Pass:</strong> F stops attacks from the front but not from behind; a correctly timed dodge prevents damage; an undefended target loses 10 HP; and out-of-range/walled targets are safe. M1 still works.</div>
+ <p class="try"><strong>Try changing later:</strong> the 180° blocking arc is a working default. Henry can choose a narrower front arc once the basic attack/defence interaction works. Keep that decision separate from today's tested code.</p>
  <label class="done"><input type="checkbox" data-step="s15"> Block, dodge, spawn safety and normal damage tested</label>
  </div>
 </section>
@@ -672,6 +700,8 @@ end</pre></div>
   <label><input type="checkbox"> A wall, wrong direction or excessive range produces a miss</label>
   <label><input type="checkbox"> A blocking target takes 0 HP damage</label>
   <label><input type="checkbox"> A correctly dodging target takes 0 HP damage</label>
+  <label><input type="checkbox"> F blocks from the front but does not block from behind</label>
+  <label><input type="checkbox"> A 0.4-second M1 stun cannot cut off a longer 1.2-second Dismantle stun</label>
   <label><input type="checkbox"> Spawn-protected targets cannot be damaged</label>
   <label><input type="checkbox"> Player 2 can cast too, and Player 1 sees the effect</label>
   <label><input type="checkbox"> Q, R, F, M1, HP, CE and respawn still behave as before</label>
@@ -691,7 +721,7 @@ end</pre></div>
   <li>Make a note of <strong>the first failed test</strong> and what Output said. Don't rewrite other combat scripts as a guess.</li>
  </ol>
  <div class="pass"><strong>Pass:</strong> the two-player tests hold up and you have a saved playable Dismantle milestone. Remaining limitations are documented below, not swept under the rug.</div>
- <details><summary>What is deliberately not finished?</summary><p>Front-only block facing, robust stun stacking across abilities, CE refund and cooldown handling on interruption, animation polish, hit feedback to targets and moving the final Dismantle execution out of <code>CombatActionHandler</code> into its own service. The targeting angle and single-target rule are working defaults. These are future development tasks, <strong>not</strong> reasons to redo today's successful work.</p></details>
+ <details><summary>What is deliberately not finished?</summary><p>The block arc width (180°), targeting angle and single-target rule are working defaults. CE refunds after interrupted windups, richer hit feedback, animation polish and moving the finished ability out of CombatActionHandler into its own service are later work. Your existing Phase 1 Dodge is 0.4 seconds with a 1-second cooldown, even if later specs suggest different values. Keep that working baseline until there's a deliberate change.</p></details>
  <label class="done"><input type="checkbox" data-step="s16"> Combat-tested and saved a new working Roblox place</label>
  </div>
 </section>
