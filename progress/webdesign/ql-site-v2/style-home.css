@@ -9,8 +9,7 @@
    Tokens below are actually used. Paper/card colours are in SVG artwork. */
 :root {
   --color-ink: #020020;
-  --color-light: #F1F8F8;
-  --color-warm: #F7F4EB;
+  --color-ivory: #F7F4EB;
   --color-focus: #FF9029;
   --workshop-footer-height: clamp(260px, 28vw, 520px);
 }
@@ -28,7 +27,7 @@ html {
 body {
   margin: 0;
   background: #070e18;
-  color: var(--color-light);
+  color: var(--color-ivory);
   font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   overflow-x: hidden;
 }
@@ -255,7 +254,7 @@ a {
   justify-content: flex-end;
   gap: 10px 20px;
   margin-top: 33px;
-  color: var(--color-warm);
+  color: var(--color-ivory);
   font-size: 18px;
   font-weight: 700;
   line-height: 1.1;
@@ -429,7 +428,7 @@ a {
   z-index: 3;
   width: 375px;
   padding: 85px 0 0 42px;
-  color: var(--color-warm);
+  color: var(--color-ivory);
 }
 
 .project-label {
@@ -464,7 +463,7 @@ a {
   align-items: center;
   gap: 22px;
   padding: 11px 16px;
-  border: 1.5px solid var(--color-warm);
+  border: 1.5px solid var(--color-ivory);
   font-size: 16px;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -478,7 +477,7 @@ a {
 
 .project-button:hover,
 .project-button:focus-visible {
-  background: var(--color-warm);
+  background: var(--color-ivory);
   color: var(--color-ink);
 }
 
