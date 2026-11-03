@@ -316,6 +316,7 @@ print("[Server] DismantleDarkPreview created")</pre></div>
  <div class="stephead"><span class="number">09</span><h2>Give Dismantle its own settings.</h2></div>
  <div class="stepbody">
  <p><strong>The win:</strong> you can change Dismantle's settings in <em>one place</em> instead of hunting through attack code. We're not changing the effect you already built.</p>
+ <p class="tip"><strong>Checked against the uploaded steps01-08.rbxl:</strong> <code>CombatActionHandler</code> is a Script. <code>StateService</code>, <code>DamageService</code>, <code>CombatService</code>, <code>MovementService</code> and <code>RespawnService</code> are ModuleScripts under <code>ServerScriptService → Services</code>. None of the new ability modules exists yet. Create only those requested below.</p>
  <h3>A · Create one ModuleScript</h3>
  <ol>
   <li>Stop Play. In <strong>Explorer → ServerScriptService → Services</strong>, click <strong>+</strong> and choose <strong>ModuleScript</strong>.</li>
@@ -352,6 +353,7 @@ return DismantleConfig</pre></div>
  <div class="stephead"><span class="number">10</span><h2>Stop unlimited Dismantle spam.</h2></div>
  <div class="stepbody">
  <p><strong>The win:</strong> the first press works, but pressing <code>1</code> again too soon tells you the move is on cooldown. <strong>HENRY'S SPEC:</strong> 8 seconds.</p>
+ <p class="small"><strong>Verified in your place:</strong> <code>StateService</code> creates <code>Cooldowns = {}</code>, and <code>RespawnService</code> resets it on respawn. Don't create a second cooldown system. In this file, spawn protection lasts <strong>3 seconds</strong>. Wait for <code>spawn protection ended</code> before testing.</p>
  <h3>A · Reuse Phase 1 state</h3>
  <ol>
   <li>Stop Play. In <strong>CombatActionHandler</strong>, near the other require lines at the top, add this one. Do not create another StateService.</li>
@@ -401,6 +403,7 @@ state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</pre></div>
  <div class="stephead"><span class="number">11</span><h2>Spend cursed energy.</h2></div>
  <div class="stepbody">
  <p><strong>The win:</strong> casting Dismantle costs <strong>20 CE</strong>, and a player with too little CE gets no slash. This uses the <em>existing</em> server CE value and HUD. We're not inventing a second energy system.</p>
+ <p class="small"><strong>Verified in your place:</strong> <code>StateServer</code> regenerates <strong>2 CE each second</strong>, <code>HUDClient</code> reads the CE attribute, and <code>StateService.SyncAttributes(player)</code> updates the bar. Don't create a separate energy service.</p>
  <ol>
   <li>Stop Play. Open <strong>CombatActionHandler</strong>. Find the Step 10 line <code>state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</code>.</li>
   <li>Paste the following <strong>just above</strong> that line—not after it. This means rejected casts do not start cooldown.</li>
@@ -430,19 +433,24 @@ print("[Dismantle] CE remaining:", state.CE)</pre></div>
  <div class="stephead"><span class="number">12</span><h2>Wind up before the slash.</h2></div>
  <div class="stepbody">
  <p><strong>The win:</strong> pressing <code>1</code> doesn't make the slash appear instantly. There's a <strong>0.6-second</strong> windup first, and being stunned during that window cancels it. <strong>HENRY'S SPEC:</strong> 0.6-second windup, interruptible.</p>
+ <p class="tip"><strong>Why this checks repeatedly:</strong> your actual Phase 1 M1 produces a <strong>0.4-second stun</strong>. Checking only after the 0.6-second windup can miss a stun that started and ended earlier. The new code checks throughout the window.</p>
  <ol>
   <li>Stop Play. In <strong>CombatActionHandler</strong>, inside Dismantle's live-character <code>if</code>, find the Step 10 line that starts cooldown.</li>
   <li><strong>Immediately below</strong> <code>state.Cooldowns.Dismantle = os.clock() + DismantleConfig.Cooldown</code> and <strong>above</strong> <code>local slash = Instance.new("Part")</code>, insert:</li>
  </ol>
  <div class="codebox"><div class="codehead"><span>Handler · ADD BETWEEN COOLDOWN AND SLASH CREATION</span><button type="button" data-copy="c13">COPY</button></div><pre id="c13">print("[Dismantle] winding up...")
-task.wait(DismantleConfig.Windup)
+local windupEndsAt = os.clock() + DismantleConfig.Windup
 
-if player.Character ~= character
-    or humanoid.Health &lt;= 0
-    or not root.Parent
-    or state.IsStunned then
-    print("[Dismantle] interrupted")
-    return
+while os.clock() &lt; windupEndsAt do
+    task.wait(math.min(0.05, windupEndsAt - os.clock()))
+
+    if player.Character ~= character
+        or humanoid.Health &lt;= 0
+        or not root.Parent
+        or state.IsStunned then
+        print("[Dismantle] interrupted")
+        return
+    end
 end
 
 print("[Dismantle] windup finished")</pre></div>
@@ -461,7 +469,7 @@ print("[Dismantle] windup finished")</pre></div>
 <section class="step" id="s13">
  <div class="stephead"><span class="number">13</span><h2>Let the server find a target.</h2></div>
  <div class="stepbody">
- <p><strong>The win:</strong> the slash can tell whether someone is actually in front of you. <strong>No damage yet.</strong> Henry specified a 60-stud distance check. We're using a <strong>WORKING DEFAULT</strong> of one closest living opponent within 25° of your forward direction, with no wall blocking the path.</p>
+ <p><strong>The win:</strong> the slash can tell whether someone is actually in front of you. <strong>No damage yet.</strong> Henry specified a 60-stud distance check. We're using a <strong>WORKING DEFAULT</strong> of one closest living opponent within 25° of your forward direction, with no wall blocking the path. This new module is separate from the existing <code>CombatService</code> M1 targeting: keep that tested service unchanged.</p>
  <h3>A · One small targeting ModuleScript</h3>
  <ol>
   <li>Stop Play. In <strong>ServerScriptService → Services</strong> click <strong>+</strong> and create a <strong>ModuleScript</strong> named <code>DismantleTargeting</code>.</li>
