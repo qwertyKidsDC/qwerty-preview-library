@@ -35,7 +35,7 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
  <p><strong>WORKING DEFAULT · visual preview:</strong> the temporary Part sizes, animation length and one-second cleanup are just starting choices for testing appearance. They do not set damage, hitbox size, windup or cooldown.</p>
  </div>
  <nav class="trail" aria-label="Jump to a task">
-   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a><a href="#s09">09 · Specs</a><a href="#s10">10 · Cooldown</a><a href="#s11">11 · CE</a><a href="#s12">12 · Windup</a><a href="#s13">13 · Target</a><a href="#s14">14 · Damage</a><a href="#s15">15 · Defence</a><a href="#s16">16 · Battle test</a><a href="#s17">17 · Key 2</a><a href="#s18">18 · Service</a><a href="#s19">19 · Cooldown</a><a href="#s20">20 · CE</a><a href="#s21">21 · Windup</a><a href="#s22">22 · Visual</a>
+   <a href="#fix">01 · Fix code</a><a href="#name">02 · Name parts</a><a href="#test">03 · Test</a><a href="#server">04 · Server request</a><a href="#slash">05 · First slash</a><a href="#animate">06 · Animate</a><a href="#layers">07 · Add a stroke</a><a href="#multiplayer">08 · Test together</a><a href="#s09">09 · Specs</a><a href="#s10">10 · Cooldown</a><a href="#s11">11 · CE</a><a href="#s12">12 · Windup</a><a href="#s13">13 · Target</a><a href="#s14">14 · Damage</a><a href="#s15">15 · Defence</a><a href="#s16">16 · Battle test</a><a href="#s17">17 · Key 2</a><a href="#s18">18 · Service</a><a href="#s19">19 · Cooldown</a><a href="#s20">20 · CE</a><a href="#s21">21 · Windup</a><a href="#s22">22 · Visual</a><a href="#s23">23 · Target</a><a href="#s24">24 · Damage</a><a href="#s25">25 · Push</a><a href="#s26">26 · Defend</a><a href="#s27">27 · Battle lab</a>
  </nav>
  <section class="step" id="fix">
   <div class="stephead"><span class="number">01</span><h2>Our two mistakes. Your two fixes.</h2></div>
@@ -987,9 +987,230 @@ print("[Cleave] visual created")</pre></div>
  </div>
 </section>
 
+
+<section class="step" id="s23">
+ <div class="stephead"><span class="number">23</span><h2>Find an opponent close enough for Cleave.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> the server checks whether a living opponent is within <strong>8 studs</strong>, in front of the caster, and not hidden behind a wall. <strong>No HP changes yet.</strong></p>
+ <p><strong>Why reuse a module?</strong> You already made <code>Services → DismantleTargeting</code> in Step 13. Its <code>Find(player, root, range, halfAngle)</code> function doesn't know or care which attack called it. Use it here with Cleave's shorter range. Don't create another copy.</p>
+ <h3>A · Require the existing module</h3>
+ <ol>
+  <li>Stop Play. Open <strong>ServerScriptService → Services → CleaveService</strong>.</li>
+  <li>Directly beneath the <code>StateService</code> require at the top, add:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService · ADD REQUIRE NEAR THE TOP</span><button type="button" data-copy="c34">COPY</button></div><pre id="c34">local DismantleTargeting = require(script.Parent.DismantleTargeting)</pre></div>
+ <h3>B · Check for a target just after windup</h3>
+ <ol start="3">
+  <li>In <code>function CleaveService.Activate(player)</code>, find <code>print("[Cleave] windup finished")</code>.</li>
+  <li><strong>After this print, and BEFORE <code>local slash = Instance.new("Part")</code></strong> from Step 22, insert:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService.Activate · INSERT BETWEEN WINDUP PRINT AND SLASH CREATION</span><button type="button" data-copy="c35">COPY</button></div><pre id="c35">local targetPlayer = DismantleTargeting.Find(
+    player,
+    root,
+    CleaveConfig.Range,
+    CleaveConfig.HalfConeDegrees
+)
+
+if targetPlayer then
+    print("[Cleave] target found:", targetPlayer.Name)
+else
+    print("[Cleave] missed")
+end</pre></div>
+ <h3>Test 23 · Predict the result</h3>
+ <ol start="5">
+  <li>Run <strong>Test → Server &amp; Clients → 2 clients</strong>. Move Player 2 <strong>about 5 studs</strong> directly in front of Player 1 (not inside spawn protection). Press <code>2</code> as Player 1: Output should show <code>target found: ...</code>.</li>
+  <li>Wait for cooldown. Move Player 2 <strong>more than 8 studs</strong> away and try again: Output says <code>missed</code>.</li>
+  <li>Face away from Player 2, or put a solid wall between you, and try again: Output says <code>missed</code>.</li>
+  <li>Check that <code>1</code> still uses Dismantle's much longer 60-stud range.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> close target found; distant, hidden and behind-the-caster targets missed. <strong>Player 2 loses 0 HP from Cleave</strong> because no damage has been added yet. The coloured slash still appears even when it misses.</div>
+ <p class="try"><strong>Try changing:</strong> test <code>Range = 4</code> and <code>HalfConeDegrees = 20</code>, then return to the defaults 8 and 55. These affect <em>who counts as a target</em>; they do not resize the visible Part.</p>
+ <label class="done"><input type="checkbox" data-step="s23"> Cleave targeting works without damage</label>
+ </div>
+</section>
+
+<section class="step" id="s24">
+ <div class="stephead"><span class="number">24</span><h2>Make Cleave actually hurt.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> a close, undefended opponent loses **15 HP** in this <strong>single-hit working prototype</strong>. This is not yet the future grab/slam/multi-hit move. We are reusing the exact Phase 1 <code>DamageService.ApplyDamage</code> function.</p>
+ <h3>A · Require DamageService</h3>
+ <ol>
+  <li>Stop Play. Open <strong>ServerScriptService → Services → CleaveService</strong>.</li>
+  <li>With the other require lines at the top, add:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService · ADD REQUIRE AT TOP</span><button type="button" data-copy="c36">COPY</button></div><pre id="c36">local DamageService = require(script.Parent.DamageService)</pre></div>
+ <h3>B · Replace just the target-result print block</h3>
+ <ol start="3">
+  <li>Below the <code>local targetPlayer = DismantleTargeting.Find(...)</code> call from Step 23, find the <code>if targetPlayer then</code> block that prints either <code>target found</code> or <code>missed</code>.</li>
+  <li><strong>Replace only that whole little <code>if / else / end</code> block</strong> with the code below. Keep the target-finding call above and the <code>local slash = Instance.new("Part")</code> below.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService.Activate · REPLACE OLD TARGET PRINT IF/ELSE BLOCK</span><button type="button" data-copy="c37">COPY</button></div><pre id="c37">local hitSucceeded = false
+
+if targetPlayer then
+    hitSucceeded = DamageService.ApplyDamage(
+        player,
+        targetPlayer,
+        CleaveConfig.Damage,
+        CleaveConfig.Stun
+    )
+
+    if hitSucceeded then
+        print("[Cleave] hit:", targetPlayer.Name, "damage:", CleaveConfig.Damage)
+    else
+        print("[Cleave] target defended or protected")
+    end
+else
+    print("[Cleave] missed")
+end</pre></div>
+ <p class="tip"><strong>Important:</strong> Step 14 already repaired overlapping stuns and Step 15 introduced front-only blocking in <code>DamageService</code>. Keep those fixes. The existing damage service handles the HP bar, blocking, dodging and protection. <strong>Do not add <code>Humanoid:TakeDamage()</code> here.</strong></p>
+ <h3>Test 24 · A real hit</h3>
+ <ol start="5">
+  <li>Start two-player testing. Wait until both players' spawn protection ends.</li>
+  <li>Place Player 2 5 studs in front of Player 1, with no blocking or dodge. Player 1 presses <code>2</code>. Player 2's HP goes from <strong>100 to 85</strong>; Player 1 loses 30 CE. Output says <code>[Cleave] hit: ... damage: 15</code>.</li>
+  <li>Wait for cooldown and deliberately miss. Player 2 loses no more HP. Check that the <code>1</code> Dismantle attack still deals its own configured damage.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> one valid target takes 15 damage and the HUD updates; misses deal no damage; the original combat controls remain intact.</div>
+ <p class="try"><strong>Try changing:</strong> test <code>Damage = 7</code> temporarily and compare. Restore 15. <strong>Until Step 26</strong>, blocking will still stop Cleave, because DamageService's existing block rule applies to all attacks.</p>
+ <label class="done"><input type="checkbox" data-step="s24"> Cleave damages one target without breaking the HP bar</label>
+ </div>
+</section>
+
+<section class="step" id="s25">
+ <div class="stephead"><span class="number">25</span><h2>Give Cleave a shove.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> a successful Cleave now pushes its target back. We're borrowing the <code>Attachment + LinearVelocity</code> pattern from your actual Phase 1 <code>MovementService.Dash</code>, not adding an untested physics approach.</p>
+ <h3>Insert only after a successful hit</h3>
+ <ol>
+  <li>Stop Play. In <strong>ServerScriptService → Services → CleaveService</strong>, find the Step 24 target-result block that ends with <code>print("[Cleave] missed")</code> and its matching <code>end</code>.</li>
+  <li><strong>Directly after that closing <code>end</code> and BEFORE <code>local slash = Instance.new("Part")</code></strong>, insert the complete block below. It uses <code>hitSucceeded</code> and <code>targetPlayer</code> created in Step 24. Do <strong>not</strong> put it above those variables.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService.Activate · ADD BETWEEN DAMAGE CHECK AND VISUAL PART</span><button type="button" data-copy="c38">COPY</button></div><pre id="c38">if hitSucceeded then
+    local targetCharacter = targetPlayer.Character
+    local targetRoot = targetCharacter
+        and targetCharacter:FindFirstChild("HumanoidRootPart")
+
+    if targetRoot then
+        local difference = targetRoot.Position - root.Position
+        local horizontal = Vector3.new(difference.X, 0, difference.Z)
+
+        if horizontal.Magnitude &gt; 0.1 then
+            local attachment = Instance.new("Attachment")
+            attachment.Name = "CleavePushAttachment"
+            attachment.Parent = targetRoot
+
+            local push = Instance.new("LinearVelocity")
+            push.Name = "CleavePushVelocity"
+            push.Attachment0 = attachment
+            push.RelativeTo = Enum.ActuatorRelativeTo.World
+            push.VelocityConstraintMode = Enum.VelocityConstraintMode.Vector
+            push.VectorVelocity = horizontal.Unit * CleaveConfig.PushSpeed
+                + Vector3.new(0, targetRoot.AssemblyLinearVelocity.Y, 0)
+            push.MaxForce = math.huge
+            push.Parent = targetRoot
+
+            game:GetService("Debris"):AddItem(push, 0.16)
+            game:GetService("Debris"):AddItem(attachment, 0.16)
+            print("[Cleave] target pushed")
+        end
+    end
+end</pre></div>
+ <h3>Test 25 · Does the hit feel stronger?</h3>
+ <ol start="3">
+  <li>In two-player Play, face an unprotected, undefended Player 2 from 4–6 studs away. Press <code>2</code>. Player 2 loses 15 HP <strong>and moves backwards</strong>. Output includes <code>[Cleave] target pushed</code>.</li>
+  <li>After cooldown, miss deliberately. Nobody should move from the push; the normal visual still appears.</li>
+  <li>For comparison, change <code>PushSpeed = 38</code> to <code>PushSpeed = 20</code>, test, then <code>55</code>, test. Restore 38 before continuing.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> a valid hit causes visible knockback; a miss does not; no physics parts remain after the short push expires; Dismantle and Dash still work.</div>
+ <details><summary>If Output says “target pushed” but a client barely moves</summary><p>The code and constraints may have run while the target's character physics was being simulated on its owning client. First test with the players stationary on a clear, flat floor and confirm <code>CleavePushVelocity</code> exists briefly on the target's <code>HumanoidRootPart</code> in Explorer. <strong>Do not rewrite working movement code blindly.</strong> The physics result needs this actual two-client test; it cannot be guaranteed by static source inspection alone.</p></details>
+ <label class="done"><input type="checkbox" data-step="s25"> Cleave hit causes visible knockback</label>
+ </div>
+</section>
+
+<section class="step" id="s26">
+ <div class="stephead"><span class="number">26</span><h2>Make Cleave unblockable—but still dodgeable.</h2></div>
+ <div class="stepbody">
+ <p><strong>The win:</strong> pressing F still blocks ordinary M1 and Dismantle hits, but it won't prevent Cleave. Dodge can still avoid Cleave. This is a <strong>working gameplay rule</strong> for the second ability, implemented on the server.</p>
+ <h3>A · Add one optional switch to the shared damage function</h3>
+ <ol>
+  <li>Stop Play. Open <strong>ServerScriptService → Services → DamageService</strong>.</li>
+  <li>Find this exact function header near the top:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>FIND THIS ORIGINAL FUNCTION HEADER (NO COPY REQUIRED)</span></div><pre>function DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration)</pre></div>
+ <ol start="3">
+  <li><strong>Replace just that one header line</strong> with the following. Keep everything inside the function.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>DamageService · REPLACE FUNCTION HEADER ONLY</span><button type="button" data-copy="c39">COPY</button></div><pre id="c39">function DamageService.ApplyDamage(attacker, target, damageAmount, stunDuration, ignoreBlock)</pre></div>
+ <ol start="4">
+  <li>In the <strong>same DamageService</strong>, find the Step 15 front-only block check <code>if targetState.IsBlocking then</code>. <strong>Replace only that one line</strong> with this:</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>DamageService · REPLACE ONE IsBlocking IF LINE</span><button type="button" data-copy="c40">COPY</button></div><pre id="c40">if targetState.IsBlocking and not ignoreBlock then</pre></div>
+ <p class="tip"><strong>Don't remove the code inside the block.</strong> The new argument is optional: existing M1 and Dismantle calls don't pass it, so it remains <code>nil</code> and their block rules stay the same. The spawn-protection and dodge checks remain <strong>above</strong> the block check, so Cleave cannot bypass them.</p>
+ <h3>B · Tell Cleave to ignore Block</h3>
+ <ol start="5">
+  <li>Open <strong>ServerScriptService → Services → CleaveService</strong> and find the Step 24 call to <code>DamageService.ApplyDamage</code>.</li>
+  <li>It currently ends with <code>CleaveConfig.Stun</code> and a closing <code>)</code>. Replace <strong>only that call</strong> with the five-argument version below. Keep <code>hitSucceeded =</code> because Step 25 needs it.</li>
+ </ol>
+ <div class="codebox"><div class="codehead"><span>CleaveService · REPLACE THE DAMAGE CALL ONLY</span><button type="button" data-copy="c41">COPY</button></div><pre id="c41">hitSucceeded = DamageService.ApplyDamage(
+    player,
+    targetPlayer,
+    CleaveConfig.Damage,
+    CleaveConfig.Stun,
+    true -- Cleave ignores Block, but not Dodge or spawn protection
+)</pre></div>
+ <h3>Test 26 · Three defence checks</h3>
+ <ol start="7">
+  <li>Two-player test. Player 2 faces Player 1 and holds F. Player 1 presses <code>2</code> after protection. <strong>Player 2 loses 15 HP</strong> (and is pushed if Step 25 passed). Cleave ignored Block.</li>
+  <li>After cooldown, Player 2 faces Player 1 and holds F; Player 1 uses <code>1</code> Dismantle instead. Player 2 should lose <strong>0 HP</strong>, assuming they're still within Dismantle range and not being hit from behind. Test ordinary M1 too.</li>
+  <li>Player 2 releases F and times R Dodge for the moment Cleave lands. If their <strong>0.4-second Dodge window</strong> is active, Cleave deals <strong>0 damage</strong> and causes <strong>no knockback</strong>.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> Cleave ignores F; M1 and Dismantle still respect front-facing F; Dodge and spawn protection still stop Cleave. No red Output errors.</div>
+ <label class="done"><input type="checkbox" data-step="s26"> Cleave bypasses Block without breaking other attacks</label>
+ </div>
+</section>
+
+<section class="step" id="s27">
+ <div class="stephead"><span class="number">27</span><h2>Battle lab: which attack would you choose?</h2></div>
+ <div class="stepbody">
+ <p><strong>No new code is necessary.</strong> Now use two clients to compare Dismantle (1) with the new Cleave prototype (2), then decide which tuning numbers actually make the game more interesting.</p>
+ <h3>A · Two-player acceptance tests</h3>
+ <div class="checkgrid">
+  <label><input type="checkbox"> Key 1 still launches white-and-black Dismantle</label>
+  <label><input type="checkbox"> Key 2 launches the red-orange Cleave preview</label>
+  <label><input type="checkbox"> Both player windows can see both abilities</label>
+  <label><input type="checkbox"> Both moves respect their own cooldowns</label>
+  <label><input type="checkbox"> Dismantle spends 20 CE; Cleave spends 30 CE</label>
+  <label><input type="checkbox"> Insufficient CE rejects the move and costs nothing</label>
+  <label><input type="checkbox"> Cleave only finds a close, forward, unhidden target</label>
+  <label><input type="checkbox"> A normal Cleave hit deals 15 HP damage and pushes the target</label>
+  <label><input type="checkbox"> Holding F stops Dismantle but not Cleave</label>
+  <label><input type="checkbox"> A timed R Dodge stops either attack</label>
+  <label><input type="checkbox"> Spawn protection prevents damage</label>
+  <label><input type="checkbox"> A stun during windup cancels the visual and damage</label>
+  <label><input type="checkbox"> M1, Dash (Q), Dodge (R), Block (F), HUD and respawn still work</label>
+  <label><input type="checkbox"> No new red script errors appear in Output</label>
+ </div>
+ <h3>B · Four genuine design experiments</h3>
+ <ol>
+  <li><strong>Precision:</strong> compare <code>HalfConeDegrees = 20</code> versus <code>55</code>. Can opponents tell when they are in danger? Reset to 55 unless you choose otherwise.</li>
+  <li><strong>Reach:</strong> compare <code>Range = 5</code> versus <code>8</code>. How close should Cleave require the attacker to get? Reset to 8.</li>
+  <li><strong>Speed:</strong> compare <code>Windup = 0.1</code> versus <code>0.6</code>. Does the defender have enough time to Dodge? Reset to 0.3.</li>
+  <li><strong>Knockback:</strong> compare <code>PushSpeed = 20</code> versus <code>55</code>. Does the movement feel like a hit or a teleport? Reset to 38.</li>
+ </ol>
+ <h3>C · Preserve the working game</h3>
+ <ol start="5">
+  <li>Restore the baseline values if you only experimented. Stop Play and save a new copy: <code>CursedPandemonium_DismantleAndCleave_v1</code>.</li>
+  <li>Write one sentence: <strong>“Next I want Cleave to …”</strong>. For example: grab someone, slam them, add a second hit, add a sound or make the move easier to dodge.</li>
+  <li>Keep the result of the test and the first red error (if any). That is better evidence for the next lesson than a speculative redesign.</li>
+ </ol>
+ <div class="pass"><strong>Pass:</strong> two independently usable abilities, both server-authoritative, both tested in multiplayer, with the existing Phase 1 game intact. Congratulations: this is now a playable combat prototype, <strong>not</strong> a fully finished Cleave move.</div>
+ <p class="try"><strong>What comes next:</strong> split Cleave's prototype hit into its planned hit sequence, then consider grab/slam/throw animations and ragdoll. Keep each addition independently testable.</p>
+ <label class="done"><input type="checkbox" data-step="s27"> Two abilities battle-tested and saved</label>
+ </div>
+</section>
+
  <div class="finish">
   <h2>Save what actually worked.</h2>
-  <p>Steps 01–08 built the visual prototype. Steps 09–16 turn it into a playable first ability. Stop at the last <strong>passed</strong> test, and preserve a copy before changing the existing architecture.</p>
+  <p>Steps 01–08 built the Dismantle visual. Steps 09–16 add gameplay. Steps 17–27 begin the second ability: Cleave. Stop at the last <strong>passed</strong> test; preserve a separate working copy before any major change.</p>
   <p>Nothing here replaces Henry's existing game or his approved Phase 2 gameplay specifications. When real damage and CE rules are added, keep Henry's chosen values and label any supplied missing rule as a <strong>WORKING DEFAULT</strong> that can be revised through playtesting.</p>
  </div>
  <footer>QWERTY LABS / HENRY / REPAIRS → FIRST SLASH → VISUAL POLISH → MULTIPLAYER TEST · NOV 2026</footer>
