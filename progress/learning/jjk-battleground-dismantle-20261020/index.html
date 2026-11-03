@@ -17,6 +17,7 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
 .step:nth-of-type(6) .number{background:var(--green)}.step:nth-of-type(7) .number{background:var(--orange)}.step:nth-of-type(8) .number{background:var(--pink)}
  .specnote{max-width:1050px;background:#fff;border:2px solid var(--blue);border-radius:12px;padding:17px 20px;margin:0 0 25px}.specnote strong:first-child{font-size:1.13rem}.specnote p{margin:9px 0 0}.specnote code{white-space:nowrap}
 .phasehead{margin:40px 0 27px;padding:24px 25px 28px;border:2px solid var(--ink);border-radius:14px;background:#fff;box-shadow:6px 6px 0 var(--blue);scroll-margin-top:18px}.phasehead h2{font-size:clamp(2rem,5vw,3rem);margin:9px 0 12px}.phasehead p{max-width:950px}.phasehead .eyebrow{font:700 .75rem 'Atkinson Hyperlegible Mono',monospace;color:var(--blue);letter-spacing:.1em}.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}.spec-grid>div{padding:15px;background:#f2f6f6;border-radius:8px}.spec-grid b{display:block;font-size:.84rem;margin-bottom:6px}.spec-grid span{display:block;font-size:.92rem}.try{background:#fff5e8;border-left:5px solid var(--orange);padding:14px 16px;margin:16px 0}.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.checkgrid label{padding:11px 12px;background:#f4f8f9;border:1px solid var(--line);border-radius:7px;font-size:.94rem;display:flex;gap:9px;align-items:start}.checkgrid input{flex-shrink:0;width:19px;height:19px;accent-color:var(--blue)}#s09,#s10,#s11,#s12,#s13,#s14,#s15,#s16{scroll-margin-top:15px}#s09 .number,#s13 .number{background:var(--green)}#s10 .number,#s14 .number{background:var(--orange)}#s11 .number,#s15 .number{background:var(--pink)}#s12 .number,#s16 .number{background:var(--blue);color:white}@media(max-width:750px){.spec-grid,.checkgrid{grid-template-columns:1fr}}
+#s17 .number,#s21 .number,#s25 .number{background:var(--green)}#s18 .number,#s22 .number,#s26 .number{background:var(--pink)}#s19 .number,#s23 .number,#s27 .number{background:var(--orange)}#s20 .number,#s24 .number{background:var(--blue);color:white}
 </style>
 </head>
 <body>
@@ -1032,7 +1033,7 @@ end</pre></div>
 <section class="step" id="s24">
  <div class="stephead"><span class="number">24</span><h2>Make Cleave actually hurt.</h2></div>
  <div class="stepbody">
- <p><strong>The win:</strong> a close, undefended opponent loses **15 HP** in this <strong>single-hit working prototype</strong>. This is not yet the future grab/slam/multi-hit move. We are reusing the exact Phase 1 <code>DamageService.ApplyDamage</code> function.</p>
+ <p><strong>The win:</strong> a close, undefended opponent loses <strong>15 HP</strong> in this <strong>single-hit working prototype</strong>. This is not yet the future grab/slam/multi-hit move. We are reusing the exact Phase 1 <code>DamageService.ApplyDamage</code> function.</p>
  <h3>A · Require DamageService</h3>
  <ol>
   <li>Stop Play. Open <strong>ServerScriptService → Services → CleaveService</strong>.</li>
