@@ -3,7 +3,7 @@
    Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
    Colours inside the paper illustrations belong to the artwork, not this CSS. */
 
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+/* Fonts are loaded in the HTML head to avoid a chained @import request. */
 
 /* 01. Colour policy and foundations
    Brand: use only approved palette colours for interface elements.
