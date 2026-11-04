@@ -126,13 +126,12 @@
 }
 
 
-/* The board and paper-card images both have transparent edges.
-   Compensate for that empty image space to keep ~26px between PAINTED rows,
-   matching the spacing above. The cards do not overlap the painted board. */
+/* The image files include unpainted transparent margins. Pull the blue row
+   closer to the black blurb while keeping the painted surfaces separate. */
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -50px;
+  margin-top: -68px;
 }
 
 @media (max-width: 760px) {
@@ -177,9 +176,9 @@
     font-size: 15px;
   }
 
-  /* Mobile image cropping is different; keep a regular separate row. */
+  /* Mobile art crops away most transparent space: use a tighter gap. */
   .footer-scene + .small-cards {
-    margin-top: 26px;
+    margin-top: 12px;
   }
 }
 
@@ -251,13 +250,14 @@
   white-space: nowrap;
 }
 
-/* One 26px row rhythm: blue cards -> acknowledgement board -> link row.
-   The blackboard artwork belongs to the acknowledgement only, not the legal links. */
+/* The painted blue cards stop before the SVG box ends. Their empty lower
+   margins already supply visual space: no extra 26px CSS gap is needed.
+   Preserve the same right-hand guide as the main cards. */
 .cardboard-page > .lab-footer {
   position: relative;
   z-index: 7;
   display: block;
-  margin: 26px 56.4px 0 39px;
+  margin: 0 56.4px 0 39px;
   padding: 0;
   border: 0;
   background: none;
@@ -269,8 +269,8 @@
 
 .lab-footer .country-ack {
   box-sizing: border-box;
-  min-height: 218px;
-  padding: 40px 34px 38px;
+  min-height: 0;
+  padding: 26px 34px 24px;
   background: url("img/project-backboard.svg") center / 100% 100% no-repeat;
 }
 
@@ -296,8 +296,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  margin: 26px 0 0;
-  padding: 0 34px 30px;
+  margin: 10px 0 0;
+  padding: 0 34px 24px;
   font-size: 12px;
   font-weight: 400;
   line-height: 1.4;
@@ -323,12 +323,12 @@
 
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    margin: 26px auto 0;
+    margin: 10px auto 0;
   }
 
   .lab-footer .country-ack {
     min-height: 0;
-    padding: 35px 26px 38px;
+    padding: 26px 26px 24px;
   }
 
   .lab-footer .country-ack p {
