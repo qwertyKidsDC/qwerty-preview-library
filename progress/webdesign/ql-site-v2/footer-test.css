@@ -28,6 +28,11 @@
   display: block;
   width: 100%;
   height: auto;
+  /* The source WebPs contain 6–8% transparent side margins.
+     Enlarge painted artwork to match the outer edges of all three small cards
+     without widening the section or shifting its HTML copy. */
+  transform: scaleX(1.08);
+  transform-origin: center;
   pointer-events: none;
 }
 
