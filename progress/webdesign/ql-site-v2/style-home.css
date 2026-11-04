@@ -284,12 +284,19 @@ a {
 }
 
 .navigation a {
+  display: inline-block;
   text-shadow: 0 2px 7px #000;
+  transition: transform .16s ease;
 }
 
 .navigation a:hover {
   text-decoration: underline;
   text-underline-offset: 6px;
+}
+
+.navigation a:hover,
+.navigation a:focus-visible {
+  transform: translateY(-5px);
 }
 
 /* 05. Hero and handmade mascots */
@@ -744,12 +751,15 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .feature,
-  .small-card {
+  .small-card,
+  .navigation a {
     transition: none;
   }
 
   .feature:hover,
-  .small-card:hover {
+  .small-card:hover,
+  .navigation a:hover,
+  .navigation a:focus-visible {
     transform: none;
   }
 }
