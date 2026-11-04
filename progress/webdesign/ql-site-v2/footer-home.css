@@ -17,6 +17,28 @@
   filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
 }
 
+/* One understated piece of torn masking tape, attached across the top edge.
+   The WebP is tape-free: this overlay keeps the original artwork reusable. */
+.footer-scene__board::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 11.5%;
+  left: 22%;
+  width: 112px;
+  height: 35px;
+  transform: rotate(-7deg);
+  transform-origin: center;
+  pointer-events: none;
+  clip-path: polygon(1% 0, 8% 3%, 17% 0, 28% 3%, 42% 1%, 56% 3%, 68% 0, 83% 2%, 98% 0, 100% 9%, 97% 22%, 100% 35%, 98% 49%, 100% 62%, 97% 77%, 100% 94%, 94% 100%, 80% 97%, 66% 100%, 52% 98%, 39% 100%, 26% 97%, 12% 100%, 1% 97%, 3% 86%, 0 70%, 2% 55%, 0 39%, 3% 24%);
+  background:
+    repeating-linear-gradient(98deg, transparent 0 3px, rgba(255,255,255,.055) 3px 4px, transparent 4px 8px),
+    linear-gradient(175deg, rgba(255,255,255,.18), transparent 27%, rgba(88,66,40,.08) 77%, rgba(42,29,20,.15)),
+    rgba(228,211,172,.79);
+  box-shadow: 1px 3px 3px rgba(0,0,0,.18);
+  opacity: .92;
+}
+
 .footer-scene__art {
   grid-area: sign;
   position: relative;
@@ -63,6 +85,13 @@
 @media (max-width: 760px) {
   .footer-scene {
     margin: -90px 12px 0;
+  }
+
+  .footer-scene__board::after {
+    left: 19%;
+    width: 85px;
+    height: 29px;
+    top: 14%;
   }
 
   .footer-scene__art {
