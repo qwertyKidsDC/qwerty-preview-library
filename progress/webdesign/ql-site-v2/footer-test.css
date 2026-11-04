@@ -6,7 +6,8 @@
 .footer-scene {
   position: relative;
   z-index: 7;
-  margin: 20px 52px 55px;
+  /* The three 32%-wide cards plus gaps occupy ~896px, starting at x=39px. */
+  margin: 16px 51px 0 39px;
 }
 
 /* Put the image and its editable lettering in the SAME grid cell.
@@ -81,12 +82,16 @@
   background: var(--color-ink);
 }
 
-@media (min-width: 761px) {
-  .small-cards { margin-top: 0; }
+/* Bring all three small cards forward over the bottom edge of the panel.
+   The whole card row must stack above .footer-scene (z-index: 7). */
+.small-cards {
+  z-index: 8;
+  margin-top: -43px;
 }
 
+
 @media (max-width: 760px) {
-  .footer-scene { margin: 18px 12px 52px; }
+  .footer-scene { margin: 16px 12px 0; }
   .footer-scene__board { min-height: 270px; }
   .footer-scene__art { height: 270px; object-fit: fill; }
   .footer-scene__content {
@@ -97,5 +102,5 @@
   .footer-scene__content h2 { font-size: 27px; }
   .footer-scene__content p { font-size: 16px; line-height: 1.3; }
   .footer-scene__content .project-button { font-size: 14px; padding: 7px 12px; }
-  .small-cards { margin-top: 0; }
+  .small-cards { margin-top: -24px; }
 }
