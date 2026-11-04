@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Qwerty Labs — V2 live homepage asset sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#020020;--paper:#F7F4EB;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:#080a10;color:var(--paper);font-family:'Atkinson Hyperlegible',Arial,sans-serif}
+header{max-width:1500px;margin:auto;padding:22px 26px 10px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+h1{font-size:clamp(20px,2.3vw,28px);margin:0 0 5px}
+p{margin:0;font-size:15px;line-height:1.55;color:#d0d2da}
+.controls{display:flex;gap:10px;flex-wrap:wrap}
+button,.controls a{border:1px solid #bfc6d6;background:var(--paper);color:var(--ink);padding:11px 16px;border-radius:5px;font:700 14px/1.2 'Atkinson Hyperlegible',Arial,sans-serif;cursor:pointer;text-decoration:none}
+button:disabled{cursor:wait;opacity:.55}
+button:focus-visible,a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+main{max-width:1920px;margin:0 auto;padding:12px 16px 28px}
+.sheet{background-color:#e6e6e6;background-image:linear-gradient(45deg,#d5d5d5 25%,transparent 25%),linear-gradient(-45deg,#d5d5d5 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#d5d5d5 75%),linear-gradient(-45deg,transparent 75%,#d5d5d5 75%);background-size:28px 28px;background-position:0 0,0 14px,14px -14px,-14px 0;box-shadow:0 15px 48px #0007;border:1px solid #4c556a;overflow:hidden}
+canvas{display:block;width:100%;height:auto}
+.note{max-width:1500px;margin:0 auto;padding:0 26px 30px}
+.note a{color:var(--paper)}
+details{margin:10px 0 0}
+summary{cursor:pointer;font-weight:700}
+.asset-links{display:flex;flex-wrap:wrap;gap:8px 15px;margin:10px 0 0;padding:0;list-style:none}
+.asset-links a{font-size:13px}
+</style>
+</head>
+<body>
+<header>
+ <div><h1>Qwerty Labs · V2 homepage asset sheet</h1>
+ <p>Original production artwork, arranged into a reference sheet. No redrawn or AI-generated assets.</p></div>
+ <div class="controls">
+  <button id="download" disabled>Loading originals…</button>
+  <a href="../ql-site-v2/" target="_blank" rel="noopener">View approved homepage</a>
+ </div>
+</header>
+<main><div class="sheet"><canvas id="sheet" width="1920" height="1250" aria-label="Composite of artwork currently used by the Qwerty Labs V2 homepage"></canvas></div></main>
+<div class="note">
+ <p>The artwork is loaded directly from <code>ql-site-v2/img/</code>. Headings, descriptions and arrows are browser-rendered using the homepage copy and typography; they are not separate original image files. The PNG export has a transparent background. The workshop photos are shown as cropped samples.</p>
+ <details><summary>Original assets included (open each file)</summary><ul class="asset-links" id="links"></ul></details>
+</div>
+<script>
+(() => {
+'use strict';
+const W=1920,H=1250,BASE='../ql-site-v2/img/';
+const fileNames=[
+ 'hero-paper.svg','wordmark.svg','mascot-trio.svg',
+ 'kids-green-panel-untaped.svg','adults-pink-panel-untaped.svg','teens-blue-panel-untaped.svg',
+ 'project-backboard.svg','current-project-label.svg','project-photo-frame.svg','project-code-cloud.svg',
+ 'ideas-panel-untaped.svg','components-panel-untaped.svg','projects-panel-untaped.svg',
+ 'cardboard-texture.svg','workshop-top.webp','workshop-footer.webp'
+];
+const images={};
+const canvas=document.getElementById('sheet'),download=document.getElementById('download');
+const links=document.getElementById('links');
+fileNames.forEach(name=>{const li=document.createElement('li'),a=document.createElement('a');a.href=BASE+name;a.textContent=name;a.target='_blank';a.rel='noopener';li.append(a);links.append(li)});
+const load=name=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{images[name]=img;resolve()};img.onerror=()=>reject(Error('Failed to load '+name));img.src=BASE+name});
+function at(c,name,x,y,w,h){if(images[name])c.drawImage(images[name],x,y,w,h)}
+function text(c,s,x,y,size=24,color='#020020',weight=400,font='Atkinson Hyperlegible'){
+ c.fillStyle=color;c.font=weight+' '+size+'px "'+font+'", Arial, sans-serif';c.fillText(s,x,y)
+}
+function lines(c,arr,x,y,size=22,leading=29,color='#020020',weight=400,font='Atkinson Hyperlegible'){
+ arr.forEach((s,i)=>text(c,s,x,y+i*leading,size,color,weight,font))
+}
+function arrow(c,x,y,size=47){text(c,'→',x,y,size,'#020020',400,'Arial')}
+function feature(c,image,x,y,head,copy){
+ at(c,image,x,y,300,283);
+ text(c,head,x+42,y+92,42,'#020020',700);
+ lines(c,copy,x+42,y+139,21,31);
+ arrow(c,x+228,y+252,55);
+}
+function small(c,image,x,y,head,copy){
+ at(c,image,x,y,295,205);
+ text(c,head,x+35,y+84,36,'#020020',700);
+ text(c,copy,x+35,y+123,23);
+ arrow(c,x+215,y+183,50);
+}
+function photoSample(c,name,x,y,w,h,label){
+ c.save();
+ c.shadowColor='rgba(0,0,0,.42)';c.shadowBlur=14;c.shadowOffsetY=6;
+ c.fillStyle='#0a0c14';c.fillRect(x,y,w,h);c.restore();
+ const img=images[name], scale=Math.max(w/img.naturalWidth,h/img.naturalHeight);
+ const iw=img.naturalWidth*scale,ih=img.naturalHeight*scale;
+ c.save();c.beginPath();c.rect(x,y,w,h);c.clip();c.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih);c.restore();
+ c.fillStyle='rgba(2,0,32,.75)';c.fillRect(x+10,y+h-48,225,38);
+ text(c,label,x+23,y+h-22,18,'#F7F4EB',700);
+}
+function draw(c){
+ c.save();c.clearRect(0,0,W,H);c.textBaseline='alphabetic';
+ // Row 1: untouched production SVG shapes, plus the live HTML hero title.
+ at(c,'hero-paper.svg',22,16,614,254);
+ lines(c,['Curious technology','for creative people.'],116,125,46,62,'#020020',700,'Architects Daughter');
+ at(c,'wordmark.svg',705,68,514,120);
+ at(c,'mascot-trio.svg',1290,-10,610,466);
+ // Row 2: the three actual live homepage panels.
+ feature(c,'kids-green-panel-untaped.svg',35,305,'KIDS',['Start with an idea.','See where it takes you.']);
+ feature(c,'adults-pink-panel-untaped.svg',343,305,'ADULTS',["Curiosity doesn’t have","an age limit."]);
+ feature(c,'teens-blue-panel-untaped.svg',651,305,'TEENS',['Make something with','a point of view.']);
+ // The featured project: original labelled cardboard and framed project image.
+ at(c,'current-project-label.svg',977,300,480,117);
+ text(c,'COOLEST PROJECTS',1039,373,35,'#020020',700);
+ at(c,'project-backboard.svg',970,386,479,375);
+ text(c,'Project Code Cloud.',1030,482,37,'#F7F4EB',700);
+ lines(c,['Tiarna and Chloe built a cloud','that makes invisible code visible.','A VIP judge’s favourite at','Coolest Projects 2026.'],1030,530,20,28,'#F7F4EB');
+ c.strokeStyle='#F7F4EB';c.lineWidth=2;c.strokeRect(1030,659,296,48);
+ text(c,'SEE THE PROJECT',1048,692,19,'#F7F4EB',400);text(c,'→',1288,693,27,'#F7F4EB',400,'Arial');
+ // Preserve the actual two image files as separate nested layers.
+ c.save();c.translate(1630,568);c.rotate(7*Math.PI/180);
+ at(c,'project-code-cloud.svg',-172,-106,349,214);
+ at(c,'project-photo-frame.svg',-216,-157,435,314);c.restore();
+ // Row 3: the actual three smaller on-page panels.
+ small(c,'ideas-panel-untaped.svg',35,630,'IDEAS','Curious questions.');
+ small(c,'components-panel-untaped.svg',343,630,'COMPONENTS','Real tools.');
+ small(c,'projects-panel-untaped.svg',651,630,'PROJECTS','Make stuff.');
+ // The two REAL backdrop images and real tiled cardboard surface.
+ photoSample(c,'workshop-top.webp',32,920,610,270,'WORKSHOP TOP · WebP');
+ photoSample(c,'workshop-footer.webp',662,920,610,270,'WORKSHOP FOOTER · WebP');
+ c.save();c.shadowColor='#0006';c.shadowBlur=12;c.shadowOffsetY=5;
+ at(c,'cardboard-texture.svg',1334,913,250,250);c.restore();
+ text(c,'CARDBOARD TEXTURE',1338,1200,20,'#F7F4EB',700);
+ c.restore();
+}
+async function init(){
+ try{
+  await Promise.all(fileNames.map(load));
+  await Promise.all([document.fonts.load('700 46px "Architects Daughter"'),document.fonts.load('700 36px "Atkinson Hyperlegible"')]);
+  draw(canvas.getContext('2d'));
+  download.disabled=false;download.textContent='Download transparent PNG · 2×';
+ }catch(e){
+  console.error(e);download.textContent='Could not load originals';
+  const status=document.createElement('p');status.setAttribute('role','alert');status.textContent=e.message;document.querySelector('.controls').append(status);
+ }
+}
+download.addEventListener('click',()=>{
+ const out=document.createElement('canvas');out.width=W*2;out.height=H*2;
+ const c=out.getContext('2d');c.scale(2,2);draw(c);
+ out.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='qwerty-labs-v2-actual-homepage-assets.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000)},'image/png');
+});
+init();
+})();
+</script>
+</body>
+</html>
