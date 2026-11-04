@@ -318,6 +318,10 @@
     align-items: flex-start;
     gap: 14px;
   }
+
+  .lab-footer .footer-legal-links {
+    margin-left: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
