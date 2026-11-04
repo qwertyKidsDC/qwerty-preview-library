@@ -5,7 +5,8 @@
 .footer-scene {
   position: relative;
   z-index: 7;
-  margin: -78px 51px 0 39px;
+  /* Account for the transparent top of the WebP; retain the 26px visual row rhythm. */
+  margin: -52px 51px 0 39px;
 }
 
 .footer-scene__board {
@@ -17,17 +18,35 @@
   filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
 }
 
-/* Real frayed tape artwork: a green duplicate of the Coolest Projects label.
-   Match its desktop dimensions (354 × 75) and upper-left placement. */
+/* Real blue frayed tape artwork: independent copy of the original Projects label.
+   Same desktop dimensions; only the footer placement is adjusted. */
 .footer-scene__tape {
   grid-area: sign;
   position: absolute;
   z-index: 2;
-  top: 0;
+  top: 24px;
   left: 0;
   width: 354px;
   height: 75px;
   object-fit: fill;
+  pointer-events: none;
+}
+
+/* Live lettering on the tape (the original blue image contains no text). */
+.footer-scene__tape-text {
+  grid-area: sign;
+  position: absolute;
+  z-index: 3;
+  top: 46px;
+  left: 39px;
+  color: var(--color-ink);
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+  transform: rotate(-1.2deg);
   pointer-events: none;
 }
 
@@ -72,7 +91,7 @@
   letter-spacing: -.01em;
 }
 
-.footer-scene__link {
+.scene-link {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -88,9 +107,9 @@
   text-decoration: none;
 }
 
-.footer-scene__link:hover,
-.footer-scene__link:focus-visible {
-  color: var(--color-green, #92D644);
+.scene-link:hover,
+.scene-link:focus-visible {
+  color: #4C69E3;
   border-bottom-color: currentColor;
 }
 
@@ -108,10 +127,16 @@
   }
 
   .footer-scene__tape {
-    top: 0;
+    top: 24px;
     width: min(295px, 82%);
     height: auto;
     aspect-ratio: 354 / 75;
+  }
+
+  .footer-scene__tape-text {
+    top: 42px;
+    left: 32px;
+    font-size: 24px;
   }
 
   .footer-scene__art {
@@ -132,7 +157,7 @@
     letter-spacing: 0;
   }
 
-  .footer-scene__link {
+  .scene-link {
     margin-top: 12px;
     font-size: 15px;
   }
