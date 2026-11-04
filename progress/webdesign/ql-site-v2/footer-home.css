@@ -126,12 +126,13 @@
 }
 
 
-/* No card-to-board overlap. The source art contains transparent margins,
-   so trim only part of that empty padding to leave a clear visual row gap. */
+/* The board and paper-card images both have transparent edges.
+   Compensate for that empty image space to keep ~26px between PAINTED rows,
+   matching the spacing above. The cards do not overlap the painted board. */
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -22px;
+  margin-top: -50px;
 }
 
 @media (max-width: 760px) {
@@ -176,9 +177,9 @@
     font-size: 15px;
   }
 
-  /* Mobile artwork is cropped differently: keep the cards separate. */
+  /* Mobile image cropping is different; keep a regular separate row. */
   .footer-scene + .small-cards {
-    margin-top: 20px;
+    margin-top: 26px;
   }
 }
 
@@ -250,21 +251,16 @@
   white-space: nowrap;
 }
 
-/* The same actual dark paper as the Coolest Projects panel.
-   Outer margins follow the blue cards' left/right alignment guides.
-   Internal padding lines up with other card copy (x = 39 + 34). */
+/* One 26px row rhythm: blue cards -> acknowledgement board -> link row.
+   The blackboard artwork belongs to the acknowledgement only, not the legal links. */
 .cardboard-page > .lab-footer {
   position: relative;
   z-index: 7;
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  align-items: start;
-  column-gap: 18px;
-  min-height: 218px;
+  display: block;
   margin: 26px 56.4px 0 39px;
-  padding: 40px 34px 38px;
+  padding: 0;
   border: 0;
-  background: url("img/project-backboard.svg") center / 100% 100% no-repeat;
+  background: none;
   color: var(--color-ivory);
   font-weight: 400;
   text-align: left;
@@ -272,7 +268,10 @@
 }
 
 .lab-footer .country-ack {
-  min-width: 0;
+  box-sizing: border-box;
+  min-height: 218px;
+  padding: 40px 34px 38px;
+  background: url("img/project-backboard.svg") center / 100% 100% no-repeat;
 }
 
 .lab-footer .country-ack h2 {
@@ -283,33 +282,34 @@
 }
 
 .lab-footer .country-ack p {
+  width: 66.6667%;
   margin: 0;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.55;
 }
 
-/* First line = policies, second line = copyright; both right aligned. */
+/* Below the dark panel: policies left, copyright below, both aligned
+   with the acknowledgement's own text (34px inset). */
 .lab-footer .footer-legal {
   display: flex;
-  min-width: 0;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 16px;
-  margin: 0;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 26px 0 0;
+  padding: 0 34px 30px;
   font-size: 12px;
   font-weight: 400;
   line-height: 1.4;
-  text-align: right;
+  text-align: left;
 }
 
 .lab-footer .footer-legal-links {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: baseline;
   gap: 6px;
-  white-space: nowrap;
 }
 
 .lab-footer .footer-copyright {
@@ -323,20 +323,20 @@
 
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    min-height: 0;
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 22px;
     margin: 26px auto 0;
+  }
+
+  .lab-footer .country-ack {
+    min-height: 0;
     padding: 35px 26px 38px;
   }
 
-  .lab-footer .footer-legal {
-    align-items: flex-end;
+  .lab-footer .country-ack p {
+    width: 100%;
   }
 
-  .lab-footer .footer-legal-links {
-    flex-wrap: wrap;
-    row-gap: 7px;
+  .lab-footer .footer-legal {
+    padding: 0 26px 30px;
   }
 }
 
