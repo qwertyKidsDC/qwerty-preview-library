@@ -6,7 +6,8 @@
   position: relative;
   z-index: 7;
   /* Account for the transparent top of the WebP; retain the 26px visual row rhythm. */
-  margin: -52px 51px 0 39px;
+  /* Share the upper cards’ right-hand guide; leave the board composition untouched. */
+  margin: -52px 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -120,8 +121,7 @@
 
 .scene-link:hover,
 .scene-link:focus-visible {
-  color: #4C69E3;
-  border-bottom-color: currentColor;
+  /* Motion provides the interaction cue; keep the approved ivory text and underline. */
   transform: translateY(-5px);
 }
 
