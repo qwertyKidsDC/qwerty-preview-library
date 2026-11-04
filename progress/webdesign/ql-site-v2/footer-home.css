@@ -115,12 +115,14 @@
   font-weight: 700;
   line-height: 1.4;
   text-decoration: none;
+  transition: transform .16s ease;
 }
 
 .scene-link:hover,
 .scene-link:focus-visible {
   color: #4C69E3;
   border-bottom-color: currentColor;
+  transform: translateY(-5px);
 }
 
 
@@ -178,4 +180,11 @@
   .footer-scene + .small-cards {
     margin-top: -8px;
   }
+}
+
+/* Honour reduced-motion preferences for the same lift used on the cards. */
+@media (prefers-reduced-motion: reduce) {
+  .scene-link { transition: none; }
+  .scene-link:hover,
+  .scene-link:focus-visible { transform: none; }
 }
