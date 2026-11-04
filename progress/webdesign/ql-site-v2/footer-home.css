@@ -60,6 +60,8 @@
   /* Compensate for transparent left/right margins inside the source artwork. */
   transform: scaleX(1.08);
   transform-origin: center;
+  /* Gently lift the source's darker navy to match the Projects blackboard. */
+  filter: brightness(1.15);
   pointer-events: none;
 }
 
