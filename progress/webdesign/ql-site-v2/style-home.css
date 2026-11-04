@@ -253,7 +253,8 @@ a {
   justify-content: space-between;
   gap: 25px;
   height: 100px;
-  padding: 14px 40px 0 47px;
+  /* Right edge follows the last top feature card, not the page boundary. */
+  padding: 14px 56.4px 0 47px;
 }
 
 .logo {
@@ -543,7 +544,8 @@ a {
   z-index: 5;
   display: flex;
   gap: 12px;
-  margin: -32px 39px 0;
+  /* Match the visible right edge of the top three cards (56.4px from the page edge). */
+  margin: -32px 44.3px 0 39px;
 }
 
 .small-card {
