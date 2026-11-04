@@ -7,7 +7,7 @@
   position: relative;
   z-index: 7;
   /* The three 32%-wide cards plus gaps occupy ~896px, starting at x=39px. */
-  margin: 16px 51px 0 39px;
+  margin: -78px 51px 0 39px; /* Compensate for reserved project height + transparent image top */
 }
 
 /* Put the image and its editable lettering in the SAME grid cell.
@@ -37,6 +37,7 @@
   z-index: 5; /* Always ABOVE the artwork */
   justify-self: start;
   align-self: center;
+  transform: translateY(-24px); /* Keep copy above the overlapping cards */
   margin-left: 10%;
   width: 460px;
   max-width: 57%;
@@ -49,14 +50,6 @@
 
 .footer-scene--paper .footer-scene__content {
   color: var(--color-ink);
-}
-
-.footer-scene__content h2 {
-  margin: 0 0 8px;
-  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
-  font-size: 30px; /* Existing .project-copy h2 sizing */
-  font-weight: 700;
-  line-height: 1.15;
 }
 
 .footer-scene__content p {
@@ -86,21 +79,21 @@
    The whole card row must stack above .footer-scene (z-index: 7). */
 .small-cards {
   z-index: 8;
-  margin-top: -43px;
+  margin-top: -94px; /* Visible artwork overlap, including transparent WebP padding */
 }
 
 
 @media (max-width: 760px) {
-  .footer-scene { margin: 16px 12px 0; }
+  .footer-scene { margin: -90px 12px 0; }
   .footer-scene__board { min-height: 270px; }
   .footer-scene__art { height: 270px; object-fit: fill; }
   .footer-scene__content {
     margin-left: 11%;
+    transform: translateY(-12px);
     max-width: 78%;
     width: 320px;
   }
-  .footer-scene__content h2 { font-size: 27px; }
   .footer-scene__content p { font-size: 16px; line-height: 1.3; }
   .footer-scene__content .project-button { font-size: 14px; padding: 7px 12px; }
-  .small-cards { margin-top: -24px; }
+  .small-cards { position: relative; z-index: 8; margin-top: -62px; }
 }
