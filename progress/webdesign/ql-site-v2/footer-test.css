@@ -9,22 +9,34 @@
   margin: 20px 52px 55px;
 }
 
+/* Put the image and its editable lettering in the SAME grid cell.
+   This is a deliberate overlay, not text positioned after an image. */
 .footer-scene__board {
   position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-areas: "sign";
+  align-items: center;
   filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
 }
 
 .footer-scene__art {
+  grid-area: sign;
+  position: relative;
+  z-index: 0;
   display: block;
   width: 100%;
   height: auto;
+  pointer-events: none;
 }
 
 .footer-scene__content {
-  position: absolute;
-  z-index: 1;
-  top: 25%;
-  left: 10%;
+  grid-area: sign;
+  position: relative;
+  z-index: 5; /* Always ABOVE the artwork */
+  justify-self: start;
+  align-self: center;
+  margin-left: 10%;
   width: 460px;
   max-width: 57%;
   display: flex;
@@ -78,8 +90,7 @@
   .footer-scene__board { min-height: 270px; }
   .footer-scene__art { height: 270px; object-fit: fill; }
   .footer-scene__content {
-    top: 23%;
-    left: 11%;
+    margin-left: 11%;
     max-width: 78%;
     width: 320px;
   }
