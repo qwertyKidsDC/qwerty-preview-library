@@ -36,3 +36,14 @@
  window.addEventListener('resize',update,{passive:true});
  window.addEventListener('load',update);update();
 })();
+
+/* On each page load, pick a Qwerty Labs accent for the 'labs' half of the wordmark.
+   The original blue SVG remains the fallback if JavaScript is unavailable. */
+(() => {
+  const wordmark = document.querySelector('.header .logo img');
+  if (!wordmark) return;
+
+  const accents = ['pink', 'orange', 'green'];
+  const chosen = accents[Math.floor(Math.random() * accents.length)];
+  wordmark.src = `img/wordmark-labs-${chosen}.svg`;
+})();
