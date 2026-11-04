@@ -68,7 +68,9 @@
   position: relative;
   z-index: 3;
   justify-self: start;
-  align-self: center;
+  align-self: start;
+  /* The same 10px between tape and copy used by Coolest Projects. */
+  margin-top: 109px;
   width: 66.6667%;
   /* x = 39px scene margin + 4.2% of 896px = ~77px,
      matching the left-hand text in the hero, cards and project. */
@@ -118,7 +120,7 @@
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -66px;
+  margin-top: -20px;
 }
 
 @media (max-width: 760px) {
@@ -148,7 +150,8 @@
   .footer-scene__content {
     width: 79%;
     margin-left: 10%;
-    transform: translateY(-10px);
+    margin-top: 100px;
+    transform: none;
   }
 
   .footer-scene__content p {
@@ -164,6 +167,6 @@
 
   /* Cards stack vertically on phones; keep the copy unobscured. */
   .footer-scene + .small-cards {
-    margin-top: -24px;
+    margin-top: -8px;
   }
 }
