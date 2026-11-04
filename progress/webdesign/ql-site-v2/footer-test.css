@@ -1,0 +1,183 @@
+/* Qwerty Labs — two deliberately isolated footer-layout studies, November 2026.
+   Loaded ONLY by footer-test-dark.html / footer-test-paper.html.
+   The approved style-home.css, script.js, and artwork are not modified.
+   Lettering uses the homepage's existing Atkinson type and project button rules. */
+
+/* Insert a new material object between the project and three lower cards. */
+.footer-scene {
+  position: relative;
+  z-index: 6;
+  margin: 22px 56px 65px;
+}
+.footer-scene__board {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 250px;
+  filter: drop-shadow(7px 10px 7px rgba(0, 0, 0, .36));
+}
+.footer-scene__face {
+  position: relative;
+  z-index: 2;
+  min-height: 228px;
+  padding: 37px 56px 35px;
+}
+.footer-scene__face h2 {
+  margin: 0 0 13px;
+  font-size: 30px; /* Same as .project-copy h2 */
+  font-weight: 700;
+  line-height: 1.15;
+}
+.footer-scene__face p {
+  margin: 0 0 23px;
+  max-width: 525px;
+  font-size: 18px; /* Same as .project-copy p */
+  font-weight: 400;
+  line-height: 1.5;
+}
+.footer-scene__face .project-button {
+  position: relative;
+  z-index: 4;
+}
+.footer-scene__tape {
+  position: absolute;
+  z-index: 4;
+  top: -17px;
+  left: 49%;
+  width: 126px;
+  height: 38px;
+  transform: rotate(-4deg);
+  clip-path: polygon(0 6%, 5% 1%, 10% 4%, 18% 0, 28% 3%, 40% 1%, 51% 4%, 63% 0, 76% 3%, 89% 1%, 100% 5%, 97% 20%, 100% 37%, 97% 55%, 100% 76%, 98% 94%, 86% 99%, 77% 96%, 67% 100%, 53% 97%, 42% 100%, 27% 96%, 15% 99%, 4% 95%, 2% 79%, 0 61%, 3% 42%);
+  background:
+    linear-gradient(177deg, rgba(255,255,255,.20), rgba(2,0,32,.07)),
+    repeating-linear-gradient(92deg, rgba(2,0,32,.015) 0 3px, rgba(255,255,255,.07) 3px 5px),
+    #D9C7A9;
+  opacity: .90;
+  box-shadow: 0 3px 3px rgba(0,0,0,.2);
+  pointer-events: none;
+}
+.footer-scene__tape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("img/cardboard-texture.svg") center / 170px 170px;
+  mix-blend-mode: multiply;
+  opacity: .20;
+}
+
+/* A — A broad version of the black-faced, cardboard-trimmed, taped box. */
+.footer-scene--dark .footer-scene__board {
+  padding: 13px 13px 19px;
+  background: url("img/project-backboard.svg") center / 100% 100% no-repeat;
+  transform: rotate(.35deg);
+}
+.footer-scene--dark .footer-scene__board::after {
+  /* Visible corrugated cut edge, like the art's exposed cardboard strata. */
+  content: "";
+  position: absolute;
+  left: 17px;
+  right: 18px;
+  bottom: 4px;
+  height: 12px;
+  z-index: 1;
+  opacity: .78;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 7px, rgba(2,0,32,.57) 7px 9px, transparent 9px 16px),
+    url("img/cardboard-texture.svg") center / 260px 260px;
+  transform: rotate(-.1deg);
+}
+.footer-scene--dark .footer-scene__face {
+  background:
+    radial-gradient(ellipse at 67% 15%, rgba(247,244,235,.035), transparent 56%),
+    #020020;
+  border: 1px solid rgba(247,244,235,.13);
+  color: var(--color-ivory);
+  clip-path: polygon(0 .7%, 99.5% 0, 100% 98.5%, .2% 100%);
+}
+.footer-scene--dark .footer-scene__tape {
+  left: 48%;
+}
+
+/* B — The pinned, torn ivory sheet on handmade cardboard backing. */
+.footer-scene--paper {
+  margin-left: 67px;
+  margin-right: 67px;
+}
+.footer-scene--paper .footer-scene__board {
+  min-height: 255px;
+  padding: 15px 21px 17px 17px;
+  background:
+    linear-gradient(110deg, rgba(255,144,41,.08), rgba(2,0,32,.06)),
+    url("img/cardboard-texture.svg") center / 300px 300px repeat;
+  clip-path: polygon(.8% 2%, 48% .3%, 99.5% 1.8%, 100% 99%, 51% 99.5%, 0 98%);
+  transform: rotate(-1deg);
+}
+.footer-scene--paper .footer-scene__board::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  border: 1px solid rgba(2,0,32,.23);
+  pointer-events: none;
+}
+.footer-scene--paper .footer-scene__face {
+  min-height: 219px;
+  padding: 34px 56px 25px;
+  color: var(--color-ink);
+  background:
+    linear-gradient(152deg, rgba(255,255,255,.37), transparent 48%, rgba(2,0,32,.055)),
+    var(--color-ivory);
+  clip-path: polygon(0 .5%, 7% 1.2%, 16% 0, 27% .8%, 39% .3%, 51% 1%, 66% 0, 80% 1%, 93% .1%, 100% .9%, 99.5% 19%, 100% 41%, 99.5% 60%, 100% 83%, 99.5% 99%, 85% 100%, 69% 99.3%, 54% 100%, 38% 99.2%, 23% 100%, 8% 99.2%, .3% 99.6%, 0 81%, .4% 60%, 0 37%);
+  box-shadow: 3px 4px 5px rgba(2,0,32,.17);
+}
+.footer-scene--paper .footer-scene__face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("img/cardboard-texture.svg") center / 280px repeat;
+  mix-blend-mode: multiply;
+  opacity: .07;
+}
+.footer-scene--paper .footer-scene__face > * {
+  position: relative;
+}
+.footer-scene--paper .footer-scene__tape {
+  top: -12px;
+  left: 24%;
+  width: 135px;
+  transform: rotate(4.2deg);
+}
+.footer-scene--paper .project-button {
+  border-color: var(--color-ink);
+}
+.footer-scene--paper .project-button:hover,
+.footer-scene--paper .project-button:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-ivory);
+}
+
+@media (max-width: 760px) {
+  .footer-scene,
+  .footer-scene--paper {
+    margin: 20px 18px 58px;
+  }
+  .footer-scene__board,
+  .footer-scene--paper .footer-scene__board {
+    min-height: 0;
+  }
+  .footer-scene__face,
+  .footer-scene--paper .footer-scene__face {
+    min-height: 0;
+    padding: 36px 25px 30px;
+  }
+  .footer-scene__face h2 { font-size: 30px; }
+  .footer-scene__face p { font-size: 18px; }
+  .footer-scene__tape,
+  .footer-scene--paper .footer-scene__tape {
+    left: 43%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-scene * { transition: none; }
+}
