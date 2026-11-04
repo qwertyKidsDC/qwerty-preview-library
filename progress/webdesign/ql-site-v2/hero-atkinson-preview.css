@@ -1,0 +1,6 @@
+/* Typography comparison only. The approved homepage remains unchanged.
+   Keep the existing hero size, line height and paper artwork. */
+.hero h1 {
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-weight: 700;
+}
