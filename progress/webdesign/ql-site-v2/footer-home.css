@@ -126,13 +126,13 @@
 }
 
 
-/* Regular visual gap after the dark board.
-   The WebP includes roughly 65px of transparent space below its painted edge,
-   so -39px trims only that empty image area and leaves about 26px visible gap. */
+/* Align the VISIBLE paper edges with the other 26px row gaps.
+   The black board has a transparent tail, and the blue paper cards have
+   transparent top padding; the negative margin trims only empty image space. */
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -39px;
+  margin-top: -52px;
 }
 
 @media (max-width: 760px) {
@@ -256,8 +256,8 @@
   position: relative;
   margin: 32px 56.4px 0 39px;
   padding: 27px 0 38px;
-  border-top: 1px solid rgb(2 0 32 / .20);
-  color: var(--color-ink);
+  border-top: 1px solid rgb(247 244 235 / .26);
+  color: var(--color-ivory);
   text-align: left;
   letter-spacing: normal;
 }
