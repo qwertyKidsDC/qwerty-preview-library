@@ -126,7 +126,8 @@
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -20px;
+  /* Cut-out cards visibly overlap the bottom of the cardboard panel. */
+  margin-top: -84px;
 }
 
 @media (max-width: 760px) {
