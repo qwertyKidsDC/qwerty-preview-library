@@ -23,7 +23,7 @@
   grid-area: sign;
   position: absolute;
   z-index: 2;
-  top: -7px;
+  top: 0;
   left: 0;
   width: 354px;
   height: 75px;
@@ -108,7 +108,7 @@
   }
 
   .footer-scene__tape {
-    top: -7px;
+    top: 0;
     width: min(295px, 82%);
     height: auto;
     aspect-ratio: 354 / 75;
