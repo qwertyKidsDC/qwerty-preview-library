@@ -93,12 +93,18 @@
   letter-spacing: -.01em;
 }
 
+/* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
+.project-copy > p,
+.footer-scene__content > p {
+  margin-bottom: 0;
+}
+
 .scene-link {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   align-self: flex-start;
-  margin-top: 13px;
+  margin-top: 18px;
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
   color: inherit;
