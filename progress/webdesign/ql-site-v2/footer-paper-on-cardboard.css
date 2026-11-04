@@ -1,0 +1,12 @@
+/* Isolated paper-on-cardboard footer experiment.
+   Only the paper test page loads this file. All structural geometry, blue
+   CTRL + ALT + CREATE artwork, and typography come from the live v2 CSS. */
+.footer-scene--paper-on-cardboard .footer-scene__content {
+  color: var(--color-ink);
+}
+
+/* The same blue link hover as the approved dark treatment. */
+.footer-scene--paper-on-cardboard .scene-link:hover,
+.footer-scene--paper-on-cardboard .scene-link:focus-visible {
+  color: #4C69E3;
+}
