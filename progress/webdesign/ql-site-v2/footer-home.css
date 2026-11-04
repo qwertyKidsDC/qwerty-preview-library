@@ -1,0 +1,89 @@
+/* Qwerty Labs homepage — dark cardboard closing scene.
+   Based on the approved footer-test-dark.html experiment.
+   Kept separate from style-home.css while the page is being developed. */
+
+.footer-scene {
+  position: relative;
+  z-index: 7;
+  margin: -78px 51px 0 39px;
+}
+
+.footer-scene__board {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-areas: "sign";
+  align-items: center;
+  filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
+}
+
+.footer-scene__art {
+  grid-area: sign;
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Compensate for transparent left/right margins inside the source artwork. */
+  transform: scaleX(1.08);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.footer-scene__content {
+  grid-area: sign;
+  position: relative;
+  z-index: 1;
+  justify-self: start;
+  align-self: center;
+  width: 66.6667%;
+  /* x = 39px scene margin + 4.2% of 896px = ~77px,
+     matching the left-hand text in the hero, cards and project. */
+  margin-left: 4.2%;
+  transform: translateY(-24px);
+  color: var(--color-ivory);
+  text-align: left;
+}
+
+.footer-scene__content p {
+  margin: 0;
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* The three small cards tuck over the lower edge of the cardboard. */
+.footer-scene + .small-cards {
+  position: relative;
+  z-index: 8;
+  margin-top: -94px;
+}
+
+@media (max-width: 760px) {
+  .footer-scene {
+    margin: -90px 12px 0;
+  }
+
+  .footer-scene__art {
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .footer-scene__content {
+    width: 79%;
+    margin-left: 10%;
+    transform: translateY(-10px);
+  }
+
+  .footer-scene__content p {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  /* Cards stack vertically on phones; keep the copy unobscured. */
+  .footer-scene + .small-cards {
+    margin-top: -24px;
+  }
+}
