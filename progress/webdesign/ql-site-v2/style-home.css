@@ -806,14 +806,13 @@ a {
   grid-area: sign;
   position: relative;
   z-index: 3;
-  justify-self: start;
+  justify-self: end;
   align-self: start;
-  /* The same 10px between tape and copy used by Coolest Projects. */
+  /* Leave the blue label on the left; move only the blurb and link. */
   margin-top: 109px;
-  width: 57%; /* Reserve the right third for the cardboard rocket crew. */
-  /* x = 39px scene margin + 4.2% of 896px = ~77px,
-     matching the left-hand text in the hero, cards and project. */
-  margin-left: 4.2%;
+  width: 55%; /* Reserve the left side for the cardboard rocket crew. */
+  margin-left: 0;
+  margin-right: 4.2%;
   transform: none;
   color: var(--color-ivory);
   text-align: left;
@@ -827,7 +826,8 @@ a {
 .footer-scene__rocket {
   position: absolute;
   z-index: 2;
-  right: 1.5%;
+  left: 4.2%;
+  right: auto;
   bottom: 5%;
   display: block;
   width: 32%;
