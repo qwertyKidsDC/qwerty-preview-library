@@ -1,0 +1,32 @@
+name: Qwerty Labs v2 spacing audit
+on:
+  push:
+    paths:
+      - ".github/workflows/ql-spacing-audit.yml"
+      - "progress/webdesign/ql-site-v2/_tools/spacing_audit.py"
+      - "progress/webdesign/ql-site-v2/style-home.css"
+      - "progress/webdesign/ql-site-v2/index.html"
+      - "progress/webdesign/ql-site-v2/script.js"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check pillow cairosvg playwright
+      - run: python -m playwright install chromium --with-deps
+      - name: Measure alpha bounds and page layout
+        run: python progress/webdesign/ql-site-v2/_tools/spacing_audit.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ql-spacing-audit
+          path: |
+            progress/webdesign/ql-site-v2/_tools/audit-report.json
+            progress/webdesign/ql-site-v2/_tools/audit-*.png
