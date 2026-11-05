@@ -826,7 +826,8 @@ a {
   position: absolute;
   z-index: 2;
   right: 3.2%;
-  bottom: 3%;
+  /* The board image has ~20% transparent space below its painted edge. */
+  bottom: 21%;
   display: block;
   width: 18%;
   max-width: 157.5px;
