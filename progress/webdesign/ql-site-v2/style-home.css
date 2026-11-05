@@ -740,7 +740,7 @@ a {
   z-index: 7;
   /* Project photo ends ~22px before its section box. Keep the full visible gap. */
   /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
-  margin: calc(var(--space-section) - 30.2px) 56.4px 0 39px;
+  margin: calc(var(--space-section) - 3.35px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -817,11 +817,11 @@ a {
 
 /* Decorative mascot lives alongside the copy, with text wrapping naturally.
    Its feet meet the painted board edge without depending on transparent image margins. */
-.footer-scene__robot {
+.footer-scene__mascot {
   position: static;
   float: right;
-  width: 126px;
-  max-width: 20%;
+  width: 160px;
+  max-width: 24%;
   height: auto;
   margin: -12px 0 0 18px;
   pointer-events: none;
@@ -877,7 +877,7 @@ a {
 
 @media (max-width: 760px) {
   .footer-scene {
-    margin: -113px 12px 0;
+    margin: -68.4px 12px 0;
   }
 
   .footer-scene__tape {
@@ -900,7 +900,7 @@ a {
   }
 
   /* Keep mobile copy and links fully legible on the narrower board. */
-  .footer-scene__robot { display: none; }
+  .footer-scene__mascot { display: none; }
 
   .footer-scene__content {
     width: 79%;
@@ -1136,49 +1136,65 @@ a {
   }
 }
 
-/* 12. Interactive links: long, 2px thick painted dashes, directly under text.
-   Keep readable ink/ivory text at rest and on hover; the dash becomes brand blue.
-   Navigation remains bold; ordinary text links use normal copy weight. */
+/* 12. Link roles: cards are static until their copy is approved.
+   Nav and legal links are plain. Content links are permanently underlined.
+   The underline becomes a hand-drawn blue stroke on hover/focus.
+   Text retains its approved contrast colour; no arrows or movement. */
 .navigation a,
-.scene-link,
-.footer-card-links a,
-.footer-legal-links a,
-.feature h2 {
-  position: relative;
+.footer-legal-links a {
   border: 0;
-  padding-bottom: 0;
   text-decoration: none;
-  --link-dash: currentColor;
-}
-.navigation a::after,
-.scene-link::after,
-.footer-card-links a::after,
-.footer-legal-links a::after,
-.feature h2::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  left: 0; right: 0; bottom: 1px;
-  height: 2px;
-  background: repeating-linear-gradient(
-    90deg, var(--link-dash) 0 12px, transparent 12px 17px
-  );
+  font-weight: inherit;
 }
 .navigation a:hover,
 .navigation a:focus-visible,
+.footer-legal-links a:hover,
+.footer-legal-links a:focus-visible {
+  color: var(--color-orange);
+}
+.scene-link,
+.footer-card-links a {
+  position: relative;
+  border: 0;
+  padding-bottom: 0;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.scene-link::after,
+.footer-card-links a::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 5px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 100% / 100px 5px;
+  opacity: 0;
+  transform: scaleX(.7);
+  transform-origin: left center;
+  transition: transform .18s ease-out, opacity .18s ease-out;
+}
 .scene-link:hover,
 .scene-link:focus-visible,
 .footer-card-links a:hover,
-.footer-card-links a:focus-visible,
-.footer-legal-links a:hover,
-.footer-legal-links a:focus-visible,
-.feature:hover h2,
-.feature:focus-visible h2 {
-  --link-dash: var(--color-blue);
+.footer-card-links a:focus-visible {
+  text-decoration-color: transparent;
 }
-.feature h2 { width: fit-content; }
-.navigation a { font-weight: 700; }
-.scene-link, .footer-card-links a, .footer-legal-links a { font-weight: 400; }
+.scene-link:hover::after,
+.scene-link:focus-visible::after,
+.footer-card-links a:hover::after,
+.footer-card-links a:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-link::after,
+  .footer-card-links a::after { transition: none; }
+}
 
 /* The old page stage starts at 32px and clips overflowing navigation.
    Bring the stage to 13px, but replace those 19 screen pixels inside the
@@ -1229,5 +1245,5 @@ a {
   .footer-scene__content { margin-top: 100px; }
   /* The robot is floated in desktop copy; on narrow screens it obstructs
      the paragraph and pushes the link outside its cardboard surface. */
-  .footer-scene__robot { display: none !important; }
+  .footer-scene__mascot { display: none !important; }
 }

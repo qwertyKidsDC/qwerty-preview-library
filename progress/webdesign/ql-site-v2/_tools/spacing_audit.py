@@ -103,7 +103,10 @@ with sync_playwright() as p:
   projectFrame=edges("projectFrame","project-photo-frame.svg")
   project=[min(projectLabel[0],projectBoard[0],projectFrame[0]),
            max(projectLabel[1],projectBoard[1],projectFrame[1])]
-  blurb=edges("blurbBoard","footer-experiment-dark-vtrim.webp" if width>760 else "footer-experiment-dark.webp")
+  board=edges("blurbBoard","footer-experiment-dark-vtrim.webp" if width>760 else "footer-experiment-dark.webp")
+  tape=edges("blurbLabel","footer-blue-tape-vtrim.svg")
+  # The tape is the first visible paint: the dark board begins below it.
+  blurb=[min(board[0],tape[0]),board[1]]
   blue=edges("footerCards")
   country=edges("country") # painted background may have alpha, print separately
   legal=edges("legal")
@@ -117,7 +120,7 @@ with sync_playwright() as p:
   dimensions[str(width)]={"gaps":gaps,
      "navTop":round(values["nav"][0]["top"],1),
      "wordmarkTop":round(values["wordmark"][0]["top"],1),
-     "painted":{"cards":card,"project":project,"blurb":blurb,"footerCards":blue,
+     "painted":{"cards":card,"project":project,"blurb":blurb,"board":board,"tape":tape,"footerCards":blue,
                 "country":country,"legal":legal},
      "rects":{k:[{"top":round(v["top"],1),"bottom":round(v["bottom"],1),
                    "height":round(v["height"],1)} for v in values[k]]
@@ -140,7 +143,7 @@ with sync_playwright() as p:
     mobile=page.evaluate("""() => {
       const box=document.querySelector(".footer-scene__art").getBoundingClientRect();
       const link=document.querySelector(".footer-scene__content .scene-link").getBoundingClientRect();
-      const robot=document.querySelector(".footer-scene__robot");
+      const robot=document.querySelector(".footer-scene__mascot");
       return {
         robotDisplay:getComputedStyle(robot).display,
         robotRectHeight:robot.getBoundingClientRect().height,
@@ -155,6 +158,16 @@ with sync_playwright() as p:
   assert not broken, f"Broken images at {width}: {broken}"
   assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"
   if width>760: assert abs(values["nav"][0]["top"]-13)<0.5
+  assert page.locator(".feature-cards a").count()==0, "Cards must not be links"
+  assert page.locator(".feature-cards .feature").count()==3
+  states=page.evaluate("""() => {
+    const cs=s=>getComputedStyle(document.querySelector(s));
+    return {navDecoration:cs(".navigation a").textDecorationLine,
+      legalDecoration:cs(".footer-legal-links a").textDecorationLine,
+      bodyDecoration:cs(".scene-link").textDecorationLine};
+  }""")
+  assert states["navDecoration"]=="none" and states["legalDecoration"]=="none", states
+  assert states["bodyDecoration"]=="underline", states
   page.close()
  browser.close()
 server.shutdown()
