@@ -960,6 +960,11 @@ a {
   transition: transform .16s ease;
 }
 
+/* Keep 14px policy labels easy to activate (WCAG 2.2 target-size baseline). */
+.footer-legal-links a {
+  min-height: 24px;
+}
+
 .footer-card-links a:hover,
 .footer-card-links a:focus-visible,
 .footer-legal-links a:hover,
