@@ -27,8 +27,9 @@
   --text-card: 20px;     /* Card titles and country acknowledgement */
   --text-body: 18px;     /* Reading copy */
   --text-ui: 16px;       /* Navigation, links and footer UI */
-  --text-blurb: 21px;    /* Featured closing paragraph */
-  --text-hero: 36px;    /* Handwritten hero */
+  --text-blurb: 22px;    /* Lead-style closing paragraph */
+  --text-hero: 44px;     /* Handwritten page title */
+  --text-legal: 14px;    /* Policies and copyright */
 
   /* Workshop-specific photographic effects */
   --scene-backdrop: #050A13;
@@ -614,7 +615,7 @@ a {
     top: 45px;
     left: 53px;
     width: calc(100% - 75px);
-    font-size: clamp(27px, 6.8vw, 35px);
+    font-size: clamp(27px, 6.8vw, 34px);
   }
 
   .mascots {
@@ -845,7 +846,7 @@ a {
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
   color: inherit;
-  font-size: var(--text-ui);
+  font-size: var(--text-body);
   font-weight: 700;
   line-height: 1.4;
   text-decoration: none;
@@ -1028,7 +1029,7 @@ a {
   gap: 8px;
   margin: 10px 0 0;
   padding: 0 34px 24px;
-  font-size: var(--text-ui);
+  font-size: var(--text-legal);
   font-weight: 400;
   line-height: 1.4;
   text-align: left;
