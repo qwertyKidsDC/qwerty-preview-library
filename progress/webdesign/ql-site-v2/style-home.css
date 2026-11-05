@@ -1,4 +1,5 @@
-/* Qwerty Labs · Homepage
+/* Qwerty Labs · Homepage — typography and palette audit, 5 November 2026
+   The type and palette tokens below govern this page.
    Keep this file about the current page, not abandoned experiments.
    Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
    Colours inside the paper illustrations belong to the artwork, not this CSS. */
@@ -13,10 +14,19 @@
    to the approved photographic lighting, not to the brand palette.
    Black/white mask stops control opacity; they are not interface colours. */
 :root {
-  /* Approved interface colours actually used by this homepage */
-  --color-ink: #020020;
-  --color-ivory: #F7F4EB;
+  /* Approved six-colour palette. Artwork may contain textured variations. */
+  --color-blue: #4C69E3;
+  --color-pink: #F66DC1;
+  --color-green: #92D644;
   --color-orange: #FF9029;
+  --color-ivory: #F7F4EB;
+  --color-ink: #020020;
+
+  /* Shared type scale; fit containers to text, not text to containers. */
+  --text-heading: 30px;
+  --text-body: 18px;
+  --text-blurb: 21px;
+  --text-hero: 36px;
 
   /* Workshop-specific photographic effects */
   --scene-backdrop: #050A13;
@@ -42,6 +52,8 @@ body {
   background: var(--scene-backdrop);
   color: var(--color-ivory);
   font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.5;
   overflow-x: hidden;
 }
 
@@ -276,7 +288,7 @@ a {
   gap: 10px 20px;
   margin-top: 33px;
   color: var(--color-ivory);
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: .12em;
@@ -333,7 +345,7 @@ a {
   margin: 0;
   color: var(--color-ink);
   font-family: 'Architects Daughter', cursive;
-  font-size: 36px;
+  font-size: var(--text-hero);
   font-weight: 700;
   line-height: 1.13;
   letter-spacing: -.02em;
@@ -356,8 +368,9 @@ a {
 .feature h2,
 .small-card h2,
 .project-copy h2,
-.project-label-text {
-  font-size: 30px;
+.project-label-text,
+.lab-footer .country-ack h2 {
+  font-size: var(--text-heading);
   font-weight: 700;
   line-height: 1.15;
 }
@@ -371,7 +384,7 @@ a {
 .feature p,
 .small-card p,
 .project-copy p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
 }
@@ -486,28 +499,6 @@ a {
   margin: 0 0 24px;
 }
 
-.project-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 22px;
-  padding: 11px 16px;
-  border: 1.5px solid var(--color-ivory);
-  font-size: 16px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.project-button span {
-  font-size: 26px;
-  line-height: .4;
-}
-
-.project-button:hover,
-.project-button:focus-visible {
-  background: var(--color-ivory);
-  color: var(--color-ink);
-}
 
 .photo-collage {
   position: absolute;
@@ -557,34 +548,8 @@ a {
   white-space: nowrap;
 }
 
-.small-arrow {
-  position: absolute;
-  right: 33px;
-  bottom: 19px;
-  font: normal 39px/1 Arial, sans-serif;
-}
 
-/* 09. Footer */
-footer {
-  position: relative;
-  z-index: 3;
-  padding: 34px 0 50px;
-  border-top: 1px solid color-mix(in srgb, var(--color-ivory) 13%, transparent);
-  /* Muted ivory keeps the footer quiet without introducing a grey-blue hue. */
-  color: color-mix(in srgb, var(--color-ivory) 70%, transparent);
-  font-size: 12px;
-  letter-spacing: .4px;
-}
-
-.site > footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 108px;
-  margin-top: 95px;
-  background: rgb(var(--scene-tint-rgb) / .30);
-  text-align: center;
-}
+/* 09. Footer components are maintained in footer-home.css. */
 
 /* 10. Responsive layout
    761px matches the approved desktop scaling. Smaller screens stack cards. */
@@ -745,10 +710,6 @@ footer {
     --top-photo-width: 100vw;
   }
 
-  .site > footer {
-    margin-top: 55px;
-    padding: 25px 15px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
