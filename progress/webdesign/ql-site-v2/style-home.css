@@ -1,6 +1,6 @@
-/* Qwerty Labs · Homepage — typography and palette audit, 5 November 2026
+/* Qwerty Labs · Homepage — single consolidated stylesheet, 5 November 2026
+   This is the only local CSS file loaded by the homepage.
    The type and palette tokens below govern this page.
-   Keep this file about the current page, not abandoned experiments.
    Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
    Colours inside the paper illustrations belong to the artwork, not this CSS. */
 
@@ -23,10 +23,12 @@
   --color-ink: #020020;
 
   /* Shared type scale; fit containers to text, not text to containers. */
-  --text-heading: 30px;
-  --text-body: 18px;
-  --text-blurb: 21px;
-  --text-hero: 36px;
+  --text-heading: 30px;  /* Section headings and tape lettering */
+  --text-card: 20px;     /* Card titles and country acknowledgement */
+  --text-body: 18px;     /* Reading copy */
+  --text-ui: 16px;       /* Navigation, links and footer UI */
+  --text-blurb: 21px;    /* Featured closing paragraph */
+  --text-hero: 36px;    /* Handwritten hero */
 
   /* Workshop-specific photographic effects */
   --scene-backdrop: #050A13;
@@ -288,7 +290,7 @@ a {
   gap: 10px 20px;
   margin-top: 33px;
   color: var(--color-ivory);
-  font-size: var(--text-body);
+  font-size: var(--text-ui);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: .12em;
@@ -364,15 +366,20 @@ a {
 }
 
 /* 06. Shared typography and handmade paper cards
-   All card headings change here, not in individual card rules. */
-.feature h2,
-.small-card h2,
+   Section headings and card titles have separate, centralised sizes. */
 .project-copy h2,
-.project-label-text,
-.lab-footer .country-ack h2 {
+.project-label-text {
   font-size: var(--text-heading);
   font-weight: 700;
   line-height: 1.15;
+}
+
+.feature h2,
+.small-card h2,
+.lab-footer .country-ack h2 {
+  font-size: var(--text-card);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .feature h2,
@@ -549,9 +556,7 @@ a {
 }
 
 
-/* 09. Footer components are maintained in footer-home.css. */
-
-/* 10. Responsive layout
+/* 09. Responsive layout
    761px matches the approved desktop scaling. Smaller screens stack cards. */
 @media (min-width: 761px) {
   .cardboard-page {
@@ -723,6 +728,354 @@ a {
   .small-card:hover,
   .navigation a:hover,
   .navigation a:focus-visible {
+    transform: none;
+  }
+}
+
+
+/* 10. Closing scene, blue information cards and legal footer
+   Consolidated from the existing footer CSS without changing source order.
+   Only the mobile tape lettering uses 24px to fit the narrower artwork.
+   The brighter tape blue belongs to the artwork, not the palette. */
+
+.footer-scene {
+  position: relative;
+  z-index: 7;
+  /* Account for the transparent top of the WebP; retain the 26px visual row rhythm. */
+  /* Share the upper cards’ right-hand guide; leave the board composition untouched. */
+  margin: -52px 56.4px 0 39px;
+}
+
+.footer-scene__board {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-areas: "sign";
+  align-items: center;
+  filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
+}
+
+/* Real blue frayed tape artwork: independent copy of the original Projects label.
+   Same desktop dimensions; only the footer placement is adjusted. */
+.footer-scene__tape {
+  grid-area: sign;
+  position: absolute;
+  z-index: 2;
+  top: 24px;
+  left: 0;
+  width: 354px;
+  height: 75px;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Live lettering on the tape (the original blue image contains no text). */
+.footer-scene__tape-text {
+  grid-area: sign;
+  position: absolute;
+  z-index: 3;
+  top: 46px;
+  left: 39px;
+  color: var(--color-ink);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+  transform: rotate(-1.2deg);
+  pointer-events: none;
+}
+
+.footer-scene__art {
+  grid-area: sign;
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Compensate for transparent left/right margins inside the source artwork. */
+  transform: scaleX(1.08);
+  transform-origin: center;
+  /* Gently lift the source's darker navy to match the Projects blackboard. */
+  filter: brightness(1.15);
+  pointer-events: none;
+}
+
+.footer-scene__content {
+  grid-area: sign;
+  position: relative;
+  z-index: 3;
+  justify-self: start;
+  align-self: start;
+  /* The same 10px between tape and copy used by Coolest Projects. */
+  margin-top: 109px;
+  width: 66.6667%;
+  /* x = 39px scene margin + 4.2% of 896px = ~77px,
+     matching the left-hand text in the hero, cards and project. */
+  margin-left: 4.2%;
+  transform: none;
+  color: var(--color-ivory);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-scene__content p {
+  margin: 0;
+  max-width: 570px;
+  font-size: var(--text-blurb); /* A typographic feature, not a heading */
+  font-weight: 400;
+  line-height: 1.46;
+  letter-spacing: -.01em;
+}
+
+/* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
+.project-copy > p,
+.footer-scene__content > p {
+  margin-bottom: 0;
+}
+
+.scene-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+  margin-top: 18px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  font-size: var(--text-ui);
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: transform .16s ease;
+}
+
+.scene-link:hover,
+.scene-link:focus-visible {
+  /* Motion provides the interaction cue; keep the approved ivory text and underline. */
+  transform: translateY(-5px);
+}
+
+
+/* The image files include unpainted transparent margins. Pull the blue row
+   closer to the black blurb while keeping the painted surfaces separate. */
+.footer-scene + .small-cards {
+  position: relative;
+  z-index: 8;
+  margin-top: -68px;
+}
+
+@media (max-width: 760px) {
+  .footer-scene {
+    margin: -90px 12px 0;
+  }
+
+  .footer-scene__tape {
+    top: 24px;
+    width: min(295px, 82%);
+    height: auto;
+    aspect-ratio: 354 / 75;
+  }
+
+  .footer-scene__tape-text {
+    top: 42px;
+    left: 32px;
+    font-size: 24px;
+  }
+
+  .footer-scene__art {
+    height: 360px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .footer-scene__content {
+    width: 79%;
+    margin-left: 10%;
+    margin-top: 100px;
+    transform: none;
+  }
+
+  .footer-scene__content p {
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  .scene-link {
+    margin-top: 12px;
+  }
+
+  /* Mobile art crops away most transparent space: use a tighter gap. */
+  .footer-scene + .small-cards {
+    margin-top: 12px;
+  }
+}
+
+/* Honour reduced-motion preferences for the same lift used on the cards. */
+@media (prefers-reduced-motion: reduce) {
+  .scene-link { transition: none; }
+  .scene-link:hover,
+  .scene-link:focus-visible { transform: none; }
+}
+
+/* Secondary blue cards. Their height fits five full-size links.
+   Artwork has transparent space at the top; 50px positions the copy
+   inside the visible paper, not just its SVG bounds. */
+.footer-nav-cards .footer-nav-card {
+  height: 275px;
+  padding: 50px 32px 20px 34px;
+}
+
+/* Only the individual links hop; these informational panels stay in place. */
+.footer-nav-cards .footer-nav-card:hover,
+.footer-nav-cards .footer-nav-card:focus-within {
+  transform: none;
+}
+
+.footer-nav-card h2 {
+  margin: 0 0 8px;
+}
+
+.footer-card-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  font-size: var(--text-ui);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.footer-card-links a,
+.footer-legal-links a {
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  text-decoration: none;
+  transition: transform .16s ease;
+}
+
+.footer-card-links a:hover,
+.footer-card-links a:focus-visible,
+.footer-legal-links a:hover,
+.footer-legal-links a:focus-visible {
+  transform: translateY(-5px);
+}
+
+.footer-card-address {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  font-style: normal;
+}
+
+.footer-email {
+  font-size: var(--text-ui);
+  font-weight: 400; /* Not a live link until the address is active. */
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* The painted blue cards stop before the SVG box ends. Their empty lower
+   margins already supply visual space: no extra 26px CSS gap is needed.
+   Preserve the same right-hand guide as the main cards. */
+.cardboard-page > .lab-footer {
+  position: relative;
+  z-index: 7;
+  display: block;
+  margin: 0 56.4px 0 39px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ivory);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  letter-spacing: normal;
+}
+
+.lab-footer .country-ack {
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 26px 34px 24px;
+  background: url("img/project-backboard.svg") center / 100% 100% no-repeat;
+}
+
+.lab-footer .country-ack h2 {
+  margin: 0 0 9px;
+}
+
+.lab-footer .country-ack p {
+  width: 66.6667%;
+  margin: 0;
+  font-size: var(--text-ui);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Below the dark panel: policies left, copyright below, both aligned
+   with the acknowledgement's own text (34px inset). */
+.lab-footer .footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0 34px 24px;
+  font-size: var(--text-ui);
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.lab-footer .footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.lab-footer .footer-copyright {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .cardboard-page > .lab-footer {
+    width: min(400px, calc(100% - 30px));
+    margin: 10px auto 0;
+  }
+
+  .lab-footer .country-ack {
+    min-height: 0;
+    padding: 26px 26px 24px;
+  }
+
+  .lab-footer .country-ack p {
+    width: 100%;
+  }
+
+  .lab-footer .footer-legal {
+    padding: 0 26px 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-card-links a,
+  .footer-legal-links a {
+    transition: none;
+  }
+
+  .footer-card-links a:hover,
+  .footer-card-links a:focus-visible,
+  .footer-legal-links a:hover,
+  .footer-legal-links a:focus-visible {
     transform: none;
   }
 }
