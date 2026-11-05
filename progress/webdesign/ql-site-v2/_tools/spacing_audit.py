@@ -136,6 +136,21 @@ with sync_playwright() as p:
   dimensions[str(width)]["deviations"]=deviations
   broken=page.evaluate("() => [...document.images].filter(im => !im.complete || im.naturalWidth===0).map(im=>im.src)")
   dimensions[str(width)]["brokenImages"]=broken
+  if width<=760:
+    mobile=page.evaluate("""() => {
+      const box=document.querySelector(".footer-scene__art").getBoundingClientRect();
+      const link=document.querySelector(".footer-scene__content .scene-link").getBoundingClientRect();
+      const robot=document.querySelector(".footer-scene__robot");
+      return {
+        robotDisplay:getComputedStyle(robot).display,
+        robotRectHeight:robot.getBoundingClientRect().height,
+        boardBottom:box.bottom,linkBottom:link.bottom,
+        mobileMedia:matchMedia("(max-width:760px)").matches
+      };
+    }""")
+    dimensions[str(width)]["mobileBlurb"]=mobile
+    assert mobile["robotDisplay"]=="none", f"Robot obstructs mobile paragraph: {mobile}"
+    assert mobile["linkBottom"]<=mobile["boardBottom"]+1, f"Link overflows board: {mobile}"
   # Screenshot geometry/alpha are subject to a fraction of a pixel rounding.
   assert not broken, f"Broken images at {width}: {broken}"
   assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"

@@ -1227,4 +1227,7 @@ a {
   .footer-scene__tape { top: 24px; }
   .footer-scene__tape-text { top: 42px; }
   .footer-scene__content { margin-top: 100px; }
+  /* The robot is floated in desktop copy; on narrow screens it obstructs
+     the paragraph and pushes the link outside its cardboard surface. */
+  .footer-scene__robot { display: none !important; }
 }
