@@ -42,7 +42,6 @@
   top: 46px;
   left: 39px;
   color: var(--color-ink);
-  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   font-size: var(--text-heading);
   font-weight: 700;
   line-height: 1.15;
@@ -90,7 +89,6 @@
 .footer-scene__content p {
   margin: 0;
   max-width: 570px;
-  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   font-size: var(--text-blurb); /* A typographic feature, not a heading */
   font-weight: 400;
   line-height: 1.46;
@@ -112,7 +110,6 @@
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
   color: inherit;
-  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   font-size: var(--text-body);
   font-weight: 700;
   line-height: 1.4;
@@ -188,8 +185,9 @@
   .scene-link:focus-visible { transform: none; }
 }
 
-/* Secondary blue cards. Artwork has transparent space at the top; 50px
-   positions the copy inside the visible paper, not just its SVG bounds. */
+/* Secondary blue cards. Their height fits five full-size links.
+   Artwork has transparent space at the top; 50px positions the copy
+   inside the visible paper, not just its SVG bounds. */
 .footer-nav-cards .footer-nav-card {
   height: 275px;
   padding: 50px 32px 20px 34px;
@@ -242,6 +240,7 @@
 
 .footer-email {
   font-size: var(--text-body);
+  font-weight: 400; /* Not a live link until the address is active. */
   line-height: 1.4;
   white-space: normal;
   overflow-wrap: anywhere;
@@ -313,10 +312,6 @@
 }
 
 @media (max-width: 760px) {
-  .footer-nav-cards .footer-nav-card {
-    height: 275px;
-  }
-
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
     margin: 10px auto 0;
