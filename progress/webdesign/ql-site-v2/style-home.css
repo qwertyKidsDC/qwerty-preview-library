@@ -806,13 +806,13 @@ a {
   grid-area: sign;
   position: relative;
   z-index: 3;
-  justify-self: end;
+  justify-self: start;
   align-self: start;
-  /* Leave the blue label on the left; move only the blurb and link. */
+  /* Keep the blue label in place; copy and link return to the left. */
   margin-top: 109px;
-  width: 55%; /* Reserve the left side for the cardboard rocket crew. */
-  margin-left: 0;
-  margin-right: 4.2%;
+  width: 61%;
+  margin-left: 4.2%;
+  margin-right: 0;
   transform: none;
   color: var(--color-ivory);
   text-align: left;
@@ -821,17 +821,15 @@ a {
   align-items: flex-start;
 }
 
-
-/* Decorative cardboard rocket crew; separate asset, not baked into the board. */
-.footer-scene__rocket {
+/* Compact, transparent workshop robot replacing the previous footer mascots. */
+.footer-scene__robot {
   position: absolute;
   z-index: 2;
-  left: 4.2%;
-  right: auto;
-  bottom: 5%;
+  right: 3.2%;
+  bottom: 3%;
   display: block;
-  width: 32%;
-  max-width: 300px;
+  width: 24%;
+  max-width: 210px;
   height: auto;
   pointer-events: none;
 }
@@ -907,7 +905,7 @@ a {
   }
 
   /* Keep mobile copy and links fully legible on the narrower board. */
-  .footer-scene__rocket { display: none; }
+  .footer-scene__robot { display: none; }
 
   .footer-scene__content {
     width: 79%;
