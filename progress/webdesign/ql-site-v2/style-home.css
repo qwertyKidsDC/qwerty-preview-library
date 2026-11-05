@@ -1025,27 +1025,51 @@ a {
   line-height: 1.55;
 }
 
-/* Below the dark panel: policies left, copyright below, both aligned
-   with the acknowledgement's own text (34px inset). */
+/* Compact studio signature: one line on the fixed-width desktop composition.
+   The footer wordmark reuses the approved header artwork at a smaller size. */
 .lab-footer .footer-legal {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
   margin: 10px 0 0;
-  padding: 0 34px 24px;
+  padding: 10px 34px 24px;
   font-size: var(--text-legal);
   font-weight: 400;
   line-height: 1.4;
   text-align: left;
 }
 
+.lab-footer .footer-wordmark {
+  display: block;
+  width: 96px;
+}
+
+.lab-footer .footer-wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lab-footer .footer-founder-credit {
+  white-space: nowrap;
+}
+
+.lab-footer .footer-legal-meta,
 .lab-footer .footer-legal-links {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: baseline;
-  gap: 6px;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.lab-footer .footer-legal-meta {
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.lab-footer .footer-legal-links {
+  gap: 9px;
 }
 
 .lab-footer .footer-copyright {
@@ -1068,7 +1092,21 @@ a {
   }
 
   .lab-footer .footer-legal {
-    padding: 0 26px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 26px 30px;
+  }
+
+  .lab-footer .footer-founder-credit {
+    white-space: normal;
+  }
+
+  .lab-footer .footer-legal-meta,
+  .lab-footer .footer-legal-links {
+    flex-wrap: wrap;
+    white-space: normal;
   }
 }
 
