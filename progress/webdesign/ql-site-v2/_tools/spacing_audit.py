@@ -15,6 +15,10 @@ FILES=[
 "current-project-label.svg","project-photo-frame.svg",
 "footer-experiment-dark.webp","footer-blue-tape.svg",
 "footer-explore-blue.svg","footer-find-blue.svg","footer-hello-blue.svg",
+"kids-green-panel-untaped-vtrim.svg","adults-pink-panel-untaped-vtrim.svg",
+"teens-blue-panel-untaped-vtrim.svg","current-project-label-vtrim.svg",
+"footer-experiment-dark-vtrim.webp","footer-blue-tape-vtrim.svg",
+"footer-explore-blue-vtrim.svg","footer-find-blue-vtrim.svg","footer-hello-blue-vtrim.svg",
 ]
 def alpha_report(name):
     fp=ASSETS/name
@@ -68,7 +72,7 @@ with sync_playwright() as p:
       r[key]=[...document.querySelectorAll(s)].map(el=>{
        const b=el.getBoundingClientRect();
        return {top:b.top,bottom:b.bottom,left:b.left,right:b.right,
-               width:b.width,height:b.height,src:el.getAttribute("src")||"",
+               width:b.width,height:b.height,src:el.currentSrc||el.getAttribute("src")||"",
                zoom:getComputedStyle(document.querySelector(".cardboard-page")).zoom};
       });
     }
@@ -94,12 +98,12 @@ with sync_playwright() as p:
    coords=painted(name,key)
    return [min(q[0] for q in coords),max(q[1] for q in coords)] if coords else [None,None]
   card=edges("cards")
-  projectLabel=edges("projectLabel","current-project-label.svg")
+  projectLabel=edges("projectLabel","current-project-label-vtrim.svg")
   projectBoard=edges("projectBoard","project-backboard.svg")
   projectFrame=edges("projectFrame","project-photo-frame.svg")
   project=[min(projectLabel[0],projectBoard[0],projectFrame[0]),
            max(projectLabel[1],projectBoard[1],projectFrame[1])]
-  blurb=edges("blurbBoard","footer-experiment-dark.webp")
+  blurb=edges("blurbBoard","footer-experiment-dark-vtrim.webp" if width>760 else "footer-experiment-dark.webp")
   blue=edges("footerCards")
   country=edges("country") # painted background may have alpha, print separately
   legal=edges("legal")

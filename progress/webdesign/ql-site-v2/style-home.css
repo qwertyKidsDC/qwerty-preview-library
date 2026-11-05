@@ -455,7 +455,8 @@ a {
   position: relative;
   z-index: 6;
   min-height: 405px;
-  margin: var(--space-section) 35px 0;
+  /* The rotated photo protrudes above the Projects box; calibrate to visible paint. */
+  margin: calc(var(--space-section) + 50px) 35px 0;
 }
 
 .project-panel {
@@ -639,7 +640,7 @@ a {
 
   .projects {
     min-height: 675px;
-    margin: 32px 10px 0;
+    margin: 43px 10px 0;
   }
 
   .project-panel {
@@ -738,7 +739,8 @@ a {
   position: relative;
   z-index: 7;
   /* Project photo ends ~22px before its section box. Keep the full visible gap. */
-  margin: calc(var(--space-section) - 22px) 56.4px 0 39px;
+  /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
+  margin: calc(var(--space-section) - 28px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -851,7 +853,7 @@ a {
   border-bottom: 1px dashed currentColor;
   color: inherit;
   font-size: var(--text-body);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.4;
   text-decoration: none;
   transition: none;
@@ -869,12 +871,13 @@ a {
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: calc(var(--space-home-to-footer) - 101px);
+  /* Board is vertically cropped; only 32px of layout-box adjustment remains. */
+  margin-top: calc(var(--space-home-to-footer) - 32px);
 }
 
 @media (max-width: 760px) {
   .footer-scene {
-    margin: -78px 12px 0;
+    margin: -113px 12px 0;
   }
 
   .footer-scene__tape {
@@ -917,7 +920,7 @@ a {
 
   /* Mobile art crops away most transparent space: use a tighter gap. */
   .footer-scene + .small-cards {
-    margin-top: 40px;
+    margin-top: -33px;
   }
 }
 
@@ -952,7 +955,7 @@ a {
   align-items: flex-start;
   gap: 3px;
   font-size: var(--text-ui);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.35;
 }
 
@@ -1087,7 +1090,7 @@ a {
 @media (max-width: 760px) {
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    margin: 32px auto 0;
+    margin: 51px auto 0;
   }
 
   .lab-footer .country-ack {
@@ -1104,7 +1107,7 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 26px;
     padding: 0 26px 30px;
   }
 
@@ -1133,14 +1136,33 @@ a {
   }
 }
 
-/* 12. Link states: a 1px ink/ivory dash at rest, blue dash on hover.
-   Keep text in its high-contrast ink/ivory pairing across all paper colours. */
+/* 12. Interactive links: long, 2px thick painted dashes, directly under text.
+   Keep readable ink/ivory text at rest and on hover; the dash becomes brand blue.
+   Navigation remains bold; ordinary text links use normal copy weight. */
 .navigation a,
 .scene-link,
 .footer-card-links a,
-.footer-legal-links a {
-  border-bottom: 1px dashed currentColor;
-  transition: border-bottom-color .16s ease;
+.footer-legal-links a,
+.feature h2 {
+  position: relative;
+  border: 0;
+  padding-bottom: 0;
+  text-decoration: none;
+  --link-dash: currentColor;
+}
+.navigation a::after,
+.scene-link::after,
+.footer-card-links a::after,
+.footer-legal-links a::after,
+.feature h2::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg, var(--link-dash) 0 12px, transparent 12px 17px
+  );
 }
 .navigation a:hover,
 .navigation a:focus-visible,
@@ -1149,18 +1171,14 @@ a {
 .footer-card-links a:hover,
 .footer-card-links a:focus-visible,
 .footer-legal-links a:hover,
-.footer-legal-links a:focus-visible {
-  border-bottom-color: var(--color-blue);
-}
-.feature h2 {
-  text-decoration: underline dashed currentColor 1px;
-  text-underline-offset: 5px;
-  transition: text-decoration-color .16s ease;
-}
+.footer-legal-links a:focus-visible,
 .feature:hover h2,
 .feature:focus-visible h2 {
-  text-decoration-color: var(--color-blue);
+  --link-dash: var(--color-blue);
 }
+.feature h2 { width: fit-content; }
+.navigation a { font-weight: 700; }
+.scene-link, .footer-card-links a, .footer-legal-links a { font-weight: 400; }
 
 /* The old page stage starts at 32px and clips overflowing navigation.
    Bring the stage to 13px, but replace those 19 screen pixels inside the
@@ -1184,4 +1202,29 @@ a {
   .footer-card-links a,
   .footer-legal-links a,
   .feature h2 { transition: none; }
+}
+
+
+/* 13. Alpha-trimmed artwork. The originals remain available under their old
+   names. These offsets retain painted positions and proportions exactly. */
+.feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
+.feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
+.feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
+.project-label { top: 5.621px; height: 64.053px; }
+.footer-scene__picture { display: contents; }
+
+@media (min-width: 761px) {
+  /* The dark board's removed top 134px equals 54.93px at design width. */
+  .footer-scene__tape { top: -25.31px; height: 64.053px; }
+  .footer-scene__tape-text { top: -8.93px; }
+  .footer-scene__content { margin-top: 54.08px; }
+}
+@media (max-width: 760px) {
+  /* Retain the original WebP source and its established mobile composition. */
+  .footer-scene__tape { top: 24px; }
+  .footer-scene__tape-text { top: 42px; }
+  .footer-scene__content { margin-top: 100px; }
 }
