@@ -821,26 +821,27 @@ a {
   align-items: flex-start;
 }
 
-/* Compact, transparent workshop robot replacing the previous footer mascots. */
+/* Compact mascot at one-quarter of its previous display size. */
 .footer-scene__robot {
   position: absolute;
   z-index: 2;
   right: 3.2%;
   bottom: 3%;
   display: block;
-  width: 24%;
-  max-width: 210px;
+  width: 6%;
+  max-width: 52.5px;
   height: auto;
   pointer-events: none;
 }
 
+/* Match the Projects paragraph typography without narrowing the footer column. */
 .footer-scene__content p {
   margin: 0;
   max-width: 570px;
-  font-size: var(--text-blurb); /* A typographic feature, not a heading */
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.46;
-  letter-spacing: -.01em;
+  line-height: 1.5;
+  letter-spacing: normal;
 }
 
 /* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
