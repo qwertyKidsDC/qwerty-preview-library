@@ -134,7 +134,7 @@ with sync_playwright() as p:
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
   dimensions[str(width)]["expected"]=expected
   dimensions[str(width)]["deviations"]=deviations
-  broken=page.evaluate("() => [...document.images].filter(im => !im.complete || im.naturalWidth===0).map(im=>im.src)")
+  broken=page.evaluate("() => [...document.images].filter(im => getComputedStyle(im).display!=='none' && (!im.complete || im.naturalWidth===0)).map(im=>im.src)")
   dimensions[str(width)]["brokenImages"]=broken
   if width<=760:
     mobile=page.evaluate("""() => {
