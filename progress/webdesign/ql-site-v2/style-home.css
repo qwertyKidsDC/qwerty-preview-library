@@ -821,15 +821,15 @@ a {
   align-items: flex-start;
 }
 
-/* Compact mascot at one-quarter of its previous display size. */
+/* Compact mascot at 75% of its original display size. */
 .footer-scene__robot {
   position: absolute;
   z-index: 2;
   right: 3.2%;
   bottom: 3%;
   display: block;
-  width: 6%;
-  max-width: 52.5px;
+  width: 18%;
+  max-width: 157.5px;
   height: auto;
   pointer-events: none;
 }
