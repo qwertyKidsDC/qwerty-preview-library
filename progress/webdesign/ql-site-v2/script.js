@@ -9,6 +9,9 @@
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
     const scale = Math.max(0.70, Math.min(1.85, (viewportWidth - 84) / 986));
     document.documentElement.style.setProperty('--ql-cardboard-zoom', String(scale));
+    /* The nav starts at viewport y=13px; the wordmark keeps its original y.
+       Compensation reverses the 19px removed from the stage's top padding. */
+    document.documentElement.style.setProperty('--nav-top-compensation', (19 / scale) + 'px');
   };
   updateScale();
   window.addEventListener('resize', updateScale, {passive: true});
