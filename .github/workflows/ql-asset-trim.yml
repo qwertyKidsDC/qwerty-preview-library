@@ -1,0 +1,30 @@
+name: Trim Qwerty Labs v2 paper transparency
+on:
+  push:
+    paths:
+      - ".github/workflows/ql-asset-trim.yml"
+      - "progress/webdesign/ql-site-v2/_tools/trim_transparent_assets.py"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  trim:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check pillow
+      - run: python progress/webdesign/ql-site-v2/_tools/trim_transparent_assets.py
+      - name: Store non-destructively trimmed artwork
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add progress/webdesign/ql-site-v2/img/*-vtrim.svg
+          git add progress/webdesign/ql-site-v2/img/*-vtrim.webp
+          git add progress/webdesign/ql-site-v2/img/trim-manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Trim transparent vertical margins from homepage artwork"
+            git push
+          fi
