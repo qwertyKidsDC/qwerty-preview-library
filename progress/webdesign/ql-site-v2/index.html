@@ -1,135 +1,163 @@
 <!doctype html>
 <html lang="en-AU">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#020020">
-  <meta name="description" content="Qwerty Labs, a working creative technology studio in Marrickville. Curious technology for creative people.">
-  <title>Qwerty Labs — Curious technology for creative people</title>
-  <!-- The same two approved typefaces, loaded before the homepage CSS. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap">
-  <link rel="stylesheet" href="style-home.css?v=typography-audit-20261105">
-  <link rel="stylesheet" href="footer-home.css?v=typography-audit-final-20261105">
-  <script src="script.js?v=labs-accent-random-20261104" defer></script>
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="site">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="Qwerty Labs, a working creative technology studio in Marrickville. Curious technology for creative people."
+    >
+    <title>Qwerty Labs — Curious technology for creative people</title>
+    <!-- The same two approved typefaces, loaded before the homepage CSS. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="style-home.css?v=typography-audit-20261105">
+    <link rel="stylesheet" href="footer-home.css?v=typography-audit-final-20261105">
+    <script src="script.js?v=labs-accent-random-20261104" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="#top" class="logo" aria-label="Qwerty Labs home"><img src="img/wordmark.svg?v=warm-ivory-20261102" alt="qwertylabs" width="440" height="101"></a>
+            <nav class="navigation" aria-label="Main navigation">
+              <a href="kids/">Kids</a>
+              <a href="adults/">Adults</a>
+              <a href="teens/">Teens</a>
+              <a href="the-lab/">The Lab</a>
+            </nav>
+          </header>
 
-<div aria-hidden="true" class="ambient"></div>
-<div aria-hidden="true" class="bg-scene"><div class="bg-scene__photo"></div><div class="bg-scene__tones"></div><div class="bg-scene__vignette"></div></div><div aria-hidden="true" class="bg-scene-bottom"><div class="bg-scene-bottom__photo"></div><div class="bg-scene-bottom__tones"></div></div>
+          <main id="main">
+            <!-- Hero -->
+            <section class="hero" aria-label="Welcome to the lab">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high">
+                  <h1>Curious technology<br>for creative people.</h1>
+                </div>
+              </div>
+              <img
+                class="mascots"
+                src="img/mascot-trio.svg"
+                alt="Three handmade electronic-component mascots, Q Key, Six Pin and D1, on a cardboard platform"
+                fetchpriority="high"
+              >
+            </section>
 
-<div class="cardboard-stage"><div class="cardboard-page" id="top">
- <header class="header">
-  <a href="#top" class="logo" aria-label="Qwerty Labs home"><img src="img/wordmark.svg?v=warm-ivory-20261102" alt="qwertylabs" width="440" height="101"></a>
-  <nav class="navigation" aria-label="Main navigation">
-   <a href="kids/">Kids</a><a href="adults/">Adults</a><a href="teens/">Teens</a><a href="the-lab/">The Lab</a>
-  </nav>
- </header>
- <main id="main">
-  <section class="hero" aria-label="Welcome to the lab">
-   <div class="hero-copy">
-    <div class="hero-paper"><img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high"><h1>Curious technology<br>for creative people.</h1></div>
-   </div>
-   <img class="mascots" src="img/mascot-trio.svg" alt="Three handmade electronic-component mascots, Q Key, Six Pin and D1, on a cardboard platform" fetchpriority="high">
-  </section>
-  <section class="feature-cards" aria-label="Explore Qwerty Labs">
-   <a class="feature feature-green" href="kids/">
-    <img class="paper-bg" src="img/kids-green-panel-untaped.svg?v=pixel-retouch-9" alt="">
-    <h2>Kids</h2>
-    <p>Start with an idea. See where it takes you.</p>
-    <span class="arrow" aria-hidden="true">→</span>
-   </a>
-   <a class="feature feature-pink" href="adults/">
-    <img class="paper-bg" src="img/adults-pink-panel-untaped.svg?v=pixel-retouch-9" alt="">
-    <h2>Adults</h2>
-    <p>Curiosity doesn’t have an age limit.</p>
-    <span class="arrow" aria-hidden="true">→</span>
-   </a>
-   <a class="feature feature-blue" href="teens/">
-    <img class="paper-bg" src="img/teens-blue-panel-untaped.svg?v=orange-20261104" alt="">
-    <h2>Teens</h2>
-    <p>Make something with a point of view.</p>
-    <span class="arrow" aria-hidden="true">→</span>
-   </a>
-  </section>
-  <section class="projects" id="projects" aria-labelledby="projects-title">
-   <img class="project-panel" src="img/project-backboard.svg" alt="">
-   <div class="project-copy">
-    <img class="project-label" src="img/current-project-label.svg?v=half-tilt" alt="">
-    <span class="project-label-text">Coolest Projects</span>
-    <h2 id="projects-title">Project Code Cloud</h2>
-    <p>Tiarna and Chloe built a cloud that makes invisible code visible. A VIP judge’s favourite at Coolest Projects 2026.</p>
-    <a class="scene-link" href="https://online.coolestprojects.org/projects/26934">See the project <span aria-hidden="true">→</span></a>
-   </div>
-   <figure class="photo-collage" id="project-detail">
-     <img class="project-photo" src="img/project-code-cloud.svg" alt="Project Code Cloud: a vivid pink illuminated cloud built using electronics and code">
-     <img class="project-frame" src="img/project-photo-frame.svg" alt="">
-     <figcaption class="sr-only">Project Code Cloud, created at Qwerty Labs and recognised at Coolest Projects 2026.</figcaption>
-   </figure>
-  </section>
-  <!-- Dark cardboard footer artwork from the isolated visual test; lettering remains editable HTML. -->
-  <section class="footer-scene footer-scene--dark" aria-label="About Qwerty Labs">
-   <div class="footer-scene__board">
-    <img class="footer-scene__art" src="img/footer-experiment-dark.webp" alt="" width="850" height="264">
-    <img class="footer-scene__tape" src="img/footer-blue-tape.svg" alt="" width="2021" height="507">
-    <span class="footer-scene__tape-text" aria-hidden="true">CTRL + ALT + CREATE</span>
-    <div class="footer-scene__content">
-     <p>We make things with technology. We teach people to do the same. We squeal when the stuff we make does things.</p>
-     <a class="scene-link" href="the-lab/">Meet the Lab <span aria-hidden="true">→</span></a>
+            <!-- Audience cards -->
+            <section class="feature-cards" aria-label="Explore Qwerty Labs">
+              <a class="feature feature-green" href="kids/"><img class="paper-bg" src="img/kids-green-panel-untaped.svg?v=pixel-retouch-9" alt=""><h2>Kids</h2><p>Start with an idea. See where it takes you.</p><span class="arrow" aria-hidden="true">→</span></a>
+              <a class="feature feature-pink" href="adults/"><img class="paper-bg" src="img/adults-pink-panel-untaped.svg?v=pixel-retouch-9" alt=""><h2>Adults</h2><p>Curiosity doesn’t have an age limit.</p><span class="arrow" aria-hidden="true">→</span></a>
+              <a class="feature feature-blue" href="teens/"><img class="paper-bg" src="img/teens-blue-panel-untaped.svg?v=orange-20261104" alt=""><h2>Teens</h2><p>Make something with a point of view.</p><span class="arrow" aria-hidden="true">→</span></a>
+            </section>
+
+            <!-- Featured student project -->
+            <section class="projects" id="projects" aria-labelledby="projects-title">
+              <img class="project-panel" src="img/project-backboard.svg" alt="">
+              <div class="project-copy">
+                <img class="project-label" src="img/current-project-label.svg?v=half-tilt" alt="">
+                <span class="project-label-text">Coolest Projects</span>
+                <h2 id="projects-title">Project Code Cloud</h2>
+                <p>Tiarna and Chloe built a cloud that makes invisible code visible. A VIP judge’s favourite at Coolest Projects 2026.</p>
+                <a class="scene-link" href="https://online.coolestprojects.org/projects/26934">See the project <span aria-hidden="true">→</span></a>
+              </div>
+              <figure class="photo-collage" id="project-detail">
+                <img
+                  class="project-photo"
+                  src="img/project-code-cloud.svg"
+                  alt="Project Code Cloud: a vivid pink illuminated cloud built using electronics and code"
+                >
+                <img class="project-frame" src="img/project-photo-frame.svg" alt="">
+                <figcaption class="sr-only">Project Code Cloud, created at Qwerty Labs and recognised at Coolest Projects 2026.</figcaption>
+              </figure>
+            </section>
+            <!-- Closing artwork has been approved for this page; its lettering is editable HTML. -->
+
+            <!-- Closing scene; artwork stays decorative and lettering stays HTML. -->
+            <section class="footer-scene footer-scene--dark" aria-label="About Qwerty Labs">
+              <div class="footer-scene__board">
+                <img class="footer-scene__art" src="img/footer-experiment-dark.webp" alt="" width="850" height="264">
+                <img class="footer-scene__tape" src="img/footer-blue-tape.svg" alt="" width="2021" height="507">
+                <span class="footer-scene__tape-text" aria-hidden="true">CTRL + ALT + CREATE</span>
+                <div class="footer-scene__content">
+                  <p>We make things with technology. We teach people to do the same. We squeal when the stuff we make does things.</p>
+                  <a class="scene-link" href="the-lab/">Meet the Lab <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </section>
+
+            <!-- Information and contact cards -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, find and contact Qwerty Labs">
+              <div class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-explore-blue.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="kids/">Children</a>
+                  <a href="teens/">Teens</a>
+                  <a href="adults/">Adults</a>
+                  <a href="#projects">Projects</a>
+                  <a href="the-lab/">The Lab</a>
+                </nav>
+              </div>
+              <div class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-find-blue.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find the lab</h2>
+                <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+              </div>
+              <div class="small-card footer-nav-card" aria-labelledby="footer-hello-title">
+                <img class="paper-bg" src="img/footer-hello-blue.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-hello-title">Say hello</h2>
+                <div class="footer-card-links">
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/">Bookings</a>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                </div>
+              </div>
+            </section>
+          </main>
+
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+            </section>
+            <div class="footer-legal">
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="https://qwertykids.com/child-safe-policy/">Child Safety</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://qwertykids.com/privacy-policy/">Privacy</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://qwertykids.com/terms-and-conditions/">Booking Terms</a>
+              </nav>
+              <span class="footer-copyright">© Qwerty Labs 2026</span>
+            </div>
+          </footer>
+        </div>
+      </div>
     </div>
-   </div>
-  </section>
-  <section class="small-cards footer-nav-cards" aria-label="Explore, find and contact Qwerty Labs">
-   <div class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
-    <img class="paper-bg" src="img/footer-explore-blue.svg?v=tape-blue-20261105" alt="">
-    <h2 id="footer-explore-title">Explore</h2>
-    <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
-     <a href="kids/">Children</a>
-     <a href="teens/">Teens</a>
-     <a href="adults/">Adults</a>
-     <a href="#projects">Projects</a>
-     <a href="the-lab/">The Lab</a>
-    </nav>
-   </div>
-   <div class="small-card footer-nav-card" aria-labelledby="footer-find-title">
-    <img class="paper-bg" src="img/footer-find-blue.svg?v=tape-blue-20261105" alt="">
-    <h2 id="footer-find-title">Find the lab</h2>
-    <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
-   </div>
-   <div class="small-card footer-nav-card" aria-labelledby="footer-hello-title">
-    <img class="paper-bg" src="img/footer-hello-blue.svg?v=tape-blue-20261105" alt="">
-    <h2 id="footer-hello-title">Say hello</h2>
-    <div class="footer-card-links">
-     <a href="tel:+61405950850">0405 950 850</a>
-     <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
-     <span class="footer-email">create@qwertylabs.com.au</span>
-     <a href="https://qwertykids.com/">Bookings</a>
-     <a href="https://qwertykids.com/contact-us/">Contact</a>
-    </div>
-   </div>
-  </section>
- </main>
- <footer id="bottom" class="lab-footer">
-  <section class="country-ack" aria-labelledby="country-ack-heading">
-   <h2 id="country-ack-heading">Acknowledgement of Country</h2>
-   <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-  </section>
-  <div class="footer-legal">
-   <nav class="footer-legal-links" aria-label="Policies">
-    <a href="https://qwertykids.com/child-safe-policy/">Child Safety</a>
-    <span aria-hidden="true">·</span>
-    <a href="https://qwertykids.com/privacy-policy/">Privacy</a>
-    <span aria-hidden="true">·</span>
-    <a href="https://qwertykids.com/terms-and-conditions/">Booking Terms</a>
-   </nav>
-   <span class="footer-copyright">© Qwerty Labs 2026</span>
-  </div>
- </footer>
-</div></div>
-</div>
-</body>
+  </body>
 </html>
