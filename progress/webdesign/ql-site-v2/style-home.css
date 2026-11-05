@@ -826,7 +826,7 @@ a {
   position: absolute;
   z-index: 2;
   right: 3.2%;
-  bottom: 3%;
+  bottom: 7%;
   display: block;
   width: 24%;
   max-width: 210px;
@@ -872,12 +872,12 @@ a {
 }
 
 
-/* The image files include unpainted transparent margins. Pull the blue row
-   closer to the black blurb while keeping the painted surfaces separate. */
+/* The taller board gives the blurb and mascot their own breathing room.
+   The next row begins below the artwork, not across its lower edge. */
 .footer-scene + .small-cards {
   position: relative;
   z-index: 8;
-  margin-top: -68px;
+  margin-top: -12px;
 }
 
 @media (max-width: 760px) {
