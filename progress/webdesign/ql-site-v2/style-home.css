@@ -810,7 +810,7 @@ a {
   align-self: start;
   /* The same 10px between tape and copy used by Coolest Projects. */
   margin-top: 109px;
-  width: 66.6667%;
+  width: 57%; /* Reserve the right third for the cardboard rocket crew. */
   /* x = 39px scene margin + 4.2% of 896px = ~77px,
      matching the left-hand text in the hero, cards and project. */
   margin-left: 4.2%;
@@ -820,6 +820,20 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+
+/* Decorative cardboard rocket crew; separate asset, not baked into the board. */
+.footer-scene__rocket {
+  position: absolute;
+  z-index: 2;
+  right: 1.5%;
+  bottom: 5%;
+  display: block;
+  width: 32%;
+  max-width: 300px;
+  height: auto;
+  pointer-events: none;
 }
 
 .footer-scene__content p {
@@ -891,6 +905,9 @@ a {
     object-fit: cover;
     object-position: center;
   }
+
+  /* Keep mobile copy and links fully legible on the narrower board. */
+  .footer-scene__rocket { display: none; }
 
   .footer-scene__content {
     width: 79%;
