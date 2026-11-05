@@ -312,11 +312,6 @@ a {
   transition: none;
 }
 
-.navigation a:hover {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
-
 .navigation a:hover,
 .navigation a:focus-visible {
   transform: none;
