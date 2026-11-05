@@ -37,13 +37,21 @@
  window.addEventListener('load',update);update();
 })();
 
-/* On each page load, pick a Qwerty Labs accent for the 'labs' half of the wordmark.
-   The original blue SVG remains the fallback if JavaScript is unavailable. */
+/* Pick one Qwerty Labs accent for both wordmarks.
+   The original SVG remains the no-JavaScript fallback. */
 (() => {
-  const wordmark = document.querySelector('.header .logo img');
-  if (!wordmark) return;
+  const wordmarks = document.querySelectorAll('.header .logo img, .footer-wordmark img');
+  if (!wordmarks.length) return;
 
   const accents = ['pink', 'orange', 'green'];
   const chosen = accents[Math.floor(Math.random() * accents.length)];
-  wordmark.src = `img/wordmark-labs-${chosen}.svg`;
+  wordmarks.forEach(wordmark => {
+    wordmark.src = `img/wordmark-labs-${chosen}.svg`;
+  });
+})();
+
+/* Update the copyright year automatically, retaining the 2026 HTML fallback. */
+(() => {
+  const year = document.getElementById('copyright-year');
+  if (year) year.textContent = String(new Date().getFullYear());
 })();
