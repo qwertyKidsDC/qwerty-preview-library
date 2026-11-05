@@ -1029,9 +1029,9 @@ a {
    The footer wordmark reuses the approved header artwork at a smaller size. */
 .lab-footer .footer-legal {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) auto;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin: 10px 0 0;
   padding: 10px 34px 24px;
   font-size: var(--text-legal);
@@ -1042,7 +1042,7 @@ a {
 
 .lab-footer .footer-wordmark {
   display: block;
-  width: 96px;
+  width: 88px;
 }
 
 .lab-footer .footer-wordmark img {
@@ -1053,6 +1053,7 @@ a {
 
 .lab-footer .footer-founder-credit {
   white-space: nowrap;
+  letter-spacing: -.012em;
 }
 
 .lab-footer .footer-legal-meta,
@@ -1065,11 +1066,11 @@ a {
 
 .lab-footer .footer-legal-meta {
   justify-content: flex-end;
-  gap: 9px;
+  gap: 7px;
 }
 
 .lab-footer .footer-legal-links {
-  gap: 9px;
+  gap: 7px;
 }
 
 .lab-footer .footer-copyright {
