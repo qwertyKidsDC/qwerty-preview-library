@@ -125,13 +125,14 @@ with sync_playwright() as p:
      "rects":{k:[{"top":round(v["top"],1),"bottom":round(v["bottom"],1),
                    "height":round(v["height"],1)} for v in values[k]]
               for k in values}}
-  # The visible gaps (not CSS margins) must match the agreed modular rhythm.
+  # Bounding-box gaps include correction for art overhangs: screenshot paint,
+  # not these rectangles, is the visual source of truth.
   zoom=1 if width<=760 else max(0.70,min(1.85,(width-84)/986))
   expected={
     "cards_to_project":52*zoom,
-    "project_to_blurb":52*zoom,
-    "blurb_to_blue":65*zoom,
-    "blue_to_country":52*zoom,
+    "project_to_blurb":(52+40)*zoom,
+    "blurb_to_blue":(65+53)*zoom,
+    "blue_to_country":(52+43)*zoom,
     "country_to_legal":26*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}

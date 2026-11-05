@@ -740,7 +740,9 @@ a {
   z-index: 7;
   /* Project photo ends ~22px before its section box. Keep the full visible gap. */
   /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
-  margin: calc(var(--space-section) - 3.35px) 56.4px 0 39px;
+  /* Visual calibration: the blue tape now starts the same visible distance
+     below the project artwork as Projects starts below the coloured cards. */
+  margin: calc(var(--space-section) + 36.65px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -872,7 +874,9 @@ a {
   position: relative;
   z-index: 8;
   /* Board is vertically cropped; only 32px of layout-box adjustment remains. */
-  margin-top: calc(var(--space-home-to-footer) - 28.35px);
+  /* The 65px footer threshold is intentionally larger than the 52px section
+     rhythm. Painted edges, not bounding boxes, determine the apparent gap. */
+  margin-top: calc(var(--space-home-to-footer) + 24.65px);
 }
 
 @media (max-width: 760px) {
@@ -1004,7 +1008,8 @@ a {
   position: relative;
   z-index: 7;
   display: block;
-  margin: calc(var(--space-footer-section) - 1.32px) 56.4px 0 39px;
+  /* Match the visible Cards -> Projects and Projects -> Blurb rhythm. */
+  margin: calc(var(--space-footer-section) + 41.68px) 56.4px 0 39px;
   padding: 0;
   border: 0;
   background: none;
