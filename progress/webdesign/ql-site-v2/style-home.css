@@ -821,16 +821,16 @@ a {
   align-items: flex-start;
 }
 
-/* Compact mascot at 75% of its original display size. */
+/* Footer mascot: 80% of previous size and shifted inward; feet stay on the painted board. */
 .footer-scene__robot {
   position: absolute;
   z-index: 2;
-  right: 3.2%;
+  right: 8%;
   /* The board image has ~20% transparent space below its painted edge. */
   bottom: 21%;
   display: block;
-  width: 18%;
-  max-width: 157.5px;
+  width: 14.4%;
+  max-width: 126px;
   height: auto;
   pointer-events: none;
 }
