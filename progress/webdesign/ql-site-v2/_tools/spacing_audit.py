@@ -122,6 +122,24 @@ with sync_playwright() as p:
      "rects":{k:[{"top":round(v["top"],1),"bottom":round(v["bottom"],1),
                    "height":round(v["height"],1)} for v in values[k]]
               for k in values}}
+  # The visible gaps (not CSS margins) must match the agreed modular rhythm.
+  zoom=1 if width<=760 else max(0.70,min(1.85,(width-84)/986))
+  expected={
+    "cards_to_project":52*zoom,
+    "project_to_blurb":52*zoom,
+    "blurb_to_blue":65*zoom,
+    "blue_to_country":52*zoom,
+    "country_to_legal":26*zoom
+  }
+  deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
+  dimensions[str(width)]["expected"]=expected
+  dimensions[str(width)]["deviations"]=deviations
+  broken=page.evaluate("() => [...document.images].filter(im => !im.complete || im.naturalWidth===0).map(im=>im.src)")
+  dimensions[str(width)]["brokenImages"]=broken
+  # Screenshot geometry/alpha are subject to a fraction of a pixel rounding.
+  assert not broken, f"Broken images at {width}: {broken}"
+  assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"
+  if width>760: assert abs(values["nav"][0]["top"]-13)<0.5
   page.close()
  browser.close()
 server.shutdown()

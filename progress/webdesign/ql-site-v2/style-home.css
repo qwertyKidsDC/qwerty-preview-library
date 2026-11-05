@@ -456,7 +456,7 @@ a {
   z-index: 6;
   min-height: 405px;
   /* The rotated photo protrudes above the Projects box; calibrate to visible paint. */
-  margin: calc(var(--space-section) + 50px) 35px 0;
+  margin: calc(var(--space-section) + 50.25px) 35px 0;
 }
 
 .project-panel {
@@ -740,7 +740,7 @@ a {
   z-index: 7;
   /* Project photo ends ~22px before its section box. Keep the full visible gap. */
   /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
-  margin: calc(var(--space-section) - 28px) 56.4px 0 39px;
+  margin: calc(var(--space-section) - 30.2px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -872,7 +872,7 @@ a {
   position: relative;
   z-index: 8;
   /* Board is vertically cropped; only 32px of layout-box adjustment remains. */
-  margin-top: calc(var(--space-home-to-footer) - 32px);
+  margin-top: calc(var(--space-home-to-footer) - 28.35px);
 }
 
 @media (max-width: 760px) {
@@ -924,7 +924,7 @@ a {
   }
 }
 
-/* Honour reduced-motion preferences for the same lift used on the cards. */
+/* Retain reduced-motion support for link treatments. */
 @media (prefers-reduced-motion: reduce) {
   .scene-link { transition: none; }
   .scene-link:hover,
@@ -939,7 +939,7 @@ a {
   padding: 50px 32px 20px 34px;
 }
 
-/* Only the individual links hop; these informational panels stay in place. */
+/* Informational panels are static; only their text anchors are interactive. */
 .footer-nav-cards .footer-nav-card:hover,
 .footer-nav-cards .footer-nav-card:focus-within {
   transform: none;
@@ -1004,7 +1004,7 @@ a {
   position: relative;
   z-index: 7;
   display: block;
-  margin: var(--space-footer-section) 56.4px 0 39px;
+  margin: calc(var(--space-footer-section) - 1.32px) 56.4px 0 39px;
   padding: 0;
   border: 0;
   background: none;
@@ -1158,7 +1158,7 @@ a {
   content: "";
   position: absolute;
   pointer-events: none;
-  left: 0; right: 0; bottom: 0;
+  left: 0; right: 0; bottom: 1px;
   height: 2px;
   background: repeating-linear-gradient(
     90deg, var(--link-dash) 0 12px, transparent 12px 17px
