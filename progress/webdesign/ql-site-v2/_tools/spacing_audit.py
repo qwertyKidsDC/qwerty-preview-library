@@ -110,6 +110,19 @@ with sync_playwright() as p:
   blue=edges("footerCards")
   country=edges("country") # painted background may have alpha, print separately
   legal=edges("legal")
+  # Horizontal paint bounds: footer paper images vs the stretched country
+  # backboard. They should share the same external alignment guides.
+  def horizontal(key, asset=None):
+   xs=[]
+   for v in values[key]:
+    fname=asset or v["src"].split("?")[0].split("/")[-1]
+    ins=alpha.get(fname,{}).get("insets",[0,0,0,0])
+    xs.append([v["left"]+v["width"]*ins[0],v["right"]-v["width"]*ins[2]])
+   return [min(q[0] for q in xs),max(q[1] for q in xs)]
+  blue_x=horizontal("footerCards")
+  country_x=horizontal("country","project-backboard.svg")
+  horizontal_diff={"left":round(country_x[0]-blue_x[0],2),
+                   "right":round(country_x[1]-blue_x[1],2)}
   gaps={
     "cards_to_project":round(project[0]-card[1],1),
     "project_to_blurb":round(blurb[0]-project[1],1),
@@ -118,6 +131,7 @@ with sync_playwright() as p:
     "country_to_legal":round(legal[0]-country[1],1)
   }
   dimensions[str(width)]={"gaps":gaps,
+     "horizontal":{"footerCards":blue_x,"country":country_x,"difference":horizontal_diff},
      "navTop":round(values["nav"][0]["top"],1),
      "wordmarkTop":round(values["wordmark"][0]["top"],1),
      "painted":{"cards":card,"project":project,"blurb":blurb,"board":board,"tape":tape,"footerCards":blue,
@@ -158,6 +172,8 @@ with sync_playwright() as p:
   # Screenshot geometry/alpha are subject to a fraction of a pixel rounding.
   assert not broken, f"Broken images at {width}: {broken}"
   assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"
+  if width>760:
+    assert all(abs(d)<=25 for d in horizontal_diff.values()), f"Country width mismatch {width}: {horizontal_diff}"
   if width>760: assert abs(values["nav"][0]["top"]-13)<0.5
   assert page.locator(".feature-cards a").count()==0, "Cards must not be links"
   assert page.locator(".feature-cards .feature").count()==3
