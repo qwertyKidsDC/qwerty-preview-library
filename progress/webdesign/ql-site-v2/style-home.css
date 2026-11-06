@@ -1235,3 +1235,29 @@ a {
 .footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
 .footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
+
+/* 14. Random-colour studio cursor.
+   The script supplies paired SVG arrow/hand assets. This only affects
+   precise desktop pointers; touch devices keep their usual behaviour. */
+@media (hover: hover) and (pointer: fine) {
+  html.ql-brand-cursor,
+  html.ql-brand-cursor body,
+  html.ql-brand-cursor body * {
+    cursor: var(--ql-arrow-cursor, auto) !important;
+  }
+
+  html.ql-brand-cursor a,
+  html.ql-brand-cursor a *,
+  html.ql-brand-cursor button,
+  html.ql-brand-cursor button *,
+  html.ql-brand-cursor [role="button"],
+  html.ql-brand-cursor [role="button"] * {
+    cursor: var(--ql-hand-cursor, pointer) !important;
+  }
+
+  html.ql-brand-cursor input,
+  html.ql-brand-cursor textarea,
+  html.ql-brand-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
