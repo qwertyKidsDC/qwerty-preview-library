@@ -1090,8 +1090,8 @@ a {
   line-height: 1.55;
 }
 
-/* Policies anchor left, while copyright, wordmark and founder credit
-   anchor right. Both use the footer's existing 39px/56.4px rails. */
+/* Copyright, wordmark and founder credit anchor left. Policy links
+   anchor right, extended to the visible blue-card edge. */
 .lab-footer .footer-legal {
   display: flex;
   align-items: center;
