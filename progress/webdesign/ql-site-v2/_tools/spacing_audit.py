@@ -137,11 +137,12 @@ with sync_playwright() as p:
   country_x=horizontal("country","project-backboard.svg")
   horizontal_diff={"left":round(country_x[0]-blue_x[0],2),
                    "right":round(country_x[1]-blue_x[1],2)}
+  # Follow the actual page order: audience → Coolest → Meet → info cards.
   gaps={
-    "cards_to_project":round(project[0]-card[1],1),
-    "project_to_blurb":round(blurb[0]-project[1],1),
-    "blurb_to_blue":round(blue[0]-blurb[1],1),
-    "blue_to_country":round(country[0]-blue[1],1),
+    "audience_to_coolest":round(blurb[0]-card[1],1),
+    "coolest_to_meet":round(project[0]-blurb[1],1),
+    "meet_to_info_cards":round(blue[0]-project[1],1),
+    "info_cards_to_country":round(country[0]-blue[1],1),
     "country_to_legal":round(legal[0]-country[1],1)
   }
   dimensions[str(width)]={"gaps":gaps, "copy_to_country":copy_to_country,
@@ -172,7 +173,7 @@ with sync_playwright() as p:
   assert not local_broken, f"Broken local images at {width}: {local_broken}"
   # Check Country overlaps the decorative paper without covering live links.
   assert abs(copy_to_country-24) <= 1, f"Country must begin 24px below lowest text at {width}: {copy_to_country}px"
-  assert gaps["blue_to_country"] < 0, "Country paper must overlap blue cards"
+  assert gaps["info_cards_to_country"] < 0, "Country paper must overlap blue cards"
   overlap_state=page.evaluate("""() => {
     const country=document.querySelector(".country-ack").getBoundingClientRect();
     const links=[...document.querySelectorAll(".footer-nav-cards .footer-card-links a")];
