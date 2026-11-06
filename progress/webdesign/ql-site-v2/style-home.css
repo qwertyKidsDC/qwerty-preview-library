@@ -800,19 +800,21 @@ a {
   pointer-events: none;
 }
 
-.footer-scene__art {
-  grid-area: sign;
-  position: relative;
+/* Nine-slice the original artwork: corners and cardboard trim retain their
+   shape while the centre expands to fit the copy. */
+.footer-scene__board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   z-index: 0;
-  display: block;
-  width: 100%;
-  height: auto;
-  /* Compensate for transparent left/right margins inside the source artwork. */
-  transform: scaleX(1.08);
-  transform-origin: center;
-  /* Gently lift the source's darker navy to match the Projects blackboard. */
-  filter: brightness(1.15);
   pointer-events: none;
+  border: solid transparent;
+  border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
+  border-image-source: url("img/footer-experiment-dark-vtrim.webp");
+  border-image-slice: 92 140 92 140 fill;
+  border-image-width: 1;
+  border-image-repeat: stretch round;
+  filter: brightness(1.15);
 }
 
 .footer-scene__content {
@@ -823,6 +825,7 @@ a {
   align-self: start;
   /* Keep the blue label in place; copy and link return to the left. */
   margin-top: 109px;
+  margin-bottom: 43px;
   width: 75%;
   margin-left: 4.2%;
   margin-right: 0;
@@ -852,6 +855,19 @@ a {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: normal;
+}
+
+/* Make the inline project link visible and keyboard-friendly. */
+.footer-scene__content p a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.footer-scene__content p a:hover,
+.footer-scene__content p a:focus-visible { color: var(--color-orange); }
+.footer-scene__content p a:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
 }
 
 /* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
@@ -912,12 +928,6 @@ a {
     font-size: 24px;
   }
 
-  .footer-scene__art {
-    height: 360px;
-    object-fit: cover;
-    object-position: center;
-  }
-
   /* Keep mobile copy and links fully legible on the narrower board. */
   .footer-scene__mascot { display: none; }
 
@@ -925,6 +935,7 @@ a {
     width: 79%;
     margin-left: 10%;
     margin-top: 100px;
+    margin-bottom: 32px;
     transform: none;
   }
 
@@ -1266,7 +1277,6 @@ a {
 .footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
 .project-label { top: 5.621px; height: 64.053px; }
-.footer-scene__picture { display: contents; }
 
 @media (min-width: 761px) {
   /* The dark board's removed top 134px equals 54.93px at design width. */
@@ -1275,7 +1285,7 @@ a {
   .footer-scene__content { margin-top: 54.08px; }
 }
 @media (max-width: 760px) {
-  /* Retain the original WebP source and its established mobile composition. */
+  /* Keep the tape in place above the content-led mobile board. */
   .footer-scene__tape { top: 24px; }
   .footer-scene__tape-text { top: 42px; }
   .footer-scene__content { margin-top: 100px; }
