@@ -146,7 +146,7 @@ with sync_playwright() as p:
     "cards_to_project":26*zoom,
     "project_to_blurb":(46 if width>760 else 26)*zoom,
     "blurb_to_blue":(65+(53 if width>760 else 0))*zoom,
-    "blue_to_country":(-36/1.85 if width>760 else -36)*zoom,
+    "blue_to_country":(-84/1.85 if width>760 else -84)*zoom,
     "country_to_legal":38.918919*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
