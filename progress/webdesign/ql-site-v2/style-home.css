@@ -1033,8 +1033,8 @@ a {
    footer cards, not the narrower lab-footer layout box. Its copy stays put. */
 @media (min-width: 761px) {
   .lab-footer .country-ack {
-    margin-inline: -14px;
-    padding-inline: 48px;
+    margin-inline: -6px;
+    padding-inline: 40px;
   }
 }
 

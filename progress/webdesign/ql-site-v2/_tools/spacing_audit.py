@@ -173,7 +173,7 @@ with sync_playwright() as p:
   assert not broken, f"Broken images at {width}: {broken}"
   assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"
   if width>760:
-    assert all(abs(d)<=25 for d in horizontal_diff.values()), f"Country width mismatch {width}: {horizontal_diff}"
+    assert all(abs(d)<=2 for d in horizontal_diff.values()), f"Country width mismatch {width}: {horizontal_diff}"
   if width>760: assert abs(values["nav"][0]["top"]-13)<0.5
   assert page.locator(".feature-cards a").count()==0, "Cards must not be links"
   assert page.locator(".feature-cards .feature").count()==3
@@ -185,6 +185,10 @@ with sync_playwright() as p:
   }""")
   assert states["navDecoration"]=="none" and states["legalDecoration"]=="none", states
   assert states["bodyDecoration"]=="underline", states
+  blue_hover=page.evaluate("""() =>
+    getComputedStyle(document.querySelector(".footer-nav-cards .footer-card-links a"),"::after").backgroundImage
+  """)
+  assert "F7F4EB" in blue_hover, "Footer card link hover must use ivory stroke"
   page.close()
  browser.close()
 server.shutdown()
