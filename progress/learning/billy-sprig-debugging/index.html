@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#020020">
+  <title>Billy's Sprig · Debugging a Real Game | Qwerty Labs</title>
+  <style>
+    :root{--ink:#020020;--paper:#F1F8F8;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--light:#F7F4EB;--line:#c5cccf}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:#1f3ab9;text-underline-offset:3px}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+    .shell{max-width:1050px;padding:26px clamp(18px,4vw,44px) 70px;margin:auto}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+    .brand{font-weight:950;font-size:1.06rem;letter-spacing:-.025em}
+    .toplink{font-size:.88rem;font-weight:750}
+    .pill{display:inline-block;background:var(--green);border:2px solid var(--ink);padding:5px 11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;font-size:.75rem;box-shadow:3px 3px 0 var(--ink)}
+    h1,h2,h3{line-height:1.12;letter-spacing:-.04em}h1{font-size:clamp(2.7rem,6vw,4.8rem);margin:14px 0 12px}h2{font-size:clamp(2rem,4vw,3.3rem);margin:8px 0 16px}h3{font-size:1.22rem;margin:0 0 8px}
+    .lede{font-size:clamp(1.05rem,2vw,1.25rem);max-width:720px;margin:0 0 22px}
+    .hero{padding-bottom:18px}.resources{background:#fff;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--blue);padding:20px 22px;margin:18px 0 30px}
+    .resources h2{font-size:1.28rem;letter-spacing:-.025em;margin:0 0 5px}.resources>p{margin:0 0 16px;font-size:.93rem}
+    .files{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .file{border:2px solid var(--ink);padding:14px;background:var(--paper);display:flex;flex-direction:column;gap:5px;min-width:0}
+    .file:nth-child(2){background:#ecf3ff}.file:nth-child(3){background:#f5f9e9}
+    .file strong{font-size:.96rem}.file small{font-size:.78rem;line-height:1.42;color:#303049}.file a{font-size:.84rem;font-weight:800;overflow-wrap:anywhere;margin-top:auto}
+    .slide{display:none;background:#fff;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:clamp(22px,4vw,44px);min-height:520px}.slide.active{display:block}
+    .eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);display:inline-block;padding:5px 9px;border:2px solid var(--ink);background:var(--accent,var(--green))}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+    .panel{padding:18px;border:2px solid var(--ink);background:var(--paper)}.panel.test{background:#edf8e4}.panel.warn{background:#fff1e1}.panel.blue{background:#edf1ff}
+    p{margin:11px 0}ul,ol{padding-left:1.4em}li{margin:6px 0}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{font-size:.9em;background:#f0f2f4;padding:1px 4px;border:1px solid #e0e4e8;border-radius:3px}
+    pre{background:var(--ink);color:var(--light);font-size:clamp(.76rem,1.5vw,.9rem);line-height:1.6;overflow:auto;padding:16px 18px;margin:12px 0 4px;border-radius:3px}pre code{border:0;background:transparent;color:inherit;padding:0;font-size:inherit}
+    .mission{border-left:7px solid var(--accent,var(--blue));padding:12px 18px;background:#f5f7f7;margin:18px 0}.mission strong{display:block;font-size:1.15rem}
+    .criteria{background:#ecf6e7;padding:15px 18px;border:2px solid #607c45;margin:20px 0}.criteria strong{display:block}
+    details{border:1px solid var(--line);padding:13px 16px;margin-top:20px;background:#fafafa}summary{cursor:pointer;font-weight:850}details p,details li{font-size:.93rem}
+    .checks label{display:flex;align-items:flex-start;gap:10px;margin:12px 0;cursor:pointer}.checks input{width:19px;height:19px;accent-color:var(--blue);margin-top:3px;flex-shrink:0}
+    .caption{font-size:.84rem;color:#4b4b5e}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px;flex-wrap:wrap}.nav button{border:2px solid var(--ink);font-weight:900;padding:12px 16px;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}.nav button:last-child{background:var(--green)}button:disabled{opacity:.35;cursor:default;box-shadow:none}.progress{font-size:.88rem;font-weight:850;letter-spacing:.02em}
+    .footer{margin-top:36px;font-size:.85rem;color:#353545}.footer a{font-weight:750}.tiny{font-size:.85rem}.list-key{display:inline-block;border:1px solid var(--ink);padding:1px 5px;background:#fff;font-size:.8rem;font-weight:750}
+    @media(max-width:720px){.files,.grid{grid-template-columns:1fr}.slide{min-height:0}.resources{padding:16px}.nav{gap:8px}.progress{order:3;width:100%;text-align:center}}
+    @media print{body{background:white}.shell{max-width:none;padding:0}.resources,.slide{box-shadow:none;break-inside:avoid}.slide{display:block!important;min-height:0;margin:16px 0;break-after:page}.nav{display:none}details>*{display:block}details{break-inside:avoid}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <span class="brand">Qwerty Labs / QK · Lessons</span>
+      <a class="toplink" href="../billy-sprig-developer-tour/">← Earlier developer tour</a>
+    </header>
+    <div class="hero">
+      <span class="pill">Billy · Sprig · JavaScript</span>
+      <h1>Debug a real game.</h1>
+      <p class="lede">You've already built a six-level platformer with moving bullets, spikes, switches and a secret ending. Now make every system behave exactly as you intended. No starting over. No mystery fixes.</p>
+      <p class="tiny"><strong>How this works:</strong> Open your original code in <a href="https://sprig.hackclub.com/editor" target="_blank" rel="noopener noreferrer">the Sprig editor</a>. Work through one mission, run the game, and prove the change works before continuing. Use the other two files as references <em>after</em> trying each bug yourself.</p>
+    </div>
+
+    <section class="resources" aria-labelledby="files-title">
+      <h2 id="files-title">Three versions. One game.</h2>
+      <p>Each file is a complete Sprig JavaScript game. Open to inspect, or download and paste into Sprig.</p>
+      <div class="files">
+        <div class="file"><strong>01 · Billy's original</strong><small>31 October 2026. Preserved exactly as submitted.</small><a href="20261031-original.js" download>Download original .js</a><a href="20261031-original.js" target="_blank">View code</a></div>
+        <div class="file"><strong>02 · Debugged copy</strong><small>Targeted fixes. Billy's artwork, maps, controls and structure remain recognisable.</small><a href="billy-debugged.js" download>Download debugged .js</a><a href="billy-debugged.js" target="_blank">View fixes</a></div>
+        <div class="file"><strong>03 · Refactored reference</strong><small>Same game rebuilt around clear systems, naming and descriptive comments. Study, don't simply replace.</small><a href="billy-refactored.js" download>Download refactor .js</a><a href="billy-refactored.js" target="_blank">View refactor</a></div>
+      </div>
+    </section>
+
+    <section class="slide active" data-accent="#92D644" aria-labelledby="s0-title">
+      <span class="eyebrow">00 · Start here</span><h2 id="s0-title">You are the developer.</h2>
+      <p>Something can run without being right. Your job is to find out what the game <em>actually does</em>, decide what it <em>should do</em>, and make the smallest change that closes that gap.</p>
+      <div class="grid">
+        <div class="panel"><h3>Make a prediction</h3><p>Before pressing Run, tell your tutor what you think will happen.</p></div>
+        <div class="panel test"><h3>Get evidence</h3><p>Play the game. Repeat the test. Only then edit the code.</p></div>
+      </div>
+      <div class="mission"><strong>The working rule</strong>Change one thing. Run it. Test both the new behaviour and something that used to work.</div>
+      <details><summary>Tutor note · Your role</summary><p>Let Billy demonstrate the failure first. Ask him which part is his own, which part came from an example, and how he expects it to behave. The debugged file is a reference, not an answer sheet to copy wholesale.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#FF9029" aria-labelledby="s1-title">
+      <span class="eyebrow">01 · Reproduce</span><h2 id="s1-title">Does Game Over really stop the game?</h2>
+      <p>Find <code>lBozo()</code>, <code>movePlayers()</code> and the interval that runs every <code>900</code> ms in your original code.</p>
+      <div class="grid">
+        <div class="panel warn"><h3>Predict</h3><p>After you touch a spike or bullet, does gravity stop? Is the Game Over message added again?</p></div>
+        <div class="panel test"><h3>Test</h3><p>Lose deliberately. Watch for a few seconds. Try playing again without re-running the editor.</p></div>
+      </div>
+      <div class="mission"><strong>Mission</strong>Find the smallest condition that prevents a stopped game from moving its player. Make Game Over happen only once.</div>
+      <div class="criteria"><strong>Success looks like</strong>After a loss, the player stays still, the Game Over text remains, and no duplicate ending is created.</div>
+      <details><summary>Tutor note · Evidence to listen for</summary><p><code>gameRunning = false</code> is only a variable until the interval checks it. A repeating timer is still running. Discuss a guard at the top of the gravity callback and a single terminal-state function.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#F66DC1" aria-labelledby="s2-title">
+      <span class="eyebrow">02 · State</span><h2 id="s2-title">When are the locks really on?</h2>
+      <p>Find <code>isOn</code>, <code>setSolids()</code> and <code>setupLevel()</code>.</p>
+      <ol><li>Press <span class="list-key">S</span> to make locks clear.</li><li>Complete a level.</li><li>Try the locks in the next level.</li><li>Explain whether <code>isOn</code> agrees with the actual solid sprites.</li></ol>
+      <div class="mission"><strong>Mission</strong>Decide what the initial lock state of each level should be. Update <em>both</em> the state variable and the solid types together whenever a level starts.</div>
+      <div class="criteria"><strong>Success looks like</strong>Each new level starts with predictable locks; one press of S has exactly one effect.</div>
+      <details><summary>Tutor note · Stretch</summary><p>Ask: “What's the difference between drawing a new map and resetting the rules that govern it?” The point is state coherence, not the particular line of code.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#4C69E3" aria-labelledby="s3-title">
+      <span class="eyebrow">03 · Bullet behaviour</span><h2 id="s3-title">How does a bullet remember its direction?</h2>
+      <p>In <code>20261031.js</code>, the bullet movement code uses <code>sprite.dx</code>. Sprig treats this as a read-only sprite property. Choose your own place to store left-or-right direction instead.</p>
+      <div class="panel blue"><h3>One small option</h3><pre><code>let bulletDirections = [];
+// Each bullet has a matching entry:
+//  1 = right, -1 = left</code></pre><p>Reset this array when loading the bullet level. Use the bullet's index to look up and change its direction.</p></div>
+      <div class="mission"><strong>Mission</strong>Make the bullets travel, reverse at the map edge and reflect from solid blocks. With locks off, they should no longer bounce from those blocks.</div>
+      <div class="criteria"><strong>Success looks like</strong>A bullet moves consistently, turns at boundaries, and can end the game when it meets the player.</div>
+      <details><summary>Tutor note · API check</summary><p>Sprig documents mutable <code>x</code>/<code>y</code> positions and read-only <code>dx</code>/<code>dy</code>. The refactored version uses its own direction array, not undocumented sprite fields. Test in the editor; local simulations cannot prove rendering behaviour.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#92D644" aria-labelledby="s4-title">
+      <span class="eyebrow">04 · Restart</span><h2 id="s4-title">J should mean “try again.”</h2>
+      <p>In the original, <code>J</code> only works while <code>gameRunning</code> is true. That's exactly when you <em>don't</em> need to recover from Game Over.</p>
+      <div class="grid"><div class="panel"><h3>Decide the rules</h3><p>After a loss, J retries that level. After a win, J returns to level one.</p></div><div class="panel test"><h3>Test the reset</h3><p>Are the bullets back? Are the locks solid? Is the message gone? Is the game running?</p></div></div>
+      <div class="mission"><strong>Mission</strong>Make your level-reset function restore <em>everything</em> needed for a clean retry.</div>
+      <div class="criteria"><strong>Success looks like</strong>J works after Game Over and after either win; repeatedly pressing it does not make the game speed up.</div>
+      <details><summary>Tutor note · Timers</summary><p>If intervals are recreated on every retry without cancelling the old ones, the game can accidentally run multiple clocks. Both supplied solutions install two intervals once and keep them idle while the game is stopped.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#FF9029" aria-labelledby="s5-title">
+      <span class="eyebrow">05 · Endings</span><h2 id="s5-title">Two ways to win. Neither by accident.</h2>
+      <p>The game has ordinary goals and the secret Qwerty ending. Find both checks in <code>afterInput()</code>.</p>
+      <div class="panel blue"><h3>Make the question precise</h3><p>“Does this map actually contain a target, and is the player covering every target?”</p><pre><code>const count = tilesWith(qwerty).length;
+const covered = tilesWith(qwerty, player).length;
+if (count > 0 && covered === count) {
+  // Secret ending
+}</code></pre></div>
+      <div class="mission"><strong>Mission</strong>Keep one check per ending. Give the secret goal priority if it is reached. Stop gameplay immediately after showing either ending.</div>
+      <div class="criteria"><strong>Success looks like</strong>All six levels still work; the normal win and Qwerty Winner each appear once; J starts a new game.</div>
+      <details><summary>Tutor note · Notice text</summary><p>Sprig provides <code>clearText()</code>. A pending lock-status timeout must not erase an ending that appears later; cancel it when ending or resetting the game.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#F66DC1" aria-labelledby="s6-title">
+      <span class="eyebrow">06 · Regression test</span><h2 id="s6-title">Try to break your fixes.</h2>
+      <p>Don't call the job finished because one example worked. Test all of these in Sprig; tick them only after you've observed the result.</p>
+      <div class="checks">
+        <label><input type="checkbox">A spike causes exactly one Game Over.</label>
+        <label><input type="checkbox">A moving bullet causes Game Over, including when I walk into it.</label>
+        <label><input type="checkbox">Gravity stops after a loss or win.</label>
+        <label><input type="checkbox">Locks work before and after changing levels.</label>
+        <label><input type="checkbox">Bullets reverse at edges and respond to the lock state.</label>
+        <label><input type="checkbox">J retries after Game Over without duplicated timers.</label>
+        <label><input type="checkbox">Ordinary goals still advance through six levels.</label>
+        <label><input type="checkbox">The secret Qwerty ending works, and J starts over.</label>
+      </div>
+      <div class="criteria"><strong>Pass criteria</strong>All eight behaviours tested, no Sprig editor errors, and you can explain at least one bug you fixed.</div>
+      <details><summary>Tutor note · Honest verification</summary><p>The two supplied solutions have passed JavaScript syntax and simulated logic checks. This checklist is specifically for live Sprig editor testing. A simulation is not a claim that the real game has already been playtested.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#4C69E3" aria-labelledby="s7-title">
+      <span class="eyebrow">07 · Read like a developer</span><h2 id="s7-title">One game. A cleaner architecture.</h2>
+      <p>Open <a href="billy-refactored.js" target="_blank">the senior-developer reference</a>. Don't read it all from line one. Find one function for each job.</p>
+      <div class="grid">
+        <div class="panel"><h3>Starting or retrying</h3><p><code>loadLevel()</code>, <code>restart()</code></p></div>
+        <div class="panel"><h3>Player and bullets</h3><p><code>movePlayer()</code>, <code>updateBullets()</code></p></div>
+        <div class="panel"><h3>Rules and collisions</h3><p><code>toggleLocks()</code>, <code>playerHitHazard()</code></p></div>
+        <div class="panel"><h3>Progress and endings</h3><p><code>checkProgress()</code>, <code>endGame()</code></p></div>
+      </div>
+      <div class="mission"><strong>Mission</strong>Pick one improvement. Point to its location in <em>your original</em>, in the <em>debugged copy</em>, and in the <em>refactor</em>. Explain which version is easiest to change, and why.</div>
+      <details><summary>Tutor note · Attribution and judgement</summary><p>Do not frame the refactor as Billy's code being “wrong.” His code is a working creative artefact with meaningful systems. The reference shows a professional organisational choice; he should decide whether a change makes his own work clearer.</p></details>
+    </section>
+
+    <section class="slide" data-accent="#92D644" aria-labelledby="s8-title">
+      <span class="eyebrow">08 · Choose what comes next</span><h2 id="s8-title">Now make it yours again.</h2>
+      <p>Once the game is stable, choose a feature because it improves the game — not just because it adds more code.</p>
+      <div class="grid">
+        <div class="panel"><h3>More interesting bullets</h3><p>Give each bullet a different starting direction or speed.</p></div>
+        <div class="panel"><h3>A clearer retry</h3><p>Add an on-screen instruction after Game Over: “Press J to retry”.</p></div>
+        <div class="panel"><h3>Better difficulty curve</h3><p>Play each level. Does the challenge build in the right order?</p></div>
+        <div class="panel"><h3>Better feel</h3><p>Experiment with gravity timing. What does 700 ms feel like compared with 900 ms?</p></div>
+      </div>
+      <div class="criteria"><strong>Before adding anything</strong>Describe the player experience you want, write one test, then make the smallest playable version.</div>
+      <p class="caption">Code references: <a href="billy-debugged.js" target="_blank">debugged copy</a> · <a href="billy-refactored.js" target="_blank">refactor</a> · <a href="20261031-original.js" target="_blank">original</a></p>
+    </section>
+
+    <nav class="nav" aria-label="Lesson pages">
+      <button type="button" id="back">← Previous</button>
+      <span class="progress" id="progress" aria-live="polite">1 / 9</span>
+      <button type="button" id="next">Next →</button>
+    </nav>
+    <footer class="footer">Billy's original game preserved · Two Qwerty Labs teaching/reference derivatives · <a href="https://sprig.hackclub.com/" target="_blank" rel="noopener noreferrer">Sprig by Hack Club</a> · <a href="../billy-sprig-developer-tour/">Earlier developer tour</a></footer>
+  </main>
+  <script>
+    // Navigation only. The game code lives in the three downloadable JS files.
+    const slides = [...document.querySelectorAll('.slide')];
+    const previous = document.getElementById('back');
+    const next = document.getElementById('next');
+    const progress = document.getElementById('progress');
+    let current = 0;
+    function showSlide(index, shouldScroll = true) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === current);
+        slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+      });
+      previous.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      progress.textContent = `${current + 1} / ${slides.length}`;
+      if (window.location.hash !== `#step-${current}`) {
+        history.replaceState(null, '', `#step-${current}`);
+      }
+      if (shouldScroll) document.querySelector('.slide.active').scrollIntoView({ block: 'start' });
+    }
+    previous.addEventListener('click', () => showSlide(current - 1));
+    next.addEventListener('click', () => showSlide(current + 1));
+    document.addEventListener('keydown', event => {
+      if (event.target.matches('input,textarea,select,button')) return;
+      if (event.key === 'ArrowRight') showSlide(current + 1);
+      if (event.key === 'ArrowLeft') showSlide(current - 1);
+    });
+    const saved = /^#step-(\d+)$/.exec(window.location.hash);
+    showSlide(saved ? Number(saved[1]) : 0, false);
+  </script>
+</body>
+</html>
