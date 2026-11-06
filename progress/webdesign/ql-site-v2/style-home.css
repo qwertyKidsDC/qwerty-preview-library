@@ -1022,13 +1022,14 @@ a {
     padding-inline: 40px;
   }
 
-  /* Match the background's painted outer edges to the three footer cards.
-     The card row spans 39px from the left and 44.3px from the right.
-     The existing Country panel spans 33px to 50.4px: offset only the
-     decorative pseudo-element, preserving copy, padding and overlap. */
+  /* Align the *painted* cardboard edges with the blue cards, not
+     just their CSS boxes. The nine-slice source has approximately 20px
+     of transparent artwork inside each desktop edge. Extending the
+     decorative layer compensates for that inset; the content panel
+     and its overlap retain their approved dimensions. */
   .lab-footer .country-ack::before {
-    left: 6px;
-    right: -6.1px;
+    left: -13px;
+    right: -13px;
   }
 
   /* Centre Q in the last fifth of the padded content width.
