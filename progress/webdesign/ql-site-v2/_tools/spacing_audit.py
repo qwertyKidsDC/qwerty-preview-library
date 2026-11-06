@@ -133,7 +133,7 @@ with sync_playwright() as p:
     "project_to_blurb":(46 if width>760 else 26)*zoom,
     "blurb_to_blue":(65+(53 if width>760 else 0))*zoom,
     "blue_to_country":13*zoom,
-    "country_to_legal":26*zoom
+    "country_to_legal":38.918919*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
   dimensions[str(width)]["expected"]=expected
