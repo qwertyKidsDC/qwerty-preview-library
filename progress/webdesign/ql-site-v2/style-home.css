@@ -457,7 +457,7 @@ a {
   min-height: 405px;
   /* The photo protrudes 26px above this row: preserve 52px of visible
      space after the preceding Coolest Projects board. */
-  margin: calc(var(--space-section) + 26px) 35px 0;
+  margin: calc(var(--space-section) + 26px) 35px 0 39px;
 }
 
 .project-panel {
@@ -646,7 +646,7 @@ a {
   .projects {
     min-height: 675px;
     /* The Meet the Lab label begins about 5px into this row. */
-    margin: calc(var(--space-section) - 5px) 10px 0;
+    margin: calc(var(--space-section) - 5px) 12px 0;
   }
 
   .project-panel {
