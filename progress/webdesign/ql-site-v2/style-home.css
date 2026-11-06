@@ -1137,11 +1137,15 @@ a {
   }
 }
 
-/* 12. Link roles: one interaction system.
-   Squiggles change colour immediately on hover/focus: blue on dark
-   sections, ivory on blue footer cards for contrast. Link text
-   retains its original colour. Navigation and policies reveal the
-   squiggle only on hover/focus; page links display theirs at rest. */
+/* 12. Link roles: one squiggle asset, one approved colour token.
+   Use an SVG as an alpha mask so all blue lines take their colour directly
+   from --color-blue (#4C69E3), rather than encoding different colours and
+   stroke widths in several SVGs. Hover states are immediate, not animated.
+   Text colour does not change. */
+:root {
+  --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
 .navigation a,
 .footer-legal-links a {
   position: relative;
@@ -1158,6 +1162,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 .navigation a::after,
 .footer-legal-links a::after,
 .footer-scene__content p a::after,
@@ -1170,35 +1175,25 @@ a {
   right: 0;
   bottom: -3px;
   height: 5px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'6\' viewBox=\'0 0 100 6\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3\' fill=\'none\' stroke=\'%23F7F4EB\' stroke-width=\'2\' stroke-linejoin=\'round\' stroke-linecap=\'round\'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  background-size: 100% 100%;
-  opacity: 1;
-  /* No fade, slide or scale. Link states switch immediately. */
-  transition: none;
+  background-color: var(--color-ivory);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
 }
 
-/* Navigation and policy links: a blue handmade squiggle ONLY on
-   hover or keyboard focus. No text-colour change or hidden reveal animation. */
+/* The navigation and policy squiggle appears only on hover/focus. */
 .navigation a::after,
 .footer-legal-links a::after {
   bottom: -4px;
   height: 7px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='7' viewBox='0 0 100 7' preserveAspectRatio='none'%3E%3Cpath d='M0 4.4 L11 3 L23 4.3 L35 2.7 L47 4.1 L59 2.8 L71 4.4 L83 3.1 L100 3.9' fill='none' stroke='%234C69E3' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
   opacity: 0;
-  transform: none;
-  transition: none;
 }
-.navigation a:hover::after,
-.navigation a:focus-visible::after,
-.footer-legal-links a:hover::after,
-.footer-legal-links a:focus-visible::after {
+.navigation a:is(:hover, :focus-visible)::after,
+.footer-legal-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-blue);
   opacity: 1;
 }
 
-/* Raise lines on block-like links to match the closer inline 'built a cloud'
-   underline; removing padding also prevents the About the Lab stray segment. */
+/* Block-like page links retain the approved tight underline placement. */
 .scene-link::after,
 .footer-card-links a::after {
   bottom: 2px;
@@ -1208,24 +1203,19 @@ a {
   min-height: 24px;
 }
 
-/* Ink squiggle at rest on the blue paper cards. */
+/* On the blue paper cards, use ink at rest and ivory on hover. */
 .footer-nav-cards .footer-card-links a::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'6\' viewBox=\'0 0 100 6\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3\' fill=\'none\' stroke=\'%23020020\' stroke-width=\'2\' stroke-linejoin=\'round\' stroke-linecap=\'round\'/%3E%3C/svg%3E");
-}
-/* Page links retain their squiggle and ivory lettering; the line turns blue. */
-.footer-scene__content p a:hover::after,
-.footer-scene__content p a:focus-visible::after,
-.scene-link:hover::after,
-.scene-link:focus-visible::after,
-.footer-card-links a:hover::after,
-.footer-card-links a:focus-visible::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-color: var(--color-ink);
 }
 
-/* Ivory is legible over the blue cards; preserve their dark link text. */
-.footer-nav-cards .footer-card-links a:hover::after,
-.footer-nav-cards .footer-card-links a:focus-visible::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+.footer-scene__content p a:is(:hover, :focus-visible)::after,
+.scene-link:is(:hover, :focus-visible)::after,
+.footer-card-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-blue);
+}
+
+.footer-nav-cards .footer-card-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-ivory);
 }
 
 /* The old page stage starts at 32px and clips overflowing navigation.
