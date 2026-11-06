@@ -1180,24 +1180,22 @@ a {
   transition: transform .32s ease-in, opacity .25s ease-in;
 }
 
-/* Navigation and policy links are clean at rest; the same handmade
-   wave appears in approved blue on hover or keyboard focus. */
+/* Navigation and policy links: a blue handmade squiggle ONLY on
+   hover or keyboard focus. No text-colour change or hidden reveal animation. */
 .navigation a::after,
 .footer-legal-links a::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  bottom: -4px;
+  height: 7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='7' viewBox='0 0 100 7' preserveAspectRatio='none'%3E%3Cpath d='M0 4.4 L11 3 L23 4.3 L35 2.7 L47 4.1 L59 2.8 L71 4.4 L83 3.1 L100 3.9' fill='none' stroke='%234C69E3' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
   opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left center;
+  transform: none;
+  transition: none;
 }
 .navigation a:hover::after,
 .navigation a:focus-visible::after,
 .footer-legal-links a:hover::after,
 .footer-legal-links a:focus-visible::after {
   opacity: 1;
-  transform: scaleX(1);
-}
-.footer-legal-links a::after {
-  bottom: 1px;
 }
 
 /* Raise lines on block-like links to match the closer inline 'built a cloud'
