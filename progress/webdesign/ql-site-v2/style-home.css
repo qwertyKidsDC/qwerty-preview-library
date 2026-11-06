@@ -455,8 +455,9 @@ a {
   position: relative;
   z-index: 6;
   min-height: 405px;
-  /* The rotated photo protrudes above the Projects box; calibrate to visible paint. */
-  margin: calc(var(--space-section) / 2 + 50.25px) 35px 0;
+  /* The photo protrudes 26px above this row: preserve 52px of visible
+     space after the preceding Coolest Projects board. */
+  margin: calc(var(--space-section) + 26px) 35px 0;
 }
 
 .project-panel {
@@ -501,22 +502,6 @@ a {
 .project-copy p {
   max-width: 300px;
   margin: 0 0 24px;
-}
-
-.project-copy p a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
-.project-copy p a:hover,
-.project-copy p a:focus-visible {
-  color: var(--color-orange);
-}
-
-.project-copy p a:focus-visible {
-  outline: 2px solid var(--color-orange);
-  outline-offset: 3px;
 }
 
 .photo-collage {
@@ -660,7 +645,8 @@ a {
 
   .projects {
     min-height: 675px;
-    margin: 17px 10px 0;
+    /* The Meet the Lab label begins about 5px into this row. */
+    margin: calc(var(--space-section) - 5px) 10px 0;
   }
 
   .project-panel {
@@ -758,11 +744,9 @@ a {
 .footer-scene {
   position: relative;
   z-index: 7;
-  /* Project photo ends ~22px before its section box. Keep the full visible gap. */
-  /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
-  /* Reduced to half the previously approved painted Projects -> Blurb gap.
-     The fixed offset still accounts for tape and image transparency. */
-  margin: calc(var(--space-section) / 2 + 16.65px) 56.4px 0 39px;
+  /* The label sits 25px above the board. Measure the intended 52px
+     gap from the feature cards to that visible label, not the board box. */
+  margin: calc(var(--space-section) + 25px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -828,7 +812,7 @@ a {
   z-index: 3;
   justify-self: start;
   align-self: start;
-  /* Keep the blue label in place; copy and link return to the left. */
+  /* Position the photo and copy equally beneath the blue label. */
   margin-top: 109px;
   margin-bottom: 43px;
   width: 91.6%;
@@ -894,19 +878,6 @@ a {
   letter-spacing: normal;
 }
 
-/* Make the inline project link visible and keyboard-friendly. */
-.footer-scene__content p a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-.footer-scene__content p a:hover,
-.footer-scene__content p a:focus-visible { color: var(--color-orange); }
-.footer-scene__content p a:focus-visible {
-  outline: 2px solid var(--color-orange);
-  outline-offset: 3px;
-}
-
 /* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
 .project-copy > p,
 .footer-scene__content > p {
@@ -920,13 +891,10 @@ a {
   align-self: flex-start;
   margin-top: 18px;
   padding-bottom: 3px;
-  border-bottom: 1px dashed currentColor;
   color: inherit;
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.4;
-  text-decoration: none;
-  transition: none;
 }
 
 .scene-link:hover,
@@ -936,20 +904,19 @@ a {
 }
 
 
-/* The image files include unpainted transparent margins. Pull the blue row
-   closer to the black blurb while keeping the painted surfaces separate. */
-.footer-scene + .small-cards {
+/* The information cards now follow Meet the Lab, not Coolest Projects.
+   The rotated photo ends early in its row and the blue-paper SVGs have
+   transparent top margins: -21px yields approximately 65px painted gap. */
+.projects + .small-cards {
   position: relative;
   z-index: 8;
-  /* Board is vertically cropped; only 32px of layout-box adjustment remains. */
-  /* The 65px footer threshold is intentionally larger than the 52px section
-     rhythm. Painted edges, not bounding boxes, determine the apparent gap. */
-  margin-top: calc(var(--space-home-to-footer) + 24.65px);
+  margin-top: -21px;
 }
 
 @media (max-width: 760px) {
   .footer-scene {
-    margin: -94.4px 12px 0;
+    /* The mobile tape begins 24px below the board's top. */
+    margin: calc(var(--space-section) - 24px) 12px 0;
   }
 
   .footer-scene__tape {
@@ -990,9 +957,10 @@ a {
     margin-top: 12px;
   }
 
-  /* Mobile art crops away most transparent space: use a tighter gap. */
-  .footer-scene + .small-cards {
-    margin-top: -33px;
+  /* The Meet the Lab photo sits inside a tall mobile row; its following
+     paper cards retain their own natural-flow separation. */
+  .projects + .small-cards {
+    margin-top: 0;
   }
 }
 
@@ -1036,10 +1004,8 @@ a {
   display: inline-flex;
   align-items: center;
   padding-bottom: 2px;
-  border-bottom: 1px dashed currentColor;
   color: inherit;
   text-decoration: none;
-  transition: none;
 }
 
 /* Keep 14px policy labels easy to activate (WCAG 2.2 target-size baseline). */
@@ -1220,10 +1186,11 @@ a {
   }
 }
 
-/* 12. Link roles: cards are static until their copy is approved.
-   Nav and legal links are plain. Content links are permanently underlined.
-   The underline becomes a hand-drawn blue stroke on hover/focus.
-   Text retains its approved contrast colour; no arrows or movement. */
+/* 12. Link roles: one interaction system.
+   Body links use a handmade squiggle at rest. Hover/focus turns text blue
+   and retracts the squiggle to the right. The blue footer cards use
+   ivory hover for readable contrast against their blue artwork.
+   Navigation and policy links deliberately have no underline. */
 .navigation a,
 .footer-legal-links a {
   border: 0;
@@ -1234,19 +1201,21 @@ a {
 .navigation a:focus-visible,
 .footer-legal-links a:hover,
 .footer-legal-links a:focus-visible {
-  color: var(--color-orange);
+  color: var(--color-blue);
 }
+
+.footer-scene__content p a,
+.project-copy p a,
 .scene-link,
 .footer-card-links a {
   position: relative;
   border: 0;
-  padding-bottom: 0;
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-color: currentColor;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-decoration: none;
+  color: inherit;
+  transition: color .18s ease-out;
 }
+.footer-scene__content p a::after,
+.project-copy p a::after,
 .scene-link::after,
 .footer-card-links a::after {
   content: "";
@@ -1254,35 +1223,58 @@ a {
   pointer-events: none;
   left: 0;
   right: 0;
-  bottom: -2px;
+  bottom: -3px;
   height: 5px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 100% / 100px 5px;
-  opacity: 0;
-  transform: scaleX(.7);
-  transform-origin: left center;
-  transition: transform .18s ease-out, opacity .18s ease-out;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'6\' viewBox=\'0 0 100 6\'%3E%3Cpath d=\'M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3\' fill=\'none\' stroke=\'%23F7F4EB\' stroke-width=\'2\' stroke-linejoin=\'round\' stroke-linecap=\'round\'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 100px 5px;
+  opacity: 1;
+  transform: translateX(0) scaleX(1);
+  transform-origin: right center;
+  transition: transform .32s ease-in, opacity .25s ease-in;
 }
-/* Footer blue cards: use the approved ivory stroke on hover.
-   Ink text and the solid default underline remain unchanged. */
+
+/* Ink squiggle at rest on the blue paper cards. */
 .footer-nav-cards .footer-card-links a::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='6' viewBox='0 0 100 6'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'6\' viewBox=\'0 0 100 6\'%3E%3Cpath d=\'M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3\' fill=\'none\' stroke=\'%23020020\' stroke-width=\'2\' stroke-linejoin=\'round\' stroke-linecap=\'round\'/%3E%3C/svg%3E");
 }
+.footer-scene__content p a:hover,
+.footer-scene__content p a:focus-visible,
+.project-copy p a:hover,
+.project-copy p a:focus-visible,
 .scene-link:hover,
 .scene-link:focus-visible,
 .footer-card-links a:hover,
 .footer-card-links a:focus-visible {
-  text-decoration-color: transparent;
+  color: var(--color-blue);
 }
+.footer-scene__content p a:hover::after,
+.footer-scene__content p a:focus-visible::after,
+.project-copy p a:hover::after,
+.project-copy p a:focus-visible::after,
 .scene-link:hover::after,
 .scene-link:focus-visible::after,
 .footer-card-links a:hover::after,
 .footer-card-links a:focus-visible::after {
-  opacity: 1;
-  transform: scaleX(1);
+  transform: translateX(5px) scaleX(0);
+  opacity: 0;
+}
+.footer-nav-cards .footer-card-links a:hover,
+.footer-nav-cards .footer-card-links a:focus-visible {
+  color: var(--color-ivory);
 }
 @media (prefers-reduced-motion: reduce) {
+  .footer-scene__content p a,
+  .project-copy p a,
+  .scene-link,
+  .footer-card-links a,
+  .footer-scene__content p a::after,
+  .project-copy p a::after,
   .scene-link::after,
-  .footer-card-links a::after { transition: none; }
+  .footer-card-links a::after {
+    transition: none;
+  }
 }
 
 /* The old page stage starts at 32px and clips overflowing navigation.
@@ -1335,11 +1327,3 @@ a {
 }
 
 
-/* The expandable Coolest Projects board now leads the photographic Meet the
-   Lab row. Preserve the existing desktop spacing; on mobile the former
-   negative margin no longer belongs, because there is no preceding photo. */
-@media (max-width: 760px) {
-  .feature-cards + .footer-scene {
-    margin-top: 44px;
-  }
-}
