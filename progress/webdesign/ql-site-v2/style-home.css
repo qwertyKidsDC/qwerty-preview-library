@@ -456,7 +456,7 @@ a {
   z-index: 6;
   min-height: 405px;
   /* The rotated photo protrudes above the Projects box; calibrate to visible paint. */
-  margin: calc(var(--space-section) + 50.25px) 35px 0;
+  margin: calc(var(--space-section) / 2 + 50.25px) 35px 0;
 }
 
 .project-panel {
@@ -640,7 +640,7 @@ a {
 
   .projects {
     min-height: 675px;
-    margin: 43px 10px 0;
+    margin: 17px 10px 0;
   }
 
   .project-panel {
@@ -740,9 +740,9 @@ a {
   z-index: 7;
   /* Project photo ends ~22px before its section box. Keep the full visible gap. */
   /* Vertically trimmed panel: 52px between painted Project and blurb edges. */
-  /* Visual calibration: the blue tape now starts the same visible distance
-     below the project artwork as Projects starts below the coloured cards. */
-  margin: calc(var(--space-section) + 36.65px) 56.4px 0 39px;
+  /* Reduced to half the previously approved painted Projects -> Blurb gap.
+     The fixed offset still accounts for tape and image transparency. */
+  margin: calc(var(--space-section) / 2 + 16.65px) 56.4px 0 39px;
 }
 
 .footer-scene__board {
@@ -881,7 +881,7 @@ a {
 
 @media (max-width: 760px) {
   .footer-scene {
-    margin: -68.4px 12px 0;
+    margin: -94.4px 12px 0;
   }
 
   .footer-scene__tape {
@@ -1008,9 +1008,9 @@ a {
   position: relative;
   z-index: 7;
   display: block;
-  /* The cards -> Acknowledgement gap matches Acknowledgement -> policies:
-     26 design px between visible edges. Account for the paper SVG padding. */
-  margin: calc(var(--space-footer-detail) - 1.32px) 56.4px 0 39px;
+  /* Halve only Footer cards -> Acknowledgement to 13 design px.
+     Country -> policy retains its original 26px visible gap. */
+  margin: calc(var(--space-footer-detail) / 2 - 1.32px) 56.4px 0 39px;
   padding: 0;
   border: 0;
   background: none;
@@ -1096,7 +1096,7 @@ a {
 @media (max-width: 760px) {
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    margin: 25px auto 0;
+    margin: 12px auto 0;
   }
 
   .lab-footer .country-ack {

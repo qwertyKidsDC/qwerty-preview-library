@@ -125,14 +125,14 @@ with sync_playwright() as p:
      "rects":{k:[{"top":round(v["top"],1),"bottom":round(v["bottom"],1),
                    "height":round(v["height"],1)} for v in values[k]]
               for k in values}}
-  # Bounding-box gaps include correction for art overhangs: screenshot paint,
-  # not these rectangles, is the visual source of truth.
+  # Painted bounds include the blue tape's top and the paper edges.
+  # Assert exactly half of the three selected existing gaps at each breakpoint.
   zoom=1 if width<=760 else max(0.70,min(1.85,(width-84)/986))
   expected={
-    "cards_to_project":52*zoom,
-    "project_to_blurb":(52+(40 if width>760 else 0))*zoom,
+    "cards_to_project":26*zoom,
+    "project_to_blurb":(46 if width>760 else 26)*zoom,
     "blurb_to_blue":(65+(53 if width>760 else 0))*zoom,
-    "blue_to_country":26*zoom,
+    "blue_to_country":13*zoom,
     "country_to_legal":26*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
