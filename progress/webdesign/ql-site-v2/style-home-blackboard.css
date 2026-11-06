@@ -28,7 +28,8 @@
   --text-body: 18px;     /* Reading copy */
   --text-ui: 16px;       /* Navigation, links and footer UI */
   --text-hero: 36px;     /* Handwritten page title */
-  --text-legal: 14px;    /* Policies and copyright */
+  --text-footer: 14px; /* Footer cards and Country copy */
+  --text-legal: 12px;    /* Policies and copyright */
 
   /* Section spacing, before responsive page scaling. */
   --space-section: 52px;
@@ -944,6 +945,7 @@ a {
 }
 
 .footer-nav-card h2 {
+  font-size: 18px;
   margin: 0 0 8px;
 }
 
@@ -952,7 +954,7 @@ a {
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  font-size: var(--text-ui);
+  font-size: var(--text-footer);
   font-weight: 400;
   line-height: 1.35;
 }
@@ -966,20 +968,20 @@ a {
   text-decoration: none;
 }
 
-/* Keep 14px policy labels easy to activate (WCAG 2.2 target-size baseline). */
+/* Keep policy links easy to activate (WCAG 2.2 target-size baseline). */
 .footer-legal-links a {
   min-height: 24px;
 }
 
 .footer-card-address {
-  font-size: var(--text-body);
+  font-size: var(--text-footer);
   font-weight: 400;
   line-height: 1.5;
   font-style: normal;
 }
 
 .footer-email {
-  font-size: var(--text-ui);
+  font-size: var(--text-footer);
   font-weight: 400; /* Not a live link until the address is active. */
   line-height: 1.4;
   white-space: normal;
@@ -1077,7 +1079,7 @@ a {
 .lab-footer .country-ack p {
   width: 80%;
   margin: 0;
-  font-size: var(--text-ui);
+  font-size: var(--text-footer);
   font-weight: 400;
   line-height: 1.55;
 }
