@@ -134,7 +134,7 @@ with sync_playwright() as p:
     xs.append([v["left"]+v["width"]*ins[0],v["right"]-v["width"]*ins[2]])
    return [min(q[0] for q in xs),max(q[1] for q in xs)]
   blue_x=horizontal("footerCards")
-  country_x=horizontal("country","project-backboard.svg")
+  country_x=horizontal("country")  # CSS nine-slice: report the panel rectangle, not unrelated SVG alpha.
   horizontal_diff={"left":round(country_x[0]-blue_x[0],2),
                    "right":round(country_x[1]-blue_x[1],2)}
   # Follow the actual page order: audience → Coolest → Meet → info cards.
@@ -196,10 +196,18 @@ with sync_playwright() as p:
   }""")
   assert states["navDecoration"]=="none" and states["legalDecoration"]=="none", states
   assert states["bodyDecoration"]=="none", states  # Handmade underline is a ::after image.
-  blue_hover=page.evaluate("""() =>
-    getComputedStyle(document.querySelector(".footer-nav-cards .footer-card-links a"),"::after").backgroundImage
-  """)
-  assert "020020" in blue_hover, "Footer card links need the ink squiggle at rest"
+  blue_underline=page.evaluate("""() => {
+    const style=getComputedStyle(
+      document.querySelector(".footer-nav-cards .footer-card-links a"), "::after"
+    );
+    return {colour:style.backgroundColor, mask:style.maskImage || style.webkitMaskImage};
+  }""")
+  assert blue_underline["colour"]=="rgb(2, 0, 32)", (
+    f"Footer card links need the ink-coloured squiggle at rest: {blue_underline}"
+  )
+  assert blue_underline["mask"]!="none", (
+    f"Footer card links need the squiggle mask: {blue_underline}"
+  )
   page.close()
  browser.close()
 server.shutdown()
