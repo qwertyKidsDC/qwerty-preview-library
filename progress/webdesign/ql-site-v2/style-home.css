@@ -1013,6 +1013,7 @@ a {
   min-height: 0;
   padding: 26px 34px 24px;
   background: none;
+  color: var(--color-ink);
   isolation: isolate;
 }
 
