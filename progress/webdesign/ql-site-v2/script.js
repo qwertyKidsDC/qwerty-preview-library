@@ -58,3 +58,48 @@
   const year = document.getElementById('copyright-year');
   if (year) year.textContent = String(new Date().getFullYear());
 })();
+
+/* The Acknowledgement belongs 24 visible px below the lowest footer-card
+   text, not a fixed distance below the paper images. This adapts when copy,
+   fonts, or the number of rows changes; CSS retains a no-JS fallback. */
+(() => {
+  const footer = document.querySelector('.cardboard-page > .lab-footer');
+  const country = footer?.querySelector('.country-ack');
+  const page = document.querySelector('.cardboard-page');
+  const cards = document.querySelector('.footer-nav-cards');
+  if (!footer || !country || !page || !cards) return;
+
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address';
+  let pending = false;
+
+  const update = () => {
+    pending = false;
+    const copy = [...cards.querySelectorAll(copySelector)];
+    if (!copy.length) return;
+    const lowestCopy = Math.max(...copy.map(el => el.getBoundingClientRect().bottom));
+    const panelTop = country.getBoundingClientRect().top;
+    const gapCorrection = (lowestCopy + 24) - panelTop;
+    const zoom = Number.parseFloat(getComputedStyle(page).zoom) || 1;
+
+    // CSS margin is in layout pixels; bounding rectangles are viewport pixels.
+    // Avoid needless sub-pixel writes, which can trigger layout jitter.
+    if (Math.abs(gapCorrection) > 0.35) {
+      const current = Number.parseFloat(getComputedStyle(footer).marginTop) || 0;
+      footer.style.marginTop = (current + gapCorrection / zoom) + 'px';
+    }
+  };
+
+  const schedule = () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(update);
+  };
+
+  const observer = new ResizeObserver(schedule);
+  observer.observe(cards);
+  cards.querySelectorAll(copySelector).forEach(el => observer.observe(el));
+  window.addEventListener('resize', schedule, { passive: true });
+  window.addEventListener('load', schedule);
+  document.fonts?.ready.then(schedule);
+  schedule();
+})();

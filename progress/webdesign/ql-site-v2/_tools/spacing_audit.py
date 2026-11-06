@@ -65,6 +65,14 @@ with sync_playwright() as p:
   page=browser.new_page(viewport={"width":width,"height":height},device_scale_factor=1)
   page.goto(base,wait_until="networkidle",timeout=90000)
   page.evaluate("document.fonts.ready")
+  page.wait_for_function("""() => {
+    const elements=[...document.querySelectorAll(
+      '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address'
+    )];
+    const last=Math.max(...elements.map(el=>el.getBoundingClientRect().bottom));
+    const top=document.querySelector('.country-ack').getBoundingClientRect().top;
+    return Math.abs((top-last)-24)<0.7;
+  }""", timeout=10000)
   page.screenshot(path=str(ROOT/("_tools/audit-"+str(width)+".png")),full_page=True)
   values=page.evaluate("""(selectors) => {
     const r={};
@@ -109,6 +117,12 @@ with sync_playwright() as p:
   blurb=[min(board[0],tape[0]),board[1]]
   blue=edges("footerCards")
   country=edges("country") # painted background may have alpha, print separately
+  lowest_copy_bottom=page.evaluate("""() => Math.max(
+    ...[...document.querySelectorAll(
+      '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address'
+    )].map(el => el.getBoundingClientRect().bottom)
+  )""")
+  copy_to_country=round(country[0]-lowest_copy_bottom,2)
   legal=edges("legal")
   # Horizontal paint bounds: footer paper images vs the stretched country
   # backboard. They should share the same external alignment guides.
@@ -130,7 +144,7 @@ with sync_playwright() as p:
     "blue_to_country":round(country[0]-blue[1],1),
     "country_to_legal":round(legal[0]-country[1],1)
   }
-  dimensions[str(width)]={"gaps":gaps,
+  dimensions[str(width)]={"gaps":gaps, "copy_to_country":copy_to_country,
      "horizontal":{"footerCards":blue_x,"country":country_x,"difference":horizontal_diff},
      "navTop":round(values["nav"][0]["top"],1),
      "wordmarkTop":round(values["wordmark"][0]["top"],1),
@@ -146,7 +160,6 @@ with sync_playwright() as p:
     "cards_to_project":26*zoom,
     "project_to_blurb":(46 if width>760 else 26)*zoom,
     "blurb_to_blue":(65+(53 if width>760 else 0))*zoom,
-    "blue_to_country":(-84/1.85 if width>760 else -84)*zoom,
     "country_to_legal":38.918919*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
@@ -176,6 +189,7 @@ with sync_playwright() as p:
     assert all(abs(d)<=2 for d in horizontal_diff.values()), f"Country width mismatch {width}: {horizontal_diff}"
   # Check the new overlap is real, Country is in front, and no blue-card
   # navigation link is obscured by the raised blackboard.
+  assert abs(copy_to_country-24) <= 1, f"Country must begin 24px below lowest text at {width}: {copy_to_country}px"
   assert gaps["blue_to_country"] < 0, "Country paper must overlap blue cards"
   overlap_state=page.evaluate("""() => {
     const country=document.querySelector(".country-ack").getBoundingClientRect();

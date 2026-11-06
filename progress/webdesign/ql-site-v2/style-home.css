@@ -1008,8 +1008,8 @@ a {
   position: relative;
   z-index: 9; /* Country paper sits over the empty lower part of the blue cards. */
   display: block;
-  /* At the 2005px reference, painted Country overlaps the blue cards
-     by 84px total (36px previous + 48px). Keep width and contents unchanged. */
+  /* JS aligns this panel 24 viewport pixels below the lowest footer-card
+     copy, regardless of leftover paper. This margin is the no-JS fallback. */
   margin: -46.755946px 56.4px 0 39px;
   padding: 0;
   border: 0;
@@ -1106,7 +1106,7 @@ a {
 @media (max-width: 760px) {
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    margin: -85.3px auto 0; /* 84px visible overlap on unscaled mobile. */
+    margin: -85.3px auto 0; /* No-JS fallback; measured from text when JS runs. */
   }
 
   .lab-footer .country-ack {
