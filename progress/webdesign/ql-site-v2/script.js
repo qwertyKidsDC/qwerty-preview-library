@@ -162,7 +162,7 @@
   // Only one automatic attempt per page load, after enough of the image is visible.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
+      if (!entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.45)) return;
       observer.disconnect();
       if (!prefersReducedMotion.matches) play('intro');
     }, { threshold: 0.45 });
