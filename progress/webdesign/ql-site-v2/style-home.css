@@ -1293,3 +1293,13 @@ a {
      the paragraph and pushes the link outside its cardboard surface. */
   .footer-scene__mascot { display: none !important; }
 }
+
+
+/* The expandable Coolest Projects board now leads the photographic Meet the
+   Lab row. Preserve the existing desktop spacing; on mobile the former
+   negative margin no longer belongs, because there is no preceding photo. */
+@media (max-width: 760px) {
+  .feature-cards + .footer-scene {
+    margin-top: 44px;
+  }
+}
