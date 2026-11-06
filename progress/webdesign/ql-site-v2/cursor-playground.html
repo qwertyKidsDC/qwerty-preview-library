@@ -43,7 +43,7 @@
     .symbol-caret{height:22px;width:6px;background:var(--ivory);box-shadow:3px 3px 0 var(--blue)}
     .symbol-chip{width:21px;height:18px;background:var(--dark);border:3px solid var(--green);box-shadow:-7px -2px 0 -4px var(--green),-7px 4px 0 -4px var(--green),-7px 10px 0 -4px var(--green),7px -2px 0 -4px var(--green),7px 4px 0 -4px var(--green),7px 10px 0 -4px var(--green)}
     .symbol-default{font-size:22px;line-height:1;color:var(--ivory)}
-    .symbol-arrow{height:30px;width:26px;filter:drop-shadow(1px 1px 0 #020020)}
+    .symbol-arrow{height:30px;width:26px;color:var(--arrow-accent,#4C69E3);filter:drop-shadow(1px 1px 0 #020020)}
     .symbol-q{width:34px;height:34px;object-fit:contain}
     .view{flex:1;min-height:0;position:relative;overflow:hidden}
     iframe{display:block;width:100%;height:100%;border:0;background:var(--dark)}
@@ -72,7 +72,7 @@
         <button type="button" class="variant" data-mode="caret" aria-pressed="false"><span class="swatch"><span class="symbol-caret"></span></span><span><span class="variant-name">05 Code caret</span><br><span class="variant-note">Old web</span></span></button>
         <button type="button" class="variant" data-mode="chip" aria-pressed="false"><span class="swatch"><span class="symbol-chip"></span></span><span><span class="variant-name">06 Microchip</span><br><span class="variant-note">Six contacts</span></span></button>
         <button type="button" class="variant" data-mode="q" aria-pressed="false"><span class="swatch"><img class="symbol-q" src="./img/q-country-mascot.svg" alt=""></span><span><span class="variant-name">07 Q key</span><br><span class="variant-note">Approved art</span></span></button>
-        <button type="button" class="variant" data-mode="arrow" aria-pressed="false"><span class="swatch"><svg class="symbol-arrow" viewBox="0 0 26 32" aria-hidden="true"><path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z" fill="#4C69E3" stroke="#F7F4EB" stroke-width="2" stroke-linejoin="round"/></svg></span><span><span class="variant-name">08 Blue arrow</span><br><span class="variant-note">Classic pointer</span></span></button>
+        <button type="button" class="variant" data-mode="arrow" aria-pressed="false"><span class="swatch"><svg class="symbol-arrow" viewBox="0 0 26 32" aria-hidden="true"><path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z" fill="currentColor" stroke="#F7F4EB" stroke-width="2" stroke-linejoin="round"/></svg></span><span><span class="variant-name">08 Colour arrow</span><br><span class="variant-note">Random each visit</span></span></button>
         <button type="button" class="variant" data-mode="default" aria-pressed="false"><span class="swatch"><span class="symbol-default">↖</span></span><span><span class="variant-name">Default</span><br><span class="variant-note">Before / after</span></span></button>
       </div>
     </div>
@@ -89,6 +89,11 @@
       const slider=document.getElementById('cursor-size');
       const sizeOut=document.getElementById('size-out');
       const mascotUrl=new URL('./img/q-country-mascot.svg',location.href).href;
+      // One palette accent per playground visit, as with the homepage wordmark.
+      // The arrow and link hand deliberately share this same colour.
+      const arrowColours=['#4C69E3','#F66DC1','#92D644','#FF9029'];
+      const arrowColour=arrowColours[Math.floor(Math.random()*arrowColours.length)];
+      document.documentElement.style.setProperty('--arrow-accent',arrowColour);
       let mode='pixel';
       let size=1;
       let cleanup=()=>{};
@@ -100,7 +105,7 @@
         caret:'<span class="ql-draw ql-caret"></span>',
         chip:'<span class="ql-draw ql-chip"><i></i><i></i><i></i><b></b></span>',
         q:'<img class="ql-draw ql-q" alt="" src="'+mascotUrl+'">',
-        arrow:'<svg class="ql-draw ql-arrow" viewBox="0 0 26 32" aria-hidden="true"><path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z" fill="#4C69E3" stroke="#F7F4EB" stroke-width="2" stroke-linejoin="round"/></svg>'
+        arrow:'<svg class="ql-draw ql-arrow" viewBox="0 0 26 32" aria-hidden="true"><path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z" fill="'+arrowColour+'" stroke="#F7F4EB" stroke-width="2" stroke-linejoin="round"/></svg>'
       };
       const css=[
         '@media (hover:hover) and (pointer:fine){html.ql-experiment,html.ql-experiment *,html.ql-experiment *::before,html.ql-experiment *::after{cursor:none!important}html.ql-experiment a,html.ql-experiment a *,html.ql-experiment a::before,html.ql-experiment a::after,html.ql-experiment a *::before,html.ql-experiment a *::after{cursor:pointer!important}}',
@@ -121,6 +126,20 @@
         '#ql-cursor-proxy .ql-arrow{width:26px;height:32px;left:0;top:0;filter:drop-shadow(1px 1px 0 #020020B0)}',
         '@media(prefers-reduced-motion:reduce){#ql-cursor-proxy .ql-draw{transition:none}}'
       ].join('\n');
+      // Native operating-system hand pointers cannot be recoloured.
+      // Use a small SVG hand with a fingertip hotspot on links instead.
+      // Browsers that do not support SVG cursors fall back to the normal hand.
+      function matchingHandCursor(){
+        const width=Math.round(36*size);
+        const height=Math.round(40*size);
+        const hotspotX=Math.round(15*size);
+        const hotspotY=Math.round(3*size);
+        const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'" viewBox="0 0 36 40">'+
+          '<path d="M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z" fill="'+arrowColour+'" stroke="#020020" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+        const url='data:image/svg+xml,'+encodeURIComponent(svg);
+        const selector='html.ql-experiment.ql-arrow-mode a,html.ql-experiment.ql-arrow-mode a *,html.ql-experiment.ql-arrow-mode a::before,html.ql-experiment.ql-arrow-mode a::after,html.ql-experiment.ql-arrow-mode a *::before,html.ql-experiment.ql-arrow-mode a *::after';
+        return selector+'{cursor:url("'+url+'") '+hotspotX+' '+hotspotY+',pointer!important}';
+      }
       function install(){
         cleanup();
         let doc,win;
@@ -137,6 +156,8 @@
         function render(){
           fine=win.matchMedia('(hover:hover) and (pointer:fine)').matches;
           doc.documentElement.classList.toggle('ql-experiment',fine&&mode!=='default');
+          doc.documentElement.classList.toggle('ql-arrow-mode',fine&&mode==='arrow');
+          style.textContent=css+(mode==='arrow'?matchingHandCursor():'');
           proxy.innerHTML=drawings[mode]||'';
           proxy.style.setProperty('--ql-size',String(size));
           proxy.style.setProperty('--ql-hover','1');
@@ -147,7 +168,7 @@
           proxy.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';
           const t=e.target;
           if(t&&t.closest&&t.closest('a')){
-            proxy.classList.remove('ql-show'); // Native hand remains on links.
+            proxy.classList.remove('ql-show'); // Reveal the matching-colour hand on arrow mode (native hand otherwise).
             return;
           }
           proxy.classList.add('ql-show');
@@ -170,7 +191,7 @@
           win.removeEventListener('blur',hide);
           win.removeEventListener('scroll',hide);
           style.remove();proxy.remove();
-          doc.documentElement.classList.remove('ql-experiment');
+          doc.documentElement.classList.remove('ql-experiment','ql-arrow-mode');
           frame._qlRender=null;
         };
         render();
