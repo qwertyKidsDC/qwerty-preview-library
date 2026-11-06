@@ -1022,14 +1022,14 @@ a {
     padding-inline: 40px;
   }
 
-  /* Align the *painted* cardboard edges with the blue cards, not
-     just their CSS boxes. The nine-slice source has approximately 20px
-     of transparent artwork inside each desktop edge. Extending the
-     decorative layer compensates for that inset; the content panel
-     and its overlap retain their approved dimensions. */
+  /* Align the frame box with the actual three-card span, not
+     the wider flex row. The cards occupy 3 × 32% plus two 12px gaps,
+     ending 56.4px from the page edge. The Country section extends
+     6px beyond those same guides, so inset its decoration on both
+     sides without moving any text, mascot or overlapping layout. */
   .lab-footer .country-ack::before {
-    left: -13px;
-    right: -13px;
+    left: 6px;
+    right: 6px;
   }
 
   /* Centre Q in the last fifth of the padded content width.
