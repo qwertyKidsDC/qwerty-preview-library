@@ -146,7 +146,7 @@ with sync_playwright() as p:
     "cards_to_project":26*zoom,
     "project_to_blurb":(46 if width>760 else 26)*zoom,
     "blurb_to_blue":(65+(53 if width>760 else 0))*zoom,
-    "blue_to_country":13*zoom,
+    "blue_to_country":(-36/1.85 if width>760 else -36)*zoom,
     "country_to_legal":38.918919*zoom
   }
   deviations={key:round(gaps[key]-target,2) for key,target in expected.items()}
@@ -174,6 +174,20 @@ with sync_playwright() as p:
   assert all(abs(d)<=1.5 for d in deviations.values()), f"Bad spacing {width}: {deviations}"
   if width>760:
     assert all(abs(d)<=2 for d in horizontal_diff.values()), f"Country width mismatch {width}: {horizontal_diff}"
+  # Check the new overlap is real, Country is in front, and no blue-card
+  # navigation link is obscured by the raised blackboard.
+  assert gaps["blue_to_country"] < 0, "Country paper must overlap blue cards"
+  overlap_state=page.evaluate("""() => {
+    const country=document.querySelector(".country-ack").getBoundingClientRect();
+    const links=[...document.querySelectorAll(".footer-nav-cards .footer-card-links a")];
+    const maxBottom=Math.max(...links.map(el=>el.getBoundingClientRect().bottom));
+    return {countryTop:country.top,maxLinkBottom:maxBottom,
+      countryLayer:getComputedStyle(document.querySelector(".lab-footer")).zIndex,
+      cardsLayer:getComputedStyle(document.querySelector(".footer-scene + .small-cards")).zIndex};
+  }""")
+  assert float(overlap_state["countryLayer"]) > float(overlap_state["cardsLayer"]), overlap_state
+  assert overlap_state["maxLinkBottom"] < overlap_state["countryTop"] - 4, f"Overlap covers a blue-card link: {overlap_state}"
+  dimensions[str(width)]["overlapState"]=overlap_state
   if width>760: assert abs(values["nav"][0]["top"]-13)<0.5
   assert page.locator(".feature-cards a").count()==0, "Cards must not be links"
   assert page.locator(".feature-cards .feature").count()==3

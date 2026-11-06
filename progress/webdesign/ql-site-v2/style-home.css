@@ -1006,11 +1006,11 @@ a {
    Preserve the same right-hand guide as the main cards. */
 .cardboard-page > .lab-footer {
   position: relative;
-  z-index: 7;
+  z-index: 9; /* Country paper sits over the empty lower part of the blue cards. */
   display: block;
-  /* Halve only Footer cards -> Acknowledgement to 13 design px.
-     Country -> policy retains its original 26px visible gap. */
-  margin: calc(var(--space-footer-detail) / 2 - 1.32px) 56.4px 0 39px;
+  /* At the 2005px reference viewport, the painted Country top overlaps
+     the painted blue card bottoms by 36px. Maintain the existing width. */
+  margin: -20.81px 56.4px 0 39px;
   padding: 0;
   border: 0;
   background: none;
@@ -1106,7 +1106,7 @@ a {
 @media (max-width: 760px) {
   .cardboard-page > .lab-footer {
     width: min(400px, calc(100% - 30px));
-    margin: 12px auto 0;
+    margin: -37.3px auto 0; /* 36px visible overlap on unscaled mobile. */
   }
 
   .lab-footer .country-ack {
