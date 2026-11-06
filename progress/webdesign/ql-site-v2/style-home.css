@@ -1013,7 +1013,6 @@ a {
   min-height: 0;
   padding: 26px 34px 24px;
   background: none;
-  color: var(--color-ink);
   isolation: isolate;
 }
 
@@ -1081,6 +1080,12 @@ a {
   font-size: var(--text-ui);
   font-weight: 400;
   line-height: 1.55;
+}
+
+/* Direct text colours: the rest of the footer remains ivory. */
+.lab-footer .country-ack h2,
+.lab-footer .country-ack p {
+  color: var(--color-ink);
 }
 
 /* Copyright, wordmark and founder credit anchor left. Policy links
