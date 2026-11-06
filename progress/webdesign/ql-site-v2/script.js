@@ -1,9 +1,8 @@
 /* Retain the approved responsive cardboard scaling and scene fade. */
 "use strict";
 
-/* Cross-browser layout scale. Firefox 157 supports `zoom`, but not length÷length typed arithmetic in CSS calc().
-   At 100% Chrome zoom, match the former 125% reference appearance: 1.48 × 1.25 = 1.85.
-   Retain the 986px composition and shrink only on narrower viewports. */
+/* Scale the approved 986px desktop composition without changing its artwork.
+   Responsive CSS takes over when the viewport is 760px or narrower. */
 (() => {
   const updateScale = () => {
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -17,27 +16,45 @@
   window.addEventListener('resize', updateScale, {passive: true});
 })();
 
+/* Align the photographic fade with the live position of Coolest Projects.
+   ResizeObserver handles content reflow; resize/load are safe fallbacks. */
+(() => {
+  const host = document.querySelector('.site');
+  const project = document.getElementById('projects');
+  const stage = document.querySelector('.cardboard-stage');
+  if (!host || !project || !stage) return;
 
-/* Set the fade position from the actual laid-out heading, without scaling art. */
-(()=>{
- const host=document.querySelector('.site');
- const project=document.getElementById('projects');
- const update=()=>{
-  const relative=project.getBoundingClientRect().top-host.getBoundingClientRect().top;
-  const mobile=window.innerWidth<=750;
-  const w=window.innerWidth;
-  const originalHeight=Math.max(285,Math.min(740,w*.36));
-  const photoWidth=mobile?w:Math.max(w,originalHeight*3.227799);
-  const available=photoWidth*1169/1346;
-  const start=Math.max(100,Math.min(relative-55,available-(mobile?130:250)));
-  const end=Math.min(start+360,available-2);
-  host.style.setProperty('--top-fade-start',start+'px');
-  host.style.setProperty('--top-fade-end',end+'px');
-  [0.2,0.5,0.8].forEach((t,i)=>host.style.setProperty('--top-fade-stop'+(i+1),(start+(end-start)*t)+'px'));
- };
- new ResizeObserver(update).observe(document.querySelector('.cardboard-stage'));
- window.addEventListener('resize',update,{passive:true});
- window.addEventListener('load',update);update();
+  const updateFade = () => {
+    const relativeTop = project.getBoundingClientRect().top -
+      host.getBoundingClientRect().top;
+    const viewportWidth = window.innerWidth;
+    const mobile = viewportWidth <= 750;
+    const originalHeight = Math.max(285, Math.min(740, viewportWidth * .36));
+    const photoWidth = mobile
+      ? viewportWidth
+      : Math.max(viewportWidth, originalHeight * 3.227799);
+    const imageHeight = photoWidth * 1169 / 1346;
+    const start = Math.max(
+      100,
+      Math.min(relativeTop - 55, imageHeight - (mobile ? 130 : 250))
+    );
+    const end = Math.min(start + 360, imageHeight - 2);
+
+    host.style.setProperty('--top-fade-start', `${start}px`);
+    host.style.setProperty('--top-fade-end', `${end}px`);
+
+    [0.2, 0.5, 0.8].forEach((fraction, index) => {
+      const position = start + (end - start) * fraction;
+      host.style.setProperty(`--top-fade-stop${index + 1}`, `${position}px`);
+    });
+  };
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(updateFade).observe(stage);
+  }
+  window.addEventListener('resize', updateFade, { passive: true });
+  window.addEventListener('load', updateFade);
+  updateFade();
 })();
 
 /* Pick one Qwerty Labs accent for both wordmarks.
@@ -136,11 +153,13 @@
     requestAnimationFrame(update);
   };
 
-  const observer = new ResizeObserver(schedule);
-  observer.observe(cards);
-  cards.querySelectorAll(copySelector).forEach(el => observer.observe(el));
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(schedule);
+    observer.observe(cards);
+    cards.querySelectorAll(copySelector).forEach(el => observer.observe(el));
+  }
   window.addEventListener('resize', schedule, { passive: true });
   window.addEventListener('load', schedule);
-  document.fonts?.ready.then(schedule);
+  document.fonts?.ready?.then(schedule);
   schedule();
 })();
