@@ -168,7 +168,7 @@
    and the hand shown over links. Native cursor fallbacks are retained,
    and CSS restricts the effect to desktop mice/trackpads. */
 (() => {
-  const colours = ['#4C69E3', '#F66DC1', '#92D644', '#FF9029'];
+  const colours = ['#F66DC1', '#92D644', '#FF9029'];
   const colour = colours[Math.floor(Math.random() * colours.length)];
   const arrow = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="32" viewBox="0 0 26 32">
     <path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z"
