@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#020020">
+  <title>Cursor experiments | Qwerty Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--dark:#020020;--blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;--ivory:#F7F4EB}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--dark);color:var(--ivory);font-family:'Atkinson Hyperlegible',Arial,sans-serif}
+    button,input{font:inherit}
+    .playground{display:flex;flex-direction:column;height:100dvh;min-height:400px}
+    .toolbar{position:relative;z-index:2;flex:none;background:var(--dark);box-shadow:0 3px 18px #02002080;border-bottom:1px solid #F7F4EB26}
+    .toolbar-top{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:12px 23px 8px}
+    .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700}
+    h1{font-size:20px;letter-spacing:-.035em;line-height:1.2;margin:3px 0 0}
+    .fineprint{font-size:12px;color:#d2cfc7;white-space:nowrap}
+    .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .return,.size-label,.size-toggle{color:var(--ivory);font-size:12px}
+    .return{background:transparent;border:1px solid #F7F4EB70;border-radius:5px;padding:7px 11px;cursor:pointer}
+    .return:hover,.return:focus-visible{border-color:var(--green);color:var(--green)}
+    .size-toggle{display:flex;align-items:center;gap:6px}
+    .size-toggle input{width:75px;accent-color:var(--green)}
+    .toolbar-bottom{display:flex;align-items:center;gap:9px;padding:0 23px 12px;overflow-x:auto}
+    .variant{flex:1 0 111px;min-width:111px;max-width:190px;display:flex;align-items:center;gap:10px;padding:8px 9px;border:1px solid #F7F4EB45;border-radius:5px;background:#F7F4EB0a;color:var(--ivory);cursor:pointer;text-align:left;transition:background .13s,border-color .13s}
+    .variant:hover{border-color:var(--green);background:#F7F4EB17}
+    .variant[aria-pressed="true"]{background:var(--ivory);color:var(--dark);border-color:var(--ivory)}
+    .swatch{height:31px;width:32px;flex:none;display:grid;place-items:center;position:relative}
+    .variant-name{font-weight:700;font-size:12px;line-height:1.1}
+    .variant-note{font-size:10px;opacity:.75;margin-top:3px}
+    .symbol-pixel{width:13px;height:13px;background:var(--blue);outline:2px solid var(--ivory);box-shadow:3px 3px 0 var(--dark)}
+    .symbol-led{width:14px;height:14px;background:var(--green);border:3px solid var(--dark);border-radius:50%;box-shadow:0 0 0 2px var(--green)}
+    .symbol-cross{width:25px;height:25px;position:relative}
+    .symbol-cross:before,.symbol-cross:after{content:'';position:absolute;background:var(--orange)}
+    .symbol-cross:before{left:11px;top:0;width:3px;height:25px}
+    .symbol-cross:after{top:11px;left:0;width:25px;height:3px}
+    .symbol-scrap{width:22px;height:21px;background:var(--pink);transform:rotate(-12deg);clip-path:polygon(0 3%,26% 0,53% 5%,78% 0,100% 8%,97% 35%,100% 68%,94% 100%,65% 95%,42% 100%,12% 95%,0 78%)}
+    .symbol-caret{height:22px;width:6px;background:var(--ivory);box-shadow:3px 3px 0 var(--blue)}
+    .symbol-chip{width:21px;height:18px;background:var(--dark);border:3px solid var(--green);box-shadow:-7px -2px 0 -4px var(--green),-7px 4px 0 -4px var(--green),-7px 10px 0 -4px var(--green),7px -2px 0 -4px var(--green),7px 4px 0 -4px var(--green),7px 10px 0 -4px var(--green)}
+    .symbol-default{font-size:22px;line-height:1;color:var(--ivory)}
+    .symbol-q{width:34px;height:34px;object-fit:contain}
+    .view{flex:1;min-height:0;position:relative;overflow:hidden}
+    iframe{display:block;width:100%;height:100%;border:0;background:var(--dark)}
+    .hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:1;background:#020020E6;border:1px solid #F7F4EB45;border-radius:3px;padding:6px 12px;color:var(--ivory);font-size:11px;pointer-events:none;white-space:nowrap;box-shadow:0 3px 13px #0200208a}
+    button:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+    @media(max-width:760px){.toolbar-top{flex-wrap:wrap}.fineprint{white-space:normal}.toolbar-bottom{padding:0 12px 10px}.variant{flex:0 0 120px}.toolbar-top{padding:11px 13px}.hint{display:none}}
+    @media(pointer:coarse){.hint{display:none}}
+  </style>
+</head>
+<body>
+  <div class="playground">
+    <div class="toolbar" aria-label="Cursor experiment controls">
+      <div class="toolbar-top">
+        <div><div class="eyebrow">Qwerty Labs / Design experiments</div><h1>Cursor studies <span style="font-weight:400;color:var(--pink)">↗</span></h1></div>
+        <div class="actions">
+          <span class="fineprint">Test them on the actual homepage. Nothing below is changed.</span>
+          <label class="size-toggle"><span class="size-label">Size</span><input id="cursor-size" type="range" min="70" max="150" step="10" value="100" aria-label="Cursor size"><output id="size-out">100%</output></label>
+          <button class="return" id="home" type="button">Back to homepage ↑</button>
+        </div>
+      </div>
+      <div class="toolbar-bottom" role="group" aria-label="Select a cursor">
+        <button type="button" class="variant" data-mode="pixel" aria-pressed="true"><span class="swatch"><span class="symbol-pixel"></span></span><span><span class="variant-name">01 Pixel</span><br><span class="variant-note">Mecha-ish</span></span></button>
+        <button type="button" class="variant" data-mode="led" aria-pressed="false"><span class="swatch"><span class="symbol-led"></span></span><span><span class="variant-name">02 LED</span><br><span class="variant-note">A tiny light</span></span></button>
+        <button type="button" class="variant" data-mode="cross" aria-pressed="false"><span class="swatch"><span class="symbol-cross"></span></span><span><span class="variant-name">03 Crosshair</span><br><span class="variant-note">Precise + spare</span></span></button>
+        <button type="button" class="variant" data-mode="scrap" aria-pressed="false"><span class="swatch"><span class="symbol-scrap"></span></span><span><span class="variant-name">04 Paper scrap</span><br><span class="variant-note">Handmade</span></span></button>
+        <button type="button" class="variant" data-mode="caret" aria-pressed="false"><span class="swatch"><span class="symbol-caret"></span></span><span><span class="variant-name">05 Code caret</span><br><span class="variant-note">Old web</span></span></button>
+        <button type="button" class="variant" data-mode="chip" aria-pressed="false"><span class="swatch"><span class="symbol-chip"></span></span><span><span class="variant-name">06 Microchip</span><br><span class="variant-note">Six contacts</span></span></button>
+        <button type="button" class="variant" data-mode="q" aria-pressed="false"><span class="swatch"><img class="symbol-q" src="./img/q-country-mascot.svg" alt=""></span><span><span class="variant-name">07 Q key</span><br><span class="variant-note">Approved art</span></span></button>
+        <button type="button" class="variant" data-mode="default" aria-pressed="false"><span class="swatch"><span class="symbol-default">↖</span></span><span><span class="variant-name">Default</span><br><span class="variant-note">Before / after</span></span></button>
+      </div>
+    </div>
+    <main class="view">
+      <iframe id="site-frame" title="Qwerty Labs website with selectable experimental mouse cursors" src="./"></iframe>
+      <div class="hint">Move your mouse over the page. Try links, images and different backgrounds.</div>
+    </main>
+  </div>
+  <script>
+    (function(){
+      'use strict';
+      const frame=document.getElementById('site-frame');
+      const buttons=Array.from(document.querySelectorAll('[data-mode]'));
+      const slider=document.getElementById('cursor-size');
+      const sizeOut=document.getElementById('size-out');
+      const mascotUrl=new URL('./img/q-country-mascot.svg',location.href).href;
+      let mode='pixel';
+      let size=1;
+      let cleanup=()=>{};
+      const drawings={
+        pixel:'<span class="ql-draw ql-pixel"></span>',
+        led:'<span class="ql-draw ql-led"></span>',
+        cross:'<span class="ql-draw ql-cross"></span>',
+        scrap:'<span class="ql-draw ql-scrap"></span>',
+        caret:'<span class="ql-draw ql-caret"></span>',
+        chip:'<span class="ql-draw ql-chip"><i></i><i></i><i></i><b></b></span>',
+        q:'<img class="ql-draw ql-q" alt="" src="'+mascotUrl+'">'
+      };
+      const css=[
+        '@media (hover:hover) and (pointer:fine){html.ql-experiment,html.ql-experiment *,html.ql-experiment *::before,html.ql-experiment *::after{cursor:none!important}}',
+        '#ql-cursor-proxy{position:fixed!important;left:0!important;top:0!important;width:0!important;height:0!important;z-index:2147483647!important;pointer-events:none!important;opacity:0;isolation:isolate;--ql-size:1;--ql-hover:1}',
+        '#ql-cursor-proxy.ql-show{opacity:1}',
+        '#ql-cursor-proxy .ql-draw{position:absolute!important;display:block;box-sizing:border-box;pointer-events:none;transform-origin:center;transform:scale(calc(var(--ql-size)*var(--ql-hover)));transition:transform .1s ease}',
+        '#ql-cursor-proxy .ql-pixel{width:12px;height:12px;left:0;top:0;background:#4C69E3;outline:2px solid #F7F4EB;box-shadow:3px 3px 0 #020020}',
+        '#ql-cursor-proxy .ql-led{width:15px;height:15px;left:-8px;top:-8px;background:#92D644;border:3px solid #020020;border-radius:50%;box-shadow:0 0 0 2px #92D644}',
+        '#ql-cursor-proxy .ql-cross{width:24px;height:24px;left:-12px;top:-12px;background:linear-gradient(#FF9029,#FF9029) center/3px 24px no-repeat,linear-gradient(#FF9029,#FF9029) center/24px 3px no-repeat;filter:drop-shadow(1px 1px 0 #020020)}',
+        '#ql-cursor-proxy .ql-scrap{width:23px;height:21px;left:-3px;top:-3px;background:#F66DC1;clip-path:polygon(0 5%,30% 0,53% 5%,79% 0,100% 9%,96% 40%,100% 70%,92% 100%,65% 96%,39% 100%,10% 94%,0 75%);filter:drop-shadow(1px 1px 0 #020020)}',
+        '#ql-cursor-proxy .ql-caret{width:6px;height:24px;left:0;top:-12px;background:#F7F4EB;box-shadow:3px 3px 0 #4C69E3;outline:1px solid #020020}',
+        '#ql-cursor-proxy .ql-chip{width:22px;height:18px;left:0;top:0;background:#020020;border:3px solid #92D644;box-shadow:0 0 0 1px #020020}',
+        '#ql-cursor-proxy .ql-chip i{position:absolute;width:6px;height:3px;left:-9px;background:#92D644;top:1px}',
+        '#ql-cursor-proxy .ql-chip i:nth-child(2){top:6px}',
+        '#ql-cursor-proxy .ql-chip i:nth-child(3){top:11px}',
+        '#ql-cursor-proxy .ql-chip b{position:absolute;width:6px;height:3px;left:19px;top:1px;background:#92D644;box-shadow:0 5px #92D644,0 10px #92D644}',
+        '#ql-cursor-proxy .ql-q{width:43px;height:43px;max-width:none;left:2px;top:2px;object-fit:contain;filter:drop-shadow(1px 2px 1px #02002096)}',
+        '@media(prefers-reduced-motion:reduce){#ql-cursor-proxy .ql-draw{transition:none}}'
+      ].join('\n');
+      function install(){
+        cleanup();
+        let doc,win;
+        try{doc=frame.contentDocument;win=frame.contentWindow;if(!doc||!doc.documentElement)return;}catch(e){return;}
+        const style=doc.createElement('style');
+        style.id='ql-cursor-experiment-style';
+        style.textContent=css;
+        doc.head.appendChild(style);
+        const proxy=doc.createElement('div');
+        proxy.id='ql-cursor-proxy';
+        proxy.setAttribute('aria-hidden','true');
+        doc.body.appendChild(proxy);
+        let fine=win.matchMedia('(hover:hover) and (pointer:fine)').matches;
+        function render(){
+          fine=win.matchMedia('(hover:hover) and (pointer:fine)').matches;
+          doc.documentElement.classList.toggle('ql-experiment',fine&&mode!=='default');
+          proxy.innerHTML=drawings[mode]||'';
+          proxy.style.setProperty('--ql-size',String(size));
+          proxy.style.setProperty('--ql-hover','1');
+          proxy.classList.remove('ql-show');
+        }
+        function move(e){
+          if(mode==='default'||!fine)return;
+          proxy.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';
+          proxy.classList.add('ql-show');
+          const t=e.target;
+          const interactive=t&&t.closest&&t.closest('a,button,summary,select,input,[role=button]');
+          proxy.style.setProperty('--ql-hover',interactive?'1.3':'1');
+        }
+        function hide(){proxy.classList.remove('ql-show')}
+        win.addEventListener('pointermove',move,{passive:true});
+        doc.addEventListener('pointerleave',hide);
+        doc.addEventListener('mouseleave',hide);
+        win.addEventListener('blur',hide);
+        win.addEventListener('scroll',hide,{passive:true});
+        frame._qlRender=render;
+        cleanup=function(){
+          win.removeEventListener('pointermove',move);
+          doc.removeEventListener('pointerleave',hide);
+          doc.removeEventListener('mouseleave',hide);
+          win.removeEventListener('blur',hide);
+          win.removeEventListener('scroll',hide);
+          style.remove();proxy.remove();
+          doc.documentElement.classList.remove('ql-experiment');
+          frame._qlRender=null;
+        };
+        render();
+      }
+      frame.addEventListener('load',install);
+      buttons.forEach(function(b){
+        b.addEventListener('click',function(){
+          mode=b.dataset.mode;
+          buttons.forEach(function(other){other.setAttribute('aria-pressed',String(other===b))});
+          if(frame._qlRender)frame._qlRender();
+        });
+      });
+      slider.addEventListener('input',function(){size=Number(slider.value)/100;sizeOut.textContent=slider.value+'%';if(frame._qlRender)frame._qlRender()});
+      document.getElementById('home').addEventListener('click',function(){frame.src='./'});
+    })();
+  </script>
+</body>
+</html>
