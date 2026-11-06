@@ -1002,6 +1002,12 @@ a {
     margin-inline: -6px;
     padding-inline: 40px;
   }
+
+  /* Centre Q in the final fifth of the Acknowledgement panel. */
+  .lab-footer .country-ack__mascot {
+    right: 10%;
+    transform: translateX(50%);
+  }
 }
 
 .lab-footer .country-ack h2 {
