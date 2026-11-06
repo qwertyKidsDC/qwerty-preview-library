@@ -1003,10 +1003,13 @@ a {
     padding-inline: 40px;
   }
 
-  /* Centre Q in the final fifth of the Acknowledgement panel. */
+  /* Centre Q in the last fifth of the padded content width.
+     The panel has 40px horizontal padding: 40px + 90% of its
+     inner width is equivalent to 90% of the panel minus 32px. */
   .lab-footer .country-ack__mascot {
-    right: 10%;
-    transform: translateX(50%);
+    right: auto;
+    left: calc(90% - 32px);
+    transform: translateX(-50%);
   }
 }
 
