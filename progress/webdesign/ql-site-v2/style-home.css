@@ -1,4 +1,4 @@
-/* Qwerty Labs · Homepage — single consolidated stylesheet, 5 November 2026
+/* Qwerty Labs · Homepage — single consolidated stylesheet, 6 November 2026
    This is the only local CSS file loaded by the homepage.
    The type and palette tokens below govern this page.
    Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
@@ -27,15 +27,11 @@
   --text-card: 20px;     /* Card titles and country acknowledgement */
   --text-body: 18px;     /* Reading copy */
   --text-ui: 16px;       /* Navigation, links and footer UI */
-  --text-blurb: 22px;    /* Lead-style closing paragraph */
   --text-hero: 36px;     /* Handwritten page title */
   --text-legal: 14px;    /* Policies and copyright */
 
   /* Section spacing, before responsive page scaling. */
   --space-section: 52px;
-  --space-home-to-footer: 65px;
-  --space-footer-section: 52px;
-  --space-footer-detail: 26px;
   --nav-top-compensation: 10.27px;
 
   /* Workshop-specific photographic effects */
@@ -170,8 +166,8 @@ a {
   background-image: var(--workshop-top-image);
   background-size: var(--top-photo-width) auto;
   background-position: center top;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1), rgba(0,0,0,.5) var(--top-fade-stop2), rgba(0,0,0,.12) var(--top-fade-stop3), transparent var(--top-fade-end));
-  mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1), rgba(0,0,0,.5) var(--top-fade-stop2), rgba(0,0,0,.12) var(--top-fade-stop3), transparent var(--top-fade-end));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1, 872px), rgba(0,0,0,.5) var(--top-fade-stop2, 980px), rgba(0,0,0,.12) var(--top-fade-stop3, 1088px), transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1, 872px), rgba(0,0,0,.5) var(--top-fade-stop2, 980px), rgba(0,0,0,.12) var(--top-fade-stop3, 1088px), transparent var(--top-fade-end));
 }
 
 .bg-scene__photo::after {
@@ -309,12 +305,6 @@ a {
 .navigation a {
   display: inline-block;
   text-shadow: 0 2px 7px #000;
-  transition: none;
-}
-
-.navigation a:hover,
-.navigation a:focus-visible {
-  transform: none;
 }
 
 /* 05. Hero and handmade mascots */
@@ -370,7 +360,6 @@ a {
 
 /* 06. Shared typography and handmade paper cards
    Section headings and card titles have separate, centralised sizes. */
-.project-copy h2,
 .project-label-text,
 .feature h2 {
   font-size: var(--text-heading);
@@ -419,17 +408,11 @@ a {
   min-width: 0;
   color: var(--color-ink);
   isolation: isolate;
-  transition: none;
 }
 
 .feature .paper-bg,
 .small-card .paper-bg {
   z-index: -1;
-}
-
-.feature:hover,
-.small-card:hover {
-  transform: none;
 }
 
 /* Three large paper links */
@@ -479,13 +462,14 @@ a {
 
 .project-label {
   position: absolute;
-  top: 0;
+  top: 5.621px;
   left: 0;
   width: 354px;
-  height: 75px;
+  height: 64.053px;
 }
 
 .project-label-text {
+  margin: 0;
   position: absolute;
   top: 22px;
   left: 39px;
@@ -493,10 +477,6 @@ a {
   text-transform: uppercase;
   white-space: nowrap;
   transform: rotate(-1.2deg);
-}
-
-.project-copy h2 {
-  margin: 0 0 20px;
 }
 
 .project-copy p {
@@ -720,22 +700,6 @@ a {
 
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .feature,
-  .small-card,
-  .navigation a {
-    transition: none;
-  }
-
-  .feature:hover,
-  .small-card:hover,
-  .navigation a:hover,
-  .navigation a:focus-visible {
-    transform: none;
-  }
-}
-
-
 /* 10. Closing scene, blue information cards and legal footer
    Consolidated from the existing footer CSS without changing source order.
    Only the mobile tape lettering uses 24px to fit the narrower artwork.
@@ -774,6 +738,7 @@ a {
 
 /* Live lettering on the tape (the original blue image contains no text). */
 .footer-scene__tape-text {
+  margin: 0;
   grid-area: sign;
   position: absolute;
   z-index: 3;
@@ -840,7 +805,7 @@ a {
   position: relative;
   isolation: isolate;
   padding: 8px;
-  background: #F7F4EB;
+  background: var(--color-ivory);
   box-shadow: 1px 3px 5px rgba(0,0,0,.29);
   transform: rotate(-.6deg);
 }
@@ -878,9 +843,8 @@ a {
   letter-spacing: normal;
 }
 
-/* One shared gap for both dark-panel links; no extra Projects paragraph margin. */
-.project-copy > p,
-.footer-scene__content > p {
+/* Keep the Meet the Lab link close to its paragraph. */
+.project-copy > p {
   margin-bottom: 0;
 }
 
@@ -892,12 +856,6 @@ a {
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.4;
-}
-
-.scene-link:hover,
-.scene-link:focus-visible {
-  /* Motion provides the interaction cue; keep the approved ivory text and underline. */
-  transform: none;
 }
 
 
@@ -959,25 +917,12 @@ a {
   }
 }
 
-/* Retain reduced-motion support for link treatments. */
-@media (prefers-reduced-motion: reduce) {
-  .scene-link { transition: none; }
-  .scene-link:hover,
-  .scene-link:focus-visible { transform: none; }
-}
-
 /* Secondary blue cards. Their height fits five full-size links.
    Artwork has transparent space at the top; 50px positions the copy
    inside the visible paper, not just its SVG bounds. */
 .footer-nav-cards .footer-nav-card {
   height: 275px;
   padding: 50px 32px 20px 34px;
-}
-
-/* Informational panels are static; only their text anchors are interactive. */
-.footer-nav-cards .footer-nav-card:hover,
-.footer-nav-cards .footer-nav-card:focus-within {
-  transform: none;
 }
 
 .footer-nav-card h2 {
@@ -1006,13 +951,6 @@ a {
 /* Keep 14px policy labels easy to activate (WCAG 2.2 target-size baseline). */
 .footer-legal-links a {
   min-height: 24px;
-}
-
-.footer-card-links a:hover,
-.footer-card-links a:focus-visible,
-.footer-legal-links a:hover,
-.footer-legal-links a:focus-visible {
-  transform: none;
 }
 
 .footer-card-address {
@@ -1202,20 +1140,6 @@ a {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .footer-card-links a,
-  .footer-legal-links a {
-    transition: none;
-  }
-
-  .footer-card-links a:hover,
-  .footer-card-links a:focus-visible,
-  .footer-legal-links a:hover,
-  .footer-legal-links a:focus-visible {
-    transform: none;
-  }
-}
-
 /* 12. Link roles: one interaction system.
    Body links use a handmade squiggle at rest. Hover/focus turns text blue
    and retracts the squiggle to the right. The blue footer cards use
@@ -1235,7 +1159,6 @@ a {
 }
 
 .footer-scene__content p a,
-.project-copy p a,
 .scene-link,
 .footer-card-links a {
   position: relative;
@@ -1244,7 +1167,6 @@ a {
   color: inherit;
 }
 .footer-scene__content p a::after,
-.project-copy p a::after,
 .scene-link::after,
 .footer-card-links a::after {
   content: "";
@@ -1281,8 +1203,6 @@ a {
 }
 .footer-scene__content p a:hover::after,
 .footer-scene__content p a:focus-visible::after,
-.project-copy p a:hover::after,
-.project-copy p a:focus-visible::after,
 .scene-link:hover::after,
 .scene-link:focus-visible::after,
 .footer-card-links a:hover::after,
@@ -1291,12 +1211,7 @@ a {
   opacity: 0;
 }
 @media (prefers-reduced-motion: reduce) {
-  .footer-scene__content p a,
-  .project-copy p a,
-  .scene-link,
-  .footer-card-links a,
   .footer-scene__content p a::after,
-  .project-copy p a::after,
   .scene-link::after,
   .footer-card-links a::after {
     transition: none;
@@ -1318,13 +1233,9 @@ a {
     right: 56.4px;
     margin-top: 0;
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  .navigation a,
-  .scene-link,
-  .footer-card-links a,
-  .footer-legal-links a,
-  .feature h2 { transition: none; }
+  .footer-scene__tape { top: -25.31px; height: 64.053px; }
+  .footer-scene__tape-text { top: -8.93px; }
+  .footer-scene__content { margin-top: 54.08px; }
 }
 
 
@@ -1336,20 +1247,3 @@ a {
 .footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
 .footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
-.project-label { top: 5.621px; height: 64.053px; }
-
-@media (min-width: 761px) {
-  /* The dark board's removed top 134px equals 54.93px at design width. */
-  .footer-scene__tape { top: -25.31px; height: 64.053px; }
-  .footer-scene__tape-text { top: -8.93px; }
-  .footer-scene__content { margin-top: 54.08px; }
-}
-@media (max-width: 760px) {
-  /* Keep the tape in place above the content-led mobile board. */
-  .footer-scene__tape { top: 24px; }
-  .footer-scene__tape-text { top: 42px; }
-  .footer-scene__content { margin-top: 100px; }
-  /* Mobile follows document order: photograph, then copy. */
-}
-
-
