@@ -798,12 +798,42 @@ a {
   transform: rotate(-.6deg);
 }
 
-.photo-frame--cardboard-offset > img {
+/* The cloud keeps the photo print's original proportions, padding and tilt.
+   Its poster is restored after playback, without shifting the frame. */
+.photo-frame--cardboard-offset > .cloud-replay {
   position: relative;
   display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 1749 / 1007;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  cursor: var(--ql-hand-cursor, pointer);
+}
+
+.cloud-replay__video,
+.cloud-replay__poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  pointer-events: none;
+}
+
+.cloud-replay__poster {
+  z-index: 1;
+}
+
+.cloud-replay.is-playing .cloud-replay__poster {
+  visibility: hidden;
+}
+
+.cloud-replay:focus-visible {
+  outline: 3px solid var(--color-ivory);
+  outline-offset: 3px;
 }
 
 .photo-frame--cardboard-offset::before {

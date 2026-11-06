@@ -111,6 +111,65 @@
   catch (_) { /* No storage required. */ }
 })();
 
+/* Project Code Cloud: one silent scroll play; hover or tap to replay.
+   The poster remains visible before and after playback. */
+(() => {
+  const button = document.querySelector('#projects .cloud-replay');
+  const video = button?.querySelector('video');
+  if (!button || !video) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let playbackMode = null;
+
+  const reset = () => {
+    video.pause();
+    try { video.currentTime = 0; }
+    catch (_) { /* Media may not be ready yet. */ }
+    button.classList.remove('is-playing');
+    playbackMode = null;
+  };
+
+  const play = (mode) => {
+    if (playbackMode) return;
+    playbackMode = mode;
+    try { video.currentTime = 0; }
+    catch (_) { /* Playback will still start from the beginning. */ }
+    const attempt = video.play();
+    if (attempt && typeof attempt.catch === 'function') {
+      attempt.catch(reset); // e.g. autoplay denied by the browser
+    }
+  };
+
+  video.addEventListener('playing', () => button.classList.add('is-playing'));
+  video.addEventListener('ended', reset);
+  video.addEventListener('error', reset);
+
+  button.addEventListener('mouseenter', () => {
+    if (canHover.matches && !prefersReducedMotion.matches) play('hover');
+  });
+  button.addEventListener('mouseleave', () => {
+    if (playbackMode === 'hover') reset();
+  });
+  button.addEventListener('click', () => {
+    if (playbackMode) reset();
+    play('manual');
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && playbackMode) reset();
+  });
+
+  // Only one automatic attempt per page load, after enough of the image is visible.
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      if (!prefersReducedMotion.matches) play('intro');
+    }, { threshold: 0.45 });
+    observer.observe(button);
+  }
+})();
+
 /* Update the copyright year automatically, retaining the 2026 HTML fallback. */
 (() => {
   const year = document.getElementById('copyright-year');

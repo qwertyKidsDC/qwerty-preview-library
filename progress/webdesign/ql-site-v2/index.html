@@ -17,8 +17,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style-home.css?v=country-visible-edges-20261106">
-    <script src="script.js?v=brand-cursor-no-blue-20261106" defer></script>
+    <link rel="stylesheet" href="style-home.css?v=cloud-replay-20261106">
+    <script src="script.js?v=cloud-replay-20261106" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -91,7 +91,12 @@
                 <h2 class="footer-scene__tape-text" id="featured-projects-title">COOLEST PROJECTS</h2>
                 <div class="footer-scene__content">
                   <figure class="footer-scene__photo photo-frame--cardboard-offset">
-                    <img src="img/project-code-cloud.svg" alt="Project Code Cloud glowing pink against a dark background" width="1749" height="1007" loading="lazy" decoding="async">
+                    <button class="cloud-replay" type="button" aria-label="Replay the Project Code Cloud video">
+                      <video class="cloud-replay__video" muted playsinline preload="none" width="1749" height="1007" aria-hidden="true">
+                        <source src="img/cloud-demo-web.mp4" type="video/mp4">
+                      </video>
+                      <img class="cloud-replay__poster" src="img/cloud-poster-selected.webp" alt="" width="1749" height="1007" loading="lazy" decoding="async">
+                    </button>
                   </figure>
                   <p>Tiarna and Chloe <a href="https://online.coolestprojects.org/projects/26934">built a cloud</a> that makes invisible code visible. <strong>International judges</strong> loved it. We told the <strong>Prime Minister</strong>. His office wrote back to congratulate them on their <strong>creativity, innovation</strong> and <strong>technical skills</strong>. Not a bad result for a couple of makers from Marrickville.</p>
                 </div>
