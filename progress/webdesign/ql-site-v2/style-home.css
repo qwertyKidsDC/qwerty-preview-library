@@ -826,24 +826,55 @@ a {
   /* Keep the blue label in place; copy and link return to the left. */
   margin-top: 109px;
   margin-bottom: 43px;
-  width: 75%;
+  width: 91.6%;
   margin-left: 4.2%;
   margin-right: 0;
   transform: none;
   color: var(--color-ivory);
   text-align: left;
-  display: flow-root;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 30%);
+  align-items: center;
+  gap: 28px;
 }
 
-/* Decorative mascot lives alongside the copy, with text wrapping naturally.
-   Its feet meet the painted board edge without depending on transparent image margins. */
-.footer-scene__mascot {
-  position: static;
-  float: right;
-  width: 160px;
-  max-width: 24%;
+/* Photo frame 06: clean ivory photographic paper and one handmade
+   masking-tape corner tab. Kept as a reusable frame class. */
+.footer-scene__photo {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+.photo-frame--tape {
+  position: relative;
+  padding: 8px 8px 10px;
+  background: #F7F4EB;
+  box-shadow: 2px 5px 6px rgba(0,0,0,.34);
+  transform: rotate(1.5deg);
+}
+.photo-frame--tape > img {
+  display: block;
+  width: 100%;
   height: auto;
-  margin: -12px 0 0 18px;
+  aspect-ratio: 1749 / 1007;
+  object-fit: cover;
+}
+.photo-frame--tape::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -12px;
+  right: -16px;
+  width: 101px;
+  height: 30px;
+  transform: rotate(20deg);
+  background:
+    repeating-linear-gradient(92deg, rgba(255,255,255,.12) 0 3px, rgba(128,90,40,.045) 3px 5px),
+    linear-gradient(180deg, rgba(255,250,229,.22), rgba(171,131,78,.16)),
+    #DDC397;
+  clip-path: polygon(0% 7%, 5% 3%, 12% 6%, 19% 2%, 27% 4%, 35% 1%, 42% 5%, 50% 3%, 58% 5%, 65% 1%, 73% 5%, 81% 2%, 90% 5%, 100% 2%, 98% 94%, 90% 97%, 82% 93%, 74% 98%, 66% 94%, 58% 98%, 49% 94%, 40% 96%, 31% 93%, 23% 98%, 15% 94%, 7% 96%, 0% 92%);
+  box-shadow: 1px 1px 2px rgba(0,0,0,.20);
+  opacity: .94;
   pointer-events: none;
 }
 
@@ -928,8 +959,11 @@ a {
     font-size: 24px;
   }
 
-  /* Keep mobile copy and links fully legible on the narrower board. */
-  .footer-scene__mascot { display: none; }
+  /* Keep the photo visible below the copy on narrow screens. */
+  .footer-scene__photo {
+    width: min(100%, 310px);
+    justify-self: center;
+  }
 
   .footer-scene__content {
     width: 79%;
@@ -937,6 +971,8 @@ a {
     margin-top: 100px;
     margin-bottom: 32px;
     transform: none;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
   }
 
   .footer-scene__content p {
@@ -1289,9 +1325,7 @@ a {
   .footer-scene__tape { top: 24px; }
   .footer-scene__tape-text { top: 42px; }
   .footer-scene__content { margin-top: 100px; }
-  /* The robot is floated in desktop copy; on narrow screens it obstructs
-     the paragraph and pushes the link outside its cardboard surface. */
-  .footer-scene__mascot { display: none !important; }
+  /* The cloud photo follows the paragraph on narrow screens. */
 }
 
 
