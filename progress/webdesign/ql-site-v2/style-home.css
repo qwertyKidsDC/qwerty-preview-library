@@ -28,12 +28,14 @@
   --text-body: 18px;     /* Reading copy */
   --text-ui: 16px;       /* Navigation, links and footer UI */
   --text-hero: 36px;     /* Handwritten page title */
-  --text-footer: 14px; /* Footer cards and Country copy */
+  --text-footer-heading: 18px; /* Blue footer-card titles */
+  --text-footer: 14px;         /* Footer card copy and Country paragraph */
   --text-legal: 12px;    /* Policies and copyright */
 
   /* Section spacing, before responsive page scaling. */
   --space-section: 52px;
   --nav-top-compensation: 10.27px;
+  --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 
   /* Workshop-specific photographic effects */
   --scene-backdrop: #050A13;
@@ -209,7 +211,7 @@ a {
   width: fit-content;
   max-width: 100%;
   margin: 0 auto;
-  padding: 32px 34px 38px;
+  padding: 13px 34px 38px;
 }
 
 .cardboard-page {
@@ -259,9 +261,9 @@ a {
   align-items: flex-start;
   justify-content: space-between;
   gap: 25px;
-  height: 100px;
+  height: calc(100px + var(--nav-top-compensation));
   /* Right edge follows the last top feature card, not the page boundary. */
-  padding: 14px 56.4px 0 47px;
+  padding: calc(14px + var(--nav-top-compensation)) 56.4px 0 47px;
 }
 
 .logo {
@@ -281,7 +283,6 @@ a {
   align-items: center;
   justify-content: flex-end;
   gap: 10px 20px;
-  margin-top: 33px;
   color: var(--color-ivory);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -358,9 +359,16 @@ a {
 
 .small-card h2,
 .lab-footer .country-ack h2 {
-  font-size: var(--text-card);
   font-weight: 700;
   line-height: 1.2;
+}
+
+.small-card h2 {
+  font-size: var(--text-footer-heading);
+}
+
+.lab-footer .country-ack h2 {
+  font-size: var(--text-card);
 }
 
 .feature h2,
@@ -370,7 +378,6 @@ a {
 }
 
 .feature p,
-.small-card p,
 .project-copy p {
   font-size: var(--text-body);
   font-weight: 400;
@@ -383,8 +390,7 @@ a {
   text-transform: uppercase;
 }
 
-.feature p,
-.small-card p {
+.feature p {
   margin-top: 4px;
 }
 
@@ -470,7 +476,7 @@ a {
 
 .project-copy p {
   max-width: 300px;
-  margin: 0 0 24px;
+  margin: 0;
 }
 
 .photo-collage {
@@ -505,16 +511,11 @@ a {
 /* 08. Three smaller information panels */
 .small-cards {
   position: relative;
-  z-index: 5;
+  z-index: 8;
   display: flex;
   gap: 12px;
   /* Match the visible right edge of the top three cards (56.4px from the page edge). */
-  margin: -32px 44.3px 0 39px;
-}
-
-.small-card {
-  height: 161px;
-  padding: 32px 38px 18px;
+  margin: 40px 44.3px 0 39px;
 }
 
 .small-card h2 {
@@ -556,7 +557,6 @@ a {
 
   .navigation {
     gap: 7px 17px;
-    margin-top: 0;
     padding-top: 14px;
     letter-spacing: .22em;
   }
@@ -662,9 +662,6 @@ a {
     width: 100%;
   }
 
-  .small-card {
-    height: 165px;
-  }
 }
 
 /* The photo scales at 750px (matching script.js); cards stack at 760px.
@@ -720,7 +717,7 @@ a {
   top: 24px;
   left: 0;
   width: 354px;
-  height: 75px;
+  height: 64.053px;
   object-fit: fill;
   pointer-events: none;
 }
@@ -731,7 +728,7 @@ a {
   grid-area: sign;
   position: absolute;
   z-index: 3;
-  top: 46px;
+  top: -8.93px;
   left: 39px;
   color: var(--color-ink);
   font-size: var(--text-heading);
@@ -743,13 +740,13 @@ a {
   pointer-events: none;
 }
 
-/* Nine-slice the original artwork: corners and cardboard trim retain their
-   shape while the centre expands to fit the copy. */
-.footer-scene__board::before {
+/* Shared nine-slice blackboard artwork. The frame and its cardboard trim
+   stay intact as each panel expands with its own content. */
+.footer-scene__board::before,
+.lab-footer .country-ack::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
   pointer-events: none;
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
@@ -760,6 +757,10 @@ a {
   filter: brightness(1.15);
 }
 
+.footer-scene__board::before {
+  z-index: 0;
+}
+
 .footer-scene__content {
   grid-area: sign;
   position: relative;
@@ -767,12 +768,11 @@ a {
   justify-self: start;
   align-self: start;
   /* Position the photo and copy equally beneath the blue label. */
-  margin-top: 109px;
+  margin-top: 54.08px;
   margin-bottom: 43px;
   width: 91.6%;
   margin-left: 4.2%;
   margin-right: 0;
-  transform: none;
   color: var(--color-ivory);
   text-align: left;
   display: grid;
@@ -856,35 +856,14 @@ a {
 .footer-scene__content p {
   margin: 0;
   max-width: 570px;
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: normal;
-}
-
-/* Keep the Meet the Lab link close to its paragraph. */
-.project-copy > p {
-  margin-bottom: 0;
 }
 
 .scene-link {
   display: inline-block;
   margin-top: 18px;
-  padding-bottom: 0;
-  color: inherit;
-  font-size: var(--text-body);
-  font-weight: 400;
   line-height: 1.4;
 }
 
-
-/* The information cards follow Meet the Lab. Keep breathing room
-   between the visible collage and the blue paper cards. */
-.projects + .small-cards {
-  position: relative;
-  z-index: 8;
-  margin-top: 40px;
-}
 
 @media (max-width: 760px) {
   .footer-scene {
@@ -893,7 +872,6 @@ a {
   }
 
   .footer-scene__tape {
-    top: 24px;
     width: min(295px, 82%);
     height: auto;
     aspect-ratio: 354 / 75;
@@ -916,7 +894,6 @@ a {
     margin-left: 10%;
     margin-top: 100px;
     margin-bottom: 32px;
-    transform: none;
     grid-template-columns: minmax(0, 1fr);
     gap: 22px;
   }
@@ -936,6 +913,14 @@ a {
   }
 }
 
+/* Footer card copy and Country acknowledgement share one type token.
+   Spacing and line-height remain specific to each component. */
+.footer-card-links,
+.footer-card-address,
+.lab-footer .country-ack p {
+  font-size: var(--text-footer);
+}
+
 /* Secondary blue cards. Their height fits five full-size links.
    Artwork has transparent space at the top; 50px positions the copy
    inside the visible paper, not just its SVG bounds. */
@@ -945,7 +930,6 @@ a {
 }
 
 .footer-nav-card h2 {
-  font-size: 18px;
   margin: 0 0 8px;
 }
 
@@ -954,8 +938,6 @@ a {
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  font-size: var(--text-footer);
-  font-weight: 400;
   line-height: 1.35;
 }
 
@@ -963,26 +945,20 @@ a {
 .footer-legal-links a {
   display: inline-flex;
   align-items: center;
-  padding-bottom: 2px;
-  color: inherit;
-  text-decoration: none;
 }
 
 /* Keep policy links easy to activate (WCAG 2.2 target-size baseline). */
 .footer-legal-links a {
   min-height: 24px;
+  padding-bottom: 2px;
 }
 
 .footer-card-address {
-  font-size: var(--text-footer);
-  font-weight: 400;
-  line-height: 1.5;
   font-style: normal;
 }
 
 .footer-email {
-  font-size: var(--text-footer);
-  font-weight: 400; /* Not a live link until the address is active. */
+  /* Not a live link until the address is active. */
   line-height: 1.4;
   white-space: normal;
   overflow-wrap: anywhere;
@@ -994,46 +970,23 @@ a {
 .cardboard-page > .lab-footer {
   position: relative;
   z-index: 9; /* Country paper sits over the empty lower part of the blue cards. */
-  display: block;
   /* JS aligns this panel 24 viewport pixels below the lowest footer-card
      copy, regardless of leftover paper. This margin is the no-JS fallback. */
   margin: -46.755946px 56.4px 0 39px;
-  padding: 0;
-  border: 0;
-  background: none;
   color: var(--color-ivory);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: left;
-  letter-spacing: normal;
 }
 
 .lab-footer .country-ack {
   position: relative;
-  box-sizing: border-box;
   min-height: 0;
   padding: 26px 34px 24px;
   background: none;
   isolation: isolate;
 }
 
-/* The exact Coolest Projects blackboard-and-cardboard artwork.
-   Nine-slice framing follows the existing content-driven panel height;
-   no box dimensions, spacing or overlap values are changed. */
+/* Country uses the same artwork, but behind its content. */
 .lab-footer .country-ack::before {
-  content: "";
-  position: absolute;
-  inset: 0;
   z-index: -1;
-  pointer-events: none;
-  border: solid transparent;
-  border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
-  border-image-source: url("img/q-country-beige.webp");
-  border-image-slice: 92 140 92 140 fill;
-  border-image-width: 1;
-  border-image-repeat: stretch round;
-  filter: brightness(1.15);
 }
 
 .lab-footer .country-ack__mascot {
@@ -1079,15 +1032,7 @@ a {
 .lab-footer .country-ack p {
   width: 80%;
   margin: 0;
-  font-size: var(--text-footer);
-  font-weight: 400;
   line-height: 1.55;
-}
-
-/* Direct text colours: the rest of the footer remains ivory. */
-.lab-footer .country-ack h2,
-.lab-footer .country-ack p {
-  color: var(--color-ink);
 }
 
 /* Copyright, wordmark and founder credit anchor left. Policy links
@@ -1102,9 +1047,7 @@ a {
   margin: 60px -12.1px 0 0;
   padding: 0 0 24px;
   font-size: var(--text-legal);
-  font-weight: 400;
   line-height: 1.4;
-  text-align: left;
 }
 
 .lab-footer .footer-wordmark {
@@ -1158,7 +1101,6 @@ a {
   }
 
   .lab-footer .country-ack {
-    min-height: 0;
     padding: 26px 26px 125px;
   }
 
@@ -1202,30 +1144,20 @@ a {
   }
 }
 
-/* 12. Link roles: one squiggle asset, one approved colour token.
+/* 11. Link roles: one squiggle asset, one approved colour token.
    Use an SVG as an alpha mask so all blue lines take their colour directly
    from --color-blue (#4C69E3), rather than encoding different colours and
    stroke widths in several SVGs. Hover states are immediate, not animated.
    Text colour does not change. */
-:root {
-  --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
-}
-
 .navigation a,
 .footer-legal-links a {
   position: relative;
-  border: 0;
-  text-decoration: none;
-  font-weight: inherit;
 }
 
 .footer-scene__content p a,
 .scene-link,
 .footer-card-links a {
   position: relative;
-  border: 0;
-  text-decoration: none;
-  color: inherit;
 }
 
 .navigation a::after,
@@ -1264,7 +1196,6 @@ a {
   bottom: 2px;
 }
 .footer-card-links a {
-  padding-bottom: 0;
   min-height: 24px;
 }
 
@@ -1283,24 +1214,17 @@ a {
   background-color: var(--color-ivory);
 }
 
-/* The old page stage starts at 32px and clips overflowing navigation.
+/* 12. Navigation stage compensation.
+   The old page stage starts at 32px and clips overflowing navigation.
    Bring the stage to 13px, but replace those 19 screen pixels inside the
    header. The wordmark and all following rows therefore stay in place. */
 @media (min-width: 761px) {
-  .cardboard-stage { padding-top: 13px; }
-  .header {
-    height: calc(100px + var(--nav-top-compensation));
-    padding-top: calc(14px + var(--nav-top-compensation));
-  }
   .navigation {
     position: absolute;
     top: 0;
     right: 56.4px;
-    margin-top: 0;
   }
-  .footer-scene__tape { top: -25.31px; height: 64.053px; }
-  .footer-scene__tape-text { top: -8.93px; }
-  .footer-scene__content { margin-top: 54.08px; }
+  .footer-scene__tape { top: -25.31px; }
 }
 
 
