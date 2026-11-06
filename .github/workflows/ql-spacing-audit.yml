@@ -3,6 +3,9 @@ name: Qwerty Labs v2 spacing audit
 # and generating large screenshots on every future CSS/HTML commit.
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'progress/webdesign/ql-site-v2/**'
 permissions:
   contents: read
 jobs:
