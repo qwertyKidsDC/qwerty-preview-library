@@ -87,18 +87,6 @@ a {
   outline-offset: -4px;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /* 02. Workshop photographs
    Two real WebP photos; top fade stops are calculated by script.js. */
 .site {
@@ -415,7 +403,7 @@ a {
   z-index: -1;
 }
 
-/* Three large paper links */
+/* Three static audience panels */
 .feature-cards {
   position: relative;
   z-index: 5;
@@ -513,7 +501,7 @@ a {
   transform: rotate(-4.3deg);
 }
 
-/* 08. Three smaller paper links */
+/* 08. Three smaller information panels */
 .small-cards {
   position: relative;
   z-index: 5;
