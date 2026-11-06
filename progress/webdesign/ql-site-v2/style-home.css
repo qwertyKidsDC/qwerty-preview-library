@@ -833,7 +833,7 @@ a {
   color: var(--color-ivory);
   text-align: left;
   display: grid;
-  grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   align-items: center;
   gap: 30px;
 }
