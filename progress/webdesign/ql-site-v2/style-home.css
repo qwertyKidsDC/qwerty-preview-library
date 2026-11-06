@@ -1022,14 +1022,12 @@ a {
     padding-inline: 40px;
   }
 
-  /* Align the frame box with the actual three-card span, not
-     the wider flex row. The cards occupy 3 × 32% plus two 12px gaps,
-     ending 56.4px from the page edge. The Country section extends
-     6px beyond those same guides, so inset its decoration on both
-     sides without moving any text, mascot or overlapping layout. */
+  /* The nine-slice image has transparent edge pixels within its border.
+     Match its painted edges to the three blue cards (measured against
+     the approved desktop screenshot), without resizing the content panel. */
   .lab-footer .country-ack::before {
-    left: 6px;
-    right: 6px;
+    left: -21px;
+    right: -21px;
   }
 
   /* Centre Q in the last fifth of the padded content width.
