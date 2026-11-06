@@ -856,7 +856,6 @@ a {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1749 / 1007;
   object-fit: cover;
 }
 .photo-frame--tape::after {
