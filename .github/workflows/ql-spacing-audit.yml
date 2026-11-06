@@ -2,12 +2,6 @@ name: Qwerty Labs v2 spacing audit
 # Manual-only: the studio changes pages frequently; avoid installing a browser
 # and generating large screenshots on every future CSS/HTML commit.
 on:
-  push:
-    paths:
-      - ".github/workflows/ql-spacing-audit.yml"
-      - "progress/webdesign/ql-site-v2/style-home.css"
-      - "progress/webdesign/ql-site-v2/index.html"
-      - "progress/webdesign/ql-site-v2/_tools/spacing_audit.py"
   workflow_dispatch:
 permissions:
   contents: read
