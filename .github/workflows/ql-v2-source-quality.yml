@@ -1,0 +1,22 @@
+name: Qwerty Labs v2 source quality
+on:
+  pull_request:
+    paths:
+      - 'progress/webdesign/ql-site-v2/**'
+      - '.github/workflows/ql-v2-source-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate HTML, CSS and local asset references
+        run: node progress/webdesign/ql-site-v2/_tools/check-homepage.mjs
