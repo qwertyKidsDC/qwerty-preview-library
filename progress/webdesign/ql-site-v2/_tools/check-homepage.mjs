@@ -22,6 +22,10 @@ const htmlClasses = new Set(
   matches(html, /\bclass\s*=\s*"([^"]+)"/g)
     .flatMap(value => value.trim().split(/\s+/))
 );
+/* State classes are introduced at runtime, not written in the HTML. */
+const jsClasses = new Set(
+  matches(js, /\bclassList\.(?:add|remove|toggle)\(\s*['"]([^'"]+)['"]/g)
+);
 const cssWithoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
 const cssRules = [...cssWithoutComments.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
   .map(match => ({ selector: match[1].trim(), declarations: match[2] }))
@@ -31,7 +35,9 @@ const cssClasses = new Set(
 );
 
 for (const name of cssClasses) {
-  if (!htmlClasses.has(name)) errors.push('Unused CSS class: .' + name);
+  if (!htmlClasses.has(name) && !jsClasses.has(name)) {
+    errors.push('Unused CSS class: .' + name);
+  }
 }
 for (const name of htmlClasses) {
   if (!cssClasses.has(name) && !js.includes('.' + name)) {
@@ -94,6 +100,7 @@ if (errors.length) {
 } else {
   console.log('PASS — homepage source checks');
   console.log('  HTML classes: ' + htmlClasses.size);
+  console.log('  JS-managed state classes: ' + jsClasses.size);
   console.log('  CSS rules checked: ' + cssRules.length);
   console.log('  Local resource references: ' + relativeFiles.size);
   console.log('  Duplicate ids, missing assets, dead CSS classes: none');
