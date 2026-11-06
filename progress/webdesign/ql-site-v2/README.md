@@ -1,8 +1,9 @@
 # Qwerty Labs — homepage v2
 
-**Status:** Working visual source of truth, audited 6 November 2026. This is a
-GitHub Pages preview, not a production launch. The homepage deliberately uses
-`noindex,nofollow`; the four linked copy-review subpages remain drafts.
+**Status:** Approved blackboard homepage; controlled source refactor completed
+7 November 2026. This is a GitHub Pages preview, not a production launch.
+The homepage deliberately uses `noindex,nofollow`; the four linked
+copy-review subpages remain drafts. Visual regression still requires a browser review.
 
 [Open the homepage preview](https://qwertykidsdc.github.io/qwerty-preview-library/progress/webdesign/ql-site-v2/)
 
@@ -16,10 +17,14 @@ GitHub Pages preview, not a production launch. The homepage deliberately uses
 | `img/` | Approved imagery and its retained source/experimental variants. |
 | `_tools/check-homepage.mjs` | Dependency-free static checks for selectors, markup references and assets. |
 | `_tools/spacing_audit.py` | Optional Playwright screenshot/geometry audit; requires its separate Python and browser dependencies. |
+| `index-blackboard.html` / `index-blackboard.htm` | Legacy links that redirect to the canonical homepage. |
+| `style-home-blackboard.css` | Compatibility-only `@import` for old cached preview HTML; not loaded by the active homepage. |
+| `index-beige-backup-20261107.html` + `style-home-beige-archive-20261107.css` | Frozen beige variant. Do not use these as a working branch. |
 
 Do not edit `style.css`, `style-clean.css`, `style-refactor.css`,
-`footer-home.css` or the dated experiment HTML files expecting to change
-the homepage. Those are historical experiments, not imported styles.
+`footer-home.css`, `style-home-blackboard.css` or the dated experiment HTML
+files expecting to change the homepage. Those are historical experiments or a
+compatibility alias, not the active stylesheet.
 Keep them available until their public preview links and asset dependencies
 have been inventoried. Likewise, `copy-originals-20261103/` contains review
 history, not production copy.
@@ -42,14 +47,19 @@ that is intentional until their layouts are approved.
   do not merge those breakpoints without visual comparison.
 - Decoration belongs in images, CSS backgrounds or empty-alt artwork.
   Actual content uses text, semantic headings, links and alternative text.
+- The blue footer-card headings are 18px; footer-card copy and Country
+  paragraph are 14px; the Country heading is 20px; legal copy is 12px.
+  Those values belong in the shared tokens in `style-home.css`.
+- Coolest Projects and Country share the nine-slice blackboard frame
+  definition. Their stacking order and component-specific geometry stay separate.
 - Only link affordances animate; reduced-motion users receive static lines.
 - The Acknowledgement of Country follows the lowest blue-card text by
   24 *visible* pixels where supported. CSS provides the no-script margin.
 
 ## Asset control
 
-The homepage currently refers to **19 individual local image paths** in its
-HTML/CSS, plus **three JavaScript-selected coloured wordmark variants**.
+The homepage references local artwork and a video in its HTML/CSS, plus
+**three JavaScript-selected coloured wordmark variants**.
 Several of the 53 items in `img/` are previous art, source versions or
 assets used by experiments and tooling. **Do not delete the remainder just
 because the homepage does not reference them.** The trimmed assets are
@@ -90,16 +100,25 @@ before moving changes to the public homepage.
   is approximately **4.34:1**, slightly below 4.5:1 for ordinary text.
   Hover colours need an approved WCAG 2.2 AA solution before claiming
   full conformance.
-- Complete the mobile/desktop *visual* regression comparison for the audit
-  branch. Source-only cleanup cannot establish a pixel-perfect match.
+- Complete the mobile/desktop *visual* regression comparison for the refactor.
+  The effective desktop/mobile declarations, selected assets, markup classes and
+  CSS syntax were checked statically, but no browser screenshot comparison was
+  available in this editing session. Source-only checks do not prove pixel parity.
+- The 24px Country-to-card-copy relationship is still measured by JavaScript
+  and the stage uses dynamic zoom. Do not replace those behaviours with static
+  margins without browser-level geometry and no-JS testing.
 - Confirm all five rotating external photographs still resolve and their
   descriptions match their subjects.
 - Finish and approve the four copy-review subpages before public launch.
 
 ### Editing rule
 
-Change the **active** homepage files, run the static checks, inspect at the
-defined breakpoints, then update the CSS/JS cache-busting query strings on
-`index.html`. Keep dated experiments and original imagery separate from the
-active implementation. Prefer a small, reviewable commit to a new override
-at the bottom of the stylesheet.
+Change the **active** homepage files (`index.html`, `style-home.css`,
+`script.js`), run the static checks, inspect at the defined breakpoints,
+then update the CSS/JS cache-busting query strings on `index.html`. Prefer
+replacing an existing declaration to adding an override. Retain measured
+artwork geometry until visual equivalence is demonstrated.
+
+The complete pre-refactor tree is preserved on Git branch
+`backup/ql-site-v2-pre-controlled-refactor-20261107`. Its contents and the
+frozen beige variant are **historical**, not alternative sources of truth.
