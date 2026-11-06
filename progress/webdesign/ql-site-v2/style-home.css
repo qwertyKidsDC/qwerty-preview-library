@@ -1022,6 +1022,15 @@ a {
     padding-inline: 40px;
   }
 
+  /* Match the background's painted outer edges to the three footer cards.
+     The card row spans 39px from the left and 44.3px from the right.
+     The existing Country panel spans 33px to 50.4px: offset only the
+     decorative pseudo-element, preserving copy, padding and overlap. */
+  .lab-footer .country-ack::before {
+    left: 6px;
+    right: -6.1px;
+  }
+
   /* Centre Q in the last fifth of the padded content width.
      The panel has 40px horizontal padding: 40px + 90% of its
      inner width is equivalent to 90% of the panel minus 32px. */
