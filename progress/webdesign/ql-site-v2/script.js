@@ -53,6 +53,47 @@
   });
 })();
 
+/* Meet the Lab photo rotation: approved QwertyKids website photography.
+   One image per page load, with no adjacent repeat when storage is available.
+   Keep the original micro:bit photo as the no-script fallback in HTML. */
+(() => {
+  const photo = document.querySelector('#meet-the-lab .project-photo');
+  if (!photo) return;
+
+  const photos = [
+    {
+      src: 'https://qwertykids.com/wp-content/uploads/coding-for-kids-gift-guide.jpg',
+      alt: 'A young maker holds up a micro:bit displaying a glowing red heart'
+    },
+    {
+      src: 'https://qwertykids.com/wp-content/uploads/code-camp-robotics-700.jpg',
+      alt: 'Two QwertyKids students showing the robot they have been programming'
+    },
+    {
+      src: 'https://qwertykids.com/wp-content/uploads/code-camp-near-me-apps-700.jpg',
+      alt: 'QwertyKids students concentrating on their coding projects at the lab'
+    },
+    {
+      src: 'https://qwertykids.com/wp-content/uploads/coding-camps-apps-700.jpg',
+      alt: 'A smiling QwertyKids student working at a coding workstation'
+    },
+    {
+      src: 'https://qwertykids.com/wp-content/uploads/kids-coding-classes-near-me-510.jpg',
+      alt: 'A QwertyKids student celebrating a project at the computer'
+    }
+  ];
+
+  let previous = -1;
+  try { previous = Number.parseInt(sessionStorage.getItem('ql-meet-lab-last-photo'), 10); }
+  catch (_) { /* Storage might be disabled; randomness still works. */ }
+  const candidates = photos.map((_, i) => i).filter(i => i !== previous);
+  const index = candidates[Math.floor(Math.random() * candidates.length)];
+  photo.alt = photos[index].alt;
+  photo.src = photos[index].src;
+  try { sessionStorage.setItem('ql-meet-lab-last-photo', String(index)); }
+  catch (_) { /* No storage required. */ }
+})();
+
 /* Update the copyright year automatically, retaining the 2026 HTML fallback. */
 (() => {
   const year = document.getElementById('copyright-year');
