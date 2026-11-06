@@ -371,13 +371,13 @@ a {
 /* 06. Shared typography and handmade paper cards
    Section headings and card titles have separate, centralised sizes. */
 .project-copy h2,
-.project-label-text {
+.project-label-text,
+.feature h2 {
   font-size: var(--text-heading);
   font-weight: 700;
   line-height: 1.15;
 }
 
-.feature h2,
 .small-card h2,
 .lab-footer .country-ack h2 {
   font-size: var(--text-card);
@@ -651,6 +651,11 @@ a {
 
   .feature p {
     max-width: 205px;
+  }
+
+  /* Match the mobile Coolest Projects label size as well. */
+  .feature h2 {
+    font-size: 24px;
   }
 
   .projects {
