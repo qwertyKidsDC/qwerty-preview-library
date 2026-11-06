@@ -833,48 +833,50 @@ a {
   color: var(--color-ivory);
   text-align: left;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(210px, 30%);
+  grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
   align-items: center;
-  gap: 28px;
+  gap: 30px;
 }
 
-/* Photo frame 06: clean ivory photographic paper and one handmade
-   masking-tape corner tab. Kept as a reusable frame class. */
+/* Photo frame 02: a narrow ivory photo print over a slightly offset
+   corrugated cardboard back. No masking tape or decorative corners.
+   This is reusable around other site photographs. */
 .footer-scene__photo {
   margin: 0;
   min-width: 0;
   width: 100%;
 }
-.photo-frame--tape {
+
+.photo-frame--cardboard-offset {
   position: relative;
-  padding: 8px 8px 10px;
+  isolation: isolate;
+  padding: 8px;
   background: #F7F4EB;
-  box-shadow: 2px 5px 6px rgba(0,0,0,.34);
-  transform: rotate(1.5deg);
+  box-shadow: 1px 3px 5px rgba(0,0,0,.29);
+  transform: rotate(-.6deg);
 }
-.photo-frame--tape > img {
+
+.photo-frame--cardboard-offset > img {
+  position: relative;
   display: block;
   width: 100%;
   height: auto;
   object-fit: cover;
 }
-.photo-frame--tape::after {
+
+.photo-frame--cardboard-offset::before {
   content: "";
   position: absolute;
-  z-index: 1;
-  top: -12px;
-  right: -16px;
-  width: 101px;
-  height: 30px;
-  transform: rotate(20deg);
-  background:
-    repeating-linear-gradient(92deg, rgba(255,255,255,.12) 0 3px, rgba(128,90,40,.045) 3px 5px),
-    linear-gradient(180deg, rgba(255,250,229,.22), rgba(171,131,78,.16)),
-    #DDC397;
-  clip-path: polygon(0% 7%, 5% 3%, 12% 6%, 19% 2%, 27% 4%, 35% 1%, 42% 5%, 50% 3%, 58% 5%, 65% 1%, 73% 5%, 81% 2%, 90% 5%, 100% 2%, 98% 94%, 90% 97%, 82% 93%, 74% 98%, 66% 94%, 58% 98%, 49% 94%, 40% 96%, 31% 93%, 23% 98%, 15% 94%, 7% 96%, 0% 92%);
-  box-shadow: 1px 1px 2px rgba(0,0,0,.20);
-  opacity: .94;
-  pointer-events: none;
+  z-index: -1;
+  inset: -3px -11px -10px 3px;
+  border: 1px solid rgba(76,44,18,.36);
+  background-color: #B98453;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(69,38,19,.16) 0 1px, rgba(255,223,172,.13) 2px 4px, transparent 5px 8px),
+    repeating-linear-gradient(0deg, rgba(70,40,20,.10) 0 1px, transparent 1px 5px),
+    linear-gradient(125deg, #D1A06E, #AA7546 75%, #956038);
+  box-shadow: 2px 3px 3px rgba(0,0,0,.3);
+  transform: rotate(.8deg);
 }
 
 /* Match the Projects paragraph typography without narrowing the footer column. */
@@ -958,7 +960,7 @@ a {
     font-size: 24px;
   }
 
-  /* Keep the photo visible below the copy on narrow screens. */
+  /* Stack the frame above the copy on narrow screens. */
   .footer-scene__photo {
     width: min(100%, 310px);
     justify-self: center;
@@ -1324,7 +1326,7 @@ a {
   .footer-scene__tape { top: 24px; }
   .footer-scene__tape-text { top: 42px; }
   .footer-scene__content { margin-top: 100px; }
-  /* The cloud photo follows the paragraph on narrow screens. */
+  /* Mobile follows document order: photograph, then copy. */
 }
 
 
