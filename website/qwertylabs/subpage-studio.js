@@ -163,7 +163,13 @@
   #lab-playground-canvas .lab-item {box-sizing:border-box;position:relative;min-width:0;max-width:none;display:block;user-select:none;cursor:pointer;}
   #lab-playground-canvas .lab-item.lab-flow {flex:none;margin:0;}
   #lab-playground-canvas .lab-item.lab-overlay {position:absolute!important;left:var(--pos-x);top:var(--pos-y);width:var(--item-width)!important;z-index:var(--layer-z);margin:0;touch-action:none;cursor:grab;}
-  #lab-playground-canvas .lab-panel {box-sizing:border-box;min-height:190px;height:auto!important;width:100%;padding:clamp(38px,5vw,64px) clamp(35px,6vw,80px) clamp(48px,6vw,78px);background-size:100% 100%;background-position:center;background-repeat:no-repeat;overflow-wrap:anywhere;display:flow-root;}
+  /* Nine-slice artwork: fixed corners, flexible centre, text controls natural height. */
+  #lab-playground-canvas .lab-panel {box-sizing:border-box;position:relative;isolation:isolate;min-height:190px;height:auto;width:100%;padding:clamp(38px,5vw,64px) clamp(35px,6vw,80px) clamp(48px,6vw,78px);overflow-wrap:anywhere;display:flow-root;}
+  #lab-playground-canvas .lab-panel::before {content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border:1px solid transparent;border-image-source:var(--lab-art);border-image-slice:26% 19% 27% 19% fill;border-image-width:clamp(24px,4vw,46px) clamp(26px,4vw,53px);border-image-repeat:stretch;}
+  #lab-playground-canvas .lab-panel > h2, #lab-playground-canvas .lab-panel > p {position:relative;z-index:1;}
+  #lab-playground-canvas .lab-item[data-label=true] .lab-panel {min-height:95px;padding:clamp(20px,3vw,31px) clamp(22px,4vw,39px);}
+  #lab-playground-canvas .lab-item[data-label=true] .lab-panel::before {border-image-slice:22% 17% 22% 17% fill;border-image-width:23px 28px;}
+  #lab-playground-canvas .lab-item[data-label=true] .lab-panel h2{font-size:clamp(16px,2.4vw,24px);margin-bottom:4px;}
   #lab-playground-canvas .lab-panel h2,#lab-playground-canvas .lab-text h2 {font-size:clamp(22px,3vw,32px);line-height:1.15;letter-spacing:-.04em;margin:0 0 11px;color:#020020;font-weight:700;text-transform:none;}
   #lab-playground-canvas .lab-panel p,#lab-playground-canvas .lab-text p {font-size:clamp(13px,1.6vw,16px);line-height:1.42;margin:0;white-space:pre-line;color:#020020;}
   #lab-playground-canvas .lab-item[data-dark=true] .lab-panel h2,#lab-playground-canvas .lab-item[data-dark=true] .lab-panel p{color:#F7F4EB;}
