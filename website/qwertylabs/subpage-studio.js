@@ -151,7 +151,7 @@
       render();setTimeout(resizeFrame,100);setTimeout(resizeFrame,700);
     } catch(error){console.error(error);toast('Preview could not initialise. Open from the published website.');}
   }
-  function resizeFrame(){if(!iframeDoc)return;let page=$('.cardboard-page',iframeDoc);const height=Math.ceil(Math.max(page?.getBoundingClientRect().bottom||0,iframeDoc.documentElement.scrollHeight,iframeDoc.body.scrollHeight));if(height>250 && Math.abs((parseFloat(frame.style.height)||0)-height)>2)frame.style.height=(height+5)+'px';}
+  function resizeFrame(){if(!iframeDoc)return;const stage=$('.cardboard-stage',iframeDoc);const page=$('.cardboard-page',iframeDoc);const bottom=stage?.getBoundingClientRect().bottom||page?.getBoundingClientRect().bottom||0;const height=Math.ceil(bottom+12);if(height>250 && Math.abs((parseFloat(frame.style.height)||0)-height)>2)frame.style.height=height+'px';}
   function nodeText(tag,text){const el=iframeDoc.createElement(tag);el.textContent=text;return el;}
   function renderItem(item) {
     const wrapper=iframeDoc.createElement('article');wrapper.className=`lab-item lab-${item.mode||'flow'}`;wrapper.dataset.id=item.id;wrapper.dataset.align=item.align||'left';wrapper.dataset.dark=['black-board','backboard','country-board'].includes(item.asset)?'true':'false';wrapper.tabIndex=preview?-1:0;
