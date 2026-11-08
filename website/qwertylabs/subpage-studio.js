@@ -254,8 +254,52 @@
 
   function assetTile(asset){const b=document.createElement('button');b.type='button';b.className='asset-tile';b.draggable=true;b.title=`Add ${asset.name}`;b.dataset.assetId=asset.id;b.innerHTML=`<img src="${esc(asset.src)}" alt="" loading="lazy"><span>${esc(asset.name)}</span>`;trimmedArtwork(asset.src).then(src=>{const thumb=b.querySelector('img');if(thumb?.isConnected&&src!==thumb.src)thumb.src=src;});b.addEventListener('click',()=>addAsset(asset.id));b.addEventListener('dragstart',e=>{e.dataTransfer.effectAllowed='copy';e.dataTransfer.setData('application/x-qwerty-asset',asset.id);e.dataTransfer.setData('text/plain',`asset:${asset.id}`);});return b;}
   function drawLibrary(){library.replaceChildren();const groups=[...new Set(catalog.map(a=>a.group))];for(const group of groups){const section=document.createElement('div');section.className='asset-group';const title=document.createElement('h3');title.textContent=group;const grid=document.createElement('div');grid.className='asset-grid';catalog.filter(a=>a.group===group).forEach(a=>grid.appendChild(assetTile(a)));section.append(title,grid);library.appendChild(section);}$('#asset-count').textContent=`${catalog.length} assets`;}
-  function addAsset(assetId,rowId,cellIndex){const a=findAsset(assetId);if(!a)return;let t=rowId?{row:getRow(rowId),cell:cellIndex}:targetCell();if(!t || !t.row){const newRow=row(1);change(()=>model.rows.push(newRow));t={row:newRow,cell:0};}const item=a.kind==='panel'?panel(assetId):imageItem(a);if(item.kind==='panel'){item.title=assetId.startsWith('label-')?'YOUR LABEL':'Your heading';item.body=assetId.startsWith('label-')?'':'Click this panel to edit its copy. The artwork grows with longer text.';}change(()=>t.row.cells[t.cell].push(item));selectItem(item.id);toast(`${a.name} added`);}
-  function addText(kind){let t=targetCell();if(!t){const r=row(1);change(()=>model.rows.push(r));t={row:r,cell:0};}const item=kind==='heading'?textItem('A new heading',''):textItem('','Edit this text in the left panel.');change(()=>t.row.cells[t.cell].push(item));selectItem(item.id);}
+  function addAsset(assetId,rowId,cellIndex){
+    const asset=findAsset(assetId);if(!asset)return;
+    let target=rowId?{row:getRow(rowId),cell:cellIndex}:targetCell();
+    const item=asset.kind==='panel'?panel(assetId):imageItem(asset);
+    if(item.kind==='panel'){
+      item.title=assetId.startsWith('label-')?'YOUR LABEL':'Your heading';
+      item.body=assetId.startsWith('label-')?'':'Click this panel to edit its copy. The artwork grows with longer text.';
+    }
+    // Adding artwork to a genuinely blank page creates its first row in one undoable action.
+    change(()=>{
+      if(!target?.row){
+        const first=row(1,210);
+        model.rows.push(first);
+        target={row:first,cell:0};
+      }
+      target.row.cells[clamp(Number(target.cell)||0,0,target.row.columns-1)].push(item);
+    });
+    selectItem(item.id);
+    revealOnCanvas(item.id);
+    toast(`${asset.name} added`);
+  }
+  function addText(kind){
+    let target=targetCell();
+    const item=kind==='heading'?textItem('A new heading',''):textItem('','Edit this text in the left panel.');
+    change(()=>{
+      if(!target){
+        const first=row(1,210);model.rows.push(first);
+        target={row:first,cell:0};
+      }
+      target.row.cells[target.cell].push(item);
+    });
+    selectItem(item.id);
+    revealOnCanvas(item.id);
+  }
+  function revealOnCanvas(itemId){
+    if(!canvas||!iframeDoc)return;
+    const element=canvas.querySelector(`[data-id="${itemId}"]`);
+    if(!element)return;
+    // The iframe is not scrolled; its outer workspace owns the viewport.
+    const workspace=$('#studio-scroll'),iframeRect=frame.getBoundingClientRect();
+    const elementRect=element.getBoundingClientRect(),viewport=workspace.getBoundingClientRect();
+    const screenTop=iframeRect.top+elementRect.top;
+    if(screenTop>viewport.bottom-100||screenTop<viewport.top){
+      workspace.scrollTop+=screenTop-viewport.top-110;
+    }
+  }
   function addRow(layout){
     const key=String(layout),cols=layoutColumns(key);
     if(![1,2,3].includes(cols))return;
@@ -263,25 +307,32 @@
     const selectedIndex=model.rows.findIndex(x=>x.id===selected.rowId);
     change(()=>model.rows.splice(selectedIndex>=0?selectedIndex+1:model.rows.length,0,r));
     selectRow(r.id,0);
+    requestAnimationFrame(()=>{
+      const cell=canvas?.querySelector(`[data-row-id="${r.id}"].lab-cell`);
+      if(cell){
+        const workspace=$('#studio-scroll'),frameRect=frame.getBoundingClientRect();
+        const rect=cell.getBoundingClientRect(),viewport=workspace.getBoundingClientRect();
+        const top=frameRect.top+rect.top;
+        if(top>viewport.bottom-100||top<viewport.top)workspace.scrollTop+=top-viewport.top-100;
+      }
+    });
     toast(`${layoutLabel(key)} row added`);
   }
 
   const iframeStyles=`
   html {scroll-behavior:auto!important} body.studio-iframe .cardboard-page {overflow:hidden} body.studio-iframe main {position:relative;z-index:3}
   #lab-playground-canvas {position:relative;margin:50px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
-  #lab-playground-canvas .lab-empty-intro{padding:26px 28px;min-height:115px;display:grid;place-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
+  #lab-playground-canvas .lab-empty-intro{padding:25px 28px;min-height:126px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
+  #lab-playground-canvas .lab-empty-intro .lab-empty-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;}
+  #lab-playground-canvas .lab-empty-intro button{background:#4C69E3;border:0;border-radius:4px;color:white;padding:8px 15px;cursor:pointer;font:700 13px 'Atkinson Hyperlegible',sans-serif;}
+  #lab-playground-canvas .lab-empty-intro button:focus-visible{outline:3px solid #020020;outline-offset:3px;}
+
   body.studio-iframe.studio-clean #lab-playground-canvas:empty{min-height:0;margin:0;padding:0!important;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-empty-intro{display:none;}
   body.studio-iframe .hero h1{white-space:pre-line;color:var(--studio-hero-text,#020020)!important;overflow-wrap:break-word;}
-  body.studio-iframe .hero{isolation:isolate;}
-  body.studio-iframe .hero .studio-hero-edit{display:none;position:absolute;z-index:12;top:12px;right:20px;border:0;background:#4C69E3;color:#fff;font:700 12px 'Atkinson Hyperlegible',sans-serif;border-radius:5px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 12px #02002055;}
-  body.studio-iframe:not(.studio-clean) .hero .studio-hero-edit{display:block;}
-  body.studio-iframe .hero .studio-hero-edit:focus-visible{outline:3px solid #020020;outline-offset:3px;}
   body.studio-iframe .hero .mascots{transform:scale(var(--studio-mascot-scale,1));transform-origin:top right;}
   body.studio-iframe .hero .mascots[hidden]{display:none!important;}
-  body.studio-iframe.studio-clean .hero{cursor:default;}
-  body.studio-iframe:not(.studio-clean) .hero h1{cursor:pointer;}
-  body.studio-iframe:not(.studio-clean) .hero h1:hover{outline:2px dashed #4c69e3;outline-offset:4px;}
+  body.studio-iframe .hero{cursor:default;}
   #lab-playground-canvas .lab-row {display:grid;grid-template-columns:var(--column-template);align-items:stretch;gap:14px;min-height:var(--row-min);position:relative;margin-bottom:44px;}
   #lab-playground-canvas .lab-cell {min-width:0;position:relative;display:flex;flex-direction:column;gap:11px;min-height:var(--row-min);padding:0;}
   #lab-playground-canvas .lab-item {box-sizing:border-box;position:relative;min-width:0;max-width:none;display:block;user-select:none;cursor:pointer;}
@@ -338,23 +389,12 @@
       canvas=iframeDoc.createElement('div');canvas.id='lab-playground-canvas';canvas.setAttribute('aria-label','Editable subpage layout');main.insertBefore(canvas,preserved);
       const style=iframeDoc.createElement('style');style.textContent=iframeStyles;iframeDoc.head.appendChild(style);
       iframeDoc.body.classList.add('studio-iframe');
-      $('h1',heroSection)?.addEventListener('click',()=>{
-        if(preview)return;
-        $('#hero-title').focus();
-        $('#hero-controls').scrollIntoView({block:'nearest',behavior:'smooth'});
-      });
-      const changeMascots=iframeDoc.createElement('button');
-      changeMascots.type='button';
-      changeMascots.className='studio-hero-edit';
-      changeMascots.textContent='Change mascots';
-      changeMascots.addEventListener('click',()=>{
-        if(preview)return;
-        $('#hero-mascots').focus();
-        $('#hero-controls').scrollIntoView({block:'nearest',behavior:'smooth'});
-      });
-      heroSection.appendChild(changeMascots);
       iframeDoc.addEventListener('click',e=>{if(!preview && e.target.closest('a'))e.preventDefault();},true);
-      iframeDoc.addEventListener('dragover',e=>{if(e.target.closest('#lab-playground-canvas'))e.preventDefault();});
+      iframeDoc.addEventListener('dragover',e=>{
+        if(preview||!e.target.closest('#lab-playground-canvas'))return;
+        e.preventDefault();
+        if(e.dataTransfer)e.dataTransfer.dropEffect=e.dataTransfer.types.includes('application/x-qwerty-item')?'move':'copy';
+      });
       iframeDoc.addEventListener('drop',onFrameDrop);
       iframeDoc.addEventListener('keydown',onKeyDown);
       const page=$('.cardboard-page',iframeDoc);
@@ -532,23 +572,34 @@
     return wrapper;
   }
   function onFrameDrop(e){
-    if(preview || !e.target.closest('#lab-playground-canvas'))return;
-    const cells=$$('.lab-cell',canvas);
-    const dest=e.target.closest('.lab-cell') || cells.find(cell=>{
-      const r=cell.getBoundingClientRect();
-      return e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom;
-    });
-    if(!dest){toast('Drop onto a row or column');return;}
+    if(preview||!e.target.closest('#lab-playground-canvas'))return;
     e.preventDefault();e.stopPropagation();
-    const toRow=getRow(dest.dataset.rowId),toCell=Number(dest.dataset.cell);
-    if(!toRow||toCell>=toRow.columns)return;
-    const plain=e.dataTransfer.getData('text/plain');
-    const asset=e.dataTransfer.getData('application/x-qwerty-asset')||(plain.startsWith('asset:')?plain.slice(6):'');
-    const itemId=e.dataTransfer.getData('application/x-qwerty-item')||(plain.startsWith('item:')?plain.slice(5):'');
-    if(findAsset(asset)){addAsset(asset,toRow.id,toCell);return;}
-    const f=lookupItem(itemId);if(!f || (f.row.id===toRow.id&&f.cellIndex===toCell))return;
-    change(()=>{f.row.cells[f.cellIndex].splice(f.itemIndex,1);f.item.x=0;f.item.y=0;f.item.mode='flow';f.item.width=f.item.flowWidth||f.item.width;delete f.item.coordinateSpace;toRow.cells[toCell].push(f.item);});
-    selectItem(f.item.id);toast('Element moved');
+    const plain=e.dataTransfer?.getData('text/plain')||'';
+    const asset=e.dataTransfer?.getData('application/x-qwerty-asset')||(plain.startsWith('asset:')?plain.slice(6):'');
+    const itemId=e.dataTransfer?.getData('application/x-qwerty-item')||(plain.startsWith('item:')?plain.slice(5):'');
+    const dest=e.target.closest('.lab-cell')||$('.lab-cell',canvas).find(cell=>{
+      const bounds=cell.getBoundingClientRect();
+      return e.clientX>=bounds.left&&e.clientX<=bounds.right&&e.clientY>=bounds.top&&e.clientY<=bounds.bottom;
+    });
+    if(findAsset(asset)){
+      // Drop on a completely blank canvas works — addAsset creates the first row.
+      addAsset(asset,dest?.dataset.rowId, dest?Number(dest.dataset.cell):undefined);
+      return;
+    }
+    const f=lookupItem(itemId);if(!f)return;
+    const toRow=dest?getRow(dest.dataset.rowId):null;
+    const toCell=dest?Number(dest.dataset.cell):0;
+    if(toRow&&f.row.id===toRow.id&&f.cellIndex===toCell)return;
+    change(()=>{
+      const destination=toRow||row(1,210);
+      if(!toRow)model.rows.push(destination);
+      f.row.cells[f.cellIndex].splice(f.itemIndex,1);
+      f.item.x=0;f.item.y=0;f.item.mode='flow';
+      f.item.width=f.item.flowWidth||f.item.width;
+      delete f.item.coordinateSpace;
+      destination.cells[toCell].push(f.item);
+    });
+    selectItem(f.item.id);revealOnCanvas(f.item.id);toast('Element moved');
   }
   function startPointerMove(e,itemId,resizing){
     if(e.button!==0)return;
@@ -686,8 +737,16 @@
       canvas.appendChild(renderItem(item));
     }
     if(!model.rows.length && !preview){
-      const hint=nodeText('div','Blank canvas · Choose 1, 2 or 3 columns in Structure to add a row.');
-      hint.className='lab-empty-intro';canvas.appendChild(hint);
+      const hint=iframeDoc.createElement('div');hint.className='lab-empty-intro';
+      hint.appendChild(nodeText('strong','Your content canvas is empty.'));
+      hint.appendChild(nodeText('span','Add a row here, drag an asset onto this space, or click an asset in the library.'));
+      const actions=iframeDoc.createElement('div');actions.className='lab-empty-actions';
+      for(const [layout,label] of [['1','+ Full width'],['2','+ Half + half'],['2-1','+ ⅔ + ⅓'],['1-2','+ ⅓ + ⅔']]){
+        const button=iframeDoc.createElement('button');button.type='button';button.textContent=label;
+        button.addEventListener('click',e=>{e.stopPropagation();addRow(layout);});
+        actions.appendChild(button);
+      }
+      hint.appendChild(actions);canvas.appendChild(hint);
     }
     painting=false;
     renderHero();
