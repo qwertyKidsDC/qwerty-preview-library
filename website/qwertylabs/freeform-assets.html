@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Qwerty Labs · Freeform Asset Kit</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#020020;background:#f7f4eb}
+*{box-sizing:border-box}body{margin:0;padding:clamp(20px,4vw,54px);max-width:1250px;margin-inline:auto}
+header{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:clamp(30px,5vw,62px);letter-spacing:-.055em;line-height:1.04;margin:16px 0}
+h2{font-size:21px;margin:26px 0 10px}.kicker{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#4c69e3}
+p{line-height:1.5;max-width:780px}.subtle{color:#535064;font-size:14px}
+.panel{border:2px solid #020020;background:#fff;padding:25px;border-radius:8px;margin:24px 0;box-shadow:8px 8px 0 #4c69e3}
+button{font:inherit;cursor:pointer;border:0;border-radius:5px;background:#4c69e3;color:#fff;padding:15px 22px;font-weight:800}
+button:disabled{cursor:wait;opacity:.65}button:focus-visible{outline:3px solid #020020;outline-offset:3px}
+select{padding:12px;border-radius:4px;font:inherit;border:2px solid #b9bad6;max-width:100%}
+.actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+#status{min-height:28px}.good{color:#226c28}.warn{color:#ad443d}
+progress{width:min(100%,620px);height:10px;accent-color:#92d644}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(166px,1fr));gap:13px}
+.card{background:#fff;border:1px solid #d6d4d1;border-radius:6px;padding:8px;min-width:0}
+.card img{width:100%;height:128px;object-fit:contain;background:linear-gradient(45deg,#e8e5df 25%,transparent 25%),linear-gradient(-45deg,#e8e5df 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8e5df 75%),linear-gradient(-45deg,transparent 75%,#e8e5df 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}
+.card small{display:block;overflow-wrap:anywhere;font-size:11px;line-height:1.25;padding:7px 2px}
+footer{font-size:13px;border-top:1px solid #ccc;padding:20px 0;margin-top:34px}
+</style>
+</head>
+<body>
+<header><div><div class="kicker">Qwerty Labs / Original Artwork</div><h1>The Freeform Asset Kit.</h1></div><div class="kicker">Real files. No mockups.</div></header>
+<p>Build a ZIP of the actual Qwerty Labs website and Subpage Studio artwork, including the approved original mascot trio. Each asset stays an individual file for drag-and-drop in Freeform, Canva or Finder.</p>
+<div class="panel">
+  <h2>Download your assets</h2>
+  <p>Includes the untouched original files, a Freeform-ready folder of PNG/JPG copies, transparent-margin trimming where possible, and green, pink and orange variants <em>recoloured from the real hero artwork</em>.</p>
+  <div class="actions">
+    <select id="scope" aria-label="Asset collection">
+      <option value="all">Complete image library (all website assets)</option>
+      <option value="current">Current website + Studio selection</option>
+    </select>
+    <button id="download" type="button">Create &amp; download ZIP</button>
+  </div>
+  <p id="status" role="status" aria-live="polite">Checking artwork list…</p>
+  <progress id="progress" max="1" value="0" hidden></progress>
+  <p class="subtle">The ZIP is assembled in your browser directly from your public GitHub repository. Nothing in the website or asset library is modified.</p>
+</div>
+<h2>Artwork included</h2>
+<p class="subtle" id="count">Loading file list…</p>
+<div class="gallery" id="gallery"></div>
+<footer>The approved original art remains untouched. The extra colour versions are new derivative files and are labelled separately.</footer>
+<script>
+'use strict';
+const BASE='website/qwertylabs/img/';
+const LEGACY_MASCOT='progress/webdesign/ql-site-v2/img/mascot-trio.svg';
+const FALLBACK=[
+'adults-pink-panel-untaped-vtrim.svg','cardboard-texture.svg','cloud-poster-selected.webp',
+'code-camp-robotics-700.jpg','footer-blue-tape-vtrim.svg','footer-experiment-dark-vtrim.webp',
+'footer-explore-blue-vtrim.svg','footer-find-blue-vtrim.svg','footer-hello-blue-vtrim.svg',
+'footer-label-green-vtrim.svg','footer-label-orange-vtrim.svg','footer-label-pink-vtrim.svg',
+'hero-paper.svg','kids-green-panel-untaped-vtrim.svg','mascot-making-led-crisp.svg',
+'project-backboard.svg','project-photo-frame.svg','q-country-mascot.svg',
+'studio-beige-board.png','studio-beige-paper.png','studio-black-board.png',
+'studio-blue-board.png','studio-cardboard-board.png','studio-frame-cardboard.png',
+'studio-frame-taped.png','studio-green-board.png','studio-orange-board.png',
+'studio-pink-board.png','teens-blue-panel-untaped-vtrim.svg','wordmark.svg',
+'workshop-footer.webp','workshop-top.webp'
+].map(name=>BASE+name);
+const status=document.getElementById('status'), progress=document.getElementById('progress');
+const btn=document.getElementById('download'),gallery=document.getElementById('gallery');
+let imageFiles=FALLBACK.slice(), source='known current images';
+const extension = path=>(path.split('.').pop()||'').toLowerCase();
+const basename = path=>path.split('/').pop();
+const stem = name=>name.replace(/\.[^.]+$/,'');
+const validExt= path=>/\.(svg|png|webp|jpe?g|gif)$/i.test(path);
+const group = path=>{
+ const n=basename(path).toLowerCase();
+ if(/mascot|six-pin|d1-|q-key/.test(n))return '05-Mascots';
+ if(/hero/.test(n))return '01-Hero';
+ if(/label|tape/.test(n))return '03-Labels-and-Tape';
+ if(/frame/.test(n))return '04-Frames';
+ if(/paper|panel|board|cardboard/.test(n))return '02-Paper-and-Backboards';
+ if(/texture|workshop|scene|backdrop|background/.test(n))return '07-Textures-and-Backgrounds';
+ if(/photo|cloud|robotics|\.jpe?g$/.test(n))return '06-Photos';
+ return '08-Other-Original-Artwork';
+};
+async function discover(){
+ try{
+   const response=await fetch('https://api.github.com/repos/qwertyKidsDC/qwerty-preview-library/git/trees/main?recursive=1',{cache:'no-store'});
+   if(!response.ok)throw Error('GitHub list unavailable ('+response.status+')');
+   const data=await response.json();
+   const full=(data.tree||[]).filter(file=>file.type==='blob'&&file.path.startsWith(BASE)&&validExt(file.path)).map(file=>file.path);
+   if(!full.length)throw Error('No image files returned');
+   imageFiles=[...new Set([...full,LEGACY_MASCOT])].sort();
+   source=data.truncated?'GitHub file listing (partially truncated)':'complete website image directory';
+ }catch(e){
+   imageFiles=[...new Set([...FALLBACK,LEGACY_MASCOT])].sort();
+   source='verified current-website fallback (GitHub full listing unavailable)';
+   console.warn('Using known asset list:',e);
+ }
+ renderGallery();
+ status.textContent=imageFiles.length+' artwork files found.';
+}
+function renderGallery(){
+ document.getElementById('count').textContent=imageFiles.length+' original artwork files · '+source;
+ gallery.replaceChildren();
+ for(const path of imageFiles.slice(0,60)){
+  const tile=document.createElement('div');tile.className='card';
+  const img=document.createElement('img');img.loading='lazy';img.alt=basename(path);
+  img.src=relativeUrl(path);
+  const name=document.createElement('small');name.textContent=basename(path);
+  tile.append(img,name);gallery.appendChild(tile);
+ }
+}
+function relativeUrl(path){
+ // This page lives at website/qwertylabs; two levels up is repository root.
+ return '../../'+path;
+}
+function crc32(bytes){
+ let c=0xffffffff;
+ for(const byte of bytes){
+  c^=byte;
+  for(let k=0;k<8;k++)c=(c&1)?(c>>>1)^0xedb88320:c>>>1;
+ }
+ return (c^0xffffffff)>>>0;
+}
+function zipEntries(entries){
+ const encoder=new TextEncoder(),parts=[],central=[];
+ let offset=0,centreSize=0;
+ const p16=(view,pos,val)=>view.setUint16(pos,val,true);
+ const p32=(view,pos,val)=>view.setUint32(pos,val>>>0,true);
+ for(const {name,data} of entries){
+  const encoded=encoder.encode(name),length=data.byteLength,crc=crc32(data);
+  if(length>=0xffffffff)throw Error('An individual file exceeds ZIP size limits');
+  const local=new Uint8Array(30+encoded.length),v=new DataView(local.buffer);
+  p32(v,0,0x04034b50);p16(v,4,20);p16(v,6,0x0800);p16(v,8,0);
+  p16(v,10,0);p16(v,12,33);p32(v,14,crc);p32(v,18,length);p32(v,22,length);
+  p16(v,26,encoded.length);p16(v,28,0);local.set(encoded,30);
+  parts.push(local,data);
+  const dir=new Uint8Array(46+encoded.length),dv=new DataView(dir.buffer);
+  p32(dv,0,0x02014b50);p16(dv,4,20);p16(dv,6,20);p16(dv,8,0x0800);
+  p16(dv,10,0);p16(dv,12,0);p16(dv,14,33);
+  p32(dv,16,crc);p32(dv,20,length);p32(dv,24,length);p16(dv,28,encoded.length);
+  p16(dv,30,0);p16(dv,32,0);p16(dv,34,0);p16(dv,36,0);
+  p32(dv,38,0);p32(dv,42,offset);dir.set(encoded,46);
+  central.push(dir);centreSize+=dir.length;offset+=local.length+length;
+ }
+ if(offset+centreSize>=0xffffffff)throw Error('This pack is larger than a standard ZIP supports');
+ const end=new Uint8Array(22),ev=new DataView(end.buffer);
+ p32(ev,0,0x06054b50);p16(ev,4,0);p16(ev,6,0);
+ p16(ev,8,entries.length);p16(ev,10,entries.length);
+ p32(ev,12,centreSize);p32(ev,16,offset);p16(ev,20,0);
+ return new Blob([...parts,...central,end],{type:'application/zip'});
+}
+async function pngFromBlob(blob,{crop=true}={}){
+ const url=URL.createObjectURL(blob);
+ let picture;
+ try{
+  picture=await new Promise((resolve,reject)=>{
+   const img=new Image();img.onload=()=>resolve(img);
+   img.onerror=()=>reject(Error('Unable to render this image'));img.src=url;
+  });
+  const srcW=picture.naturalWidth,srcH=picture.naturalHeight;
+  if(!srcW||!srcH)throw Error('Image has no intrinsic size');
+  const scale=Math.min(1,3200/Math.max(srcW,srcH));
+  const w=Math.max(1,Math.round(srcW*scale)),h=Math.max(1,Math.round(srcH*scale));
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d',{willReadFrequently:crop});
+  ctx.drawImage(picture,0,0,w,h);
+  if(crop){
+   const pixels=ctx.getImageData(0,0,w,h).data;
+   let minX=w,minY=h,maxX=-1,maxY=-1;
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    if(pixels[4*(y*w+x)+3]<=8)continue;
+    if(x<minX)minX=x;if(x>maxX)maxX=x;
+    if(y<minY)minY=y;if(y>maxY)maxY=y;
+   }
+   if(maxX>=0&&(minX>3||minY>3||maxX<w-4||maxY<h-4)){
+    const pad=2;
+    minX=Math.max(0,minX-pad);minY=Math.max(0,minY-pad);
+    maxX=Math.min(w-1,maxX+pad);maxY=Math.min(h-1,maxY+pad);
+    const cropped=document.createElement('canvas');
+    cropped.width=maxX-minX+1;cropped.height=maxY-minY+1;
+    cropped.getContext('2d').drawImage(canvas,minX,minY,cropped.width,cropped.height,0,0,cropped.width,cropped.height);
+    return cropped;
+   }
+  }
+  return canvas;
+ }finally{URL.revokeObjectURL(url);}
+}
+async function asPng(canvas){
+ return new Uint8Array(await new Promise((resolve,reject)=>{
+  canvas.toBlob(async blob=>{if(!blob){reject(Error('PNG encoding failed'));return;}resolve(await blob.arrayBuffer());},'image/png');
+ }));
+}
+function recolourHero(canvas,hex){
+ const copy=document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;
+ const ctx=copy.getContext('2d',{willReadFrequently:true});ctx.drawImage(canvas,0,0);
+ const image=ctx.getImageData(0,0,copy.width,copy.height);
+ const p=image.data,base=[76,105,227],target=hex.match(/\w\w/g).map(c=>parseInt(c,16));
+ for(let i=0;i<p.length;i+=4){
+  if(p[i+3]<=8)continue;
+  const r=p[i],g=p[i+1],b=p[i+2];
+  // Recolour blue paper, not brown cardboard or grey transparent edges.
+  if(!(b>r*1.16&&b>g*1.08&&b-r>31&&b-g>22))continue;
+  const saturation=Math.min(1,Math.max(0,(b-Math.max(r,g)-20)/52));
+  const mix=Math.min(1,.65+.35*saturation);
+  for(let c=0;c<3;c++){
+   const newColour=Math.max(0,Math.min(255,target[c]+(p[i+c]-base[c])*.65));
+   p[i+c]=Math.round(p[i+c]*(1-mix)+newColour*mix);
+  }
+ }
+ ctx.putImageData(image,0,0);
+ return copy;
+}
+async function downloadZip(){
+ btn.disabled=true;progress.hidden=false;progress.value=0;
+ const files=document.getElementById('scope').value==='current'
+  ?imageFiles.filter(p=>FALLBACK.includes(p)||p===LEGACY_MASCOT)
+  :imageFiles;
+ const entries=[],errors=[],encoder=new TextEncoder();
+ const add=(name,data)=>entries.push({name:'Qwerty-Labs-Freeform-Assets/'+name,data});
+ progress.max=files.length;
+ let originalHero=null;
+ try{
+  for(let i=0;i<files.length;i++){
+   const sourcePath=files[i],name=basename(sourcePath),cat=group(sourcePath),ext=extension(sourcePath);
+   status.textContent='Collecting '+(i+1)+' / '+files.length+': '+name;
+   try{
+    const response=await fetch(relativeUrl(sourcePath));
+    if(!response.ok)throw Error('HTTP '+response.status);
+    const raw=new Uint8Array(await response.arrayBuffer());
+    add('01-Originals/'+cat+'/'+name,raw);
+    const mime=ext==='svg'?'image/svg+xml':ext==='webp'?'image/webp':
+               ext==='png'?'image/png':ext==='gif'?'image/gif':'image/jpeg';
+    // In a single Finder folder, every artwork has an importable image.
+    if(ext==='png'||ext==='jpg'||ext==='jpeg'){
+     add('02-Drag-Into-Freeform/'+cat+'/'+name,raw);
+    }else{
+     try{
+      const source=new Blob([raw],{type:mime});
+      const canvas=await pngFromBlob(source);
+      const png=await asPng(canvas);
+      add('02-Drag-Into-Freeform/'+cat+'/'+stem(name)+'.png',png);
+     }catch(e){errors.push('Preview PNG: '+name+' — '+e.message);}
+    }
+    if(sourcePath===BASE+'hero-paper.svg')originalHero=new Blob([raw],{type:mime});
+   }catch(e){errors.push(name+' — '+e.message);}
+   progress.value=i+1;
+   await new Promise(resolve=>setTimeout(resolve,0)); // permit UI updates
+  }
+  if(originalHero){
+   status.textContent='Making green, pink and orange hero tags from approved artwork…';
+   try{
+    const base=await pngFromBlob(originalHero,{crop:false});
+    const variants=[['green','#92D644'],['pink','#F66DC1'],['orange','#FF9029']];
+    for(const [colour,hex] of variants){
+     const canvas=recolourHero(base,hex);
+     const png=await asPng(canvas);
+     add('03-New-Hero-Colour-Variants/hero-'+colour+'.png',png);
+     // Portable SVG wrapper, in addition to the PNG.
+     const b64=await new Promise(resolve=>{
+       const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);
+       reader.readAsDataURL(new Blob([png],{type:'image/png'}));
+     });
+     const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+canvas.width+'" height="'+canvas.height+'" viewBox="0 0 '+canvas.width+' '+canvas.height+'"><image width="100%" height="100%" href="data:image/png;base64,'+b64+'"/></svg>';
+     add('03-New-Hero-Colour-Variants/hero-'+colour+'.svg',encoder.encode(svg));
+    }
+   }catch(e){errors.push('Hero colour variants — '+e.message);}
+  }else errors.push('Hero source image unavailable — variants not generated.');
+  const readme=[
+   'QWERTY LABS — FREEFORM ARTWORK PACK',
+   '',
+   'These are original Qwerty Labs files fetched from the connected public GitHub repository.',
+   '01-Originals preserves source files without modification.',
+   '02-Drag-Into-Freeform contains PNG/JPG copies for drag-and-drop.',
+   '03-New-Hero-Colour-Variants contains green/pink/orange recolours of the ACTUAL hero artwork.',
+   'Colour variants are derivatives, not separately approved masters.',
+   '',
+   'Transparent outer margins are cropped from SVG/WebP PNG copies where possible.',
+   'Opaque backgrounds are never artificially erased because that could damage the original work.',
+   'The original mascot trio comes from progress/webdesign/ql-site-v2/img/mascot-trio.svg.',
+   '',
+   'Source list: '+source,
+   'Original assets requested: '+files.length,
+   'Errors: '+errors.length,
+   ...errors.map(e=>'- '+e)
+  ].join('\n');
+  add('READ-ME.txt',encoder.encode(readme));
+  if(entries.length<=1)throw Error('No original artwork could be retrieved.');
+  status.textContent='Packaging '+entries.length+' files…';
+  const zip=zipEntries(entries);
+  const url=URL.createObjectURL(zip),a=document.createElement('a');
+  a.href=url;a.download='Qwerty-Labs-Freeform-Asset-Kit.zip';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  status.className=errors.length?'warn':'good';
+  status.textContent='ZIP prepared: '+entries.length+' files ('+(zip.size/1048576).toFixed(1)+' MB). '
+    +(errors.length?errors.length+' files need attention; see READ-ME.txt.':'All collected successfully.');
+ }catch(e){
+  status.className='warn';status.textContent='Could not finish: '+e.message;
+  console.error(e);
+ }finally{btn.disabled=false;progress.hidden=true;}
+}
+btn.addEventListener('click',downloadZip);
+discover();
+</script>
+</body>
+</html>
