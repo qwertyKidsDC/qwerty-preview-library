@@ -1,0 +1,109 @@
+/* Kids design exploration. Homepage stylesheet and shared shell are untouched.
+   Three layouts of ONE approved-copy DOM; delete the chooser and unused variants
+   when the final design is selected. All colors refer to approved brand tokens. */
+.kids-hero,.design-chooser,.kids-content{position:relative;z-index:5;}
+.kids-hero{display:grid;grid-template-columns:1.16fr .84fr;align-items:center;gap:0;margin:12px 42px 10px 39px;min-height:317px;}
+.kids-hero__board{position:relative;isolation:isolate;z-index:2;min-height:287px;padding:52px 56px 38px;color:var(--color-ivory);}
+.kids-hero__board::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border:solid transparent;border-width:28px 38px;border-image-source:url("img/footer-experiment-dark-vtrim.webp");border-image-slice:92 140 92 140 fill;border-image-width:1;border-image-repeat:stretch round;filter:brightness(1.15);}
+.kids-hero__label{position:absolute;left:23px;top:-10px;padding:10px 24px 8px;background:var(--color-green);color:var(--color-ink);font-weight:700;font-size:13px;line-height:1.1;letter-spacing:.08em;clip-path:polygon(1% 7%,100% 0%,98% 96%,3% 100%);transform:rotate(-2deg);}
+.kids-hero h1{font-family:'Architects Daughter',cursive;font-size:61px;font-weight:700;line-height:.98;letter-spacing:-.03em;margin:0 0 16px;color:var(--color-green);transform:rotate(-1deg);}
+.kids-hero__tagline{font-size:24px!important;font-weight:700;line-height:1.18!important;letter-spacing:-.03em;margin:0 0 13px!important;}
+.kids-hero__board>p:last-child{font-size:16px;line-height:1.43;margin:0;max-width:420px;}
+.kids-hero__photo{position:relative;z-index:3;width:100%;height:275px;transform:rotate(5deg);margin:0 0 0 -12px;filter:drop-shadow(5px 9px 6px rgba(0,0,0,.25));}
+.kids-hero__photo-image{position:absolute;left:11%;top:16%;width:79%;height:71%;object-fit:cover;transform:rotate(-3.7deg);}
+.kids-hero__photo-frame{position:relative;width:100%;height:100%;object-fit:fill;pointer-events:none;}
+.design-chooser{margin:28px 56.4px 22px 39px;padding:10px 14px 13px;border-top:1px dashed rgba(247,244,235,.55);border-bottom:1px dashed rgba(247,244,235,.55);display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--color-ivory);}
+.design-chooser__caption{font-size:10px;font-weight:700;letter-spacing:.14em;white-space:nowrap;opacity:.7;}
+.design-chooser__links{display:flex;flex-wrap:wrap;gap:7px;}
+.design-chooser__links a{font-size:13px;line-height:1.2;font-weight:700;padding:8px 11px;border:1px solid rgba(247,244,235,.4);color:var(--color-ivory);white-space:nowrap;}
+.design-chooser__links a span{opacity:.55;margin-right:5px;}
+.design-chooser__links a:is(:hover,:focus-visible){border-color:var(--color-green);}
+html[data-layout="field-guide"] .design-chooser a[data-preview="field-guide"],html[data-layout="question-wall"] .design-chooser a[data-preview="question-wall"],html[data-layout="studio-manual"] .design-chooser a[data-preview="studio-manual"]{background:var(--color-green);border-color:var(--color-green);color:var(--color-ink);}
+.kids-content{margin:0 56.4px 0 39px;}
+.kids-content__eyebrow{display:flex;justify-content:space-between;gap:8px;margin:0 0 14px;color:var(--color-ivory);font-size:12px;line-height:1.4;letter-spacing:.12em;font-weight:700;}
+.kids-questions{display:grid;}
+.question{position:relative;min-width:0;}
+.question__heading{min-width:0;}
+.question__index{display:block;font-size:12px;font-weight:700;line-height:1;letter-spacing:.09em;opacity:.7;margin-bottom:12px;}
+.question h2{margin:0;font-size:40px;line-height:1.1;letter-spacing:-.045em;font-weight:700;}
+.question__body{min-width:0;font-size:18px;line-height:1.5;}
+.question__body p{margin:0 0 15px;}
+.question__body p:last-child{margin-bottom:0;}
+.question__body p:first-child{font-weight:700;}
+.when-options{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.when-option{min-width:0;display:flex;flex-direction:column;align-items:flex-start;}
+.when-option h3{font-size:22px;line-height:1.15;letter-spacing:-.035em;margin:0 0 10px;}
+.when-option p{font-size:17px;font-weight:400!important;line-height:1.45;margin:0 0 16px;flex:1;}
+.when-option>a{position:relative;display:inline-block;font-size:16px;font-weight:700;line-height:1.3;border-bottom:2px dashed currentColor;padding-bottom:4px;}
+.when-option>a:is(:hover,:focus-visible){color:var(--color-blue);border-color:var(--color-blue);}
+.when-option>a span{margin-left:4px;}
+.kids-explorations .small-cards{margin-top:50px;}
+/* 01 · Field guide — one composed sequence of green tabs and cream pages. */
+html:not([data-layout]),html[data-layout="field-guide"]{--kids-sheet:var(--color-ivory);}
+html:not([data-layout]) .kids-questions,html[data-layout="field-guide"] .kids-questions{grid-template-columns:1fr;gap:17px;}
+html:not([data-layout]) .question,html[data-layout="field-guide"] .question{display:grid;grid-template-columns:190px minmax(0,1fr);background:var(--color-ivory);color:var(--color-ink);box-shadow:4px 6px 1px rgba(0,0,0,.17);transform:rotate(-.35deg);}
+html:not([data-layout]) .question:nth-child(even),html[data-layout="field-guide"] .question:nth-child(even){transform:rotate(.35deg);}
+html:not([data-layout]) .question__heading,html[data-layout="field-guide"] .question__heading{background:var(--color-green);padding:29px 22px 26px 26px;}
+html:not([data-layout]) .question__body,html[data-layout="field-guide"] .question__body{padding:30px 36px 33px;}
+html:not([data-layout]) .question__index,html[data-layout="field-guide"] .question__index{color:var(--color-ink);}
+html:not([data-layout]) .when-option+ .when-option,html[data-layout="field-guide"] .when-option+.when-option{border-left:1px dashed rgba(2,0,32,.3);padding-left:20px;}
+/* 02 · Question wall — six independent cardboard-mounted notes. */
+html[data-layout="question-wall"] .kids-questions{grid-template-columns:1fr 1fr;align-items:start;gap:22px;}
+html[data-layout="question-wall"] .question{display:block;background:var(--color-ivory);color:var(--color-ink);border:10px solid transparent;border-image-source:url("img/cardboard-texture.svg");border-image-slice:28 fill;border-image-width:10px;box-shadow:5px 7px 8px rgba(0,0,0,.24);transform:rotate(-.75deg);}
+html[data-layout="question-wall"] .question:nth-child(even){transform:rotate(.65deg);}
+html[data-layout="question-wall"] .question__heading{padding:22px 25px 15px;position:relative;}
+html[data-layout="question-wall"] .question__heading::before{content:"";position:absolute;background:var(--color-green);width:134px;height:9px;left:24px;top:0;transform:rotate(-2deg);}
+html[data-layout="question-wall"] .question__index{margin-bottom:7px;}
+html[data-layout="question-wall"] .question h2{font-size:39px;}
+html[data-layout="question-wall"] .question__body{padding:0 25px 25px;font-size:17px;line-height:1.48;}
+html[data-layout="question-wall"] .question__body p{margin-bottom:13px;}
+html[data-layout="question-wall"] .question--when{grid-column:1/-1;}
+html[data-layout="question-wall"] .question--when .question__body{padding-bottom:31px;}
+html[data-layout="question-wall"] .when-options{gap:30px;}
+html[data-layout="question-wall"] .when-option+.when-option{border-left:1px dashed rgba(2,0,32,.3);padding-left:30px;}
+/* 03 · Studio manual — ink-black working board, green index on left. */
+html[data-layout="studio-manual"] .kids-questions{position:relative;isolation:isolate;padding:24px 36px 33px;gap:0;color:var(--color-ivory);grid-template-columns:1fr;}
+html[data-layout="studio-manual"] .kids-questions::before{content:"";position:absolute;z-index:-1;inset:0;border:solid transparent;border-width:35px 38px;border-image-source:url("img/footer-experiment-dark-vtrim.webp");border-image-slice:92 140 92 140 fill;border-image-width:1;border-image-repeat:stretch round;filter:brightness(1.15);}
+html[data-layout="studio-manual"] .question{display:grid;grid-template-columns:167px 1fr;gap:22px;padding:27px 10px;border-bottom:1px dashed rgba(247,244,235,.3);}
+html[data-layout="studio-manual"] .question:last-child{border-bottom:none;}
+html[data-layout="studio-manual"] .question__index{color:var(--color-green);opacity:1;}
+html[data-layout="studio-manual"] .question h2{font-size:39px;color:var(--color-green);}
+html[data-layout="studio-manual"] .question__body{font-size:18px;line-height:1.5;}
+html[data-layout="studio-manual"] .when-option+.when-option{border-left:1px dashed rgba(247,244,235,.38);padding-left:20px;}
+html[data-layout="studio-manual"] .when-option>a{color:var(--color-green);}
+html[data-layout="studio-manual"] .when-option>a:is(:hover,:focus-visible){color:var(--color-ivory);}
+html[data-layout="studio-manual"] .kids-content__eyebrow{margin-bottom:14px;}
+/* Shared navigation and footer remain sourced from style-home.css. */
+@media (max-width:760px){
+  .kids-hero{margin:24px 13px 5px;grid-template-columns:1fr;gap:0;}
+  .kids-hero__board{padding:49px 35px 30px;min-height:0;}
+  .kids-hero h1{font-size:51px;}
+  .kids-hero__tagline{font-size:23px!important;}
+  .kids-hero__photo{width:min(94%,370px);height:230px;justify-self:center;margin:-17px 0 0;transform:rotate(4deg);}
+  .design-chooser{margin:28px 16px 25px;align-items:flex-start;flex-direction:column;gap:10px;}
+  .design-chooser__links{gap:5px;}
+  .design-chooser__links a{font-size:12px;padding:8px;}
+  .kids-content{margin:0 16px;}
+  .kids-content__eyebrow{font-size:10px;}
+  .question__body{font-size:17px!important;}
+  html:not([data-layout]) .question,html[data-layout="field-guide"] .question{grid-template-columns:1fr;transform:none!important;}
+  html:not([data-layout]) .question__heading,html[data-layout="field-guide"] .question__heading{padding:14px 22px;display:flex;align-items:center;gap:20px;}
+  html:not([data-layout]) .question__index,html[data-layout="field-guide"] .question__index{margin:0;}
+  html:not([data-layout]) .question h2,html[data-layout="field-guide"] .question h2{font-size:32px;}
+  html:not([data-layout]) .question__body,html[data-layout="field-guide"] .question__body{padding:24px 23px 26px;}
+  html[data-layout="question-wall"] .kids-questions{grid-template-columns:1fr;gap:15px;}
+  html[data-layout="question-wall"] .question{transform:none!important;}
+  html[data-layout="question-wall"] .question--when{grid-column:auto;}
+  html[data-layout="studio-manual"] .kids-questions{padding:21px 23px 23px;}
+  html[data-layout="studio-manual"] .question{grid-template-columns:1fr;gap:14px;padding:23px 3px;}
+  html[data-layout="studio-manual"] .question h2{font-size:34px;}
+  html[data-layout="studio-manual"] .question__index{margin-bottom:7px;}
+  .when-options{grid-template-columns:1fr;gap:22px;}
+  html:not([data-layout]) .when-option+.when-option,
+  html[data-layout="field-guide"] .when-option+.when-option,
+  html[data-layout="question-wall"] .when-option+.when-option,
+  html[data-layout="studio-manual"] .when-option+.when-option{padding:20px 0 0;border-left:0;border-top:1px dashed currentColor;}
+  .when-option p{font-size:16px;}
+  .kids-explorations .small-cards{margin-top:46px;}
+}
+@media (prefers-reduced-motion:no-preference){.design-chooser__links a{transition:background-color .14s,border-color .14s,color .14s;}}
