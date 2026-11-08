@@ -7,8 +7,8 @@
   <title>Qwerty Labs · Subpage Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
-  <link rel="stylesheet" href="subpage-studio.css?v=4">
-  <script src="subpage-studio.js?v=4" defer></script>
+  <link rel="stylesheet" href="subpage-studio.css?v=5">
+  <script src="subpage-studio.js?v=5" defer></script>
 </head>
 <body>
   <div class="studio-shell">
@@ -21,25 +21,41 @@
       <div class="side-scroll">
         <section class="tool-section hero-tools" id="hero-controls" aria-labelledby="section-hero">
           <h2 id="section-hero"><span class="section-number">01</span> Hero banner</h2>
-          <p class="tool-hint">The original homepage banner, configured separately for each subpage.</p>
-          <div class="field"><label for="hero-title">Banner copy</label><textarea id="hero-title" rows="2" placeholder="Page title"></textarea></div>
-          <div class="field"><label for="hero-colour">Paper colour</label>
-            <select id="hero-colour">
-              <option value="blue">Blue · Lab</option><option value="green">Green · Kids</option>
-              <option value="pink">Pink · Adults</option><option value="orange">Orange · Teens</option>
-              <option value="ivory">Ivory</option>
+          <p class="tool-hint">Click the heading on the canvas to edit it. Choose a paper colour, heading text colour and approved mascot artwork here.</p>
+          <div class="field"><label for="hero-title">Hero heading text</label><textarea id="hero-title" rows="2" placeholder="Your page heading"></textarea></div>
+          <div class="field"><label>Hero paper colour</label>
+            <div class="hero-swatches" role="group" aria-label="Hero paper colour">
+              <button type="button" class="hero-swatch" data-hero-paper="blue" style="--swatch:#4C69E3" title="Blue · Lab" aria-label="Blue paper" aria-pressed="true"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="green" style="--swatch:#92D644" title="Green · Kids" aria-label="Green paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="pink" style="--swatch:#F66DC1" title="Pink · Adults" aria-label="Pink paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="orange" style="--swatch:#FF9029" title="Orange · Teens" aria-label="Orange paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="ivory" style="--swatch:#F7F4EB" title="Ivory" aria-label="Ivory paper" aria-pressed="false"></button>
+            </div>
+            <select id="hero-colour" hidden aria-label="Hero paper colour">
+              <option value="blue">Blue</option><option value="green">Green</option><option value="pink">Pink</option>
+              <option value="orange">Orange</option><option value="ivory">Ivory</option>
             </select>
           </div>
-          <div class="field"><label for="hero-mascots">Mascot artwork</label>
+          <div class="field"><label for="hero-text-colour">Heading text colour</label>
+            <select id="hero-text-colour">
+              <option value="ink">Ink · #020020</option>
+              <option value="ivory">Ivory · #F7F4EB</option>
+              <option value="blue">Blue · #4C69E3</option>
+              <option value="green">Green · #92D644</option>
+              <option value="pink">Pink · #F66DC1</option>
+              <option value="orange">Orange · #FF9029</option>
+            </select>
+          </div>
+          <div class="field"><label for="hero-mascots">Choose mascots</label>
             <select id="hero-mascots">
               <option value="trio">Original maker trio</option>
               <option value="q">Approved Q mascot</option>
               <option value="none">Hide mascots</option>
-              <option value="uploaded">Uploaded mascot artwork</option>
+              <option value="uploaded">My uploaded mascot artwork</option>
             </select>
           </div>
           <div class="field"><label for="hero-mascot-size">Mascot size <span class="small-value" id="hero-mascot-value">100%</span></label><input type="range" id="hero-mascot-size" min="30" max="160" step="5" value="100"></div>
-          <div class="inline-actions"><button type="button" id="hero-choose">+ Upload mascot image</button><button type="button" id="hero-reset">Reset hero</button></div>
+          <div class="inline-actions"><button type="button" id="hero-choose">+ Choose mascot file</button><button type="button" id="hero-reset">Reset hero</button></div>
           <input id="hero-upload" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
         </section>
         <section class="tool-section" aria-labelledby="section-structure">
