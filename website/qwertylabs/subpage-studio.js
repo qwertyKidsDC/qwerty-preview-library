@@ -75,7 +75,7 @@
   });
   const originalHeroMascots='img/mascot-making-led-crisp.svg?v=full-res-20261106';
   const defaultHero=()=>({
-    title:'Kids',colour:'green',mascots:originalHeroMascots,mascotScale:100
+    title:'Curious technology\nfor creative people.',colour:'blue',mascots:originalHeroMascots,mascotScale:100
   });
   // Blank means no rows at all. The fixed homepage hero and footer remain on screen.
   function blankTemplate(){
