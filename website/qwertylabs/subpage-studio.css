@@ -10,3 +10,12 @@
 .hero-swatch.active::after{content:"✓";display:grid;place-items:center;position:absolute;right:-4px;bottom:-5px;width:15px;height:15px;border-radius:50%;background:#020020;color:#fff;font-size:10px;font-weight:700}
 .hero-tools textarea{min-height:66px}
 .hero-tools .inline-actions button{padding-left:7px;padding-right:7px;font-size:11px}
+
+/* Five precise row templates: full, halves, thirds and the two asymmetric splits. */
+.columns-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.columns-buttons button{display:flex;flex-direction:column;min-width:0;min-height:51px;justify-content:center;align-items:center;gap:6px;font-size:11px}
+.columns-buttons .mini-columns{width:35px;height:17px}
+.mini-columns.asym-left i:first-child{flex:2}
+.mini-columns.asym-left i:last-child{flex:1}
+.mini-columns.asym-right i:first-child{flex:1}
+.mini-columns.asym-right i:last-child{flex:2}
