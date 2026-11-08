@@ -1,69 +1,200 @@
 <!doctype html>
 <html lang="en-AU" data-brand="kids">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="stylesheet" href="brand.css?v=20261108">
-  <script src="brand.js?v=20261108" defer></script>
-  <title>Kids — Qwerty Labs copy review (draft)</title>
-</head>
-<body>
-  <header>
-    <a class="draft-wordmark" href="index.html"><img src="img/wordmark-labs-green.svg" alt="Qwerty Labs" width="220" height="50"></a>
-    <p><a href="index.html">← Qwerty Labs homepage</a></p>
-    <nav aria-label="Review pages">
-      <a href="kids.html" aria-current="page">Kids</a> · <a href="adults.html">Adults</a> · <a href="teens.html">Teens</a> · <a href="thelab.html">The Lab</a>
-    </nav>
-    <p><em>Draft copy for review · 3 November 2026 · Not approved. Calls to action are copy only unless linked.</em></p>
-  </header>
-  <main>
-    <h1>Kids</h1>
-    <h2>Games, robots and things with wires.</h2>
-    <p>Weekly coding classes and school holiday camps for children in Marrickville.</p>
-    <p>Make games, animate stories, build websites, experiment with electronics, program robots and explore what else technology can do. We provide the tools, the guidance and plenty of room for ideas of their own.</p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="Creative technology for children aged 7–12. Games, robots, coding, electronics and projects at Qwerty Labs, Marrickville."
+    >
+    <title>Kids — Qwerty Labs</title>
+    <!-- Approved typefaces load before the single homepage stylesheet. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="brand.css?v=20261108">
+    <link rel="stylesheet" href="style-home.css?v=brand-tokens-20261108">
+    <link rel="stylesheet" href="style-kids-preview.css?v=20261108-a">
+    <script src="brand.js?v=20261108" defer></script>
+    <script src="script.js?v=static-lab-photo-20261108" defer></script>
+    <script src="kids-preview.js?v=20261108-a" defer></script>
+  </head>
+  <body class="kids-explorations">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="index.html" class="logo" aria-label="Qwerty Labs home">
+              <img src="img/wordmark-labs-green.svg" alt="qwertylabs" width="440" height="101">
+            </a>
+            <nav class="navigation" aria-label="Main navigation">
+              <a href="kids.html" aria-current="page">Kids</a>
+              <a href="adults.html">Adults</a>
+              <a href="teens.html">Teens</a>
+              <a href="thelab.html">The Lab</a>
+            </nav>
+          </header>
 
-    <h2>Weekly classes</h2>
-    <p><strong>A regular place to make things.</strong></p>
-    <p>Our classes are project-led, not a fixed sequence of worksheets. Children might build a game one term, work with a robot another, or develop their own project over several weeks.</p>
-    <p>We assess each child's experience when they start and choose projects and tools that suit their skills and interests. Beginners get a guided place to start. Experienced makers don't have to start again every time somebody new arrives.</p>
+          <main id="main">
+            <!-- Approved shared site shell and footer; only this Kids main content varies. -->
+            <section class="kids-hero" aria-labelledby="kids-title">
+              <div class="kids-hero__board">
+                <span class="kids-hero__label">KIDS / AGES 7–12</span>
+                <h1 id="kids-title">Kids</h1>
+                <p class="kids-hero__tagline">Creative technology for children who like making things.</p>
+                <p>Games, robots, electronics, digital worlds and more. Beginners get help getting started. Children with experience get room to take an idea further.</p>
+              </div>
+              <figure class="kids-hero__photo" aria-label="Qwerty students building with creative technology">
+                <img class="kids-hero__photo-image" src="img/code-camp-robotics-700.jpg" alt="Two students smiling beside a small glowing robot and a laptop" width="700" loading="eager">
+                <img class="kids-hero__photo-frame" src="img/project-photo-frame.svg" alt="" aria-hidden="true" loading="eager">
+              </figure>
+            </section>
+            <nav class="design-chooser" id="designs" aria-label="Kids page design previews">
+              <span class="design-chooser__caption">KIDS PAGE / DESIGN EXPLORATIONS</span>
+              <div class="design-chooser__links">
+                <a href="?layout=field-guide#designs" data-preview="field-guide"><span>01</span> Field guide</a>
+                <a href="?layout=question-wall#designs" data-preview="question-wall"><span>02</span> Question wall</a>
+                <a href="?layout=studio-manual#designs" data-preview="studio-manual"><span>03</span> Studio manual</a>
+              </div>
+            </nav>
+            <div class="kids-content">
+              <div class="kids-content__eyebrow"><span>EVERYTHING YOU NEED TO KNOW</span><span>↓</span></div>
+              <div class="kids-questions" aria-label="Who, what, why, how, where and when">
 
-    <h2>Which programs and languages do we use?</h2>
-    <p>That depends on what they're making. Children might use <strong>Scratch</strong> to program with visual blocks, move into text-based languages such as <strong>Python, JavaScript or Lua</strong>, or use <strong>HTML and CSS</strong> to create websites. We also work with game-making tools, robotics, Raspberry Pi, microcontrollers, sensors and electronics.</p>
-    <p>Those are possibilities, not a checklist every child completes in one term. We choose technology because it's useful for a project, not because it's next on a syllabus.</p>
+                <section class="question question--who" id="who">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">01 / 06</span><h2>Who?</h2></div>
+                  <div class="question__body"><p>Children aged 7–12, from complete beginners to experienced young makers.</p>
+                    <p>Some children arrive having never written a line of code. Others have been making games, experimenting with electronics or teaching themselves new things for years.</p>
+                    <p>We don't expect everyone to know the same things or work on the same projects. We find a starting point that suits each child and help them move forward from there.</p></div>
+                </section>
 
-    <h2>What will they learn?</h2>
-    <p>Children learn how code works by using it: sequences, events, loops, variables and logic, introduced when a project gives them a reason to understand them.</p>
-    <p>Just as importantly, they learn to plan an idea, build it, test it, find what went wrong and try again. As their confidence grows, they make more decisions and take more ownership. The goal isn't to follow instructions forever.</p>
+                <section class="question question--what" id="what">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">02 / 06</span><h2>What?</h2></div>
+                  <div class="question__body"><p>Coding, AI, games, electronics, robotics, physical computing, websites, interactive projects and design.</p>
+                    <p>Children might program a game, build a robot, create an interactive story, design a website or make something respond to light, sound or movement.</p>
+                    <p>We work with tools including Scratch, Python, JavaScript, Raspberry Pi, microcontrollers, sensors and plenty of things with wires.</p>
+                    <p>Projects change as technology changes, and as children's interests and abilities develop.</p>
+                    <p>The technology is the toolbox. The project is the reason to use it.</p></div>
+                </section>
 
-    <h2>Small groups. Proper guidance.</h2>
-    <p>We keep groups small, with approximately one tutor to seven children, so we can notice when somebody needs help — or when they're ready for something harder.</p>
-    <p>Children work in groups suited to their age and experience. Some sessions run two separate age groups at the same time. All equipment is provided, and families are welcome to see what their child has made at the end of a session.</p>
+                <section class="question question--why" id="why">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">03 / 06</span><h2>Why?</h2></div>
+                  <div class="question__body"><p>Making gives learning a reason. Understanding what you're doing gives you more say in what happens next.</p>
+                    <p>It's one thing to follow instructions and get something working. It's another to understand how it works, change it, improve it or make something entirely your own.</p>
+                    <p>Children learn coding, logic, design and problem-solving through projects that give those skills a purpose.</p>
+                    <p>We want them to become confident enough to ask, “What happens if I try this?” And curious enough to find out.</p></div>
+                </section>
 
-    <h2>Weekly classes at a glance</h2>
-    <ul>
-      <li><strong>Ages:</strong> 7–17, in age-appropriate groups.</li>
-      <li><strong>Sessions:</strong> 75 minutes each week during school terms.</li>
-      <li><strong>Times:</strong> Mondays 4:45–6pm; Tuesdays 5:15–6:30pm; Saturdays 9–10:15am, 10:30–11:45am or 12:15–1:30pm.</li>
-      <li><strong>Fees:</strong> $270 for a nine-week term. Children joining partway through pay an adjusted fee for the remainder of the term.</li>
-      <li><strong>Where:</strong> The lab, Level 1, 230 Marrickville Road, Marrickville.</li>
-    </ul>
-    <p>Most children continue from term to term, building on what they've already learned. We'll confirm the current term dates and available places when you enrol.</p>
-    <p><strong>See class times &amp; enrol →</strong></p>
+                <section class="question question--how" id="how">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">04 / 06</span><h2>How?</h2></div>
+                  <div class="question__body"><p>Small groups, useful guidance, real projects and gradually more independence.</p>
+                    <p>Beginners get clear instructions, practical help and something they can make work. As their skills grow, they make more of the decisions.</p>
+                    <p>Sometimes everyone begins with the same project. Sometimes children work on completely different things.</p>
+                    <p>Our small groups mean we can help when somebody gets stuck, notice when they're ready for something harder and give them space to work things out for themselves.</p>
+                    <p>The aim isn't to follow instructions forever.</p></div>
+                </section>
 
-    <h2>School holiday camps</h2>
-    <p><strong>A whole day to get stuck into something.</strong></p>
-    <p>Games, coding, robotics, electronics and creative technology projects. Come for one day or several. We adapt projects to the children attending, so there's something worthwhile for first-timers and those who've been making things for years.</p>
-    <p>We provide the equipment, projects and people who know how to help.</p>
-    <p><strong>See camp dates &amp; book →</strong></p>
+                <section class="question question--where" id="where">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">05 / 06</span><h2>Where?</h2></div>
+                  <div class="question__body"><p>Upstairs in Marrickville, Sydney.</p>
+                    <p>Our creative technology studio is at Level 1, 230 Marrickville Road. It's a working space full of computers, electronics, robots, tools, materials and projects in various stages of becoming something.</p>
+                    <p>We provide the equipment. Children bring their curiosity.</p></div>
+                </section>
 
-    <h2>We've been doing this for a while.</h2>
-    <p>Qwerty Labs grew from QwertyKids, where we've taught creative technology for more than ten years. The software changes. The robots change. The useful bit stays the same: make something, work out how it works, and see what else you can do with it.</p>
-    <p>Not sure where your child should start? <strong>Ask us →</strong></p>
-  </main>
-  <footer>
-    <hr>
-    <p><a href="index.html">Back to homepage</a></p>
-  </footer>
-</body>
+                <section class="question question--when" id="when">
+                  <div class="question__heading"><span class="question__index" aria-hidden="true">06 / 06</span><h2>When?</h2></div>
+                  <div class="question__body">
+                    <div class="when-options">
+                      <div class="when-option"><h3>Weekly classes</h3>
+                        <p>A regular place to make things during the school term. Children develop skills, explore new technologies and work on projects over several weeks. Many return term after term, building on what they've already learned.</p>
+                        <a href="https://qwertykids.com/kids-coding-classes-enrolment/">See class times and enrol <span aria-hidden="true">→</span></a>
+                      </div>
+                      <div class="when-option"><h3>School holiday camps</h3>
+                        <p>A whole day to get stuck into creative technology. Games, coding, robotics, electronics and projects that give children something interesting to work on. Come for one day or several.</p>
+                        <a href="https://qwertykids.com/coding-camp/">Explore holiday camps <span aria-hidden="true">→</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+            <!-- Information and contact cards -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, find and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="kids.html">Kids</a>
+                  <a href="adults.html">Adults</a>
+                  <a href="teens.html">Teens</a>
+                  <a href="#projects">Projects</a>
+                  <a href="thelab.html">The Lab</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find the lab</h2>
+                <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-hello-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-hello-title">Say hello</h2>
+                <div class="footer-card-links">
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/">Bookings</a>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                </div>
+              </section>
+            </section>
+          
+          </main>
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+              <img class="country-ack__mascot" src="img/q-country-mascot.svg" alt="" width="110" height="110" loading="lazy" decoding="async">
+            </section>
+            <!-- The studio signature follows the left guide; policies follow the right. -->
+            <div class="footer-legal">
+              <div class="footer-legal-signature">
+                <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
+                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/wordmark-labs-green.svg" alt="" width="2013" height="460">
+                </a>
+                <span class="footer-legal-separator" aria-hidden="true">|</span>
+                <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
+              </div>
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="https://qwertykids.com/child-safe-policy/">Child Safety</a>
+                <a href="https://qwertykids.com/privacy-policy/">Privacy</a>
+                <a href="https://qwertykids.com/terms-and-conditions/">Booking Terms</a>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
