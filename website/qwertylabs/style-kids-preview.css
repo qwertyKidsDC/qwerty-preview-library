@@ -35,7 +35,9 @@ html[data-layout="field-guide"] .design-chooser a[data-preview="field-guide"],ht
 .when-option h3{font-size:22px;line-height:1.15;letter-spacing:-.035em;margin:0 0 10px;}
 .when-option p{font-size:17px;font-weight:400!important;line-height:1.45;margin:0 0 16px;flex:1;}
 .when-option>a{position:relative;display:inline-block;font-size:16px;font-weight:700;line-height:1.3;border-bottom:2px dashed currentColor;padding-bottom:4px;}
-.when-option>a:is(:hover,:focus-visible){color:var(--color-blue);border-color:var(--color-blue);}
+.when-option>a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background-color:var(--color-blue);-webkit-mask:var(--link-squiggle-mask) left bottom/100% 100% no-repeat;mask:var(--link-squiggle-mask) left bottom/100% 100% no-repeat;opacity:0;pointer-events:none;}
+.when-option>a:is(:hover,:focus-visible){color:inherit;border-color:transparent;}
+.when-option>a:is(:hover,:focus-visible)::after{opacity:1;}
 .when-option>a span{margin-left:4px;}
 .kids-explorations .small-cards{margin-top:50px;}
 /* 01 · Field guide — one composed sequence of green tabs and cream pages. */
@@ -71,7 +73,7 @@ html[data-layout="studio-manual"] .question h2{font-size:39px;color:var(--color-
 html[data-layout="studio-manual"] .question__body{font-size:18px;line-height:1.5;}
 html[data-layout="studio-manual"] .when-option+.when-option{border-left:1px dashed rgba(247,244,235,.38);padding-left:20px;}
 html[data-layout="studio-manual"] .when-option>a{color:var(--color-green);}
-html[data-layout="studio-manual"] .when-option>a:is(:hover,:focus-visible){color:var(--color-ivory);}
+html[data-layout="studio-manual"] .when-option>a:is(:hover,:focus-visible){color:var(--color-green);}
 html[data-layout="studio-manual"] .kids-content__eyebrow{margin-bottom:14px;}
 /* Shared navigation and footer remain sourced from style-home.css. */
 @media (max-width:760px){
