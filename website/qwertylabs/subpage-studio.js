@@ -398,7 +398,7 @@
     title.addEventListener('blur',()=>{typing=false;});
     colour.addEventListener('change',()=>{change(()=>{model.hero.colour=colour.value;},{repaint:false});syncHeroSwatches();renderHero();});
     textColour.addEventListener('change',()=>{change(()=>{model.hero.textColour=textColour.value;},{repaint:false});renderHero();});
-    $('[data-hero-paper]').forEach(b=>b.addEventListener('click',()=>{
+    $$('[data-hero-paper]').forEach(b=>b.addEventListener('click',()=>{
       change(()=>{model.hero.colour=b.dataset.heroPaper;},{repaint:false});
       colour.value=model.hero.colour;syncHeroSwatches();renderHero();
     }));
@@ -431,7 +431,7 @@
     sync();
   }
   function syncHeroSwatches(){
-    $('[data-hero-paper]').forEach(button=>{
+    $$('[data-hero-paper]').forEach(button=>{
       const active=button.dataset.heroPaper===model.hero.colour;
       button.classList.toggle('active',active);
       button.setAttribute('aria-pressed',String(active));
