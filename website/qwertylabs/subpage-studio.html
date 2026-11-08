@@ -7,8 +7,8 @@
   <title>Qwerty Labs · Subpage Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
-  <link rel="stylesheet" href="subpage-studio.css?v=6">
-  <script src="subpage-studio.js?v=6" defer></script>
+  <link rel="stylesheet" href="subpage-studio.css?v=7">
+  <script src="subpage-studio.js?v=7" defer></script>
 </head>
 <body>
   <div class="studio-shell">
@@ -21,7 +21,7 @@
       <div class="side-scroll">
         <section class="tool-section hero-tools" id="hero-controls" aria-labelledby="section-hero">
           <h2 id="section-hero"><span class="section-number">01</span> Hero banner</h2>
-          <p class="tool-hint">Click the heading on the canvas to edit it. Choose a paper colour, heading text colour and approved mascot artwork here.</p>
+          <p class="tool-hint">Edit the hero heading, paper colour, text colour and mascots here. No editing controls cover the banner.</p>
           <div class="field"><label for="hero-title">Hero heading text</label><textarea id="hero-title" rows="2" placeholder="Your page heading"></textarea></div>
           <div class="field"><label>Hero paper colour</label>
             <div class="hero-swatches" role="group" aria-label="Hero paper colour">
@@ -60,7 +60,7 @@
         </section>
         <section class="tool-section" aria-labelledby="section-structure">
           <h2 id="section-structure"><span class="section-number">02</span> Structure</h2>
-          <p class="tool-hint">Start blank. Add an equal or asymmetric row. Use the controls above any row to change its structure or delete it.</p>
+          <p class="tool-hint">Start blank. Add a row here or on the canvas, or click an asset to add it automatically. Change or delete any row above it.</p>
           <div class="choice-row columns-buttons">
             <button type="button" data-add-row="1" title="Add one full-width column"><span class="mini-columns one"><i></i></span>1</button>
             <button type="button" data-add-row="2" title="Add two equal columns"><span class="mini-columns two"><i></i><i></i></span>½ + ½</button>
@@ -104,7 +104,7 @@
           <input id="import-file" type="file" accept=".json,application/json" hidden>
         </div>
       </header>
-      <div class="workspace-note"><span class="note-dot"></span> The original homepage remains untouched. Each subpage starts with an editable hero and a blank content canvas. <span>Select an element for <strong>× Delete</strong> on canvas (or press Delete/Backspace); Undo restores it. <strong>Overlay</strong> enables free movement.</span></div>
+      <div class="workspace-note"><span class="note-dot"></span> The original homepage remains untouched. Hero settings are in the sidebar; add rows, text or assets to the canvas below. <span>Select an element for <strong>× Delete</strong> on canvas (or press Delete/Backspace); Undo restores it. <strong>Overlay</strong> enables free movement.</span></div>
       <div class="studio-scroll" id="studio-scroll">
         <div class="frame-wrap" id="frame-wrap"><div class="frame-caption"><span>QWERTY LABS / SUBPAGE EXPERIMENT</span><span id="viewport-width">Desktop · responsive</span></div><iframe id="page-frame" src="index.html" title="Editable preview using the original homepage header, hero and footer" loading="eager" scrolling="no"></iframe></div>
       </div>
