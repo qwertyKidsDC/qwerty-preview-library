@@ -57,24 +57,6 @@
   updateFade();
 })();
 
-/* Pick one Qwerty Labs accent for both wordmarks.
-   The original SVG remains the no-JavaScript fallback. */
-(() => {
-  const wordmarks = document.querySelectorAll('.header .logo img, .footer-wordmark img');
-  if (!wordmarks.length) return;
-
-  const accents = ['pink', 'orange', 'green'];
-  const chosen = accents[Math.floor(Math.random() * accents.length)];
-  wordmarks.forEach(wordmark => {
-    const original = wordmark.getAttribute('src');
-    // If a coloured SVG is missing, keep the approved original wordmark.
-    wordmark.addEventListener('error', () => {
-      wordmark.src = original;
-    }, { once: true });
-    wordmark.src = `img/wordmark-labs-${chosen}.svg`;
-  });
-})();
-
 /* Meet the Lab photo rotation: approved QwertyKids website photography.
    One image per page load, with no adjacent repeat when storage is available.
    Keep the original micro:bit photo as the no-script fallback in HTML. */
@@ -262,36 +244,4 @@
   window.addEventListener('load', schedule);
   document.fonts?.ready?.then(schedule);
   schedule();
-})();
-
-/* One random Qwerty Labs accent per page visit, shared by the arrow
-   and the hand shown over links. Native cursor fallbacks are retained,
-   and CSS restricts the effect to desktop mice/trackpads. */
-(() => {
-  const tokens = getComputedStyle(document.documentElement);
-  const colourToken = (name, fallback) => tokens.getPropertyValue(name).trim() || fallback;
-  const colours = [
-    colourToken('--color-pink', '#F66DC1'),
-    colourToken('--color-green', '#92D644'),
-    colourToken('--color-orange', '#FF9029')
-  ];
-  const ivory = colourToken('--color-ivory', '#F7F4EB');
-  const ink = colourToken('--color-ink', '#020020');
-  const colour = colours[Math.floor(Math.random() * colours.length)];
-  const arrow = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="32" viewBox="0 0 26 32">
-    <path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z"
-      fill="${colour}" stroke="${ivory}" stroke-width="2" stroke-linejoin="round"/>
-  </svg>`;
-  const hand = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="40" viewBox="0 0 36 40">
-    <path d="M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z"
-      fill="${colour}" stroke="${ink}" stroke-width="2"
-      stroke-linejoin="round" stroke-linecap="round"/>
-  </svg>`;
-  const svgCursor = (svg, x, y, fallback) =>
-    `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${x} ${y}, ${fallback}`;
-
-  const root = document.documentElement;
-  root.style.setProperty('--ql-arrow-cursor', svgCursor(arrow, 2, 1, 'auto'));
-  root.style.setProperty('--ql-hand-cursor', svgCursor(hand, 15, 3, 'pointer'));
-  root.classList.add('ql-brand-cursor');
 })();

@@ -1,0 +1,39 @@
+/* Qwerty Labs brand tokens — shared by every page.
+   The blue Lab accent is the default; each audience page opts in by name. */
+:root {
+  --color-blue: #4C69E3;
+  --color-pink: #F66DC1;
+  --color-green: #92D644;
+  --color-orange: #FF9029;
+  --color-ivory: #F7F4EB;
+  --color-ink: #020020;
+  --brand-accent: var(--color-blue);
+}
+
+:root[data-brand="kids"]   { --brand-accent: var(--color-green); }
+:root[data-brand="adults"] { --brand-accent: var(--color-pink); }
+:root[data-brand="teens"]  { --brand-accent: var(--color-orange); }
+
+/* Custom pointers are only for mouse/trackpad. Touch and text inputs remain native. */
+@media (hover: hover) and (pointer: fine) {
+  html.ql-brand-cursor { cursor: var(--ql-arrow-cursor, auto); }
+  html.ql-brand-cursor :is(a, button, [role="button"]) {
+    cursor: var(--ql-hand-cursor, pointer);
+  }
+  html.ql-brand-cursor :is(input, textarea, [contenteditable="true"]) {
+    cursor: text;
+  }
+}
+
+/* Only draft copy pages need this simple background for the pale wordmark. */
+.draft-wordmark {
+  display: inline-block;
+  padding: 10px 13px;
+  background: var(--color-ink);
+}
+.draft-wordmark img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+}

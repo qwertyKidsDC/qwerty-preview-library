@@ -1,29 +1,12 @@
-/* Qwerty Labs · Homepage — single consolidated stylesheet, 7 November 2026
-   This is the only local CSS file loaded by the homepage.
-   The type and palette tokens below govern this page.
-   Visual artwork lives in img/. Dynamic zoom and photo fades live in script.js.
-   Colours inside the paper illustrations belong to the artwork, not this CSS. */
+/* Qwerty Labs · homepage layout and visual system.
+   Shared palette and cursor live in brand.css.
+   Artwork is in img/; dynamic zoom and photo fades live in script.js. */
 
 /* Fonts are loaded in the HTML head to avoid a chained @import request. */
 
-/* 01. Colour policy and foundations
-   Brand: use only approved palette colours for interface elements.
-   Blue #4C69E3, pink #F66DC1 and green #92D644 are currently in SVG artwork.
-
-   Scene exceptions: the blue-black backdrop/tint and two amber glows belong
-   to the approved photographic lighting, not to the brand palette.
-   Black/white mask stops control opacity; they are not interface colours.
-   Corrugated photo-cardboard browns and black shadows are decorative materials,
-   not additions to the interface palette. */
+/* 01. Homepage foundations. Brand palette and themes are defined in brand.css.
+   Workshop lighting and cardboard browns are decorative artwork, not UI colours. */
 :root {
-  /* Approved six-colour palette. Artwork may contain textured variations. */
-  --color-blue: #4C69E3;
-  --color-pink: #F66DC1;
-  --color-green: #92D644;
-  --color-orange: #FF9029;
-  --color-ivory: #F7F4EB;
-  --color-ink: #020020;
-
   /* Shared type scale; fit containers to text, not text to containers. */
   --text-heading: 30px;  /* Section headings and tape lettering */
   --text-card: 20px;     /* Card titles and country acknowledgement */
@@ -1236,23 +1219,5 @@ a {
   .site {
     --top-original-height: clamp(200px, 58vw, 370px);
     --top-photo-width: 100vw;
-  }
-}
-
-/* 13. Brand cursor: one paired SVG arrow/hand accent per visit.
-   Precise pointers only; touch and text-entry retain native semantics. */
-@media (hover: hover) and (pointer: fine) {
-
-  /* Cursor inherits by default: no universal selector or !important needed. */
-  html.ql-brand-cursor {
-    cursor: var(--ql-arrow-cursor, auto);
-  }
-
-  html.ql-brand-cursor :is(a, button, [role="button"]) {
-    cursor: var(--ql-hand-cursor, pointer);
-  }
-
-  html.ql-brand-cursor :is(input, textarea, [contenteditable="true"]) {
-    cursor: text;
   }
 }
