@@ -959,9 +959,10 @@ a {
     padding-inline: 40px;
   }
 
-  /* The nine-slice image has transparent edge pixels within its border.
-     Match its painted edges to the three blue cards (measured against
-     the approved desktop screenshot), without resizing the content panel. */
+  /* Both blackboard panels use the same nine-slice artwork with transparent
+     edges. Align their painted sides to the coloured card guides without
+     changing the width or positioning of either content box. */
+  .footer-scene__board::before,
   .lab-footer .country-ack::before {
     left: -21px;
     right: -21px;
