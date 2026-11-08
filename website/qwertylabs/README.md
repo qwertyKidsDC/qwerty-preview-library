@@ -4,7 +4,7 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 
 ## Approved versus draft
 
-- **Approved:** `index.html`, `style-home.css`, `script.js`, and the 23 required copied assets in `img/`.
+- **Approved homepage:** `index.html`, `style-home.css`, `script.js`, shared `brand.css` and `brand.js`, and the required assets in `img/`.
 - **Draft, not yet approved:** `kids.html`, `adults.html`, `teens.html`, `thelab.html`. The draft pages still carry visible review notices and their own noindex tags. Do not treat them as final production pages.
 - The existing design preview under `progress/webdesign/ql-site-v2/` is deliberately untouched.
 
@@ -25,3 +25,12 @@ The homepage has `<meta name="robots" content="noindex,nofollow">` while staging
 ## Structure
 
 All HTML, JavaScript and CSS files are at the top level; the only subdirectory is `img/`. All implemented **internal navigation** is relative, and there is no build step.
+
+## Page-based branding
+
+The page declares its brand in the root HTML element: `data-brand="lab"` (the default blue), `kids` (green), `adults` (pink), or `teens` (orange). **Do not randomise this identity.**
+
+- `brand.css` owns the six approved colour tokens, per-page accent mapping, and cursor styling.
+- `brand.js` reads `--brand-accent` and applies it to the matching arrow and hand cursors. On touch devices or without JavaScript, native pointers remain.
+- Wordmarks are selected as static image sources in each page: `img/wordmark.svg` for Lab, or `img/wordmark-labs-{green,pink,orange}.svg` for audience pages. This avoids a post-load colour swap and works with JavaScript disabled.
+- `style-home.css` and `script.js` contain only homepage-specific layout and interactions; other pages do not need those files until their designs are approved.
