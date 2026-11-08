@@ -231,6 +231,11 @@
       canvas=iframeDoc.createElement('div');canvas.id='lab-playground-canvas';canvas.setAttribute('aria-label','Editable subpage layout');main.insertBefore(canvas,preserved);
       const style=iframeDoc.createElement('style');style.textContent=iframeStyles;iframeDoc.head.appendChild(style);
       iframeDoc.body.classList.add('studio-iframe');
+      $('h1',heroSection)?.addEventListener('click',()=>{
+        if(preview)return;
+        $('#hero-title').focus();
+        $('#hero-controls').scrollIntoView({block:'nearest',behavior:'smooth'});
+      });
       iframeDoc.addEventListener('click',e=>{if(!preview && e.target.closest('a'))e.preventDefault();},true);
       iframeDoc.addEventListener('dragover',e=>{if(e.target.closest('#lab-playground-canvas'))e.preventDefault();});
       iframeDoc.addEventListener('drop',onFrameDrop);
@@ -241,6 +246,130 @@
       render();setTimeout(resizeFrame,100);setTimeout(resizeFrame,700);
     } catch(error){console.error(error);toast('Preview could not initialise. Open from the published website.');}
   }
+
+  // Recolour only the blue paper pixels, retaining the original cardboard trim and texture.
+  // The homepage SVG stays unchanged; generated variants exist only inside this Studio.
+  function heroPaperFor(colour){
+    const source='img/hero-paper.svg?v=blue-20261104';
+    if(colour==='blue'||!heroColours[colour])return Promise.resolve(source);
+    if(heroTintCache.has(colour))return heroTintCache.get(colour);
+    const result=new Promise(resolve=>{
+      const picture=new Image();picture.onerror=()=>resolve(source);
+      picture.onload=()=>{
+        try{
+          const canvas=document.createElement('canvas');
+          canvas.width=picture.naturalWidth;canvas.height=picture.naturalHeight;
+          const ctx=canvas.getContext('2d',{willReadFrequently:true});
+          if(!ctx){resolve(source);return;}
+          ctx.drawImage(picture,0,0);
+          const image=ctx.getImageData(0,0,canvas.width,canvas.height);
+          const pixels=image.data;
+          const colourHex=heroColours[colour];
+          const target=[1,3,5].map(n=>parseInt(colourHex.slice(n,n+2),16));
+          const reference=[76,105,227];
+          for(let i=0;i<pixels.length;i+=4){
+            if(pixels[i+3]<4)continue;
+            const r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+            // Pixels which are predominantly blue belong to the handmade blue paper,
+            // not the brown cardboard, shadow, or light neutral edge.
+            if(!(b>r*1.18 && b>g*1.12 && b-r>34 && b-g>25))continue;
+            const strength=Math.min(1,(b-Math.max(r,g)-20)/58);
+            const amount=.62+strength*.38;
+            for(let channel=0;channel<3;channel++){
+              const intended=Math.max(0,Math.min(255,target[channel]+(pixels[i+channel]-reference[channel])*.64));
+              pixels[i+channel]=Math.round(pixels[i+channel]*(1-amount)+intended*amount);
+            }
+          }
+          ctx.putImageData(image,0,0);
+          resolve(canvas.toDataURL('image/png'));
+        }catch(e){console.warn('Hero recolour unavailable',e);resolve(source);}
+      };
+      picture.src=source;
+    });
+    heroTintCache.set(colour,result);
+    return result;
+  }
+  function renderHero(){
+    if(!heroSection||!iframeDoc)return;
+    model.hero ||= defaultHero();
+    const data=model.hero;
+    const title=$('h1',heroSection);
+    const paper=$('.hero-paper .paper-bg',heroSection);
+    const mascot=$('.mascots',heroSection);
+    if(title)title.textContent=data.title||'';
+    if(paper){
+      paper.dataset.heroColour=data.colour;
+      heroPaperFor(data.colour).then(src=>{
+        if(paper.isConnected&&model.hero.colour===paper.dataset.heroColour)paper.src=src;
+      });
+    }
+    if(mascot){
+      mascot.hidden=data.mascots==='none';
+      if(!mascot.hidden){
+        const next=data.mascots||originalHeroMascots;
+        if(mascot.getAttribute('src')!==next)mascot.src=next;
+        mascot.alt=next===originalHeroMascots?'Qwerty Labs approved mascot trio':'Selected Qwerty Labs mascot artwork';
+      }
+      heroSection.style.setProperty('--studio-mascot-scale',String(clamp(Number(data.mascotScale)||100,30,160)/100));
+    }
+    resizeFrame();
+  }
+  function initHeroControls(){
+    const title=$('#hero-title'),colour=$('#hero-colour'),mascot=$('#hero-mascots');
+    if(!title||!colour||!mascot)return;
+    const sync=()=>{
+      title.value=model.hero.title;
+      colour.value=model.hero.colour;
+      const src=model.hero.mascots;
+      mascot.value=src==='none'?'none':src===originalHeroMascots?'trio':src==='img/q-country-mascot.svg'?'q':'uploaded';
+      const scale=$('#hero-mascot-size');scale.value=model.hero.mascotScale;
+      $('#hero-mascot-value').textContent=`${model.hero.mascotScale}%`;
+    };
+    let typing=false;
+    title.addEventListener('input',()=>{
+      if(!typing){snapshot();typing=true;}
+      model.hero.title=title.value;
+      renderHero();status.textContent='Unsaved edits';
+    });
+    title.addEventListener('blur',()=>{typing=false;});
+    colour.addEventListener('change',()=>{change(()=>{model.hero.colour=colour.value;},{repaint:false});renderHero();});
+    mascot.addEventListener('change',()=>{
+      if(mascot.value==='uploaded'){$('#hero-upload').click();return;}
+      const src=mascot.value==='none'?'none':mascot.value==='q'?'img/q-country-mascot.svg':originalHeroMascots;
+      change(()=>{model.hero.mascots=src;},{repaint:false});renderHero();
+    });
+    $('#hero-mascot-size').addEventListener('change',e=>{
+      change(()=>{model.hero.mascotScale=Number(e.target.value);},{repaint:false});
+      $('#hero-mascot-value').textContent=`${model.hero.mascotScale}%`;
+      renderHero();
+    });
+    $('#hero-upload').addEventListener('change',e=>{
+      const file=e.target.files?.[0];e.target.value='';
+      if(!file||!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type))return;
+      const reader=new FileReader();
+      reader.onload=()=>{
+        change(()=>{model.hero.mascots=String(reader.result);},{repaint:false});
+        mascot.value='uploaded';renderHero();toast('Mascot artwork added to this subpage');
+      };
+      reader.readAsDataURL(file);
+    });
+    $('#hero-reset').addEventListener('click',()=>{
+      change(()=>{model.hero=defaultHero();},{repaint:false});
+      sync();renderHero();
+    });
+    // Use the original homepage banner in the iframe as the direct edit target.
+    sync();
+  }
+  function syncHeroControls(){
+    const t=$('#hero-title');if(!t)return;
+    if(document.activeElement!==t)t.value=model.hero.title;
+    $('#hero-colour').value=model.hero.colour;
+    const src=model.hero.mascots;
+    $('#hero-mascots').value=src==='none'?'none':src===originalHeroMascots?'trio':src==='img/q-country-mascot.svg'?'q':'uploaded';
+    $('#hero-mascot-size').value=model.hero.mascotScale;
+    $('#hero-mascot-value').textContent=`${model.hero.mascotScale}%`;
+  }
+
   function resizeFrame(){if(!iframeDoc)return;const stage=$('.cardboard-stage',iframeDoc);const page=$('.cardboard-page',iframeDoc);const bottom=stage?.getBoundingClientRect().bottom||page?.getBoundingClientRect().bottom||0;const height=Math.ceil(bottom+12);if(height>250 && Math.abs((parseFloat(frame.style.height)||0)-height)>2)frame.style.height=height+'px';}
   function nodeText(tag,text){const el=iframeDoc.createElement(tag);el.textContent=text;return el;}
   function renderItem(item) {
@@ -403,6 +532,7 @@
     }
     painting=false;
     renderHero();
+    syncHeroControls();
     drawInspector();updateToolbar();
     syncOverlaySpace();resizeFrame();
   }
@@ -517,6 +647,6 @@
   frame.addEventListener('load',prepareFrame);
   // A cached homepage may finish loading before this deferred script executes.
   if(frame.contentDocument?.readyState==='complete' && frame.contentDocument.querySelector('#main'))prepareFrame();
-  drawLibrary();drawVersions();updateHistoryButtons();updateToolbar();
+  initHeroControls();drawLibrary();drawVersions();updateHistoryButtons();updateToolbar();
   window.addEventListener('beforeunload',e=>{if(JSON.stringify(model)!==savedSnapshot){e.preventDefault();e.returnValue='';}});
 })();
