@@ -68,7 +68,48 @@
   function imageItem(asset) {
     return {id:id('item'),kind:'image',asset:asset.id,src:asset.src,title:'',body:'',mode:'flow',width:80,x:0,y:0,rotation:0,z:2,align:'left'};
   }
-  const row = (cols,minHeight=175) => ({id:id('row'),columns:cols,minHeight,cells:Array.from({length:cols},()=>[])});
+  const row = (cols,minHeight=175,layout=String(cols)) => ({
+    id:id('row'),columns:cols,layout,minHeight,cells:Array.from({length:cols},()=>[])
+  });
+  const layoutColumns = layout => (layout==='2-1'||layout==='1-2')?2:Number(layout);
+  const layoutGrid = layout => ({
+    '1':'minmax(0,1fr)',
+    '2':'repeat(2,minmax(0,1fr))',
+    '3':'repeat(3,minmax(0,1fr))',
+    '2-1':'minmax(0,2fr) minmax(0,1fr)',
+    '1-2':'minmax(0,1fr) minmax(0,2fr)'
+  })[layout]||'repeat(2,minmax(0,1fr))';
+  const layoutLabel = layout => ({
+    '1':'1 COLUMN','2':'2 EQUAL','3':'3 EQUAL',
+    '2-1':'⅔ + ⅓','1-2':'⅓ + ⅔'
+  })[layout]||'ROW';
+  const layoutChoices = [
+    ['1','1 · Full width'],['2','2 · Equal columns'],
+    ['3','3 · Equal columns'],['2-1','⅔ + ⅓'],['1-2','⅓ + ⅔']
+  ];
+  function setRowLayout(r,layout){
+    const count=layoutColumns(layout);
+    if(![1,2,3].includes(count))return;
+    if(count<r.columns){
+      for(let i=count;i<r.columns;i++)r.cells[count-1].push(...r.cells[i]);
+      r.cells.length=count;
+    }else while(r.cells.length<count)r.cells.push([]);
+    r.columns=count;r.layout=layout;
+    selected.cell=clamp(selected.cell||0,0,count-1);
+  }
+  function deleteRow(rowId){
+    const index=model.rows.findIndex(r=>r.id===rowId);
+    if(index<0||preview)return;
+    const deleted=model.rows[index],count=deleted.cells.reduce((sum,c)=>sum+c.length,0);
+    // Confirmation prevents losing several populated panels by an accidental click.
+    if(count>0&&!window.confirm(`Delete this row and its ${count} element${count===1?'':'s'}? You can Undo.`))return;
+    change(()=>{
+      model.rows.splice(index,1);
+      const next=model.rows[Math.min(index,model.rows.length-1)];
+      selected={type:'row',rowId:next?.id??null,cell:0};
+    });
+    toast('Row deleted · Undo to restore');
+  }
   const heroColours = Object.freeze({
     blue:'#4C69E3',green:'#92D644',pink:'#F66DC1',
     orange:'#FF9029',ivory:'#F7F4EB',ink:'#020020'
@@ -87,6 +128,9 @@
     if(!Object.hasOwn(heroColours,data.hero.colour)||data.hero.colour==='ink')data.hero.colour='blue';
     if(!Object.hasOwn(heroColours,data.hero.textColour))data.hero.textColour='ink';
     data.uploads ||= [];
+    for(const r of data.rows){
+      if(!['1','2','3','2-1','1-2'].includes(r.layout)||layoutColumns(r.layout)!==r.columns)r.layout=String(r.columns);
+    }
     return data;
   }
   function validModel(data) {return data && data.version===1 && Array.isArray(data.rows) && data.rows.every(r=>r && r.id && Number.isInteger(r.columns) && r.columns>=1 && r.columns<=3 && Array.isArray(r.cells) && r.cells.length===r.columns && r.cells.every(Array.isArray));}
@@ -212,11 +256,19 @@
   function drawLibrary(){library.replaceChildren();const groups=[...new Set(catalog.map(a=>a.group))];for(const group of groups){const section=document.createElement('div');section.className='asset-group';const title=document.createElement('h3');title.textContent=group;const grid=document.createElement('div');grid.className='asset-grid';catalog.filter(a=>a.group===group).forEach(a=>grid.appendChild(assetTile(a)));section.append(title,grid);library.appendChild(section);}$('#asset-count').textContent=`${catalog.length} assets`;}
   function addAsset(assetId,rowId,cellIndex){const a=findAsset(assetId);if(!a)return;let t=rowId?{row:getRow(rowId),cell:cellIndex}:targetCell();if(!t || !t.row){const newRow=row(1);change(()=>model.rows.push(newRow));t={row:newRow,cell:0};}const item=a.kind==='panel'?panel(assetId):imageItem(a);if(item.kind==='panel'){item.title=assetId.startsWith('label-')?'YOUR LABEL':'Your heading';item.body=assetId.startsWith('label-')?'':'Click this panel to edit its copy. The artwork grows with longer text.';}change(()=>t.row.cells[t.cell].push(item));selectItem(item.id);toast(`${a.name} added`);}
   function addText(kind){let t=targetCell();if(!t){const r=row(1);change(()=>model.rows.push(r));t={row:r,cell:0};}const item=kind==='heading'?textItem('A new heading',''):textItem('','Edit this text in the left panel.');change(()=>t.row.cells[t.cell].push(item));selectItem(item.id);}
-  function addRow(cols){const r=row(cols,210);const selectedIndex=model.rows.findIndex(x=>x.id===selected.rowId);change(()=>model.rows.splice(selectedIndex>=0?selectedIndex+1:model.rows.length,0,r));selectRow(r.id,0);toast(`${cols}-column row added`);}
+  function addRow(layout){
+    const key=String(layout),cols=layoutColumns(key);
+    if(![1,2,3].includes(cols))return;
+    const r=row(cols,210,key);
+    const selectedIndex=model.rows.findIndex(x=>x.id===selected.rowId);
+    change(()=>model.rows.splice(selectedIndex>=0?selectedIndex+1:model.rows.length,0,r));
+    selectRow(r.id,0);
+    toast(`${layoutLabel(key)} row added`);
+  }
 
   const iframeStyles=`
   html {scroll-behavior:auto!important} body.studio-iframe .cardboard-page {overflow:hidden} body.studio-iframe main {position:relative;z-index:3}
-  #lab-playground-canvas {position:relative;margin:18px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
+  #lab-playground-canvas {position:relative;margin:50px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
   #lab-playground-canvas .lab-empty-intro{padding:26px 28px;min-height:115px;display:grid;place-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
   body.studio-iframe.studio-clean #lab-playground-canvas:empty{min-height:0;margin:0;padding:0!important;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-empty-intro{display:none;}
@@ -230,7 +282,7 @@
   body.studio-iframe.studio-clean .hero{cursor:default;}
   body.studio-iframe:not(.studio-clean) .hero h1{cursor:pointer;}
   body.studio-iframe:not(.studio-clean) .hero h1:hover{outline:2px dashed #4c69e3;outline-offset:4px;}
-  #lab-playground-canvas .lab-row {display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));align-items:stretch;gap:14px;min-height:var(--row-min);position:relative;margin-bottom:22px;}
+  #lab-playground-canvas .lab-row {display:grid;grid-template-columns:var(--column-template);align-items:stretch;gap:14px;min-height:var(--row-min);position:relative;margin-bottom:44px;}
   #lab-playground-canvas .lab-cell {min-width:0;position:relative;display:flex;flex-direction:column;gap:11px;min-height:var(--row-min);padding:0;}
   #lab-playground-canvas .lab-item {box-sizing:border-box;position:relative;min-width:0;max-width:none;display:block;user-select:none;cursor:pointer;}
   #lab-playground-canvas .lab-item.lab-flow {flex:none;margin:0;}
@@ -263,10 +315,15 @@
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-item.is-selected.lab-overlay .lab-resizer {display:block;bottom:-6px;right:-6px;padding:6px;cursor:nwse-resize;touch-action:none;border-radius:2px;}
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-item.is-selected .lab-delete {display:block;top:-27px;right:0;background:#b13e49;border-radius:4px;padding:5px 9px;cursor:pointer;white-space:nowrap;}
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-item.is-selected .lab-delete:focus-visible{outline:3px solid #020020;outline-offset:2px;}
-  #lab-playground-canvas .lab-row-tag {display:none;position:absolute;top:-18px;left:0;background:#4C69E3;color:white;font:700 10px 'Atkinson Hyperlegible',sans-serif;padding:2px 7px;cursor:pointer;}
+  #lab-playground-canvas .lab-row-tag {display:none;position:absolute;top:-30px;left:0;background:#4C69E3;color:white;font:700 11px 'Atkinson Hyperlegible',sans-serif;padding:6px 8px;border:0;border-radius:4px;cursor:pointer;}
+  #lab-playground-canvas .lab-row-tools{display:none;position:absolute;top:-36px;right:0;z-index:12;gap:5px;align-items:center;font:700 11px 'Atkinson Hyperlegible',sans-serif;}
+  body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row-tools{display:flex;}
+  #lab-playground-canvas .lab-row-tools select{min-height:28px;max-width:180px;border:1px solid #4C69E3;border-radius:4px;background:#fff;color:#020020;padding:3px 7px;font:700 11px 'Atkinson Hyperlegible',sans-serif;cursor:pointer;}
+  #lab-playground-canvas .lab-row-tools button{min-height:28px;border:0;border-radius:4px;background:#ab3445;color:#fff;padding:4px 9px;font:700 11px 'Atkinson Hyperlegible',sans-serif;cursor:pointer;}
+  #lab-playground-canvas .lab-row-tools button:focus-visible,#lab-playground-canvas .lab-row-tools select:focus-visible{outline:3px solid #020020;outline-offset:2px;}
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row .lab-row-tag {display:block;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-item {cursor:default;}
-  @media(max-width:680px){#lab-playground-canvas {margin:20px 18px 34px}#lab-playground-canvas .lab-row {grid-template-columns:1fr;gap:22px}#lab-playground-canvas .lab-cell {min-height:120px}#lab-playground-canvas .lab-panel {padding:30px 30px}#lab-playground-canvas .lab-panel h2 {font-size:24px}#lab-playground-canvas .lab-panel p {font-size:15px} }
+  @media(max-width:680px){#lab-playground-canvas {margin:45px 18px 34px}#lab-playground-canvas .lab-row {grid-template-columns:1fr;gap:22px}#lab-playground-canvas .lab-cell {min-height:120px}#lab-playground-canvas .lab-panel {padding:30px 30px}#lab-playground-canvas .lab-panel h2 {font-size:24px}#lab-playground-canvas .lab-panel p {font-size:15px} }
   `;
   function prepareFrame() {
     try {
@@ -566,12 +623,35 @@
     model.rows.forEach((r,i)=>{
       const rowEl=iframeDoc.createElement('section');
       rowEl.className='lab-row';rowEl.dataset.rowId=r.id;
-      rowEl.style.setProperty('--cols',r.columns);
+      const currentLayout=r.layout||String(r.columns);
+      rowEl.style.setProperty('--column-template',layoutGrid(currentLayout));
       rowEl.style.setProperty('--row-min',`${r.minHeight||175}px`);
-      const tag=nodeText('button',`ROW ${i+1} · ${r.columns} COL`);
+      const tag=nodeText('button',`ROW ${i+1} · ${layoutLabel(currentLayout)}`);
       tag.type='button';tag.className='lab-row-tag';
       tag.title='Click to edit this row and change its columns';tag.addEventListener('click',e=>{e.stopPropagation();selectRow(r.id,0);});
       rowEl.appendChild(tag);
+      const rowTools=iframeDoc.createElement('div');
+      rowTools.className='lab-row-tools';
+      const layoutSelect=iframeDoc.createElement('select');
+      layoutSelect.title='Change this row to equal or unequal columns';
+      layoutSelect.setAttribute('aria-label',`Change row ${i+1} structure`);
+      for(const [value,label] of layoutChoices){
+        const option=iframeDoc.createElement('option');option.value=value;option.textContent=label;layoutSelect.appendChild(option);
+      }
+      layoutSelect.value=currentLayout;
+      layoutSelect.addEventListener('click',e=>e.stopPropagation());
+      layoutSelect.addEventListener('change',e=>{
+        e.stopPropagation();
+        selectRow(r.id,0);
+        change(()=>setRowLayout(r,layoutSelect.value));
+        toast('Row structure updated');
+      });
+      const remove=iframeDoc.createElement('button');
+      remove.type='button';remove.textContent='× Delete row';
+      remove.setAttribute('aria-label',`Delete row ${i+1}`);
+      remove.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();deleteRow(r.id);});
+      rowTools.append(layoutSelect,remove);
+      rowEl.appendChild(rowTools);
       r.cells.forEach((items,ci)=>{
         const cell=iframeDoc.createElement('div');
         cell.className='lab-cell';cell.dataset.rowId=r.id;
@@ -624,10 +704,10 @@
   function button(text,fn,cls=''){const b=document.createElement('button');b.type='button';b.textContent=text;if(cls)b.className=cls;b.addEventListener('click',fn);return b;}
   function twoButtons(list){const el=document.createElement('div');el.className='inspector-actions';list.forEach(([name,fn,cls])=>el.appendChild(button(name,fn,cls)));return el;}
   function drawRowInspector(){const r=getRow(selected.rowId);if(!r){inspector.appendChild(nodeText('p','No preset rows. Choose 1, 2 or 3 columns in Structure to add your first row.'));return;}const idx=model.rows.indexOf(r);inspector.appendChild(nodeText('div',`ROW ${idx+1} · COLUMN ${(selected.cell||0)+1}`)).className='inspector-title';
-    inspector.appendChild(field('Columns',r.columns,'select',n=>change(()=>{const newCount=Number(n);if(newCount<r.columns){for(let i=newCount;i<r.columns;i++)r.cells[newCount-1].push(...r.cells[i]);r.cells.length=newCount;}else while(r.cells.length<newCount)r.cells.push([]);r.columns=newCount;selected.cell=clamp(selected.cell,0,newCount-1);}),{options:[[1,'1 · Full width'],[2,'2 · Side by side'],[3,'3 · Three across']]}));
+    inspector.appendChild(field('Column structure',r.layout||String(r.columns),'select',value=>change(()=>setRowLayout(r,value)),{options:layoutChoices}));
     inspector.appendChild(field('Minimum row height (px)',r.minHeight||175,'range',n=>change(()=>r.minHeight=n),{min:120,max:750,step:10}));
     inspector.appendChild(twoButtons([['↑ Move row up',()=>moveRow(r.id,-1)],['↓ Move row down',()=>moveRow(r.id,1)]]));
-    inspector.appendChild(twoButtons([['Duplicate row',()=>{const r2=copy(r);r2.id=id('row');r2.cells.forEach(a=>a.forEach(i=>i.id=id('item')));change(()=>model.rows.splice(model.rows.indexOf(r)+1,0,r2));selectRow(r2.id,0);}],['Delete row',()=>{change(()=>{model.rows.splice(model.rows.indexOf(r),1);selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};});},'danger']]));
+    inspector.appendChild(twoButtons([['Duplicate row',()=>{const r2=copy(r);r2.id=id('row');r2.cells.forEach(a=>a.forEach(i=>i.id=id('item')));change(()=>model.rows.splice(model.rows.indexOf(r)+1,0,r2));selectRow(r2.id,0);}],['Delete row',()=>deleteRow(r.id),'danger']]));
     const info=nodeText('p','Click any element to edit it. Drag the selected element into another column. Overlay mode lets you position items freely across rows and columns.');info.className='field-note';inspector.appendChild(info);
   }
   function moveRow(rowId,dir){const index=model.rows.findIndex(r=>r.id===rowId);const to=index+dir;if(to<0||to>=model.rows.length)return;change(()=>{const [r]=model.rows.splice(index,1);model.rows.splice(to,0,r);});}
@@ -708,7 +788,7 @@
     if(Array.isArray(model.uploads))model.uploads.forEach(a=>{if(!findAsset(a.id))catalog.push(a);});
     drawLibrary();render();status.textContent='Unsaved edits';toast('Earlier Studio layout opened');
   }
-  $$('[data-add-row]').forEach(b=>b.addEventListener('click',()=>addRow(Number(b.dataset.addRow))));
+  $('[data-add-row]').forEach(b=>b.addEventListener('click',()=>addRow(b.dataset.addRow)));
   $('#add-paragraph').addEventListener('click',()=>addText('paragraph'));
   $('#add-heading').addEventListener('click',()=>addText('heading'));
   $('#clear-canvas').addEventListener('click',switchTemplate);
