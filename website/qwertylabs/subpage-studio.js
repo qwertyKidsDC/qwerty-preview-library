@@ -217,7 +217,7 @@
   html {scroll-behavior:auto!important} body.studio-iframe .cardboard-page {overflow:hidden} body.studio-iframe main {position:relative;z-index:3}
   #lab-playground-canvas {position:relative;margin:18px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
   #lab-playground-canvas .lab-empty-intro{padding:26px 28px;min-height:115px;display:grid;place-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
-  body.studio-iframe.studio-clean #lab-playground-canvas:has(.lab-empty-intro){min-height:0;margin:0;padding:0!important;}
+  body.studio-iframe.studio-clean #lab-playground-canvas:empty{min-height:0;margin:0;padding:0!important;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-empty-intro{display:none;}
   body.studio-iframe .hero h1{white-space:pre-line;}
   body.studio-iframe .hero .mascots{transform:scale(var(--studio-mascot-scale,1));transform-origin:top right;}
@@ -259,7 +259,7 @@
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-item.is-selected .lab-delete {display:block;top:-27px;right:0;background:#b13e49;border-radius:4px;padding:5px 9px;cursor:pointer;white-space:nowrap;}
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-item.is-selected .lab-delete:focus-visible{outline:3px solid #020020;outline-offset:2px;}
   #lab-playground-canvas .lab-row-tag {display:none;position:absolute;top:-18px;left:0;background:#4C69E3;color:white;font:700 10px 'Atkinson Hyperlegible',sans-serif;padding:2px 7px;cursor:pointer;}
-  body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row:hover .lab-row-tag,body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row:focus-within .lab-row-tag {display:block;}
+  body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row .lab-row-tag {display:block;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-item {cursor:default;}
   @media(max-width:680px){#lab-playground-canvas {margin:20px 18px 34px}#lab-playground-canvas .lab-row {grid-template-columns:1fr;gap:22px}#lab-playground-canvas .lab-cell {min-height:120px}#lab-playground-canvas .lab-panel {padding:30px 30px}#lab-playground-canvas .lab-panel h2 {font-size:24px}#lab-playground-canvas .lab-panel p {font-size:15px} }
   `;
@@ -343,9 +343,10 @@
     const mascot=$('.mascots',heroSection);
     if(title)title.textContent=data.title||'';
     if(paper){
-      paper.dataset.heroColour=data.colour;
-      heroPaperFor(data.colour).then(src=>{
-        if(paper.isConnected&&model.hero.colour===paper.dataset.heroColour)paper.src=src;
+      const requestedColour=data.colour;
+      paper.dataset.heroColour=requestedColour;
+      heroPaperFor(requestedColour).then(src=>{
+        if(paper.isConnected&&model.hero.colour===requestedColour)paper.src=src;
       });
     }
     if(mascot){
@@ -537,7 +538,7 @@
       rowEl.style.setProperty('--row-min',`${r.minHeight||175}px`);
       const tag=nodeText('button',`ROW ${i+1} · ${r.columns} COL`);
       tag.type='button';tag.className='lab-row-tag';
-      tag.addEventListener('click',e=>{e.stopPropagation();selectRow(r.id,0);});
+      tag.title='Click to edit this row and change its columns';tag.addEventListener('click',e=>{e.stopPropagation();selectRow(r.id,0);});
       rowEl.appendChild(tag);
       r.cells.forEach((items,ci)=>{
         const cell=iframeDoc.createElement('div');
