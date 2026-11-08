@@ -7,8 +7,8 @@
   <title>Qwerty Labs · Subpage Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
-  <link rel="stylesheet" href="subpage-studio.css?v=5">
-  <script src="subpage-studio.js?v=5" defer></script>
+  <link rel="stylesheet" href="subpage-studio.css?v=6">
+  <script src="subpage-studio.js?v=6" defer></script>
 </head>
 <body>
   <div class="studio-shell">
@@ -60,11 +60,13 @@
         </section>
         <section class="tool-section" aria-labelledby="section-structure">
           <h2 id="section-structure"><span class="section-number">02</span> Structure</h2>
-          <p class="tool-hint">Start with no content rows. Add a 1, 2 or 3-column row; select any row to change its columns.</p>
+          <p class="tool-hint">Start blank. Add an equal or asymmetric row. Use the controls above any row to change its structure or delete it.</p>
           <div class="choice-row columns-buttons">
-            <button type="button" data-add-row="1" title="Add a full-width row"><span class="mini-columns one"><i></i></span>1</button>
-            <button type="button" data-add-row="2" title="Add a two-column row"><span class="mini-columns two"><i></i><i></i></span>2</button>
-            <button type="button" data-add-row="3" title="Add a three-column row"><span class="mini-columns three"><i></i><i></i><i></i></span>3</button>
+            <button type="button" data-add-row="1" title="Add one full-width column"><span class="mini-columns one"><i></i></span>1</button>
+            <button type="button" data-add-row="2" title="Add two equal columns"><span class="mini-columns two"><i></i><i></i></span>½ + ½</button>
+            <button type="button" data-add-row="3" title="Add three equal columns"><span class="mini-columns three"><i></i><i></i><i></i></span>⅓ × 3</button>
+            <button type="button" data-add-row="2-1" title="Add a row with two-thirds left, one-third right"><span class="mini-columns asym-left"><i></i><i></i></span>⅔ + ⅓</button>
+            <button type="button" data-add-row="1-2" title="Add a row with one-third left, two-thirds right"><span class="mini-columns asym-right"><i></i><i></i></span>⅓ + ⅔</button>
           </div>
           <div class="inline-actions"><button type="button" id="add-paragraph">+ Text</button><button type="button" id="add-heading">+ Heading</button></div>
           <div class="template-line"><span>Canvas</span><button type="button" id="clear-canvas">Clear canvas</button><button type="button" id="restore-previous">Restore previous design</button></div>
