@@ -115,7 +115,47 @@
     toast('Element deleted · Undo to restore');
   }
 
-  // Trim only fully transparent margins in Studio, without altering original brand assets.
+  // The taped-paper frame sometimes has a baked-in flat backdrop rather than transparency.
+  // Remove only an edge-connected, near-uniform corner colour; never repaint the artwork itself.
+  function removeTapedFrameBackdrop(image){
+    const width=image.naturalWidth,height=image.naturalHeight;
+    if(!width||!height)return null;
+    const scale=Math.min(1,1600/Math.max(width,height));
+    const w=Math.round(width*scale),h=Math.round(height*scale);
+    const work=document.createElement('canvas');work.width=w;work.height=h;
+    const ctx=work.getContext('2d',{willReadFrequently:true});
+    if(!ctx)return null;
+    ctx.drawImage(image,0,0,w,h);
+    const imageData=ctx.getImageData(0,0,w,h);
+    const p=imageData.data;
+    const pixel=(x,y)=>[...p.slice((y*w+x)*4,(y*w+x)*4+4)];
+    const corners=[pixel(1,1),pixel(w-2,1),pixel(1,h-2),pixel(w-2,h-2)];
+    if(corners.some(c=>c[3]<245))return null; // Already transparent.
+    const reference=corners[0];
+    if(corners.some(c=>Math.max(...[0,1,2].map(i=>Math.abs(c[i]-reference[i])))>36))return null;
+    const flat=corners.map(c=>c.slice(0,3)).reduce((a,c)=>a.map((v,i)=>v+c[i]/4),[0,0,0]);
+    const isBackground=index=>{
+      const a=p[index+3];
+      if(a<245)return false;
+      const dr=p[index]-flat[0],dg=p[index+1]-flat[1],db=p[index+2]-flat[2];
+      return dr*dr+dg*dg+db*db<2800;
+    };
+    const seen=new Uint8Array(w*h);
+    const queue=new Int32Array(w*h);let head=0,tail=0;
+    const seed=k=>{if(!seen[k]&&isBackground(k*4)){seen[k]=1;queue[tail++]=k;}};
+    for(let x=0;x<w;x++){seed(x);seed((h-1)*w+x);}
+    for(let y=1;y<h-1;y++){seed(y*w);seed(y*w+w-1);}
+    while(head<tail){
+      const k=queue[head++],x=k%w,y=Math.floor(k/w);
+      if(x>0)seed(k-1);if(x<w-1)seed(k+1);
+      if(y>0)seed(k-w);if(y<h-1)seed(k+w);
+    }
+    if(tail<w*h*.005 || tail>w*h*.72)return null;
+    for(let k=0;k<w*h;k++)if(seen[k])p[k*4+3]=0;
+    ctx.putImageData(imageData,0,0);
+    return work.toDataURL('image/png');
+  }
+  // Trim only outer transparent margins in Studio, without altering original brand assets.
   function trimmedArtwork(src){
     if(artworkCache.has(src))return artworkCache.get(src);
     const promise=new Promise(resolve=>{
@@ -125,6 +165,10 @@
         try{
           const w=image.naturalWidth,h=image.naturalHeight;
           if(!w||!h){resolve(src);return;}
+          if(/(?:^|\/)studio-frame-taped\.png(?:\?|$)/.test(src)){
+            const cleaned=removeTapedFrameBackdrop(image);
+            if(cleaned){trimmedArtwork(cleaned).then(resolve);return;}
+          }
           // Use a small analysis canvas; decode at a larger resolution only if a crop exists.
           const scanScale=Math.min(1,640/Math.max(w,h));
           const sw=Math.max(1,Math.round(w*scanScale)),sh=Math.max(1,Math.round(h*scanScale));
@@ -177,6 +221,7 @@
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-empty-intro{display:none;}
   body.studio-iframe .hero h1{white-space:pre-line;}
   body.studio-iframe .hero .mascots{transform:scale(var(--studio-mascot-scale,1));transform-origin:top right;}
+  body.studio-iframe .hero .mascots[hidden]{display:none!important;}
   body.studio-iframe.studio-clean .hero{cursor:default;}
   body.studio-iframe:not(.studio-clean) .hero h1{cursor:pointer;}
   body.studio-iframe:not(.studio-clean) .hero h1:hover{outline:2px dashed #4c69e3;outline-offset:4px;}
@@ -334,7 +379,7 @@
     title.addEventListener('blur',()=>{typing=false;});
     colour.addEventListener('change',()=>{change(()=>{model.hero.colour=colour.value;},{repaint:false});renderHero();});
     mascot.addEventListener('change',()=>{
-      if(mascot.value==='uploaded'){$('#hero-upload').click();return;}
+      if(mascot.value==='uploaded'){const source=model.hero.mascots;if(!source||source===originalHeroMascots||source==='none'||source==='img/q-country-mascot.svg')$('#hero-upload').click();return;}
       const src=mascot.value==='none'?'none':mascot.value==='q'?'img/q-country-mascot.svg':originalHeroMascots;
       change(()=>{model.hero.mascots=src;},{repaint:false});renderHero();
     });
@@ -343,6 +388,7 @@
       $('#hero-mascot-value').textContent=`${model.hero.mascotScale}%`;
       renderHero();
     });
+    $('#hero-choose').addEventListener('click',()=>$('#hero-upload').click());
     $('#hero-upload').addEventListener('change',e=>{
       const file=e.target.files?.[0];e.target.value='';
       if(!file||!/^image\/(png|jpeg|webp|svg\+xml)$/.test(file.type))return;
