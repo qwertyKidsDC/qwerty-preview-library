@@ -321,7 +321,7 @@
 
   const iframeStyles=`
   html {scroll-behavior:auto!important} body.studio-iframe .cardboard-page {overflow:hidden} body.studio-iframe main {position:relative;z-index:3}
-  #lab-playground-canvas {position:relative;margin:50px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
+  #lab-playground-canvas {position:relative;margin:115px 39px 45px;min-height:120px;padding-bottom:32px;z-index:3;}
   #lab-playground-canvas .lab-empty-intro{padding:25px 28px;min-height:126px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
   #lab-playground-canvas .lab-empty-intro .lab-empty-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;}
   #lab-playground-canvas .lab-empty-intro button{background:#4C69E3;border:0;border-radius:4px;color:white;padding:8px 15px;cursor:pointer;font:700 13px 'Atkinson Hyperlegible',sans-serif;}
@@ -374,7 +374,7 @@
   #lab-playground-canvas .lab-row-tools button:focus-visible,#lab-playground-canvas .lab-row-tools select:focus-visible{outline:3px solid #020020;outline-offset:2px;}
   body.studio-iframe:not(.studio-clean) #lab-playground-canvas .lab-row .lab-row-tag {display:block;}
   body.studio-iframe.studio-clean #lab-playground-canvas .lab-item {cursor:default;}
-  @media(max-width:680px){#lab-playground-canvas {margin:45px 18px 34px}#lab-playground-canvas .lab-row {grid-template-columns:1fr;gap:22px}#lab-playground-canvas .lab-cell {min-height:120px}#lab-playground-canvas .lab-panel {padding:30px 30px}#lab-playground-canvas .lab-panel h2 {font-size:24px}#lab-playground-canvas .lab-panel p {font-size:15px} }
+  @media(max-width:680px){#lab-playground-canvas {margin:130px 18px 34px}#lab-playground-canvas .lab-row {grid-template-columns:1fr;gap:22px}#lab-playground-canvas .lab-cell {min-height:120px}#lab-playground-canvas .lab-panel {padding:30px 30px}#lab-playground-canvas .lab-panel h2 {font-size:24px}#lab-playground-canvas .lab-panel p {font-size:15px} }
   `;
   function prepareFrame() {
     try {
