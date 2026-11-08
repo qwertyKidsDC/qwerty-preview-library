@@ -10,13 +10,7 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 
 ## Unfinished before retiring qwertykids.com
 
-The five photos below are currently hotlinked from the old QwertyKids website by the approved homepage and its random-photo script. Download the original files and add them to `img/`, then replace the corresponding absolute references in `index.html` and `script.js` with local `img/filename.jpg` paths:
-
-- `img/coding-for-kids-gift-guide.jpg`
-- `img/code-camp-robotics-700.jpg`
-- `img/code-camp-near-me-apps-700.jpg`
-- `img/coding-camps-apps-700.jpg`
-- `img/kids-coding-classes-near-me-510.jpg`
+The homepage now uses the fixed local photo `img/code-camp-robotics-700.jpg` in Meet the Lab. The old rotating photo script has been removed. `img/coding-for-kids-gift-guide.jpg` is also retained locally for future use. No homepage photos depend on the retiring QwertyKids website.
 
 The homepage's **Bookings**, **Contact**, **Child Safety**, **Privacy**, and **Booking Terms** links also still point to qwertykids.com. Those URLs must be replaced with working destinations before the old site is retired.
 
