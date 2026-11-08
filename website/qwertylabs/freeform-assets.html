@@ -87,8 +87,16 @@ async function discover(){
    if(!response.ok)throw Error('GitHub list unavailable ('+response.status+')');
    const data=await response.json();
    const full=(data.tree||[]).filter(file=>file.type==='blob'&&file.path.startsWith(BASE)&&validExt(file.path)).map(file=>file.path);
+   // Include historic mascot artwork for the wider design kit, but avoid duplicate names.
+   const legacy=(data.tree||[]).filter(file=>file.type==='blob'
+      &&file.path.startsWith('progress/webdesign/ql-site-v2/img/')
+      &&validExt(file.path)
+      &&/mascot|six-pin|q-country|q-key/i.test(basename(file.path)))
+      .map(file=>file.path);
    if(!full.length)throw Error('No image files returned');
-   imageFiles=[...new Set([...full,LEGACY_MASCOT])].sort();
+   const knownNames=new Set([...full,...FALLBACK].map(basename));
+   const extras=legacy.filter(path=>path===LEGACY_MASCOT||!knownNames.has(basename(path)));
+   imageFiles=[...new Set([...FALLBACK,...full,...extras,LEGACY_MASCOT])].sort();
    source=data.truncated?'GitHub file listing (partially truncated)':'complete website image directory';
  }catch(e){
    imageFiles=[...new Set([...FALLBACK,LEGACY_MASCOT])].sort();
