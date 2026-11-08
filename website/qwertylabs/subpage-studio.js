@@ -10,7 +10,8 @@
   const inspector = $('#inspector');
   const library = $('#asset-library');
   const status = $('#save-status');
-  const storageKey = 'qwerty-labs-subpage-studio-v1';
+  const storageKey = 'qwerty-labs-subpage-studio-v4';
+  const legacyStorageKey = 'qwerty-labs-subpage-studio-v1';
   const versionKey = 'qwerty-labs-subpage-studio-versions-v1';
   const catalog = [
     // From this conversation: unchanged paper/cardboard/photographic artwork.
@@ -49,6 +50,8 @@
   let model, selected = { type:'row', rowId:null, cell:0 }, iframeDoc=null, canvas=null;
   let undoStack=[], redoStack=[], preview=false, painting=false, savedSnapshot='';
   let toastTimer;
+  let heroSection=null;
+  const heroTintCache=new Map();
   const artworkCache = new Map();
 
   function toast(message) {
@@ -66,16 +69,27 @@
     return {id:id('item'),kind:'image',asset:asset.id,src:asset.src,title:'',body:'',mode:'flow',width:80,x:0,y:0,rotation:0,z:2,align:'left'};
   }
   const row = (cols,minHeight=175) => ({id:id('row'),columns:cols,minHeight,cells:Array.from({length:cols},()=>[])});
-  function kidsTemplate() {
-    const a=row(1,240); a.cells[0].push(panel('green-board','Kids','Creative technology for children who like making things.\n\nGames, robots, electronics, digital worlds and more. Beginners get help getting started. Children with experience get room to take an idea further.'));
-    const b=row(2,260); b.cells[0].push(panel('beige-board','Who?','Children aged 7–12, from complete beginners to experienced young makers.\n\nSome children arrive having never written a line of code. Others have been making games, experimenting with electronics or teaching themselves new things for years.')); b.cells[1].push(panel('pink-board','What?','Coding, AI, games, electronics, robotics, physical computing, websites, interactive projects and design.\n\nChildren might program a game, build a robot, design a website or make something respond to light, sound or movement.'));
-    const c=row(2,220);c.cells[0].push(panel('blue-board','Why?','Making gives learning a reason. Understanding what you’re doing gives you more say in what happens next.'));c.cells[1].push(panel('orange-board','How?','Small groups, useful guidance, real projects and gradually more independence.'));
-    const d=row(2,180);d.cells[0].push(panel('cardboard-board','Where?','Upstairs in Marrickville, Sydney.'));d.cells[1].push(panel('green-board','When?','Weekly classes, school holiday coding camps and special builds.'));
-    return {version:1,name:'Kids · Experiment 01',rows:[a,b,c,d],uploads:[]};
+  const heroColours = Object.freeze({
+    blue:'#4C69E3',green:'#92D644',pink:'#F66DC1',
+    orange:'#FF9029',ivory:'#F7F4EB'
+  });
+  const originalHeroMascots='img/mascot-making-led-crisp.svg?v=full-res-20261106';
+  const defaultHero=()=>({
+    title:'Kids',colour:'green',mascots:originalHeroMascots,mascotScale:100
+  });
+  // Blank means no rows at all. The fixed homepage hero and footer remain on screen.
+  function blankTemplate(){
+    return {version:1,name:'Untitled subpage',hero:defaultHero(),rows:[],uploads:[]};
   }
-  function blankTemplate() {const a=row(2,230); return {version:1,name:'Untitled experiment',rows:[a],uploads:[]};}
+  function normalizeModel(data){
+    if(!data.hero||typeof data.hero!=='object')data.hero=defaultHero();
+    data.hero={...defaultHero(),...data.hero};
+    if(!Object.hasOwn(heroColours,data.hero.colour))data.hero.colour='blue';
+    data.uploads ||= [];
+    return data;
+  }
   function validModel(data) {return data && data.version===1 && Array.isArray(data.rows) && data.rows.every(r=>r && r.id && Number.isInteger(r.columns) && r.columns>=1 && r.columns<=3 && Array.isArray(r.cells) && r.cells.length===r.columns && r.cells.every(Array.isArray));}
-  try {const raw=localStorage.getItem(storageKey);const parsed=raw?JSON.parse(raw):null;model=validModel(parsed)?parsed:kidsTemplate();} catch {model=kidsTemplate();}
+  try {const raw=localStorage.getItem(storageKey);const parsed=raw?JSON.parse(raw):null;model=validModel(parsed)?normalizeModel(parsed):blankTemplate();} catch {model=blankTemplate();}
   selected={type:'row',rowId:model.rows[0]?.id ?? null,cell:0};
   savedSnapshot=JSON.stringify(model);
 
@@ -157,7 +171,15 @@
 
   const iframeStyles=`
   html {scroll-behavior:auto!important} body.studio-iframe .cardboard-page {overflow:hidden} body.studio-iframe main {position:relative;z-index:3}
-  #lab-playground-canvas {position:relative;margin:22px 39px 45px;min-height:250px;padding-bottom:32px;z-index:7;}
+  #lab-playground-canvas {position:relative;margin:18px 39px 45px;min-height:120px;padding-bottom:32px;z-index:7;}
+  #lab-playground-canvas .lab-empty-intro{padding:26px 28px;min-height:115px;display:grid;place-content:center;text-align:center;border:2px dashed #4c69e366;color:#57546e;font:700 15px 'Atkinson Hyperlegible',sans-serif;}
+  body.studio-iframe.studio-clean #lab-playground-canvas:has(.lab-empty-intro){min-height:0;margin:0;padding:0!important;}
+  body.studio-iframe.studio-clean #lab-playground-canvas .lab-empty-intro{display:none;}
+  body.studio-iframe .hero h1{white-space:pre-line;}
+  body.studio-iframe .hero .mascots{transform:scale(var(--studio-mascot-scale,1));transform-origin:top right;}
+  body.studio-iframe.studio-clean .hero{cursor:default;}
+  body.studio-iframe:not(.studio-clean) .hero h1{cursor:pointer;}
+  body.studio-iframe:not(.studio-clean) .hero h1:hover{outline:2px dashed #4c69e3;outline-offset:4px;}
   #lab-playground-canvas .lab-row {display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));align-items:stretch;gap:14px;min-height:var(--row-min);position:relative;margin-bottom:22px;}
   #lab-playground-canvas .lab-cell {min-width:0;position:relative;display:flex;flex-direction:column;gap:11px;min-height:var(--row-min);padding:0;}
   #lab-playground-canvas .lab-item {box-sizing:border-box;position:relative;min-width:0;max-width:none;display:block;user-select:none;cursor:pointer;}
@@ -203,8 +225,9 @@
       if(!iframeDoc || !iframeDoc.querySelector('#main'))throw new Error('The homepage did not load.');
       const main=$('#main',iframeDoc);
       const preserved=$('.footer-nav-cards',main);
-      if(!preserved)throw new Error('The three original blue cards were not found.');
-      [...main.children].forEach(el=>{if(el!==preserved)el.remove();});
+      heroSection=$('.hero',main);
+      if(!preserved||!heroSection)throw new Error('The original hero or three blue cards were not found.');
+      [...main.children].forEach(el=>{if(el!==preserved&&el!==heroSection)el.remove();});
       canvas=iframeDoc.createElement('div');canvas.id='lab-playground-canvas';canvas.setAttribute('aria-label','Editable subpage layout');main.insertBefore(canvas,preserved);
       const style=iframeDoc.createElement('style');style.textContent=iframeStyles;iframeDoc.head.appendChild(style);
       iframeDoc.body.classList.add('studio-iframe');
@@ -374,7 +397,12 @@
       }
       canvas.appendChild(renderItem(item));
     }
+    if(!model.rows.length && !preview){
+      const hint=nodeText('div','Blank canvas · Choose 1, 2 or 3 columns in Structure to add a row.');
+      hint.className='lab-empty-intro';canvas.appendChild(hint);
+    }
     painting=false;
+    renderHero();
     drawInspector();updateToolbar();
     syncOverlaySpace();resizeFrame();
   }
@@ -386,11 +414,11 @@
     const event=type==='textarea'||type==='text'?'change':'change';input.addEventListener(event,()=>onChange(type==='number'||type==='range'?Number(input.value):input.value));wrap.appendChild(input);return wrap;}
   function button(text,fn,cls=''){const b=document.createElement('button');b.type='button';b.textContent=text;if(cls)b.className=cls;b.addEventListener('click',fn);return b;}
   function twoButtons(list){const el=document.createElement('div');el.className='inspector-actions';list.forEach(([name,fn,cls])=>el.appendChild(button(name,fn,cls)));return el;}
-  function drawRowInspector(){const r=getRow(selected.rowId);if(!r){inspector.appendChild(nodeText('p','Add a row to start.'));return;}const idx=model.rows.indexOf(r);inspector.appendChild(nodeText('div',`ROW ${idx+1} · COLUMN ${(selected.cell||0)+1}`)).className='inspector-title';
+  function drawRowInspector(){const r=getRow(selected.rowId);if(!r){inspector.appendChild(nodeText('p','No preset rows. Choose 1, 2 or 3 columns in Structure to add your first row.'));return;}const idx=model.rows.indexOf(r);inspector.appendChild(nodeText('div',`ROW ${idx+1} · COLUMN ${(selected.cell||0)+1}`)).className='inspector-title';
     inspector.appendChild(field('Columns',r.columns,'select',n=>change(()=>{const newCount=Number(n);if(newCount<r.columns){for(let i=newCount;i<r.columns;i++)r.cells[newCount-1].push(...r.cells[i]);r.cells.length=newCount;}else while(r.cells.length<newCount)r.cells.push([]);r.columns=newCount;selected.cell=clamp(selected.cell,0,newCount-1);}),{options:[[1,'1 · Full width'],[2,'2 · Side by side'],[3,'3 · Three across']]}));
     inspector.appendChild(field('Minimum row height (px)',r.minHeight||175,'range',n=>change(()=>r.minHeight=n),{min:120,max:750,step:10}));
     inspector.appendChild(twoButtons([['↑ Move row up',()=>moveRow(r.id,-1)],['↓ Move row down',()=>moveRow(r.id,1)]]));
-    inspector.appendChild(twoButtons([['Duplicate row',()=>{const r2=copy(r);r2.id=id('row');r2.cells.forEach(a=>a.forEach(i=>i.id=id('item')));change(()=>model.rows.splice(model.rows.indexOf(r)+1,0,r2));selectRow(r2.id,0);}],['Delete row',()=>{if(model.rows.length===1){toast('Keep at least one row');return;}change(()=>{model.rows.splice(model.rows.indexOf(r),1);selected={type:'row',rowId:model.rows[0].id,cell:0};});},'danger']]));
+    inspector.appendChild(twoButtons([['Duplicate row',()=>{const r2=copy(r);r2.id=id('row');r2.cells.forEach(a=>a.forEach(i=>i.id=id('item')));change(()=>model.rows.splice(model.rows.indexOf(r)+1,0,r2));selectRow(r2.id,0);}],['Delete row',()=>{change(()=>{model.rows.splice(model.rows.indexOf(r),1);selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};});},'danger']]));
     const info=nodeText('p','Click any element to edit it. Drag the selected element into another column. Overlay mode lets you position items freely across rows and columns.');info.className='field-note';inspector.appendChild(info);
   }
   function moveRow(rowId,dir){const index=model.rows.findIndex(r=>r.id===rowId);const to=index+dir;if(to<0||to>=model.rows.length)return;change(()=>{const [r]=model.rows.splice(index,1);model.rows.splice(to,0,r);});}
@@ -446,20 +474,36 @@
   function save(){try{localStorage.setItem(storageKey,JSON.stringify(model));savedSnapshot=JSON.stringify(model);status.textContent='Saved in this browser ✓';toast('Layout saved locally');}catch(e){toast('Browser storage is full. Use Export to save a JSON file.');}}
   function getVersions(){try{return JSON.parse(localStorage.getItem(versionKey)||'[]');}catch{return [];}}
   function drawVersions(){const host=$('#version-list');host.replaceChildren();const versions=getVersions();if(!versions.length){const hint=document.createElement('p');hint.className='tool-hint';hint.textContent='Save variations here to compare arrangements.';host.appendChild(hint);return;}
-    for(const v of versions){const entry=document.createElement('div');entry.className='version-entry';const open=button('',()=>{if(!window.confirm(`Open “${v.name}”? Unsaved edits to your current design may be lost.`))return;snapshot();model=copy(v.model);ensureSelection();selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};render();status.textContent='Unsaved edits';toast(`Opened ${v.name}`);});open.textContent=v.name;const small=document.createElement('small');small.textContent=new Date(v.time).toLocaleString('en-AU',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});open.appendChild(small);const del=button('×',()=>{if(!window.confirm(`Delete saved variation “${v.name}”?`))return;try{localStorage.setItem(versionKey,JSON.stringify(getVersions().filter(x=>x.id!==v.id)));drawVersions();}catch{toast('Could not remove this version');}});del.title='Delete version';entry.append(open,del);host.appendChild(entry);}
+    for(const v of versions){const entry=document.createElement('div');entry.className='version-entry';const open=button('',()=>{if(!window.confirm(`Open “${v.name}”? Unsaved edits to your current design may be lost.`))return;snapshot();model=normalizeModel(copy(v.model));ensureSelection();selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};render();status.textContent='Unsaved edits';toast(`Opened ${v.name}`);});open.textContent=v.name;const small=document.createElement('small');small.textContent=new Date(v.time).toLocaleString('en-AU',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});open.appendChild(small);const del=button('×',()=>{if(!window.confirm(`Delete saved variation “${v.name}”?`))return;try{localStorage.setItem(versionKey,JSON.stringify(getVersions().filter(x=>x.id!==v.id)));drawVersions();}catch{toast('Could not remove this version');}});del.title='Delete version';entry.append(open,del);host.appendChild(entry);}
   }
   function saveVersion(){try{const versions=getVersions();versions.unshift({id:id('version'),name:model.name||'Untitled',time:Date.now(),model:copy(model)});localStorage.setItem(versionKey,JSON.stringify(versions.slice(0,15)));drawVersions();save();toast('A new variation was saved');}catch{toast('Browser storage full: use Export instead');}}
   function exportJSON(){const blob=new Blob([JSON.stringify(model,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`qwerty-subpage-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Layout exported');}
-  function loadFromFile(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!validModel(data))throw new Error('Wrong format');snapshot();model=data;selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};if(Array.isArray(model.uploads)){model.uploads.forEach(a=>{if(!findAsset(a.id))catalog.push(a);});drawLibrary();}render();toast('Design opened');}catch(e){toast('This does not look like a Studio layout JSON file.');}};reader.readAsText(file);}
+  function loadFromFile(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!validModel(data))throw new Error('Wrong format');snapshot();model=normalizeModel(data);selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};if(Array.isArray(model.uploads)){model.uploads.forEach(a=>{if(!findAsset(a.id))catalog.push(a);});drawLibrary();}render();toast('Design opened');}catch(e){toast('This does not look like a Studio layout JSON file.');}};reader.readAsText(file);}
   function uploadImages(files){const valid=[...files].filter(f=>/^image\/(png|jpeg|webp|svg\+xml)$/.test(f.type));if(!valid.length)return;Promise.all(valid.map(file=>new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>{const a={id:id('upload'),name:file.name.replace(/\.[^.]*$/,''),group:'Your uploaded artwork',kind:'image',src:String(reader.result)};resolve(a);};reader.onerror=()=>resolve(null);reader.readAsDataURL(file);}))).then(assets=>{const good=assets.filter(Boolean);if(!good.length)return;change(()=>{for(const asset of good){catalog.push(asset);model.uploads.push(asset);}});drawLibrary();addAsset(good[0].id);toast(`${good.length} real image asset${good.length===1?'':'s'} imported`);});}
   function onKeyDown(e){const t=e.target;if(t instanceof HTMLElement && /input|textarea|select/i.test(t.tagName))return;const cmd=e.metaKey||e.ctrlKey;if(cmd&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo();return;}if(preview||selected.type!=='item')return;const f=lookupItem(selected.itemId);if(!f)return;const item=f.item;if((e.key==='Delete'||e.key==='Backspace')&&!cmd){e.preventDefault();deleteItem(item.id);return;}if(item.mode==='overlay'&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();const step=e.shiftKey?5:1;change(()=>{if(e.key==='ArrowLeft')item.x-=step;else if(e.key==='ArrowRight')item.x+=step;else if(e.key==='ArrowUp')item.y-=step*5;else item.y+=step*5;});}}
   function setViewport(name){stageWrap.classList.toggle('tablet',name==='tablet');stageWrap.classList.toggle('mobile',name==='mobile');$$('[data-viewport]').forEach(b=>{const active=b.dataset.viewport===name;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});$('#viewport-width').textContent=name==='mobile'?'390px · mobile':name==='tablet'?'768px · tablet':'Desktop · responsive';setTimeout(resizeFrame,280);}
   function setPreview(){preview=!preview;iframeDoc?.body.classList.toggle('studio-clean',preview);$('#toggle-preview').textContent=preview?'Edit':'Preview';$('#toggle-preview').classList.toggle('active',preview);render();toast(preview?'Clean preview enabled':'Editing enabled');}
-  function switchTemplate(name){if(!window.confirm('Replace the current canvas? Export or save this design first if you want to keep it.'))return;snapshot();model=name==='kids'?kidsTemplate():blankTemplate();selected={type:'row',rowId:model.rows[0].id,cell:0};render();status.textContent='Unsaved edits';}
+  function switchTemplate(){
+    if(!window.confirm('Clear the content canvas and return the hero to its starting settings? Save a version first to keep this arrangement.'))return;
+    snapshot();model=blankTemplate();selected={type:'row',rowId:null,cell:0};render();
+    status.textContent='Unsaved edits';toast('Blank canvas ready');
+  }
+  function restoreLegacyLayout(){
+    let previous;
+    try{previous=JSON.parse(localStorage.getItem(legacyStorageKey)||'null');}
+    catch{toast('The previous layout is not readable');return;}
+    if(!validModel(previous)){toast('No previous Studio layout saved in this browser');return;}
+    if(!window.confirm('Load your earlier Studio canvas? Save the current layout first if needed.'))return;
+    snapshot();model=normalizeModel(previous);
+    selected={type:'row',rowId:model.rows[0]?.id??null,cell:0};
+    if(Array.isArray(model.uploads))model.uploads.forEach(a=>{if(!findAsset(a.id))catalog.push(a);});
+    drawLibrary();render();status.textContent='Unsaved edits';toast('Earlier Studio layout opened');
+  }
   $$('[data-add-row]').forEach(b=>b.addEventListener('click',()=>addRow(Number(b.dataset.addRow))));
   $('#add-paragraph').addEventListener('click',()=>addText('paragraph'));
   $('#add-heading').addEventListener('click',()=>addText('heading'));
-  $$('[data-template]').forEach(b=>b.addEventListener('click',()=>switchTemplate(b.dataset.template)));
+  $('#clear-canvas').addEventListener('click',switchTemplate);
+  $('#restore-previous').addEventListener('click',restoreLegacyLayout);
   $('#asset-upload').addEventListener('change',e=>{uploadImages(e.target.files);e.target.value='';});
   $('#undo').addEventListener('click',undo);$('#redo').addEventListener('click',redo);
   $('#save-layout').addEventListener('click',save);
