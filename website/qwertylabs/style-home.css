@@ -394,7 +394,6 @@ a {
 
 .feature p {
   margin-top: 4px;
-  margin-bottom: 0;
 }
 
 .feature,
@@ -429,23 +428,6 @@ a {
 
 .feature p {
   max-width: 187px;
-}
-
-/* One intentional squiggle below the copy; the whole card is the link. */
-.feature::after {
-  content: "";
-  display: block;
-  width: 187px;
-  max-width: 100%;
-  height: 6px;
-  margin-top: 11px;
-  background-color: var(--color-ink);
-  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-}
-
-.feature:is(:hover, :focus-visible)::after {
-  background-color: var(--color-blue);
 }
 
 /* 07. Current project and photographic collage */
@@ -884,7 +866,8 @@ a {
 .footer-legal-links a,
 .footer-scene__content p a,
 .scene-link,
-.footer-card-links a {
+.footer-card-links a,
+.feature h2 a {
   position: relative;
 }
 
@@ -892,7 +875,8 @@ a {
 .footer-legal-links a::after,
 .footer-scene__content p a::after,
 .scene-link::after,
-.footer-card-links a::after {
+.footer-card-links a::after,
+.feature h2 a::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -928,13 +912,15 @@ a {
 }
 
 /* On the blue paper cards, use ink at rest and ivory on hover. */
-.footer-nav-cards .footer-card-links a::after {
+.footer-nav-cards .footer-card-links a::after,
+.feature h2 a::after {
   background-color: var(--color-ink);
 }
 
 .footer-scene__content p a:is(:hover, :focus-visible)::after,
 .scene-link:is(:hover, :focus-visible)::after,
-.footer-card-links a:is(:hover, :focus-visible)::after {
+.footer-card-links a:is(:hover, :focus-visible)::after,
+.feature h2 a:is(:hover, :focus-visible)::after {
   background-color: var(--color-blue);
 }
 
