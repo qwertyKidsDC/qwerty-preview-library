@@ -430,6 +430,28 @@ a {
   max-width: 187px;
 }
 
+/* Version 03: hand-drawn go arrows, independently clickable from the headings. */
+.feature-arrow {
+  position: absolute;
+  right: 26px;
+  bottom: 20px;
+  z-index: 1;
+  display: block;
+  width: 72px;
+  height: 30px;
+  color: var(--color-ink);
+}
+
+.feature-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.feature:is(:hover, :focus-within) .feature-arrow {
+  color: var(--color-blue);
+}
+
 /* 07. Current project and photographic collage */
 .projects {
   position: relative;
