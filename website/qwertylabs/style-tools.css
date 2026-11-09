@@ -140,9 +140,8 @@
   min-width: 0;
   margin: 0;
   padding: 12px 12px 14px;
-  /* Same Qwerty cardboard paper as the equipment links on the Kids page. */
-  background: #c4a079 url("img/cardboard-texture.svg") center / cover no-repeat;
-  isolation: isolate;
+  /* Neutral photo mount; no artificial cardboard blending. */
+  background: var(--color-ivory);
   box-shadow: 4px 6px 3px rgba(0,0,0,.35);
   transform: rotate(2deg);
 }
@@ -156,8 +155,6 @@
   height: auto;
   object-fit: contain;
   background: transparent;
-  /* Suppress the white product-photo look while preserving the original images. */
-  mix-blend-mode: multiply;
 }
 .tools-device__photo figcaption {
   padding-top: 8px;
