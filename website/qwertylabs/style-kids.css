@@ -211,7 +211,7 @@
   width: 66.6667%;
   margin: 35px 0 17px 37px;
   padding: 48px 57px 53px;
-  background: var(--color-green);
+  /* The textured paper artwork supplies the green; no rectangular fill behind it. */
   color: var(--color-ink);
 }
 .kids-testimonial::before {
