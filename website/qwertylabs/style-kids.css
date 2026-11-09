@@ -5,7 +5,7 @@
   text-shadow: 0 2px 7px #000;
 }
 .hero h1 {
-  top: 31px;
+  top: 43px;
   left: 54px;
   width: 338px;
   font-family: 'Architects Daughter', cursive;
@@ -53,7 +53,7 @@
 }
 @media (max-width: 760px) {
   .hero h1 {
-    top: 33px;
+    top: 45px;
     left: 53px;
     width: calc(100% - 75px);
     font-size: clamp(44px, 11vw, 65px);
