@@ -19,13 +19,14 @@
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
     <link rel="stylesheet" href="brand.css?v=20261108">
-    <link rel="stylesheet" href="style-home.css?v=brand-tokens-20261108">
-    <link rel="stylesheet" href="style-kids-preview.css?v=qk-gate-20261109">
+    <link rel="stylesheet" href="style-home.css?v=projects-width-20261109">
+    <link rel="stylesheet" href="style-kids.css?v=20261109b">
+    <link rel="stylesheet" href="style-kids-questions.css?v=20261109">
     <script src="brand.js?v=20261108" defer></script>
+    <script src="kids-assets.js?v=20261109" defer></script>
     <script src="script.js?v=static-lab-photo-20261108" defer></script>
-    <script src="kids-preview.js?v=20261108-a" defer></script>
   </head>
-  <body class="kids-explorations">
+  <body>
     <a class="skip" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
@@ -54,19 +55,32 @@
           </header>
 
           <main id="main">
-            <!-- Approved shared site shell and footer; only this Kids main content varies. -->
-            <section class="kids-hero" aria-labelledby="kids-title">
-              <div class="kids-hero__board">
-                <span class="kids-hero__label">KIDS / AGES 7–12</span>
-                <h1 id="kids-title">Kids</h1>
-                <p class="kids-hero__tagline">Creative technology for children who like making things.</p>
-                <p>Games, robots, electronics and digital worlds. Beginners get a good first project. Children who already code get something new to tackle. There is usually a fair bit of experimenting involved.</p>
+            <!-- Hero -->
+            <section class="hero" aria-label="Kids aged 7 to 12">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">KIDS</span><span class="hero-age">AGES 7–12</span></h1>
+                </div>
               </div>
-              <figure class="kids-hero__photo" aria-label="Qwerty students building with creative technology">
-                <img class="kids-hero__photo-image" src="img/code-camp-robotics-700.jpg" alt="Two students smiling beside a small glowing robot and a laptop" width="700" loading="eager">
-                <img class="kids-hero__photo-frame" src="img/project-photo-frame.svg" alt="" aria-hidden="true" loading="eager">
-              </figure>
+              <img
+                class="mascots"
+                src="img/kidsHero.png"
+                alt="Qwerty Labs mascot trio"
+                fetchpriority="high"
+              >
             </section>
+
+            <!-- One full-width Kids feature card; the approved green panel is retained. -->
+            <section class="feature-cards feature-cards--kids" aria-label="Creative technology for kids">
+              <div class="feature">
+                <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+                <h2>Creative technology for children who like making things.</h2>
+                <p>Games, robots, electronics, digital worlds and more. Beginners get help getting started. Children with experience get room to take an idea further.</p>
+              </div>
+            </section>
+
+            <!-- Kids guide: fast facts, six answers, genuine parent proof. -->
             <div class="kids-start" aria-label="Kids sessions at a glance">
               <p class="kids-start__facts"><span>Beginners welcome</span><span>Small groups · around 1:7</span><span>All equipment supplied</span></p>
               <nav class="kids-start__links" aria-label="Explore classes and camps">
@@ -150,6 +164,28 @@
                 </section>
               </div>
             </div>
+
+            <!-- Meet the Lab project-style panel -->
+            <section class="projects" id="meet-the-lab" aria-labelledby="meet-lab-title">
+              <img class="project-panel" src="img/project-backboard.svg" alt="">
+              <div class="project-copy">
+                <img class="project-label" src="img/footer-blue-tape-vtrim.svg" alt="">
+                <h2 class="project-label-text" id="meet-lab-title">MEET THE LAB</h2>
+                <p>We make things with technology. We teach people to do the same. We squeal when the stuff we make does things.</p>
+                <a class="scene-link" href="thelab.html">About the Lab</a>
+              </div>
+              <figure class="photo-collage">
+                <img
+                  class="project-photo"
+                  loading="lazy"
+                  decoding="async"
+                  src="img/code-camp-robotics-700.jpg"
+                  alt="Two students smiling beside a small glowing robot and a laptop"
+                >
+                <img class="project-frame" src="img/project-photo-frame.svg" alt="">
+              </figure>
+            </section>
+
             <!-- Information and contact cards -->
             <section class="small-cards footer-nav-cards" aria-label="Explore, find and contact Qwerty Labs">
               <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
@@ -180,7 +216,6 @@
                 </div>
               </section>
             </section>
-          
           </main>
 
           <!-- Acknowledgement of Country and policies -->
