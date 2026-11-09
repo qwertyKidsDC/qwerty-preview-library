@@ -218,11 +218,9 @@
   gap: 6px;
   width: 190px;
   max-width: 26%;
-  padding: 8px 8px 11px;
-  /* Neutral fallback until the equipment photos have genuine transparent cutouts. */
-  background: var(--color-ivory);
+  /* The shared homepage Photo Frame 02 supplies the backing, trim and shadow. */
+  padding: 8px;
   color: var(--color-ink);
-  box-shadow: 4px 6px 4px rgba(0,0,0,.4);
   text-align: center;
   transform: rotate(3deg);
   transition: transform .15s ease, box-shadow .15s ease;
@@ -271,7 +269,7 @@
 }
 .kids-tool:is(:hover,:focus-visible) {
   transform: rotate(0) translateY(-3px);
-  box-shadow: 6px 8px 8px rgba(0,0,0,.4);
+  /* Keep the shared frame shadow; only the tilt changes on hover. */
 }
 .kids-tool:is(:hover,:focus-visible) span::after {
   opacity: 1;
