@@ -20,7 +20,7 @@
     >
     <link rel="stylesheet" href="brand.css?v=20261108">
     <link rel="stylesheet" href="style-home.css?v=projects-width-20261109">
-    <link rel="stylesheet" href="style-kids.css?v=hero-middle-20261109">
+    <link rel="stylesheet" href="style-kids.css?v=three-cards-20261109">
     <script src="brand.js?v=20261108" defer></script>
     <script src="kids-assets.js?v=20261109" defer></script>
     <script src="script.js?v=static-lab-photo-20261108" defer></script>
@@ -70,29 +70,46 @@
               >
             </section>
 
-            <!-- One full-width Kids feature card; the approved green panel is retained. -->
-            <section class="feature-cards feature-cards--kids" aria-label="Creative technology for kids">
-              <div class="feature">
+            <!-- Three Kids at-a-glance cards, using the approved green paper. -->
+            <section class="feature-cards feature-cards--kids" aria-label="Kids at a glance">
+              <article class="feature">
                 <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
-              </div>
+                <h2>ALL LEVELS</h2>
+                <p>Beginners get a starting point. Experienced makers get a challenge.</p>
+              </article>
+              <article class="feature">
+                <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+                <h2>SMALL GROUPS</h2>
+                <p>Around seven children per tutor. Help when they need it, room to experiment.</p>
+              </article>
+              <article class="feature">
+                <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+                <h2>ALL THE GEAR</h2>
+                <p>Computers, robots, electronics and everything else. No laptop needed.</p>
+              </article>
             </section>
 
-            <!-- Meet the Lab project-style panel -->
-            <section class="projects" id="meet-the-lab" aria-labelledby="meet-lab-title">
+            <!-- The existing Meet the Lab-style panel, now introducing Kids. -->
+            <section class="projects projects--kids" id="kids-programmes" aria-labelledby="kids-programmes-title">
               <img class="project-panel" src="img/project-backboard.svg" alt="">
               <div class="project-copy">
-                <img class="project-label" src="img/footer-blue-tape-vtrim.svg" alt="">
-                <h2 class="project-label-text" id="meet-lab-title">MEET THE LAB</h2>
-                <p>We make things with technology. We teach people to do the same. We squeal when the stuff we make does things.</p>
-                <a class="scene-link" href="thelab.html">About the Lab</a>
+                <img class="project-label" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="project-label-text" id="kids-programmes-title">KIDS <span class="kids-project-age">AGES 7–12</span></h2>
+                <p>Games, robots, electronics, digital worlds and more. Beginners get help getting started. Children with experience get room to take an idea further.</p>
+                <nav class="kids-project-links" aria-label="Book a Kids programme">
+                  <a class="scene-link" href="https://qwertykids.com/kids-coding-classes/">Weekly classes</a>
+                  <a class="scene-link" href="https://qwertykids.com/coding-camp/">Holiday camps</a>
+                </nav>
               </div>
               <figure class="photo-collage">
                 <img
                   class="project-photo"
                   loading="lazy"
                   decoding="async"
-                  src="img/code-camp-robotics-700.jpg"
-                  alt="Two students smiling beside a small glowing robot and a laptop"
+                  src="img/microbitHeart.jpg"
+                  alt="A child holding a micro:bit with a glowing red LED heart"
+                  width="700"
+                  height="394"
                 >
                 <img class="project-frame" src="img/project-photo-frame.svg" alt="">
               </figure>
