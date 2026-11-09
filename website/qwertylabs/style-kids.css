@@ -203,64 +203,102 @@
   font-size: 15px !important;
   font-weight: 400 !important;
 }
-/* Lightly scattered equipment photographs occupy the unused right third.
-   They link to matching anchors on the new tools page. Text stays untouched. */
+/* Equipment cutouts occupy the original unused right-hand third.
+   Near-white pixels become transparent through an SVG alpha filter defined
+   on Kids only: the photograph and the blackboard remain separate layers.
+   One photo carries the existing taped frame; the others stay unframed. */
+.kids-cutout-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
 .kids-question:has(> .kids-tool) {
   min-height: 385px;
 }
 .kids-tool {
   position: absolute;
   z-index: 3;
-  top: 125px;
-  right: 35px;
+  top: 112px;
+  right: 25px;
   display: grid;
   justify-items: center;
-  gap: 6px;
-  width: 190px;
-  max-width: 26%;
-  /* The shared homepage Photo Frame 02 supplies the backing, trim and shadow. */
-  padding: 8px;
-  color: var(--color-ink);
+  gap: 2px;
+  width: 212px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-ivory);
   text-align: center;
-  transform: rotate(3deg);
-  transition: transform .15s ease, box-shadow .15s ease;
+  transform: rotate(var(--tool-tilt, 5deg));
+  transition: transform .15s ease;
+}
+.kids-tool--codey {
+  top: 115px;
+  right: 28px;
+  width: 218px;
+  --tool-tilt: 7deg;
 }
 .kids-tool--gamego {
-  top: 115px;
-  right: 40px;
-  transform: rotate(-4deg);
+  top: 83px;
+  right: 69px;
+  width: 182px;
+  --tool-tilt: -9deg;
 }
 .kids-tool--microbit {
-  top: 153px;
-  right: 31px;
-  transform: rotate(4deg);
+  top: 126px;
+  right: 30px;
+  width: 262px;
+  padding: 22px 9px 5px;
+  --tool-tilt: 4deg;
 }
 .kids-tool--raspberry {
-  top: 100px;
-  right: 47px;
-  transform: rotate(-3deg);
+  top: 101px;
+  /* The broad board reaches towards the mascot's approved right-hand edge. */
+  right: -55px;
+  width: 288px;
+  --tool-tilt: -5deg;
 }
-.kids-tool img {
+.kids-tool > img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: contain;
   background: transparent;
+  filter: url("#kids-white-to-alpha") drop-shadow(3px 5px 3px rgba(0,0,0,.38));
 }
-.kids-tool span {
+.kids-tool--microbit > img {
+  width: 100%;
+  height: 175px;
+  aspect-ratio: auto;
+}
+.kids-tool--microbit::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 28px;
+  pointer-events: none;
+  background: url("img/studio-frame-taped.png") center / 100% 100% no-repeat;
+}
+.kids-tool > span {
   position: relative;
+  z-index: 3;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
   line-height: 1.25;
+  text-shadow: 0 2px 3px rgba(0,0,0,.7);
 }
-.kids-tool span::after {
+.kids-tool > span::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -3px;
+  bottom: -5px;
   height: 5px;
   background-color: var(--color-blue);
   -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
@@ -268,10 +306,9 @@
   opacity: 0;
 }
 .kids-tool:is(:hover,:focus-visible) {
-  transform: rotate(0) translateY(-3px);
-  /* Keep the shared frame shadow; only the tilt changes on hover. */
+  transform: rotate(0deg) translateY(-3px);
 }
-.kids-tool:is(:hover,:focus-visible) span::after {
+.kids-tool:is(:hover,:focus-visible) > span::after {
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -411,16 +448,20 @@
     min-height: 0;
   }
   .kids-tool,
+  .kids-tool--codey,
   .kids-tool--gamego,
   .kids-tool--microbit,
   .kids-tool--raspberry {
     position: relative;
     top: auto;
     right: auto;
-    width: min(205px, 68%);
-    max-width: none;
+    max-width: 100%;
     margin: 23px auto 5px;
   }
+  .kids-tool--codey { width: min(218px, 77%); }
+  .kids-tool--gamego { width: min(178px, 66%); }
+  .kids-tool--microbit { width: min(262px, 92%); }
+  .kids-tool--raspberry { width: min(288px, 94%); }
   .kids-testimonial {
     width: auto;
     margin: 28px 10px 16px;
