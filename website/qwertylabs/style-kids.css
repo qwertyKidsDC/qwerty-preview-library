@@ -219,9 +219,8 @@
   width: 190px;
   max-width: 26%;
   padding: 8px 8px 11px;
-  /* Existing Qwerty cardboard artwork, rather than a white product card. */
-  background: #c4a079 url("img/cardboard-texture.svg") center / cover no-repeat;
-  isolation: isolate;
+  /* Neutral fallback until the equipment photos have genuine transparent cutouts. */
+  background: var(--color-ivory);
   color: var(--color-ink);
   box-shadow: 4px 6px 4px rgba(0,0,0,.4);
   text-align: center;
@@ -250,8 +249,6 @@
   aspect-ratio: 1;
   object-fit: contain;
   background: transparent;
-  /* Blend the product photo’s white backdrop into the cardboard without editing the source image. */
-  mix-blend-mode: multiply;
 }
 .kids-tool span {
   position: relative;
