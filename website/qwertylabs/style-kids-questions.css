@@ -52,3 +52,20 @@
   .when-option p{font-size:16px}
   .kids-content+.projects{margin-top:calc(var(--space-section) + 16px)}
 }
+
+/* Design-only view: preserve useful panel proportions while editorial
+   copy is reviewed separately. Remove this block when copy returns. */
+.kids-design-skeleton .question--who .question__body{min-height:200px}
+.kids-design-skeleton .question--what .question__body{min-height:280px}
+.kids-design-skeleton .question--why .question__body{min-height:225px}
+.kids-design-skeleton .question--how .question__body{min-height:350px}
+.kids-design-skeleton .question--where .question__body{min-height:205px}
+.kids-design-skeleton .question--when .question__body{min-height:190px}
+@media(max-width:760px){
+  .kids-design-skeleton .question--who .question__body,
+  .kids-design-skeleton .question--what .question__body,
+  .kids-design-skeleton .question--why .question__body,
+  .kids-design-skeleton .question--where .question__body{min-height:130px}
+  .kids-design-skeleton .question--how .question__body{min-height:190px}
+  .kids-design-skeleton .question--when .question__body{min-height:140px}
+}
