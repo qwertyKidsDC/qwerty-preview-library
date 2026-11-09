@@ -1,0 +1,51 @@
+/* Kids subpage: overrides only. The shared homepage rules remain intact. */
+.navigation-current {
+  display: inline-block;
+  color: var(--color-green);
+  text-shadow: 0 2px 7px #000;
+}
+.hero-paper .paper-bg {
+  filter: hue-rotate(-140deg) saturate(1.1);
+}
+.hero h1 {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  transform: none;
+}
+.feature-cards--kids .feature {
+  width: 100%;
+  height: auto;
+  min-height: 240px;
+  padding: 47px 46px 52px;
+}
+.feature-cards--kids .feature .paper-bg {
+  top: 0;
+  height: 100%;
+}
+.feature-cards--kids .feature h2 {
+  max-width: 750px;
+  text-transform: none;
+}
+.feature-cards--kids .feature p {
+  max-width: 740px;
+  margin-top: 16px;
+}
+.feature-cards--kids + .projects {
+  margin-top: calc(var(--space-section) + 26px);
+}
+@media (max-width: 760px) {
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 48px);
+    width: calc(100% - 75px);
+  }
+  .feature-cards--kids .feature {
+    width: 100%;
+    min-height: 265px;
+    padding: 39px 31px 45px;
+  }
+  .feature-cards--kids .feature p {
+    max-width: none;
+  }
+}
