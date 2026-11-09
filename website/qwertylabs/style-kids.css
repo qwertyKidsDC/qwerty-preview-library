@@ -26,30 +26,61 @@
   line-height: 1.16;
   letter-spacing: -.02em;
 }
-/* Move the Kids card a further 20px below its previous position. */
+/* Three matched green paper cards aligned to the shared content guides. */
 .feature-cards--kids {
-  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 56.4px 0 39px;
 }
 .feature-cards--kids .feature {
   width: 100%;
   height: auto;
-  min-height: 240px;
-  padding: 47px 46px 52px;
+  min-height: 255px;
+  padding: 44px 26px 30px;
 }
 .feature-cards--kids .feature .paper-bg {
   top: 0;
   height: 100%;
 }
 .feature-cards--kids .feature h2 {
-  max-width: 750px;
-  text-transform: none;
+  max-width: none;
+  margin: 0 0 11px;
+  font-size: 25px;
+  line-height: 1.15;
+  text-transform: uppercase;
 }
 .feature-cards--kids .feature p {
-  max-width: 740px;
-  margin-top: 16px;
+  max-width: none;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.42;
 }
+/* Reuse the existing Meet the Lab board, photo frame and positioning. */
 .feature-cards--kids + .projects {
   margin-top: calc(var(--space-section) + 26px);
+}
+.projects--kids .project-label-text {
+  display: flex;
+  align-items: baseline;
+  gap: 13px;
+  font-size: 29px;
+}
+.projects--kids .kids-project-age {
+  font-size: 22px;
+  line-height: 1.1;
+}
+.projects--kids .kids-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 17px;
+}
+.projects--kids .kids-project-links .scene-link {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 @media (max-width: 760px) {
   .hero h1 {
@@ -63,14 +94,32 @@
     font-size: clamp(22px, 6vw, 29px);
   }
   .feature-cards--kids {
-    margin-top: 40px;
+    grid-template-columns: 1fr;
+    width: min(400px, calc(100% - 30px));
+    gap: 12px;
+    margin: 40px auto 0;
+    padding-top: 0;
   }
   .feature-cards--kids .feature {
     width: 100%;
-    min-height: 265px;
-    padding: 39px 31px 45px;
+    min-height: 185px;
+    padding: 33px 30px 31px;
+  }
+  .feature-cards--kids .feature h2 {
+    font-size: 24px;
+    margin-bottom: 7px;
   }
   .feature-cards--kids .feature p {
-    max-width: none;
+    font-size: 17px;
+  }
+  .projects--kids .project-label-text {
+    gap: 9px;
+    font-size: 25px;
+  }
+  .projects--kids .kids-project-age {
+    font-size: 19px;
+  }
+  .projects--kids .kids-project-links {
+    gap: 5px 17px;
   }
 }
