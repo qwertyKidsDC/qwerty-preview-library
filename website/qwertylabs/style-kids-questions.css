@@ -1,0 +1,54 @@
+/* Kids: question-led editorial content. Shared shell lives in style-home.css.
+   Restrained to the Kids page; no changes to the approved hero or panels. */
+.kids-start,.kids-content{position:relative;z-index:5;margin-left:39px;margin-right:56.4px}
+.kids-start{margin-top:31px;margin-bottom:30px;padding:16px 19px 19px;border-top:3px solid var(--color-green);border-bottom:1px dashed rgba(247,244,235,.5);color:var(--color-ivory)}
+.kids-start__facts{display:flex;flex-wrap:wrap;gap:7px 18px;margin:0 0 17px;font-size:14px;line-height:1.4;font-weight:700}
+.kids-start__facts span+span::before{content:"·";color:var(--color-green);margin-right:18px}
+.kids-start__links{display:flex;gap:10px;flex-wrap:wrap}
+.kids-start__links a{display:inline-block;padding:10px 17px;background:var(--color-green);color:var(--color-ink);border:2px solid var(--color-green);font-size:16px;font-weight:700;line-height:1.3;text-decoration:none}
+.kids-start__links a+a{background:transparent;color:var(--color-green)}
+.kids-start__links a:is(:hover,:focus-visible){color:var(--color-ink);background:var(--color-ivory);border-color:var(--color-ivory);outline-offset:3px}
+.kids-start__links a span{margin-left:7px}
+.kids-content__eyebrow{display:flex;justify-content:space-between;margin:0 0 14px;gap:8px;color:var(--color-ivory);font-size:12px;line-height:1.4;letter-spacing:.12em;font-weight:700}
+.kids-questions{display:grid;grid-template-columns:minmax(0,1fr);gap:17px}
+.question{position:relative;display:grid;grid-template-columns:190px minmax(0,1fr);min-width:0;background:var(--color-ivory);color:var(--color-ink);box-shadow:4px 6px 1px rgba(0,0,0,.17);transform:rotate(-.3deg)}
+.question:nth-child(even){transform:rotate(.3deg)}
+.question__heading{min-width:0;padding:29px 22px 26px 26px;background:var(--color-green)}
+.question__index{display:block;margin-bottom:12px;font-size:12px;font-weight:700;line-height:1;letter-spacing:.09em;opacity:.75}
+.question h2{margin:0;font-size:40px;line-height:1.1;letter-spacing:-.045em;font-weight:700}
+.question__body{min-width:0;padding:29px 36px 32px;font-size:17px;line-height:1.5}
+.question__body p{margin:0 0 15px}
+.question__body p:last-child{margin-bottom:0}
+.question__body>p:first-child{font-weight:700}
+.kids-quote{margin:25px 0 0;padding:18px 21px;border-left:5px solid var(--color-green);background:#fffdf7;color:var(--color-ink);font-size:17px;line-height:1.48}
+.kids-quote p,.question__body .kids-quote p:first-child{margin:0 0 9px;font-weight:400}
+.kids-quote cite{font-size:14px;line-height:1.4;font-style:normal;font-weight:700}
+.when-options{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.when-option{display:flex;align-items:flex-start;flex-direction:column;min-width:0}
+.when-option+.when-option{border-left:1px dashed rgba(2,0,32,.3);padding-left:20px}
+.when-option h3{margin:0 0 10px;font-size:22px;line-height:1.15;letter-spacing:-.035em}
+.when-option p{flex:1;margin:0 0 16px;font-size:16px;line-height:1.48;font-weight:400}
+.when-option>a{display:inline-block;border-bottom:2px dashed currentColor;padding-bottom:4px;font-size:16px;line-height:1.3;font-weight:700}
+.when-option>a:is(:hover,:focus-visible){color:var(--color-blue);border-color:var(--color-blue)}
+.when-option>a span{margin-left:4px}
+.question__body .kids-booking-note{margin-top:22px;padding-top:15px;border-top:1px dashed rgba(2,0,32,.3);font-size:14px;line-height:1.45;font-weight:400}
+.kids-content+.projects{margin-top:calc(var(--space-section) + 34px)}
+@media(max-width:760px){
+  .kids-start,.kids-content{margin-left:16px;margin-right:16px}
+  .kids-start{margin-top:26px;margin-bottom:27px;padding:14px 10px 18px}
+  .kids-start__facts{gap:7px 12px;font-size:13px}
+  .kids-start__facts span+span::before{margin-right:12px}
+  .kids-start__links{gap:8px}
+  .kids-start__links a{padding:10px 13px;font-size:14px}
+  .kids-content__eyebrow{font-size:10px}
+  .question,.question:nth-child(even){grid-template-columns:1fr;transform:none}
+  .question__heading{display:flex;align-items:center;gap:20px;padding:15px 22px}
+  .question__index{margin:0}
+  .question h2{font-size:32px}
+  .question__body{padding:23px 23px 27px;font-size:16px}
+  .kids-quote{padding:15px 17px;font-size:16px}
+  .when-options{grid-template-columns:1fr;gap:20px}
+  .when-option+.when-option{border-left:0;border-top:1px dashed rgba(2,0,32,.3);padding:20px 0 0}
+  .when-option p{font-size:16px}
+  .kids-content+.projects{margin-top:calc(var(--space-section) + 16px)}
+}
