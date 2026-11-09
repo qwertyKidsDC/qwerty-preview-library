@@ -89,28 +89,23 @@
   white-space: nowrap;
 }
 
-/* Reusable no-photo project rows: existing blackboard/cardboard artwork,
-   original project label geometry, and the approved green tape asset.
-   A nine-slice board protects the trim while text determines panel height. */
-.kids-question {
+/* The six topics live on ONE expanding blackboard with cardboard trim:
+   exactly the nine-slice asset and rendering rules of Acknowledgement of Country.
+   Only the headings and testimonial introduce separate surfaces. */
+.kids-editorial-board {
   position: relative;
-  isolation: isolate;
   z-index: 6;
-  min-height: 290px;
-  margin: 44px 56.4px 0 39px;
-  padding: 89px 55px 59px 43px;
+  isolation: isolate;
+  margin: 30px 56.4px 0 39px;
+  padding: 17px 23px 56px;
   color: var(--color-ivory);
 }
-.projects--kids + .kids-question {
-  margin-top: 30px;
-}
-.kids-question::before {
+.kids-editorial-board::before {
   content: "";
   position: absolute;
-  inset: 26px 0 0;
+  inset: 22px 0 0;
   z-index: -1;
   pointer-events: none;
-  /* Match the Acknowledgement of Country's expanding cardboard-trim board. */
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
   border-image-source: url("img/footer-experiment-dark-vtrim.webp");
@@ -118,6 +113,15 @@
   border-image-width: 1;
   border-image-repeat: stretch round;
   filter: brightness(1.15);
+}
+.kids-question {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 87px 45px 17px 37px;
+}
+.kids-question + .kids-question {
+  margin-top: 14px;
 }
 .kids-question__tape {
   position: absolute;
@@ -143,7 +147,6 @@
 }
 .kids-question__copy {
   position: relative;
-  z-index: 1;
   width: 66.6667%;
 }
 .kids-question__copy > p,
@@ -200,13 +203,13 @@
   font-size: 15px !important;
   font-weight: 400 !important;
 }
-/* The quote is the only standalone green card in the question sequence. */
+/* The green testimonial is a separate paper card placed INSIDE the board. */
 .kids-testimonial {
   position: relative;
   isolation: isolate;
-  z-index: 6;
-  margin: 49px 56.4px 0 39px;
-  padding: 54px 62px 57px;
+  z-index: 2;
+  margin: 35px 0 17px;
+  padding: 48px 57px 53px;
   background: var(--color-green);
   color: var(--color-ink);
 }
@@ -240,7 +243,10 @@
   font-style: normal;
   font-weight: 700;
 }
-.kids-question + .small-cards {
+.kids-testimonial + .kids-question {
+  margin-top: 17px;
+}
+.kids-editorial-board + .small-cards {
   margin-top: 54px;
 }
 
@@ -288,21 +294,24 @@
   .feature-cards--kids .feature ul {
     font-size: 17px;
   }
-  .kids-question {
+  .kids-editorial-board {
     width: min(400px, calc(100% - 30px));
-    min-height: 0;
-    margin: 40px auto 0;
-    padding: 91px 36px 53px 37px;
+    margin: 24px auto 0;
+    padding: 12px 8px 45px;
   }
-  .projects--kids + .kids-question {
-    margin-top: 24px;
+  .kids-editorial-board::before {
+    inset: 20px 0 0;
   }
-  .kids-question::before {
-    inset: 26px 0 0;
+  .kids-question {
+    margin: 0;
+    padding: 87px 28px 23px 29px;
+  }
+  .kids-question + .kids-question {
+    margin-top: 9px;
   }
   .kids-question__tape {
     top: 5px;
-    width: min(300px, 88%);
+    width: min(300px, 94%);
     height: auto;
   }
   .kids-question__heading {
@@ -321,9 +330,8 @@
     font-size: 20px;
   }
   .kids-testimonial {
-    width: min(400px, calc(100% - 30px));
-    margin: 43px auto 0;
-    padding: 44px 35px 48px;
+    margin: 28px 10px 16px;
+    padding: 40px 27px 46px;
   }
   .kids-testimonial::before {
     border-image-width: 32px;
@@ -334,7 +342,10 @@
   .kids-testimonial__quote p {
     font-size: 19px;
   }
-  .kids-question + .small-cards {
+  .kids-testimonial + .kids-question {
+    margin-top: 13px;
+  }
+  .kids-editorial-board + .small-cards {
     margin-top: 45px;
   }
 }
