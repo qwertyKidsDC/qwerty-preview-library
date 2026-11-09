@@ -5,20 +5,25 @@
   text-shadow: 0 2px 7px #000;
 }
 .hero h1 {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
-  font-size: 68px;
+  top: 31px;
+  left: 54px;
+  width: 338px;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 65px;
   font-weight: 700;
-  letter-spacing: -.035em;
+  line-height: 1.04;
+  letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
 .hero-title,
-.hero-age {
+.hero-tagline {
   display: block;
 }
-.hero-age {
-  margin-top: 2px;
-  font-size: 28px;
-  line-height: 1.15;
+.hero-tagline {
+  max-width: 315px;
+  margin-top: 5px;
+  font-size: 29px;
+  line-height: 1.16;
   letter-spacing: -.02em;
 }
 /* Move the Kids card a further 20px below its previous position. */
@@ -48,11 +53,14 @@
 }
 @media (max-width: 760px) {
   .hero h1 {
-    font-size: clamp(48px, 12vw, 68px);
+    top: 33px;
+    left: 53px;
     width: calc(100% - 75px);
+    font-size: clamp(44px, 11vw, 65px);
   }
-  .hero-age {
-    font-size: clamp(20px, 5.6vw, 28px);
+  .hero-tagline {
+    max-width: 100%;
+    font-size: clamp(22px, 6vw, 29px);
   }
   .feature-cards--kids {
     margin-top: 40px;
