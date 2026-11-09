@@ -139,10 +139,9 @@
 .tools-device__photo {
   min-width: 0;
   margin: 0;
-  padding: 12px 12px 14px;
-  /* Neutral photo mount; no artificial cardboard blending. */
-  background: var(--color-ivory);
-  box-shadow: 4px 6px 3px rgba(0,0,0,.35);
+  /* The homepage's reusable Photo Frame 02 supplies the ivory edge,
+     offset cardboard backing and shadow. */
+  padding: 8px;
   transform: rotate(2deg);
 }
 .tools-device:nth-child(even) .tools-device__photo {
