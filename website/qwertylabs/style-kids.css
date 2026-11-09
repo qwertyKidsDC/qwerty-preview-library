@@ -203,6 +203,84 @@
   font-size: 15px !important;
   font-weight: 400 !important;
 }
+/* Lightly scattered equipment photographs occupy the unused right third.
+   They link to matching anchors on the new tools page. Text stays untouched. */
+.kids-question:has(> .kids-tool) {
+  min-height: 385px;
+}
+.kids-tool {
+  position: absolute;
+  z-index: 3;
+  top: 125px;
+  right: 35px;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: 190px;
+  max-width: 26%;
+  padding: 8px 8px 11px;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  box-shadow: 4px 6px 4px rgba(0,0,0,.4);
+  text-align: center;
+  transform: rotate(3deg);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.kids-tool--gamego {
+  top: 115px;
+  right: 40px;
+  transform: rotate(-4deg);
+}
+.kids-tool--microbit {
+  top: 153px;
+  right: 31px;
+  transform: rotate(4deg);
+}
+.kids-tool--raspberry {
+  top: 100px;
+  right: 47px;
+  transform: rotate(-3deg);
+}
+.kids-tool img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #fff;
+}
+.kids-tool span {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.kids-tool span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 5px;
+  background-color: var(--color-blue);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  opacity: 0;
+}
+.kids-tool:is(:hover,:focus-visible) {
+  transform: rotate(0) translateY(-3px);
+  box-shadow: 6px 8px 8px rgba(0,0,0,.4);
+}
+.kids-tool:is(:hover,:focus-visible) span::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kids-tool {
+    transition: none;
+  }
+}
+
 /* The green testimonial is a separate paper card placed INSIDE the board. */
 .kids-testimonial {
   position: relative;
@@ -329,6 +407,20 @@
   }
   .kids-question__option h3 {
     font-size: 20px;
+  }
+  .kids-question:has(> .kids-tool) {
+    min-height: 0;
+  }
+  .kids-tool,
+  .kids-tool--gamego,
+  .kids-tool--microbit,
+  .kids-tool--raspberry {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(205px, 68%);
+    max-width: none;
+    margin: 23px auto 5px;
   }
   .kids-testimonial {
     width: auto;
