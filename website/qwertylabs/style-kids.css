@@ -89,22 +89,130 @@
   white-space: nowrap;
 }
 
-/* One continuous approved green paper card for the PDF's Who–When copy.
-   Its 9-slice edge preserves the paper corners on a tall section. */
-.kids-guide {
+/* Reusable no-photo project rows: existing blackboard/cardboard artwork,
+   original project label geometry, and the approved green tape asset.
+   A nine-slice board protects the trim while text determines panel height. */
+.kids-question {
   position: relative;
   isolation: isolate;
   z-index: 6;
-  margin: calc(var(--space-section) + 21px) 56.4px 0 39px;
-  padding: 61px 57px 67px;
+  min-height: 290px;
+  margin: 44px 56.4px 0 39px;
+  padding: 89px 55px 59px 43px;
+  color: var(--color-ivory);
+}
+.projects--kids + .kids-question {
+  margin-top: calc(var(--space-section) + 23px);
+}
+.kids-question::before {
+  content: "";
+  position: absolute;
+  inset: 26px 0 0;
+  z-index: -1;
+  pointer-events: none;
+  border: 50px solid transparent;
+  border-image-source: url("img/project-backboard.svg");
+  border-image-slice: 135 135 135 135 fill;
+  border-image-width: 50px;
+  border-image-repeat: stretch;
+  opacity: .97;
+}
+.kids-question__tape {
+  position: absolute;
+  z-index: 2;
+  top: 5.621px;
+  left: 0;
+  width: 354px;
+  height: 64.053px;
+}
+.kids-question__heading {
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  left: 39px;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: var(--text-heading);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  transform: rotate(-1.2deg);
+}
+.kids-question__copy {
+  position: relative;
+  z-index: 1;
+  width: 66.6667%;
+}
+.kids-question__copy > p,
+.kids-question__option p {
+  margin: 0 0 16px;
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+.kids-question__copy > p:last-child,
+.kids-question__option p:last-of-type {
+  margin-bottom: 0;
+}
+.kids-question__copy > p:first-child {
+  font-weight: 700;
+}
+.kids-question__option + .kids-question__option {
+  margin-top: 30px;
+}
+.kids-question__option h3 {
+  margin: 0 0 10px;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+.kids-question__option a {
+  position: relative;
+  display: inline-block;
+  margin-top: 13px;
+  padding-bottom: 3px;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.kids-question__option a::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background-color: var(--color-ivory);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+}
+.kids-question__option a:is(:hover,:focus-visible)::after {
+  background-color: var(--color-blue);
+}
+.kids-question__booking-note {
+  margin-top: 27px !important;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(247,244,235,.65);
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+/* The quote is the only standalone green card in the question sequence. */
+.kids-testimonial {
+  position: relative;
+  isolation: isolate;
+  z-index: 6;
+  margin: 49px 56.4px 0 39px;
+  padding: 54px 62px 57px;
   background: var(--color-green);
   color: var(--color-ink);
 }
-.kids-guide::before {
+.kids-testimonial::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   border: 40px solid transparent;
   border-image-source: url("img/kids-green-panel-untaped-vtrim.svg");
@@ -112,98 +220,26 @@
   border-image-width: 40px 43px;
   border-image-repeat: stretch;
 }
-.kids-guide__content {
-  position: relative;
-  z-index: 1;
+.kids-testimonial__inner {
   width: 66.6667%;
-  max-width: 560px;
 }
-.kids-guide__entry + .kids-guide__entry {
-  margin-top: 49px;
+.kids-testimonial__quote {
+  margin: 0;
 }
-.kids-guide__entry h2 {
-  margin: 0 0 16px;
-  font-size: 32px;
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -.035em;
-}
-.kids-guide__entry > p,
-.kids-guide__option p {
-  margin: 0 0 15px;
-  font-size: 17px;
-  line-height: 1.52;
-}
-.kids-guide__entry > p:first-of-type {
-  font-weight: 700;
-}
-.kids-guide__entry > p:last-child,
-.kids-guide__option p:last-child {
-  margin-bottom: 0;
-}
-.kids-guide__option + .kids-guide__option {
-  margin-top: 29px;
-}
-.kids-guide__option h3 {
-  margin: 0 0 9px;
+.kids-testimonial__quote p {
+  margin: 0 0 19px;
   font-size: 21px;
-  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -.02em;
+  line-height: 1.46;
 }
-.kids-guide__quote {
-  margin: 24px 0 0;
-  padding: 14px 0 14px 19px;
-  border-left: 4px solid var(--color-ink);
-}
-.kids-guide__quote p {
-  margin: 0 0 11px;
-  font-size: 17px;
-  line-height: 1.48;
-}
-.kids-guide__quote cite {
-  font-size: 14px;
-  line-height: 1.35;
+.kids-testimonial__quote cite {
+  font-size: 15px;
+  line-height: 1.4;
   font-style: normal;
   font-weight: 700;
 }
-.kids-guide__option a {
-  display: inline-block;
-  position: relative;
-  padding-bottom: 4px;
-  border-bottom: 2px dashed var(--color-ink);
-  font-size: 16px;
-  line-height: 1.35;
-  font-weight: 700;
-}
-.kids-guide__option a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -3px;
-  height: 6px;
-  opacity: 0;
-  pointer-events: none;
-  background: var(--color-blue);
-  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-}
-.kids-guide__option a:is(:hover, :focus-visible) {
-  border-bottom-color: transparent;
-}
-.kids-guide__option a:is(:hover, :focus-visible)::after {
-  opacity: 1;
-}
-.kids-guide__entry > .kids-guide__booking-note {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--color-ink);
-  font-size: 15px;
-  font-weight: 400;
-}
-.kids-guide + .small-cards {
-  margin-top: 52px;
+.kids-question + .small-cards {
+  margin-top: 54px;
 }
 
 @media (max-width: 760px) {
@@ -250,33 +286,54 @@
   .feature-cards--kids .feature ul {
     font-size: 17px;
   }
-  .kids-guide {
+  .kids-question {
     width: min(400px, calc(100% - 30px));
-    margin: calc(var(--space-section) + 15px) auto 0;
-    padding: 42px 34px 47px;
+    min-height: 0;
+    margin: 40px auto 0;
+    padding: 91px 36px 53px 37px;
   }
-  .kids-guide::before {
+  .projects--kids + .kids-question {
+    margin-top: calc(var(--space-section) + 15px);
+  }
+  .kids-question::before {
+    inset: 35px 0 0;
+    border-image-width: 37px;
+  }
+  .kids-question__tape {
+    top: 5px;
+    width: min(300px, 88%);
+    height: auto;
+  }
+  .kids-question__heading {
+    top: 21px;
+    left: 35px;
+    font-size: 27px;
+  }
+  .kids-question__copy {
+    width: 100%;
+  }
+  .kids-question__copy > p,
+  .kids-question__option p {
+    font-size: 16px;
+  }
+  .kids-question__option h3 {
+    font-size: 20px;
+  }
+  .kids-testimonial {
+    width: min(400px, calc(100% - 30px));
+    margin: 43px auto 0;
+    padding: 44px 35px 48px;
+  }
+  .kids-testimonial::before {
     border-image-width: 32px;
   }
-  .kids-guide__content {
+  .kids-testimonial__inner {
     width: 100%;
-    max-width: none;
   }
-  .kids-guide__entry + .kids-guide__entry {
-    margin-top: 38px;
+  .kids-testimonial__quote p {
+    font-size: 19px;
   }
-  .kids-guide__entry h2 {
-    font-size: 29px;
-    margin-bottom: 13px;
-  }
-  .kids-guide__entry > p,
-  .kids-guide__option p {
-    font-size: 16px;
-  }
-  .kids-guide__quote p {
-    font-size: 16px;
-  }
-  .kids-guide + .small-cards {
+  .kids-question + .small-cards {
     margin-top: 45px;
   }
 }
