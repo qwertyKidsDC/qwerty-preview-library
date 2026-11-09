@@ -21,9 +21,9 @@
   line-height: 1.15;
   letter-spacing: -.02em;
 }
-/* Lower the Kids card by 20px from the homepage position. */
+/* Move the Kids card a further 20px below its previous position. */
 .feature-cards--kids {
-  margin-top: -4px;
+  margin-top: 16px;
 }
 .feature-cards--kids .feature {
   width: 100%;
@@ -55,7 +55,7 @@
     font-size: clamp(20px, 5.6vw, 28px);
   }
   .feature-cards--kids {
-    margin-top: 20px;
+    margin-top: 40px;
   }
   .feature-cards--kids .feature {
     width: 100%;
