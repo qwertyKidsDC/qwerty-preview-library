@@ -21,9 +21,9 @@
 }
 .hero-tagline {
   max-width: 315px;
-  margin-top: 5px;
+  margin-top: -7px;
   font-size: 29px;
-  line-height: 1.16;
+  line-height: 1.08;
   letter-spacing: -.02em;
 }
 /* Three matched green paper cards aligned to the shared content guides. */
@@ -50,11 +50,17 @@
   line-height: 1.15;
   text-transform: uppercase;
 }
-.feature-cards--kids .feature p {
-  max-width: none;
+.feature-cards--kids .feature ul {
   margin: 0;
+  padding-left: 21px;
   font-size: 17px;
   line-height: 1.42;
+}
+.feature-cards--kids .feature li {
+  padding-left: 2px;
+}
+.feature-cards--kids .feature li + li {
+  margin-top: 8px;
 }
 /* Reuse the existing Meet the Lab board, photo frame and positioning. */
 .feature-cards--kids + .projects {
@@ -82,6 +88,124 @@
   font-weight: 700;
   white-space: nowrap;
 }
+
+/* One continuous approved green paper card for the PDF's Who–When copy.
+   Its 9-slice edge preserves the paper corners on a tall section. */
+.kids-guide {
+  position: relative;
+  isolation: isolate;
+  z-index: 6;
+  margin: calc(var(--space-section) + 21px) 56.4px 0 39px;
+  padding: 61px 57px 67px;
+  background: var(--color-green);
+  color: var(--color-ink);
+}
+.kids-guide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border: 40px solid transparent;
+  border-image-source: url("img/kids-green-panel-untaped-vtrim.svg");
+  border-image-slice: 130 140 130 140 fill;
+  border-image-width: 40px 43px;
+  border-image-repeat: stretch;
+}
+.kids-guide__content {
+  position: relative;
+  z-index: 1;
+  width: 66.6667%;
+  max-width: 560px;
+}
+.kids-guide__entry + .kids-guide__entry {
+  margin-top: 49px;
+}
+.kids-guide__entry h2 {
+  margin: 0 0 16px;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+.kids-guide__entry > p,
+.kids-guide__option p {
+  margin: 0 0 15px;
+  font-size: 17px;
+  line-height: 1.52;
+}
+.kids-guide__entry > p:first-of-type {
+  font-weight: 700;
+}
+.kids-guide__entry > p:last-child,
+.kids-guide__option p:last-child {
+  margin-bottom: 0;
+}
+.kids-guide__option + .kids-guide__option {
+  margin-top: 29px;
+}
+.kids-guide__option h3 {
+  margin: 0 0 9px;
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.kids-guide__quote {
+  margin: 24px 0 0;
+  padding: 14px 0 14px 19px;
+  border-left: 4px solid var(--color-ink);
+}
+.kids-guide__quote p {
+  margin: 0 0 11px;
+  font-size: 17px;
+  line-height: 1.48;
+}
+.kids-guide__quote cite {
+  font-size: 14px;
+  line-height: 1.35;
+  font-style: normal;
+  font-weight: 700;
+}
+.kids-guide__option a {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 4px;
+  border-bottom: 2px dashed var(--color-ink);
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.kids-guide__option a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 6px;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--color-blue);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+}
+.kids-guide__option a:is(:hover, :focus-visible) {
+  border-bottom-color: transparent;
+}
+.kids-guide__option a:is(:hover, :focus-visible)::after {
+  opacity: 1;
+}
+.kids-guide__entry > .kids-guide__booking-note {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-ink);
+  font-size: 15px;
+  font-weight: 400;
+}
+.kids-guide + .small-cards {
+  margin-top: 52px;
+}
+
 @media (max-width: 760px) {
   .hero h1 {
     top: 45px;
@@ -109,9 +233,6 @@
     font-size: 24px;
     margin-bottom: 7px;
   }
-  .feature-cards--kids .feature p {
-    font-size: 17px;
-  }
   .projects--kids .project-label-text {
     gap: 9px;
     font-size: 25px;
@@ -121,5 +242,41 @@
   }
   .projects--kids .kids-project-links {
     gap: 5px 17px;
+  }
+  .hero-tagline {
+    margin-top: -5px;
+    line-height: 1.08;
+  }
+  .feature-cards--kids .feature ul {
+    font-size: 17px;
+  }
+  .kids-guide {
+    width: min(400px, calc(100% - 30px));
+    margin: calc(var(--space-section) + 15px) auto 0;
+    padding: 42px 34px 47px;
+  }
+  .kids-guide::before {
+    border-image-width: 32px;
+  }
+  .kids-guide__content {
+    width: 100%;
+    max-width: none;
+  }
+  .kids-guide__entry + .kids-guide__entry {
+    margin-top: 38px;
+  }
+  .kids-guide__entry h2 {
+    font-size: 29px;
+    margin-bottom: 13px;
+  }
+  .kids-guide__entry > p,
+  .kids-guide__option p {
+    font-size: 16px;
+  }
+  .kids-guide__quote p {
+    font-size: 16px;
+  }
+  .kids-guide + .small-cards {
+    margin-top: 45px;
   }
 }
