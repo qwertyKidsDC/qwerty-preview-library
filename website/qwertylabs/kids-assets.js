@@ -19,3 +19,20 @@
     }
   }
 })();
+
+/* Keep the equipment casually scattered: angles change on each page load.
+   Rotation changes only a CSS variable; size and alignment remain stable. */
+(() => {
+  const tilts = [
+    ['codey', 3, 10],
+    ['gamego', -12, -4],
+    ['microbit', -5, 7],
+    ['raspberry', -9, -2]
+  ];
+  for (const [name, minimum, maximum] of tilts) {
+    const frame = document.querySelector('.kids-tool--' + name);
+    if (!frame) continue;
+    const angle = minimum + Math.random() * (maximum - minimum);
+    frame.style.setProperty('--tool-tilt', angle.toFixed(1) + 'deg');
+  }
+})();
