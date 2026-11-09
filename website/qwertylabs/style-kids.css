@@ -21,6 +21,10 @@
   line-height: 1.15;
   letter-spacing: -.02em;
 }
+/* Lower the Kids card by 20px from the homepage position. */
+.feature-cards--kids {
+  margin-top: -4px;
+}
 .feature-cards--kids .feature {
   width: 100%;
   height: auto;
@@ -49,6 +53,9 @@
   }
   .hero-age {
     font-size: clamp(20px, 5.6vw, 28px);
+  }
+  .feature-cards--kids {
+    margin-top: 20px;
   }
   .feature-cards--kids .feature {
     width: 100%;
