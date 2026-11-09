@@ -208,7 +208,8 @@
   position: relative;
   isolation: isolate;
   z-index: 2;
-  margin: 35px 0 17px;
+  width: 66.6667%;
+  margin: 35px 0 17px 37px;
   padding: 48px 57px 53px;
   background: var(--color-green);
   color: var(--color-ink);
@@ -226,7 +227,7 @@
   border-image-repeat: stretch;
 }
 .kids-testimonial__inner {
-  width: 66.6667%;
+  width: 100%;
 }
 .kids-testimonial__quote {
   margin: 0;
@@ -330,6 +331,7 @@
     font-size: 20px;
   }
   .kids-testimonial {
+    width: auto;
     margin: 28px 10px 16px;
     padding: 40px 27px 46px;
   }
