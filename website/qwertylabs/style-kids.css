@@ -26,55 +26,29 @@
   line-height: 1.08;
   letter-spacing: -.02em;
 }
-/* Three matched green paper cards aligned to the shared content guides. */
-.feature-cards--kids {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin: 16px 56.4px 0 39px;
+/* Calls to action sit directly below the Kids hero copy. */
+.kids-hero-links {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 10px 0 0 80px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
 }
-.feature-cards--kids .feature {
-  width: 100%;
-  height: auto;
-  min-height: 255px;
-  padding: 44px 26px 30px;
+.kids-hero-links a {
+  color: var(--color-ivory);
+  white-space: nowrap;
 }
-.feature-cards--kids .feature .paper-bg {
-  top: 0;
-  height: 100%;
-}
-.feature-cards--kids .feature h2 {
-  max-width: none;
-  margin: 0 0 11px;
-  font-size: 25px;
-  line-height: 1.15;
-  text-transform: uppercase;
-}
-.feature-cards--kids .feature ul {
-  margin: 0;
-  padding-left: 21px;
-  font-size: 17px;
-  line-height: 1.42;
-}
-.feature-cards--kids .feature li {
-  padding-left: 2px;
-}
-.feature-cards--kids .feature li + li {
-  margin-top: 8px;
-}
-/* Reuse the existing Meet the Lab board, photo frame and positioning. */
-.feature-cards--kids + .projects {
-  margin-top: calc(var(--space-section) + 26px);
+
+/* Without the redundant three-card row, the programme board follows the hero. */
+.hero + .projects--kids {
+  margin-top: 0;
 }
 .projects--kids .project-label-text {
-  display: flex;
-  align-items: baseline;
-  gap: 13px;
-  font-size: 29px;
-}
-.projects--kids .kids-project-age {
-  font-size: 22px;
-  line-height: 1.1;
+  font-size: 36px;
 }
 .projects--kids .kids-project-links {
   display: flex;
@@ -242,7 +216,7 @@
 .kids-tool--gamego {
   top: 83px;
   right: 69px;
-  width: 182px;
+  width: 205px;
   --tool-tilt: -9deg;
 }
 .kids-tool--microbit {
@@ -264,6 +238,20 @@
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
+}
+/* The original Coolest Projects frame treatment, adapted to transparent
+   interiors for two isolated device photos; all base frame rules are shared. */
+.kids-tool__art.photo-frame--cardboard-offset {
+  padding: 0;
+  border: 8px solid var(--color-ivory);
+  background: transparent;
+  transform: none;
+}
+.kids-tool--codey .kids-tool__art {
+  aspect-ratio: 4 / 5;
+}
+.kids-tool--gamego .kids-tool__art {
+  aspect-ratio: 3 / 4;
 }
 .kids-tool__device {
   position: absolute;
@@ -288,28 +276,28 @@
   pointer-events: none;
 }
 .kids-tool--codey .kids-tool__device {
-  top: 10%;
-  left: 12%;
-  width: 76%;
-  height: 80%;
+  top: -2%;
+  left: -4%;
+  width: 108%;
+  height: 105%;
 }
 .kids-tool--gamego .kids-tool__device {
-  top: 7%;
-  left: 17%;
-  width: 66%;
-  height: 84%;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
 }
 .kids-tool--microbit .kids-tool__device {
-  top: 13%;
-  left: 7%;
-  width: 86%;
-  height: 72%;
+  top: 4%;
+  left: 4%;
+  width: 92%;
+  height: 92%;
 }
 .kids-tool--raspberry .kids-tool__device {
-  top: 11%;
-  left: 6%;
-  width: 88%;
-  height: 78%;
+  top: 1%;
+  left: -1%;
+  width: 102%;
+  height: 98%;
 }
 .kids-tool__label {
   position: relative;
@@ -403,28 +391,13 @@
     max-width: 100%;
     font-size: clamp(22px, 6vw, 29px);
   }
-  .feature-cards--kids {
-    grid-template-columns: 1fr;
-    width: min(400px, calc(100% - 30px));
-    gap: 12px;
-    margin: 40px auto 0;
-    padding-top: 0;
-  }
-  .feature-cards--kids .feature {
-    width: 100%;
-    min-height: 185px;
-    padding: 33px 30px 31px;
-  }
-  .feature-cards--kids .feature h2 {
-    font-size: 24px;
-    margin-bottom: 7px;
-  }
   .projects--kids .project-label-text {
-    gap: 9px;
-    font-size: 25px;
+    font-size: 30px;
   }
-  .projects--kids .kids-project-age {
-    font-size: 19px;
+  .kids-hero-links {
+    margin: 6px 0 0 42px;
+    gap: 8px 16px;
+    font-size: 16px;
   }
   .projects--kids .kids-project-links {
     gap: 5px 17px;
@@ -432,9 +405,6 @@
   .hero-tagline {
     margin-top: -5px;
     line-height: 1.08;
-  }
-  .feature-cards--kids .feature ul {
-    font-size: 17px;
   }
   .kids-editorial-board {
     width: min(400px, calc(100% - 30px));
@@ -486,7 +456,7 @@
     margin: 23px auto 5px;
   }
   .kids-tool--codey { width: min(218px, 77%); }
-  .kids-tool--gamego { width: min(178px, 66%); }
+  .kids-tool--gamego { width: min(205px, 72%); }
   .kids-tool--microbit { width: min(262px, 92%); }
   .kids-tool--raspberry { width: min(288px, 94%); }
   .kids-testimonial {
