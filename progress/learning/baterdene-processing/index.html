@@ -62,7 +62,7 @@ footer{color:#b6b8d1;font-size:12px;margin-top:27px}
   fill(146, 214, 68);
   circle(300, 300, 160);
 }</code></pre>
-<div class="expect"><b>Test 01</b>A 600 × 600 window appears. It has a dark background and one large green circle in the middle.</div>
+<div class="expect"><b>Test 01</b>A 600 × 600 window appears. It has a dark background and one large green circle in the middle.</div><div class="note"><b>If you see an error instead</b>Look for the highlighted line in Processing. Check the brackets <code>{ }</code>, the semicolons <code>;</code> and each spelling. Do not move on until the circle appears.</div>
 </section>
 
 <section class="slide" data-name="Remix the circle">
@@ -105,12 +105,12 @@ footer{color:#b6b8d1;font-size:12px;margin-top:27px}
 <section class="slide" data-name="One circle becomes a row">
 <div class="eyebrow">06 · Repetition</div><h2>One circle becomes nine.</h2>
 <p class="lead">Go back to <code>baterdene_shape_lab</code>. Keep the rest of your <code>setup()</code> exactly as it is.</p>
-<ol><li>Find the one <code>circle(...);</code> line inside <code>setup()</code>.</li><li>Delete <b>only that line</b>.</li><li>Type this three-line loop in its place.</li><li>Press Run. Then change the <code>60</code> in <code>x += 60</code> to <code>90</code>. Run again.</li></ol>
+<ol><li>Find the one <code>circle(...);</code> line inside <code>setup()</code>.</li><li>Delete <b>only that line</b>.</li><li>Type this three-line loop in its place.</li><li>Press Run. <b>Count nine circles</b> before changing anything else.</li><li>Now change the <code>60</code> in <code>x += 60</code> to <code>90</code>. Run again. How many circles are there?</li><li>Change <code>90</code> back to <code>60</code> and Run once more before moving on.</li></ol>
 <div class="codehead">Replacement for the single circle line</div>
 <pre><code>for (int x = 60; x &lt;= 540; x += 60) {
   circle(x, 300, 30);
 }</code></pre>
-<div class="expect"><b>Test 06</b>A row of nine circles. <code>x</code> starts at 60 and increases by 60 each time, until it passes 540. One instruction draws each circle.</div>
+<div class="expect"><b>Test 06</b>With <code>x += 60</code>, you see <b>9 circles</b>. With <code>x += 90</code>, you see <b>6 circles</b>. The loop starts at 60, adds the step size, and stops after the value passes 540.</div><div class="note"><b>Read the code</b><code>int x</code> creates a whole-number variable called <code>x</code>. The loop changes it for each new circle. Keep the surrounding <code>setup() { ... }</code> brackets.</div>
 </section>
 
 <section class="slide" data-name="Row becomes a grid">
@@ -123,17 +123,17 @@ footer{color:#b6b8d1;font-size:12px;margin-top:27px}
   }
 }</code></pre>
 <div class="expect"><b>Test 07</b>Nine columns × nine rows = <b>81 circles</b>. The outer loop changes Y. The inner loop changes X.</div>
-<div class="challenge"><b>Experiment</b>Change the step size of one loop. Can you make a rectangle of dots instead of a square?</div>
+<div class="challenge"><b>Experiment</b>Change the step size of one loop. Can you make a rectangle of dots instead of a square? Then restore both loop increments to <code>60</code> for the next page.</div>
 </section>
 
 <section class="slide" data-name="Colour follows position">
 <div class="eyebrow">08 · Rules for colour</div><h2>Let the position choose the colour.</h2>
-<ol><li>Delete the old <code>fill(146, 214, 68);</code> line near the top of <code>setup()</code>.</li><li>Inside the <b>inner</b> loop, find <code>circle(x, y, 30);</code>.</li><li>Insert this new <code>fill</code> line <b>directly above</b> that circle line.</li><li>Run. Then swap <code>x / 2</code> and <code>y / 2</code>. Run again.</li></ol>
+<ol><li>Delete the old <code>fill(146, 214, 68);</code> line near the top of <code>setup()</code>.</li><li>Inside the <b>inner</b> loop, find <code>circle(x, y, 30);</code>.</li><li>Insert this new <code>fill</code> line <b>directly above</b> that circle line.</li><li>Run. Then swap <code>x / 3</code> and <code>y / 3</code>. Run again.</li></ol>
 <div class="codehead">Your inner loop should look like this</div><pre><code>for (int x = 60; x &lt;= 540; x += 60) {
-  fill(x / 2, 90, y / 2);
+  fill(x / 3, 90, y / 3);
   circle(x, y, 30);
 }</code></pre>
-<div class="expect"><b>Test 08</b>The dots stay in the grid but their colours change with their positions. You're using the coordinates as design ingredients.</div>
+<div class="expect"><b>Test 08</b>The 81 dots stay in the grid, but their colours change with their positions. Dividing X and Y by 3 keeps the colour values in range for this sketch (0–255). You are using coordinates as design ingredients.</div>
 </section>
 
 <section class="slide" data-name="Size follows position">
@@ -159,7 +159,7 @@ void draw() {
   fill(246, 109, 193);
   circle(x, height / 2, 80);
 }</code></pre>
-<div class="expect"><b>Test 10</b>The circle travels smoothly left and right. <code>setup()</code> happens once. <code>draw()</code> repeats. <code>sin()</code> creates a back-and-forth wave.</div>
+<div class="expect"><b>Test 10</b>The circle travels smoothly left and right. <code>setup()</code> runs once and <code>draw()</code> repeats. <code>frameCount</code> counts the frames, while <code>sin()</code> produces a back-and-forth wave.</div><div class="challenge"><b>Small experiment</b>On the line starting <code>float x =</code>, change <code>0.035f</code> to <code>0.070f</code>. Run: does it move faster or slower? Keep the letter <code>f</code> at the end — it marks a decimal number in this Java-style sketch. Restore the original number if you prefer.</div>
 </section>
 
 <section class="slide" data-name="Control it with the mouse">
@@ -175,53 +175,55 @@ void draw() {
 </section>
 
 <section class="slide" data-name="Build a drawing tool">
-<div class="eyebrow">12 · Interactive artwork</div><h2>Turn the circle into a brush.</h2>
-<p class="lead">To leave marks behind, you need to stop repainting the background every frame.</p>
-<ol><li>Keep your existing <code>setup()</code> and <code>draw()</code>.</li><li>Move <code>background(14, 18, 32);</code> out of <code>draw()</code> and into <code>setup()</code>, just after <code>size(...);</code>.</li><li>Change the <code>fill</code> line to <code>fill(246, 109, 193, 80);</code>. The fourth number makes each circle partly transparent.</li><li>Change the diameter from <code>80</code> to <code>35</code>. Run.</li></ol>
-<div class="codehead">Check your entire sketch against this</div><pre><code>void setup() {
-  size(600, 600);
-  background(14, 18, 32);
-  noStroke();
-}
-
-void draw() {
-  fill(246, 109, 193, 80);
-  circle(mouseX, mouseY, 35);
+<div class="eyebrow">12 · Interactive artwork</div><h2>Paint by dragging.</h2>
+<p class="lead">Make the circle leave a trail <b>only while you hold the mouse button down</b>.</p>
+<ol><li>Keep <code>baterdene_motion_lab</code> open. Find <code>background(14, 18, 32);</code> inside <code>draw()</code>.</li><li>Cut that <b>one line</b> and move it into <code>setup()</code>, directly after <code>size(600, 600);</code>. The background will now be drawn only once.</li><li>Inside <code>draw()</code>, delete the old <code>fill(...);</code> and <code>circle(...);</code> lines, but <b>keep both curly brackets</b> of the function.</li><li>Type the three-line <code>if (mousePressed)</code> block below inside <code>draw()</code>.</li><li>Run. Hold the mouse button down and drag across the sketch window. Release the button and move again.</li></ol>
+<div class="codehead">Your draw() should now be</div><pre><code>void draw() {
+  if (mousePressed) {
+    fill(246, 109, 193, 80);
+    circle(mouseX, mouseY, 35);
+  }
 }</code></pre>
-<div class="expect"><b>Test 12</b>Moving the mouse leaves a trail instead of one moving circle. If the window stays open, new circles keep being drawn at the current mouse position.</div>
+<div class="expect"><b>Test 12</b>A trail of pink dots appears <b>only while the mouse button is held down</b>. Releasing the button stops the brush. Older dots remain on the canvas.</div>
+<div class="note"><b>If the whole canvas is still clearing</b>There must be <b>no</b> <code>background(...);</code> line inside <code>draw()</code>. Your <code>setup()</code> should contain, in order: <code>size(600, 600);</code>, <code>background(14, 18, 32);</code>, then <code>noStroke();</code>. The word <code>mousePressed</code> here is a built-in true/false value.</div>
 </section>
 
 <section class="slide" data-name="Let chance choose colours">
 <div class="eyebrow">13 · Randomness</div><h2>Make an unpredictable brush.</h2>
-<ol><li>Keep the background in <code>setup()</code>.</li><li>Inside <code>draw()</code>, find the <code>fill(...);</code> line and replace it with the line below.</li><li>Replace the <code>circle(...);</code> line with the second line below.</li><li>Run. Move the mouse to paint.</li></ol>
-<div class="codehead">Your complete draw() function</div><pre><code>void draw() {
-  fill(random(256), random(256), random(256), 100);
-  circle(mouseX, mouseY, random(10, 50));
-}</code></pre>
-<div class="expect"><b>Test 13</b>The brush produces different colours and circle sizes. <code>random(256)</code> chooses a number from 0 up to (but not including) 256.</div>
-<div class="challenge"><b>Make a signature style</b>Can you limit the colours so they look related rather than completely random? Try keeping one or two of the colour channels fixed.</div>
+<ol><li>Keep the same sketch. Do not change <code>setup()</code> or the <code>if (mousePressed) { ... }</code> line.</li><li>Inside that <code>if</code> block, replace <b>only</b> the existing <code>fill(...);</code> line with the one below.</li><li>Replace <b>only</b> the existing <code>circle(...);</code> line with the second line below.</li><li>Run. <b>Hold and drag</b> to paint some colourful marks.</li></ol>
+<div class="codehead">Replace these two lines inside the if block</div><pre><code>fill(random(256), random(256), random(256), 100);
+circle(mouseX, mouseY, random(10, 50));</code></pre>
+<div class="expect"><b>Test 13</b>Your brush paints with changing colours and sizes while you drag. <code>random(256)</code> chooses a new value from 0 up to (but not including) 256.</div>
+<div class="challenge"><b>Make a signature palette</b>Try replacing the first <code>random(256)</code> with <code>246</code> and the second with <code>random(40, 130)</code>. Run. How did your colour palette change? Keep the lines inside the <code>if</code> brackets.</div>
 </section>
 
 <section class="slide" data-name="Clear the canvas">
-<div class="eyebrow">14 · Make it usable</div><h2>Click to clear your canvas.</h2>
-<p class="lead">Processing notices mouse clicks through another special function: <code>mousePressed()</code>.</p>
-<ol><li>Keep your existing <code>setup()</code> and <code>draw()</code> unchanged.</li><li>Go to the very <b>bottom</b> of your code, after the final <code>}</code> of <code>draw()</code>.</li><li>Add the whole new function below. Do <b>not</b> put it inside <code>draw()</code>.</li><li>Run. Paint for a moment, then click inside the sketch window.</li></ol>
-<div class="codehead">Add at the bottom of the sketch</div><pre><code>void mousePressed() {
-  background(14, 18, 32);
+<div class="eyebrow">14 · Make it usable</div><h2>Press C to clear.</h2>
+<p class="lead">Painting uses the mouse. Clearing should use a <b>different control</b>, so you never accidentally delete your artwork.</p>
+<ol><li>Keep <code>setup()</code> and <code>draw()</code> exactly as they are.</li><li>Go to the very bottom of the sketch, <b>after</b> the final closing bracket <code>}</code> of <code>draw()</code>.</li><li>Add this <b>new, separate</b> <code>keyPressed()</code> function. Match the brackets exactly.</li><li>Run. Paint a trail; <b>release the mouse</b>; then press <b>C</b> with the sketch window active.</li></ol>
+<div class="codehead">Add below draw() — not inside it</div><pre><code>void keyPressed() {
+  if (key == 'c' || key == 'C') {
+    background(14, 18, 32);
+  }
 }</code></pre>
-<div class="expect"><b>Test 14</b>Clicking wipes away the previous artwork and starts a new dark canvas. The brush continues drawing afterwards.</div>
+<div class="expect"><b>Test 14</b>Your entire canvas becomes dark again when you press C. Click-and-drag still paints new dots. <code>||</code> means “or”: lowercase or uppercase C will work.</div>
+<div class="note"><b>If nothing happens when you press C</b>Click the sketch window (without dragging) to give it keyboard focus, release the mouse, then press C. If the code is in <code>draw()</code> by mistake, move it below the function instead.</div>
 </section>
 
 <section class="slide" data-name="Save a picture">
-<div class="eyebrow">15 · Export</div><h2>Save an artwork, not just the code.</h2>
-<ol><li>Keep <code>setup()</code>, <code>draw()</code> and <code>mousePressed()</code>.</li><li>Under <code>mousePressed()</code>, at the <b>very bottom</b> of the sketch, add this new function.</li><li>Run. Paint a picture. Press the <b>S</b> key while the sketch window is active.</li><li>In Processing, use <b>Sketch → Show Sketch Folder</b> and look for the new PNG image.</li></ol>
-<div class="codehead">Add this as another separate function</div><pre><code>void keyPressed() {
+<div class="eyebrow">15 · Export</div><h2>Press S to save an artwork.</h2>
+<p class="lead">Keep your C-to-clear shortcut. Add another shortcut to export your drawing as a PNG image.</p>
+<ol><li>Find the entire <code>keyPressed()</code> function from page 14, <b>including its outer brackets</b>.</li><li>Replace that <b>whole function</b> with the updated version below. Keep <code>setup()</code> and <code>draw()</code> untouched. You should have exactly <b>one</b> <code>keyPressed()</code> function.</li><li>Run. Hold and drag to paint. Release the mouse, then press <b>S</b> with the sketch window active.</li><li>In Processing, choose <b>Sketch → Show Sketch Folder</b>. Look for a PNG beginning with <code>baterdene-</code>.</li><li>Return to the sketch window. Press <b>C</b> and check that clearing still works.</li></ol>
+<div class="codehead">Replacement keyPressed() function</div><pre><code>void keyPressed() {
+  if (key == 'c' || key == 'C') {
+    background(14, 18, 32);
+  }
   if (key == 's' || key == 'S') {
     saveFrame("baterdene-####.png");
   }
 }</code></pre>
-<div class="expect"><b>Test 15</b>A PNG file appears in your sketch folder. The four <code>#</code> characters are replaced with the frame number, so later saves can have different filenames.</div>
-<div class="challenge"><b>Make a tiny exhibition</b>Save three images that look deliberately different. Name what rule changed between each one.</div>
+<div class="expect"><b>Test 15</b>Pressing S saves your picture as a PNG in the sketch folder, and pressing C still clears. The four <code>#</code> characters are replaced by the current frame number.</div>
+<div class="challenge"><b>Make a mini exhibition</b>Paint and save three images with distinct palettes, brush sizes or movement. Explain what you changed. Press C between each image.</div>
 </section>
 
 <section class="slide" data-name="Choose a Processing direction">
@@ -241,7 +243,7 @@ void draw() {
 <p class="lead">These count. You can revisit either project and turn it into something new.</p>
 <div class="cards">
 <div class="card"><span class="tag">Done ✓</span><h3><a href="https://workshops.hackclub.com/3d_models_with_zdog/" target="_blank" rel="noopener">Animated 3D Models ↗</a></h3><p><b>Zdog / JavaScript</b><br>Make and animate objects in 3D.</p><p><b>Extension:</b> design a miniature robot, spaceship or unusual sculpture out of multiple shapes.</p></div>
-<div class="card"><span class="tag">Done ✓</span><h3><a href="https://workshops.hackclub.com/geometric_pattern/" target="_blank" rel="noopener">Geometric Pattern ↗</a></h3><p><b>p5.js / JavaScript</b><br>Generate repeating geometric patterns.</p><p><b>Extension:</b> make three variations with different colour systems, speeds or geometry.</p></div>
+<div class="card"><span class="tag">Done ✓</span><h3><a href="https://workshops.hackclub.com/geometric_pattern/" target="_blank" rel="noopener">Geometric Pattern ↗</a></h3><p><b>p5.js / JavaScript</b><br>Generate repeating geometric patterns.</p><p><b>Extension:</b> make three variations with different colour systems, speeds or geometry.</p><p class="small"><b>Visual warning:</b> the original workshop includes flashing colours. Use a non-flashing version for further experiments.</p></div>
 </div>
 <div class="challenge"><b>Finished ≠ exhausted</b>Could you make a project that combines the 3D shapes from one workshop with the pattern-making ideas from the other?</div>
 </section>
@@ -252,7 +254,7 @@ void draw() {
 <div class="cards">
 <div class="card"><span class="tag blue">Top pick · Visual</span><h3><a href="https://workshops.hackclub.com/tree_machine/" target="_blank" rel="noopener">Tree Machine ↗</a></h3><p><b>p5.js</b> — Grow trees using repeating branching rules and recursion. Great after geometric patterns.</p></div>
 <div class="card"><span class="tag blue">Top pick · Physics</span><h3><a href="https://workshops.hackclub.com/particle_physics/" target="_blank" rel="noopener">Particle Physics ↗</a></h3><p><b>p5.js</b> — Animate particles that pull on one another. Contains classes, vectors and physics; more advanced than its short estimated duration suggests.</p></div>
-<div class="card"><span class="tag orange">Interactive art</span><h3><a href="https://workshops.hackclub.com/splatter_paint/" target="_blank" rel="noopener">Splatter Paint ↗</a></h3><p><b>Paper.js</b> — Create a wildly colourful painting effect with code.</p><p class="small"><b>Heads-up:</b> the original has flashing colours; ask the tutor for a non-flashing version.</p></div>
+<div class="card"><span class="tag orange">Interactive art</span><h3><a href="https://workshops.hackclub.com/splatter_paint/" target="_blank" rel="noopener">Splatter Paint ↗</a></h3><p><b>Paper.js</b> — Create a wildly colourful painting effect with code.</p><p class="small"><b>Visual warning:</b> the original has flashing colours. Ask your tutor before opening a live demo or attempting it.</p></div>
 <div class="card"><span class="tag pink">Bigger challenge</span><h3><a href="https://workshops.hackclub.com/julia_fractals/" target="_blank" rel="noopener">Julia Fractals ↗</a></h3><p><b>JavaScript + Canvas</b> — Turn a mathematical rule into intricate fractal images. Save for a day when you want a serious puzzle.</p></div>
 </div>
 </section>
@@ -262,10 +264,10 @@ void draw() {
 <div class="cards">
 <div class="card"><span class="tag blue">Sound + visuals</span><h3><a href="https://workshops.hackclub.com/sound_galaxy/" target="_blank" rel="noopener">Sound Galaxy ↗</a></h3><p><b>p5.js + p5.sound</b> — Particles respond to sound through the microphone. You'll need microphone permission.</p></div>
 <div class="card"><span class="tag orange">Build a tool</span><h3><a href="https://workshops.hackclub.com/painting_app/" target="_blank" rel="noopener">Painting App ↗</a></h3><p><b>HTML, CSS + JavaScript</b> — Make your own painting program with buttons, colours and canvas drawing.</p></div>
-<div class="card"><span class="tag pink">Atmosphere</span><h3><a href="https://workshops.hackclub.com/thunderstorm/" target="_blank" rel="noopener">Thunderstorm ↗</a></h3><p><b>HTML + JavaScript</b> — Combine background changes, sounds and random timings to build an interactive storm. Contains lightning flashes.</p></div>
+<div class="card"><span class="tag pink">Atmosphere</span><h3><a href="https://workshops.hackclub.com/thunderstorm/" target="_blank" rel="noopener">Thunderstorm ↗</a></h3><p><b>HTML + JavaScript</b> — Combine background changes, sounds and random timings to build an interactive storm.</p><p class="small"><b>Visual warning:</b> the original produces flashing lightning. Ask the tutor before attempting it.</p></div>
 <div class="card"><span class="tag">Game</span><h3><a href="https://workshops.hackclub.com/dodge/" target="_blank" rel="noopener">Dodge ↗</a></h3><p><b>p5.js + p5.play</b> — Build a bullet-dodging game with movement and collisions. Some older library setup may need help.</p></div>
 </div>
-<div class="note"><b>Important</b>These Hack Club tutorials are older community projects. Some starter links point to historical Replit projects, so ask your tutor if the setup no longer matches the instructions. The creative ideas are still worth exploring.</div>
+<div class="note"><b>Important</b>These Hack Club tutorials are older community projects. Some starter links point to historical Replit projects, so ask your tutor if the setup no longer matches the instructions. They are <b>not Processing sketches</b>: open them in a browser-based JavaScript editor such as <a href="https://editor.p5js.org/" target="_blank" rel="noopener">p5.js Web Editor</a> when appropriate. The creative ideas are still worth exploring.</div>
 </section>
 
 <section class="slide" data-name="Pick the next experiment">
