@@ -41,14 +41,16 @@
   font-weight: 700;
   line-height: 1.45;
 }
-.kids-hero-links a {
+.kids-hero-links .scene-link {
+  margin-top: 0;
   color: var(--color-ivory);
   white-space: nowrap;
 }
 
-/* Without the redundant three-card row, the programme board follows the hero. */
+/* Without feature cards, the first panel must clear the hero mascots.
+   Section spacing is restored instead of allowing the images to overlap. */
 .hero + .projects--kids {
-  margin-top: 0;
+  margin-top: calc(var(--space-section) + 62px);
 }
 .projects--kids .project-label-text {
   font-size: 36px;
@@ -410,6 +412,9 @@
     margin: 6px 0 0 42px;
     gap: 8px 16px;
     font-size: 16px;
+  }
+  .hero + .projects--kids {
+    margin-top: calc(var(--space-section) + 32px);
   }
   .projects--kids .kids-project-links {
     gap: 5px 17px;
