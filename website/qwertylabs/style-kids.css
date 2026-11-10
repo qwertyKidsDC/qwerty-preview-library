@@ -280,23 +280,40 @@
   background: white;
   filter: none; /* Preserve the real Codey Rocky's white casing. */
 }
-.kids-tool--gamego .kids-tool__device {
-  top: 8%;
-  left: 8%;
-  width: 84%;
-  height: 82%;
+/* The image is cropped to each approved frame's clear opening,
+   with the original cardboard/paper frame overlaying the photograph. */
+.kids-tool__window {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
 }
-.kids-tool--microbit .kids-tool__device {
-  top: 9%;
-  left: 7%;
-  width: 86%;
-  height: 82%;
+.kids-tool--gamego .kids-tool__window {
+  inset: 7% 7% 8%;
 }
-.kids-tool--raspberry .kids-tool__device {
-  top: 8%;
-  left: 6%;
-  width: 88%;
-  height: 84%;
+.kids-tool--microbit .kids-tool__window {
+  inset: 7% 5.5% 8%;
+}
+.kids-tool--raspberry .kids-tool__window {
+  inset: 9% 6% 10%;
+}
+.kids-tool__window .kids-tool__device {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.16);
+  transform-origin: center;
+}
+.kids-tool--gamego .kids-tool__window .kids-tool__device {
+  transform: scale(1.2);
+}
+.kids-tool--microbit .kids-tool__window .kids-tool__device {
+  transform: scale(1.16);
+}
+.kids-tool--raspberry .kids-tool__window .kids-tool__device {
+  transform: scale(1.16);
 }
 .kids-tool__label {
   position: relative;
