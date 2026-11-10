@@ -1,0 +1,30 @@
+/* Preview-only: homepage Coolest Projects layout for the Kids Ages panel.
+   The approved shared styles and original Kids page are untouched. */
+.hero + .footer-scene--kids-ages {
+  margin-top: calc(var(--space-section) + 62px);
+}
+.footer-scene--kids-ages .kids-ages-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.footer-scene--kids-ages .kids-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 17px;
+}
+.footer-scene--kids-ages .kids-project-links .scene-link {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .hero + .footer-scene--kids-ages {
+    margin-top: calc(var(--space-section) + 32px);
+  }
+  .footer-scene--kids-ages .kids-project-links {
+    gap: 5px 17px;
+  }
+}
