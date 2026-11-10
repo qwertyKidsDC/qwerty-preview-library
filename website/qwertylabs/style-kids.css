@@ -36,7 +36,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
-  margin: 10px 0 0 80px;
+  margin: 10px 0 0 50px;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.45;
@@ -409,7 +409,7 @@
     font-size: 30px;
   }
   .kids-hero-links {
-    margin: 6px 0 0 42px;
+    margin: 6px 0 0 49px;
     gap: 8px 16px;
     font-size: 16px;
   }
