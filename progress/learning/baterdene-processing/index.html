@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Baterdene / Creative Coding Studio · Qwerty Labs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+:root{--ink:#020020;--paper:#F7F4EB;--green:#92D644;--blue:#4C69E3;--pink:#F66DC1;--orange:#FF9029}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;color:var(--ink)}
+a{color:#304cba;text-underline-offset:3px}a:hover{color:#18327b}
+button,select{font:inherit}
+header{background:var(--ink);color:white;border-bottom:4px solid var(--green);padding:12px clamp(16px,3vw,40px);display:flex;justify-content:space-between;align-items:center;gap:14px}
+.brand{font-size:20px;letter-spacing:-.06em;font-weight:700}.brand span{color:var(--green)}.header-note{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#c9cce3;font-weight:700;text-align:right}
+.shell{max-width:1060px;margin:auto;padding:18px clamp(12px,2.5vw,24px) 85px}
+.tools{color:var(--paper);display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:14px;font-weight:700}
+.tools select{padding:8px 10px;border:2px solid var(--green);background:var(--paper);color:var(--ink);border-radius:4px;flex:1;min-width:210px;max-width:620px}
+.progress{height:7px;background:#343047;margin-bottom:16px;overflow:hidden}.progress span{height:100%;width:5%;display:block;background:var(--green);transition:width .2s}
+.slide{background:var(--paper);border:3px solid #2d2a46;box-shadow:8px 8px 0 var(--blue);min-height:530px;padding:clamp(18px,3.5vw,43px)}
+.slide[hidden]{display:none}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:#505064;margin-bottom:8px}
+h1,h2{font-size:clamp(30px,4.2vw,52px);line-height:1.06;letter-spacing:-.045em;margin:0 0 14px}
+h3{font-size:22px;letter-spacing:-.025em;margin:17px 0 9px}
+p,li{line-height:1.46}p{max-width:860px;margin:11px 0}.lead{font-size:clamp(18px,2vw,23px);line-height:1.36;max-width:860px;margin:0 0 20px}
+ul,ol{padding-left:27px}li{margin:8px 0}
+.codehead{display:inline-block;background:var(--green);border:2px solid var(--ink);border-bottom:0;font-size:12px;font-weight:700;letter-spacing:.07em;padding:7px 10px;text-transform:uppercase;margin-top:12px}
+pre{margin:0 0 17px;padding:18px 21px;background:#161525;color:#f4f4ee;overflow:auto;border-left:5px solid var(--green);font-size:15px;line-height:1.5;tab-size:2}
+code{font-family:ui-monospace,Menlo,Consolas,monospace}li code,p code{background:#e4e3dd;border-radius:3px;padding:1px 4px;font-size:.9em}
+.expect,.challenge,.note{max-width:880px;margin-top:16px;padding:12px 17px;background:#e8edf9;border-left:6px solid var(--blue);line-height:1.45}.expect b,.challenge b,.note b{display:block;margin-bottom:3px}
+.challenge{border-color:var(--orange);background:#fff0df}.note{border-color:var(--pink);background:#fbeaf3}
+.tag{display:inline-block;background:var(--green);color:var(--ink);padding:4px 7px;border:2px solid var(--ink);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+.tag.orange{background:var(--orange)}.tag.pink{background:var(--pink)}.tag.blue{background:var(--blue);color:white}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:17px 0 20px}
+.card{background:white;border:2px solid var(--ink);padding:16px;box-shadow:5px 5px 0 #c1c9df;min-width:0}.card h3{margin:8px 0}.card p{font-size:15px;margin:7px 0}.card a{font-weight:700}
+.tablewrap{overflow:auto;margin-top:15px}table{border-collapse:collapse;background:white;width:100%}th,td{border:1px solid #b8b8bf;padding:12px;text-align:left;vertical-align:top}th{background:#e6e9f4}
+.small{font-size:14px;color:#52505c}.micro{font-size:12px;color:#565461}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:27px;flex-wrap:wrap}
+button{border:2px solid var(--ink);padding:10px 18px;font-weight:700;cursor:pointer;background:var(--green);box-shadow:3px 3px 0 var(--ink)}
+button:disabled{opacity:.4;cursor:default;box-shadow:none}button:not(:disabled):hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+button.secondary{background:white}
+footer{color:#b6b8d1;font-size:12px;margin-top:27px}
+@media(max-width:670px){.cards{grid-template-columns:1fr}.slide{min-height:0}.header-note{max-width:150px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress span{transition:none}}
+@media print{body{background:white}.tools,.progress,.actions,header{display:none!important}.shell{padding:0}.slide,.slide[hidden]{display:block!important;box-shadow:none;border:0;page-break-after:always;min-height:0}footer{display:none}}
+</style>
+</head>
+<body>
+<header><div class="brand">qwerty<span>labs</span></div><div class="header-note">Baterdene · Creative Coding Studio</div></header>
+<div class="shell">
+<div class="tools"><label for="jump">Jump to</label><select id="jump" aria-label="Choose a deck page"></select><span id="count" aria-live="polite">01 / 20</span></div>
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<main id="deck">
+<section class="slide" data-name="Start: make a circle">
+<div class="eyebrow">01 · Start making</div><h1>Make something with code.</h1>
+<p class="lead">Open <b>Processing</b>. It is already installed. Your first job: put a shape on the screen.</p>
+<ol><li>In Processing, choose <b>File → New</b>.</li><li>Make sure the mode selector says <b>Java</b> (usually near the upper-right).</li><li>In the blank editor, type the <b>entire sketch</b> below.</li><li>Click the <b>Run ▶</b> button.</li></ol>
+<div class="codehead">Type this entire sketch</div><pre><code>void setup() {
+  size(600, 600);
+  background(14, 18, 32);
+  noStroke();
+  fill(146, 214, 68);
+  circle(300, 300, 160);
+}</code></pre>
+<div class="expect"><b>Test 01</b>A 600 × 600 window appears. It has a dark background and one large green circle in the middle.</div>
+</section>
+
+<section class="slide" data-name="Remix the circle">
+<div class="eyebrow">02 · Experiment</div><h2>Three numbers. Endless possibilities.</h2>
+<p class="lead"><code>circle(300, 300, 160)</code> means <b>centre X, centre Y, diameter</b>.</p>
+<ol><li>Change the first <code>300</code> to <code>120</code>. Run. What moved?</li><li>Change the second <code>300</code> to <code>450</code>. Run again.</li><li>Try changing <code>160</code> to <code>45</code>. Run again.</li><li>Now invent a colour by changing the three numbers in <code>fill(146, 214, 68)</code>.</li></ol>
+<div class="note"><b>Coordinates</b>The top-left of the canvas is (0, 0). X increases to the right. Y increases down the screen. In <code>fill(red, green, blue)</code>, colour values usually go from 0 to 255.</div>
+<div class="challenge"><b>Mini challenge</b>Put the circle near each of the four corners. How small must its diameter be to fit?</div>
+</section>
+
+<section class="slide" data-name="Save your sketch">
+<div class="eyebrow">03 · Studio habit</div><h2>Save the experiment.</h2>
+<p class="lead">In Processing, a program is called a <b>sketch</b>. Give yours a proper home before you start breaking things (in a useful way).</p>
+<ol><li>Choose <b>File → Save As…</b>.</li><li>Enter the sketch name <code>baterdene_shape_lab</code>.</li><li>Choose a folder you can find again. Click <b>Save</b>.</li><li>Choose <b>Sketch → Show Sketch Folder</b>. Find the <code>.pde</code> file inside.</li><li>Return to Processing, press Run and confirm that it still works.</li></ol>
+<div class="expect"><b>Test 03</b>You can locate your saved sketch and reopen it. Processing keeps the code in a file ending with <code>.pde</code>.</div>
+<div class="challenge"><b>Studio habit</b>When you make a big change you like, use Save As to make another version. Experiments are more fun when you can go backwards.</div>
+</section>
+
+<section class="slide" data-name="The two projects you made">
+<div class="eyebrow">04 · Your last two projects</div><h2>You've done creative coding already.</h2>
+<p class="lead">The Hack Club projects you completed last week are part of the same creative-coding world.</p>
+<div class="cards">
+<div class="card"><span class="tag green">Completed last week</span><h3><a href="https://workshops.hackclub.com/3d_models_with_zdog/" target="_blank" rel="noopener">Animated 3D Models ↗</a></h3><p>Zdog + JavaScript. Make objects and rotate them in 3D.</p><p><b>Remix idea:</b> return to your model and change the proportions of its shapes.</p></div>
+<div class="card"><span class="tag green">Completed last week</span><h3><a href="https://workshops.hackclub.com/geometric_pattern/" target="_blank" rel="noopener">Geometric Pattern ↗</a></h3><p>p5.js + JavaScript. Make repeating circles and visual patterns.</p><p><b>Remix idea:</b> try a new palette and a different repeating rule.</p></div>
+</div>
+<div class="challenge"><b>Think about it</b>What did you enjoy most: the design, the mathematics, changing the values, or making something move?</div>
+</section>
+
+<section class="slide" data-name="Processing, p5.js and Zdog">
+<div class="eyebrow">05 · Meet your tools</div><h2>Similar ideas. Different tools.</h2>
+<div class="tablewrap"><table><thead><tr><th>Tool</th><th>Language</th><th>Where it runs</th></tr></thead><tbody>
+<tr><td><b>Processing</b></td><td>Java-style code</td><td>Desktop application — today</td></tr>
+<tr><td><b>p5.js</b></td><td>JavaScript</td><td>Web browser</td></tr>
+<tr><td><b>Zdog</b></td><td>JavaScript</td><td>Web browser</td></tr></tbody></table></div>
+<p>In p5.js you may have seen <code>function setup() { ... }</code>. In Processing you write <code>void setup() { ... }</code> and end statements with <code>;</code>.</p>
+<p><b>Generative art</b> means using instructions, rules, mathematics and sometimes randomness to produce artwork. Changing the rules changes what gets made.</p>
+<div class="note"><b>Where to go later</b>You can keep exploring Processing here, or open the <a href="https://editor.p5js.org/" target="_blank" rel="noopener">p5.js Web Editor</a> to make browser-based JavaScript art.</div>
+</section>
+
+<section class="slide" data-name="One circle becomes a row">
+<div class="eyebrow">06 · Repetition</div><h2>One circle becomes nine.</h2>
+<p class="lead">Go back to <code>baterdene_shape_lab</code>. Keep the rest of your <code>setup()</code> exactly as it is.</p>
+<ol><li>Find the one <code>circle(...);</code> line inside <code>setup()</code>.</li><li>Delete <b>only that line</b>.</li><li>Type this three-line loop in its place.</li><li>Press Run. Then change the <code>60</code> in <code>x += 60</code> to <code>90</code>. Run again.</li></ol>
+<div class="codehead">Replacement for the single circle line</div>
+<pre><code>for (int x = 60; x &lt;= 540; x += 60) {
+  circle(x, 300, 30);
+}</code></pre>
+<div class="expect"><b>Test 06</b>A row of nine circles. <code>x</code> starts at 60 and increases by 60 each time, until it passes 540. One instruction draws each circle.</div>
+</section>
+
+<section class="slide" data-name="Row becomes a grid">
+<div class="eyebrow">07 · Nested loops</div><h2>Turn the row into a grid.</h2>
+<p class="lead">One loop moves across the canvas. Another loop moves down it.</p>
+<ol><li>Find the entire three-line <code>for</code> loop from the last step.</li><li>Replace that <b>whole loop</b> with the new loop below, still inside <code>setup()</code>.</li><li>Run. Count the rows and columns.</li></ol>
+<div class="codehead">Replacement loop</div><pre><code>for (int y = 60; y &lt;= 540; y += 60) {
+  for (int x = 60; x &lt;= 540; x += 60) {
+    circle(x, y, 30);
+  }
+}</code></pre>
+<div class="expect"><b>Test 07</b>Nine columns × nine rows = <b>81 circles</b>. The outer loop changes Y. The inner loop changes X.</div>
+<div class="challenge"><b>Experiment</b>Change the step size of one loop. Can you make a rectangle of dots instead of a square?</div>
+</section>
+
+<section class="slide" data-name="Colour follows position">
+<div class="eyebrow">08 · Rules for colour</div><h2>Let the position choose the colour.</h2>
+<ol><li>Delete the old <code>fill(146, 214, 68);</code> line near the top of <code>setup()</code>.</li><li>Inside the <b>inner</b> loop, find <code>circle(x, y, 30);</code>.</li><li>Insert this new <code>fill</code> line <b>directly above</b> that circle line.</li><li>Run. Then swap <code>x / 2</code> and <code>y / 2</code>. Run again.</li></ol>
+<div class="codehead">Your inner loop should look like this</div><pre><code>for (int x = 60; x &lt;= 540; x += 60) {
+  fill(x / 2, 90, y / 2);
+  circle(x, y, 30);
+}</code></pre>
+<div class="expect"><b>Test 08</b>The dots stay in the grid but their colours change with their positions. You're using the coordinates as design ingredients.</div>
+</section>
+
+<section class="slide" data-name="Size follows position">
+<div class="eyebrow">09 · Rules for size</div><h2>Make the circles grow.</h2>
+<ol><li>Keep the grid and its new colour rule.</li><li>Find <code>circle(x, y, 30);</code>.</li><li>Replace that <b>one line</b> with the line below.</li><li>Run. Now try <code>y / 12</code> in place of <code>x / 12</code>.</li></ol>
+<div class="codehead">Replace one line</div><pre><code>circle(x, y, x / 12);</code></pre>
+<div class="expect"><b>Test 09</b>The circles grow larger from left to right. Your drawing now has a <b>size rule</b> and a <b>colour rule</b>.</div>
+<div class="challenge"><b>Make it yours</b>Invent three patterns by changing just the two loop increments, the fill rule and the diameter rule. Save a version you like.</div>
+</section>
+
+<section class="slide" data-name="A new sketch: movement">
+<div class="eyebrow">10 · Animation</div><h2>Now make something move.</h2>
+<p class="lead">We'll make a second sketch so you can keep your grid artwork.</p>
+<ol><li>Choose <b>File → New</b>.</li><li>Type the <b>entire sketch</b> below into the blank editor.</li><li>Press Run. Watch the pink circle.</li><li>Save the sketch as <code>baterdene_motion_lab</code>.</li></ol>
+<div class="codehead">A new complete sketch</div><pre><code>void setup() {
+  size(600, 600);
+  noStroke();
+}
+
+void draw() {
+  background(14, 18, 32);
+  float x = width / 2 + sin(frameCount * 0.035f) * 190;
+  fill(246, 109, 193);
+  circle(x, height / 2, 80);
+}</code></pre>
+<div class="expect"><b>Test 10</b>The circle travels smoothly left and right. <code>setup()</code> happens once. <code>draw()</code> repeats. <code>sin()</code> creates a back-and-forth wave.</div>
+</section>
+
+<section class="slide" data-name="Control it with the mouse">
+<div class="eyebrow">11 · Interaction</div><h2>You are the controller.</h2>
+<p class="lead">Instead of letting a mathematical wave decide where the circle goes, make it follow your mouse.</p>
+<ol><li>In <code>baterdene_motion_lab</code>, locate the line that starts <code>float x =</code>. Delete <b>only that entire line</b>.</li><li>Find <code>circle(x, height / 2, 80);</code>.</li><li>Replace it with <code>circle(mouseX, mouseY, 80);</code>.</li><li>Run. Move your mouse around <b>inside the sketch window</b>.</li></ol>
+<div class="codehead">Your full draw() function now</div><pre><code>void draw() {
+  background(14, 18, 32);
+  fill(246, 109, 193);
+  circle(mouseX, mouseY, 80);
+}</code></pre>
+<div class="expect"><b>Test 11</b>The pink circle follows your pointer. <code>mouseX</code> and <code>mouseY</code> are values Processing updates for you.</div>
+</section>
+
+<section class="slide" data-name="Build a drawing tool">
+<div class="eyebrow">12 · Interactive artwork</div><h2>Turn the circle into a brush.</h2>
+<p class="lead">To leave marks behind, you need to stop repainting the background every frame.</p>
+<ol><li>Keep your existing <code>setup()</code> and <code>draw()</code>.</li><li>Move <code>background(14, 18, 32);</code> out of <code>draw()</code> and into <code>setup()</code>, just after <code>size(...);</code>.</li><li>Change the <code>fill</code> line to <code>fill(246, 109, 193, 80);</code>. The fourth number makes each circle partly transparent.</li><li>Change the diameter from <code>80</code> to <code>35</code>. Run.</li></ol>
+<div class="codehead">Check your entire sketch against this</div><pre><code>void setup() {
+  size(600, 600);
+  background(14, 18, 32);
+  noStroke();
+}
+
+void draw() {
+  fill(246, 109, 193, 80);
+  circle(mouseX, mouseY, 35);
+}</code></pre>
+<div class="expect"><b>Test 12</b>Moving the mouse leaves a trail instead of one moving circle. If the window stays open, new circles keep being drawn at the current mouse position.</div>
+</section>
+
+<section class="slide" data-name="Let chance choose colours">
+<div class="eyebrow">13 · Randomness</div><h2>Make an unpredictable brush.</h2>
+<ol><li>Keep the background in <code>setup()</code>.</li><li>Inside <code>draw()</code>, find the <code>fill(...);</code> line and replace it with the line below.</li><li>Replace the <code>circle(...);</code> line with the second line below.</li><li>Run. Move the mouse to paint.</li></ol>
+<div class="codehead">Your complete draw() function</div><pre><code>void draw() {
+  fill(random(256), random(256), random(256), 100);
+  circle(mouseX, mouseY, random(10, 50));
+}</code></pre>
+<div class="expect"><b>Test 13</b>The brush produces different colours and circle sizes. <code>random(256)</code> chooses a number from 0 up to (but not including) 256.</div>
+<div class="challenge"><b>Make a signature style</b>Can you limit the colours so they look related rather than completely random? Try keeping one or two of the colour channels fixed.</div>
+</section>
+
+<section class="slide" data-name="Clear the canvas">
+<div class="eyebrow">14 · Make it usable</div><h2>Click to clear your canvas.</h2>
+<p class="lead">Processing notices mouse clicks through another special function: <code>mousePressed()</code>.</p>
+<ol><li>Keep your existing <code>setup()</code> and <code>draw()</code> unchanged.</li><li>Go to the very <b>bottom</b> of your code, after the final <code>}</code> of <code>draw()</code>.</li><li>Add the whole new function below. Do <b>not</b> put it inside <code>draw()</code>.</li><li>Run. Paint for a moment, then click inside the sketch window.</li></ol>
+<div class="codehead">Add at the bottom of the sketch</div><pre><code>void mousePressed() {
+  background(14, 18, 32);
+}</code></pre>
+<div class="expect"><b>Test 14</b>Clicking wipes away the previous artwork and starts a new dark canvas. The brush continues drawing afterwards.</div>
+</section>
+
+<section class="slide" data-name="Save a picture">
+<div class="eyebrow">15 · Export</div><h2>Save an artwork, not just the code.</h2>
+<ol><li>Keep <code>setup()</code>, <code>draw()</code> and <code>mousePressed()</code>.</li><li>Under <code>mousePressed()</code>, at the <b>very bottom</b> of the sketch, add this new function.</li><li>Run. Paint a picture. Press the <b>S</b> key while the sketch window is active.</li><li>In Processing, use <b>Sketch → Show Sketch Folder</b> and look for the new PNG image.</li></ol>
+<div class="codehead">Add this as another separate function</div><pre><code>void keyPressed() {
+  if (key == 's' || key == 'S') {
+    saveFrame("baterdene-####.png");
+  }
+}</code></pre>
+<div class="expect"><b>Test 15</b>A PNG file appears in your sketch folder. The four <code>#</code> characters are replaced with the frame number, so later saves can have different filenames.</div>
+<div class="challenge"><b>Make a tiny exhibition</b>Save three images that look deliberately different. Name what rule changed between each one.</div>
+</section>
+
+<section class="slide" data-name="Choose a Processing direction">
+<div class="eyebrow">16 · Go further in Processing</div><h2>Three official examples to explore.</h2>
+<p class="lead">Choose one. These examples use Processing, so they belong in the desktop application you're using.</p>
+<div class="cards">
+<div class="card"><span class="tag">Drawing</span><h3><a href="https://processing.org/examples/pattern" target="_blank" rel="noopener">Patterns ↗</a></h3><p>A brush that changes depending on how fast the mouse moves. A natural next step after today's drawing tool.</p></div>
+<div class="card"><span class="tag orange">3D</span><h3><a href="https://processing.org/examples/primitives3d" target="_blank" rel="noopener">Primitives 3D ↗</a></h3><p>Boxes, spheres and rotations. A connection to last week's Zdog model.</p></div>
+<div class="card"><span class="tag pink">Challenge</span><h3><a href="https://processing.org/examples/tree" target="_blank" rel="noopener">Recursive Tree ↗</a></h3><p>A simple rule grows branches into a whole tree. More demanding: meet recursion.</p></div>
+<div class="card"><span class="tag blue">Browse</span><h3><a href="https://processing.org/examples/" target="_blank" rel="noopener">All Processing examples ↗</a></h3><p>Patterns, motion, interaction, simulations and more. Find something that makes you curious.</p></div>
+</div>
+<div class="note"><b>How to use an example</b>Open its page, study the picture and code, then use “Open in Processing” if available or make a new sketch and type or paste its code. First get it running; then change one idea at a time.</div>
+</section>
+
+<section class="slide" data-name="Hack Club: your completed projects">
+<div class="eyebrow">17 · Hack Club project menu · 2 completed</div><h2>Your completed missions.</h2>
+<p class="lead">These count. You can revisit either project and turn it into something new.</p>
+<div class="cards">
+<div class="card"><span class="tag">Done ✓</span><h3><a href="https://workshops.hackclub.com/3d_models_with_zdog/" target="_blank" rel="noopener">Animated 3D Models ↗</a></h3><p><b>Zdog / JavaScript</b><br>Make and animate objects in 3D.</p><p><b>Extension:</b> design a miniature robot, spaceship or unusual sculpture out of multiple shapes.</p></div>
+<div class="card"><span class="tag">Done ✓</span><h3><a href="https://workshops.hackclub.com/geometric_pattern/" target="_blank" rel="noopener">Geometric Pattern ↗</a></h3><p><b>p5.js / JavaScript</b><br>Generate repeating geometric patterns.</p><p><b>Extension:</b> make three variations with different colour systems, speeds or geometry.</p></div>
+</div>
+<div class="challenge"><b>Finished ≠ exhausted</b>Could you make a project that combines the 3D shapes from one workshop with the pattern-making ideas from the other?</div>
+</section>
+
+<section class="slide" data-name="Hack Club: patterns and particles">
+<div class="eyebrow">18 · Hack Club project menu · Next options</div><h2>More patterns. More surprises.</h2>
+<p class="lead">These are separate <b>browser-based JavaScript</b> workshops — they do not run inside Processing's Java mode.</p>
+<div class="cards">
+<div class="card"><span class="tag blue">Top pick · Visual</span><h3><a href="https://workshops.hackclub.com/tree_machine/" target="_blank" rel="noopener">Tree Machine ↗</a></h3><p><b>p5.js</b> — Grow trees using repeating branching rules and recursion. Great after geometric patterns.</p></div>
+<div class="card"><span class="tag blue">Top pick · Physics</span><h3><a href="https://workshops.hackclub.com/particle_physics/" target="_blank" rel="noopener">Particle Physics ↗</a></h3><p><b>p5.js</b> — Animate particles that pull on one another. Contains classes, vectors and physics; more advanced than its short estimated duration suggests.</p></div>
+<div class="card"><span class="tag orange">Interactive art</span><h3><a href="https://workshops.hackclub.com/splatter_paint/" target="_blank" rel="noopener">Splatter Paint ↗</a></h3><p><b>Paper.js</b> — Create a wildly colourful painting effect with code.</p><p class="small"><b>Heads-up:</b> the original has flashing colours; ask the tutor for a non-flashing version.</p></div>
+<div class="card"><span class="tag pink">Bigger challenge</span><h3><a href="https://workshops.hackclub.com/julia_fractals/" target="_blank" rel="noopener">Julia Fractals ↗</a></h3><p><b>JavaScript + Canvas</b> — Turn a mathematical rule into intricate fractal images. Save for a day when you want a serious puzzle.</p></div>
+</div>
+</section>
+
+<section class="slide" data-name="Hack Club: interaction and games">
+<div class="eyebrow">19 · Hack Club project menu · More options</div><h2>Make the visuals respond.</h2>
+<div class="cards">
+<div class="card"><span class="tag blue">Sound + visuals</span><h3><a href="https://workshops.hackclub.com/sound_galaxy/" target="_blank" rel="noopener">Sound Galaxy ↗</a></h3><p><b>p5.js + p5.sound</b> — Particles respond to sound through the microphone. You'll need microphone permission.</p></div>
+<div class="card"><span class="tag orange">Build a tool</span><h3><a href="https://workshops.hackclub.com/painting_app/" target="_blank" rel="noopener">Painting App ↗</a></h3><p><b>HTML, CSS + JavaScript</b> — Make your own painting program with buttons, colours and canvas drawing.</p></div>
+<div class="card"><span class="tag pink">Atmosphere</span><h3><a href="https://workshops.hackclub.com/thunderstorm/" target="_blank" rel="noopener">Thunderstorm ↗</a></h3><p><b>HTML + JavaScript</b> — Combine background changes, sounds and random timings to build an interactive storm. Contains lightning flashes.</p></div>
+<div class="card"><span class="tag">Game</span><h3><a href="https://workshops.hackclub.com/dodge/" target="_blank" rel="noopener">Dodge ↗</a></h3><p><b>p5.js + p5.play</b> — Build a bullet-dodging game with movement and collisions. Some older library setup may need help.</p></div>
+</div>
+<div class="note"><b>Important</b>These Hack Club tutorials are older community projects. Some starter links point to historical Replit projects, so ask your tutor if the setup no longer matches the instructions. The creative ideas are still worth exploring.</div>
+</section>
+
+<section class="slide" data-name="Pick the next experiment">
+<div class="eyebrow">20 · Your next move</div><h2>What's worth exploring?</h2>
+<p class="lead">Your next project should be something <em>you</em> want to change, not just something you want to finish.</p>
+<ol><li>Choose <b>one</b>: continue your Processing sketches, open an official Processing example, or try a new Hack Club workshop.</li><li>Get the starting version working. Make sure you can explain what it does.</li><li>Choose one rule to change. Predict the result, run the code, compare what happened.</li><li>Make <b>three</b> genuinely different versions. Save the one you'd want someone else to see.</li></ol>
+<div class="cards">
+<div class="card"><span class="tag">If you like patterns</span><h3>Try Tree Machine.</h3><p>Can you invent a tree that looks like no real tree?</p></div>
+<div class="card"><span class="tag orange">If you like movement</span><h3>Try Particle Physics.</h3><p>What happens when your particles behave differently?</p></div>
+</div>
+<div class="challenge"><b>Before you finish</b>Show someone your best version. Explain one line of code you changed, what you expected, and what actually happened.</div>
+<p class="small">Browse the full <a href="https://workshops.hackclub.com/" target="_blank" rel="noopener">Hack Club workshop library ↗</a>. Nothing says you have to stick to the menu.</p>
+</section>
+</main>
+<div class="actions"><button class="secondary" id="prev" type="button">← Previous</button><span style="color:#bdc7df;font-size:13px">Use ← → keys to move through the deck</span><button id="next" type="button">Next →</button></div>
+<footer>Qwerty Labs · Baterdene · Processing + Hack Club · Student deck</footer>
+</div>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll(".slide")];
+  const chooser=document.getElementById("jump");
+  const counter=document.getElementById("count");
+  const bar=document.getElementById("bar");
+  const prev=document.getElementById("prev");
+  const next=document.getElementById("next");
+  slides.forEach((s,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=String(i+1).padStart(2,"0")+" · "+s.dataset.name;chooser.appendChild(o);});
+  let page=0;
+  function show(n,record){
+    page=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,i)=>{s.hidden=i!==page;});
+    chooser.value=String(page);
+    counter.textContent=String(page+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");
+    bar.style.width=((page+1)/slides.length*100)+"%";
+    prev.disabled=page===0;
+    next.disabled=page===slides.length-1;
+    if(record){history.replaceState(null,"","#"+String(page+1).padStart(2,"0"));window.scrollTo(0,0);}
+  }
+  chooser.addEventListener("change",()=>show(Number(chooser.value),true));
+  prev.addEventListener("click",()=>show(page-1,true));
+  next.addEventListener("click",()=>show(page+1,true));
+  window.addEventListener("hashchange",()=>{const n=Number(location.hash.slice(1));if(Number.isInteger(n)&&n>0&&n<=slides.length)show(n-1,false);});
+  document.addEventListener("keydown",e=>{
+    if(e.target.closest("input,textarea,select,[contenteditable]")||e.altKey||e.metaKey||e.ctrlKey)return;
+    if(e.key==="ArrowRight"){e.preventDefault();show(page+1,true);}
+    if(e.key==="ArrowLeft"){e.preventDefault();show(page-1,true);}
+  });
+  const initial=Number(location.hash.slice(1));show(Number.isInteger(initial)&&initial>0&&initial<=slides.length?initial-1:0,false);
+})();
+</script>
+</body></html>
