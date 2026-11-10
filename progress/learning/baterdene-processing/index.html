@@ -177,7 +177,7 @@ void draw() {
 <section class="slide" data-name="Build a drawing tool">
 <div class="eyebrow">12 · Interactive artwork</div><h2>Paint by dragging.</h2>
 <p class="lead">Make the circle leave a trail <b>only while you hold the mouse button down</b>.</p>
-<ol><li>Keep <code>baterdene_motion_lab</code> open. Find <code>background(14, 18, 32);</code> inside <code>draw()</code>.</li><li>Cut that <b>one line</b> and move it into <code>setup()</code>, directly after <code>size(600, 600);</code>. The background will now be drawn only once.</li><li>Inside <code>draw()</code>, delete the old <code>fill(...);</code> and <code>circle(...);</code> lines, but <b>keep both curly brackets</b> of the function.</li><li>Type the three-line <code>if (mousePressed)</code> block below inside <code>draw()</code>.</li><li>Run. Hold the mouse button down and drag across the sketch window. Release the button and move again.</li></ol>
+<ol><li>Keep <code>baterdene_motion_lab</code> open. Find <code>background(14, 18, 32);</code> inside <code>draw()</code>.</li><li>Cut that <b>one line</b> and move it into <code>setup()</code>, directly after <code>size(600, 600);</code>. The background will now be drawn only once.</li><li>Inside <code>draw()</code>, delete the old <code>fill(...);</code> and <code>circle(...);</code> lines, but <b>keep both curly brackets</b> of the function.</li><li>Type the four-line <code>if (mousePressed)</code> block below inside <code>draw()</code>. Keep its indentation and closing bracket.</li><li>Run. Hold the mouse button down and drag across the sketch window. Release the button and move again.</li></ol>
 <div class="codehead">Your draw() should now be</div><pre><code>void draw() {
   if (mousePressed) {
     fill(246, 109, 193, 80);
