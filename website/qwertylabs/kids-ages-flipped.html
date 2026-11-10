@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en-AU" data-brand="kids">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="Creative technology for kids aged 7–12 in Marrickville. Explore weekly classes and holiday camps for ages 7–17 at Qwerty Labs."
+    >
+    <title>Kids — Qwerty Labs</title>
+    <!-- Approved typefaces load before the single homepage stylesheet. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="brand.css?v=20261108">
+    <link rel="stylesheet" href="style-home.css?v=projects-width-20261109">
+    <link rel="stylesheet" href="style-kids.css?v=equipment-scale-20261110">
+    <script src="brand.js?v=20261108" defer></script>
+    <script src="kids-assets.js?v=equipment-tilt-20261109" defer></script>
+    <script src="script.js?v=static-lab-photo-20261108" defer></script>
+      <!-- Variant-only layout: reverse the Ages photo and copy on wide screens.
+         Narrow screens retain the accessible stacked arrangement. -->
+    <style>
+      @media (min-width: 761px) {
+        .projects--ages-flipped .project-panel,
+        .projects--ages-flipped .project-copy { left: 524px; }
+        .projects--ages-flipped .photo-collage { left: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!-- Alpha-removal filter for photographed equipment: near-white image pixels
+         become transparent; unlike blend modes, this preserves the blackboard. -->
+    <svg class="kids-cutout-defs" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="kids-white-to-alpha" color-interpolation-filters="sRGB">
+          <feColorMatrix in="SourceGraphic" type="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -12 -12 -12 0 35.5"/>
+        </filter>
+      </defs>
+    </svg>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="index.html" class="logo" aria-label="Qwerty Labs home">
+              <img src="img/wordmark-labs-green.svg" alt="qwertylabs" width="440" height="101">
+            </a>
+            <nav class="navigation" aria-label="Main navigation">
+              <span class="navigation-current" aria-current="page">Kids</span>
+              <a href="adults.html">Adults</a>
+              <a href="teens.html">Teens</a>
+              <a href="thelab.html">The Lab</a>
+            </nav>
+          </header>
+
+          <main id="main">
+            <!-- Hero -->
+            <section class="hero" aria-label="Kids aged 7 to 12">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper-green.svg?v=kids-neutral-tape-20261109b" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">kids</span><span class="hero-tagline">who like making things</span></h1>
+                </div>
+                <nav class="kids-hero-links" aria-label="Book a Kids programme">
+                  <a class="scene-link" href="https://qwertykids.com/kids-coding-classes/">Weekly classes</a>
+                  <a class="scene-link" href="https://qwertykids.com/coding-camp/">Holiday camps</a>
+                </nav>
+              </div>
+              <img
+                class="mascots"
+                src="img/kidsHero.png"
+                alt="Qwerty Labs mascot trio"
+                fetchpriority="high"
+              >
+            </section>
+
+            <!-- The existing Meet the Lab-style panel, now introducing Kids. -->
+            <section class="projects projects--kids projects--ages-flipped" id="kids-programmes" aria-labelledby="kids-programmes-title">
+              <img class="project-panel" src="img/project-backboard.svg" alt="">
+              <div class="project-copy">
+                <img class="project-label" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="project-label-text" id="kids-programmes-title">AGES 7–12</h2>
+                <p>Games, robots, electronics, digital worlds and more. Beginners get help getting started. Children with experience get room to take an idea further.</p>
+                <nav class="kids-project-links" aria-label="Book a Kids programme">
+                  <a class="scene-link" href="https://qwertykids.com/kids-coding-classes/">Weekly classes</a>
+                  <a class="scene-link" href="https://qwertykids.com/coding-camp/">Holiday camps</a>
+                </nav>
+              </div>
+              <figure class="photo-collage">
+                <img
+                  class="project-photo"
+                  loading="lazy"
+                  decoding="async"
+                  src="img/microbitHeart.jpg"
+                  alt="A child holding a micro:bit with a glowing red LED heart"
+                  width="700"
+                  height="394"
+                >
+                <img class="project-frame" src="img/project-photo-frame.svg" alt="">
+              </figure>
+            </section>
+
+            <!-- All Kids questions on one expanding Country-style cardboard-trim board.
+                 Six existing green tape labels and the green testimonial are retained. -->
+            <section class="kids-editorial-board" id="kids-editorial" aria-label="About our Kids programmes">
+              <section class="kids-question" id="who" aria-labelledby="kids-who">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-who">Who?</h2>
+                <div class="kids-question__copy">
+                  <p>Children aged 7–12. Complete beginners, confident coders and everyone in between.</p>
+                    <p>Some arrive having never written a line of code. Others have built games at home, played with electronics or taught themselves a thing or two.</p>
+                    <p>We don't expect everyone to start at the same place. We find out what each child can already do and give them a useful next challenge.</p>
+                </div>
+              </section>
+  
+              <section class="kids-question" id="what" aria-labelledby="kids-what">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-what">What?</h2>
+                <div class="kids-question__copy">
+                  <p>Games, robots, AI experiments, electronics, websites, digital worlds and things that respond to light, sound or movement.</p>
+                    <p>A child might build a game with levels and sound effects, make a robot react to its surroundings or wire up a little computer to do something unexpected.</p>
+                    <p>We use Scratch, Python, JavaScript, Raspberry Pi, microcontrollers, sensors and plenty of things with wires. We choose the tools to suit the project, not the other way around.</p>
+                    <p>Projects change with the technology, and with what the children are ready to make.</p>
+                </div>
+                            <a class="kids-tool kids-tool--codey" href="tools.html#codey-rocky" aria-label="See how we use Codey Rocky">
+                <span class="kids-tool__art">
+                  <img class="kids-tool__device" src="https://cdn2.botland.com.pl/img/art/inne/14143_1.jpg" alt="Codey Rocky programmable robot with a pixel LED face" width="360" height="360" loading="lazy" decoding="async">                  <img class="kids-tool__frame" src="img/square-clean.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+
+                </span>
+                <span class="kids-tool__label">Codey Rocky</span>
+              </a>
+              </section>
+  
+              <section class="kids-question" id="why" aria-labelledby="kids-why">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-why">Why?</h2>
+                <div class="kids-question__copy">
+                  <p>Making gives learning a reason.</p>
+                    <p>It's one thing to follow instructions and get something working. It's much more interesting to understand it, change it, break it, fix it and make it your own.</p>
+                    <p>Children pick up coding, logic, design and problem-solving while trying to make something they actually care about.</p>
+                    <p>We like hearing, “What happens if I try this?” Particularly when nobody knows the answer yet.</p>
+                </div>
+                            <a class="kids-tool kids-tool--gamego" href="tools.html#gamego" aria-label="See how we use GameGo">
+                <span class="kids-tool__art">
+                  <img class="kids-tool__device" src="https://core-electronics.com.au/media/catalog/product/cache/d5cf359726a1656c2b36f3682d3bbc67/S/S/SS114992404-3.jpg" alt="Blue GameGo handheld game console" width="360" height="360" loading="lazy" decoding="async">                  <img class="kids-tool__frame" src="img/mat-v.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+
+                </span>
+                <span class="kids-tool__label">GameGo</span>
+              </a>
+              </section>
+  
+              <section class="kids-question" id="how" aria-labelledby="kids-how">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-how">How?</h2>
+                <div class="kids-question__copy">
+                  <p>Small groups, practical help and more independence as children find their feet.</p>
+                    <p>Beginners start with a guided project. Children with more experience can take an idea further or work on something of their own. Sometimes the group starts together. Other days, everybody is making something different.</p>
+                    <p>We keep groups small, with around one tutor for seven children, so there's someone to ask when things don't work and room to try things independently. We've been teaching creative technology since 2015, with people who know their way around real code.</p>
+                    <p>It's an active studio, not a silent one. If your child has particular support needs or finds busy environments difficult, tell us when enrolling. We can talk through which group might suit them.</p>
+                </div>
+                            <a class="kids-tool kids-tool--microbit" href="tools.html#microbit" aria-label="See how we use micro:bit">
+                <span class="kids-tool__art">
+                  <img class="kids-tool__device" src="https://www.hiwonder.com/cdn/shop/products/1_80da60c6-31be-4610-bbcf-8afb0699dc96.jpg?v=1614334521" alt="BBC micro:bit with red LEDs" width="360" height="360" loading="lazy" decoding="async">                  <img class="kids-tool__frame" src="img/mat-h.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+
+                </span>
+                <span class="kids-tool__label">micro:bit</span>
+              </a>
+              </section>
+  
+              <!-- Original parent testimonial on its own green paper card. -->
+              <aside class="kids-testimonial" aria-label="Parent testimonial">
+                <div class="kids-testimonial__inner">
+                  <blockquote class="kids-testimonial__quote">
+                      <p>“They’ve built games, apps, and worked with robotics and VR — all at their own level. I’ve been really impressed with both their progress and their enjoyment.”</p>
+                      <cite>Imala · Mum of Evie (11) and Amaya (7)</cite>
+                    </blockquote>
+                </div>
+              </aside>
+  
+              <section class="kids-question" id="where" aria-labelledby="kids-where">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-where">Where?</h2>
+                <div class="kids-question__copy">
+                  <p>Upstairs in Marrickville, Sydney.</p>
+                    <p>Level 1, 230 Marrickville Road, next to Pizza Hut, near Victoria Road. Our studio is full of computers, robots, electronics, materials and projects in various stages of becoming something.</p>
+                    <p>Every child has their own computer. We provide all the equipment, so there's no need to bring a laptop.</p>
+                </div>
+                            <a class="kids-tool kids-tool--raspberry" href="tools.html#raspberry-pi" aria-label="See how we use Raspberry Pi">
+                <span class="kids-tool__art">
+                  <img class="kids-tool__device" src="https://geekworm.com/cdn/shop/files/raspberrypi5-top_2048x2048.jpg?v=1705153559" alt="Raspberry Pi single-board computer" width="360" height="360" loading="lazy" decoding="async">                  <img class="kids-tool__frame" src="img/print-h.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+
+                </span>
+                <span class="kids-tool__label">Raspberry Pi</span>
+              </a>
+              </section>
+  
+              <section class="kids-question" id="when" aria-labelledby="kids-when">
+                <img class="kids-question__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="kids-question__heading" id="kids-when">When?</h2>
+                <div class="kids-question__copy">
+                  <div class="kids-question__option">
+                      <h3>Weekly classes</h3>
+                      <p>For ages 7–17. 75 minutes each week during school term. Children and teens return to their projects, pick up new skills and see how far an idea can go. New students can join during a term when there's a suitable place.</p>
+                      <a href="https://qwertykids.com/kids-coding-classes/">See class times and enrol</a>
+                    </div>
+                    <div class="kids-question__option">
+                      <h3>School holiday camps</h3>
+                      <p>For ages 7–17. A full day of making, with different projects on different days. Teens get more challenging projects, though they may be the only teen camper on a general camp day. Come for one day or several. Camp runs 9:30 am–3:30 pm, with drop-off from 9 am, pickup by 4 pm and optional extended hours.</p>
+                      <a href="https://qwertykids.com/coding-camp/">See camp details and book</a>
+                    </div>
+                    <p class="kids-question__booking-note">Both options welcome beginners, with projects suited to each child's age and experience. Enrolment takes about two minutes and there's no payment at the form stage. We confirm the booking details with you afterwards.</p>
+                </div>
+              </section>
+            </section>
+
+            <!-- Information and contact cards -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, find and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="kids.html">Kids</a>
+                  <a href="adults.html">Adults</a>
+                  <a href="teens.html">Teens</a>
+                  <a href="index.html#projects">Projects</a>
+                  <a href="thelab.html">The Lab</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find the lab</h2>
+                <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-hello-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-hello-title">Say hello</h2>
+                <div class="footer-card-links">
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/">Bookings</a>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                </div>
+              </section>
+            </section>
+          </main>
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+              <img class="country-ack__mascot" src="img/kidsFooter.png" alt="" width="110" height="110" loading="lazy" decoding="async">
+            </section>
+            <!-- The studio signature follows the left guide; policies follow the right. -->
+            <div class="footer-legal">
+              <div class="footer-legal-signature">
+                <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
+                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/wordmark-labs-green.svg" alt="" width="2013" height="460">
+                </a>
+                <span class="footer-legal-separator" aria-hidden="true">|</span>
+                <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
+              </div>
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="https://qwertykids.com/child-safe-policy/">Child Safety</a>
+                <a href="https://qwertykids.com/privacy-policy/">Privacy</a>
+                <a href="https://qwertykids.com/terms-and-conditions/">Booking Terms</a>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
