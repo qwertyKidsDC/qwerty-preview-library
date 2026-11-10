@@ -1,17 +1,5 @@
 /* Preview-only: homepage Coolest Projects layout for the Kids Ages panel.
    The approved shared styles and original Kids page are untouched. */
-/* Approved green panel artwork replaces only this preview's dark board.
-   Retain its existing cardboard trim and nine-slice sizing. */
-.footer-scene--kids-ages .footer-scene__board::before {
-  border-image-source: url("img/kids-green-panel-untaped-vtrim.svg");
-  filter: none;
-}
-.footer-scene--kids-ages .footer-scene__content {
-  color: var(--color-ink);
-}
-.footer-scene--kids-ages .scene-link::after {
-  background-color: var(--color-ink);
-}
 .hero + .footer-scene--kids-ages {
   margin-top: calc(var(--space-section) + 62px);
 }
