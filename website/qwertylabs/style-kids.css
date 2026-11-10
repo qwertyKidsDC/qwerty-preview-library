@@ -203,10 +203,9 @@
   font-size: 15px !important;
   font-weight: 400 !important;
 }
-/* Equipment cutouts occupy the original unused right-hand third.
-   Near-white pixels become transparent through an SVG alpha filter defined
-   on Kids only: the photograph and the blackboard remain separate layers.
-   One photo carries the existing taped frame; the others stay unframed. */
+/* Real device photos layered beneath approved existing frame artwork.
+   These frame assets are shared with the homepage design; no frames are drawn
+   or recreated here. The frame openings remain transparent. */
 .kids-cutout-defs {
   position: absolute;
   width: 0;
@@ -250,41 +249,69 @@
   top: 126px;
   right: 30px;
   width: 262px;
-  padding: 22px 9px 5px;
   --tool-tilt: 4deg;
 }
 .kids-tool--raspberry {
   top: 101px;
-  /* The broad board reaches towards the mascot's approved right-hand edge. */
+  /* The wide framed board follows the mascot's outer right-hand guide. */
   right: -55px;
   width: 288px;
   --tool-tilt: -5deg;
 }
-.kids-tool > img {
+.kids-tool__art {
   position: relative;
-  z-index: 1;
+  isolation: isolate;
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
+}
+.kids-tool__device {
+  position: absolute;
+  z-index: 1;
+  top: 12%;
+  left: 10%;
+  display: block;
+  width: 80%;
+  height: 76%;
   object-fit: contain;
   background: transparent;
   filter: url("#kids-white-to-alpha") drop-shadow(3px 5px 3px rgba(0,0,0,.38));
 }
-.kids-tool--microbit > img {
-  width: 100%;
-  height: 175px;
-  aspect-ratio: auto;
-}
-.kids-tool--microbit::after {
-  content: "";
+.kids-tool__frame {
   position: absolute;
+  inset: 0;
   z-index: 2;
-  inset: 0 0 28px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
   pointer-events: none;
-  background: url("img/studio-frame-taped.png") center / 100% 100% no-repeat;
 }
-.kids-tool > span {
+.kids-tool--codey .kids-tool__device {
+  top: 10%;
+  left: 12%;
+  width: 76%;
+  height: 80%;
+}
+.kids-tool--gamego .kids-tool__device {
+  top: 7%;
+  left: 17%;
+  width: 66%;
+  height: 84%;
+}
+.kids-tool--microbit .kids-tool__device {
+  top: 13%;
+  left: 7%;
+  width: 86%;
+  height: 72%;
+}
+.kids-tool--raspberry .kids-tool__device {
+  top: 11%;
+  left: 6%;
+  width: 88%;
+  height: 78%;
+}
+.kids-tool__label {
   position: relative;
   z-index: 3;
   display: inline-block;
@@ -293,7 +320,7 @@
   line-height: 1.25;
   text-shadow: 0 2px 3px rgba(0,0,0,.7);
 }
-.kids-tool > span::after {
+.kids-tool__label::after {
   content: "";
   position: absolute;
   left: 0;
@@ -308,7 +335,7 @@
 .kids-tool:is(:hover,:focus-visible) {
   transform: rotate(0deg) translateY(-3px);
 }
-.kids-tool:is(:hover,:focus-visible) > span::after {
+.kids-tool:is(:hover,:focus-visible) .kids-tool__label::after {
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
