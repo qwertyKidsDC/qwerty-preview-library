@@ -27,6 +27,9 @@
   letter-spacing: -.02em;
 }
 /* Calls to action sit directly below the Kids hero copy. */
+.hero-copy {
+  z-index: 4;
+}
 .kids-hero-links {
   position: relative;
   z-index: 4;
@@ -253,6 +256,15 @@
 .kids-tool--gamego .kids-tool__art {
   aspect-ratio: 3 / 4;
 }
+/* Rotate the original landscape taped frame intact, rather than
+   stretching its approved textures to fit a portrait device. */
+.kids-tool--gamego .kids-tool__frame {
+  top: 12.5%;
+  left: -16.6667%;
+  width: 133.3333%;
+  height: 75%;
+  transform: rotate(90deg);
+}
 .kids-tool__device {
   position: absolute;
   z-index: 1;
@@ -276,10 +288,10 @@
   pointer-events: none;
 }
 .kids-tool--codey .kids-tool__device {
-  top: -2%;
-  left: -4%;
-  width: 108%;
-  height: 105%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .kids-tool--gamego .kids-tool__device {
   top: 5%;
@@ -294,10 +306,10 @@
   height: 92%;
 }
 .kids-tool--raspberry .kids-tool__device {
-  top: 1%;
-  left: -1%;
-  width: 102%;
-  height: 98%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .kids-tool__label {
   position: relative;
