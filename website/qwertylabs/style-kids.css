@@ -281,22 +281,22 @@
   filter: none; /* Preserve the real Codey Rocky's white casing. */
 }
 .kids-tool--gamego .kids-tool__device {
-  top: 12%;
-  left: 16%;
-  width: 68%;
-  height: 73%;
+  top: 8%;
+  left: 8%;
+  width: 84%;
+  height: 82%;
 }
 .kids-tool--microbit .kids-tool__device {
-  top: 15%;
-  left: 12%;
-  width: 76%;
-  height: 71%;
+  top: 9%;
+  left: 7%;
+  width: 86%;
+  height: 82%;
 }
 .kids-tool--raspberry .kids-tool__device {
-  top: 13%;
-  left: 12%;
-  width: 76%;
-  height: 74%;
+  top: 8%;
+  left: 6%;
+  width: 88%;
+  height: 84%;
 }
 .kids-tool__label {
   position: relative;
