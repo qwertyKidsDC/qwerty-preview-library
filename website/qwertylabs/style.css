@@ -1,9 +1,48 @@
-/* Qwerty Labs · homepage layout and visual system.
-   Shared palette and cursor live in brand.css.
-   Artwork is in img/; dynamic zoom and photo fades live in script.js. */
+/* Qwerty Labs — canonical site stylesheet
+   One local stylesheet for all site pages. The approved desktop/mobile design
+   remains unchanged. Kids-only rules are scoped; preview-only rules target
+   unique classes. November 2026. */
 
-/* Fonts are loaded in the HTML head to avoid a chained @import request. */
+/* 01 — Approved brand and cursors */
+:root {
+  --color-blue: #4C69E3;
+  --color-pink: #F66DC1;
+  --color-green: #92D644;
+  --color-orange: #FF9029;
+  --color-ivory: #F7F4EB;
+  --color-ink: #020020;
+  --brand-accent: var(--color-blue);
+}
 
+:root[data-brand="kids"]   { --brand-accent: var(--color-green); }
+:root[data-brand="adults"] { --brand-accent: var(--color-pink); }
+:root[data-brand="teens"]  { --brand-accent: var(--color-orange); }
+
+/* Custom pointers are only for mouse/trackpad. Touch and text inputs remain native. */
+@media (hover: hover) and (pointer: fine) {
+  html.ql-brand-cursor { cursor: var(--ql-arrow-cursor, auto); }
+  html.ql-brand-cursor :is(a, button, [role="button"]) {
+    cursor: var(--ql-hand-cursor, pointer);
+  }
+  html.ql-brand-cursor :is(input, textarea, [contenteditable="true"]) {
+    cursor: text;
+  }
+}
+
+/* Only draft copy pages need this simple background for the pale wordmark. */
+.draft-wordmark {
+  display: inline-block;
+  padding: 10px 13px;
+  background: var(--color-ink);
+}
+.draft-wordmark img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 02 — Shared foundations and responsive artwork */
 /* 01. Homepage foundations. Brand palette and themes are defined in brand.css.
    Workshop lighting and cardboard browns are decorative artwork, not UI colours. */
 :root {
@@ -31,17 +70,17 @@
   --workshop-footer-height: clamp(260px, 28vw, 520px);
 }
 
-*,
-*::before,
-*::after {
+:where(html[data-layout="site"]) *,
+:where(html[data-layout="site"]) *::before,
+:where(html[data-layout="site"]) *::after {
   box-sizing: border-box;
 }
 
-html {
+:where(html[data-layout="site"]) {
   background: var(--scene-backdrop);
 }
 
-body {
+:where(html[data-layout="site"]) body {
   margin: 0;
   background: var(--scene-backdrop);
   color: var(--color-ivory);
@@ -51,7 +90,7 @@ body {
   overflow-x: hidden;
 }
 
-a {
+:where(html[data-layout="site"]) a {
   color: inherit;
   text-decoration: none;
 }
@@ -1220,5 +1259,805 @@ a {
   .site {
     --top-original-height: clamp(200px, 58vw, 370px);
     --top-photo-width: 100vw;
+  }
+}
+
+/* 03 — Kids page */
+:where(html[data-brand="kids"][data-layout="site"]) .navigation-current{
+  display: inline-block;
+  color: var(--color-green);
+  text-shadow: 0 2px 7px #000;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .hero h1{
+  top: 43px;
+  left: 54px;
+  width: 338px;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 65px;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  transform: rotate(-1.2deg);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .hero-title,
+
+:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+  display: block;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+  max-width: 315px;
+  margin-top: -7px;
+  font-size: 29px;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+}
+
+:where(html[data-brand="kids"][data-layout="site"]) .hero-copy{
+  z-index: 4;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links{
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 10px 0 0 50px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links .scene-link{
+  margin-top: 0;
+  color: var(--color-ivory);
+  white-space: nowrap;
+}
+
+
+:where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids{
+  margin-top: -24px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 17px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links .scene-link{
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage{
+  position: relative;
+  top: 86px;
+  left: auto;
+  grid-column: 1;
+  grid-row: 1;
+  width: 80%;
+  height: auto;
+  aspect-ratio: 700 / 516;
+  margin-inline: auto;
+  transform: none; 
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-photo{
+  top: 7%;
+  left: 5.5%;
+  width: 89%;
+  height: 85%;
+  transform: none;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel{
+  position: relative;
+  left: -45px; 
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 405px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel{
+  top: 26px;
+  left: 0;
+  width: 100%;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy{
+  width: 100%;
+  padding-top: 123px;
+  padding-right: 40px;
+}
+
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label{
+  top: 26px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text{
+  top: 42px;
+  font-size: 36px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy p{
+  max-width: none; 
+}
+
+
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board{
+  position: relative;
+  z-index: 6;
+  isolation: isolate;
+  margin: 30px 56.4px 0 39px;
+  padding: 17px 23px 56px;
+  color: var(--color-ivory);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before{
+  content: "";
+  position: absolute;
+  inset: 22px 0 0;
+  z-index: -1;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
+  border-image-source: url("img/footer-experiment-dark-vtrim.webp");
+  border-image-slice: 92 140 92 140 fill;
+  border-image-width: 1;
+  border-image-repeat: stretch round;
+  filter: brightness(1.15);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question{
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 87px 45px 17px 37px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question{
+  margin-top: 14px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape{
+  position: absolute;
+  z-index: 2;
+  top: 5.621px;
+  left: 0;
+  width: 354px;
+  height: 64.053px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading{
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  left: 39px;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: var(--text-heading);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  transform: rotate(-1.2deg);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy{
+  position: relative;
+  width: 66.6667%;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
+
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p{
+  margin: 0 0 16px;
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:last-child,
+
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p:last-of-type{
+  margin-bottom: 0;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:first-child{
+  font-weight: 700;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option + .kids-question__option{
+  margin-top: 30px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3{
+  margin: 0 0 10px;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a{
+  position: relative;
+  display: inline-block;
+  margin-top: 13px;
+  padding-bottom: 3px;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a::after{
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  background-color: var(--color-ivory);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a:is(:hover,:focus-visible)::after{
+  background-color: var(--color-blue);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p.kids-question__booking-note{
+  margin-top: 27px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(247,244,235,.65);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool){
+  min-height: 385px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool{
+  position: absolute;
+  z-index: 3;
+  top: 112px;
+  right: 25px;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 212px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-ivory);
+  text-align: center;
+  transform: rotate(var(--tool-tilt, 5deg));
+  transition: transform .15s ease;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey{
+  top: 115px;
+  right: 28px;
+  width: 218px;
+  --tool-tilt: 7deg;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego{
+  top: 83px;
+  right: 69px;
+  width: 205px;
+  --tool-tilt: 0deg;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit{
+  top: 126px;
+  right: 30px;
+  width: 262px;
+  --tool-tilt: -4deg;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{
+  top: 101px;
+  
+  right: -55px;
+  width: 288px;
+  --tool-tilt: 5deg;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__art{
+  display: block;
+  width: 100%;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__device{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label{
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 3px rgba(0,0,0,.7);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 5px;
+  background-color: var(--color-blue);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  opacity: 0;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible){
+  transform: rotate(0deg) translateY(-3px);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) .kids-tool__label::after{
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool{
+    transition: none;
+  }
+}
+
+
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial{
+  position: relative;
+  isolation: isolate;
+  z-index: 2;
+  width: 66.6667%;
+  margin: 35px 0 17px 37px;
+  padding: 48px 57px 53px;
+  
+  color: var(--color-ink);
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: 40px solid transparent;
+  border-image-source: url("img/kids-green-panel-untaped-vtrim.svg");
+  border-image-slice: 130 140 130 140 fill;
+  border-image-width: 40px 43px;
+  border-image-repeat: stretch;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__inner{
+  width: 100%;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote{
+  margin: 0;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p{
+  margin: 0 0 19px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.46;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote cite{
+  font-size: 15px;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: 700;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question{
+  margin-top: 17px;
+}
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards{
+  margin-top: 54px;
+}
+
+@media (max-width: 760px) {
+  :where(html[data-brand="kids"][data-layout="site"]) .hero h1{
+    top: 45px;
+    left: 53px;
+    width: calc(100% - 75px);
+    font-size: clamp(44px, 11vw, 65px);
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+    max-width: 100%;
+    font-size: clamp(22px, 6vw, 29px);
+  }
+  
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids{
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    min-height: 0;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage{
+    top: 18px;
+    left: 0;
+    grid-column: 1;
+    grid-row: 1;
+    width: min(360px, 80%);
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel{
+    left: 0; 
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 355px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel{
+    top: 35px;
+    width: min(420px, 100%);
+    height: 320px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy{
+    width: min(365px, 100%);
+    padding: 126px 30px 0 38px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label{
+    top: 35px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text{
+    top: 51px;
+    font-size: 30px;
+  }
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links{
+    margin: 6px 0 0 49px;
+    gap: 8px 16px;
+    font-size: 16px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids{
+    margin-top: 0;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links{
+    gap: 5px 17px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+    margin-top: -5px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board{
+    width: min(400px, calc(100% - 30px));
+    margin: 24px auto 0;
+    padding: 12px 8px 45px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before{
+    inset: 20px 0 0;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question{
+    padding: 87px 28px 23px 29px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question{
+    margin-top: 9px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape{
+    top: 5px;
+    width: min(300px, 94%);
+    height: auto;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading{
+    top: 21px;
+    left: 35px;
+    font-size: 27px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy{
+    width: 100%;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p{
+    font-size: 16px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3{
+    font-size: 20px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool){
+    min-height: 0;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool,
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey,
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego,
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit,
+
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{
+    position: relative;
+    top: auto;
+    right: auto;
+    max-width: 100%;
+    margin: 23px auto 5px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey{ width: min(218px, 77%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego{ width: min(205px, 72%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit{ width: min(262px, 92%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{ width: min(288px, 94%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial{
+    width: auto;
+    margin: 28px 10px 16px;
+    padding: 40px 27px 46px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before{
+    border-image-width: 32px;
+  }
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p{
+    font-size: 19px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question{
+    margin-top: 13px;
+  }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards{
+    margin-top: 45px;
+  }
+}
+
+/* 04 — Equipment page */
+/* Qwerty Labs · Equipment editorial page.
+   Extends the approved brand and homepage shell without changing either. */
+.tools-hero {
+  position: relative;
+  z-index: 5;
+  height: 398px;
+}
+.tools-hero__paper {
+  position: absolute;
+  top: 8px;
+  left: 27px;
+  width: 520px;
+  height: 232px;
+  pointer-events: none;
+}
+.tools-hero h1 {
+  position: absolute;
+  z-index: 2;
+  top: 67px;
+  left: 72px;
+  width: 425px;
+  margin: 0;
+  color: var(--color-ink);
+  font-family: 'Architects Daughter', cursive;
+  font-size: 43px;
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -.035em;
+  transform: rotate(-1.2deg);
+}
+.tools-hero > p {
+  position: absolute;
+  top: 254px;
+  left: 56px;
+  width: 480px;
+  max-width: 55%;
+  margin: 0;
+  line-height: 1.45;
+  color: var(--color-ivory);
+}
+.tools-hero__mascot {
+  position: absolute;
+  top: 5px;
+  right: -4px;
+  width: 420px;
+  max-height: 328px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.tools-content {
+  position: relative;
+  z-index: 6;
+  margin: 0 56.4px 0 39px;
+}
+.tools-principle,
+.tools-languages,
+.tools-device {
+  position: relative;
+  isolation: isolate;
+  color: var(--color-ivory);
+}
+.tools-principle::before,
+.tools-languages::before,
+.tools-device::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: 32px 38px;
+  border-image-source: url("img/footer-experiment-dark-vtrim.webp");
+  border-image-slice: 92 140 92 140 fill;
+  border-image-width: 1;
+  border-image-repeat: stretch round;
+  filter: brightness(1.15);
+}
+.tools-principle {
+  padding: 40px 52px 43px;
+}
+.tools-principle h2,
+.tools-languages h2 {
+  margin: 0 0 13px;
+  font-size: 30px;
+  letter-spacing: -.035em;
+  line-height: 1.15;
+}
+.tools-principle p,
+.tools-languages > p {
+  max-width: 70%;
+  margin: 0 0 16px;
+  font-size: 18px;
+  line-height: 1.48;
+}
+.tools-principle p:last-child {
+  margin-bottom: 0;
+}
+.tools-equipment {
+  display: grid;
+  gap: 32px;
+  margin: 43px 0;
+}
+.tools-device {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 255px;
+  align-items: center;
+  gap: 25px;
+  padding: 43px 42px 45px 51px;
+  scroll-margin-top: 25px;
+}
+.tools-device__eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-green);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+.tools-device h2 {
+  margin: 0 0 14px;
+  font-size: 34px;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+}
+.tools-device__copy > p:not(.tools-device__eyebrow) {
+  margin: 0 0 14px;
+  font-size: 17px;
+  line-height: 1.48;
+}
+.tools-device__copy > p.tools-device__lead {
+  font-size: 19px;
+  font-weight: 700;
+}
+.tools-device__copy > p.tools-device__example {
+  margin-bottom: 0;
+}
+.tools-device__example strong {
+  color: var(--color-green);
+}
+.tools-device__photo {
+  min-width: 0;
+  margin: 0;
+  /* The homepage's reusable Photo Frame 02 supplies the ivory edge,
+     offset cardboard backing and shadow. */
+  padding: 8px;
+  transform: rotate(2deg);
+}
+.tools-device:nth-child(even) .tools-device__photo {
+  transform: rotate(-2deg);
+}
+.tools-device__photo > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+.tools-device__photo figcaption {
+  padding-top: 8px;
+  color: var(--color-ink);
+  font-size: 11px;
+  line-height: 1.3;
+}
+.tools-device__photo a {
+  text-decoration: underline dashed;
+  text-underline-offset: 2px;
+}
+.tools-device__photo a:is(:hover,:focus-visible) {
+  color: var(--color-blue);
+}
+.tools-languages {
+  padding: 40px 50px 43px;
+}
+.tools-languages__links {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin-top: 20px;
+}
+.tools-languages__links .scene-link {
+  margin-top: 0;
+}
+.tools-languages > .tools-note {
+  max-width: 100%;
+  margin: 29px 0 0;
+  color: var(--color-ivory);
+  font-size: 12px;
+  opacity: .8;
+}
+.tools-content + .footer-nav-cards {
+  margin-top: 61px;
+}
+@media (max-width: 760px) {
+  .tools-hero {
+    height: 438px;
+  }
+  .tools-hero__paper {
+    top: 14px;
+    left: -7px;
+    width: min(98%, 425px);
+    height: 192px;
+  }
+  .tools-hero h1 {
+    top: 62px;
+    left: 35px;
+    width: min(78%, 332px);
+    font-size: clamp(31px, 8.3vw, 40px);
+  }
+  .tools-hero__mascot {
+    top: 200px;
+    right: -30px;
+    width: min(63%, 300px);
+    max-height: 225px;
+  }
+  .tools-hero > p {
+    top: 230px;
+    left: 23px;
+    width: 45%;
+    max-width: 45%;
+    font-size: 15px;
+  }
+  .tools-content {
+    margin: 0 14px;
+  }
+  .tools-principle,
+  .tools-languages {
+    padding: 33px 30px 37px;
+  }
+  .tools-principle p,
+  .tools-languages > p {
+    max-width: 100%;
+    font-size: 16px;
+  }
+  .tools-equipment {
+    gap: 19px;
+    margin: 23px 0;
+  }
+  .tools-device {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 32px 30px 38px;
+  }
+  .tools-device h2 {
+    font-size: 30px;
+  }
+  .tools-device__copy > p:not(.tools-device__eyebrow) {
+    font-size: 16px;
+  }
+  .tools-device__photo {
+    width: min(235px, 84%);
+    justify-self: center;
+  }
+  .tools-content + .footer-nav-cards {
+    margin-top: 47px;
+  }
+}
+
+/* 05 — Kids Ages unapproved experiment */
+/* Preview-only: homepage Coolest Projects layout for the Kids Ages panel.
+   The approved shared styles and original Kids page are untouched. */
+.hero + .footer-scene--kids-ages {
+  margin-top: calc(var(--space-section) + 62px);
+}
+.footer-scene--kids-ages .kids-ages-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.footer-scene--kids-ages .kids-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 17px;
+}
+.footer-scene--kids-ages .kids-project-links .scene-link {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .hero + .footer-scene--kids-ages {
+    margin-top: calc(var(--space-section) + 32px);
+  }
+  .footer-scene--kids-ages .kids-project-links {
+    gap: 5px 17px;
   }
 }
