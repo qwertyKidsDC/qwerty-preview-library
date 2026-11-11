@@ -81,6 +81,7 @@
   width: 100%;
   height: auto;
   aspect-ratio: 700 / 516;
+  transform: none; /* Keep the photograph and mat-h frame level. */
 }
 .projects--kids .project-photo {
   top: 7%;
@@ -102,7 +103,10 @@
 }
 .projects--kids .project-copy {
   width: 100%;
-  padding-top: 60px;
+  padding-top: 96px; /* Clear the title and its existing green tape. */
+}
+.projects--kids .project-label-text {
+  font-size: 36px;
 }
 
 /* The six topics live on ONE expanding blackboard with cardboard trim:
@@ -394,7 +398,10 @@
   }
   .projects--kids .project-copy {
     width: min(365px, 100%);
-    padding: 66px 0 0 38px;
+    padding: 96px 0 0 38px;
+  }
+  .projects--kids .project-label-text {
+    font-size: 30px;
   }
 
   .kids-hero-links {
