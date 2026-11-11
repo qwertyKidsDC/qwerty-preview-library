@@ -215,13 +215,13 @@
   top: 83px;
   right: 69px;
   width: 205px;
-  --tool-tilt: -9deg;
+  --tool-tilt: 0deg;
 }
 .kids-tool--microbit {
   top: 126px;
   right: 30px;
   width: 262px;
-  --tool-tilt: 4deg;
+  --tool-tilt: -4deg;
 }
 .kids-tool--raspberry {
   top: 101px;
