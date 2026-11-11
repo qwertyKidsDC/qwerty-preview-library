@@ -325,44 +325,6 @@
   }
 }
 
-/* Approved sticker-sheet cutouts for the experimental Who? photo column.
-   This class is used only on the current Kids page; other variants are untouched. */
-.kids-question--mascot-study {
-  min-height: 420px;
-}
-.kids-question--mascot-study .kids-question__mascots {
-  position: absolute;
-  top: 102px;
-  right: 12px;
-  width: 29%;
-  height: 280px;
-  pointer-events: none;
-}
-.kids-question--mascot-study .kids-question__mascots img {
-  position: absolute;
-  display: block;
-  max-width: none;
-  height: auto;
-}
-.kids-question--mascot-study .kids-question__mascots img:first-child {
-  top: 0;
-  right: 4px;
-  width: 91%;
-  transform: rotate(-6deg);
-}
-/* Second approved sticker-sheet figure occupies the open When? photo column. */
-.kids-question--when-mascot .kids-question__when-mascot {
-  position: absolute;
-  top: 132px;
-  right: 12px;
-  display: block;
-  width: 29%;
-  max-width: none;
-  height: auto;
-  transform: rotate(5deg);
-  pointer-events: none;
-}
-
 /* The green testimonial is a separate paper card placed INSIDE the board. */
 .kids-testimonial {
   position: relative;
@@ -485,34 +447,6 @@
   .kids-question {
     margin: 0;
     padding: 87px 28px 23px 29px;
-  }
-  .kids-question--mascot-study {
-    min-height: 0;
-  }
-  .kids-question--mascot-study .kids-question__mascots {
-    position: relative;
-    top: auto;
-    right: auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
-    gap: 8px;
-    width: 100%;
-    height: auto;
-    margin-top: 16px;
-  }
-  .kids-question--mascot-study .kids-question__mascots img {
-    position: static;
-    width: 47%;
-    max-width: 47%;
-  }
-  .kids-question--when-mascot .kids-question__when-mascot {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: min(255px, 70%);
-    max-width: 70%;
-    margin: 20px auto 0;
   }
   .kids-question + .kids-question {
     margin-top: 9px;

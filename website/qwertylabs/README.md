@@ -5,7 +5,8 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 ## Approved versus draft
 
 - **Approved homepage:** `index.html`, `style-home.css`, `script.js`, shared `brand.css` and `brand.js`, and the required assets in `img/`.
-- **Draft, not yet approved:** `kids.html`, `adults.html`, `teens.html`, `thelab.html`. The draft pages still carry visible review notices and their own noindex tags. Do not treat them as final production pages.
+- **Approved Kids page (11 November 2026):** `kids.html`, `style-kids.css`, `kids-assets.js`, and the assets they use. Design and copy signed off after reverting the mascot-placement experiment. The staging `noindex` remains until public launch.
+- **Draft, not yet approved:** `adults.html`, `teens.html`, `thelab.html`. These pages remain under review; do not treat them as final production pages.
 - The existing design preview under `progress/webdesign/ql-site-v2/` is deliberately untouched.
 
 ## Unfinished before retiring qwertykids.com
