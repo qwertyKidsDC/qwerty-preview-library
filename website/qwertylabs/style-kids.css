@@ -182,15 +182,8 @@
   font-size: 15px !important;
   font-weight: 400 !important;
 }
-/* Real equipment photographs beneath approved Qwerty photo frames.
-   The Codey Rocky photo is kept intact: the old near-white alpha filter
-   was erasing the robot's white casing. */
-.kids-cutout-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
+/* Framed equipment images are finished PNG composites: transparent outside,
+   solid paper inside. Their device and frame must never be layered twice. */
 .kids-question:has(> .kids-tool) {
   min-height: 385px;
 }
@@ -237,83 +230,14 @@
   width: 288px;
   --tool-tilt: -5deg;
 }
-/* The frame files are approved, pre-rendered assets with transparent openings.
-   Keep their intrinsic proportions; never stretch/rotate the artwork itself. */
 .kids-tool__art {
-  position: relative;
-  isolation: isolate;
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
 }
-.kids-tool--codey .kids-tool__art { aspect-ratio: 1; }
-.kids-tool--gamego .kids-tool__art { aspect-ratio: 514 / 700; }
-.kids-tool--microbit .kids-tool__art { aspect-ratio: 700 / 516; }
-.kids-tool--raspberry .kids-tool__art { aspect-ratio: 700 / 422; }
 .kids-tool__device {
-  position: absolute;
-  z-index: 1;
-  top: 12%;
-  left: 10%;
-  display: block;
-  width: 80%;
-  height: 76%;
-  object-fit: contain;
-  background: transparent;
-  filter: url("#kids-white-to-alpha") drop-shadow(3px 5px 3px rgba(0,0,0,.38));
-}
-.kids-tool__frame {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  pointer-events: none;
-}
-.kids-tool--codey .kids-tool__device {
-  top: 15%;
-  left: 16%;
-  width: 68%;
-  height: 69%;
-  background: white;
-  filter: none; /* Preserve the real Codey Rocky's white casing. */
-}
-/* The image is cropped to each approved frame's clear opening,
-   with the original cardboard/paper frame overlaying the photograph. */
-.kids-tool__window {
-  position: absolute;
-  z-index: 1;
-  display: block;
-  overflow: hidden;
-}
-.kids-tool--gamego .kids-tool__window {
-  inset: 7% 7% 8%;
-}
-.kids-tool--microbit .kids-tool__window {
-  inset: 7% 5.5% 8%;
-}
-.kids-tool--raspberry .kids-tool__window {
-  inset: 9% 6% 10%;
-}
-.kids-tool__window .kids-tool__device {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.16);
-  transform-origin: center;
-}
-.kids-tool--gamego .kids-tool__window .kids-tool__device {
-  transform: scale(1.2);
-}
-.kids-tool--microbit .kids-tool__window .kids-tool__device {
-  transform: scale(1.16);
-}
-.kids-tool--raspberry .kids-tool__window .kids-tool__device {
-  transform: scale(1.16);
+  height: auto;
 }
 .kids-tool__label {
   position: relative;
