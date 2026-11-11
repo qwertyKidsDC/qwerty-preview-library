@@ -281,7 +281,7 @@
   /* The wide framed board follows the mascot's outer right-hand guide. */
   right: -55px;
   width: 288px;
-  --tool-tilt: -5deg;
+  --tool-tilt: 5deg;
 }
 .kids-tool__art {
   display: block;

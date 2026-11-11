@@ -25,7 +25,7 @@
 (() => {
   const tilts = [
     ['codey', 3, 10],
-    ['raspberry', -9, -2]
+    ['raspberry', 2, 9]
   ];
   for (const [name, minimum, maximum] of tilts) {
     const frame = document.querySelector('.kids-tool--' + name);
