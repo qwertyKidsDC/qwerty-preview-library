@@ -73,7 +73,7 @@
    overlaid on the existing photo without changing the image itself. */
 .projects--kids {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
 .projects--kids .photo-collage {
@@ -82,7 +82,7 @@
   left: auto;
   grid-column: 1;
   grid-row: 1;
-  width: min(520px, calc(100% + 20px));
+  width: 100%;
   height: auto;
   aspect-ratio: 700 / 516;
 }
