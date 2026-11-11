@@ -104,14 +104,20 @@
 }
 .projects--kids .project-copy {
   width: 100%;
-  padding-top: 96px; /* Clear the title and its existing green tape. */
+  padding-top: 123px;
+  padding-right: 40px;
 }
+/* Align the heading lettering itself with the homepage card titles,
+   not the card background. Keep the approved green tape underneath. */
 .projects--kids .project-label {
-  top: 0; /* Match the top edge of the homepage's coloured cards. */
+  top: 26px;
 }
 .projects--kids .project-label-text {
-  top: 16px;
+  top: 42px;
   font-size: 36px;
+}
+.projects--kids .project-copy p {
+  max-width: none; /* The copy uses the full half-column with balanced gutters. */
 }
 
 /* The six topics live on ONE expanding blackboard with cardboard trim:
@@ -403,9 +409,13 @@
   }
   .projects--kids .project-copy {
     width: min(365px, 100%);
-    padding: 96px 0 0 38px;
+    padding: 126px 30px 0 38px;
+  }
+  .projects--kids .project-label {
+    top: 35px;
   }
   .projects--kids .project-label-text {
+    top: 51px;
     font-size: 30px;
   }
 
