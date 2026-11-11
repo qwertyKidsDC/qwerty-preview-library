@@ -43,7 +43,7 @@
 }
 
 /* 02 — Shared foundations and responsive artwork */
-/* 01. Homepage foundations. Brand palette and themes are defined in brand.css.
+/* 01. Homepage foundations. Brand palette and themes are declared above.
    Workshop lighting and cardboard browns are decorative artwork, not UI colours. */
 :root {
   /* Shared type scale; fit containers to text, not text to containers. */
@@ -1263,12 +1263,12 @@
 }
 
 /* 03 — Kids page */
-:where(html[data-brand="kids"][data-layout="site"]) .navigation-current{
+:where(html[data-brand="kids"][data-layout="site"]) .navigation-current {
   display: inline-block;
   color: var(--color-green);
   text-shadow: 0 2px 7px #000;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .hero h1{
+:where(html[data-brand="kids"][data-layout="site"]) .hero h1 {
   top: 43px;
   left: 54px;
   width: 338px;
@@ -1280,11 +1280,10 @@
   transform: rotate(-1.2deg);
 }
 :where(html[data-brand="kids"][data-layout="site"]) .hero-title,
-
-:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
   display: block;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
   max-width: 315px;
   margin-top: -7px;
   font-size: 29px;
@@ -1292,10 +1291,10 @@
   letter-spacing: -.02em;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .hero-copy{
+:where(html[data-brand="kids"][data-layout="site"]) .hero-copy {
   z-index: 4;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links {
   position: relative;
   z-index: 4;
   display: flex;
@@ -1306,36 +1305,34 @@
   font-weight: 700;
   line-height: 1.45;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links .scene-link{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links .scene-link {
   margin-top: 0;
   color: var(--color-ivory);
   white-space: nowrap;
 }
 
-
-:where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids{
+:where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids {
   margin-top: -24px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 22px;
   margin-top: 17px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links .scene-link{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links .scene-link {
   margin-top: 0;
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
 }
 
-
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage {
   position: relative;
   top: 86px;
   left: auto;
@@ -1347,44 +1344,43 @@
   margin-inline: auto;
   transform: none; 
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-photo{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-photo {
   top: 7%;
   left: 5.5%;
   width: 89%;
   height: 85%;
   transform: none;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel {
   position: relative;
   left: -45px; 
   grid-column: 2;
   grid-row: 1;
   min-height: 405px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel {
   top: 26px;
   left: 0;
   width: 100%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy {
   width: 100%;
   padding-top: 123px;
   padding-right: 40px;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label {
   top: 26px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text {
   top: 42px;
   font-size: 36px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy p{
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy p {
   max-width: none; 
 }
 
-
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board {
   position: relative;
   z-index: 6;
   isolation: isolate;
@@ -1392,7 +1388,7 @@
   padding: 17px 23px 56px;
   color: var(--color-ivory);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before {
   content: "";
   position: absolute;
   inset: 22px 0 0;
@@ -1406,16 +1402,16 @@
   border-image-repeat: stretch round;
   filter: brightness(1.15);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question {
   position: relative;
   z-index: 1;
   margin: 0;
   padding: 87px 45px 17px 37px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
   margin-top: 14px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
   position: absolute;
   z-index: 2;
   top: 5.621px;
@@ -1423,7 +1419,7 @@
   width: 354px;
   height: 64.053px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading {
   position: absolute;
   z-index: 3;
   top: 22px;
@@ -1437,36 +1433,34 @@
   text-transform: uppercase;
   transform: rotate(-1.2deg);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy {
   position: relative;
   width: 66.6667%;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
-
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p {
   margin: 0 0 16px;
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:last-child,
-
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p:last-of-type{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p:last-of-type {
   margin-bottom: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:first-child{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:first-child {
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option + .kids-question__option{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option + .kids-question__option {
   margin-top: 30px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3 {
   margin: 0 0 10px;
   font-size: 21px;
   line-height: 1.2;
   letter-spacing: -.025em;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a {
   position: relative;
   display: inline-block;
   margin-top: 13px;
@@ -1475,7 +1469,7 @@
   line-height: 1.4;
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a::after{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -1487,10 +1481,10 @@
   -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
   mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a:is(:hover,:focus-visible)::after{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a:is(:hover,:focus-visible)::after {
   background-color: var(--color-blue);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p.kids-question__booking-note{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p.kids-question__booking-note {
   margin-top: 27px;
   padding-top: 16px;
   border-top: 1px dashed rgba(247,244,235,.65);
@@ -1498,10 +1492,10 @@
   font-weight: 400;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool){
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool) {
   min-height: 385px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool {
   position: absolute;
   z-index: 3;
   top: 112px;
@@ -1519,41 +1513,41 @@
   transform: rotate(var(--tool-tilt, 5deg));
   transition: transform .15s ease;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey {
   top: 115px;
   right: 28px;
   width: 218px;
   --tool-tilt: 7deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego {
   top: 83px;
   right: 69px;
   width: 205px;
   --tool-tilt: 0deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit {
   top: 126px;
   right: 30px;
   width: 262px;
   --tool-tilt: -4deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry {
   top: 101px;
-  
+
   right: -55px;
   width: 288px;
   --tool-tilt: 5deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__art{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__art {
   display: block;
   width: 100%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__device{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__device {
   display: block;
   width: 100%;
   height: auto;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label {
   position: relative;
   z-index: 3;
   display: inline-block;
@@ -1562,7 +1556,7 @@
   line-height: 1.25;
   text-shadow: 0 2px 3px rgba(0,0,0,.7);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label::after{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1574,30 +1568,29 @@
   mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
   opacity: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible){
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) {
   transform: rotate(0deg) translateY(-3px);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) .kids-tool__label::after{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) .kids-tool__label::after {
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool {
     transition: none;
   }
 }
 
-
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
   position: relative;
   isolation: isolate;
   z-index: 2;
   width: 66.6667%;
   margin: 35px 0 17px 37px;
   padding: 48px 57px 53px;
-  
+
   color: var(--color-ink);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1609,164 +1602,159 @@
   border-image-width: 40px 43px;
   border-image-repeat: stretch;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__inner{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__inner {
   width: 100%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote {
   margin: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p {
   margin: 0 0 19px;
   font-size: 21px;
   font-weight: 700;
   line-height: 1.46;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote cite{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote cite {
   font-size: 15px;
   line-height: 1.4;
   font-style: normal;
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
   margin-top: 17px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
   margin-top: 54px;
 }
 
 @media (max-width: 760px) {
-  :where(html[data-brand="kids"][data-layout="site"]) .hero h1{
+  :where(html[data-brand="kids"][data-layout="site"]) .hero h1 {
     top: 45px;
     left: 53px;
     width: calc(100% - 75px);
     font-size: clamp(44px, 11vw, 65px);
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
     max-width: 100%;
     font-size: clamp(22px, 6vw, 29px);
   }
-  
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids{
+
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 10px;
     min-height: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage {
     top: 18px;
     left: 0;
     grid-column: 1;
     grid-row: 1;
     width: min(360px, 80%);
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel {
     left: 0; 
     grid-column: 1;
     grid-row: 2;
     min-height: 355px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-panel {
     top: 35px;
     width: min(420px, 100%);
     height: 320px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-copy {
     width: min(365px, 100%);
     padding: 126px 30px 0 38px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label {
     top: 35px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-label-text {
     top: 51px;
     font-size: 30px;
   }
 
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links {
     margin: 6px 0 0 49px;
     gap: 8px 16px;
     font-size: 16px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids{
+  :where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids {
     margin-top: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links{
+  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
     gap: 5px 17px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline{
+  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
     margin-top: -5px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board {
     width: min(400px, calc(100% - 30px));
     margin: 24px auto 0;
     padding: 12px 8px 45px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before {
     inset: 20px 0 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question {
     padding: 87px 28px 23px 29px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
     margin-top: 9px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
     top: 5px;
     width: min(300px, 94%);
     height: auto;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading {
     top: 21px;
     left: 35px;
     font-size: 27px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy {
     width: 100%;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
-
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p {
     font-size: 16px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3 {
     font-size: 20px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool){
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool) {
     min-height: 0;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool,
-
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey,
-
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego,
-
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit,
-
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry {
     position: relative;
     top: auto;
     right: auto;
     max-width: 100%;
     margin: 23px auto 5px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey{ width: min(218px, 77%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego{ width: min(205px, 72%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit{ width: min(262px, 92%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry{ width: min(288px, 94%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey { width: min(218px, 77%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego { width: min(205px, 72%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit { width: min(262px, 92%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry { width: min(288px, 94%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
     width: auto;
     margin: 28px 10px 16px;
     padding: 40px 27px 46px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before {
     border-image-width: 32px;
   }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p{
+:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p {
     font-size: 19px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
     margin-top: 13px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards{
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
     margin-top: 45px;
   }
 }
