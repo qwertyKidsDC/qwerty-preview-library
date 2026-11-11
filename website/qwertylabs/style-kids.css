@@ -68,6 +68,46 @@
   white-space: nowrap;
 }
 
+/* Ages panel: same artwork and copy, with the photo on the left and
+   the green-tape text panel on the right. The approved horizontal mat is
+   overlaid on the existing photo without changing the image itself. */
+.projects--kids {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  align-items: start;
+}
+.projects--kids .photo-collage {
+  position: relative;
+  top: -26px;
+  left: auto;
+  grid-column: 1;
+  grid-row: 1;
+  width: min(520px, calc(100% + 20px));
+  height: auto;
+  aspect-ratio: 700 / 516;
+}
+.projects--kids .project-photo {
+  top: 7%;
+  left: 5.5%;
+  width: 89%;
+  height: 85%;
+  transform: none;
+}
+.projects--kids .kids-ages-panel {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 405px;
+}
+.projects--kids .project-panel {
+  top: 26px;
+  left: 0;
+  width: 100%;
+}
+.projects--kids .project-copy {
+  width: 100%;
+}
+
 /* The six topics live on ONE expanding blackboard with cardboard trim:
    exactly the nine-slice asset and rendering rules of Acknowledgement of Country.
    Only the headings and testimonial introduce separate surfaces. */
@@ -334,6 +374,35 @@
   .projects--kids .project-label-text {
     font-size: 30px;
   }
+  /* Narrow screens: picture first, then the full-width Ages copy. */
+  .projects--kids {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    min-height: 0;
+  }
+  .projects--kids .photo-collage {
+    top: 0;
+    left: 0;
+    grid-column: 1;
+    grid-row: 1;
+    width: min(520px, 100%);
+    aspect-ratio: 700 / 516;
+  }
+  .projects--kids .kids-ages-panel {
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 355px;
+  }
+  .projects--kids .project-panel {
+    top: 35px;
+    width: min(420px, 100%);
+    height: 320px;
+  }
+  .projects--kids .project-copy {
+    width: min(365px, 100%);
+    padding: 95px 0 0 38px;
+  }
+
   .kids-hero-links {
     margin: 6px 0 0 49px;
     gap: 8px 16px;
