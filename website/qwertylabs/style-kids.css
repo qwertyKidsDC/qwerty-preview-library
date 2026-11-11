@@ -71,8 +71,6 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  /* Same visible right-hand guide as the homepage audience cards. */
-  margin-right: 56.4px;
 }
 .projects--kids .photo-collage {
   position: relative;
@@ -83,8 +81,7 @@
   width: 80%;
   height: auto;
   aspect-ratio: 700 / 516;
-  margin-left: auto;
-  margin-right: 0; /* Bring the framed photo nearer the text column. */
+  margin-inline: auto;
   transform: none; /* Keep the photograph and mat-h frame level. */
 }
 .projects--kids .project-photo {
@@ -96,6 +93,7 @@
 }
 .projects--kids .kids-ages-panel {
   position: relative;
+  left: -45px; /* Pull the entire RHS towards the photo and align the paper edge below. */
   grid-column: 2;
   grid-row: 1;
   min-height: 405px;
@@ -107,15 +105,16 @@
 }
 .projects--kids .project-copy {
   width: 100%;
-  padding-top: 152px;
+  padding-top: 123px;
   padding-right: 40px;
 }
-/* Move the green tape AND its heading down, independently of the backboard. */
+/* Align the heading lettering itself with the homepage card titles,
+   not the card background. Keep the approved green tape underneath. */
 .projects--kids .project-label {
-  top: 55px;
+  top: 26px;
 }
 .projects--kids .project-label-text {
-  top: 71px;
+  top: 42px;
   font-size: 36px;
 }
 .projects--kids .project-copy p {
@@ -390,7 +389,6 @@
     grid-template-columns: minmax(0, 1fr);
     row-gap: 10px;
     min-height: 0;
-    margin-right: 12px;
   }
   .projects--kids .photo-collage {
     top: 18px;
@@ -399,9 +397,9 @@
     grid-row: 1;
     width: min(360px, 80%);
     aspect-ratio: 700 / 516;
-    margin-inline: auto;
   }
   .projects--kids .kids-ages-panel {
+    left: 0; /* Reset the desktop nudge when the columns stack. */
     grid-column: 1;
     grid-row: 2;
     min-height: 355px;
