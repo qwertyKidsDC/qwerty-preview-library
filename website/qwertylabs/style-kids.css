@@ -350,11 +350,17 @@
   width: 91%;
   transform: rotate(-6deg);
 }
-.kids-question--mascot-study .kids-question__mascots img:last-child {
-  top: 135px;
-  right: 9px;
-  width: 96%;
-  transform: rotate(6deg);
+/* Second approved sticker-sheet figure occupies the open When? photo column. */
+.kids-question--when-mascot .kids-question__when-mascot {
+  position: absolute;
+  top: 132px;
+  right: 12px;
+  display: block;
+  width: 29%;
+  max-width: none;
+  height: auto;
+  transform: rotate(5deg);
+  pointer-events: none;
 }
 
 /* The green testimonial is a separate paper card placed INSIDE the board. */
@@ -495,12 +501,18 @@
     height: auto;
     margin-top: 16px;
   }
-  .kids-question--mascot-study .kids-question__mascots img,
-  .kids-question--mascot-study .kids-question__mascots img:first-child,
-  .kids-question--mascot-study .kids-question__mascots img:last-child {
+  .kids-question--mascot-study .kids-question__mascots img {
     position: static;
     width: 47%;
     max-width: 47%;
+  }
+  .kids-question--when-mascot .kids-question__when-mascot {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(255px, 70%);
+    max-width: 70%;
+    margin: 20px auto 0;
   }
   .kids-question + .kids-question {
     margin-top: 9px;
