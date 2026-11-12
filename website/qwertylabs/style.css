@@ -1538,13 +1538,13 @@
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey {
   top: 115px;
   right: 28px;
-  width: 218px;
+  width: 262px;
   --tool-tilt: 7deg;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego {
   top: 83px;
   right: 69px;
-  width: 205px;
+  width: 262px;
   --tool-tilt: 0deg;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit {
@@ -1751,8 +1751,8 @@
     max-width: 100%;
     margin: 23px auto 5px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey { width: min(218px, 77%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego { width: min(205px, 72%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey { width: min(262px, 92%); }
+  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego { width: min(262px, 92%); }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit { width: min(262px, 92%); }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry { width: min(288px, 94%); }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
