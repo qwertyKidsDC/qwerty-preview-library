@@ -1398,6 +1398,9 @@
   z-index: 6;
   isolation: isolate;
   margin: 30px 56.4px 0 39px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   padding: 17px 23px 56px;
   color: var(--color-ivory);
 }
@@ -1422,7 +1425,7 @@
   padding: 87px 45px 17px 37px;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
-  margin-top: 14px;
+  margin-top: 0;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
   position: absolute;
@@ -1506,8 +1509,14 @@
 }
 
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool) {
-  min-height: 385px;
+  min-height: 0;
 }
+/* Reserve only the height actually needed by each floating device, rather
+   than imposing 385px on every question. Text can expand these naturally. */
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--codey) { min-height: 365px; }
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--gamego) { min-height: 320px; }
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--microbit) { min-height: 425px; }
+:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--raspberry) { min-height: 350px; }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool {
   position: absolute;
   z-index: 3;
@@ -1598,8 +1607,8 @@
   isolation: isolate;
   z-index: 2;
   width: 66.6667%;
-  margin: 35px 0 17px 37px;
-  padding: 48px 57px 53px;
+  margin: 0 0 0 37px;
+  padding: 42px 57px 43px;
 
   color: var(--color-ink);
 }
@@ -1634,7 +1643,7 @@
   font-weight: 700;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
-  margin-top: 17px;
+  margin-top: 0;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
   margin-top: 54px;
@@ -1696,6 +1705,7 @@
   :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board {
     width: min(400px, calc(100% - 30px));
     margin: 24px auto 0;
+    gap: 12px;
     padding: 12px 8px 45px;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before {
@@ -1705,7 +1715,7 @@
     padding: 87px 28px 23px 29px;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
-    margin-top: 9px;
+    margin-top: 0;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
     top: 5px;
@@ -1747,8 +1757,8 @@
   :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry { width: min(288px, 94%); }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
     width: auto;
-    margin: 28px 10px 16px;
-    padding: 40px 27px 46px;
+    margin: 0 10px;
+    padding: 37px 27px 38px;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before {
     border-image-width: 32px;
@@ -1757,7 +1767,7 @@
     font-size: 19px;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
-    margin-top: 13px;
+    margin-top: 0;
   }
   :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
     margin-top: 45px;
