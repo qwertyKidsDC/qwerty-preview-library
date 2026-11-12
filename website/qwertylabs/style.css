@@ -1543,7 +1543,7 @@
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego {
   top: 83px;
-  right: 69px;
+  right: 12px;
   width: 262px;
   --tool-tilt: 0deg;
 }
