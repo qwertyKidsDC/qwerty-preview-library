@@ -2041,15 +2041,19 @@
 }
 
 
-/* Tools only: use the same tall introduction-card geometry as Kids.
-   Keep a deliberate gap between the framed photo, the blue panel and the rocket. */
+/* Tools only: align the blue introduction and framed photo with clear
+   separation below the rocket. The main Kids layout remains unchanged. */
 @media (min-width: 761px) {
   .hero--tools .mascots {
-    top: -140px;
+    top: -149px;
+    width: 575px;
+  }
+  #tools-intro {
+    margin-top: -42px;
   }
   #tools-intro .kids-ages-panel {
     left: -16px;
-    top: -30px;
+    top: -58px;
   }
 }
 @media (max-width: 760px) {
@@ -2057,6 +2061,48 @@
     top: 118px;
     right: -110px;
     width: 400px;
+  }
+}
+
+/* Full-width (3/3) Tools testimonial, with equal video and text columns.
+   Reuses the homepage's cloud video/button and cardboard-offset frame. */
+#tools-cloud.kids-testimonial {
+  width: 100%;
+  margin: 0;
+  padding: 44px 46px;
+}
+#tools-cloud .kids-testimonial__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 28px;
+}
+#tools-cloud .tools-cloud__media {
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+#tools-cloud .kids-testimonial__quote p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.42;
+}
+@media (max-width: 760px) {
+  #tools-cloud.kids-testimonial {
+    width: 100%;
+    margin: 0;
+    padding: 34px 26px;
+  }
+  #tools-cloud .kids-testimonial__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+  #tools-cloud .tools-cloud__media {
+    max-width: 310px;
+    margin: 0 auto;
+  }
+  #tools-cloud .kids-testimonial__quote p {
+    font-size: 18px;
   }
 }
 
