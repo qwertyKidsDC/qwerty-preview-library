@@ -1540,7 +1540,6 @@
   color: var(--color-ivory);
   text-align: center;
   transform: rotate(var(--tool-tilt, 5deg));
-  transition: transform .15s ease;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey {
   top: 115px;
@@ -1585,30 +1584,10 @@
   line-height: 1.25;
   text-shadow: 0 2px 3px rgba(0,0,0,.7);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -5px;
-  height: 5px;
-  background-color: var(--color-blue);
-  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-  opacity: 0;
+:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:not(.kids-tool--raspberry) .kids-tool__label {
+  /* Match the Raspberry Pi caption's visible gap despite extra transparent padding in square frames. */
+  margin-top: -9px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) {
-  transform: rotate(0deg) translateY(-3px);
-}
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:is(:hover,:focus-visible) .kids-tool__label::after {
-  opacity: 1;
-}
-@media (prefers-reduced-motion: reduce) {
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool {
-    transition: none;
-  }
-}
-
 :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
   position: relative;
   isolation: isolate;
