@@ -2042,12 +2042,16 @@
 }
 
 
-/* Tools uses the Kids intro structure and positioning unchanged.
-   Only the approved hero mascot needs its own dimensions. */
+/* Tools retains the Kids intro card and photo layout. Its hero has no
+   booking links, so lift the entire intro row together rather than moving
+   the card independently. */
 @media (min-width: 761px) {
   .hero--tools .mascots {
     top: -149px;
     width: 575px;
+  }
+  #tools-intro {
+    margin-top: -112px;
   }
 }
 @media (max-width: 760px) {
