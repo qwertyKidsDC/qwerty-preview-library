@@ -1619,7 +1619,7 @@
   z-index: -1;
   pointer-events: none;
   border: 40px solid transparent;
-  border-image-source: url("img/kids-green-panel-untaped-vtrim.svg");
+  border-image-source: var(--testimonial-panel-image, url("img/kids-green-panel-untaped-vtrim.svg"));
   border-image-slice: 130 140 130 140 fill;
   border-image-width: 40px 43px;
   border-image-repeat: stretch;
