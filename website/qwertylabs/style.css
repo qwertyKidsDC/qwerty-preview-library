@@ -1427,9 +1427,14 @@
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
   margin-top: 0;
 }
-/* Tools: project categories use their bold subheadings without duplicate tape labels. */
+/* Tools: project categories use their own bold subheadings and share the
+   board's existing 18px gap, without extra space above and below each item. */
+:where(html[data-brand="kids"][data-layout="site"]) #tools-editorial #projects {
+  padding-bottom: 0;
+}
 :where(html[data-brand="kids"][data-layout="site"]) #tools-editorial .kids-question:not(:has(> .kids-question__heading)) {
-  padding-top: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
   position: absolute;
