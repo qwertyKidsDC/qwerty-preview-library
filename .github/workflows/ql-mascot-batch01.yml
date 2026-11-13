@@ -1,0 +1,27 @@
+name: Qwerty Labs mascot batch 01 - transparent PNGs
+on:
+  push:
+    paths:
+      - ".github/workflows/ql-mascot-batch01.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check pillow
+      - run: python website/qwertylabs/_tools/publish_mascot_pngs.py
+      - name: Publish five transparent PNG assets (leave originals unchanged)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/qwertylabs/img/mascot-ready/
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish transparent web-ready mascot batch 01"
+            git push
+          fi
