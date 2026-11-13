@@ -1375,7 +1375,8 @@
   padding: 79px 44px 58px;
   color: var(--color-ink);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy h2 {
+:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy h2,
+#tools-cloud .kids-testimonial__quote h2 {
   margin: 0;
   font-size: var(--text-heading);
   font-weight: 700;
@@ -2041,19 +2042,12 @@
 }
 
 
-/* Tools only: align the blue introduction and framed photo with clear
-   separation below the rocket. The main Kids layout remains unchanged. */
+/* Tools uses the Kids intro structure and positioning unchanged.
+   Only the approved hero mascot needs its own dimensions. */
 @media (min-width: 761px) {
   .hero--tools .mascots {
     top: -149px;
     width: 575px;
-  }
-  #tools-intro {
-    margin-top: -42px;
-  }
-  #tools-intro .kids-ages-panel {
-    left: -16px;
-    top: -58px;
   }
 }
 @media (max-width: 760px) {
@@ -2064,8 +2058,8 @@
   }
 }
 
-/* Full-width (3/3) Tools testimonial, with equal video and text columns.
-   Reuses the homepage's cloud video/button and cardboard-offset frame. */
+/* Tools Cloud testimonial: full board, 2/3 video and 1/3 copy.
+   Heading shares the KIT & CODOODLE typography; copy uses body type. */
 #tools-cloud.kids-testimonial {
   width: 100%;
   margin: 0;
@@ -2073,8 +2067,8 @@
 }
 #tools-cloud .kids-testimonial__inner {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
   gap: 28px;
 }
 #tools-cloud .tools-cloud__media {
@@ -2083,9 +2077,10 @@
   margin: 0;
 }
 #tools-cloud .kids-testimonial__quote p {
-  margin: 0;
-  font-size: 19px;
-  line-height: 1.42;
+  margin: 8px 0 0;
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
 }
 @media (max-width: 760px) {
   #tools-cloud.kids-testimonial {
@@ -2100,9 +2095,6 @@
   #tools-cloud .tools-cloud__media {
     max-width: 310px;
     margin: 0 auto;
-  }
-  #tools-cloud .kids-testimonial__quote p {
-    font-size: 18px;
   }
 }
 
