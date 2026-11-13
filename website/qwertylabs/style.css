@@ -1427,6 +1427,10 @@
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
   margin-top: 0;
 }
+/* Tools: project categories use their bold subheadings without duplicate tape labels. */
+:where(html[data-brand="kids"][data-layout="site"]) #tools-editorial .kids-question:not(:has(> .kids-question__heading)) {
+  padding-top: 30px;
+}
 :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
   position: absolute;
   z-index: 2;
