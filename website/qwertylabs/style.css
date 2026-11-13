@@ -2041,16 +2041,15 @@
 }
 
 
-/* Tools hero and intro: the blue card clears the framed photo,
-   while the rocket platform clears the card at desktop and mobile widths.
-   Scoped to Tools only; Kids and the shared card layout stay unchanged. */
+/* Tools only: use the same tall introduction-card geometry as Kids.
+   Keep a deliberate gap between the framed photo, the blue panel and the rocket. */
 @media (min-width: 761px) {
   .hero--tools .mascots {
-    top: -110px;
+    top: -140px;
   }
   #tools-intro .kids-ages-panel {
-    left: -4px;
-    top: -18px;
+    left: -16px;
+    top: -30px;
   }
 }
 @media (max-width: 760px) {
