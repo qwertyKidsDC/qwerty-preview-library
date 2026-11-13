@@ -1291,9 +1291,6 @@
   letter-spacing: -.02em;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .hero-copy {
-  z-index: 4;
-}
 :where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links {
   position: relative;
   z-index: 4;
