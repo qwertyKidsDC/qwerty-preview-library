@@ -918,8 +918,6 @@
 
 .navigation a::after,
 .footer-legal-links a::after,
-.footer-scene__content p a::after,
-#tools-editorial .kids-question__copy p a::after,
 .scene-link::after,
 .footer-card-links a::after,
 .feature h2 a::after {
@@ -948,6 +946,24 @@
   opacity: 1;
 }
 
+/* Inline text links use the approved squiggle as a background, so every
+   wrapped line gets its own underline. The absolute pseudo-element approach
+   above is retained for block links only. */
+.footer-scene__content p a,
+#tools-editorial .kids-question__copy p a {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 100% 5px;
+  padding-bottom: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.footer-scene__content p a:is(:hover, :focus-visible),
+#tools-editorial .kids-question__copy p a:is(:hover, :focus-visible) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
 /* Block-like page links retain the approved tight underline placement. */
 .scene-link::after,
 .footer-card-links a::after {
@@ -963,8 +979,6 @@
   background-color: var(--color-ink);
 }
 
-.footer-scene__content p a:is(:hover, :focus-visible)::after,
-#tools-editorial .kids-question__copy p a:is(:hover, :focus-visible)::after,
 .scene-link:is(:hover, :focus-visible)::after,
 .footer-card-links a:is(:hover, :focus-visible)::after,
 .feature h2 a:is(:hover, :focus-visible)::after {
