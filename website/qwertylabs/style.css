@@ -935,17 +935,15 @@
   mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
 }
 
-/* The navigation, policy and inline text squiggle appears only on hover/focus. */
+/* The navigation and policy squiggle appears only on hover/focus. */
 .navigation a::after,
-.footer-legal-links a::after,
-#tools-editorial .kids-question__copy p a::after {
+.footer-legal-links a::after {
   bottom: -4px;
   height: 7px;
   opacity: 0;
 }
 .navigation a:is(:hover, :focus-visible)::after,
-.footer-legal-links a:is(:hover, :focus-visible)::after,
-#tools-editorial .kids-question__copy p a:is(:hover, :focus-visible)::after {
+.footer-legal-links a:is(:hover, :focus-visible)::after {
   background-color: var(--color-blue);
   opacity: 1;
 }
@@ -966,6 +964,7 @@
 }
 
 .footer-scene__content p a:is(:hover, :focus-visible)::after,
+#tools-editorial .kids-question__copy p a:is(:hover, :focus-visible)::after,
 .scene-link:is(:hover, :focus-visible)::after,
 .footer-card-links a:is(:hover, :focus-visible)::after,
 .feature h2 a:is(:hover, :focus-visible)::after {
