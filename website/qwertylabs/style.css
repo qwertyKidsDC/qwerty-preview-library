@@ -2018,11 +2018,63 @@
 }
 
 
+/* Tools-specific image rhythm: short WHAT YOU MAKE entries should not inherit
+   the large Kids-page minimum heights; their existing frames remain unchanged. */
+#tools-editorial #codey-rocky { min-height: 145px; }
+#tools-editorial #websites { min-height: 190px; }
+#tools-editorial #codey-rocky > .kids-tool { top: -80px; }
+#tools-editorial #websites > .kids-tool { top: -75px; }
+
+/* Centre the rectangular mascot against the long YOUR IDEA copy. */
+#tools-editorial #your-idea > .kids-tool {
+  top: 50%;
+  transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
+}
+
+/* Inline editorial links: permanent dashed underline, blue squiggle on hover. */
+#tools-editorial .kids-question__copy p > a {
+  position: relative;
+  display: inline;
+  margin: 0;
+  border-bottom: 1px dashed currentColor;
+  text-decoration: none;
+}
+#tools-editorial .kids-question__copy p > a::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  opacity: 0;
+  background-color: var(--color-blue);
+  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
+}
+#tools-editorial .kids-question__copy p > a:is(:hover, :focus-visible) {
+  border-bottom-color: transparent;
+}
+#tools-editorial .kids-question__copy p > a:is(:hover, :focus-visible)::after {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  #tools-editorial #codey-rocky,
+  #tools-editorial #websites { min-height: 0; }
+  #tools-editorial #codey-rocky > .kids-tool,
+  #tools-editorial #websites > .kids-tool,
+  #tools-editorial #your-idea > .kids-tool { top: auto; }
+  #tools-editorial #your-idea > .kids-tool {
+    transform: rotate(var(--tool-tilt, 5deg));
+  }
+}
+
 /* Tools Cloud testimonial: full board, 2/3 video and 1/3 copy.
    Heading shares the KIT & CODOODLE typography; copy uses body type. */
 #tools-cloud.kids-testimonial {
   width: 66.6667%;
-  margin: 0 auto;
+  margin: 0 0 0 37px;
   padding: 0;
 }
 /* The video stands on the dark board, without a testimonial colour panel. */
@@ -2048,8 +2100,8 @@
 }
 @media (max-width: 760px) {
   #tools-cloud.kids-testimonial {
-    width: 100%;
-    margin: 0 auto;
+    width: calc(100% - 57px);
+    margin: 0 0 0 29px;
     padding: 0;
   }
   #tools-cloud .kids-testimonial__inner {
@@ -2057,8 +2109,8 @@
     gap: 22px;
   }
   #tools-cloud .tools-cloud__media {
-    max-width: 310px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
   }
 }
 
