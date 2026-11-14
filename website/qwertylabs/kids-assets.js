@@ -2,12 +2,13 @@
 "use strict";
 (() => {
   const fallbacks = [
-    ['.hero .mascots', 'img/mascot-making-led-crisp.svg?v=full-res-20261106'],
-    ['.country-ack__mascot', 'img/d1-country-lounging.svg']
+    ['.hero .mascots', 'img/kidsHero.png', 'img/mascot-making-led-crisp.svg?v=full-res-20261106'],
+    ['.country-ack__mascot', 'img/kidsFooter.png', 'img/d1-country-lounging.svg']
   ];
-  for (const [selector, fallback] of fallbacks) {
+  for (const [selector, originalSrc, fallback] of fallbacks) {
     const image = document.querySelector(selector);
-    if (!image) continue;
+    // Never substitute a Kids asset when a cloned page uses another mascot.
+    if (!image || image.getAttribute('src') !== originalSrc) continue;
     image.addEventListener('error', () => {
       if (!image.dataset.fallbackApplied) {
         image.dataset.fallbackApplied = 'true';

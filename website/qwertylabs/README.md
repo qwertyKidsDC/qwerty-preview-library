@@ -35,3 +35,15 @@ The page declares its brand in the root HTML element: `data-brand="lab"` (the de
 - `brand.js` reads `--brand-accent` and applies it to the matching arrow and hand cursors. On touch devices or without JavaScript, native pointers remain.
 - Wordmarks are selected as static image sources in each page: `img/wordmark.svg` for Lab, or `img/wordmark-labs-{green,pink,orange}.svg` for audience pages. This avoids a post-load colour swap and works with JavaScript disabled.
 - `style.css` is the only local stylesheet loaded by site pages. `script.js` is shared and safely skips interactions not present on a page.
+
+## Website continuity — clone gate
+
+The canonical layout is the current `kids.html` and its existing components in `style.css`. The approved homepage is `index.html`. Do not redesign or replace them when cloning a page.
+
+1. **Find and inspect** the current source page, its linked assets, shared stylesheet, and scripts before editing. A newly cloned page changes **copy, URLs, image sources, alt text and page identity**; it must not gain a new layout or link style.
+2. **Reuse existing classes.** Do not create page-specific CSS selectors, scripts, inline overrides, or duplicate component rules for a simple copy/image swap. The Tools and Tiarna pages deliberately reuse the Kids layout classes; their blue accent is the existing root custom property.
+3. **Use the same link contract** across all pages: navigation and policy links show the blue squiggle on hover/focus; text links use the approved ivory squiggle by default and blue on hover/focus, with wrapping handled by background decoration. Footer cards keep their approved paper-card variant.
+4. **Check all site pages together** if a shared file truly must change. Only edit `style.css` or JavaScript for a demonstrated shared-component defect; document the reason and review the exact diff before merging. A content/image change alone is never grounds to edit them.
+5. **Verify before publishing:** HTML landmarks and heading order; unique IDs and their `aria-labelledby` references; meaningful image alternatives; relative assets and navigation; keyboard focus and wrapped links; desktop and mobile layouts; console/network errors. Keep preview experiments separate from published page styles.
+
+All pages importing `style.css` use the same cache version. The source files, not cached browser views or generated substitutes, are the source of truth. Git history retains prior versions.
