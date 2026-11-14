@@ -1,0 +1,70 @@
+name: Qwerty paper backgrounds (one-time image-only update)
+on:
+  push:
+    paths:
+      - ".github/workflows/ql-framed-paper-once.yml"
+permissions:
+  contents: write
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check pillow numpy opencv-python-headless
+      - name: Replace white interior of existing nine WebP frames
+        run: |
+          python - <<'PY'
+          import io,base64,pathlib,subprocess
+          import numpy as np
+          import cv2
+          from PIL import Image
+          root=pathlib.Path("website/qwertylabs/img")
+          expected={"CodeyRocky-frame-fixed.webp":"011a2a8e037146cf459bd3cf7cf844ce43b7fc70","GameGo-frame-fixed.webp":"f138b1ddf05f7917d3f10977e9b1c8c64ad01c01","Microbit-frame-fixed.webp":"4577316bfeedd7be60852efb83e5518c545f37b6","RaspberryPi5-frame-fixed.webp":"1ef201413ad5ad5b9ff423a85265241e46ad763d","mascot-ready/MT02-R04-C04-framed.webp":"450870d05a75566457909453ad1b05049ac776d0","mascot-ready/MT04-R04-C02-framed.webp":"10bfcf97d68756059163173268ca334fe0c65ff9","mascot-ready/MT05-R02-C05-framed.webp":"3b828826fdb9493d515030dccd79917975258e93","mascot-ready/MS02-R01-C06-framed.webp":"97be206b587a587138e4ef22823b3cec6a1fd214","mascot-ready/MT04-R01-C05-framed.webp":"bc819039076c1437af6a1d306b8f54503481a98f"}
+          for name,old_sha in expected.items():
+              f=root/name
+              assert f.is_file(),f"Missing: {f}"
+              found=subprocess.check_output(["git","hash-object",str(f)],text=True).strip()
+              assert found==old_sha,f"Modified before paper update: {f}"
+          paper=Image.open(io.BytesIO(base64.b64decode("UklGRkwFAABXRUJQVlA4IEAFAABwIQCdASrwAJsAPp1Mn00lqCaloxJKWQATiWlob9W68fs6diKuiGn6oEuFKIwDVBZgTVOLVMr2WeRP0tpUWOT34Q+APOErJXBc7qRNqgfgu29ncO0Xbaw3v04SUx11F7KkoQ/gTaJ79AVE4zPhOSH8tZrnyUmkR4DW/S76OblTn6zrLL+4/b9LRgTOPBuIYxyKCOOjLMrhc00rJlxFvkMN32IHlIfU4rvj+u37uz5eQGipGaqcY+1L0XEkx+Qw53x8WxMk5lZ+21F35jtPewG3NWuDb41N40hRsLJnQhkNa2rt8SLV6OPAYcO+sRzDjccD6JziI2U/hyRpqNi2tP7VDZU3enYHdU1fXothrfgxEPIz3gAA/s9fQIuI2/XX9JdLkN+qyHPqINgVBtD1s1xOZEDzpFB36uvz3tzMQt/Q8FKZ2S+9SpRMyFHnlFEuwQuzNsH8Gzv1N6g+ZhLnS+kHYwRPEB8waangxvOUGNrr3cPiV3Be3BIBT7BXzA0Pp0MrGVknG8dsjAvknyqpfIM1xlXlzJX6/aZ5nas8EXNHxvYbh/4wCxup7fNwrOo3DWfIALjrYWH7iTUuOJQE5wqeV02TV67fYaAS6iYFRAw5COfkTzHHpO+KbkwOvKGQbC/bAXtivgT7vkfKCR7P3j1kQljbNRMqEsQ93WbjkTbvgz7GtPslY5E4MN8CzV0Lmjp4PbG8XYiCRzk55ETarCGfjOcoeQhZ0kBVj5lYCtdqbIJZ5Qvfv2qoSmoqQPFzj9va5NiSBIfHuz6o/Ti6dnxW2wsV53YiNpOEh77cjHIkqcaij8HQPFr0IGrKtt31Np8T5P91ajU9X2lfz+gvUOMiA0olmdtcORKRqRbY+zcibvYVb3MslDSS2HtNSi5OdguvfHl2KTDTQL9x+M8PqKbtIOFE/BsPjthjLcRXrf/pUhgeL84ZUiJEqPaVFBwSYv+9ZoxcooG7IAiQzUm/Cj4tk6cISt5P9nmjqpWfoRnKsE04DQIlLQvhUanTsBmQugf6iwOykbWeIvfuXSB8mtoHOrR8oYa4yexsmoY4fwvySv4GRaI7gmCnxQhZa+YnkBAtyAc52F6+qvX19qJ8CQPGiNHcJ5bxrK93VraSj9vsLFFFCZ1GwxSkmwq8zqHY/cp2+zilYDd8Lzln7v7fitPW9tNPJEnjPDSPAEg4HszY6OMFfjYPBhZb5RBvZvN4Ox32bOuWysGCuQjmbvIIGKLMztbQY8UN51gnVFw3IrnkIRDPq0WVwcZuAcuvlQNBJNVD102qab5DFr6MbOFhi4yoCwYj9wnyO7/nsmtF+nQDx3/6anZNLdZ6ubm1cFaSR3dzr1hhXfX53NfD2qxilHb4R4Z1ZQv4h9QwMEaaATGg6kFXkXq9DgFTEX4JwT3U/XCH373obj/8gl/30n9sOht1nQ5cdIGRQ6eiCIDCxk6Iupq/QTpKUZTBZpBY7bVbVq+YriW3FB76rkJgpeL/mbAiMXu4DSQ3h8LewS7FlW3ixO9mHpRUIv820rkncdvQh45eH8V74q3Nri8GYsDNodcZQgYgLZ6IUoi0drEqbVqpDWBhONcyfzoCpp9BxLBtSgtl+c6fQpJjOazBVVASqFqkbDRBVghR+4sd0+aDTcJ6bonx+4tLKvRuD0VMCB/uIR7V0ZgVzqLPkoz3UcUho4We/fJ4Pego4Yg/6kQQqKjPoBcXqgqYbiXfhq7ipJWqoZtSPFbWI8bihppkkoOowXRRCVKPj5KaF8PcJXyrVcAF6mR739TVtOxxlfV2soUAAAA="))).convert("RGB")
+          for name in expected:
+              f=root/name
+              rgba=np.array(Image.open(f).convert("RGBA"),dtype=np.uint8)
+              h,w=rgba.shape[:2]
+              rgb=rgba[:,:,:3]
+              hi=rgb.max(axis=2).astype(np.int16)
+              lo=rgb.min(axis=2).astype(np.int16)
+              y,x=np.ogrid[:h,:w]
+              clip=(x>=int(.10*w))&(x<int(.90*w))&(y>=int(.09*h))&(y<int(.91*h))
+              white=((lo>=225)&((hi-lo)<21)&(rgba[:,:,3]>220)&clip).astype(np.uint8)
+              n,labels,stats,centroids=cv2.connectedComponentsWithStats(white,8)
+              order=sorted([(int(stats[j,cv2.CC_STAT_AREA]),j) for j in range(1,n)],reverse=True)
+              assert order and order[0][0]>h*w*.025,f"No safe interior: {name}"
+              main=order[0][1]
+              x0,y0,bw,bh=[int(stats[main,k]) for k in [cv2.CC_STAT_LEFT,cv2.CC_STAT_TOP,cv2.CC_STAT_WIDTH,cv2.CC_STAT_HEIGHT]]
+              mask=(labels==main)
+              for area,j in order[1:]:
+                  if area>1200 and x0<centroids[j,0]<x0+bw and y0<centroids[j,1]<y0+bh:
+                      mask|=(labels==j)
+              blend=cv2.GaussianBlur(mask.astype(np.float32),(5,5),.9)
+              blend=np.maximum(blend,mask.astype(np.float32)*.9)[:,:,None]
+              surface=np.array(paper.resize((w,h),Image.Resampling.BICUBIC),dtype=np.uint8)
+              new=rgba.copy()
+              new[:,:,:3]=np.clip(rgb*(1-blend)+surface*blend,0,255).astype(np.uint8)
+              assert np.array_equal(new[:,:,3],rgba[:,:,3]),"Unexpected transparency change"
+              Image.fromarray(new,"RGBA").save(f,format="WEBP",quality=92,method=6,alpha_quality=100)
+              assert Image.open(f).size==(w,h)
+              print(name,":",round(float(mask.mean())*100,1),"% background; bytes:",f.stat().st_size)
+          print("Updated exactly nine referenced framed images, no HTML/CSS/JS changes.")
+          PY
+      - name: Commit images only and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/qwertylabs/img/CodeyRocky-frame-fixed.webp website/qwertylabs/img/GameGo-frame-fixed.webp website/qwertylabs/img/Microbit-frame-fixed.webp website/qwertylabs/img/RaspberryPi5-frame-fixed.webp website/qwertylabs/img/mascot-ready/MT02-R04-C04-framed.webp website/qwertylabs/img/mascot-ready/MT04-R04-C02-framed.webp website/qwertylabs/img/mascot-ready/MT05-R02-C05-framed.webp website/qwertylabs/img/mascot-ready/MS02-R01-C06-framed.webp website/qwertylabs/img/mascot-ready/MT04-R01-C05-framed.webp
+          git rm ".github/workflows/ql-framed-paper-once.yml"
+          git diff --cached --name-only
+          git commit -m "Apply matching textured paper to Kids and Tools frame interiors"
+          git push origin HEAD:main
