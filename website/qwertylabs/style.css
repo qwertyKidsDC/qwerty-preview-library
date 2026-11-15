@@ -1773,13 +1773,6 @@
 }
 
 /* 04 — Tools uses the shared Kids layout; only differences below are kept. */
-/* Tools-specific image rhythm: short WHAT YOU MAKE entries should not inherit
-   the large Kids-page minimum heights; their existing frames remain unchanged. */
-#tools-editorial #codey-rocky { min-height: 145px; }
-#tools-editorial #websites { min-height: 190px; }
-#tools-editorial #codey-rocky > .kids-tool { top: -220px; }
-#tools-editorial #websites > .kids-tool { top: -205px; }
-
 /* Centre the rectangular mascot against the long YOUR IDEA copy. */
 #tools-editorial #your-idea > .kids-tool {
   top: 50%;
@@ -1787,12 +1780,8 @@
 }
 
 @media (max-width: 760px) {
-  #tools-editorial #codey-rocky,
-  #tools-editorial #websites { min-height: 0; }
-  #tools-editorial #codey-rocky > .kids-tool,
-  #tools-editorial #websites > .kids-tool,
-  #tools-editorial #your-idea > .kids-tool { top: auto; }
   #tools-editorial #your-idea > .kids-tool {
+    top: auto;
     transform: rotate(var(--tool-tilt, 5deg));
   }
 }
