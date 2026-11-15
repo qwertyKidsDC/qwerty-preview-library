@@ -1358,8 +1358,8 @@
 }
 :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-photo {
   top: 7%;
-  left: 5.5%;
-  width: 89%;
+  left: 3%;
+  width: 91.5%;
   height: 85%;
   transform: none;
 }
