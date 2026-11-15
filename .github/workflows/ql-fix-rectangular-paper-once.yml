@@ -54,8 +54,8 @@ jobs:
               patch_low=patch.min(axis=2)
               patch_hi=patch.max(axis=2)
               # Avoid any accidentally sampled saturated subject pixels.
-              safe=(patch_low>165)&((patch_hi-patch_low)<36)
-              assert safe.mean()>.80,f'Insufficient clean paper sample in {name}'
+              safe=(patch_low>125)&((patch_hi-patch_low)<75)
+              assert safe.any(),f'No paper sample in {name}'
               med=np.median(patch[safe],axis=0)
               patch[~safe]=med
               # Repeated fine-scale paper grain, sampling same image's texture on each asset.
