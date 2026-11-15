@@ -1773,6 +1773,10 @@
 }
 
 /* 04 — Tools uses the shared Kids layout; only differences below are kept. */
+/* The short project categories don't need the Kids page's tall image reserve. */
+#tools-editorial #raspberry-pi { min-height: 175px; }
+#tools-editorial #raspberry-pi > .kids-tool { top: -60px; }
+
 /* Centre the rectangular mascot against the long YOUR IDEA copy. */
 #tools-editorial #your-idea > .kids-tool {
   top: 50%;
@@ -1780,6 +1784,8 @@
 }
 
 @media (max-width: 760px) {
+  #tools-editorial #raspberry-pi { min-height: 0; }
+  #tools-editorial #raspberry-pi > .kids-tool { top: auto; }
   #tools-editorial #your-idea > .kids-tool {
     top: auto;
     transform: rotate(var(--tool-tilt, 5deg));
