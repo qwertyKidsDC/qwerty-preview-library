@@ -17,12 +17,12 @@ jobs:
       - name: Correct two rectangular image backgrounds only
         run: |
           python - <<'PY'
-          import io,base64,pathlib,subprocess
+          import pathlib,subprocess
           from PIL import Image
           import numpy as np,cv2
           root=pathlib.Path("website/qwertylabs/img")
           expected={"RaspberryPi5-frame-fixed.webp":"0605f222e2bcadfcf0ac7ecc3ccce254696f4a2e","mascot-ready/MS02-R01-C06-framed.webp":"7f2bb10b1790d01233840b13dba16efcd1ca827c"}
-          paper=Image.open(io.BytesIO(base64.b64decode("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"))).convert("RGB")
+          paper=None  # Use the existing paper texture from each framed image
           for name,sha in expected.items():
               f=root/name
               assert f.is_file(), f"Missing source {f}"
@@ -47,7 +47,9 @@ jobs:
               soft=cv2.GaussianBlur(cv2.dilate(ring,np.ones((3,3),np.uint8),iterations=1).astype("float32"),(3,3),0.65)
               alpha=np.maximum(soft,ring).clip(0,1)[:,:,None]
               sample=np.median(rgb[80:145,120:230,:],axis=(0,1))
-              target=np.array(paper.resize((w,h),Image.Resampling.BICUBIC),dtype=np.float32)
+          # Clean, existing paper-only patch: the top-left interior contains no mascots.
+          patch=Image.fromarray(rgb[75:155,105:285].copy(),"RGB")
+          target=np.array(patch.resize((w,h),Image.Resampling.BICUBIC),dtype=np.float32)
               target=np.clip(target+sample-np.median(target,axis=(0,1)),0,255)
               result=rgba.copy()
               result[:,:,:3]=np.clip(rgb.astype("float32")*(1-alpha)+target*alpha,0,255).astype(np.uint8)
