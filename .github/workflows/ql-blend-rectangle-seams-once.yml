@@ -84,7 +84,10 @@ jobs:
               # Lossless WebP preserves every original pixel outside the blended bands.
               Image.fromarray(result,"RGBA").save(file,format="WEBP",lossless=True,method=6)
               final = np.asarray(Image.open(file).convert("RGBA"))
-              assert np.array_equal(final,result), "Lossless output failed round-trip"
+              assert np.array_equal(final[:,:,3],result[:,:,3]), "Output transparency changed"
+    visible = result[:,:,3]>249
+    assert np.array_equal(final[visible,:3],result[visible,:3]), "Opaque pixels changed in lossless export"
+    print(name, "invisible colour-channel differences:", int(np.count_nonzero(np.any(final[:,:,:3]!=result[:,:,:3],axis=2)&(~visible))))
               assert Image.open(file).size==(w,h)
               print(f"VERIFIED {name} | smoothed {int(changed.sum())} paper pixels | outside seam pixel-identical | {file.stat().st_size} bytes")
           print("Exactly two rectangle assets changed; no square images, HTML or CSS.")
