@@ -1857,12 +1857,13 @@
 }
 
 :where(html[data-layout="site"]) #tiarna-story .kids-question--plain {
-  padding-top: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 :where(html[data-layout="site"]) #tiarna-story .kids-question__subheading {
   margin: 0 0 18px;
-  color: var(--color-blue);
+  color: #0F69FA;
   font-size: 24px;
   font-weight: 700;
   line-height: 1.2;
