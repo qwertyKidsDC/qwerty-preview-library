@@ -1850,3 +1850,21 @@
     gap: 5px 17px;
   }
 }
+
+/* A Kid's POV: simple blue article subheadings, without the tape artwork. */
+:where(html[data-layout="site"]) #tiarna-intro-title {
+  text-transform: none;
+}
+
+:where(html[data-layout="site"]) #tiarna-story .kids-question--plain {
+  padding-top: 24px;
+}
+
+:where(html[data-layout="site"]) #tiarna-story .kids-question__subheading {
+  margin: 0 0 18px;
+  color: var(--color-blue);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
