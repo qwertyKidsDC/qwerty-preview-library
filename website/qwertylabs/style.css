@@ -1863,7 +1863,7 @@
 
 :where(html[data-layout="site"]) #tiarna-story .kids-question__subheading {
   margin: 0 0 18px;
-  color: #0F69FA;
+  color: var(--color-blue);
   font-size: 24px;
   font-weight: 700;
   line-height: 1.2;
