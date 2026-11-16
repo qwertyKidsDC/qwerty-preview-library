@@ -1326,6 +1326,14 @@
 :where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids {
   margin-top: -24px;
 }
+
+/* The shorter approved POV trio needs the intro row to tuck further beneath
+   its cardboard platform; keep sibling subpages and mobile spacing unchanged. */
+@media (min-width: 761px) {
+  :where(html[data-layout="site"]) .hero + #tiarna-intro {
+    margin-top: -68px;
+  }
+}
 :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
   display: flex;
   flex-wrap: wrap;
