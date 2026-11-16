@@ -1,7 +1,7 @@
 /* Qwerty Labs — canonical site stylesheet
    One local stylesheet for all site pages. The approved desktop/mobile design
    remains unchanged. Subpage layout is independent of its colour theme;
-   preview-only rules target unique classes. November 2026. */
+   draft pages retain their own scoped components. November 2026. */
 
 /* 01 — Approved brand and cursors */
 :root {
@@ -1751,7 +1751,7 @@
   }
 }
 
-/* 04 — Tools uses the shared Kids layout; only differences below are kept. */
+/* Tools content spacing uses the shared subpage components. */
 /* Keep WHAT YOU MAKE categories evenly spaced; float the VR frame one paragraph higher. */
 #tools-editorial #raspberry-pi { min-height: 0; }
 #tools-editorial #raspberry-pi > .subpage-art { top: -145px; }
@@ -1794,38 +1794,6 @@
   #tools-cloud.subpage-callout {
     width: calc(100% - 57px);
     margin: 0 0 0 29px;
-  }
-}
-
-/* 05 — Kids Ages unapproved experiment */
-/* Preview-only: homepage Coolest Projects layout for the Kids Ages panel.
-   The approved shared styles and original Kids page are untouched. */
-.hero + .footer-scene--ages-preview {
-  margin-top: calc(var(--space-section) + 62px);
-}
-.footer-scene--ages-preview .subpage-intro__photo {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.footer-scene--ages-preview .subpage-project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 22px;
-  margin-top: 17px;
-}
-.footer-scene--ages-preview .subpage-project-links .scene-link {
-  margin-top: 0;
-  font-size: 16px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-@media (max-width: 760px) {
-  .hero + .footer-scene--ages-preview {
-    margin-top: calc(var(--space-section) + 32px);
-  }
-  .footer-scene--ages-preview .subpage-project-links {
-    gap: 5px 17px;
   }
 }
 

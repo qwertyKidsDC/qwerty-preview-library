@@ -5,7 +5,7 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 ## Approved versus draft
 
 - **Approved homepage:** `index.html`, the single `style.css`, `script.js`, `brand.js`, and approved `img/` assets.
-- **Approved Kids page (11 November 2026):** `kids.html`, the shared `style.css`, `kids-assets.js`, and approved assets. The last signed-off layout is the source of truth; staging `noindex` stays until launch.
+- **Approved Kids page (11 November 2026):** `kids.html`, the shared `style.css`, `script.js`, and approved assets. The last signed-off layout is the source of truth; staging `noindex` stays until launch.
 - **Draft, not yet approved:** `adults.html`, `teens.html`, `thelab.html`. These pages remain under review; do not treat them as final production pages.
 - The existing design preview under `progress/webdesign/ql-site-v2/` is deliberately untouched.
 
@@ -19,7 +19,7 @@ The homepage has `<meta name="robots" content="noindex,nofollow">` while staging
 
 ## One stylesheet
 
-`style.css` replaces separate brand, homepage, Kids, Tools and Kids Ages-preview styles. All site pages load only this local CSS (with Google Fonts served externally). The old sources remain recoverable through Git history and the backup branch.
+`style.css` contains the styles used by the current site pages, including draft Adults/Teens/Lab pages. The abandoned Kids Ages experiment and its standalone unused scripts/styles are preserved in the dated archive, not loaded by the current site. All site pages load only this local CSS (with Google Fonts served externally). The old sources remain recoverable through Git history and the backup branch.
 
 Independent design playgrounds keep separate experimental CSS and are not part of the production site's stylesheet contract.
 
@@ -31,10 +31,10 @@ All HTML, JavaScript and CSS files are at the top level; the only subdirectory i
 
 Each page declares its **colour** in the root HTML element: `data-brand="lab"` (the default blue), `kids` (green), `adults` (pink), or `teens` (orange). **Do not randomise this identity.**
 
-- `style.css` owns the approved six-colour palette, per-page accent mapping, cursor styling, shared layouts and scoped page sections.
+- `style.css` owns the approved six-colour palette, per-page accent mapping, cursor styling, shared layouts and scoped page sections. Subpages reuse `.subpage-intro`, `.subpage-board`, `.subpage-section`, `.subpage-art`, and `.subpage-callout` rather than creating page-specific versions.
 - `brand.js` reads `--brand-accent` and applies it to the matching arrow and hand cursors. On touch devices or without JavaScript, native pointers remain.
 - Wordmarks are selected as static image sources in each page: `img/wordmark.svg` for Lab, or `img/wordmark-labs-{green,pink,orange}.svg` for audience pages. This avoids a post-load colour swap and works with JavaScript disabled.
-- `style.css` is the only local stylesheet loaded by site pages. `script.js` is shared and safely skips interactions not present on a page.
+- `style.css` is the only local stylesheet loaded by site pages. `script.js` is shared and safely skips interactions not present on a page. The former `kids-assets.js` has been consolidated into `script.js`; its unnecessary image fallback code has been removed because the existing repository files are present.
 
 ## Website continuity — clone gate
 
@@ -53,3 +53,9 @@ All completed site pages importing `style.css` use the same cache version. The s
 The exact pre-cleanup website (pages, scripts and image assets) is preserved at `archive/2026-11-17-pre-cleanup/website/qwertylabs/` and on the independent `archive/2026-11-17-pre-cleanup` branch. Clone `kids.html` for new subpages, change `data-brand` for the approved palette, and do not change layout CSS for a content/image swap.
 
 Approved hero trio exports are 1240 × 955 px transparent WebP files. They should share the existing `.hero .mascots` CSS unchanged, using only a different `src` and accurate `alt` text. Do not reference a new file from HTML until the binary has been uploaded and verified at the exact repository path. Keep originals in the archive.
+
+## Source audit, 17 November 2026
+
+The active HTML pages share the same header and footer component markup shape. The stylesheet now groups matching rules for headings, focus rings, link underlines, and editorial sections rather than reimplementing them per page. The production CSS no longer includes the abandoned Kids Ages preview rules. No extra page-specific styles are allowed for content-only clones.
+
+**Deployment status:** The three approved 1240 × 955 transparent WebPs are separately verified but must not be referenced until their binary files exist in `img/` on the repository's published branch. The current page hero references remain valid until that upload is confirmed. Visual checks against the published site are still required after any asset deployment.
