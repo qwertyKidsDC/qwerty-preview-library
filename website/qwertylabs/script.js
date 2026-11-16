@@ -16,6 +16,21 @@
   window.addEventListener('resize', updateScale);
 })();
 
+
+/* The approved framed artwork varies slightly in tilt. Other frames stay fixed.
+   This is shared by every subpage and needs no page-specific script. */
+(() => {
+  for (const [selector, minimum, maximum] of [
+    ['.subpage-art--clockwise', 3, 10],
+    ['.subpage-art--landscape', 2, 9]
+  ]) {
+    document.querySelectorAll(selector).forEach(frame => {
+      const angle = minimum + Math.random() * (maximum - minimum);
+      frame.style.setProperty('--tool-tilt', angle.toFixed(1) + 'deg');
+    });
+  }
+})();
+
 /* Align the photographic fade with the live position of Coolest Projects.
    ResizeObserver handles content reflow; resize/load are safe fallbacks. */
 (() => {

@@ -262,7 +262,8 @@
 }
 
 /* Two-colour keyboard ring: ink is visible on ivory, orange on dark photos. */
-.cardboard-page a:focus-visible {
+.cardboard-page a:focus-visible,
+.cloud-replay:focus-visible {
   outline: 3px solid var(--color-ink);
   outline-offset: 2px;
   box-shadow: 0 0 0 5px var(--color-orange);
@@ -389,10 +390,12 @@
 
 .small-card h2 {
   font-size: var(--text-footer-heading);
+  white-space: nowrap;
 }
 
 .lab-footer .country-ack h2 {
   font-size: var(--text-card);
+  margin: 0 0 9px;
 }
 
 .feature h2,
@@ -416,6 +419,7 @@
 
 .feature p {
   margin-top: 16px;
+  max-width: 187px;
 }
 
 .feature,
@@ -448,9 +452,6 @@
   padding: 42px 32px 25px 34px;
 }
 
-.feature p {
-  max-width: 187px;
-}
 
 /* Version 03: hand-drawn go arrows, independently clickable from the headings. */
 .feature-arrow {
@@ -564,9 +565,6 @@
   margin: 40px 44.3px 0 39px;
 }
 
-.small-card h2 {
-  white-space: nowrap;
-}
 
 /* 09. Closing scene, blue information cards and legal footer
    Consolidated from the existing footer CSS without changing source order.
@@ -714,12 +712,6 @@
   visibility: hidden;
 }
 
-.cloud-replay:focus-visible {
-  /* Visible against both the ivory photo print and dark video. */
-  outline: 3px solid var(--color-ink);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px var(--color-orange);
-}
 
 .photo-frame--cardboard-offset::before {
   content: "";
@@ -834,9 +826,6 @@
   pointer-events: none;
 }
 
-.lab-footer .country-ack h2 {
-  margin: 0 0 9px;
-}
 
 .lab-footer .country-ack p {
   width: 80%;
@@ -910,7 +899,8 @@
 .footer-legal-links a,
 .scene-link,
 .footer-card-links a,
-.feature h2 a {
+.feature h2 a,
+.subpage-section__option a {
   position: relative;
 }
 
@@ -918,7 +908,8 @@
 .footer-legal-links a::after,
 .scene-link::after,
 .footer-card-links a::after,
-.feature h2 a::after {
+.feature h2 a::after,
+.subpage-section__option a::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -926,7 +917,7 @@
   right: 0;
   bottom: -3px;
   height: 5px;
-  background-color: var(--color-ivory);
+  background-color: var(--link-underline-rest, var(--color-ivory));
   -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
   mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
 }
@@ -979,7 +970,8 @@
 
 .scene-link:is(:hover, :focus-visible)::after,
 .footer-card-links a:is(:hover, :focus-visible)::after,
-.feature h2 a:is(:hover, :focus-visible)::after {
+.feature h2 a:is(:hover, :focus-visible)::after,
+.subpage-section__option a:is(:hover, :focus-visible)::after {
   background-color: var(--color-blue);
 }
 
@@ -1399,11 +1391,8 @@
 :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy p {
   margin: 8px 0 0;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy .scene-link::after {
-  background-color: var(--color-ink);
-}
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy .scene-link:is(:hover, :focus-visible)::after {
-  background-color: var(--color-blue);
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy .scene-link {
+  --link-underline-rest: var(--color-ink);
 }
 
 :where(html[data-layout="subpage"]) .subpage-board {
@@ -1445,7 +1434,8 @@
 :where(html[data-layout="subpage"]) #tools-editorial #projects {
   padding-bottom: 0;
 }
-:where(html[data-layout="subpage"]) #tools-editorial .subpage-section:not(:has(> .subpage-section__heading)) {
+:where(html[data-layout="subpage"]) #tools-editorial .subpage-section:not(:has(> .subpage-section__heading)),
+:where(html[data-layout="subpage"]) #tiarna-story .subpage-section--plain {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -1499,7 +1489,6 @@
   letter-spacing: -.025em;
 }
 :where(html[data-layout="subpage"]) .subpage-section__option a {
-  position: relative;
   display: inline-block;
   margin-top: 13px;
   padding-bottom: 3px;
@@ -1508,19 +1497,8 @@
   font-weight: 700;
 }
 :where(html[data-layout="subpage"]) .subpage-section__option a::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  left: 0;
-  right: 0;
   bottom: -2px;
   height: 6px;
-  background-color: var(--color-ivory);
-  -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-  mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
-}
-:where(html[data-layout="subpage"]) .subpage-section__option a:is(:hover,:focus-visible)::after {
-  background-color: var(--color-blue);
 }
 :where(html[data-layout="subpage"]) .subpage-section__copy > p.subpage-section__booking-note {
   margin-top: 27px;
@@ -1854,11 +1832,6 @@
 /* A Kid's POV: simple blue article subheadings, without the tape artwork. */
 :where(html[data-layout="subpage"]) #tiarna-intro-title {
   text-transform: none;
-}
-
-:where(html[data-layout="subpage"]) #tiarna-story .subpage-section--plain {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 :where(html[data-layout="subpage"]) #tiarna-story .subpage-section__subheading {
