@@ -1871,6 +1871,15 @@
 }
 
 
+/* A Kid's POV: larger editorial opening without extra decoration. */
+#tiarna-story .kids-question__copy > .story-opening {
+  margin-bottom: 22px;
+  color: var(--color-ivory);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
 /* Blue-rule blockquote: reuse the approved palette and typography. */
 .quote-blue-rule {
   margin: 10px 0 24px;
