@@ -29,7 +29,7 @@ All HTML, JavaScript and CSS files are at the top level; the only subdirectory i
 
 ## Page-based branding
 
-The page declares its brand in the root HTML element: `data-brand="lab"` (the default blue), `kids` (green), `adults` (pink), or `teens` (orange). **Do not randomise this identity.**
+Each page declares its **colour** in the root HTML element: `data-brand="lab"` (the default blue), `kids` (green), `adults` (pink), or `teens` (orange). **Do not randomise this identity.**
 
 - `style.css` owns the approved six-colour palette, per-page accent mapping, cursor styling, shared layouts and scoped page sections.
 - `brand.js` reads `--brand-accent` and applies it to the matching arrow and hand cursors. On touch devices or without JavaScript, native pointers remain.
@@ -38,12 +38,18 @@ The page declares its brand in the root HTML element: `data-brand="lab"` (the de
 
 ## Website continuity — clone gate
 
-The canonical layout is the current `kids.html` and its existing components in `style.css`. The approved homepage is `index.html`. Do not redesign or replace them when cloning a page.
+The canonical subpage layout is the current `kids.html` and its existing components in `style.css`; it uses `data-layout="subpage"` independently of `data-brand`. The homepage uses `data-layout="site"`. The approved homepage is `index.html`. Do not redesign or replace them when cloning a page.
 
 1. **Find and inspect** the current source page, its linked assets, shared stylesheet, and scripts before editing. A newly cloned page changes **copy, URLs, image sources, alt text and page identity**; it must not gain a new layout or link style.
-2. **Reuse existing classes.** Do not create page-specific CSS selectors, scripts, inline overrides, or duplicate component rules for a simple copy/image swap. The Tools and Tiarna pages deliberately reuse the Kids layout classes; their blue accent is the existing root custom property.
+2. **Reuse existing classes.** Do not create page-specific CSS selectors, scripts, inline overrides, or duplicate component rules for a simple copy/image swap. Tools and Tiarna reuse those same subpage components, but correctly declare the blue `data-brand="lab"` (no inline colour override).
 3. **Use the same link contract** across all pages: navigation and policy links show the blue squiggle on hover/focus; text links use the approved ivory squiggle by default and blue on hover/focus, with wrapping handled by background decoration. Footer cards keep their approved paper-card variant.
 4. **Check all site pages together** if a shared file truly must change. Only edit `style.css` or JavaScript for a demonstrated shared-component defect; document the reason and review the exact diff before merging. A content/image change alone is never grounds to edit them.
 5. **Verify before publishing:** HTML landmarks and heading order; unique IDs and their `aria-labelledby` references; meaningful image alternatives; relative assets and navigation; keyboard focus and wrapped links; desktop and mobile layouts; console/network errors. Keep preview experiments separate from published page styles.
 
-All pages importing `style.css` use the same cache version. The source files, not cached browser views or generated substitutes, are the source of truth. Git history retains prior versions.
+All completed site pages importing `style.css` use the same cache version. The source files, not cached browser views or generated substitutes, are the source of truth. Git history retains prior versions.
+
+## November 17 archive and hero contract
+
+The exact pre-cleanup website (pages, scripts and image assets) is preserved at `archive/2026-11-17-pre-cleanup/website/qwertylabs/` and on the independent `archive/2026-11-17-pre-cleanup` branch. Clone `kids.html` for new subpages, change `data-brand` for the approved palette, and do not change layout CSS for a content/image swap.
+
+Approved hero trio exports are 1240 × 955 px transparent WebP files. They should share the existing `.hero .mascots` CSS unchanged, using only a different `src` and accurate `alt` text. Do not reference a new file from HTML until the binary has been uploaded and verified at the exact repository path. Keep originals in the archive.

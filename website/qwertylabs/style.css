@@ -1,7 +1,7 @@
 /* Qwerty Labs — canonical site stylesheet
    One local stylesheet for all site pages. The approved desktop/mobile design
-   remains unchanged. Kids-only rules are scoped; preview-only rules target
-   unique classes. November 2026. */
+   remains unchanged. Subpage layout is independent of its colour theme;
+   preview-only rules target unique classes. November 2026. */
 
 /* 01 — Approved brand and cursors */
 :root {
@@ -1277,13 +1277,13 @@
   }
 }
 
-/* 03 — Kids page */
-:where(html[data-brand="kids"][data-layout="site"]) .navigation-current {
+/* 03 — Shared subpage layout (Kids is the approved reference) */
+:where(html[data-layout="subpage"]) .navigation-current {
   display: inline-block;
-  color: var(--color-green);
+  color: var(--brand-accent);
   text-shadow: 0 2px 7px #000;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .hero h1 {
+:where(html[data-layout="subpage"]) .hero h1 {
   top: 43px;
   left: 54px;
   width: 338px;
@@ -1294,11 +1294,11 @@
   letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .hero-title,
-:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
+:where(html[data-layout="subpage"]) .hero-title,
+:where(html[data-layout="subpage"]) .hero-tagline {
   display: block;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
+:where(html[data-layout="subpage"]) .hero-tagline {
   max-width: 315px;
   margin-top: -7px;
   font-size: 29px;
@@ -1306,7 +1306,7 @@
   letter-spacing: -.02em;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links {
+:where(html[data-layout="subpage"]) .kids-hero-links {
   position: relative;
   z-index: 4;
   display: flex;
@@ -1317,35 +1317,35 @@
   font-weight: 700;
   line-height: 1.45;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links .scene-link {
+:where(html[data-layout="subpage"]) .kids-hero-links .scene-link {
   margin-top: 0;
   color: var(--color-ivory);
   white-space: nowrap;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids {
+:where(html[data-layout="subpage"]) .hero + .projects--kids {
   margin-top: -24px;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
+:where(html[data-layout="subpage"]) .projects--kids .kids-project-links {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 22px;
   margin-top: 17px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links .scene-link {
+:where(html[data-layout="subpage"]) .projects--kids .kids-project-links .scene-link {
   margin-top: 0;
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids {
+:where(html[data-layout="subpage"]) .projects--kids {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage {
+:where(html[data-layout="subpage"]) .projects--kids .photo-collage {
   position: relative;
   top: 86px;
   left: auto;
@@ -1357,7 +1357,7 @@
   margin-inline: auto;
   transform: none; 
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .project-photo {
+:where(html[data-layout="subpage"]) .projects--kids .project-photo {
   top: 7%;
   left: 3%;
   width: 91.5%;
@@ -1366,7 +1366,7 @@
 }
 /* The Kids intro reuses the homepage green paper artwork at the original
    intro panel width. The photograph and two-column arrangement stay put. */
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-panel {
   position: relative;
   isolation: isolate;
   left: -45px;
@@ -1374,7 +1374,7 @@
   grid-row: 1;
   min-height: 405px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-card {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-card {
   position: absolute;
   inset: 26px 0 33px;
   z-index: 0;
@@ -1382,13 +1382,13 @@
   height: calc(100% - 59px);
   pointer-events: none;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy {
   position: relative;
   z-index: 1;
   padding: 79px 44px 58px;
   color: var(--color-ink);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy h2 {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy h2 {
   margin: 0;
   font-size: var(--text-heading);
   font-weight: 700;
@@ -1396,17 +1396,17 @@
   letter-spacing: -.035em;
   text-transform: uppercase;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy p {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy p {
   margin: 8px 0 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy .scene-link::after {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy .scene-link::after {
   background-color: var(--color-ink);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy .scene-link:is(:hover, :focus-visible)::after {
+:where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy .scene-link:is(:hover, :focus-visible)::after {
   background-color: var(--color-blue);
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board {
+:where(html[data-layout="subpage"]) .kids-editorial-board {
   position: relative;
   z-index: 6;
   isolation: isolate;
@@ -1417,7 +1417,7 @@
   padding: 17px 23px 56px;
   color: var(--color-ivory);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before {
+:where(html[data-layout="subpage"]) .kids-editorial-board::before {
   content: "";
   position: absolute;
   inset: 22px 0 0;
@@ -1431,25 +1431,25 @@
   border-image-repeat: stretch round;
   filter: brightness(1.15);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question {
+:where(html[data-layout="subpage"]) .kids-question {
   position: relative;
   z-index: 1;
   margin: 0;
   padding: 87px 45px 17px 37px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
+:where(html[data-layout="subpage"]) .kids-question + .kids-question {
   margin-top: 0;
 }
 /* Tools: project categories use their own bold subheadings and share the
    board's existing 18px gap, without extra space above and below each item. */
-:where(html[data-brand="kids"][data-layout="site"]) #tools-editorial #projects {
+:where(html[data-layout="subpage"]) #tools-editorial #projects {
   padding-bottom: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) #tools-editorial .kids-question:not(:has(> .kids-question__heading)) {
+:where(html[data-layout="subpage"]) #tools-editorial .kids-question:not(:has(> .kids-question__heading)) {
   padding-top: 0;
   padding-bottom: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
+:where(html[data-layout="subpage"]) .kids-question__tape {
   position: absolute;
   z-index: 2;
   top: 5.621px;
@@ -1457,7 +1457,7 @@
   width: 354px;
   height: 64.053px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading {
+:where(html[data-layout="subpage"]) .kids-question__heading {
   position: absolute;
   z-index: 3;
   top: 22px;
@@ -1471,34 +1471,34 @@
   text-transform: uppercase;
   transform: rotate(-1.2deg);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy {
+:where(html[data-layout="subpage"]) .kids-question__copy {
   position: relative;
   width: 66.6667%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p {
+:where(html[data-layout="subpage"]) .kids-question__copy > p,
+:where(html[data-layout="subpage"]) .kids-question__option p {
   margin: 0 0 16px;
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:last-child,
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p:last-of-type {
+:where(html[data-layout="subpage"]) .kids-question__copy > p:last-child,
+:where(html[data-layout="subpage"]) .kids-question__option p:last-of-type {
   margin-bottom: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p:first-child {
+:where(html[data-layout="subpage"]) .kids-question__copy > p:first-child {
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option + .kids-question__option {
+:where(html[data-layout="subpage"]) .kids-question__option + .kids-question__option {
   margin-top: 30px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3 {
+:where(html[data-layout="subpage"]) .kids-question__option h3 {
   margin: 0 0 10px;
   font-size: 21px;
   line-height: 1.2;
   letter-spacing: -.025em;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a {
+:where(html[data-layout="subpage"]) .kids-question__option a {
   position: relative;
   display: inline-block;
   margin-top: 13px;
@@ -1507,7 +1507,7 @@
   line-height: 1.4;
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a::after {
+:where(html[data-layout="subpage"]) .kids-question__option a::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -1519,10 +1519,10 @@
   -webkit-mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
   mask: var(--link-squiggle-mask) left bottom / 100% 100% no-repeat;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__option a:is(:hover,:focus-visible)::after {
+:where(html[data-layout="subpage"]) .kids-question__option a:is(:hover,:focus-visible)::after {
   background-color: var(--color-blue);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p.kids-question__booking-note {
+:where(html[data-layout="subpage"]) .kids-question__copy > p.kids-question__booking-note {
   margin-top: 27px;
   padding-top: 16px;
   border-top: 1px dashed rgba(247,244,235,.65);
@@ -1530,16 +1530,16 @@
   font-weight: 400;
 }
 
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool) {
+:where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool) {
   min-height: 0;
 }
 /* Reserve only the height actually needed by each floating device, rather
    than imposing 385px on every question. Text can expand these naturally. */
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--codey) { min-height: 365px; }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--gamego) { min-height: 320px; }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--microbit) { min-height: 425px; }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool--raspberry) { min-height: 318px; }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool {
+:where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool--codey) { min-height: 365px; }
+:where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool--gamego) { min-height: 320px; }
+:where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool--microbit) { min-height: 425px; }
+:where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool--raspberry) { min-height: 318px; }
+:where(html[data-layout="subpage"]) .kids-tool {
   position: absolute;
   z-index: 3;
   top: 112px;
@@ -1556,41 +1556,41 @@
   text-align: center;
   transform: rotate(var(--tool-tilt, 5deg));
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey {
+:where(html[data-layout="subpage"]) .kids-tool--codey {
   top: 115px;
   right: 28px;
   width: 262px;
   --tool-tilt: 7deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego {
+:where(html[data-layout="subpage"]) .kids-tool--gamego {
   top: 83px;
   right: 12px;
   width: 262px;
   --tool-tilt: 0deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit {
+:where(html[data-layout="subpage"]) .kids-tool--microbit {
   top: 126px;
   right: 30px;
   width: 262px;
   --tool-tilt: -4deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry {
+:where(html[data-layout="subpage"]) .kids-tool--raspberry {
   top: 70px;
 
   right: -55px;
   width: 288px;
   --tool-tilt: 5deg;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__art {
+:where(html[data-layout="subpage"]) .kids-tool__art {
   display: block;
   width: 100%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__device {
+:where(html[data-layout="subpage"]) .kids-tool__device {
   display: block;
   width: 100%;
   height: auto;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool__label {
+:where(html[data-layout="subpage"]) .kids-tool__label {
   position: relative;
   z-index: 3;
   display: inline-block;
@@ -1599,11 +1599,11 @@
   line-height: 1.25;
   text-shadow: 0 2px 3px rgba(0,0,0,.7);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-tool:not(.kids-tool--raspberry) .kids-tool__label {
+:where(html[data-layout="subpage"]) .kids-tool:not(.kids-tool--raspberry) .kids-tool__label {
   /* Match the Raspberry Pi caption's visible gap despite extra transparent padding in square frames. */
   margin-top: -9px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
+:where(html[data-layout="subpage"]) .kids-testimonial {
   position: relative;
   isolation: isolate;
   z-index: 2;
@@ -1613,7 +1613,7 @@
 
   color: var(--color-ink);
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before {
+:where(html[data-layout="subpage"]) .kids-testimonial::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1625,150 +1625,150 @@
   border-image-width: 40px 43px;
   border-image-repeat: stretch;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__inner {
+:where(html[data-layout="subpage"]) .kids-testimonial__inner {
   width: 100%;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote {
+:where(html[data-layout="subpage"]) .kids-testimonial__quote {
   margin: 0;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p {
+:where(html[data-layout="subpage"]) .kids-testimonial__quote p {
   margin: 0 0 19px;
   font-size: 21px;
   font-weight: 700;
   line-height: 1.46;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote cite {
+:where(html[data-layout="subpage"]) .kids-testimonial__quote cite {
   font-size: 15px;
   line-height: 1.4;
   font-style: normal;
   font-weight: 700;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
+:where(html[data-layout="subpage"]) .kids-testimonial + .kids-question {
   margin-top: 26px;
 }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
+:where(html[data-layout="subpage"]) .kids-editorial-board + .small-cards {
   margin-top: 54px;
 }
 
 @media (max-width: 760px) {
-  :where(html[data-brand="kids"][data-layout="site"]) .hero h1 {
+  :where(html[data-layout="subpage"]) .hero h1 {
     top: 45px;
     left: 53px;
     width: calc(100% - 75px);
     font-size: clamp(44px, 11vw, 65px);
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .hero-tagline {
+  :where(html[data-layout="subpage"]) .hero-tagline {
     max-width: 100%;
     margin-top: -5px;
     font-size: clamp(22px, 6vw, 29px);
   }
 
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids {
+  :where(html[data-layout="subpage"]) .projects--kids {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 10px;
     min-height: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .photo-collage {
+  :where(html[data-layout="subpage"]) .projects--kids .photo-collage {
     top: 18px;
     left: 0;
     grid-column: 1;
     grid-row: 1;
     width: min(360px, 80%);
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-panel {
+  :where(html[data-layout="subpage"]) .projects--kids .kids-ages-panel {
     left: 0; 
     grid-column: 1;
     grid-row: 2;
     min-height: 355px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-card {
+  :where(html[data-layout="subpage"]) .projects--kids .kids-ages-card {
     top: 35px;
     bottom: 0;
     height: calc(100% - 35px);
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-ages-copy {
+  :where(html[data-layout="subpage"]) .projects--kids .kids-ages-copy {
     padding: 100px 30px 60px 38px;
   }
 
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-hero-links {
+  :where(html[data-layout="subpage"]) .kids-hero-links {
     margin: 6px 0 0 49px;
     gap: 8px 16px;
     font-size: 16px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .hero + .projects--kids {
+  :where(html[data-layout="subpage"]) .hero + .projects--kids {
     margin-top: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
+  :where(html[data-layout="subpage"]) .projects--kids .kids-project-links {
     gap: 5px 17px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board {
+  :where(html[data-layout="subpage"]) .kids-editorial-board {
     width: min(400px, calc(100% - 30px));
     margin: 24px auto 0;
     gap: 12px;
     padding: 12px 8px 45px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board::before {
+  :where(html[data-layout="subpage"]) .kids-editorial-board::before {
     inset: 20px 0 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question {
+  :where(html[data-layout="subpage"]) .kids-question {
     padding: 87px 28px 23px 29px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question + .kids-question {
+  :where(html[data-layout="subpage"]) .kids-question + .kids-question {
     margin-top: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__tape {
+  :where(html[data-layout="subpage"]) .kids-question__tape {
     top: 5px;
     width: min(300px, 94%);
     height: auto;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__heading {
+  :where(html[data-layout="subpage"]) .kids-question__heading {
     top: 21px;
     left: 35px;
     font-size: 27px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy {
+  :where(html[data-layout="subpage"]) .kids-question__copy {
     width: 100%;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__copy > p,
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option p {
+  :where(html[data-layout="subpage"]) .kids-question__copy > p,
+  :where(html[data-layout="subpage"]) .kids-question__option p {
     font-size: 16px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question__option h3 {
+  :where(html[data-layout="subpage"]) .kids-question__option h3 {
     font-size: 20px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-question:has(> .kids-tool) {
+  :where(html[data-layout="subpage"]) .kids-question:has(> .kids-tool) {
     min-height: 0;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool,
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey,
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego,
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit,
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry {
+  :where(html[data-layout="subpage"]) .kids-tool,
+  :where(html[data-layout="subpage"]) .kids-tool--codey,
+  :where(html[data-layout="subpage"]) .kids-tool--gamego,
+  :where(html[data-layout="subpage"]) .kids-tool--microbit,
+  :where(html[data-layout="subpage"]) .kids-tool--raspberry {
     position: relative;
     top: auto;
     right: auto;
     max-width: 100%;
     margin: 23px auto 5px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--codey { width: min(262px, 92%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--gamego { width: min(262px, 92%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--microbit { width: min(262px, 92%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-tool--raspberry { width: min(288px, 94%); }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial {
+  :where(html[data-layout="subpage"]) .kids-tool--codey { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .kids-tool--gamego { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .kids-tool--microbit { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .kids-tool--raspberry { width: min(288px, 94%); }
+  :where(html[data-layout="subpage"]) .kids-testimonial {
     width: auto;
     margin: 0 10px;
     padding: 37px 27px 38px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial::before {
+  :where(html[data-layout="subpage"]) .kids-testimonial::before {
     border-image-width: 32px;
   }
-:where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial__quote p {
+:where(html[data-layout="subpage"]) .kids-testimonial__quote p {
     font-size: 19px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-testimonial + .kids-question {
+  :where(html[data-layout="subpage"]) .kids-testimonial + .kids-question {
     margin-top: 18px;
   }
-  :where(html[data-brand="kids"][data-layout="site"]) .kids-editorial-board + .small-cards {
+  :where(html[data-layout="subpage"]) .kids-editorial-board + .small-cards {
     margin-top: 45px;
   }
 }
@@ -1785,7 +1785,6 @@
 }
 
 @media (max-width: 760px) {
-  #tools-editorial #raspberry-pi { min-height: 0; }
   #tools-editorial #raspberry-pi > .kids-tool { top: auto; }
   #tools-editorial #your-idea > .kids-tool {
     top: auto;
@@ -1853,16 +1852,16 @@
 }
 
 /* A Kid's POV: simple blue article subheadings, without the tape artwork. */
-:where(html[data-layout="site"]) #tiarna-intro-title {
+:where(html[data-layout="subpage"]) #tiarna-intro-title {
   text-transform: none;
 }
 
-:where(html[data-layout="site"]) #tiarna-story .kids-question--plain {
+:where(html[data-layout="subpage"]) #tiarna-story .kids-question--plain {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-:where(html[data-layout="site"]) #tiarna-story .kids-question__subheading {
+:where(html[data-layout="subpage"]) #tiarna-story .kids-question__subheading {
   margin: 0 0 18px;
   color: var(--color-blue);
   font-size: 24px;
