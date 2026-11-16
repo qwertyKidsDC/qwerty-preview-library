@@ -1429,13 +1429,11 @@
 :where(html[data-layout="subpage"]) .subpage-section + .subpage-section {
   margin-top: 0;
 }
-/* Tools: project categories use their own bold subheadings and share the
-   board's existing 18px gap, without extra space above and below each item. */
-:where(html[data-layout="subpage"]) #tools-editorial #projects {
+/* These modifiers are reusable by any subpage; headings and artwork stay shared. */
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--tight-end {
   padding-bottom: 0;
 }
-:where(html[data-layout="subpage"]) #tools-editorial .subpage-section:not(:has(> .subpage-section__heading)),
-:where(html[data-layout="subpage"]) #tiarna-story .subpage-section--plain {
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--plain {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -1517,6 +1515,7 @@
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--level) { min-height: 320px; }
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--counterclockwise) { min-height: 425px; }
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--landscape) { min-height: 318px; }
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--natural-height { min-height: 0; }
 :where(html[data-layout="subpage"]) .subpage-art {
   position: absolute;
   z-index: 3;
@@ -1751,39 +1750,36 @@
   }
 }
 
-/* Tools content spacing uses the shared subpage components. */
-/* Keep WHAT YOU MAKE categories evenly spaced; float the VR frame one paragraph higher. */
-#tools-editorial #raspberry-pi { min-height: 0; }
-#tools-editorial #raspberry-pi > .subpage-art { top: -145px; }
-
-/* Centre the rectangular mascot against the long YOUR IDEA copy. */
-#tools-editorial #your-idea > .subpage-art {
+/* Position variants: one consistent artwork component, not per-page ID overrides. */
+:where(html[data-layout="subpage"]) .subpage-art--raised {
+  top: -145px;
+}
+:where(html[data-layout="subpage"]) .subpage-art--centered {
   top: 50%;
   transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
 }
 
 @media (max-width: 760px) {
-  #tools-editorial #raspberry-pi > .subpage-art { top: auto; }
-  #tools-editorial #your-idea > .subpage-art {
+  :where(html[data-layout="subpage"]) .subpage-art--raised { top: auto; }
+  :where(html[data-layout="subpage"]) .subpage-art--centered {
     top: auto;
     transform: rotate(var(--tool-tilt, 5deg));
   }
 }
 
-/* Tools embedded video: the existing Kids board wrapper, without the paper panel. */
-#tools-cloud.subpage-callout {
+/* A framed video is its own reusable component, never a disguised testimonial. */
+.project-video {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
   width: 66.6667%;
   margin: 0 0 0 37px;
-  padding: 0;
 }
-#tools-cloud.subpage-callout::before {
-  content: none;
-}
-#tools-cloud .tools-cloud__media {
+.project-video__frame {
   width: 100%;
   margin: 0;
 }
-#tools-cloud .tools-cloud__media iframe {
+.project-video__frame iframe {
   display: block;
   width: 100%;
   height: auto;
@@ -1791,20 +1787,20 @@
   border: 0;
 }
 @media (max-width: 760px) {
-  #tools-cloud.subpage-callout {
+  .project-video {
     width: calc(100% - 57px);
     margin: 0 0 0 29px;
   }
 }
 
-/* A Kid's POV: simple blue article subheadings, without the tape artwork. */
-:where(html[data-layout="subpage"]) #tiarna-intro-title {
+/* Reusable sentence-case titles and article subheadings. */
+:where(html[data-layout="subpage"]) .subpage-intro__copy h2.subpage-intro__heading--sentence-case {
   text-transform: none;
 }
 
-:where(html[data-layout="subpage"]) #tiarna-story .subpage-section__subheading {
+:where(html[data-layout="subpage"]) .subpage-section__subheading {
   margin: 0 0 18px;
-  color: var(--color-blue);
+  color: var(--brand-accent);
   font-size: 24px;
   font-weight: 700;
   line-height: 1.2;
@@ -1812,8 +1808,8 @@
 }
 
 
-/* A Kid's POV: larger editorial opening without extra decoration. */
-#tiarna-story .subpage-section__copy > .story-opening {
+/* A reusable editorial lead paragraph. */
+:where(html[data-layout="subpage"]) .subpage-section__copy > .subpage-lead {
   margin-bottom: 22px;
   color: var(--color-ivory);
   font-size: 24px;
