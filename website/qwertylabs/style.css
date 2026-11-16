@@ -1327,22 +1327,6 @@
   margin-top: -24px;
 }
 
-/* The shorter approved POV trio needs the intro row to tuck further beneath
-   its cardboard platform; keep sibling subpages and mobile spacing unchanged. */
-@media (min-width: 761px) {
-  :where(html[data-layout="site"]) .hero + #tiarna-intro {
-    margin-top: -68px;
-  }
-  /* Direct POV artwork: align its cardboard platform with the approved hero baseline. */
-  .mascots--pov {
-    top: -53px;
-  }
-}
-@media (max-width: 760px) {
-  .mascots--pov {
-    top: 160px;
-  }
-}
 :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
   display: flex;
   flex-wrap: wrap;
