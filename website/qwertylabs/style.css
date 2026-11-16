@@ -12,6 +12,29 @@
   --color-ivory: #F7F4EB;
   --color-ink: #020020;
   --brand-accent: var(--color-blue);
+
+  /* Shared type scale; fit containers to text, not text to containers. */
+  --text-heading: 30px;  /* Section headings and tape lettering */
+  --text-card: 20px;     /* Card titles and country acknowledgement */
+  --text-body: 18px;     /* Reading copy */
+  --text-ui: 16px;       /* Navigation, links and footer UI */
+  --text-hero: 36px;     /* Handwritten page title */
+  --text-footer-heading: 18px; /* Blue footer-card titles */
+  --text-footer: 14px;         /* Footer card copy and Country paragraph */
+  --text-legal: 12px;    /* Policies and copyright */
+
+  /* Section spacing, before responsive page scaling. */
+  --space-section: 52px;
+  --nav-top-compensation: 10.27px;
+  --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  /* Workshop-specific photographic effects */
+  --scene-backdrop: #050A13;
+  --scene-tint-rgb: 4 9 18;
+  --scene-glow-left: rgba(255, 127, 0, .16);
+  --scene-glow-right: rgba(255, 139, 0, .18);
+
+  --workshop-footer-height: clamp(260px, 28vw, 520px);
 }
 
 :root[data-brand="kids"]   { --brand-accent: var(--color-green); }
@@ -43,32 +66,6 @@
 }
 
 /* 02 — Shared foundations and responsive artwork */
-/* 01. Homepage foundations. Brand palette and themes are declared above.
-   Workshop lighting and cardboard browns are decorative artwork, not UI colours. */
-:root {
-  /* Shared type scale; fit containers to text, not text to containers. */
-  --text-heading: 30px;  /* Section headings and tape lettering */
-  --text-card: 20px;     /* Card titles and country acknowledgement */
-  --text-body: 18px;     /* Reading copy */
-  --text-ui: 16px;       /* Navigation, links and footer UI */
-  --text-hero: 36px;     /* Handwritten page title */
-  --text-footer-heading: 18px; /* Blue footer-card titles */
-  --text-footer: 14px;         /* Footer card copy and Country paragraph */
-  --text-legal: 12px;    /* Policies and copyright */
-
-  /* Section spacing, before responsive page scaling. */
-  --space-section: 52px;
-  --nav-top-compensation: 10.27px;
-  --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
-
-  /* Workshop-specific photographic effects */
-  --scene-backdrop: #050A13;
-  --scene-tint-rgb: 4 9 18;
-  --scene-glow-left: rgba(255, 127, 0, .16);
-  --scene-glow-right: rgba(255, 139, 0, .18);
-
-  --workshop-footer-height: clamp(260px, 28vw, 520px);
-}
 
 :where(html[data-layout]) *,
 :where(html[data-layout]) *::before,
