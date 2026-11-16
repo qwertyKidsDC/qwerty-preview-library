@@ -29,7 +29,7 @@
     ['raspberry', 2, 9]
   ];
   for (const [name, minimum, maximum] of tilts) {
-    const frame = document.querySelector('.kids-tool--' + name);
+    const frame = document.querySelector('.subpage-art--' + name);
     if (!frame) continue;
     const angle = minimum + Math.random() * (maximum - minimum);
     frame.style.setProperty('--tool-tilt', angle.toFixed(1) + 'deg');
