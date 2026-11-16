@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Qwerty Labs · Subpage Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+  <link rel="stylesheet" href="subpage-studio.css?v=8">
+  <script src="subpage-studio.js?v=8" defer></script>
+</head>
+<body>
+  <div class="studio-shell">
+    <aside class="studio-sidebar" aria-label="Design tools">
+      <div class="side-top">
+        <div class="brand-strip"><img src="img/wordmark.svg" alt="Qwerty Labs" width="150"><span class="studio-chip">LAB TOOL</span></div>
+        <h1>Subpage Studio<span class="asterisk">*</span></h1>
+        <p>Real graphics. Slightly unruly arrangements.</p>
+      </div>
+      <div class="side-scroll">
+        <section class="tool-section hero-tools" id="hero-controls" aria-labelledby="section-hero">
+          <h2 id="section-hero"><span class="section-number">01</span> Hero banner</h2>
+          <p class="tool-hint">Edit the hero heading, paper colour, text colour and mascots here. No editing controls cover the banner.</p>
+          <div class="field"><label for="hero-title">Hero heading text</label><textarea id="hero-title" rows="2" placeholder="Your page heading"></textarea></div>
+          <div class="field"><label>Hero paper colour</label>
+            <div class="hero-swatches" role="group" aria-label="Hero paper colour">
+              <button type="button" class="hero-swatch" data-hero-paper="blue" style="--swatch:#4C69E3" title="Blue · Lab" aria-label="Blue paper" aria-pressed="true"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="green" style="--swatch:#92D644" title="Green · Kids" aria-label="Green paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="pink" style="--swatch:#F66DC1" title="Pink · Adults" aria-label="Pink paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="orange" style="--swatch:#FF9029" title="Orange · Teens" aria-label="Orange paper" aria-pressed="false"></button>
+              <button type="button" class="hero-swatch" data-hero-paper="ivory" style="--swatch:#F7F4EB" title="Ivory" aria-label="Ivory paper" aria-pressed="false"></button>
+            </div>
+            <select id="hero-colour" hidden aria-label="Hero paper colour">
+              <option value="blue">Blue</option><option value="green">Green</option><option value="pink">Pink</option>
+              <option value="orange">Orange</option><option value="ivory">Ivory</option>
+            </select>
+          </div>
+          <div class="field"><label for="hero-text-colour">Heading text colour</label>
+            <select id="hero-text-colour">
+              <option value="ink">Ink · #020020</option>
+              <option value="ivory">Ivory · #F7F4EB</option>
+              <option value="blue">Blue · #4C69E3</option>
+              <option value="green">Green · #92D644</option>
+              <option value="pink">Pink · #F66DC1</option>
+              <option value="orange">Orange · #FF9029</option>
+            </select>
+          </div>
+          <div class="field"><label for="hero-mascots">Choose mascots</label>
+            <select id="hero-mascots">
+              <option value="trio">Original maker trio</option>
+              <option value="q">Approved Q mascot</option>
+              <option value="none">Hide mascots</option>
+              <option value="uploaded">My uploaded mascot artwork</option>
+            </select>
+          </div>
+          <div class="field"><label for="hero-mascot-size">Mascot size <span class="small-value" id="hero-mascot-value">100%</span></label><input type="range" id="hero-mascot-size" min="30" max="160" step="5" value="100"></div>
+          <div class="inline-actions"><button type="button" id="hero-choose">+ Choose mascot file</button><button type="button" id="hero-reset">Reset hero</button></div>
+          <input id="hero-upload" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+        </section>
+        <section class="tool-section" aria-labelledby="section-structure">
+          <h2 id="section-structure"><span class="section-number">02</span> Structure</h2>
+          <p class="tool-hint">Start blank. Add a row here or on the canvas, or click an asset to add it automatically. Change or delete any row above it.</p>
+          <div class="choice-row columns-buttons">
+            <button type="button" data-add-row="1" title="Add one full-width column"><span class="mini-columns one"><i></i></span>1</button>
+            <button type="button" data-add-row="2" title="Add two equal columns"><span class="mini-columns two"><i></i><i></i></span>½ + ½</button>
+            <button type="button" data-add-row="3" title="Add three equal columns"><span class="mini-columns three"><i></i><i></i><i></i></span>⅓ × 3</button>
+            <button type="button" data-add-row="2-1" title="Add a row with two-thirds left, one-third right"><span class="mini-columns asym-left"><i></i><i></i></span>⅔ + ⅓</button>
+            <button type="button" data-add-row="1-2" title="Add a row with one-third left, two-thirds right"><span class="mini-columns asym-right"><i></i><i></i></span>⅓ + ⅔</button>
+          </div>
+          <div class="inline-actions"><button type="button" id="add-paragraph">+ Text</button><button type="button" id="add-heading">+ Heading</button></div>
+          <div class="template-line"><span>Canvas</span><button type="button" id="clear-canvas">Clear canvas</button><button type="button" id="restore-previous">Restore previous design</button></div>
+        </section>
+        <section class="tool-section inspector-section" aria-labelledby="section-inspector">
+          <h2 id="section-inspector"><span class="section-number">03</span> Arrange & edit</h2>
+          <div id="inspector" aria-live="polite"><p class="tool-hint">Choose an element on the page to edit its copy, position and layers.</p></div>
+        </section>
+        <section class="tool-section" aria-labelledby="section-assets">
+          <div class="section-head"><h2 id="section-assets"><span class="section-number">04</span> Asset library</h2><span class="asset-count" id="asset-count"></span></div>
+          <p class="tool-hint">Choose an asset to add it. Transparent outer margins are trimmed in the Studio; paper panels grow with their text.</p>
+          <div id="asset-library" class="asset-library"></div>
+          <label class="upload-control" for="asset-upload"><span class="upload-plus">+</span> Add your own image files <small>PNG, JPG, SVG, WebP</small></label>
+          <input id="asset-upload" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" multiple hidden>
+        </section>
+        <section class="tool-section" aria-labelledby="section-versions">
+          <h2 id="section-versions"><span class="section-number">05</span> Saved variations</h2>
+          <div class="field"><label for="design-name">Design name</label><input id="design-name" type="text" value="" maxlength="80" placeholder="Kids · Layout A"></div>
+          <button type="button" class="inspector-full-button" id="save-version">+ Save a new version</button>
+          <div id="version-list" class="version-list"><p class="tool-hint">Save variations here to compare different arrangements.</p></div>
+        </section>
+      </div>
+      <div class="side-bottom"><span id="save-status" role="status">Changes stay in this browser.</span><a href="index.html" title="Open the approved homepage">Approved homepage ↗</a></div>
+    </aside>
+    <main class="studio-workspace">
+      <header class="studio-toolbar">
+        <div class="toolbar-left"><span class="work-badge">DRAFT</span><strong id="layout-name">Kids · Experiment 01</strong><span class="toolbar-sep"></span><span id="selection-indicator">Select something to edit</span></div>
+        <div class="toolbar-actions">
+          <div class="device-switch" role="group" aria-label="Preview width"><button data-viewport="desktop" class="active" aria-pressed="true" title="Desktop"><span>▱</span> Desktop</button><button data-viewport="tablet" aria-pressed="false" title="Tablet">Tablet</button><button data-viewport="mobile" aria-pressed="false" title="Mobile">Mobile</button></div>
+          <button id="toggle-preview" class="icon-button" type="button" title="Toggle clean preview">Preview</button>
+          <button id="undo" class="icon-button" type="button" title="Undo (Cmd/Ctrl+Z)" disabled>↶</button><button id="redo" class="icon-button" type="button" title="Redo (Cmd/Ctrl+Shift+Z)" disabled>↷</button>
+          <button id="save-layout" class="primary-action" type="button">Save</button>
+          <button id="export-layout" class="icon-button" type="button" title="Download this layout as a JSON file">Export</button>
+          <button id="import-layout" class="icon-button" type="button" title="Open a saved layout JSON file">Open</button>
+          <input id="import-file" type="file" accept=".json,application/json" hidden>
+        </div>
+      </header>
+      <div class="workspace-note"><span class="note-dot"></span> The original homepage remains untouched. Hero settings are in the sidebar; add rows, text or assets to the canvas below. <span>Select an element for <strong>× Delete</strong> on canvas (or press Delete/Backspace); Undo restores it. <strong>Overlay</strong> enables free movement.</span></div>
+      <div class="studio-scroll" id="studio-scroll">
+        <div class="frame-wrap" id="frame-wrap"><div class="frame-caption"><span>QWERTY LABS / SUBPAGE EXPERIMENT</span><span id="viewport-width">Desktop · responsive</span></div><iframe id="page-frame" src="index.html" title="Editable preview using the original homepage header, hero and footer" loading="eager" scrolling="no"></iframe></div>
+      </div>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

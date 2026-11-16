@@ -1,0 +1,77 @@
+[
+  {
+    "id": "WEB-LED-TRIO-001",
+    "asset": "WEB-LED-TRIO-001-transparent.png",
+    "source": "mascot-making-led-crisp.svg",
+    "width": 1472,
+    "height": 861,
+    "source_bounds": [
+      5,
+      137,
+      1435,
+      956
+    ],
+    "fully_transparent_corners": true,
+    "bytes": 1294277
+  },
+  {
+    "id": "WEB-KIDS-HERO-001",
+    "asset": "WEB-KIDS-HERO-001-transparent.png",
+    "source": "kidsHero.png",
+    "width": 1480,
+    "height": 903,
+    "source_bounds": [
+      8,
+      143,
+      1444,
+      1002
+    ],
+    "fully_transparent_corners": true,
+    "bytes": 1594386
+  },
+  {
+    "id": "MS05-R06-C04",
+    "asset": "MS05-R06-C04-transparent.png",
+    "source": "d1-country-lounging.svg",
+    "width": 460,
+    "height": 460,
+    "source_bounds": [
+      0,
+      0,
+      440,
+      440
+    ],
+    "fully_transparent_corners": true,
+    "bytes": 222217
+  },
+  {
+    "id": "MS01-R05-C03",
+    "asset": "MS01-R05-C03-transparent.png",
+    "source": "kidsFooter.png",
+    "width": 790,
+    "height": 1125,
+    "source_bounds": [
+      227,
+      80,
+      985,
+      1173
+    ],
+    "fully_transparent_corners": true,
+    "bytes": 1043010
+  },
+  {
+    "id": "MS01-R01-C04",
+    "asset": "MS01-R01-C04-transparent.png",
+    "source": "mascot-rocket-trio.webp + MS01-R01-C04-clean.svg",
+    "width": 1010,
+    "height": 598,
+    "source_bounds": [
+      0,
+      0,
+      980,
+      568
+    ],
+    "fully_transparent_corners": true,
+    "bytes": 485001
+  }
+]
