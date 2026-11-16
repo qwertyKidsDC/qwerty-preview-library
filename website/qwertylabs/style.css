@@ -323,7 +323,8 @@
 .hero {
   position: relative;
   z-index: 4;
-  height: 293px;
+  /* The full WebP mascot platform must clear the following coloured cards. */
+  height: 407px;
 }
 
 .hero-copy {
@@ -1054,7 +1055,7 @@
   }
 
   .hero {
-    height: 355px;
+    height: 455px;
   }
 
   .hero-copy {
