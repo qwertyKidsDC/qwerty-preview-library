@@ -1333,6 +1333,15 @@
   :where(html[data-layout="site"]) .hero + #tiarna-intro {
     margin-top: -68px;
   }
+  /* Direct POV artwork: align its cardboard platform with the approved hero baseline. */
+  .mascots--pov {
+    top: -53px;
+  }
+}
+@media (max-width: 760px) {
+  .mascots--pov {
+    top: 160px;
+  }
 }
 :where(html[data-brand="kids"][data-layout="site"]) .projects--kids .kids-project-links {
   display: flex;
