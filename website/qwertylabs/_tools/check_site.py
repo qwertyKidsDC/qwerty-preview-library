@@ -278,6 +278,17 @@ def browser_checks(root, output, report):
                         record(report, "axe_" + v["id"],
                                f"{name} {mode} ({v['impact']}): {v['targets']}",
                                blocking=blocking)
+                # A real keyboard press, not .focus(), triggers :focus-visible.
+                page.keyboard.press("Tab")
+                keyboard = page.evaluate("""() => {
+                    const el = document.activeElement;
+                    const css = getComputedStyle(el);
+                    return {skip:el.classList.contains('skip'),
+                            outline:css.outlineStyle};
+                }""")
+                if not keyboard["skip"] or keyboard["outline"] == "none":
+                    record(report, "keyboard_skip_link",
+                           f"{name} {mode}: {keyboard}")
                 context.close()
         browser.close()
     report["browser"] = {"views": len(COMPLETE)*len(VIEWPORTS),
