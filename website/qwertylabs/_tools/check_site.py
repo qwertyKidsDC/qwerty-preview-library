@@ -14,6 +14,7 @@ from contextlib import contextmanager
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import threading
@@ -21,6 +22,7 @@ from urllib.parse import unquote, urlsplit
 
 from bs4 import BeautifulSoup
 import tinycss2
+from PIL import Image
 
 COMPLETE = (
     "index.html", "kids.html", "tools.html", "a-kids-pov.html",
@@ -114,6 +116,12 @@ def check_sources(root, report):
     if len(set(cache_versions.values())) != 1:
         record(report, "cache_version", cache_versions)
     report["css_version"] = next(iter(cache_versions.values()), None)
+    # Check the image bytes, not just the width/height attributes in HTML.
+    for filename in sorted(set(HERO.values())):
+        with Image.open(root / "img" / filename) as asset:
+            if asset.size != (1240, 955) or "A" not in asset.getbands():
+                record(report, "hero_dimensions_or_alpha",
+                       f"{filename}: {asset.size}, {asset.mode}")
     selectors = []
     invalid = []
 
@@ -150,6 +158,21 @@ def check_sources(root, report):
     report["css"] = {"rules": len(selectors), "repeated_selectors": repeated}
     if repeated:
         record(report, "css_repeat_review", repeated, blocking=False)
+    # Match component classes against real HTML and script-added states.
+    html_classes = set()
+    for name in PAGES:
+        if (root / name).is_file():
+            doc = BeautifulSoup((root / name).read_text(encoding="utf-8"), "html.parser")
+            for node in doc.select("[class]"):
+                html_classes.update(node.get("class", []))
+    script_sources = (root / "script.js").read_text(encoding="utf-8") + (root / "brand.js").read_text(encoding="utf-8")
+    css_classes = set()
+    for scope, selector in selectors:
+        css_classes.update(re.findall(r"\.([a-zA-Z_][\w-]*)", selector))
+    unused_classes = sorted(c for c in css_classes if c not in html_classes and c not in script_sources)
+    report["css"]["unused_classes"] = unused_classes
+    if unused_classes:
+        record(report, "unused_css_classes", unused_classes)
     for name in ("brand.js", "script.js"):
         result = subprocess.run(
             ["node", "--check", str(root / name)], capture_output=True, text=True
