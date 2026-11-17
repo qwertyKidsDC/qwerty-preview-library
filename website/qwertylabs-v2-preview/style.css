@@ -472,6 +472,17 @@ main:focus {
   object-fit: fill;
 }
 
+/* The homepage uses the hero's existing second grid row for its introduction. */
+.hero-description {
+  align-self: start;
+  max-width: min(370px, calc(100% - 60px));
+  margin: 10px 0 0 50px;
+  color: var(--color-ivory);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 /* In flow, so the panel grows with the heading. margin = the approved offset. */
 .hero h1 {
   position: relative;
