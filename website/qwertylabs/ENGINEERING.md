@@ -8,8 +8,8 @@ Status: working static site undergoing a quality-gate review.
 - Subpages: kids.html is the approved reusable layout reference.
 - Shared stylesheet: style.css, the only local stylesheet for actual pages.
 - Behaviour: script.js plus brand.js for theme-coloured cursors.
-- Approved heroes: img/hero-home.webp, img/hero-kids.webp and
-  img/hero-tools.webp, all 1240 × 955 transparent WebP.
+- Approved heroes: img/qwerty-labs-mascots-led-electronics.webp, img/qwerty-labs-mascots-robot-car.webp and
+  img/qwerty-labs-mascots-cardboard-rocket.webp, all 1240 × 955 transparent WebP.
 - Adults, Teens and The Lab are draft content, not finished subpage templates.
 - Experimental tools (subpage-studio and freeform-assets) are not site templates.
 - Rollback: archive/2026-11-17-approved-before-quality-gate branch. Do not edit.

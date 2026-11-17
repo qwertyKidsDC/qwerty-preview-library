@@ -31,10 +31,10 @@ COMPLETE = (
 DRAFTS = ("adults.html", "teens.html", "thelab.html")
 PAGES = COMPLETE + DRAFTS
 HERO = {
-    "index.html": "hero-home.webp", "kids.html": "hero-kids.webp",
-    "tools.html": "hero-tools.webp", "a-kids-pov.html": "hero-tools.webp",
-    "kids-coding-classes.html": "hero-kids.webp",
-    "coding-camp.html": "hero-kids.webp",
+    "index.html": "qwerty-labs-mascots-led-electronics.webp", "kids.html": "qwerty-labs-mascots-robot-car.webp",
+    "tools.html": "qwerty-labs-mascots-cardboard-rocket.webp", "a-kids-pov.html": "qwerty-labs-mascots-cardboard-rocket.webp",
+    "kids-coding-classes.html": "qwerty-labs-mascots-robot-car.webp",
+    "coding-camp.html": "qwerty-labs-mascots-robot-car.webp",
 }
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))
 
