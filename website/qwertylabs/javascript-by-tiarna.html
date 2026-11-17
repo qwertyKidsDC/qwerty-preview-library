@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-AU" data-brand="lab" data-layout="subpage">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="JavaScript explained by Tiarna, a Qwerty Labs student. The language behind interactive websites and browser games."
+    >
+    <title>JavaScript, by Tiarna — Qwerty Labs</title>
+    <!-- Approved typefaces and the single site stylesheet. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="style.css?v=20261118-nav">
+    <script src="brand.js?v=20261108" defer></script>
+    <script src="script.js?v=20261118-nav" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="index.html" class="logo" aria-label="Qwerty Labs home">
+              <img src="img/wordmark.svg?v=warm-ivory-20261102" alt="Qwerty Labs" width="440" height="101">
+            </a>
+            <nav class="navigation" aria-label="Main navigation">
+              <div class="navigation-group">
+                <a href="kids.html">Kids</a>
+                <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
+                <div class="navigation-submenu" id="nav-kids">
+                  <div class="navigation-submenu__links">
+                    <a href="kids.html">Kids overview</a>
+                    <a href="kids-coding-classes.html">Weekly classes</a>
+                    <a href="coding-camp.html">Holiday camps</a>
+                  </div>
+                </div>
+              </div>
+              <a href="adults.html">Adults</a>
+              <a href="teens.html">Teens</a>
+              <div class="navigation-group navigation-group--lab">
+                <a href="thelab.html" class="navigation-current">The Lab</a>
+                <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
+                <div class="navigation-submenu" id="nav-lab">
+                  <div class="navigation-submenu__links">
+                    <a href="thelab.html">The Lab overview</a>
+                    <a href="tools.html">Kit &amp; Code</a>
+                    <a href="a-kids-pov.html" aria-current="page">A Kid's POV</a>
+                    <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </header>
+
+          <main id="main">
+            <!-- Approved POV hero artwork retained for this article page. -->
+            <section class="hero" aria-label="JavaScript, by Tiarna">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">javascript</span><span class="hero-tagline">by Tiarna</span></h1>
+                </div>
+              </div>
+              <img class="mascots" src="img/qwerty-labs-mascots-cardboard-rocket.webp" alt="Q Key, D1 and Six Pin making a cardboard rocket" width="1240" height="955" fetchpriority="high">
+            </section>
+
+            <!-- Intro: shared photo collage and blue panel components -->
+            <section class="projects projects--subpage" id="javascript-intro" aria-labelledby="javascript-intro-title">
+              <figure class="photo-collage">
+                <img class="project-photo" loading="lazy" decoding="async" src="https://qwertykids.com/wp-content/uploads/girl-coding-qwertykids.png" alt="Tiarna coding at a desktop computer, seen from behind" width="640" height="534">
+                <img class="project-frame" src="img/mat-h.webp" alt="">
+              </figure>
+              <div class="subpage-intro">
+                <img class="subpage-intro__art" src="img/kids-blue-panel-untaped-vtrim.svg?v=20261113-blue-kids-shape" alt="">
+                <div class="subpage-intro__copy">
+                  <h2 class="subpage-intro__heading--sentence-case" id="javascript-intro-title">JavaScript, explained</h2>
+                  <p>By Tiarna</p>
+                  <p>The language behind interactive websites, browser games and a whole lot more.</p>
+                  <p>A Qwerty student explains how JavaScript brought websites to life, in her own words.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Tiarna's text from the supplied article; section headings added for reading. -->
+            <section class="subpage-board" id="javascript-article" aria-label="JavaScript, by Tiarna">
+<section class="subpage-section " id="meet-javascript" aria-labelledby="meet-javascript-title">
+<img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
+<h2 class="subpage-section__heading" id="meet-javascript-title">MEET JAVASCRIPT</h2>
+<div class="subpage-section__copy">
+<p class="subpage-lead">So, imagine JavaScript as this cool, versatile language that's been around since 1995, thanks to the brainpower of Brendan Eich. Back then, the internet was like a static book, just sitting there with plain HTML pages. People wanted more—they wanted websites that could dance, sing, and maybe even make them a cup of coffee.</p>
+<p>Enter JavaScript, the hero of the web development world. It's this high-level, dynamic, and kind of a free-spirited language. Think of it like the magic wand for web pages. Sure, it started out mainly for making web pages more lively, but now it's like the Swiss Army knife of programming languages.</p>
+</div>
+<figure class="subpage-art subpage-art--counterclockwise">
+  <span class="subpage-art__media">
+    <img class="subpage-art__image" src="img/mascot-curated/d1-coding-laptop-frame.webp" alt="D1 coding on a laptop" width="1084" height="1084" loading="lazy" decoding="async">
+  </span>
+</figure>
+</section>
+<section class="subpage-section subpage-section--plain" id="what-it-does" aria-labelledby="what-it-does-title">
+
+<h3 class="subpage-section__subheading" id="what-it-does-title">WHAT IT DOES</h3>
+<div class="subpage-section__copy">
+<p>With JavaScript, you can do a bunch of cool stuff. Want a fancy, dynamic user interface? Check. Dreaming of creating web applications that feel like they're from the future? Check. Games, databases, forms, animations—JavaScript has got your back.</p>
+</div>
+<figure class="subpage-art subpage-art--level">
+  <span class="subpage-art__media">
+    <img class="subpage-art__image" src="img/mascot-curated/q-d1-gamego-handheld-frame.webp" alt="Q Key and D1 with a GameGo handheld games console" width="1084" height="1084" loading="lazy" decoding="async">
+  </span>
+</figure>
+</section>
+<section class="subpage-section subpage-section--plain" id="how-it-started" aria-labelledby="how-it-started-title">
+
+<h3 class="subpage-section__subheading" id="how-it-started-title">HOW IT STARTED</h3>
+<div class="subpage-section__copy">
+<p>Brendan Eich, the coding wizard behind it, whipped up JavaScript for Netscape, an early web browser. Back then, everyone was tired of static pages and wanted more interactivity. Thanks to JavaScript, suddenly developers could add pizzazz to their websites—animations, forms that actually do things, and more.</p>
+</div>
+
+</section>
+<section class="subpage-section subpage-section--plain" id="javascript-today" aria-labelledby="javascript-today-title">
+
+<h3 class="subpage-section__subheading" id="javascript-today-title">JAVASCRIPT TODAY</h3>
+<div class="subpage-section__copy">
+<p>Fast forward to today, and JavaScript is the rockstar of web development. It didn't just stop at making pages interactive; it paved the way for web applications, those nifty online stores, games, and whatnot. Now, millions of developers worldwide use JavaScript to craft the internet we know and love.</p>
+<p>So, in a nutshell, JavaScript is like the behind-the-scenes maestro making sure your favourite websites and apps are as lively and interactive as can be. Cheers to Brendan Eich and the language that made the web a cooler place! 🚀</p>
+</div>
+<figure class="subpage-art subpage-art--landscape">
+  <span class="subpage-art__media">
+    <img class="subpage-art__image" src="img/mascot-curated/q-d1-six-pin-laptop-frame.webp" alt="Q Key, D1 and Six Pin working together at a laptop" width="971" height="715" loading="lazy" decoding="async">
+  </span>
+</figure>
+</section>
+<!-- Qwerty's note, separate from Tiarna's original article. -->
+<section class="subpage-section " id="meet-tiarna" aria-labelledby="meet-tiarna-title">
+<img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
+<h2 class="subpage-section__heading" id="meet-tiarna-title">MEET TIARNA</h2>
+<div class="subpage-section__copy">
+<p>Tiarna started weekly coding classes at QwertyKids in 2020, aged nine. In 2024, she wrote <a href="a-kids-pov.html">A Kid\'s POV</a> about what happens inside the Lab.</p>
+<p>She later built <a href="https://online.coolestprojects.org/projects/26934">Project Code Cloud</a> with Chloe, using lights, buttons and sounds to show what happens when code moves between a website, the cloud, a computer and a physical device.</p>
+</div>
+
+</section>
+            </section>
+
+            <!-- Footer navigation, useful links and studio contact details -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-join-title">Get making</h2>
+                <nav class="footer-card-links" aria-label="Programs and ways to take part">
+                  <a href="kids.html">Kids</a>
+                  <a href="adults.html">Adults</a>
+                  <a href="teens.html">Teens</a>
+                  <a href="kids-coding-classes.html">Weekly Classes</a>
+                  <a href="coding-camp.html">Holiday Camps</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="index.html">Home</a>
+                  <a href="index.html#projects">Projects</a>
+                  <a href="tools.html">Kit &amp; Code</a>
+                  <a href="thelab.html">The Lab</a>
+                  <a href="a-kids-pov.html">A Kid's POV</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find us</h2>
+                <div class="footer-card-links">
+                  <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Directions</a>
+                </div>
+              </section>
+            </section>
+          </main>
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+              <img class="country-ack__mascot" src="img/mascot-ready/MS04-R04-C04-transparent.webp" alt="" width="245" height="160" loading="lazy" decoding="async">
+            </section>
+            <!-- The studio signature follows the left guide; policies follow the right. -->
+            <div class="footer-legal">
+              <div class="footer-legal-signature">
+                <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
+                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/wordmark.svg?v=warm-ivory-20261102" alt="" width="2013" height="460">
+                </a>
+                <span class="footer-legal-separator" aria-hidden="true">|</span>
+                <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
+              </div>
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="https://qwertykids.com/child-safe-policy/">Child Safety</a>
+                <a href="https://qwertykids.com/privacy-policy/">Privacy</a>
+                <a href="https://qwertykids.com/terms-and-conditions/">Booking Terms</a>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
