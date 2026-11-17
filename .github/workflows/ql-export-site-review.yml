@@ -1,0 +1,59 @@
+name: Qwerty Labs site review export
+on:
+  push:
+    branches:
+      - export/qwertylabs-claude-2026-11-17
+    paths:
+      - .github/workflows/ql-export-site-review.yml
+
+permissions:
+  contents: read
+
+jobs:
+  zip-current-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package and verify the complete Qwerty Labs website
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          from hashlib import sha256
+          import os
+
+          root = Path('website/qwertylabs')
+          assert (root / 'index.html').is_file()
+          assert (root / 'style.css').is_file()
+          assert (root / 'img/hero-home.webp').is_file()
+          assert (root / '_tools/check_site.py').is_file()
+
+          paths = sorted(p for p in root.rglob('*') if p.is_file())
+          output = Path('qwertylabs-site-review.zip')
+
+          with ZipFile(output, 'w', ZIP_DEFLATED, compresslevel=7) as bundle:
+              for p in paths:
+                  bundle.write(p, arcname=(Path('qwertylabs') / p.relative_to(root)).as_posix())
+
+          with ZipFile(output) as bundle:
+              assert bundle.testzip() is None
+              assert len(bundle.namelist()) == len(paths)
+              for p in paths:
+                  name = (Path('qwertylabs') / p.relative_to(root)).as_posix()
+                  assert bundle.read(name) == p.read_bytes(), name
+
+          checksum = sha256(output.read_bytes()).hexdigest()
+          print(f'Exported {len(paths)} files, {output.stat().st_size} bytes')
+          print('SHA-256:', checksum)
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write(f'Complete Qwerty Labs website ZIP: **{len(paths)} files**\\n\\n')
+              summary.write(f'SHA-256: \`{checksum}\`\\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qwertylabs-site-review
+          path: qwertylabs-site-review.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
