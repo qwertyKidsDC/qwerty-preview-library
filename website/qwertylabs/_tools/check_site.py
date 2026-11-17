@@ -207,9 +207,15 @@ def browser_checks(root, output, report):
                 page.on("pageerror", lambda err: page_errors.append(str(err)))
                 page.goto(f"{origin}/{name}", wait_until="load")
                 page.evaluate("document.fonts.ready")
-                page.wait_for_timeout(200)
+                # Off-screen images are intentionally lazy-loaded. Trigger their
+                # download before classifying a file as broken.
+                page.evaluate("""async () => {
+                    const imgs = [...document.images];
+                    imgs.forEach(img => { img.loading = 'eager'; });
+                    await Promise.all(imgs.map(img => img.decode().catch(() => {})));
+                }""")
                 invalid_images = page.evaluate("""() => [...document.images]
-                    .filter(img => !img.complete || img.naturalWidth === 0)
+                    .filter(img => img.naturalWidth === 0)
                     .map(img => img.getAttribute('src'))""")
                 if invalid_images:
                     record(report, "image_load", f"{name} {mode}: {invalid_images}")
@@ -232,9 +238,9 @@ def browser_checks(root, output, report):
                                 offset:b.top-a.bottom};
                     }""")
                     measurements.append({"page": name, "hero": evidence})
-                screenshot = output / "screenshots" / f"{name[:-5]}-{mode}.png"
+                screenshot = output / "screenshots" / f"{name[:-5]}-{mode}.jpg"
                 screenshot.parent.mkdir(parents=True, exist_ok=True)
-                page.screenshot(path=str(screenshot), full_page=True, animations="disabled")
+                page.screenshot(path=str(screenshot), type="jpeg", quality=84, full_page=True, animations="disabled")
                 if axe.is_file():
                     page.add_script_tag(path=str(axe))
                     violations = page.evaluate("""async () => {
