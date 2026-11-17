@@ -341,6 +341,17 @@
   margin-top: -6px;
 }
 
+/* Homepage introduction shares the hero text column with subpage booking links. */
+.hero-description {
+  position: relative;
+  z-index: 4;
+  max-width: 380px;
+  margin: 10px 0 0 50px;
+  color: var(--color-ivory);
+  font-size: var(--text-body);
+  line-height: 1.35;
+}
+
 .hero-paper .paper-bg {
   object-fit: fill;
 }
