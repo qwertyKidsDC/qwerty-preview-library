@@ -17,6 +17,53 @@
 })();
 
 
+
+/* One shared dropdown pattern for desktop, keyboard and touch navigation.
+   The text links still open their overview pages; chevrons toggle subpages. */
+(() => {
+  const groups = [...document.querySelectorAll('.navigation-group')];
+  if (!groups.length) return;
+
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const setOpen = (activeGroup, show) => {
+    for (const group of groups) {
+      const expanded = group === activeGroup && show;
+      group.classList.toggle('is-open', expanded);
+      group.querySelector('.navigation-toggle')
+        .setAttribute('aria-expanded', String(expanded));
+    }
+  };
+
+  for (const group of groups) {
+    const toggle = group.querySelector('.navigation-toggle');
+    toggle.addEventListener('click', () => {
+      setOpen(group, !group.classList.contains('is-open'));
+    });
+    group.addEventListener('mouseenter', () => {
+      if (canHover.matches) setOpen(group, true);
+    });
+    group.addEventListener('mouseleave', () => {
+      if (canHover.matches && !group.contains(document.activeElement)) {
+        setOpen(null, false);
+      }
+    });
+    group.addEventListener('focusout', event => {
+      if (!group.contains(event.relatedTarget)) setOpen(null, false);
+    });
+  }
+
+  document.addEventListener('pointerdown', event => {
+    if (!event.target.closest('.navigation-group')) setOpen(null, false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    const opened = groups.find(group => group.classList.contains('is-open'));
+    if (!opened) return;
+    setOpen(null, false);
+    opened.querySelector('.navigation-toggle').focus();
+  });
+})();
+
 /* The approved framed artwork varies slightly in tilt. Other frames stay fixed.
    This is shared by every subpage and needs no page-specific script. */
 (() => {
