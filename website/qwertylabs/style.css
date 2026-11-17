@@ -319,6 +319,91 @@
   text-shadow: 0 2px 7px #000;
 }
 
+
+/* Shared one-level navigation: parent links stay usable; chevrons open subpages. */
+.navigation-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.navigation-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.navigation-toggle::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.navigation-toggle:is(:hover, :focus-visible) { color: var(--color-blue); }
+.navigation-toggle:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
+.navigation-group.is-open .navigation-toggle::before {
+  transform: translateY(2px) rotate(225deg);
+}
+.navigation-submenu {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  min-width: 195px;
+  padding-top: 12px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.navigation-group--lab .navigation-submenu { left: auto; right: 0; }
+.navigation-group.is-open .navigation-submenu {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.navigation-submenu__links {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 7px 12px;
+  border-left: 3px solid var(--color-green);
+  background: var(--color-ink);
+  box-shadow: 0 8px 18px rgb(0 0 0 / .35);
+}
+.navigation-group--lab .navigation-submenu__links {
+  border-left-color: var(--color-blue);
+}
+.navigation .navigation-submenu a {
+  display: block;
+  padding: 9px 4px;
+  color: var(--color-ivory);
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: .02em;
+  text-transform: none;
+  text-shadow: none;
+}
+.navigation .navigation-submenu a[aria-current="page"] {
+  color: var(--brand-accent);
+}
+.navigation .navigation-submenu a::after {
+  left: 4px;
+  right: 4px;
+  bottom: 3px;
+  height: 4px;
+}
+
 /* 05. Hero and handmade mascots */
 .hero {
   position: relative;
