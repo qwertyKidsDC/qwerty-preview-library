@@ -28,12 +28,12 @@ jobs:
           node-version: "22"
       - name: Install source and browser validators
         run: |
-          python -m pip install --disable-pip-version-check beautifulsoup4 tinycss2 playwright html5validator==0.4.2
-          npm install --no-save --no-package-lock axe-core
+          python -m pip install --disable-pip-version-check beautifulsoup4 tinycss2 playwright
+          npm install --no-save --no-package-lock axe-core vnu-jar@26.10.12
           python -m playwright install chromium --with-deps
       - name: Validate completed pages against the HTML5 specification
         run: |
-          html5validator \
+          npx vnu --errors-only \
             website/qwertylabs/index.html \
             website/qwertylabs/kids.html \
             website/qwertylabs/tools.html \
@@ -41,6 +41,7 @@ jobs:
             website/qwertylabs/kids-coding-classes.html \
             website/qwertylabs/coding-camp.html
       - name: Audit assets, CSS, JavaScript, desktop, mobile and WCAG
+        if: always()
         run: |
           python website/qwertylabs/_tools/check_site.py --out site-quality-report
       - name: Preserve QA report and browser evidence
