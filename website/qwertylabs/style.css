@@ -1576,19 +1576,6 @@
   width: 100%;
   height: auto;
 }
-:where(html[data-layout="subpage"]) .subpage-art__caption {
-  position: relative;
-  z-index: 3;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.25;
-  text-shadow: 0 2px 3px rgba(0,0,0,.7);
-}
-:where(html[data-layout="subpage"]) .subpage-art:not(.subpage-art--landscape) .subpage-art__caption {
-  /* Match the Raspberry Pi caption's visible gap despite extra transparent padding in square frames. */
-  margin-top: -9px;
-}
 :where(html[data-layout="subpage"]) .subpage-callout {
   position: relative;
   isolation: isolate;
