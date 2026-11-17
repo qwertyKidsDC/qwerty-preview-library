@@ -18,9 +18,9 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261117-hero-overlap">
+    <link rel="stylesheet" href="style.css?v=20261118-nav">
     <script src="brand.js?v=20261108" defer></script>
-    <script src="script.js?v=20261117-component-audit" defer></script>
+    <script src="script.js?v=20261118-nav" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -43,11 +43,32 @@
               <img src="img/wordmark.svg?v=warm-ivory-20261102" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
-               <a href="kids.html">Kids</a>
-               <a href="adults.html">Adults</a>
-               <a href="teens.html">Teens</a>
-               <a href="thelab.html">The Lab</a>
-             </nav>
+              <div class="navigation-group">
+                <a href="kids.html">Kids</a>
+                <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
+                <div class="navigation-submenu" id="nav-kids">
+                  <div class="navigation-submenu__links">
+                    <a href="kids.html">Kids overview</a>
+                    <a href="kids-coding-classes.html">Weekly classes</a>
+                    <a href="coding-camp.html">Holiday camps</a>
+                  </div>
+                </div>
+              </div>
+              <a href="adults.html">Adults</a>
+              <a href="teens.html">Teens</a>
+              <div class="navigation-group navigation-group--lab">
+                <a href="thelab.html" class="navigation-current">The Lab</a>
+                <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
+                <div class="navigation-submenu" id="nav-lab">
+                  <div class="navigation-submenu__links">
+                    <a href="thelab.html">The Lab overview</a>
+                    <a href="tools.html" aria-current="page">Kit &amp; Code</a>
+                    <a href="a-kids-pov.html">A Kid's POV</a>
+                    <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
           </header>
 
           <main id="main">
