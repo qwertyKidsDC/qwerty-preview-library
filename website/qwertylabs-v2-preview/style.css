@@ -1,0 +1,1983 @@
+/* 00 — Design tokens
+   Everything other files need to agree on lives here. The palette is the single
+   source of truth: build.py reads the --color-* values below to draw the pointers
+   and the link squiggles, so a colour is never copied into artwork by hand. */
+:root {
+  --color-blue: #4C69E3;
+  --color-pink: #F66DC1;
+  --color-green: #92D644;
+  --color-orange: #FF9029;
+  --color-ivory: #F7F4EB;
+  --color-ink: #020020;
+  --brand-accent: var(--color-blue);
+
+  /* Shared type scale. rem, so a visitor's own default font size is respected
+     (1rem = 16px unless they change it). Fit containers to text, not text to
+     containers. */
+  --text-heading: 1.875rem;        /* 30px  Section headings and tape lettering */
+  --text-card: 1.25rem;            /* 20px  Card titles and country acknowledgement */
+  --text-body: 1.125rem;           /* 18px  Reading copy */
+  --text-ui: 1rem;                 /* 16px  Navigation, links and footer UI */
+  --text-hero: 2.25rem;            /* 36px  Handwritten page title */
+  --text-footer-heading: 1.125rem; /* 18px  Blue footer-card titles */
+  --text-footer: 0.875rem;         /* 14px  Footer card copy and Country paragraph */
+  --text-legal: 0.75rem;           /* 12px  Policies and copyright */
+
+  /* How far the visitor's text size is above the 16px default: 0px at the default,
+     16px at 200%. Layout that was drawn for default text adds a multiple of this to
+     its fixed spacing, so the artwork makes room as text grows and is unchanged at
+     the default size. Never negative. */
+  --text-growth: max(0px, calc(1rem - 16px));
+
+  /* Section spacing, before responsive page scaling. */
+  --space-section: 52px;
+
+  /* The cardboard page is drawn 986px wide and scaled with CSS zoom on wide
+     screens (script.js sets --ql-cardboard-zoom, never below 1). The nav sits
+     19px higher than the wordmark would put it; dividing by the zoom keeps that
+     19px constant on screen. */
+  --nav-top-compensation: calc(19px / var(--ql-cardboard-zoom, 1));
+
+  /* Workshop-specific photographic effects */
+  --scene-backdrop: #050A13;
+  --scene-tint-rgb: 4 9 18;
+  --scene-glow-left: rgba(255, 127, 0, .16);
+  --scene-glow-right: rgba(255, 139, 0, .18);
+
+  --workshop-footer-height: clamp(260px, 28vw, 520px);
+}
+
+:root[data-brand="kids"]   { --brand-accent: var(--color-green); }
+:root[data-brand="adults"] { --brand-accent: var(--color-pink); }
+:root[data-brand="teens"]  { --brand-accent: var(--color-orange); }
+
+/* Pointers: one pair per brand, drawn from the palette above. */
+:root {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='32' viewBox='0 0 26 32'%3E%3Cpath d='M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z' fill='%234C69E3' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 2 1, auto;
+  --cursor-hand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='40' viewBox='0 0 36 40'%3E%3Cpath d='M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z' fill='%234C69E3' stroke='%23020020' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 15 3, pointer;
+}
+:root[data-brand="kids"] {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='32' viewBox='0 0 26 32'%3E%3Cpath d='M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z' fill='%2392D644' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 2 1, auto;
+  --cursor-hand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='40' viewBox='0 0 36 40'%3E%3Cpath d='M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z' fill='%2392D644' stroke='%23020020' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 15 3, pointer;
+}
+:root[data-brand="adults"] {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='32' viewBox='0 0 26 32'%3E%3Cpath d='M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z' fill='%23F66DC1' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 2 1, auto;
+  --cursor-hand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='40' viewBox='0 0 36 40'%3E%3Cpath d='M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z' fill='%23F66DC1' stroke='%23020020' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 15 3, pointer;
+}
+:root[data-brand="teens"] {
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='32' viewBox='0 0 26 32'%3E%3Cpath d='M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z' fill='%23FF9029' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 2 1, auto;
+  --cursor-hand: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='40' viewBox='0 0 36 40'%3E%3Cpath d='M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z' fill='%23FF9029' stroke='%23020020' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 15 3, pointer;
+}
+
+/* Link squiggles: --squiggle-mask for block links, coloured copies for inline links. */
+:root {
+  --squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  --squiggle-ivory: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F7F4EB' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  --squiggle-blue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* 10 — Foundations: resets, base typography, skip link, pointers */
+
+:where(html[data-layout]) *,
+:where(html[data-layout]) *::before,
+:where(html[data-layout]) *::after {
+  box-sizing: border-box;
+}
+
+:where(html[data-layout]) {
+  background: var(--scene-backdrop);
+}
+
+:where(html[data-layout]) body {
+  margin: 0;
+  background: var(--scene-backdrop);
+  color: var(--color-ivory);
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  /* A word wider than its box (large text in a narrow card) breaks instead of spilling
+     off the paper. Does nothing while every word fits. */
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+:where(html[data-layout]) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.skip {
+  position: absolute;
+  top: -90px;
+  left: 10px;
+  padding: 14px;
+  z-index: 30;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+}
+
+.skip:focus {
+  top: 10px;
+}
+
+.skip:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: -4px;
+}
+
+/* The skip link moves focus to <main>. It is not interactive, so it needs no ring. */
+main:focus {
+  outline: none;
+}
+
+/* Custom pointers are only for mouse/trackpad. Touch and text inputs stay native.
+   The pointer images are generated per brand in 00-tokens.css. */
+@media (hover: hover) and (pointer: fine) {
+  :where(html[data-layout]) {
+    cursor: var(--cursor-arrow, auto);
+  }
+  :where(html[data-layout]) :is(a, button, [role="button"]) {
+    cursor: var(--cursor-hand, pointer);
+  }
+  :where(html[data-layout]) :is(input, textarea, [contenteditable="true"]) {
+    cursor: text;
+  }
+}
+
+/* 20 — Workshop photographs
+   Two real WebP photos; the top fade stops are calculated by src/js/20-scene-fade.js. */
+.site {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--scene-backdrop);
+
+  --workshop-top-image: url("img/workshop-top.webp?v=095df15e");
+  /* Width multiplier preserves the approved photo alignment. Match src/js/20-scene-fade.js (PHOTO_ASPECT) if changing it. */
+  --top-original-height: clamp(285px, 36vw, 740px);
+  --top-photo-width: max(100vw, calc(var(--top-original-height) * 3.227799));
+  --top-fade-start: 800px;
+  --top-fade-end: 1160px;
+}
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 38% 400px at 0 5%, var(--scene-glow-left), transparent),
+    radial-gradient(ellipse 33% 420px at 100% 4%, var(--scene-glow-right), transparent);
+}
+
+.bg-scene,
+.bg-scene-bottom {
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.bg-scene {
+  top: 0;
+  height: var(--top-fade-end);
+}
+
+.bg-scene-bottom {
+  bottom: 0;
+  height: var(--workshop-footer-height);
+}
+
+.bg-scene__photo,
+.bg-scene__tones,
+.bg-scene__vignette,
+.bg-scene-bottom__photo,
+.bg-scene-bottom__tones {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-scene__photo,
+.bg-scene-bottom__photo {
+  background-repeat: no-repeat;
+}
+
+/* Top: full-height fade plus a second copy to preserve the original lighting. */
+.bg-scene__photo {
+  background-image: var(--workshop-top-image);
+  background-size: var(--top-photo-width) auto;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1, 872px), rgba(0,0,0,.5) var(--top-fade-stop2, 980px), rgba(0,0,0,.12) var(--top-fade-stop3, 1088px), transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1, 872px), rgba(0,0,0,.5) var(--top-fade-stop2, 980px), rgba(0,0,0,.12) var(--top-fade-stop3, 1088px), transparent var(--top-fade-end));
+}
+
+.bg-scene__photo::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--top-original-height);
+  background-image: var(--workshop-top-image);
+  background-size: var(--top-photo-width) auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
+}
+
+.bg-scene__tones {
+  background: rgb(var(--scene-tint-rgb) / .70);
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
+  mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
+}
+
+.bg-scene__vignette {
+  background: radial-gradient(ellipse 61% 80% at 50% 44%, transparent 24%, rgb(var(--scene-tint-rgb) / .60) 100%);
+  -webkit-mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
+}
+
+/* Footer: photo and darkening tint share the same soft upper edge. */
+.bg-scene-bottom__photo,
+.bg-scene-bottom__tones {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
+}
+
+.bg-scene-bottom__photo {
+  background-image: url("img/workshop-footer.webp?v=694fe57b");
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.bg-scene-bottom__tones {
+  background: rgb(var(--scene-tint-rgb) / .80);
+}
+
+/* A narrower photographic crop, independent of the page layout breakpoint. */
+@media (width <= 750px) {
+  :root {
+    --workshop-footer-height: 300px;
+  }
+
+  .bg-scene-bottom__photo {
+    background-size: auto 100%;
+  }
+
+  .bg-scene__photo::after {
+    opacity: .72;
+  }
+
+  .site {
+    --top-original-height: clamp(200px, 58vw, 370px);
+    --top-photo-width: 100vw;
+  }
+}
+
+/* 30 — Cardboard stage, page, focus ring and the wide/stacked switch.
+   Wide (>= 1070px): the 986px page is scaled up with zoom. Stacked (< 1070px): the
+   page is fluid and never scaled down, so text is never smaller than designed. */
+.cardboard-stage {
+  position: relative;
+  z-index: 3;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 13px 34px 38px;
+}
+
+.cardboard-page {
+  position: relative;
+  width: 986px;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, .12);
+}
+
+.cardboard-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("img/cardboard-texture.svg?v=43f86a90") repeat;
+  opacity: .17;
+  pointer-events: none;
+}
+
+.cardboard-page img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Two-colour keyboard ring: ink is visible on ivory, orange on dark photos. */
+.cardboard-page a:focus-visible,
+.cloud-replay:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-orange);
+}
+
+.paper-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (width >= 1070px) {
+  .cardboard-page {
+    zoom: var(--ql-cardboard-zoom, 1);
+  }
+}
+
+@media (width < 1070px) {
+  .cardboard-stage {
+    padding: 12px 12px 16px;
+  }
+
+  /* Between 761px and 1069px the stacked layout is shown at its approved
+     760px width (736px page + 12px margins) instead of shrinking the desktop art. */
+  .cardboard-page {
+    width: 100%;
+    max-width: 736px;
+  }
+}
+
+/* 40 — Wordmark and navigation */
+.header {
+  position: relative;
+  z-index: 9;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 25px;
+  height: calc(100px + var(--nav-top-compensation));
+  /* Right edge follows the last top feature card, not the page boundary. */
+  padding: calc(14px + var(--nav-top-compensation)) 56.4px 0 47px;
+}
+
+.logo {
+  display: block;
+  flex: none;
+  width: 368px;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px 20px;
+  color: var(--color-ivory);
+  font-size: var(--text-ui);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navigation a {
+  display: inline-block;
+  text-shadow: 0 2px 7px #000;
+}
+
+@media (width >= 1070px) {
+  .navigation {
+    position: absolute;
+    top: 0;
+    right: 56.4px;
+  }
+}
+
+@media (width < 1070px) {
+  .header {
+    display: block;
+    min-height: 120px;
+    height: auto;
+    padding: 18px 20px 11px;
+  }
+
+  .logo {
+    width: min(340px, 83%);
+  }
+
+  .navigation {
+    gap: 7px 17px;
+    padding-top: 14px;
+    letter-spacing: .22em;
+  }
+}
+
+/* 50 — Hero and handmade mascots
+
+   The hero is flexible so enlarged text (a visitor's own font size, WCAG 1.4.4) has room:
+   - the paper panel is a MINIMUM size and grows with the heading;
+   - the hero is its copy plus a fixed clear zone, so it grows with the panel;
+   - the mascot platform hangs from the hero's BOTTOM edge, so it moves down with the panel
+     instead of sitting on the text.
+   At the default text size every number below reproduces the approved fixed layout exactly
+   (hero 344px / stacked 455px; platform 89px above the hero's top / 143px stacked). */
+.hero {
+  --hero-clear: 151px;           /* hero height minus the panel: 344 - 193 */
+  --mascot-width: 620px;
+  --mascot-top: -89px;           /* where the platform starts at the default text size */
+  --hero-rest: 344px;            /* hero height at the default text size */
+  /* Platform start measured up from the hero's bottom edge. */
+  --mascot-from-bottom: calc(var(--hero-rest) - var(--mascot-top));
+  position: relative;
+  z-index: 4;
+  /* The panel used to sit 6px above the hero (its negative margin collapsed through the
+     hero's own box). The hero carries that offset now so the panel and everything below
+     keep their approved positions. */
+  margin-top: -6px;
+}
+
+/* Pages with links under the panel need room for them (they grow and wrap with enlarged
+   text) before the mascot platform begins. Nothing is added at the default text size. */
+.hero:has(.subpage-hero-links) {
+  --hero-clear: calc(151px + 8 * var(--text-growth));
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Row 1: the paper panel. Row 2: clear space for the mascot platform, which also holds
+     the Kids/Camp/Classes links. The row grows if those links wrap. */
+  grid-template-rows: auto minmax(var(--hero-clear), auto);
+  width: 50%;
+  padding-left: 28px;
+}
+
+.hero-paper {
+  position: relative;
+  width: 433px;
+  min-height: 193px;
+}
+
+.hero-paper .paper-bg {
+  object-fit: fill;
+}
+
+/* In flow, so the panel grows with the heading. margin = the approved offset. */
+.hero h1 {
+  position: relative;
+  width: 380px;
+  margin: 48px 0 calc(24px + 1.5 * var(--text-growth)) 54px;
+  color: var(--color-ink);
+  font-family: 'Architects Daughter', cursive;
+  font-size: var(--text-hero);
+  font-weight: 700;
+  line-height: 1.13;
+  letter-spacing: -.02em;
+  overflow-wrap: break-word;   /* only acts when a single word is wider than the line */
+  transform: rotate(-1.2deg);
+}
+
+.mascots {
+  position: absolute;
+  /* Hang from the bottom edge: 100% is the hero's height, so this equals
+     top: var(--mascot-top) at the default text size and follows the hero as it grows. */
+  top: calc(100% - var(--mascot-from-bottom));
+  right: -5px;
+  z-index: 3;
+  width: var(--mascot-width);
+  height: auto;
+  filter: drop-shadow(7px 9px 7px rgba(0,0,0,.4));
+  pointer-events: none;
+}
+
+@media (width >= 1070px) {
+  .hero-copy {
+    top: 49px;
+  }
+}
+
+@media (width < 1070px) {
+  .hero {
+    --hero-clear: 273px;         /* 455 - 182 */
+    --mascot-width: 420px;
+    --mascot-top: 143px;
+    --hero-rest: 455px;
+  }
+
+  .hero:has(.subpage-hero-links) {
+    --hero-clear: calc(273px + 8 * var(--text-growth));
+  }
+
+  .hero-copy {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .hero-paper {
+    width: min(95vw, 433px);
+    min-height: 182px;
+    margin-left: -5px;
+  }
+
+  .hero h1 {
+    width: calc(100% - 75px);
+    margin: 45px 0 calc(24px + 1.5 * var(--text-growth)) 53px;
+    font-size: clamp(1.6875rem, 6.8vw, 2.125rem);
+  }
+
+  .mascots {
+    right: -126px;
+    opacity: .95;
+  }
+}
+
+/* 60 — Shared typography and handmade paper cards
+   Section headings and card titles have separate, centralised sizes. */
+
+/* Tape heading: a strip of blue tape with live lettering (Coolest Projects, Meet the Lab and
+   every subpage section). The tape is as wide as its lettering needs and as tall as its lines,
+   so enlarged text stays ON the tape (dark lettering that slipped off it would vanish into the
+   dark board). Where it is placed, each context sets the --tape-* numbers below; at the default
+   text size they reproduce the approved fixed artwork exactly.
+
+     <div class="tape-slot">                 room the context reserves above its copy
+       <div class="tape-heading">            the tape: min size, grows with the lettering
+         <img class="tape-heading__art">     the artwork, stretched to the tape
+         <h2 class="tape-heading__text">     the lettering, tilted on its own
+*/
+.tape-slot {
+  display: flow-root;                       /* keeps the tape's own margins inside the slot */
+  min-height: var(--tape-slot);             /* at least this; more if the tape needs it */
+}
+
+.tape-heading {
+  position: relative;
+  z-index: 3;
+  display: grid;                            /* art and lettering share one cell */
+  width: max-content;
+  min-width: min(var(--tape-width), var(--tape-max, 100%));   /* never wider than its room */
+  max-width: var(--tape-max, 100%);
+  min-height: var(--tape-height, 0px);
+  margin: var(--tape-top) 0 0 var(--tape-left, 0px);
+  pointer-events: none;
+}
+
+.tape-heading > * {
+  grid-area: 1 / 1;
+}
+
+.tape-heading__art {
+  /* Out of flow where the tape has a set height; in flow where its height follows the
+     artwork's own proportions (so a narrower tape is shorter). */
+  position: var(--tape-art-position, absolute);
+  inset: 0;
+  z-index: -1;
+  /* In flow, the artwork must not widen the tape (width 0, then stretched to the cell). */
+  width: var(--tape-art-width, 100%);
+  min-width: 100%;
+  height: var(--tape-art-height, 100%);   /* auto = the artwork's own proportions */
+  min-height: 100%;                       /* ...but never shorter than the lettering needs */
+  aspect-ratio: var(--tape-art-ratio, auto);
+  object-fit: fill;
+}
+
+.tape-heading__text {
+  align-self: start;
+  justify-self: start;
+  /* Bottom space: the tape's torn lower edge is tilted, so lettering that wraps onto a second
+     line needs a few pixels more tape than the box suggests. One line already has slack inside
+     the tape's minimum height, so the approved single-line tape does not change.
+     With enlarged text the lettering also starts a little nearer the tape's end, so a long word
+     such as "Projects" still ends on the tape at the narrowest widths. */
+  margin: var(--tape-pad-top) 8px calc(6px + .8 * var(--text-growth)) calc(var(--tape-pad-left) - var(--text-growth));
+  color: var(--color-ink);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  transform: rotate(-1.2deg);
+}
+
+.feature h2 {
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.small-card h2,
+.lab-footer .country-ack h2 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.small-card h2 {
+  font-size: var(--text-footer-heading);
+}
+
+.lab-footer .country-ack h2 {
+  font-size: var(--text-card);
+  margin: 0 0 9px;
+}
+
+.feature h2,
+.small-card h2 {
+  letter-spacing: -.035em;
+}
+
+.feature p,
+.project-copy p {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.feature h2,
+.small-card h2 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.feature p {
+  margin-top: 16px;
+  max-width: 187px;
+}
+
+.feature,
+.small-card {
+  display: block;
+  position: relative;
+  flex: none;
+  width: 32%;
+  min-width: 0;
+  color: var(--color-ink);
+  isolation: isolate;
+}
+
+.feature .paper-bg,
+.small-card .paper-bg {
+  z-index: -1;
+}
+
+/* Three static audience panels */
+.feature-cards {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  gap: 9px;
+  margin: -24px 38px 0;
+}
+
+.feature {
+  min-height: 240px;
+  /* The paper starts a fixed fraction down the card, which grows with enlarged text, so
+     the heading moves down with it (the extra is 0 at the default text size). */
+  padding: calc(42px + 2 * var(--text-growth)) 32px 25px 34px;
+}
+
+
+/* Hand-drawn go arrows. The heading is the real link; the arrow is a mouse-only
+   duplicate (aria-hidden, tabindex -1 in the HTML) so keyboard users hear one link per card. */
+.feature-arrow {
+  position: absolute;
+  right: 26px;
+  bottom: 20px;
+  z-index: 1;
+  display: block;
+  width: 72px;
+  height: 30px;
+  color: var(--color-ink);
+}
+
+.feature-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.feature:is(:hover, :focus-within) .feature-arrow {
+  color: var(--color-blue);
+}
+
+/* Three smaller information panels */
+.small-cards {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  gap: 12px;
+  /* Match the visible right edge of the top three cards (56.4px from the page edge). */
+  margin: 40px 44.3px 0 39px;
+}
+
+/* Alpha-trimmed artwork. The originals remain available under their old
+   names. These offsets retain painted positions and proportions exactly. */
+.feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
+.feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
+.feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
+
+@media (width < 1070px) {
+  .feature-cards {
+    flex-direction: column;
+    gap: 3px;
+    width: min(400px, calc(100% - 30px));
+    margin: 0 auto;
+    padding-top: 15px;
+  }
+
+  .feature {
+    min-height: 222px;
+    padding-top: calc(39px + 2 * var(--text-growth));
+  }
+
+  .feature p {
+    max-width: 205px;
+  }
+
+  /* Match the mobile Coolest Projects label size as well. */
+  .feature h2 {
+    font-size: 1.5rem;
+  }
+  .small-cards {
+    flex-direction: column;
+    gap: 6px;
+    width: min(400px, calc(100% - 30px));
+    margin: 0 auto;
+  }
+
+  .feature,
+  .small-card {
+    width: 100%;
+  }
+}
+
+/* 70 — Project row and photographic collage (reused by every subpage intro) */
+.projects {
+  position: relative;
+  z-index: 6;
+  min-height: 405px;
+  /* The photo protrudes 26px above this row: preserve 52px of visible
+     space after the preceding Coolest Projects board. */
+  margin: calc(var(--space-section) + 26px) 35px 0 39px;
+}
+
+/* The dark backboard behind Meet the Lab (decorative, so CSS rather than an <img>). It
+   stretches with the copy: 405px row - 26px above - 33px below = the approved 346px. */
+.projects:not(.projects--subpage)::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: 0;
+  width: 420px;
+  height: calc(100% - 59px);
+  background: url("img/project-backboard.svg?v=b4347e98") 0 0 / 100% 100% no-repeat;
+  opacity: .97;
+  pointer-events: none;
+}
+
+.project-copy {
+  position: relative;
+  z-index: 3;
+  width: 375px;
+  padding: 0 0 0 42px;
+  color: var(--color-ivory);
+}
+
+.project-copy > .tape-slot {
+  /* 85px of space above the copy, with the tape 5.6px into it. */
+  --tape-slot: 85px;
+  --tape-top: 5.621px;
+  --tape-left: -42px;                       /* start at the copy's edge, not its padding */
+  --tape-max: calc(100% + 42px);            /* the tape may use the copy's left padding */
+  --tape-width: 354px;
+  --tape-height: 64.053px;
+  --tape-pad-top: 16.39px;
+  --tape-pad-left: 39px;
+}
+
+.project-copy p {
+  max-width: 300px;
+  margin: 0;
+}
+
+.photo-collage {
+  position: absolute;
+  top: -26px;
+  left: 389px;
+  width: 555px;
+  height: 375px;
+  margin: 0;
+  transform: rotate(7deg);
+}
+
+.project-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.project-photo {
+  position: absolute;
+  top: 16%;
+  left: 10.6%;
+  z-index: 1;
+  width: 83%;
+  height: 74%;
+  object-fit: cover;
+  transform: rotate(-4.3deg);
+}
+
+@media (width < 1070px) {
+  .projects {
+    min-height: 675px;
+    /* The Meet the Lab label begins about 5px into this row. */
+    margin: calc(var(--space-section) - 5px) 12px 0;
+  }
+
+  /* Stacked: the copy sits in a row that is at least 328px tall (where the collage used to
+     be placed by hand), so enlarged text pushes the photo down instead of running over it. */
+  .projects:not(.projects--subpage) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(328px, auto) auto;
+    align-content: start;
+  }
+
+  .projects:not(.projects--subpage) > .project-copy {
+    grid-area: 1 / 1;
+  }
+
+  /* The backboard is a grid item here, stretched over the first row: 35px down, ending 27px
+     below it (328px row - 8px = the approved 320px). */
+  .projects:not(.projects--subpage)::before {
+    position: relative;
+    grid-area: 1 / 1;
+    align-self: stretch;
+    top: auto;
+    left: auto;
+    width: min(420px, 100%);
+    height: auto;
+    margin: 35px 0 -27px;
+  }
+
+  .project-copy {
+    width: min(365px, 100%);
+    padding: 0 0 0 38px;
+  }
+
+  .project-copy > .tape-slot {
+    --tape-slot: 95px;
+    --tape-left: -38px;
+    --tape-max: calc(100% + 38px);
+    --tape-width: 300px;
+    --tape-pad-top: 15.39px;
+    --tape-pad-left: 35px;
+  }
+
+  .project-copy p {
+    max-width: 285px;
+  }
+
+  .projects:not(.projects--subpage) > .photo-collage {
+    position: relative;
+    grid-area: 2 / 1;
+    top: auto;
+    left: 0;
+    width: min(550px, 100%);
+    height: auto;
+    aspect-ratio: 555/375;
+    /* On wide phones the photo used to hang below the 675px section into the gap beneath
+       it. Pull the section's bottom edge back by the same amount (328 + photo - 675). */
+    margin-bottom: calc(-1 * max(0px, min(550px, 100%) * 375 / 555 - 347px));
+  }
+  /* Let the blue cards breathe after the Meet the Lab collage on mobile. */
+  .projects + .small-cards {
+    margin-top: 46px;
+  }
+}
+
+/* 80 — Closing scene, blue information cards, Acknowledgement and legal footer
+   Consolidated from the existing footer CSS without changing source order.
+   Only the mobile tape lettering uses 24px to fit the narrower artwork.
+   The brighter tape blue belongs to the artwork, not the palette. */
+
+.footer-scene {
+  position: relative;
+  z-index: 7;
+  /* The label sits 25px above the board. Measure the intended 52px
+     gap from the feature cards to that visible label, not the board box. */
+  margin: calc(var(--space-section) + 25px) 56.4px 0 39px;
+}
+
+.footer-scene__board {
+  position: relative;
+  isolation: isolate;
+  display: flow-root;
+  filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
+}
+
+/* The tape sits across the board's top edge. Its slot is the space above the photo and copy. */
+.footer-scene__board > .tape-slot {
+  --tape-slot: 54.08px;
+  --tape-top: -25.31px;
+  --tape-width: 354px;
+  --tape-height: 64.053px;
+  --tape-pad-top: 16.38px;
+  --tape-pad-left: 39px;
+}
+
+/* Shared nine-slice blackboard artwork. The frame and its cardboard trim
+   stay intact as each panel expands with its own content. Used by the
+   Coolest Projects board, the Acknowledgement and every subpage board. */
+.footer-scene__board::before,
+.lab-footer .country-ack::before,
+:where(html[data-layout="subpage"]) .subpage-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
+  border-image-source: url("img/footer-experiment-dark-vtrim.webp?v=3ac704e8");
+  border-image-slice: 92 140 92 140 fill;
+  border-image-width: 1;
+  border-image-repeat: stretch round;
+  filter: brightness(1.15);
+}
+
+.footer-scene__board::before {
+  z-index: 0;
+}
+
+.footer-scene__content {
+  position: relative;
+  z-index: 3;
+  /* The photo and copy sit beneath the blue label (the tape slot above). */
+  margin-bottom: 43px;
+  width: 91.6%;
+  margin-left: 4.2%;
+  margin-right: 0;
+  color: var(--color-ivory);
+  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 30px;
+}
+
+/* Photo frame 02: a narrow ivory photo print over a slightly offset
+   corrugated cardboard back. No masking tape or decorative corners.
+   This is reusable around other site photographs. */
+.footer-scene__photo {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.photo-frame--cardboard-offset {
+  position: relative;
+  isolation: isolate;
+  padding: 8px;
+  background: var(--color-ivory);
+  box-shadow: 1px 3px 5px rgba(0,0,0,.29);
+  transform: rotate(-.6deg);
+}
+
+/* The cloud keeps the photo print's original proportions, padding and tilt.
+   Its poster is restored after playback, without shifting the frame. */
+.photo-frame--cardboard-offset > .cloud-replay {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1749 / 1007;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.cloud-replay__video,
+.cloud-replay__poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.cloud-replay__poster {
+  z-index: 1;
+}
+
+.cloud-replay.is-playing .cloud-replay__poster {
+  visibility: hidden;
+}
+
+
+.photo-frame--cardboard-offset::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -3px -11px -10px 3px;
+  border: 1px solid rgba(76,44,18,.36);
+  background-color: #B98453;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(69,38,19,.16) 0 1px, rgba(255,223,172,.13) 2px 4px, transparent 5px 8px),
+    repeating-linear-gradient(0deg, rgba(70,40,20,.10) 0 1px, transparent 1px 5px),
+    linear-gradient(125deg, #D1A06E, #AA7546 75%, #956038);
+  box-shadow: 2px 3px 3px rgba(0,0,0,.3);
+  transform: rotate(.8deg);
+}
+
+/* Match the Projects paragraph typography without narrowing the footer column. */
+.footer-scene__content p {
+  margin: 0;
+  max-width: 570px;
+}
+
+.scene-link {
+  display: inline-block;
+  margin-top: 18px;
+  line-height: 1.4;
+}
+
+/* Footer card copy and Country acknowledgement share one type token.
+   Spacing and line-height remain specific to each component. */
+.footer-card-links,
+.footer-card-address,
+.lab-footer .country-ack p {
+  font-size: var(--text-footer);
+}
+
+/* Secondary blue cards. Their height fits five full-size links.
+   Artwork has transparent space at the top; 50px positions the copy
+   inside the visible paper, not just its SVG bounds. */
+.footer-nav-cards .footer-nav-card {
+  min-height: 275px;
+  padding: 50px 32px 20px 34px;
+}
+
+.footer-nav-card h2 {
+  margin: 0 0 8px;
+}
+
+.footer-card-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  line-height: 1.35;
+}
+
+.footer-card-links a,
+.footer-legal-links a {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Keep policy links easy to activate (WCAG 2.2 target-size baseline). */
+.footer-legal-links a {
+  min-height: 24px;
+  padding-bottom: 2px;
+}
+
+.footer-card-address {
+  font-style: normal;
+}
+
+.footer-email {
+  /* Not a live link until the address is active. */
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* The painted blue cards stop before the SVG box ends. Their empty lower
+   margins already supply visual space: no extra 26px CSS gap is needed.
+   Preserve the same right-hand guide as the main cards. */
+.cardboard-page > .lab-footer {
+  position: relative;
+  z-index: 9; /* Country paper sits over the empty lower part of the blue cards. */
+  /* JS aligns this panel 24 viewport pixels below the lowest footer-card
+     copy, regardless of leftover paper. --country-overlap is the no-JS
+     fallback; JS overrides the margin when it runs. */
+  --country-overlap: -46.755946px;
+  margin: var(--country-overlap) 56.4px 0 39px;
+  color: var(--color-ivory);
+}
+
+.lab-footer .country-ack {
+  position: relative;
+  min-height: 0;
+  padding: 26px 34px 24px;
+  background: none;
+  isolation: isolate;
+}
+
+/* Country uses the same artwork, but behind its content. */
+.lab-footer .country-ack::before {
+  z-index: -1;
+}
+
+.lab-footer .country-ack__mascot {
+  position: absolute;
+  right: 20px;
+  bottom: 8px;
+  z-index: 1;
+  width: 118px;
+  height: auto;
+  pointer-events: none;
+}
+
+
+.lab-footer .country-ack p {
+  width: 80%;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Copyright, wordmark and founder credit anchor left. Policy links
+   anchor right, extended to the visible blue-card edge. */
+.lab-footer .footer-legal {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  /* Extend only the right edge to match the painted blue cardboard cards.
+     Country and the left-hand alignment stay unchanged. */
+  margin: 60px -12.1px 0 0;
+  padding: 0 0 24px;
+  font-size: var(--text-legal);
+  line-height: 1.4;
+}
+
+.lab-footer .footer-wordmark {
+  display: block;
+  width: 88px;
+}
+
+.lab-footer .footer-wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lab-footer .footer-founder-credit {
+  letter-spacing: -.012em;
+}
+
+/* Wrap rather than run off the page when text is enlarged (one line while it fits). */
+.lab-footer .footer-legal-links,
+.lab-footer .footer-legal-signature {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lab-footer .footer-legal-links {
+  justify-content: flex-end;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.lab-footer .footer-legal-signature {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.lab-footer .footer-legal-separator {
+  margin: 0 7px 0 5px;
+  opacity: .8;
+}
+
+@media (width >= 1070px) {
+  .lab-footer .country-ack {
+    margin-inline: -6px;
+    padding-inline: 40px;
+  }
+  /* Both blackboard panels use the same nine-slice artwork with transparent
+     edges. Align their painted sides to the coloured card guides without
+     changing the width or positioning of either content box. */
+  .footer-scene__board::before,
+  .lab-footer .country-ack::before {
+    left: -21px;
+    right: -21px;
+  }
+  /* Centre Q in the last fifth of the padded content width.
+     The panel has 40px horizontal padding: 40px + 90% of its
+     inner width is equivalent to 90% of the panel minus 32px. */
+  .lab-footer .country-ack__mascot {
+    right: auto;
+    left: calc(90% - 32px);
+    transform: translateX(-50%);
+  }
+}
+
+@media (width < 1070px) {
+  .footer-scene {
+    /* The mobile tape begins 24px below the board's top. */
+    margin: calc(var(--space-section) - 24px) 12px 0;
+  }
+  .footer-scene__board > .tape-slot {
+    --tape-slot: 100px;
+    --tape-top: 24px;
+    --tape-width: min(295px, 82%);
+    --tape-height: 0px;                       /* proportions come from the artwork ratio */
+    --tape-art-position: relative;
+    --tape-art-height: auto;
+    --tape-art-width: 0px;
+    --tape-art-ratio: 354 / 75;
+    --tape-pad-top: 18px;
+    --tape-pad-left: 32px;
+  }
+  .footer-scene__board .tape-heading__text {
+    font-size: 1.5rem;
+  }
+
+  /* Stack the frame above the copy on narrow screens. */
+  .footer-scene__photo {
+    width: min(100%, 310px);
+    justify-self: center;
+  }
+
+  .footer-scene__content {
+    width: 79%;
+    margin-left: 10%;
+    margin-bottom: 32px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .footer-scene__content p {
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  .scene-link {
+    margin-top: 12px;
+  }
+  .cardboard-page > .lab-footer {
+    width: min(400px, calc(100% - 30px));
+    --country-overlap: -85.3px; /* No-JS fallback; measured from text when JS runs. */
+    margin: var(--country-overlap) auto 0;
+  }
+
+  .lab-footer .country-ack {
+    padding: 26px 26px 125px;
+  }
+
+  .lab-footer .country-ack__mascot {
+    width: 98px;
+    right: 20px;
+    bottom: 12px;
+  }
+
+  .lab-footer .country-ack p {
+    width: 100%;
+  }
+
+  .lab-footer .footer-legal {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    margin-top: 62px;
+    margin-right: 0;
+    padding: 0 0 30px;
+  }
+
+  .lab-footer .footer-legal-signature,
+  .lab-footer .footer-legal-links {
+    flex-wrap: wrap;
+  }
+
+  .lab-footer .footer-legal-signature {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .lab-footer .footer-legal-links {
+    align-self: flex-end;
+  }
+}
+
+/* 90 — Link roles: one squiggle mask for all link types.
+   Colour is supplied by existing palette tokens, not embedded in SVGs.
+   Hover and keyboard-focus changes are immediate; text colour is unchanged. */
+.navigation a,
+.footer-legal-links a,
+.scene-link,
+.footer-card-links a,
+.feature h2 a,
+.subpage-section__option a {
+  position: relative;
+}
+
+.navigation a::after,
+.footer-legal-links a::after,
+.scene-link::after,
+.footer-card-links a::after,
+.feature h2 a::after,
+.subpage-section__option a::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 5px;
+  background-color: var(--link-underline-rest, var(--color-ivory));
+  -webkit-mask: var(--squiggle-mask) left bottom / 100% 100% no-repeat;
+  mask: var(--squiggle-mask) left bottom / 100% 100% no-repeat;
+}
+
+/* The navigation and policy squiggle appears only on hover/focus. */
+.navigation a::after,
+.footer-legal-links a::after {
+  bottom: -4px;
+  height: 7px;
+  opacity: 0;
+}
+.navigation a:is(:hover, :focus-visible)::after,
+.footer-legal-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-blue);
+  opacity: 1;
+}
+
+/* Inline text links use the approved squiggle as a background, so every
+   wrapped line gets its own underline. The absolute pseudo-element approach
+   above is retained for block links only. */
+.footer-scene__content p a,
+.subpage-section__copy p a {
+  background-image: var(--squiggle-ivory);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 100% 5px;
+  padding-bottom: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.footer-scene__content p a:is(:hover, :focus-visible),
+.subpage-section__copy p a:is(:hover, :focus-visible) {
+  background-image: var(--squiggle-blue);
+}
+
+/* Block-like page links retain the approved tight underline placement. */
+.scene-link::after,
+.footer-card-links a::after {
+  bottom: 2px;
+}
+.footer-card-links a {
+  min-height: 24px;
+}
+
+/* On the blue paper cards, use ink at rest and ivory on hover. */
+.footer-nav-cards .footer-card-links a::after,
+.feature h2 a::after {
+  background-color: var(--color-ink);
+}
+
+.scene-link:is(:hover, :focus-visible)::after,
+.footer-card-links a:is(:hover, :focus-visible)::after,
+.feature h2 a:is(:hover, :focus-visible)::after,
+.subpage-section__option a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-blue);
+}
+
+.footer-nav-cards .footer-card-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-ivory);
+}
+
+/* 91 — Shared subpage layout, part 1: hero, intro and links (Kids is the approved reference).
+   Rules here use the zero-specificity :where(html[data-layout="subpage"]) prefix, so file ORDER
+   decides conflicts with the site rules above. Do not reorder 91-93. */
+:where(html[data-layout="subpage"]) .navigation-current {
+  display: inline-block;
+  color: var(--brand-accent);
+  text-shadow: 0 2px 7px #000;
+}
+:where(html[data-layout="subpage"]) .hero h1 {
+  width: 338px;
+  margin: 43px 0 calc(24px + 1.5 * var(--text-growth)) 54px;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 4.0625rem;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  transform: rotate(-1.2deg);
+}
+:where(html[data-layout="subpage"]) .hero-title,
+:where(html[data-layout="subpage"]) .hero-tagline {
+  display: block;
+}
+:where(html[data-layout="subpage"]) .hero-tagline {
+  max-width: 315px;
+  margin-top: -7px;
+  font-size: 1.8125rem;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+}
+
+:where(html[data-layout="subpage"]) .subpage-hero-links {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: start;    /* a grid item: do not stretch over the hero's clear space */
+  gap: 8px 22px;
+  margin: 10px 0 0 50px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+:where(html[data-layout="subpage"]) .subpage-hero-links .scene-link {
+  margin-top: 0;
+  color: var(--color-ivory);
+}
+
+:where(html[data-layout="subpage"]) .hero + .projects--subpage {
+  margin-top: -24px;
+}
+
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 17px;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links .scene-link {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+:where(html[data-layout="subpage"]) .projects--subpage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
+  position: relative;
+  top: 86px;
+  left: auto;
+  grid-column: 1;
+  grid-row: 1;
+  width: 80%;
+  height: auto;
+  aspect-ratio: 700 / 516;
+  margin-inline: auto;
+  transform: none; 
+}
+:where(html[data-layout="subpage"]) .projects--subpage .project-photo {
+  top: 7%;
+  left: 3%;
+  width: 91.5%;
+  height: 85%;
+  transform: none;
+}
+/* The Kids intro reuses the homepage green paper artwork at the original
+   intro panel width. The photograph and two-column arrangement stay put. */
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
+  position: relative;
+  isolation: isolate;
+  left: -45px;
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 405px;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
+  position: absolute;
+  inset: 26px 0 33px;
+  z-index: 0;
+  width: 100%;
+  height: calc(100% - 59px);
+  pointer-events: none;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
+  position: relative;
+  z-index: 1;
+  padding: 79px 44px 58px;
+  color: var(--color-ink);
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy h2 {
+  margin: 0;
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy p {
+  margin: 8px 0 0;
+}
+:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy .scene-link {
+  --link-underline-rest: var(--color-ink);
+}
+
+
+@media (width < 1070px) {
+  :where(html[data-layout="subpage"]) .hero h1 {
+    width: calc(100% - 75px);
+    margin: 45px 0 calc(24px + 1.5 * var(--text-growth)) 53px;
+    font-size: clamp(2.75rem, 11vw, 4.0625rem);
+  }
+  :where(html[data-layout="subpage"]) .hero-tagline {
+    max-width: 100%;
+    margin-top: -5px;
+    font-size: clamp(1.375rem, 6vw, 1.8125rem);
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    min-height: 0;
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
+    top: 18px;
+    left: 0;
+    grid-column: 1;
+    grid-row: 1;
+    width: min(360px, 80%);
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
+    left: 0; 
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 355px;
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
+    top: 35px;
+    bottom: 0;
+    height: calc(100% - 35px);
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
+    padding: 100px 30px 60px 38px;
+  }
+
+  :where(html[data-layout="subpage"]) .subpage-hero-links {
+    margin: 6px 0 0 49px;
+    gap: 8px 16px;
+    font-size: 1rem;
+  }
+  :where(html[data-layout="subpage"]) .hero + .projects--subpage {
+    margin-top: 0;
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links {
+    gap: 5px 17px;
+  }
+}
+
+/* 92 — Shared subpage layout, part 2: the blackboard, its tape-headed sections, the
+   floating framed artwork and the testimonial callout. */
+:where(html[data-layout="subpage"]) .subpage-board {
+  position: relative;
+  z-index: 6;
+  isolation: isolate;
+  margin: 30px 56.4px 0 39px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 17px 23px 56px;
+  color: var(--color-ivory);
+}
+/* The blackboard artwork itself is shared: see 80-footer.css. */
+:where(html[data-layout="subpage"]) .subpage-board::before {
+  inset: 22px 0 0;
+  z-index: -1;
+}
+:where(html[data-layout="subpage"]) .subpage-section {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0 45px 17px 37px;
+}
+:where(html[data-layout="subpage"]) .subpage-section + .subpage-section {
+  margin-top: 0;
+}
+/* These modifiers are reusable by any subpage; headings and artwork stay shared. */
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--tight-end {
+  padding-bottom: 0;
+}
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--plain {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+:where(html[data-layout="subpage"]) .subpage-section > .tape-slot {
+  /* The section's 87px of space above its copy, with the tape 5.6px into it. */
+  --tape-slot: 87px;
+  --tape-top: 5.621px;
+  --tape-left: -37px;                       /* start at the section's edge, not its padding */
+  --tape-width: 354px;
+  --tape-height: 64.053px;
+  --tape-pad-top: 16.39px;
+  --tape-pad-left: 39px;
+}
+:where(html[data-layout="subpage"]) .subpage-section__copy {
+  position: relative;
+  width: 66.6667%;
+}
+:where(html[data-layout="subpage"]) .subpage-section__copy > p,
+:where(html[data-layout="subpage"]) .subpage-section__option p {
+  margin: 0 0 16px;
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+:where(html[data-layout="subpage"]) .subpage-section__copy > p:last-child,
+:where(html[data-layout="subpage"]) .subpage-section__option p:last-of-type {
+  margin-bottom: 0;
+}
+:where(html[data-layout="subpage"]) .subpage-section__copy > p:first-child {
+  font-weight: 700;
+}
+:where(html[data-layout="subpage"]) .subpage-section__option + .subpage-section__option {
+  margin-top: 30px;
+}
+:where(html[data-layout="subpage"]) .subpage-section__option :is(h3, h4) {
+  margin: 0 0 10px;
+  font-size: 1.3125rem;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+:where(html[data-layout="subpage"]) .subpage-section__option a {
+  display: inline-block;
+  margin-top: 13px;
+  padding-bottom: 3px;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+:where(html[data-layout="subpage"]) .subpage-section__option a::after {
+  bottom: -2px;
+  height: 6px;
+}
+:where(html[data-layout="subpage"]) .subpage-section__copy > p.subpage-section__booking-note {
+  margin-top: 27px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(247,244,235,.65);
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+:where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art) {
+  min-height: 0;
+}
+/* Reserve only the height actually needed by each floating device, rather
+   than imposing 385px on every question. Text can expand these naturally. */
+:where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--clockwise) { min-height: 365px; }
+:where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--level) { min-height: 320px; }
+:where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--counterclockwise) { min-height: 425px; }
+:where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--landscape) { min-height: 318px; }
+:where(html[data-layout="subpage"]) .subpage-section.subpage-section--natural-height { min-height: 0; }
+:where(html[data-layout="subpage"]) .subpage-art {
+  position: absolute;
+  z-index: 3;
+  top: 112px;
+  right: 25px;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 212px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-ivory);
+  text-align: center;
+  transform: rotate(var(--tool-tilt, 5deg));
+}
+:where(html[data-layout="subpage"]) .subpage-art--clockwise {
+  top: 115px;
+  right: 28px;
+  width: 262px;
+  --tool-tilt: 6.5deg; /* the middle of the 3-10deg range this used to randomise */
+}
+:where(html[data-layout="subpage"]) .subpage-art--level {
+  top: 83px;
+  right: 12px;
+  width: 262px;
+  --tool-tilt: 0deg;
+}
+:where(html[data-layout="subpage"]) .subpage-art--counterclockwise {
+  top: 126px;
+  right: 30px;
+  width: 262px;
+  --tool-tilt: -4deg;
+}
+:where(html[data-layout="subpage"]) .subpage-art--landscape {
+  top: 70px;
+  right: -55px;
+  width: 288px;
+  --tool-tilt: 5.5deg; /* the middle of the 2-9deg range this used to randomise */
+}
+:where(html[data-layout="subpage"]) .subpage-art__media {
+  display: block;
+  width: 100%;
+}
+:where(html[data-layout="subpage"]) .subpage-art__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+:where(html[data-layout="subpage"]) .subpage-art__caption {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 3px rgba(0,0,0,.7);
+}
+:where(html[data-layout="subpage"]) .subpage-art:not(.subpage-art--landscape) .subpage-art__caption {
+  /* Match the Raspberry Pi caption's visible gap despite extra transparent padding in square frames. */
+  margin-top: -9px;
+}
+:where(html[data-layout="subpage"]) .subpage-callout {
+  position: relative;
+  isolation: isolate;
+  z-index: 2;
+  width: 66.6667%;
+  margin: 0 0 0 37px;
+  padding: 42px 57px 43px;
+
+  color: var(--color-ink);
+}
+:where(html[data-layout="subpage"]) .subpage-callout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: 40px solid transparent;
+  border-image-source: url("img/kids-green-panel-untaped-vtrim.svg?v=29abd5df");
+  border-image-slice: 130 140 130 140 fill;
+  border-image-width: 40px 43px;
+  border-image-repeat: stretch;
+}
+:where(html[data-layout="subpage"]) .subpage-callout__body {
+  width: 100%;
+}
+:where(html[data-layout="subpage"]) .subpage-callout__quote {
+  margin: 0;
+}
+:where(html[data-layout="subpage"]) .subpage-callout__quote p {
+  margin: 0 0 19px;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 1.46;
+}
+:where(html[data-layout="subpage"]) .subpage-callout__quote blockquote {
+  margin: 0;
+}
+:where(html[data-layout="subpage"]) .subpage-callout__quote figcaption {
+  font-size: 0.9375rem;
+  line-height: 1.8; /* 27px: the line height the attribution always had */
+  font-style: normal;
+  font-weight: 700;
+}
+:where(html[data-layout="subpage"]) .subpage-callout + .subpage-section {
+  margin-top: 26px;
+}
+:where(html[data-layout="subpage"]) .subpage-board + .small-cards {
+  margin-top: 54px;
+}
+
+/* Position variants: one consistent artwork component, not per-page ID overrides. */
+:where(html[data-layout="subpage"]) .subpage-art--raised {
+  top: -145px;
+}
+:where(html[data-layout="subpage"]) .subpage-art--centered {
+  top: 50%;
+  transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
+}
+
+@media (width < 1070px) {
+  :where(html[data-layout="subpage"]) .subpage-board {
+    width: min(400px, calc(100% - 30px));
+    margin: 24px auto 0;
+    gap: 12px;
+    padding: 12px 8px 45px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-board::before {
+    inset: 20px 0 0;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section {
+    padding: 0 28px 23px 29px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section + .subpage-section {
+    margin-top: 0;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section > .tape-slot {
+    --tape-top: 5px;
+    --tape-left: -29px;
+    /* 94% of the section including its 57px of side padding */
+    --tape-width: min(300px, calc((100% + 57px) * .94));
+    --tape-max: calc(100% + 57px);            /* the tape may use the section's side padding */
+    --tape-height: 0px;                       /* the artwork's own proportions set the height */
+    --tape-art-position: relative;
+    --tape-art-height: auto;
+    --tape-art-width: 0px;
+    --tape-pad-top: 16px;
+    --tape-pad-left: 35px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section .tape-heading__text {
+    font-size: 1.6875rem;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section__copy {
+    width: 100%;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section__copy > p,
+  :where(html[data-layout="subpage"]) .subpage-section__option p {
+    font-size: 1rem;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section__option :is(h3, h4) {
+    font-size: 1.25rem;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art) {
+    min-height: 0;
+  }
+  :where(html[data-layout="subpage"]) .subpage-art,
+  :where(html[data-layout="subpage"]) .subpage-art--clockwise,
+  :where(html[data-layout="subpage"]) .subpage-art--level,
+  :where(html[data-layout="subpage"]) .subpage-art--counterclockwise,
+  :where(html[data-layout="subpage"]) .subpage-art--landscape {
+    position: relative;
+    top: auto;
+    right: auto;
+    max-width: 100%;
+    margin: 23px auto 5px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-art--clockwise { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .subpage-art--level { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .subpage-art--counterclockwise { width: min(262px, 92%); }
+  :where(html[data-layout="subpage"]) .subpage-art--landscape { width: min(288px, 94%); }
+  :where(html[data-layout="subpage"]) .subpage-callout {
+    width: auto;
+    margin: 0 10px;
+    padding: 37px 27px 38px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-callout::before {
+    border-image-width: 32px;
+  }
+:where(html[data-layout="subpage"]) .subpage-callout__quote p {
+    font-size: 1.1875rem;
+  }
+  :where(html[data-layout="subpage"]) .subpage-callout + .subpage-section {
+    margin-top: 18px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-board + .small-cards {
+    margin-top: 45px;
+  }
+  :where(html[data-layout="subpage"]) .subpage-art--raised { top: auto; }
+  :where(html[data-layout="subpage"]) .subpage-art--centered {
+    top: auto;
+    transform: rotate(var(--tool-tilt, 5deg));
+  }
+}
+
+/* 93 — Shared subpage layout, part 3: small reusable components (video frame,
+   sub-headings, lead paragraph, blue-rule quote). */
+/* A framed video is its own reusable component, never a disguised testimonial. */
+.project-video {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  width: 66.6667%;
+  margin: 0 0 0 37px;
+}
+.project-video__frame {
+  width: 100%;
+  margin: 0;
+}
+.project-video__frame iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1749 / 1007;
+  border: 0;
+}
+@media (width < 1070px) {
+  .project-video {
+    width: calc(100% - 57px);
+    margin: 0 0 0 29px;
+  }
+}
+
+/* Reusable sentence-case titles and article subheadings. */
+:where(html[data-layout="subpage"]) .subpage-intro__copy h2.subpage-intro__heading--sentence-case {
+  text-transform: none;
+}
+
+:where(html[data-layout="subpage"]) .subpage-section__subheading {
+  margin: 0 0 18px;
+  color: var(--brand-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+
+
+/* A reusable editorial lead paragraph. */
+:where(html[data-layout="subpage"]) .subpage-section__copy > .subpage-lead {
+  margin-bottom: 22px;
+  color: var(--color-ivory);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Blue-rule blockquote: reuse the approved palette and typography. */
+.quote-blue-rule {
+  margin: 10px 0 24px;
+  padding: 3px 0 3px 22px;
+  border-left: 5px solid var(--color-blue);
+  color: var(--color-ivory);
+}
+
+.quote-blue-rule p {
+  margin: 0;
+  font-size: 1.3125rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.quote-blue-rule blockquote {
+  margin: 0;
+}
+
+.quote-blue-rule figcaption {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.875rem;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+@media (width < 1070px) {
+  .quote-blue-rule {
+    padding-left: 18px;
+  }
+
+  .quote-blue-rule p {
+    font-size: 1.1875rem;
+  }
+}
