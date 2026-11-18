@@ -1569,7 +1569,7 @@
 :where(html[data-layout="subpage"]) .subpage-section__option p:last-of-type {
   margin-bottom: 0;
 }
-:where(html[data-layout="subpage"]) .subpage-section__copy > p:first-child {
+:where(html[data-layout="subpage"]) .subpage-section__copy > p:first-child:not(:where(#javascript-article p)) {
   font-weight: 700;
 }
 :where(html[data-layout="subpage"]) .subpage-section__option + .subpage-section__option {
