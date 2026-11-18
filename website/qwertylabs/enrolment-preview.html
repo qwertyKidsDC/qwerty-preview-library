@@ -108,7 +108,7 @@ textarea{min-height:85px;resize:vertical}
 <label class="field" for="default-session">Preferred class</label>
 <select id="default-session"></select>
 <p id="holiday-note" class="msg"></p>
-<p class="field-note">Sessions are 75 minutes. Places and group suitability are confirmed by the studio.</p>
+<p class="field-note">Sessions are 75 minutes. These class times carry forward the current timetable as a working assumption; 2027 times and places need confirmation.</p>
 </div>
 <div class="controls"><span></span><button class="btn" type="button" id="next-1">Continue <span aria-hidden="true">→</span></button></div>
 </section>
@@ -282,7 +282,7 @@ function syncDays(){
  if(!state.initialised)state.children[0].days=chosenDays();
 }
 document.querySelectorAll('[name="programme"]').forEach(function(r){r.addEventListener('change',function(){state.programme=this.value;renderPickers();summary();});});
-el('camp-weeks').addEventListener('change',function(e){if(!e.target.matches('[data-date]'))return;var d=e.target.dataset.date;if(e.target.checked&&state.selectedDays.indexOf(d)<0)state.selectedDays.push(d);if(!e.target.checked)state.selectedDays=state.selectedDays.filter(function(x){return x!==d;});syncDays();summary();});
+el('camp-weeks').addEventListener('change',function(e){if(!e.target.matches('[data-date]'))return;var d=e.target.dataset.date;if(e.target.checked&&state.selectedDays.indexOf(d)<0){state.selectedDays.push(d);if(state.initialised)state.children.forEach(function(c){if(c.days.indexOf(d)<0)c.days.push(d);});}if(!e.target.checked)state.selectedDays=state.selectedDays.filter(function(x){return x!==d;});syncDays();summary();});
 el('term-list').addEventListener('change',function(e){if(e.target.name!=='term')return;state.term=Number(e.target.value);renderPickers();summary();});
 el('default-session').addEventListener('change',function(e){state.session=e.target.value;if(!state.initialised)state.children[0].session=state.session;renderPickers();summary();});
 el('next-1').addEventListener('click',function(){if(!validate1())return;if(!state.initialised){state.children[0].days=chosenDays();state.children[0].session=state.session;state.initialised=true;}go(2);});
