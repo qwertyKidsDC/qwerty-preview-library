@@ -1385,11 +1385,12 @@
   letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
-:where(html[data-layout="subpage"]) .hero-title,
-:where(html[data-layout="subpage"]) .hero-tagline {
+:where(html[data-layout="subpage"]) .hero-title {
   display: block;
+  text-transform: uppercase;
 }
 :where(html[data-layout="subpage"]) .hero-tagline {
+  display: block;
   max-width: 315px;
   margin-top: -7px;
   font-size: 29px;
