@@ -204,7 +204,7 @@ function renderChildren(){
  el('children').innerHTML=state.children.map(function(c,i){
   var s='<article class="child-card" data-child="'+i+'"><div class="child-head"><h3>Child '+(i+1)+'</h3>'+(i?' <button class="btn text" type="button" data-remove="'+i+'">Remove</button>':'')+'</div>';
   s+='<div class="grid-2"><div><label class="field" for="child-name-'+i+'">First and last name *</label><input type="text" id="child-name-'+i+'" data-field="name" value="'+escapeHtml(c.name)+'" autocomplete="off" placeholder="e.g. Jamie Maker"></div>';
-  s+='<div><label class="field" for="child-age-'+i+'">Age *</label><select id="child-age-'+i+'" data-field="age"><option value="">Choose age</option>'+Array.from({length:11},function(_,j){return '<option value="'+(j+7)+'" '+(c.age===(j+7)+'?'selected':'')+'>'+(j+7)+'</option>';}).join('')+'</select></div></div>';
+  s+='<div><label class="field" for="child-age-'+i+'">Age *</label><select id="child-age-'+i+'" data-field="age"><option value="">Choose age</option>'+Array.from({length:11},function(_,j){return '<option value="'+(j+7)+'" '+(c.age===(j+7)?'selected':'')+'>'+(j+7)+'</option>';}).join('')+'</select></div></div>';
   s+='<label class="field" for="child-experience-'+i+'">What do they like making? (optional)</label><input type="text" id="child-experience-'+i+'" data-field="experience" value="'+escapeHtml(c.experience)+'" placeholder="Games, websites, robots…">';
   if(state.programme==='camp'){
    s+='<h4>Which camp days for this child?</h4><p class="field-note">We’ve ticked the days selected earlier. Adjust for each child.</p><div class="child-days">';
