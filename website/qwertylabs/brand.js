@@ -2,6 +2,17 @@
    Wordmarks are static HTML assets; they work even without JavaScript. */
 "use strict";
 
+/* One randomly chosen approved mascot head per page load. */
+(() => {
+  const icons = [
+    "img/favicon-q.png",
+    "img/favicon-d1.png",
+    "img/favicon-six-pin.png"
+  ];
+  const link = document.querySelector('link[rel="icon"]');
+  if (link) link.href = icons[Math.floor(Math.random() * icons.length)];
+})();
+
 (() => {
   const root = document.documentElement;
   const style = getComputedStyle(root);
