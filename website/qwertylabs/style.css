@@ -1385,7 +1385,7 @@
   letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
-:where(html[data-layout="subpage"]) .hero-title {
+:where(html[data-layout="subpage"]) :is(h2, h3, h4, h5, h6, .hero-title) {
   display: block;
   text-transform: uppercase;
 }
@@ -1486,7 +1486,6 @@
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -.035em;
-  text-transform: uppercase;
 }
 :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy p {
   margin: 8px 0 0;
@@ -1556,7 +1555,6 @@
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: -.035em;
-  text-transform: uppercase;
   transform: rotate(-1.2deg);
 }
 :where(html[data-layout="subpage"]) .subpage-section__copy {
@@ -1880,11 +1878,7 @@
   }
 }
 
-/* Reusable sentence-case titles and article subheadings. */
-:where(html[data-layout="subpage"]) .subpage-intro__copy h2.subpage-intro__heading--sentence-case {
-  text-transform: none;
-}
-
+/* Article subheadings. */
 :where(html[data-layout="subpage"]) .subpage-section__subheading {
   margin: 0 0 18px;
   color: var(--brand-accent);
