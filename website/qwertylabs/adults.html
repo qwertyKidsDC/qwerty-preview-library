@@ -1,62 +1,235 @@
 <!doctype html>
-<html lang="en-AU" data-brand="adults">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="stylesheet" href="style.css?v=20261117-hero-overlap">
-  <script src="brand.js?v=20261108" defer></script>
-  <title>Adults — Qwerty Labs copy review (draft)</title>
-</head>
-<body>
-  <header>
-    <a class="draft-wordmark" href="index.html"><img src="img/wordmark-labs-pink.svg" alt="Qwerty Labs" width="220" height="50"></a>
-    <p><a href="index.html">← Qwerty Labs homepage</a></p>
-    <nav aria-label="Review pages">
-      <a href="kids.html">Kids</a> · <a href="adults.html">Adults</a> · <a href="teens.html">Teens</a> · <a href="thelab.html">The Lab</a>
-    </nav>
-    <p><em>Draft copy for review · 3 November 2026 · Not approved. Calls to action are copy only unless linked.</em></p>
-  </header>
-  <main>
-    <h1>Adults</h1>
-    <h2>Have something you want to make?</h2>
-    <p>An app. A website. An interactive installation. A useful little tool. Something involving electronics or that Raspberry Pi you bought with excellent intentions.</p>
-    <p>Bring an idea, a half-finished project or a problem worth solving. We'll help you work out how to make it happen.</p>
+<html lang="en-AU" data-brand="adults" data-layout="subpage">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="Creative technology workshops and practical mentoring for adults, artists, designers and makers at Qwerty Labs in Marrickville."
+    >
+    <title>Adults — Qwerty Labs</title>
+    <!-- Approved typefaces and the single site stylesheet. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="style.css?v=20261118-nav">
+    <script src="brand.js?v=20261108" defer></script>
+    <script src="script.js?v=20261118-nav" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="index.html" class="logo" aria-label="Qwerty Labs home">
+              <img src="img/wordmark-labs-pink.svg" alt="Qwerty Labs" width="440" height="101">
+            </a>
+            <nav class="navigation" aria-label="Main navigation">
+              <div class="navigation-group">
+                <a href="kids.html">Kids</a>
+                <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
+                <div class="navigation-submenu" id="nav-kids">
+                  <div class="navigation-submenu__links">
+                    <a href="kids.html">Kids overview</a>
+                    <a href="kids-coding-classes.html">Weekly classes</a>
+                    <a href="coding-camp.html">Holiday camps</a>
+                  </div>
+                </div>
+              </div>
+              <a href="adults.html" class="navigation-current" aria-current="page">Adults</a>
+              <a href="teens.html">Teens</a>
+              <div class="navigation-group navigation-group--lab">
+                <a href="thelab.html">The Lab</a>
+                <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
+                <div class="navigation-submenu" id="nav-lab">
+                  <div class="navigation-submenu__links">
+                    <a href="thelab.html">The Lab overview</a>
+                    <a href="tools.html">Kit &amp; Code</a>
+                    <a href="a-kids-pov.html">A Kid's POV</a>
+                    <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </header>
 
-    <h2>Workshops at the lab</h2>
-    <p><strong>Come in. Make something.</strong></p>
-    <p>Small, hands-on workshops for artists, designers, makers and founders at our Marrickville studio. Experiment with real tools, ask questions and work alongside other creative people.</p>
-    <p>Explore prototyping, creative coding, electronics and interactive installations. The project comes first. We choose the tools to suit.</p>
-    <p><strong>Enquire about workshops at the lab →</strong></p>
+          <main id="main">
+            <!-- Shared approved Kids page architecture; editorial copy remains a working draft. -->
+            <section class="hero" aria-label="Adults">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper-pink.svg" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">adults</span><span class="hero-tagline">have something to make?</span></h1>
+                </div>
+                <nav class="subpage-hero-links" aria-label="Explore Adults">
+                  <a class="scene-link" href="https://qwertykids.com/contact-us/">Ask about workshops</a>
+                  <a class="scene-link" href="https://qwertykids.com/contact-us/">Project mentoring</a>
+                </nav>
+              </div>
+              <img class="mascots" src="img/qwerty-labs-mascots-led-electronics.webp" alt="Qwerty Labs mascots exploring electronics on a cardboard platform" width="1240" height="955" fetchpriority="high">
+            </section>
+            <section class="projects projects--subpage" id="adults-intro" aria-labelledby="adults-intro-title">
+              <figure class="photo-collage">
+                <img class="project-photo" loading="lazy" decoding="async" src="img/workshop-footer.webp" alt="A creative technology workspace" width="700" height="394">
+                <img class="project-frame" src="img/mat-h.webp" alt="">
+              </figure>
+              <div class="subpage-intro">
+                <img class="subpage-intro__art" src="img/adults-pink-panel-untaped-vtrim.svg" alt="">
+                <div class="subpage-intro__copy">
+                  <h2 id="adults-intro-title">HAVE SOMETHING YOU WANT TO MAKE?</h2>
+                  <p>An app. A website. An interactive installation. A useful little tool. Something involving electronics or that Raspberry Pi you bought with excellent intentions.</p>
+                  <p>Bring an idea, a half-finished project or a problem worth solving. We'll help you work out how to make it happen.</p>
+                </div>
+              </div>
+            </section>
+            <section class="subpage-board" id="adults-editorial" aria-label="About Adults">
+              <section class="subpage-section" id="workshops" aria-labelledby="workshops-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="workshops-heading">Workshops at the lab</h2>
+                <div class="subpage-section__copy">
+                  <p>Come in. Make something.</p>
+                  <p>Small, hands-on workshops for artists, designers, makers and founders at our Marrickville studio. Experiment with real tools, ask questions and work alongside other creative people.</p>
+                  <p>Explore prototyping, creative coding, electronics and interactive installations. The project comes first. We choose the tools to suit.</p>
+                  <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Enquire about workshops at the lab</a></div>
+                </div>
+                <figure class="subpage-art subpage-art--level">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-ready/MS01-R07-C04-paper-frame.webp" alt="Framed green Qwerty mascot working with electronic wires" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
 
-    <h2>Online mentoring</h2>
-    <p><strong>Bring your project. Let's work on it.</strong></p>
-    <p>One-to-one help wherever you are. Plan a project, sketch an interface, test a prototype, untangle some code or work out why the thing isn't doing the thing.</p>
-    <p>Start from scratch or bring something you're already building.</p>
-    <p><strong>Enquire about online mentoring →</strong></p>
+              <section class="subpage-section" id="online-mentoring" aria-labelledby="online-mentoring-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="online-mentoring-heading">Online mentoring</h2>
+                <div class="subpage-section__copy">
+                  <p>Bring your project. Let's work on it.</p>
+                  <p>One-to-one help wherever you are. Plan a project, sketch an interface, test a prototype, untangle some code or work out why the thing isn't doing the thing.</p>
+                  <p>Start from scratch or bring something you're already building.</p>
+                  <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Enquire about online mentoring</a></div>
+                </div>
+              </section>
 
-    <h2>Group workshops</h2>
-    <p><strong>Learn something useful together.</strong></p>
-    <p>Focused sessions for creative groups and organisations, at the lab or online.</p>
-    <h3>From idea to prototype</h3>
-    <p>Turn a rough idea into a clear brief, an interface or a working first version.</p>
-    <h3>Make it well</h3>
-    <p>Getting something to work is not quite the same thing as making it good.</p>
-    <p><strong>Accessibility by Design · Safety by Design · Privacy + Data Awareness.</strong> Learn what to check, what questions to ask and when specialist advice matters.</p>
-    <p>These aren't certificates or legal sign-offs.</p>
-    <p><strong>Enquire about group workshops →</strong></p>
+              <section class="subpage-section" id="group-workshops" aria-labelledby="group-workshops-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="group-workshops-heading">Group workshops</h2>
+                <div class="subpage-section__copy">
+                  <p>Learn something useful together.</p>
+                  <p>Focused sessions for creative groups and organisations, at the lab or online.</p>
+                  <div class="subpage-section__option"><h3>From idea to prototype</h3><p>Turn a rough idea into a clear brief, an interface or a working first version.</p></div>
+                  <div class="subpage-section__option"><h3>Make it well</h3><p>Getting something to work is not quite the same thing as making it good.</p><p><strong>Accessibility by Design · Safety by Design · Privacy + Data Awareness.</strong> Learn what to check, what questions to ask and when specialist advice matters.</p><p>These aren't certificates or legal sign-offs.</p></div>
+                  <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Enquire about group workshops</a></div>
+                </div>
+              </section>
 
-    <h2>Your idea. Your decisions.</h2>
-    <p>AI can be useful. It also raises difficult questions about consent, credit, whose work it draws on and who benefits. We won't wave those away. We choose tools carefully, and keep you in charge of the work.</p>
+              <section class="subpage-section" id="your-idea" aria-labelledby="your-idea-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="your-idea-heading">Your idea. Your decisions.</h2>
+                <div class="subpage-section__copy">
+                  <p>AI can be useful. It also raises difficult questions about consent, credit, whose work it draws on and who benefits. We won't wave those away. We choose tools carefully, and keep you in charge of the work.</p>
+                </div>
+              </section>
 
-    <h2>Learn from someone who makes things.</h2>
-    <p>Qwerty Labs brings together more than 20 years of professional digital production and over a decade of teaching creative technology.</p>
-    <p>Real projects. Real tools. No requirement to become a developer first.</p>
-    <p><strong>Tell us what you're making →</strong></p>
-  </main>
-  <footer>
-    <hr>
-    <p><a href="index.html">Back to homepage</a></p>
-  </footer>
-</body>
+              <section class="subpage-section" id="experience" aria-labelledby="experience-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="experience-heading">Learn from makers</h2>
+                <div class="subpage-section__copy">
+                  <p>Learn from someone who makes things.</p>
+                  <p>Qwerty Labs brings together more than 20 years of professional digital production and over a decade of teaching creative technology.</p>
+                  <p>Real projects. Real tools. No requirement to become a developer first.</p>
+                  <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Tell us what you're making</a></div>
+                </div>
+                <figure class="subpage-art subpage-art--level">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-ready/MT04-R04-C02-framed.webp" alt="Framed Qwerty Labs technology mascot" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
+            </section>
+            <!-- Footer navigation, useful links and studio contact details -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-join-title">Get making</h2>
+                <nav class="footer-card-links" aria-label="Programs and ways to take part">
+                  <a href="kids.html">Kids</a>
+                  <a href="adults.html">Adults</a>
+                  <a href="teens.html">Teens</a>
+                  <a href="kids-coding-classes.html">Weekly Classes</a>
+                  <a href="coding-camp.html">Holiday Camps</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="index.html">Home</a>
+                  <a href="index.html#projects">Projects</a>
+                  <a href="tools.html">Kit &amp; Code</a>
+                  <a href="thelab.html">The Lab</a>
+                  <a href="a-kids-pov.html">A Kid's POV</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find us</h2>
+                <div class="footer-card-links">
+                  <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Directions</a>
+                </div>
+              </section>
+            </section>
+
+          </main>
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+              <img class="country-ack__mascot" src="img/kidsFooter.png" alt="" width="110" height="110" loading="lazy" decoding="async">
+            </section>
+            <!-- The studio signature follows the left guide; policies follow the right. -->
+            <div class="footer-legal">
+              <div class="footer-legal-signature">
+                <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
+                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/wordmark-labs-pink.svg" alt="" width="2013" height="460">
+                </a>
+                <span class="footer-legal-separator" aria-hidden="true">|</span>
+                <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
+              </div>
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="child-safety.html">Child Safety</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="booking-terms.html">Booking Terms</a>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
