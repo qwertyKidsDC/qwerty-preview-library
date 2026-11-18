@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F7F4EB">
+<title>Enrolment experience — Qwerty Labs (prototype)</title>
+<link rel="icon" href="img/favicon-d1.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<!-- Standalone experiment: styles are intentionally isolated; the existing site stylesheet and pages are untouched. -->
+<style>
+:root{--ink:#020020;--ivory:#F7F4EB;--blue:#4C69E3;--green:#92D644;--pink:#F66DC1;--orange:#FF9029;--line:#d9d7d1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ivory);color:var(--ink);font:17px/1.45 "Atkinson Hyperlegible",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:underline;text-decoration-style:dashed;text-underline-offset:3px}a:hover{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}[hidden]{display:none!important}
+.site-head{background:var(--ink);color:white;padding:17px max(22px,calc((100vw - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}
+.site-head img{width:190px;max-width:45vw;height:auto}.site-head a{font-size:14px}
+.pretend{background:var(--blue);color:white;text-align:center;padding:9px 15px;font-weight:700;font-size:14px;letter-spacing:.02em}
+.wrap{max-width:1120px;margin:0 auto;padding:36px 22px 90px}
+.intro{margin-bottom:26px}.kicker{display:inline-block;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;padding:6px 10px;background:var(--green);transform:rotate(-1deg)}
+.intro h1{font-size:clamp(34px,5.3vw,62px);letter-spacing:-.055em;line-height:1.03;margin:14px 0 12px}.intro>p{max-width:690px;margin:0 0 10px;font-size:19px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:26px;align-items:start}
+.work{min-width:0}.panel{padding:30px;border:2px solid var(--ink);background:white;box-shadow:8px 8px 0 var(--ink)}
+.stepper{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px;padding:0;list-style:none}
+.stepper li{border:1px solid #bdbbb6;padding:7px 12px;border-radius:100px;font-size:13px;font-weight:700}
+.stepper .active{background:var(--ink);color:#fff;border-color:var(--ink)}.stepper .done{background:var(--green);border-color:var(--green)}
+h2{font-size:clamp(24px,3.1vw,32px);letter-spacing:-.04em;line-height:1.13;margin:0 0 8px}h3{font-size:21px;letter-spacing:-.025em;margin:20px 0 9px}
+.muted{color:#50505a;font-size:15px}.field-note{font-size:14px;color:#4d4d57;margin:4px 0 0}
+.programmes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:23px 0 24px}
+.programme{cursor:pointer;display:block}.programme input{position:absolute;opacity:0;width:1px;height:1px}
+.programme .face{height:100%;padding:18px;border:2px solid var(--ink);background:#fff;display:block}
+.programme .name{display:block;font-size:23px;font-weight:700}.programme .hint{display:block;font-size:14px;margin-top:4px}
+.programme input:checked+.face{background:var(--green);box-shadow:4px 4px 0 var(--ink)}.programme input:focus-visible+.face{outline:3px solid var(--blue);outline-offset:3px}
+.week{margin:22px 0 0}.week-title{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:0 0 11px}.week-title strong{font-size:19px}
+.days{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.day{display:block;cursor:pointer;position:relative}.day input{position:absolute;opacity:0;width:1px;height:1px}
+.day-face{display:flex;flex-direction:column;justify-content:center;min-height:104px;background:#fbfaf6;border:2px solid #d3d0c8;text-align:center;padding:10px 7px;transition:background .1s}
+.day-face b{font-size:29px;line-height:1.1}.day-face small{font-size:13px}.day-face em{font-size:12px;font-style:normal;margin-top:5px}
+.day input:checked+.day-face{border-color:var(--ink);background:var(--green);box-shadow:3px 3px 0 var(--ink)}
+.day input:focus-visible+.day-face{outline:3px solid var(--blue);outline-offset:3px}
+.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}
+.term-tile{position:relative;cursor:pointer}.term-tile input{position:absolute;opacity:0;width:1px;height:1px}
+.term-tile .tile-face{display:block;border:2px solid #d1cec8;padding:16px;height:100%;background:#fbfaf6}
+.term-tile strong{display:block;font-size:20px}.term-tile small{display:block;margin-top:4px;font-size:14px}
+.term-tile input:checked+.tile-face{border-color:var(--ink);background:var(--green);box-shadow:3px 3px 0 var(--ink)}
+.term-tile input:focus-visible+.tile-face{outline:3px solid var(--blue);outline-offset:3px}
+label.field{display:block;font-weight:700;font-size:15px;margin:15px 0 6px}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:#fff;padding:11px 12px;border:1.5px solid #8a898a;border-radius:4px;color:var(--ink);min-height:46px}
+textarea{min-height:85px;resize:vertical}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.check-line{display:flex;gap:10px;align-items:flex-start;margin:10px 0;cursor:pointer;font-size:15px}.check-line input{width:19px;height:19px;accent-color:var(--blue);flex-shrink:0;margin:2px 0 0}
+.child-card{border:1.5px solid #b7b5af;padding:18px;margin:20px 0;background:#fbfaf6}.child-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.child-head h3{margin:0}
+.child-card>h4{margin:17px 0 7px}.row-choice{display:flex;flex-wrap:wrap;gap:9px}
+.choice-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #aaa;background:white;padding:7px 10px;cursor:pointer;font-size:14px}
+.choice-pill input{width:17px;height:17px;accent-color:var(--blue)}.child-days{margin-top:14px}
+.child-day-row{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-top:1px solid #ddd;padding:10px 0}
+.child-day-row .check-line{margin:0}.child-day-row .check-line + .check-line{margin-left:25px}
+.btn{border:2px solid var(--ink);background:var(--green);color:var(--ink);padding:12px 20px;font-weight:700;min-height:48px;box-shadow:3px 3px 0 var(--ink)}
+.btn:hover{background:var(--orange)}.btn.secondary{background:#fff;box-shadow:none}.btn.text{border:none;background:none;box-shadow:none;text-decoration:underline;padding:7px 2px;min-height:auto}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:30px;flex-wrap:wrap}
+.msg{padding:11px 13px;background:#fff2df;border-left:5px solid var(--orange);font-size:14px;margin:14px 0}.error{padding:12px;background:#ffe0e9;border-left:5px solid #d63262;font-size:15px;margin:20px 0 0}
+.summary{position:sticky;top:22px;background:#fff;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--blue);padding:19px}
+.summary h2{font-size:22px}.summary .big{font-size:40px;line-height:1.1;letter-spacing:-.05em;font-weight:700;margin:12px 0}
+.summary .spec{font-size:14px;line-height:1.55}.summary .line{border-top:1px solid #ddd;padding:9px 0}.summary .line:first-child{border:none}
+.summary .disclaimer{border-top:1px solid #ddd;font-size:13px;line-height:1.4;color:#595963;margin-top:12px;padding-top:12px}
+.review-item{padding:15px 0;border-bottom:1px solid #ddd}.review-item strong{display:block;margin-bottom:4px}
+.success{padding:20px;background:var(--green);border:2px solid var(--ink);margin-top:22px}
+.footer{font-size:14px;max-width:1120px;padding:20px 22px 44px;margin:0 auto;border-top:1px solid #d3d0c9}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.summary{position:static;order:-1}.work{order:1}.days{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:530px){.wrap{padding:27px 16px 65px}.panel{padding:19px;box-shadow:4px 4px 0 var(--ink)}.programmes,.term-list,.grid-2{grid-template-columns:1fr}.days{grid-template-columns:repeat(2,minmax(0,1fr))}.summary{box-shadow:4px 4px 0 var(--blue)}.site-head{padding:14px 16px}.site-head img{width:155px}.child-card{padding:13px}.controls .btn{flex:1}.stepper{gap:5px}.stepper li{font-size:12px;padding:6px 9px}}
+</style>
+</head>
+<body>
+<header class="site-head">
+<a href="index.html" aria-label="Qwerty Labs home"><img src="img/wordmark-labs-green.svg" alt="Qwerty Labs" width="440" height="101"></a>
+<a href="kids.html">Back to Qwerty Labs</a>
+</header>
+<div class="pretend">INTERACTIVE PROTOTYPE · Nothing is submitted or paid · Please use sample details</div>
+<main class="wrap">
+<header class="intro">
+<span class="kicker">Qwerty Labs · Marrickville</span>
+<h1>Make yourself a booking</h1>
+<p>Choose what you want to make, when you'd like to come, and who's coming along. Easy.</p>
+</header>
+<div class="layout">
+<div class="work">
+<ol id="stepper" class="stepper" aria-label="Booking steps"></ol>
+<div class="panel">
+<div id="error" class="error" role="alert" hidden></div>
+<section id="step-1">
+<h2>What are we booking?</h2>
+<p class="muted">Choose camp days or a weekly class. We’ll show you the dates and price before asking for any details.</p>
+<div class="programmes" role="group" aria-label="Programme">
+<label class="programme"><input type="radio" name="programme" value="camp" checked><span class="face"><span class="name">Holiday camps</span><span class="hint">Choose one day or a bunch · January 2027</span></span></label>
+<label class="programme"><input type="radio" name="programme" value="term"><span class="face"><span class="name">Weekly classes</span><span class="hint">Choose a nine-week term · 2027</span></span></label>
+</div>
+<div id="camp-picker">
+<h3>Summer camps · 2027</h3><p class="muted">Ages 7–17 · 9:30 am–3:30 pm · drop-off from 9 am, pickup by 4 pm. Extended hours available.</p>
+<div id="camp-weeks"></div>
+<p class="field-note">First day $145, each additional day $130 per child. Optional extended hours 8 am–5:30 pm: $55 per day.</p>
+</div>
+<div id="term-picker" hidden>
+<h3>Choose a term</h3>
+<div class="term-list" id="term-list"></div>
+<label class="field" for="default-session">Preferred class</label>
+<select id="default-session"></select>
+<p id="holiday-note" class="msg"></p>
+<p class="field-note">Sessions are 75 minutes. Places and group suitability are confirmed by the studio.</p>
+</div>
+<div class="controls"><span></span><button class="btn" type="button" id="next-1">Continue <span aria-hidden="true">→</span></button></div>
+</section>
+<section id="step-2" hidden>
+<h2>Who's coming?</h2><p class="muted">Start with one child. Add siblings if you like. You can give each child different camp days or class times.</p>
+<div id="children"></div>
+<button class="btn secondary" type="button" id="add-child">+ Add another child</button>
+<div class="controls"><button class="btn secondary back" type="button">← Back</button><button class="btn" type="button" id="next-2">Continue →</button></div>
+</section>
+<section id="step-3" hidden>
+<h2>Who's the grown-up?</h2><p class="muted">Just the essentials. For the prototype, please use sample names and numbers.</p>
+<label class="check-line"><input id="returning" type="checkbox">We've been to Qwerty before</label>
+<div class="grid-2">
+<div><label class="field" for="parent-name">Parent/carer name *</label><input id="parent-name" type="text" autocomplete="off" placeholder="e.g. Alex Maker"></div>
+<div><label class="field" for="parent-mobile">Mobile *</label><input id="parent-mobile" type="tel" autocomplete="off" placeholder="e.g. 0400 000 000"></div>
+</div>
+<label class="field" for="parent-email">Email *</label><input id="parent-email" type="email" autocomplete="off" placeholder="e.g. alex@example.com">
+<h3>Another person we can contact</h3><p class="muted">Someone different, in case we can't reach you.</p>
+<div class="grid-2">
+<div><label class="field" for="emergency-name">Additional contact name *</label><input id="emergency-name" type="text" autocomplete="off"></div>
+<div><label class="field" for="emergency-mobile">Additional contact mobile *</label><input id="emergency-mobile" type="tel" autocomplete="off"></div>
+</div>
+<label class="check-line"><input id="emergency-consent" type="checkbox">I consent to emergency medical assistance for the children named in this request if required. *</label>
+<label class="check-line"><input id="terms-consent" type="checkbox">I have read and agree to the <a href="booking-terms.html" target="_blank" rel="noopener">Booking Terms</a>. *</label>
+<p class="field-note">Your actual form will link to the final published booking terms and privacy notice.</p>
+<div class="controls"><button class="btn secondary back" type="button">← Back</button><button class="btn" type="button" id="next-3">Review request →</button></div>
+</section>
+<section id="step-4" hidden>
+<h2>Looking good?</h2><p class="muted">This is the kind of summary a parent could check before confirming and paying.</p>
+<div id="review"></div>
+<div class="msg">Preview only: no live availability check, booking submission, or Stripe payment is connected.</div>
+<div class="controls"><button class="btn secondary back" type="button">← Back</button><button class="btn" type="button" id="simulate">Try confirmation →</button></div>
+<div id="success" class="success" hidden><strong>That's the flow!</strong><p>This is a demonstration, not a booking confirmation. Nothing was sent, stored or charged.</p><button type="button" class="btn secondary" id="restart">Try another booking</button></div>
+</section>
+</div>
+</div>
+<aside class="summary" aria-live="polite" aria-label="Your booking summary">
+<h2>Your selection</h2><div id="summary-description" class="spec"></div>
+<div class="big" id="price">$0</div>
+<div id="summary-lines" class="spec"></div>
+<div class="disclaimer">Indicative full-rate pricing only. Returning-family arrangements may differ. No live place availability is shown and no booking is created.</div>
+</aside>
+</div>
+</main>
+<footer class="footer">Qwerty Labs · Level 1, 230 Marrickville Road, Marrickville NSW 2204 · <a href="privacy.html">Privacy</a> · This page is a private-workflow prototype, not an enrolment channel.</footer>
+<script>
+(function(){
+'use strict';
+var CAMP_WEEKS=[
+ {title:'Week 1',dates:['2027-01-12','2027-01-13','2027-01-14','2027-01-15']},
+ {title:'Week 2',dates:['2027-01-18','2027-01-19','2027-01-20','2027-01-21']},
+ {title:'Week 3',dates:['2027-01-27','2027-01-28','2027-01-29']}
+];
+var TERMS=[
+ {name:'Term 1',short:'6 Feb – 9 Apr',dates:'Saturday 6 February – Friday 9 April 2027',note:'Easter: Monday and Saturday groups have 8 sessions rather than 9.'},
+ {name:'Term 2',short:'1 May – 2 Jul',dates:'Saturday 1 May – Friday 2 July 2027',note:'King’s Birthday: Monday groups have 8 sessions rather than 9.'},
+ {name:'Term 3',short:'24 Jul – 24 Sep',dates:'Saturday 24 July – Friday 24 September 2027',note:'All listed groups have 9 sessions.'},
+ {name:'Term 4',short:'16 Oct – 17 Dec',dates:'Saturday 16 October – Friday 17 December 2027',note:'All listed groups have 9 sessions.'}
+];
+var SESSIONS=[
+ {id:'mon',name:'Monday · 4:45–6:00 pm'},
+ {id:'tue',name:'Tuesday · 5:15–6:30 pm'},
+ {id:'sat9',name:'Saturday · 9:00–10:15 am'},
+ {id:'sat1030',name:'Saturday · 10:30–11:45 am'},
+ {id:'sat1215',name:'Saturday · 12:15–1:30 pm'}
+];
+var allDays=CAMP_WEEKS.reduce(function(a,w){return a.concat(w.dates)},[]);
+var state={step:1,programme:'camp',selectedDays:[],term:0,session:'mon',children:[newChild()],initialised:false};
+function newChild(){return {name:'',age:'',experience:'',support:'',medical:'',photo:'no',days:[],extended:[],session:'mon'};}
+function el(id){return document.getElementById(id);}
+function money(n){return '$'+Number(n).toLocaleString('en-AU');}
+function dayName(iso){var d=new Date(iso+'T12:00:00');return d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'});}
+function abbrev(iso){return new Date(iso+'T12:00:00').toLocaleDateString('en-AU',{weekday:'short'});}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});}
+function sessionsCost(term,session){return (term===0 && (session==='mon'||session.indexOf('sat')===0))||(term===1&&session==='mon')?240:270;}
+function sessionsCount(term,session){return sessionsCost(term,session)===240?8:9;}
+function childCost(c){if(state.programme==='camp'){return (c.days.length?145+(c.days.length-1)*130:0)+c.extended.length*55;}return sessionsCost(state.term,c.session);}
+function chosenDays(){return state.selectedDays.filter(function(s){return allDays.indexOf(s)!==-1}).sort();}
+function renderPickers(){
+ el('camp-weeks').innerHTML=CAMP_WEEKS.map(function(w){
+  return '<div class="week"><div class="week-title"><strong>'+w.title+'</strong><span class="muted">'+dayName(w.dates[0])+' – '+dayName(w.dates[w.dates.length-1])+'</span></div><div class="days">'+w.dates.map(function(iso){
+   var day=new Date(iso+'T12:00:00').getDate();
+   return '<label class="day"><input type="checkbox" data-date="'+iso+'" '+(state.selectedDays.indexOf(iso)>=0?'checked':'')+'><span class="day-face"><small>'+abbrev(iso)+'</small><b>'+day+'</b><em>January</em></span></label>';
+  }).join('')+'</div></div>';
+ }).join('');
+ el('term-list').innerHTML=TERMS.map(function(t,i){return '<label class="term-tile"><input type="radio" name="term" value="'+i+'" '+(i===state.term?'checked':'')+'><span class="tile-face"><strong>'+t.name+'</strong><small>'+t.short+' 2027</small></span></label>';}).join('');
+ el('default-session').innerHTML=SESSIONS.map(function(s){return '<option value="'+s.id+'" '+(state.session===s.id?'selected':'')+'>'+s.name+'</option>';}).join('');
+ el('holiday-note').textContent=TERMS[state.term].note+' The selected class has '+sessionsCount(state.term,state.session)+' sessions: '+money(sessionsCost(state.term,state.session))+' at the standard new-student rate.';
+ el('camp-picker').hidden=state.programme!=='camp'; el('term-picker').hidden=state.programme!=='term';
+ document.querySelectorAll('[name="programme"]').forEach(function(p){p.checked=p.value===state.programme;});
+}
+function renderChildren(){
+ el('children').innerHTML=state.children.map(function(c,i){
+  var s='<article class="child-card" data-child="'+i+'"><div class="child-head"><h3>Child '+(i+1)+'</h3>'+(i?' <button class="btn text" type="button" data-remove="'+i+'">Remove</button>':'')+'</div>';
+  s+='<div class="grid-2"><div><label class="field" for="child-name-'+i+'">First and last name *</label><input type="text" id="child-name-'+i+'" data-field="name" value="'+escapeHtml(c.name)+'" autocomplete="off" placeholder="e.g. Jamie Maker"></div>';
+  s+='<div><label class="field" for="child-age-'+i+'">Age *</label><select id="child-age-'+i+'" data-field="age"><option value="">Choose age</option>'+Array.from({length:11},function(_,j){return '<option value="'+(j+7)+'" '+(c.age===(j+7)+'?'selected':'')+'>'+(j+7)+'</option>';}).join('')+'</select></div></div>';
+  s+='<label class="field" for="child-experience-'+i+'">What do they like making? (optional)</label><input type="text" id="child-experience-'+i+'" data-field="experience" value="'+escapeHtml(c.experience)+'" placeholder="Games, websites, robots…">';
+  if(state.programme==='camp'){
+   s+='<h4>Which camp days for this child?</h4><p class="field-note">We’ve ticked the days selected earlier. Adjust for each child.</p><div class="child-days">';
+   s+=chosenDays().map(function(iso){var on=c.days.indexOf(iso)>=0;var ext=c.extended.indexOf(iso)>=0;
+    return '<div class="child-day-row"><label class="check-line"><input type="checkbox" data-attend="'+iso+'" '+(on?'checked':'')+'><strong>'+dayName(iso)+'</strong></label><label class="check-line"><input type="checkbox" data-extended="'+iso+'" '+(ext?'checked':'')+' '+(on?'':'disabled')+'>Extended hours +$55</label></div>';
+   }).join('');
+   s+='</div>';
+  }else{
+   s+='<label class="field" for="child-session-'+i+'">Preferred class *</label><select id="child-session-'+i+'" data-field="session">'+SESSIONS.map(function(t){return '<option value="'+t.id+'" '+(c.session===t.id?'selected':'')+'>'+t.name+' · '+sessionsCount(state.term,t.id)+' sessions</option>';}).join('')+'</select>';
+  }
+  s+='<label class="field" for="child-support-'+i+'">Anything that helps us support them? (optional)</label><textarea id="child-support-'+i+'" data-field="support" placeholder="Helpful strategies, sensory needs, learning preferences…">'+escapeHtml(c.support)+'</textarea>';
+  s+='<label class="field" for="child-medical-'+i+'">Medical information we should know (optional)</label><textarea id="child-medical-'+i+'" data-field="medical" placeholder="Conditions, medication, allergies, action plans…">'+escapeHtml(c.medical)+'</textarea>';
+  s+='<label class="field" for="child-photo-'+i+'">Can we use photos or video featuring this child?</label><select id="child-photo-'+i+'" data-field="photo"><option value="no" '+(c.photo==='no'?'selected':'')+'>No</option><option value="yes" '+(c.photo==='yes'?'selected':'')+'>Yes</option></select>';
+  s+='</article>';return s;
+ }).join('');
+ el('add-child').hidden=state.children.length>=3;
+}
+function summary(){
+ var names=state.children.map(function(c,i){return c.name.trim()||'Child '+(i+1);});
+ var amount=0;
+ if(state.programme==='camp'){
+  var days=chosenDays();
+  el('summary-description').textContent='Summer camps · January 2027 · '+days.length+' day'+(days.length===1?'':'s')+' selected';
+  amount=state.children.reduce(function(a,c){return a+childCost(c)},0);
+  if(state.step===1){amount=days.length?145+(days.length-1)*130:0;el('summary-lines').innerHTML='<div class="line">Estimated for 1 child<br><strong>'+days.map(dayName).join(', ')+'</strong></div>';}
+  else{el('summary-lines').innerHTML=state.children.map(function(c,i){return '<div class="line"><strong>'+escapeHtml(names[i])+'</strong><br>'+c.days.length+' camp day'+(c.days.length===1?'':'s')+(c.extended.length?' · '+c.extended.length+' extended':'')+'<br>'+money(childCost(c))+'</div>';}).join('');}
+ }else{
+  el('summary-description').textContent=TERMS[state.term].name+' · '+TERMS[state.term].short+' 2027';
+  amount=state.step===1?sessionsCost(state.term,state.session):state.children.reduce(function(a,c){return a+childCost(c)},0);
+  el('summary-lines').innerHTML=state.step===1?'<div class="line">'+escapeHtml(SESSIONS.filter(function(x){return x.id===state.session})[0].name)+'<br>'+sessionsCount(state.term,state.session)+' sessions</div>':state.children.map(function(c,i){return '<div class="line"><strong>'+escapeHtml(names[i])+'</strong><br>'+escapeHtml(SESSIONS.filter(function(x){return x.id===c.session})[0].name)+'<br>'+sessionsCount(state.term,c.session)+' sessions · '+money(childCost(c))+'</div>';}).join('');
+ }
+ el('price').textContent=money(amount);
+}
+function go(n){
+ state.step=n;el('error').hidden=true;
+ [1,2,3,4].forEach(function(i){el('step-'+i).hidden=(i!==n);});
+ var names=['Choose','Children','Contacts','Review'];
+ el('stepper').innerHTML=names.map(function(name,i){return '<li '+(i+1===n?'class="active" aria-current="step"':i+1<n?'class="done"':'')+'>'+(i+1)+'. '+name+'</li>';}).join('');
+ if(n===1)renderPickers(); if(n===2)renderChildren();if(n===4)renderReview();
+ summary();window.scrollTo({top:0,behavior:'smooth'});
+}
+function error(message){el('error').textContent=message;el('error').hidden=false;el('error').scrollIntoView({block:'center'});}
+function validate1(){
+ if(state.programme==='camp'&&!state.selectedDays.length){error('Choose at least one camp day to continue.');return false;}
+ return true;
+}
+function validate2(){
+ for(var i=0;i<state.children.length;i++){
+  var c=state.children[i];
+  if(!c.name.trim()||!c.age){error('Please add the name and age for child '+(i+1)+'.');return false;}
+  if(state.programme==='camp'&&!c.days.length){error('Choose at least one camp day for '+c.name+'.');return false;}
+ }
+ return true;
+}
+function validate3(){
+ var ids=['parent-name','parent-mobile','parent-email','emergency-name','emergency-mobile'];
+ for(var i=0;i<ids.length;i++){if(!el(ids[i]).value.trim()){error('Please complete the required contact fields.');el(ids[i]).focus();return false;}}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el('parent-email').value.trim())){error('Please enter a valid email address.');el('parent-email').focus();return false;}
+ if(!el('emergency-consent').checked||!el('terms-consent').checked){error('Please review and tick the two consent boxes.');return false;}
+ return true;
+}
+function renderReview(){
+ var total=state.children.reduce(function(n,c){return n+childCost(c)},0);
+ var h='<div class="review-item"><strong>Programme</strong>'+escapeHtml(state.programme==='camp'?'January 2027 holiday camps':TERMS[state.term].name+' · '+TERMS[state.term].dates)+'</div>';
+ h+=state.children.map(function(c){var dates=state.programme==='camp'?c.days.map(dayName).join(', '):SESSIONS.filter(function(x){return x.id===c.session})[0].name+' · '+sessionsCount(state.term,c.session)+' sessions';
+ return '<div class="review-item"><strong>'+escapeHtml(c.name)+' · age '+c.age+'</strong>'+escapeHtml(dates)+'<br>Photo consent: '+(c.photo==='yes'?'Yes':'No')+'<br><b>'+money(childCost(c))+'</b></div>';
+ }).join('');
+ h+='<div class="review-item"><strong>Parent/carer</strong>'+escapeHtml(el('parent-name').value)+' · '+escapeHtml(el('parent-email').value)+'</div>';
+ h+='<div class="review-item"><strong>Estimated total · '+money(total)+'</strong>Full-rate estimate, subject to placement confirmation. No payment is taken.</div>';
+ el('review').innerHTML=h;
+ el('success').hidden=true;
+}
+function syncDays(){
+ state.children.forEach(function(c){c.days=c.days.filter(function(s){return state.selectedDays.indexOf(s)>=0;});c.extended=c.extended.filter(function(s){return c.days.indexOf(s)>=0;});});
+ if(!state.initialised)state.children[0].days=chosenDays();
+}
+document.querySelectorAll('[name="programme"]').forEach(function(r){r.addEventListener('change',function(){state.programme=this.value;renderPickers();summary();});});
+el('camp-weeks').addEventListener('change',function(e){if(!e.target.matches('[data-date]'))return;var d=e.target.dataset.date;if(e.target.checked&&state.selectedDays.indexOf(d)<0)state.selectedDays.push(d);if(!e.target.checked)state.selectedDays=state.selectedDays.filter(function(x){return x!==d;});syncDays();summary();});
+el('term-list').addEventListener('change',function(e){if(e.target.name!=='term')return;state.term=Number(e.target.value);renderPickers();summary();});
+el('default-session').addEventListener('change',function(e){state.session=e.target.value;if(!state.initialised)state.children[0].session=state.session;renderPickers();summary();});
+el('next-1').addEventListener('click',function(){if(!validate1())return;if(!state.initialised){state.children[0].days=chosenDays();state.children[0].session=state.session;state.initialised=true;}go(2);});
+el('children').addEventListener('input',function(e){var card=e.target.closest('[data-child]');if(!card)return;var c=state.children[Number(card.dataset.child)];if(e.target.dataset.field&&e.target.tagName!=='SELECT')c[e.target.dataset.field]=e.target.value;summary();});
+el('children').addEventListener('change',function(e){
+ var card=e.target.closest('[data-child]');if(!card)return;
+ var c=state.children[Number(card.dataset.child)];
+ if(e.target.dataset.field){
+  c[e.target.dataset.field]=e.target.dataset.field==='age'?(e.target.value?Number(e.target.value):''):e.target.value;
+ }
+ if(e.target.dataset.attend){var d=e.target.dataset.attend;if(e.target.checked&&c.days.indexOf(d)<0)c.days.push(d);if(!e.target.checked){c.days=c.days.filter(function(x){return x!==d;});c.extended=c.extended.filter(function(x){return x!==d;});}renderChildren();}
+ if(e.target.dataset.extended){var x=e.target.dataset.extended;if(e.target.checked&&c.extended.indexOf(x)<0)c.extended.push(x);if(!e.target.checked)c.extended=c.extended.filter(function(y){return y!==x;});}
+ summary();
+});
+el('children').addEventListener('click',function(e){var b=e.target.closest('[data-remove]');if(!b)return;state.children.splice(Number(b.dataset.remove),1);renderChildren();summary();});
+el('add-child').addEventListener('click',function(){if(state.children.length===3)return;var c=newChild();c.days=chosenDays();c.session=state.session;state.children.push(c);renderChildren();summary();});
+el('next-2').addEventListener('click',function(){if(validate2())go(3);});
+el('next-3').addEventListener('click',function(){if(validate3())go(4);});
+document.querySelectorAll('.back').forEach(function(b){b.addEventListener('click',function(){go(state.step-1);});});
+el('simulate').addEventListener('click',function(){el('success').hidden=false;el('success').scrollIntoView({behavior:'smooth',block:'center'});});
+el('restart').addEventListener('click',function(){state.step=1;state.programme='camp';state.selectedDays=[];state.term=0;state.session='mon';state.children=[newChild()];state.initialised=false;['parent-name','parent-mobile','parent-email','emergency-name','emergency-mobile'].forEach(function(id){el(id).value='';});['returning','emergency-consent','terms-consent'].forEach(function(id){el(id).checked=false;});go(1);});
+renderPickers();go(1);
+})();
+</script>
+</body>
+</html>
