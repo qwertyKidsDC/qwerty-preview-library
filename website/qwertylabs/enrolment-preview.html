@@ -269,7 +269,7 @@ function updateFamilyUI(){
   : 'We need a parent or carer and someone else to contact in an emergency. Please use invented details in this preview.';
 }
 function summary(){
- var names=state.children.map(function(c,i){return c.name.trim()||'Child '+(i+1);});
+ var names=state.children.map(function(c,i){return childName(c)||'Child '+(i+1);});
  var amount=0;
  if(state.programme==='camp'){
   var days=chosenDays();
@@ -289,7 +289,7 @@ function go(n){
  [1,2,3,4].forEach(function(i){el('step-'+i).hidden=(i!==n);});
  var names=['Choose','Children','Contacts','Review'];
  el('stepper').innerHTML=names.map(function(name,i){return '<li '+(i+1===n?'class="active" aria-current="step"':i+1<n?'class="done"':'')+'>'+(i+1)+'. '+name+'</li>';}).join('');
- if(n===1)renderPickers(); if(n===2)renderChildren();if(n===4)renderReview();
+ if(n===1)renderPickers(); if(n===2)renderChildren(); if(n===3)updateFamilyUI(); if(n===4)renderReview();
  summary();window.scrollTo({top:0,behavior:'smooth'});
 }
 function error(message){el('error').textContent=message;el('error').hidden=false;el('error').scrollIntoView({block:'center'});}
@@ -300,13 +300,15 @@ function validate1(){
 function validate2(){
  for(var i=0;i<state.children.length;i++){
   var c=state.children[i];
-  if(!c.name.trim()||!c.age){error('Please add the name and age for child '+(i+1)+'.');return false;}
-  if(state.programme==='camp'&&!c.days.length){error('Choose at least one camp day for '+c.name+'.');return false;}
+  if(!c.firstName.trim()||!c.lastName.trim()){error('Please enter both first and last names for child '+(i+1)+'.');return false;}
+  if(state.family==='new'&&(!c.age||!c.coded)){error('Please add an age and answer the coding question for '+childName(c)+'.');return false;}
+  if(state.programme==='camp'&&!c.days.length){error('Choose at least one camp day for '+childName(c)+'.');return false;}
  }
  return true;
 }
 function validate3(){
- var ids=['parent-name','parent-mobile','parent-email','emergency-name','emergency-mobile'];
+ var ids=state.family==='returning' ? ['parent-email'] :
+ ['parent-first','parent-last','parent-mobile','parent-email','emergency-first','emergency-last','emergency-mobile'];
  for(var i=0;i<ids.length;i++){if(!el(ids[i]).value.trim()){error('Please complete the required contact fields.');el(ids[i]).focus();return false;}}
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el('parent-email').value.trim())){error('Please enter a valid email address.');el('parent-email').focus();return false;}
  if(!el('emergency-consent').checked||!el('terms-consent').checked){error('Please review and tick the two consent boxes.');return false;}
@@ -315,11 +317,15 @@ function validate3(){
 function renderReview(){
  var total=state.children.reduce(function(n,c){return n+childCost(c)},0);
  var h='<div class="review-item"><strong>Programme</strong>'+escapeHtml(state.programme==='camp'?'January 2027 holiday camps':TERMS[state.term].name+' · '+TERMS[state.term].dates)+'</div>';
- h+=state.children.map(function(c){var dates=state.programme==='camp'?c.days.map(dayName).join(', '):SESSIONS.filter(function(x){return x.id===c.session})[0].name+' · '+sessionsCount(state.term,c.session)+' sessions';
- return '<div class="review-item"><strong>'+escapeHtml(c.name)+' · age '+c.age+'</strong>'+escapeHtml(dates)+'<br>Photo consent: '+(c.photo==='yes'?'Yes':'No')+'<br><b>'+money(childCost(c))+'</b></div>';
+ h+=state.children.map(function(c){
+  var dates=state.programme==='camp'?c.days.map(dayName).join(', '):SESSIONS.filter(function(x){return x.id===c.session})[0].name+' · '+sessionsCount(state.term,c.session)+' sessions';
+  var sub=state.family==='new'?' · age '+c.age:'';
+  var extra=state.family==='new' ? '<br>Previously coded: '+(c.coded==='yes'?'Yes':'No')+'<br>Photo consent: '+(c.photo==='yes'?'Yes':'No') : '<br>Returning: existing details and permissions need verification';
+  return '<div class="review-item"><strong>'+escapeHtml(childName(c))+sub+'</strong>'+escapeHtml(dates)+extra+'<br><b>'+money(childCost(c))+'</b></div>';
  }).join('');
- h+='<div class="review-item"><strong>Parent/carer</strong>'+escapeHtml(el('parent-name').value)+' · '+escapeHtml(el('parent-email').value)+'</div>';
- h+='<div class="review-item"><strong>Estimated total · '+money(total)+'</strong>Full-rate estimate, subject to placement confirmation. No payment is taken.</div>';
+ var contact=state.family==='returning'?'Returning family · existing details to verify':escapeHtml(el('parent-first').value+' '+el('parent-last').value);
+ h+='<div class="review-item"><strong>Parent/carer</strong>'+contact+' · '+escapeHtml(el('parent-email').value)+'</div>';
+ h+='<div class="review-item"><strong>Estimated total · '+money(total)+'</strong>Full-rate estimate, subject to placement confirmation. No payment is taken.<br>When connected, Stripe can receive the payment amount, booking reference and parent email. Child details stay with our enrolment record.</div>';
  el('review').innerHTML=h;
  el('success').hidden=true;
 }
@@ -327,17 +333,20 @@ function syncDays(){
  state.children.forEach(function(c){c.days=c.days.filter(function(s){return state.selectedDays.indexOf(s)>=0;});c.extended=c.extended.filter(function(s){return c.days.indexOf(s)>=0;});});
  if(!state.initialised)state.children[0].days=chosenDays();
 }
+document.querySelectorAll('[name="family"]').forEach(function(r){r.addEventListener('change',function(){state.family=this.value;updateFamilyUI();summary();});});
 document.querySelectorAll('[name="programme"]').forEach(function(r){r.addEventListener('change',function(){state.programme=this.value;renderPickers();summary();});});
 el('camp-weeks').addEventListener('change',function(e){if(!e.target.matches('[data-date]'))return;var d=e.target.dataset.date;if(e.target.checked&&state.selectedDays.indexOf(d)<0){state.selectedDays.push(d);if(state.initialised)state.children.forEach(function(c){if(c.days.indexOf(d)<0)c.days.push(d);});}if(!e.target.checked)state.selectedDays=state.selectedDays.filter(function(x){return x!==d;});syncDays();summary();});
 el('term-list').addEventListener('change',function(e){if(e.target.name!=='term')return;state.term=Number(e.target.value);renderPickers();summary();});
 el('default-session').addEventListener('change',function(e){state.session=e.target.value;if(!state.initialised)state.children[0].session=state.session;renderPickers();summary();});
 el('next-1').addEventListener('click',function(){if(!validate1())return;if(!state.initialised){state.children[0].days=chosenDays();state.children[0].session=state.session;state.initialised=true;}go(2);});
-el('children').addEventListener('input',function(e){var card=e.target.closest('[data-child]');if(!card)return;var c=state.children[Number(card.dataset.child)];if(e.target.dataset.field&&e.target.tagName!=='SELECT')c[e.target.dataset.field]=e.target.value;summary();});
+el('children').addEventListener('input',function(e){var card=e.target.closest('[data-child]');if(!card)return;var c=state.children[Number(card.dataset.child)];if(e.target.dataset.field&&e.target.tagName!=='SELECT'&&e.target.type!=='radio')c[e.target.dataset.field]=e.target.value;summary();});
 el('children').addEventListener('change',function(e){
  var card=e.target.closest('[data-child]');if(!card)return;
  var c=state.children[Number(card.dataset.child)];
  if(e.target.dataset.field){
-  c[e.target.dataset.field]=e.target.dataset.field==='age'?(e.target.value?Number(e.target.value):''):e.target.value;
+  var key=e.target.dataset.field;
+  c[key]=key==='age'?(e.target.value?Number(e.target.value):''):e.target.value;
+  if(key==='coded')renderChildren();
  }
  if(e.target.dataset.attend){var d=e.target.dataset.attend;if(e.target.checked&&c.days.indexOf(d)<0)c.days.push(d);if(!e.target.checked){c.days=c.days.filter(function(x){return x!==d;});c.extended=c.extended.filter(function(x){return x!==d;});}renderChildren();}
  if(e.target.dataset.extended){var x=e.target.dataset.extended;if(e.target.checked&&c.extended.indexOf(x)<0)c.extended.push(x);if(!e.target.checked)c.extended=c.extended.filter(function(y){return y!==x;});}
@@ -349,8 +358,8 @@ el('next-2').addEventListener('click',function(){if(validate2())go(3);});
 el('next-3').addEventListener('click',function(){if(validate3())go(4);});
 document.querySelectorAll('.back').forEach(function(b){b.addEventListener('click',function(){go(state.step-1);});});
 el('simulate').addEventListener('click',function(){el('success').hidden=false;el('success').scrollIntoView({behavior:'smooth',block:'center'});});
-el('restart').addEventListener('click',function(){state.step=1;state.programme='camp';state.selectedDays=[];state.term=0;state.session='mon';state.children=[newChild()];state.initialised=false;['parent-name','parent-mobile','parent-email','emergency-name','emergency-mobile'].forEach(function(id){el(id).value='';});['returning','emergency-consent','terms-consent'].forEach(function(id){el(id).checked=false;});go(1);});
-renderPickers();go(1);
+el('restart').addEventListener('click',function(){state.step=1;state.family='new';state.programme='camp';state.selectedDays=[];state.term=0;state.session='mon';state.children=[newChild()];state.initialised=false;['parent-first','parent-last','parent-mobile','parent-email','emergency-first','emergency-last','emergency-mobile','updated-mobile'].forEach(function(id){el(id).value='';});['emergency-consent','terms-consent'].forEach(function(id){el(id).checked=false;});go(1);});
+renderPickers();updateFamilyUI();go(1);
 })();
 </script>
 </body>
