@@ -262,7 +262,7 @@
 
 
 /* Curated hero rotation: one scene per page load, no repeated scenes until all
-   11 have appeared in this tab. Uses the existing hero geometry and fallback. */
+   26 have appeared in this tab. Uses the existing hero geometry and fallback. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
   if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
@@ -270,19 +270,34 @@
   if (!hero) return;
 
   const scenes = [
-    { id: 'robot-workshop', src: 'img/hero-rotation/robot-workshop.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 working together in a cardboard robot workshop' },
-    { id: 'control-console', src: 'img/hero-rotation/control-console.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 using a handmade cardboard control console' },
-    { id: 'smart-speaker', src: 'img/hero-rotation/smart-speaker.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 experimenting with a cardboard smart speaker' },
-    { id: 'weather-station', src: 'img/hero-rotation/weather-station.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 testing an electronic weather station' },
-    { id: 'vr-tech-workshop', src: 'img/hero-rotation/vr-tech-workshop.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 trying out a handmade VR headset' },
-    { id: 'robot-arm', src: 'img/hero-rotation/robot-arm.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 operating a cardboard robotic arm' },
-    { id: 'drawing-tablet', src: 'img/hero-rotation/drawing-tablet.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 drawing together on a tablet' },
-    { id: 'colourful-pinball', src: 'img/hero-rotation/colourful-pinball.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 playing a colourful cardboard pinball game' },
-    { id: 'satellite-link', src: 'img/hero-rotation/satellite-link.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 building a cardboard satellite communication project' },
-    { id: 'rocket-control', src: 'img/hero-rotation/rocket-control.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 using a handmade rocket control station' },
-    { id: 'periscope', src: 'img/hero-rotation/periscope.webp?v=20261118-stage-baseline', alt: 'Q Key, Six Pin and D1 making a cardboard periscope machine' }
+    { id: 'S05-R1C1-robot-workshop', src: 'img/hero-rotation-v2/S05-R1C1-robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
+    { id: 'S05-R1C2-weather-station', src: 'img/hero-rotation-v2/S05-R1C2-weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
+    { id: 'S05-R1C4-control-console', src: 'img/hero-rotation-v2/S05-R1C4-control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
+    { id: 'S05-R2C1-submarine-controls', src: 'img/hero-rotation-v2/S05-R2C1-submarine-controls.webp', alt: 'Q Key, Six Pin and D1 using a cardboard submarine control station' },
+    { id: 'S05-R2C2-smart-speaker', src: 'img/hero-rotation-v2/S05-R2C2-smart-speaker.webp', alt: 'Q Key, Six Pin and D1 making a smart speaker' },
+    { id: 'S05-R2C3-virtual-reality', src: 'img/hero-rotation-v2/S05-R2C3-virtual-reality.webp', alt: 'Q Key, Six Pin and D1 experimenting with virtual reality' },
+    { id: 'S05-R3C1-robot-arm', src: 'img/hero-rotation-v2/S05-R3C1-robot-arm.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robotic arm' },
+    { id: 'S05-R3C2-drawing-tablet', src: 'img/hero-rotation-v2/S05-R3C2-drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing on a tablet' },
+    { id: 'S05-R4C1-colourful-pinball', src: 'img/hero-rotation-v2/S05-R4C1-colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
+    { id: 'S07-R1C1-workshop-device', src: 'img/hero-rotation-v2/S07-R1C1-workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
+    { id: 'S07-R4C1-satellite-link', src: 'img/hero-rotation-v2/S07-R4C1-satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
+    { id: 'S07-R4C2-cardboard-periscope', src: 'img/hero-rotation-v2/S07-R4C2-cardboard-periscope.webp', alt: 'Q Key, Six Pin and D1 building a cardboard periscope' },
+    { id: 'S07-R5C2-rocket-control', src: 'img/hero-rotation-v2/S07-R5C2-rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
+    { id: 'S02-R1C2-virtual-reality', src: 'img/hero-rotation-v2/S02-R1C2-virtual-reality.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
+    { id: 'S02-R1C3-submarine', src: 'img/hero-rotation-v2/S02-R1C3-submarine.webp', alt: 'Q Key, Six Pin and D1 exploring a cardboard submarine' },
+    { id: 'S02-R2C1-solar-rover', src: 'img/hero-rotation-v2/S02-R2C1-solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
+    { id: 'S02-R2C2-drawing-plotter', src: 'img/hero-rotation-v2/S02-R2C2-drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
+    { id: 'S02-R2C3-keyboard-synthesiser', src: 'img/hero-rotation-v2/S02-R2C3-keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
+    { id: 'S02-R3C3-arcade-machine', src: 'img/hero-rotation-v2/S02-R3C3-arcade-machine.webp', alt: 'Q Key, Six Pin and D1 playing a cardboard arcade machine' },
+    { id: 'S02-R3C4-shadow-theatre', src: 'img/hero-rotation-v2/S02-R3C4-shadow-theatre.webp', alt: 'Q Key, Six Pin and D1 making a cardboard shadow theatre' },
+    { id: 'S04-R1C1-computer-game', src: 'img/hero-rotation-v2/S04-R1C1-computer-game.webp', alt: 'Q Key, Six Pin and D1 working on a computer game' },
+    { id: 'S04-R1C2-robot-arm', src: 'img/hero-rotation-v2/S04-R1C2-robot-arm.webp', alt: 'Q Key, Six Pin and D1 operating a robotic arm' },
+    { id: 'S04-R2C1-robot-car', src: 'img/hero-rotation-v2/S04-R2C1-robot-car.webp', alt: 'Q Key, Six Pin and D1 making a robot car' },
+    { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
+    { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' },
+    { id: 'S04-R5C1-solar-wind-turbine', src: 'img/hero-rotation-v2/S04-R5C1-solar-wind-turbine.webp', alt: 'Q Key, Six Pin and D1 exploring a solar and wind turbine project' }
   ];
-  const storageKey = 'qwertylabs-hero-production-bag-v1';
+  const storageKey = 'qwertylabs-hero-production-bag-v2';
   const ids = scenes.map(scene => scene.id);
   const allowed = new Set(ids);
   let previous = {};

@@ -1,0 +1,174 @@
+{
+  "version": 2,
+  "canvas": {
+    "width": 1240,
+    "height": 955
+  },
+  "stage": {
+    "topY": 832,
+    "width": 1130,
+    "centerX": 620
+  },
+  "excluded": [
+    "S07-R3C2"
+  ],
+  "notes": "Original artwork preserved. 13 standalone originals and 13 carefully masked source-sheet crops; all images aligned by the cardboard platform's front-top seam, not the bottom transparent pixel. No platform was redrawn.",
+  "scenes": [
+    {
+      "id": "S05-R1C1-robot-workshop",
+      "file": "S05-R1C1-robot-workshop.webp",
+      "alt": "Q Key, Six Pin and D1 building a cardboard robot in their workshop",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R1C2-weather-station",
+      "file": "S05-R1C2-weather-station.webp",
+      "alt": "Q Key, Six Pin and D1 testing a handmade weather station",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R1C4-control-console",
+      "file": "S05-R1C4-control-console.webp",
+      "alt": "Q Key, Six Pin and D1 operating a cardboard control console",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R2C1-submarine-controls",
+      "file": "S05-R2C1-submarine-controls.webp",
+      "alt": "Q Key, Six Pin and D1 using a cardboard submarine control station",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R2C2-smart-speaker",
+      "file": "S05-R2C2-smart-speaker.webp",
+      "alt": "Q Key, Six Pin and D1 making a smart speaker",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R2C3-virtual-reality",
+      "file": "S05-R2C3-virtual-reality.webp",
+      "alt": "Q Key, Six Pin and D1 experimenting with virtual reality",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R3C1-robot-arm",
+      "file": "S05-R3C1-robot-arm.webp",
+      "alt": "Q Key, Six Pin and D1 building a cardboard robotic arm",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R3C2-drawing-tablet",
+      "file": "S05-R3C2-drawing-tablet.webp",
+      "alt": "Q Key, Six Pin and D1 drawing on a tablet",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S05-R4C1-colourful-pinball",
+      "file": "S05-R4C1-colourful-pinball.webp",
+      "alt": "Q Key, Six Pin and D1 playing a colourful pinball game",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S07-R1C1-workshop-device",
+      "file": "S07-R1C1-workshop-device.webp",
+      "alt": "Q Key, Six Pin and D1 making an electronic workshop device",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S07-R4C1-satellite-link",
+      "file": "S07-R4C1-satellite-link.webp",
+      "alt": "Q Key, Six Pin and D1 testing a satellite link",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S07-R4C2-cardboard-periscope",
+      "file": "S07-R4C2-cardboard-periscope.webp",
+      "alt": "Q Key, Six Pin and D1 building a cardboard periscope",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S07-R5C2-rocket-control",
+      "file": "S07-R5C2-rocket-control.webp",
+      "alt": "Q Key, Six Pin and D1 using a rocket control console",
+      "source": "original transparent Library image"
+    },
+    {
+      "id": "S02-R1C2-virtual-reality",
+      "file": "S02-R1C2-virtual-reality.webp",
+      "alt": "Q Key, Six Pin and D1 trying a virtual reality headset",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R1C3-submarine",
+      "file": "S02-R1C3-submarine.webp",
+      "alt": "Q Key, Six Pin and D1 exploring a cardboard submarine",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R2C1-solar-rover",
+      "file": "S02-R2C1-solar-rover.webp",
+      "alt": "Q Key, Six Pin and D1 testing a solar-powered rover",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R2C2-drawing-plotter",
+      "file": "S02-R2C2-drawing-plotter.webp",
+      "alt": "Q Key, Six Pin and D1 operating a drawing plotter",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R2C3-keyboard-synthesiser",
+      "file": "S02-R2C3-keyboard-synthesiser.webp",
+      "alt": "Q Key, Six Pin and D1 playing an electronic keyboard synthesiser",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R3C3-arcade-machine",
+      "file": "S02-R3C3-arcade-machine.webp",
+      "alt": "Q Key, Six Pin and D1 playing a cardboard arcade machine",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S02-R3C4-shadow-theatre",
+      "file": "S02-R3C4-shadow-theatre.webp",
+      "alt": "Q Key, Six Pin and D1 making a cardboard shadow theatre",
+      "source": "Cardboard Robot Maker Sticker Sheet.png"
+    },
+    {
+      "id": "S04-R1C1-computer-game",
+      "file": "S04-R1C1-computer-game.webp",
+      "alt": "Q Key, Six Pin and D1 working on a computer game",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    },
+    {
+      "id": "S04-R1C2-robot-arm",
+      "file": "S04-R1C2-robot-arm.webp",
+      "alt": "Q Key, Six Pin and D1 operating a robotic arm",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    },
+    {
+      "id": "S04-R2C1-robot-car",
+      "file": "S04-R2C1-robot-car.webp",
+      "alt": "Q Key, Six Pin and D1 making a robot car",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    },
+    {
+      "id": "S04-R2C2-led-circuit",
+      "file": "S04-R2C2-led-circuit.webp",
+      "alt": "Q Key, Six Pin and D1 testing a colourful LED circuit",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    },
+    {
+      "id": "S04-R4C1-music-speaker",
+      "file": "S04-R4C1-music-speaker.webp",
+      "alt": "Q Key, Six Pin and D1 making music with a cardboard speaker",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    },
+    {
+      "id": "S04-R5C1-solar-wind-turbine",
+      "file": "S04-R5C1-solar-wind-turbine.webp",
+      "alt": "Q Key, Six Pin and D1 exploring a solar and wind turbine project",
+      "source": "cardboard_tech_leds_repaired_faithful.png"
+    }
+  ]
+}
