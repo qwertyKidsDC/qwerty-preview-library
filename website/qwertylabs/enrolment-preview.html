@@ -168,7 +168,7 @@ textarea{min-height:85px;resize:vertical}
 <h2>Your selection</h2><div id="summary-description" class="spec"></div>
 <div class="big" id="price">$0</div>
 <div id="summary-lines" class="spec"></div>
-<div class="disclaimer">Indicative full-rate pricing only. Returning-family arrangements may differ. No live place availability is shown and no booking is created.</div>
+<div class="disclaimer">This is the calculated total at standard rates for the options selected. Any existing-family rate is confirmed before payment. This prototype does not check availability or create bookings.</div>
 </aside>
 </div>
 </main>
@@ -275,7 +275,7 @@ function summary(){
   var days=chosenDays();
   el('summary-description').textContent='Summer camps · January 2027 · '+days.length+' day'+(days.length===1?'':'s')+' selected';
   amount=state.children.reduce(function(a,c){return a+childCost(c)},0);
-  if(state.step===1){amount=days.length?145+(days.length-1)*130:0;el('summary-lines').innerHTML='<div class="line">Estimated for 1 child<br><strong>'+days.map(dayName).join(', ')+'</strong></div>';}
+  if(state.step===1){amount=days.length?145+(days.length-1)*130:0;el('summary-lines').innerHTML='<div class="line">Standard price for 1 child<br><strong>'+days.map(dayName).join(', ')+'</strong></div>';}
   else{el('summary-lines').innerHTML=state.children.map(function(c,i){return '<div class="line"><strong>'+escapeHtml(names[i])+'</strong><br>'+c.days.length+' camp day'+(c.days.length===1?'':'s')+(c.extended.length?' · '+c.extended.length+' extended':'')+'<br>'+money(childCost(c))+'</div>';}).join('');}
  }else{
   el('summary-description').textContent=TERMS[state.term].name+' · '+TERMS[state.term].short+' 2027';
@@ -325,7 +325,7 @@ function renderReview(){
  }).join('');
  var contact=state.family==='returning'?'Returning family · existing details to verify':escapeHtml(el('parent-first').value+' '+el('parent-last').value);
  h+='<div class="review-item"><strong>Parent/carer</strong>'+contact+' · '+escapeHtml(el('parent-email').value)+'</div>';
- h+='<div class="review-item"><strong>Estimated total · '+money(total)+'</strong>Full-rate estimate, subject to placement confirmation. No payment is taken.<br>When connected, Stripe can receive the payment amount, booking reference and parent email. Child details stay with our enrolment record.</div>';
+ h+='<div class="review-item"><strong>Standard-rate total · '+money(total)+'</strong>Calculated from your selections at standard rates. Any existing-family rate is confirmed before payment. No payment is taken.<br>When connected, Stripe can receive the payment amount, booking reference and parent email. Child details stay with our enrolment record.</div>';
  el('review').innerHTML=h;
  el('success').hidden=true;
 }
