@@ -1671,7 +1671,7 @@
    applying the absolute positions and fixed section heights for long articles. */
 #pay-what-you-want .subpage-section:has(> .subpage-art) {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: clamp(18px, 3vw, 30px);
   min-height: 0;
 }
@@ -1684,11 +1684,11 @@
 }
 #pay-what-you-want .subpage-section:has(> .subpage-art) > .subpage-art {
   position: static;
-  flex: 0 0 min(32%, 262px);
+  flex: 0 0 min(29%, 238px);
   top: auto;
   right: auto;
   width: auto;
-  margin: 0;
+  margin: -20px 0 0;
   transform: rotate(var(--tool-tilt, 5deg));
 }
 @media (max-width: 760px) {
@@ -1696,8 +1696,8 @@
     display: block;
   }
   #pay-what-you-want .subpage-section:has(> .subpage-art) > .subpage-art {
-    width: min(262px, 92%);
-    margin: 23px auto 5px;
+    width: min(238px, 90%);
+    margin: 12px auto 5px;
   }
 }
 :where(html[data-layout="subpage"]) .subpage-callout {
