@@ -23,11 +23,6 @@
       alt: 'Q Key, Six Pin and D1 experimenting with a cardboard smart speaker'
     },
     {
-      id: 'wind-turbine',
-      src: 'img/hero-rotation-test/wind-turbine.webp',
-      alt: 'Q Key, Six Pin and D1 making a small wind turbine with electronics'
-    },
-    {
       id: 'weather-station',
       src: 'img/hero-rotation-test/weather-station.webp',
       alt: 'Q Key, Six Pin and D1 testing a handmade weather station'

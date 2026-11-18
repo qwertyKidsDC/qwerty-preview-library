@@ -259,3 +259,75 @@
   document.fonts?.ready?.then(schedule);
   schedule();
 })();
+
+
+/* Curated hero rotation: one scene per page load, no repeated scenes until all
+   11 have appeared in this tab. Uses the existing hero geometry and fallback. */
+(() => {
+  // Keep the independently approved test pages isolated from production behaviour.
+  if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
+  const hero = document.querySelector('.hero img.mascots');
+  if (!hero) return;
+
+  const scenes = [
+    { id: 'robot-workshop', src: 'img/hero-rotation/robot-workshop.webp', alt: 'Q Key, Six Pin and D1 working together in a cardboard robot workshop' },
+    { id: 'control-console', src: 'img/hero-rotation/control-console.webp', alt: 'Q Key, Six Pin and D1 using a handmade cardboard control console' },
+    { id: 'smart-speaker', src: 'img/hero-rotation/smart-speaker.webp', alt: 'Q Key, Six Pin and D1 experimenting with a cardboard smart speaker' },
+    { id: 'weather-station', src: 'img/hero-rotation/weather-station.webp', alt: 'Q Key, Six Pin and D1 testing an electronic weather station' },
+    { id: 'vr-tech-workshop', src: 'img/hero-rotation/vr-tech-workshop.webp', alt: 'Q Key, Six Pin and D1 trying out a handmade VR headset' },
+    { id: 'robot-arm', src: 'img/hero-rotation/robot-arm.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard robotic arm' },
+    { id: 'drawing-tablet', src: 'img/hero-rotation/drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing together on a tablet' },
+    { id: 'colourful-pinball', src: 'img/hero-rotation/colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful cardboard pinball game' },
+    { id: 'satellite-link', src: 'img/hero-rotation/satellite-link.webp', alt: 'Q Key, Six Pin and D1 building a cardboard satellite communication project' },
+    { id: 'rocket-control', src: 'img/hero-rotation/rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a handmade rocket control station' },
+    { id: 'periscope', src: 'img/hero-rotation/periscope.webp', alt: 'Q Key, Six Pin and D1 making a cardboard periscope machine' }
+  ];
+  const storageKey = 'qwertylabs-hero-production-bag-v1';
+  const ids = scenes.map(scene => scene.id);
+  const allowed = new Set(ids);
+  let previous = {};
+  try {
+    previous = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
+  } catch (_error) {
+    // Browsers blocking storage can still display one randomly selected hero.
+  }
+
+  let order = Array.isArray(previous.order) ? previous.order : [];
+  let index = Number.isInteger(previous.index) ? previous.index : 0;
+  const valid = order.length === scenes.length &&
+    new Set(order).size === scenes.length && order.every(id => allowed.has(id));
+
+  if (!valid || index < 0 || index >= order.length) {
+    order = [...ids];
+    for (let i = order.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    if (order.length > 1 && order[0] === previous.last) {
+      [order[0], order[1]] = [order[1], order[0]];
+    }
+    index = 0;
+  }
+
+  const selectedId = order[index];
+  const selected = scenes.find(scene => scene.id === selectedId);
+  if (!selected) return;
+  try {
+    sessionStorage.setItem(storageKey, JSON.stringify({
+      order, index: index + 1, last: selectedId
+    }));
+  } catch (_error) {
+    // No persistent shuffle if storage is blocked, but the image still works.
+  }
+
+  const fallbackSrc = hero.getAttribute('src');
+  const fallbackAlt = hero.getAttribute('alt');
+  hero.onerror = () => {
+    hero.onerror = null;
+    hero.src = fallbackSrc;
+    hero.alt = fallbackAlt;
+  };
+  hero.src = selected.src;
+  hero.alt = selected.alt;
+  hero.dataset.heroScene = selected.id;
+})();
