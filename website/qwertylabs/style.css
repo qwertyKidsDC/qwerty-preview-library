@@ -1667,37 +1667,6 @@
   height: auto;
 }
 
-/* PWYW has short copy: keep framed artwork in the layout flow rather than
-   applying the absolute positions and fixed section heights for long articles. */
-#pay-what-you-want .subpage-section:has(> .subpage-art) {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(18px, 3vw, 30px);
-  min-height: 0;
-}
-#pay-what-you-want .subpage-section:has(> .subpage-art) > div {
-  flex: 1 1 0;
-  min-width: 0;
-}
-#pay-what-you-want .subpage-section:has(> .subpage-art) .subpage-section__copy {
-  width: 100%;
-}
-#pay-what-you-want .subpage-section:has(> .subpage-art) > .subpage-art {
-  position: static;
-  flex: 0 0 auto;
-  top: auto;
-  right: auto;
-  margin: -30px 0 0;
-  transform: rotate(var(--tool-tilt, 5deg));
-}
-@media (max-width: 760px) {
-  #pay-what-you-want .subpage-section:has(> .subpage-art) {
-    display: block;
-  }
-  #pay-what-you-want .subpage-section:has(> .subpage-art) > .subpage-art {
-    margin: 12px auto 5px;
-  }
-}
 :where(html[data-layout="subpage"]) .subpage-callout {
   position: relative;
   isolation: isolate;
