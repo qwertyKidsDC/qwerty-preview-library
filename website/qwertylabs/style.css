@@ -1145,9 +1145,9 @@
   }
 
   .navigation {
-    gap: 7px 17px;
+    gap: 7px 10px;
     padding-top: 14px;
-    letter-spacing: .22em;
+    letter-spacing: .10em;
   }
 
   .hero {
