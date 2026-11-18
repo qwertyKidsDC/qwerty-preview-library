@@ -93,6 +93,13 @@ textarea{min-height:85px;resize:vertical}
 <section id="step-1">
 <h2>What are we booking?</h2>
 <p class="muted">Choose camp days or a weekly class. We’ll show you the dates and price before asking for any details.</p>
+<h3>Have you enrolled with us before?</h3>
+<div class="programmes" role="group" aria-label="Family status">
+<label class="programme"><input type="radio" name="family" value="new" checked><span class="face"><span class="name">New family</span><span class="hint">Tell us about your child and how to reach you</span></span></label>
+<label class="programme"><input type="radio" name="family" value="returning"><span class="face"><span class="name">Returning family</span><span class="hint">Just the booking and any changes</span></span></label>
+</div>
+<p class="field-note" id="family-explainer">We'll collect the details needed for your first visit.</p>
+<h3>What would you like to book?</h3>
 <div class="programmes" role="group" aria-label="Programme">
 <label class="programme"><input type="radio" name="programme" value="camp" checked><span class="face"><span class="name">Holiday camps</span><span class="hint">Choose one day or a bunch · January 2027</span></span></label>
 <label class="programme"><input type="radio" name="programme" value="term"><span class="face"><span class="name">Weekly classes</span><span class="hint">Choose a nine-week term · 2027</span></span></label>
@@ -113,23 +120,35 @@ textarea{min-height:85px;resize:vertical}
 <div class="controls"><span></span><button class="btn" type="button" id="next-1">Continue <span aria-hidden="true">→</span></button></div>
 </section>
 <section id="step-2" hidden>
-<h2>Who's coming?</h2><p class="muted">Start with one child. Add siblings if you like. You can give each child different camp days or class times.</p>
+<h2>Who's coming?</h2><p class="muted" id="children-intro">Start with one child. Add siblings if you like. You can give each child different camp days or class times.</p>
 <div id="children"></div>
 <button class="btn secondary" type="button" id="add-child">+ Add another child</button>
 <div class="controls"><button class="btn secondary back" type="button">← Back</button><button class="btn" type="button" id="next-2">Continue →</button></div>
 </section>
 <section id="step-3" hidden>
-<h2>Who's the grown-up?</h2><p class="muted">Just the essentials. For the prototype, please use sample names and numbers.</p>
-<label class="check-line"><input id="returning" type="checkbox">We've been to Qwerty before</label>
+<h2>Who's the grown-up?</h2>
+<p class="muted" id="contacts-description">We need a parent or carer and someone else to contact in an emergency. Please use invented details in this preview.</p>
+<div id="parent-new">
 <div class="grid-2">
-<div><label class="field" for="parent-name">Parent/carer name *</label><input id="parent-name" type="text" autocomplete="off" placeholder="e.g. Alex Maker"></div>
-<div><label class="field" for="parent-mobile">Mobile *</label><input id="parent-mobile" type="tel" autocomplete="off" placeholder="e.g. 0400 000 000"></div>
+<div><label class="field" for="parent-first">Parent/carer first name *</label><input id="parent-first" type="text" autocomplete="off" placeholder="e.g. Alex"></div>
+<div><label class="field" for="parent-last">Parent/carer last name *</label><input id="parent-last" type="text" autocomplete="off" placeholder="e.g. Maker"></div>
+</div>
+<label class="field" for="parent-mobile">Mobile *</label><input id="parent-mobile" type="tel" autocomplete="off" placeholder="e.g. 0400 000 000">
 </div>
 <label class="field" for="parent-email">Email *</label><input id="parent-email" type="email" autocomplete="off" placeholder="e.g. alex@example.com">
-<h3>Another person we can contact</h3><p class="muted">Someone different, in case we can't reach you.</p>
+<div id="returning-contacts" hidden>
+<label class="field" for="updated-mobile">Has your mobile changed? (optional)</label>
+<input id="updated-mobile" type="tel" autocomplete="off" placeholder="New number, if different">
+<p class="field-note">A live version would securely verify your email and retrieve the family's saved contact details before confirming a booking. This preview cannot do that.</p>
+</div>
+<div id="new-emergency">
+<h3>Another person we can contact</h3>
+<p class="muted">Someone different, in case we can't reach you.</p>
 <div class="grid-2">
-<div><label class="field" for="emergency-name">Additional contact name *</label><input id="emergency-name" type="text" autocomplete="off"></div>
-<div><label class="field" for="emergency-mobile">Additional contact mobile *</label><input id="emergency-mobile" type="tel" autocomplete="off"></div>
+<div><label class="field" for="emergency-first">Additional contact first name *</label><input id="emergency-first" type="text" autocomplete="off"></div>
+<div><label class="field" for="emergency-last">Additional contact last name *</label><input id="emergency-last" type="text" autocomplete="off"></div>
+</div>
+<label class="field" for="emergency-mobile">Additional contact mobile *</label><input id="emergency-mobile" type="tel" autocomplete="off">
 </div>
 <label class="check-line"><input id="emergency-consent" type="checkbox">I consent to emergency medical assistance for the children named in this request if required. *</label>
 <label class="check-line"><input id="terms-consent" type="checkbox">I have read and agree to the <a href="booking-terms.html" target="_blank" rel="noopener">Booking Terms</a>. *</label>
@@ -176,8 +195,9 @@ var SESSIONS=[
  {id:'sat1215',name:'Saturday · 12:15–1:30 pm'}
 ];
 var allDays=CAMP_WEEKS.reduce(function(a,w){return a.concat(w.dates)},[]);
-var state={step:1,programme:'camp',selectedDays:[],term:0,session:'mon',children:[newChild()],initialised:false};
-function newChild(){return {name:'',age:'',experience:'',support:'',medical:'',photo:'no',days:[],extended:[],session:'mon'};}
+var state={step:1,family:'new',programme:'camp',selectedDays:[],term:0,session:'mon',children:[newChild()],initialised:false};
+function newChild(){return {firstName:'',lastName:'',age:'',coded:'',experience:'',support:'',medical:'',photo:'no',updates:'',days:[],extended:[],session:'mon'};}
+function childName(c){return (c.firstName+' '+c.lastName).trim();}
 function el(id){return document.getElementById(id);}
 function money(n){return '$'+Number(n).toLocaleString('en-AU');}
 function dayName(iso){var d=new Date(iso+'T12:00:00');return d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'});}
