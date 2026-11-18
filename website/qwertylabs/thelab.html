@@ -1,46 +1,211 @@
 <!doctype html>
-<html lang="en-AU" data-brand="lab">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="stylesheet" href="style.css?v=20261117-hero-overlap">
-  <script src="brand.js?v=20261108" defer></script>
-  <title>The Lab — Qwerty Labs copy review (draft)</title>
-</head>
-<body>
-  <header>
-    <a class="draft-wordmark" href="index.html"><img src="img/wordmark.svg" alt="Qwerty Labs" width="220" height="50"></a>
-    <p><a href="index.html">← Qwerty Labs homepage</a></p>
-    <nav aria-label="Review pages">
-      <a href="kids.html">Kids</a> · <a href="adults.html">Adults</a> · <a href="teens.html">Teens</a> · <a href="thelab.html">The Lab</a>
-    </nav>
-    <p><em>Draft copy for review · 3 November 2026 · Not approved. Calls to action are copy only unless linked.</em></p>
-  </header>
-  <main>
-<h1>The Lab</h1>
-<h2>A creative technology studio in Marrickville.</h2>
-<p>People make things here.</p>
-<p>Children, teenagers and adults work with coding, AI, robotics, electronics, games, design and whatever else their projects call for.</p>
-<p>Some arrive with an idea. Others find one when they get here.</p>
-<h2>What's happening at the lab?</h2>
-<p><strong>Children</strong> — Weekly creative technology classes and school holiday camps.</p>
-<p><strong>Teens</strong> — Bigger projects, more independence and individual guidance.</p>
-<p><strong>Adults</strong> — Practical mentoring and group workshops for people who want to make things.</p>
-<p><strong>Find your place →</strong></p>
-<h2>Who's behind it?</h2>
-<p>Qwerty Labs grew from QwertyKids, founded in 2015.</p>
-<p>The lab is led by DC, a creative technologist with more than 20 years of professional experience, including work for the ABC and Microsoft, and more than a decade teaching creative technology.</p>
-<p>Her first hyperlink went to NASA in 1997.</p>
-<p>She's still rather pleased when things work.</p>
-<p><strong>Read our story →</strong></p>
-<h2>Come and see us</h2>
-<p>Level 1, 230 Marrickville Road, Marrickville, Sydney.</p>
-<p><strong>Contact &amp; directions →</strong></p>
-  </main>
-  <footer>
-    <hr>
-    <p><a href="index.html">Back to homepage</a></p>
-  </footer>
-</body>
+<html lang="en-AU" data-brand="lab" data-layout="subpage">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#020020">
+    <meta
+      name="description"
+      content="Meet Qwerty Labs, a creative technology studio in Marrickville where children, teens and adults make things with technology."
+    >
+    <title>The Lab — Qwerty Labs</title>
+    <!-- Approved typefaces and the single site stylesheet. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
+    >
+    <link rel="stylesheet" href="style.css?v=20261118-nav">
+    <script src="brand.js?v=20261108" defer></script>
+    <script src="script.js?v=20261118-nav" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <!-- Decorative workshop photography and lighting. -->
+      <div aria-hidden="true" class="ambient"></div>
+      <div aria-hidden="true" class="bg-scene">
+        <div class="bg-scene__photo"></div>
+        <div class="bg-scene__tones"></div>
+        <div class="bg-scene__vignette"></div>
+      </div>
+      <div aria-hidden="true" class="bg-scene-bottom">
+        <div class="bg-scene-bottom__photo"></div>
+        <div class="bg-scene-bottom__tones"></div>
+      </div>
+      <div class="cardboard-stage">
+        <div class="cardboard-page" id="top">
+          <header class="header">
+            <a href="index.html" class="logo" aria-label="Qwerty Labs home">
+              <img src="img/wordmark.svg" alt="Qwerty Labs" width="440" height="101">
+            </a>
+            <nav class="navigation" aria-label="Main navigation">
+              <div class="navigation-group">
+                <a href="kids.html">Kids</a>
+                <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
+                <div class="navigation-submenu" id="nav-kids">
+                  <div class="navigation-submenu__links">
+                    <a href="kids.html">Kids overview</a>
+                    <a href="kids-coding-classes.html">Weekly classes</a>
+                    <a href="coding-camp.html">Holiday camps</a>
+                  </div>
+                </div>
+              </div>
+              <a href="adults.html">Adults</a>
+              <a href="teens.html">Teens</a>
+              <div class="navigation-group navigation-group--lab">
+                <a href="thelab.html" class="navigation-current">The Lab</a>
+                <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
+                <div class="navigation-submenu" id="nav-lab">
+                  <div class="navigation-submenu__links">
+                    <a href="thelab.html" aria-current="page">The Lab overview</a>
+                    <a href="tools.html">Kit &amp; Code</a>
+                    <a href="a-kids-pov.html">A Kid's POV</a>
+                    <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </header>
+
+          <main id="main">
+            <!-- Shared approved Kids page architecture; editorial copy remains a working draft. -->
+            <section class="hero" aria-label="The Lab">
+              <div class="hero-copy">
+                <div class="hero-paper">
+                  <img class="paper-bg" src="img/hero-paper.svg" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">the lab</span><span class="hero-tagline">a place for making</span></h1>
+                </div>
+                <nav class="subpage-hero-links" aria-label="Explore The Lab">
+                  <a class="scene-link" href="kids.html">Kids</a>
+                  <a class="scene-link" href="teens.html">Teens</a>
+                  <a class="scene-link" href="adults.html">Adults</a>
+                </nav>
+              </div>
+              <img class="mascots" src="img/mascot-rocket-trio.webp" alt="The Qwerty Labs mascots working on a rocket together" width="1240" height="955" fetchpriority="high">
+            </section>
+            <section class="projects projects--subpage" id="lab-intro" aria-labelledby="lab-intro-title">
+              <figure class="photo-collage">
+                <img class="project-photo" loading="lazy" decoding="async" src="img/workshop-top.webp" alt="Materials and equipment in a creative technology workspace" width="700" height="394">
+                <img class="project-frame" src="img/mat-h.webp" alt="">
+              </figure>
+              <div class="subpage-intro">
+                <img class="subpage-intro__art" src="img/kids-blue-panel-untaped-vtrim.svg" alt="">
+                <div class="subpage-intro__copy">
+                  <h2 id="lab-intro-title">A CREATIVE TECHNOLOGY STUDIO IN MARRICKVILLE</h2>
+                  <p>People make things here.</p>
+                  <p>Children, teenagers and adults work with coding, AI, robotics, electronics, games, design and whatever else their projects call for.</p>
+                  <p>Some arrive with an idea. Others find one when they get here.</p>
+                </div>
+              </div>
+            </section>
+            <section class="subpage-board" id="lab-editorial" aria-label="About The Lab">
+              <section class="subpage-section" id="happening" aria-labelledby="happening-heading">
+                <img class="subpage-section__tape" src="img/footer-label-blue-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="happening-heading">What's happening?</h2>
+                <div class="subpage-section__copy">
+                  <p>What's happening at the lab?</p>
+                  <p><a href="kids.html">Children</a> — Weekly creative technology classes and school holiday camps.</p>
+                  <p><a href="teens.html">Teens</a> — Bigger projects, more independence and individual guidance.</p>
+                  <p><a href="adults.html">Adults</a> — Practical mentoring and group workshops for people who want to make things.</p>
+                </div>
+                <figure class="subpage-art subpage-art--level">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-ready/MT02-R01-C02-paper-frame.webp" alt="Framed Qwerty Labs mascot holding a handheld game console" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
+
+              <section class="subpage-section" id="behind-the-lab" aria-labelledby="behind-the-lab-heading">
+                <img class="subpage-section__tape" src="img/footer-label-blue-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="behind-the-lab-heading">Who's behind it?</h2>
+                <div class="subpage-section__copy">
+                  <p>Qwerty Labs grew from QwertyKids, founded in 2015.</p>
+                  <p>The lab is led by its founder, a creative technologist with more than 20 years of professional experience, including work for the ABC and Microsoft, and more than a decade teaching creative technology.</p>
+                  <p>Her first hyperlink went to NASA in 1997.</p>
+                  <p>She's still rather pleased when things work.</p>
+                </div>
+              </section>
+
+              <section class="subpage-section" id="visit" aria-labelledby="visit-heading">
+                <img class="subpage-section__tape" src="img/footer-label-blue-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="visit-heading">Come and see us</h2>
+                <div class="subpage-section__copy">
+                  <p>Level 1, 230 Marrickville Road, Marrickville, Sydney.</p>
+                  <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Contact the studio</a></div>
+                  <div class="subpage-section__option"><a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Get directions</a></div>
+                </div>
+              </section>
+            </section>
+            <!-- Footer navigation, useful links and studio contact details -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-join-title">Get making</h2>
+                <nav class="footer-card-links" aria-label="Programs and ways to take part">
+                  <a href="kids.html">Kids</a>
+                  <a href="adults.html">Adults</a>
+                  <a href="teens.html">Teens</a>
+                  <a href="kids-coding-classes.html">Weekly Classes</a>
+                  <a href="coding-camp.html">Holiday Camps</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="index.html">Home</a>
+                  <a href="index.html#projects">Projects</a>
+                  <a href="tools.html">Kit &amp; Code</a>
+                  <a href="thelab.html">The Lab</a>
+                  <a href="a-kids-pov.html">A Kid's POV</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find us</h2>
+                <div class="footer-card-links">
+                  <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="https://qwertykids.com/contact-us/">Contact</a>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Directions</a>
+                </div>
+              </section>
+            </section>
+
+          </main>
+
+          <!-- Acknowledgement of Country and policies -->
+          <footer id="bottom" class="lab-footer">
+            <section class="country-ack" aria-labelledby="country-ack-heading">
+              <h2 id="country-ack-heading">Acknowledgement of Country</h2>
+              <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
+              <img class="country-ack__mascot" src="img/kidsFooter.png" alt="" width="110" height="110" loading="lazy" decoding="async">
+            </section>
+            <!-- The studio signature follows the left guide; policies follow the right. -->
+            <div class="footer-legal">
+              <div class="footer-legal-signature">
+                <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
+                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/wordmark.svg" alt="" width="2013" height="460">
+                </a>
+                <span class="footer-legal-separator" aria-hidden="true">|</span>
+                <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
+              </div>
+              <nav class="footer-legal-links" aria-label="Policies">
+                <a href="child-safety.html">Child Safety</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="booking-terms.html">Booking Terms</a>
+              </nav>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
