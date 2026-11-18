@@ -221,11 +221,20 @@ function renderPickers(){
  document.querySelectorAll('[name="programme"]').forEach(function(p){p.checked=p.value===state.programme;});
 }
 function renderChildren(){
+ el('children-intro').textContent=state.family==='returning'
+  ? 'Welcome back. Tell us which children are joining in. We’ll reuse their existing records once the live system can securely identify your family.'
+  : 'Start with one child. Add siblings if you like. Children can have different camp days or class times.';
  el('children').innerHTML=state.children.map(function(c,i){
   var s='<article class="child-card" data-child="'+i+'"><div class="child-head"><h3>Child '+(i+1)+'</h3>'+(i?' <button class="btn text" type="button" data-remove="'+i+'">Remove</button>':'')+'</div>';
-  s+='<div class="grid-2"><div><label class="field" for="child-name-'+i+'">First and last name *</label><input type="text" id="child-name-'+i+'" data-field="name" value="'+escapeHtml(c.name)+'" autocomplete="off" placeholder="e.g. Jamie Maker"></div>';
-  s+='<div><label class="field" for="child-age-'+i+'">Age *</label><select id="child-age-'+i+'" data-field="age"><option value="">Choose age</option>'+Array.from({length:11},function(_,j){return '<option value="'+(j+7)+'" '+(c.age===(j+7)?'selected':'')+'>'+(j+7)+'</option>';}).join('')+'</select></div></div>';
-  s+='<label class="field" for="child-experience-'+i+'">What do they like making? (optional)</label><input type="text" id="child-experience-'+i+'" data-field="experience" value="'+escapeHtml(c.experience)+'" placeholder="Games, websites, robots…">';
+  s+='<div class="grid-2"><div><label class="field" for="child-first-'+i+'">First name *</label><input type="text" id="child-first-'+i+'" data-field="firstName" value="'+escapeHtml(c.firstName)+'" autocomplete="off" placeholder="e.g. Jamie"></div>';
+  s+='<div><label class="field" for="child-last-'+i+'">Last name *</label><input type="text" id="child-last-'+i+'" data-field="lastName" value="'+escapeHtml(c.lastName)+'" autocomplete="off" placeholder="e.g. Maker"></div></div>';
+  if(state.family==='new'){
+   s+='<label class="field" for="child-age-'+i+'">Age *</label><select id="child-age-'+i+'" data-field="age"><option value="">Choose age</option>'+Array.from({length:11},function(_,j){return '<option value="'+(j+7)+'" '+(c.age===(j+7)?'selected':'')+'>'+(j+7)+'</option>';}).join('')+'</select>';
+   s+='<label class="field">Have they coded before? *</label><div class="row-choice" role="group" aria-label="Has child '+(i+1)+' coded before?">';
+   s+='<label class="choice-pill"><input type="radio" name="coded-'+i+'" data-field="coded" value="yes" '+(c.coded==='yes'?'checked':'')+'>Yes</label>';
+   s+='<label class="choice-pill"><input type="radio" name="coded-'+i+'" data-field="coded" value="no" '+(c.coded==='no'?'checked':'')+'>No</label></div>';
+   if(c.coded==='yes')s+='<label class="field" for="child-experience-'+i+'">Tell us a little about their coding experience (optional)</label><textarea id="child-experience-'+i+'" data-field="experience" placeholder="Scratch, Python, JavaScript, something else…">'+escapeHtml(c.experience)+'</textarea>';
+  }
   if(state.programme==='camp'){
    s+='<h4>Which camp days for this child?</h4><p class="field-note">We’ve ticked the days selected earlier. Adjust for each child.</p><div class="child-days">';
    s+=chosenDays().map(function(iso){var on=c.days.indexOf(iso)>=0;var ext=c.extended.indexOf(iso)>=0;
@@ -235,12 +244,29 @@ function renderChildren(){
   }else{
    s+='<label class="field" for="child-session-'+i+'">Preferred class *</label><select id="child-session-'+i+'" data-field="session">'+SESSIONS.map(function(t){return '<option value="'+t.id+'" '+(c.session===t.id?'selected':'')+'>'+t.name+' · '+sessionsCount(state.term,t.id)+' sessions</option>';}).join('')+'</select>';
   }
-  s+='<label class="field" for="child-support-'+i+'">Anything that helps us support them? (optional)</label><textarea id="child-support-'+i+'" data-field="support" placeholder="Helpful strategies, sensory needs, learning preferences…">'+escapeHtml(c.support)+'</textarea>';
-  s+='<label class="field" for="child-medical-'+i+'">Medical information we should know (optional)</label><textarea id="child-medical-'+i+'" data-field="medical" placeholder="Conditions, medication, allergies, action plans…">'+escapeHtml(c.medical)+'</textarea>';
-  s+='<label class="field" for="child-photo-'+i+'">Can we use photos or video featuring this child?</label><select id="child-photo-'+i+'" data-field="photo"><option value="no" '+(c.photo==='no'?'selected':'')+'>No</option><option value="yes" '+(c.photo==='yes'?'selected':'')+'>Yes</option></select>';
+  if(state.family==='new'){
+   s+='<label class="field" for="child-support-'+i+'">Anything that helps us support them? (optional)</label><textarea id="child-support-'+i+'" data-field="support" placeholder="Helpful strategies, sensory needs, learning preferences…">'+escapeHtml(c.support)+'</textarea>';
+   s+='<label class="field" for="child-medical-'+i+'">Medical information we should know (optional)</label><textarea id="child-medical-'+i+'" data-field="medical" placeholder="Conditions, medication, allergies, action plans…">'+escapeHtml(c.medical)+'</textarea>';
+   s+='<label class="field" for="child-photo-'+i+'">Can we use photos or video featuring this child?</label><select id="child-photo-'+i+'" data-field="photo"><option value="no" '+(c.photo==='no'?'selected':'')+'>No</option><option value="yes" '+(c.photo==='yes'?'selected':'')+'>Yes</option></select>';
+  }else{
+   s+='<label class="field" for="child-updates-'+i+'">Has anything important changed since their last visit? (optional)</label><textarea id="child-updates-'+i+'" data-field="updates" placeholder="Medical information, support needs, emergency contacts or photo permissions…">'+escapeHtml(c.updates)+'</textarea>';
+   s+='<p class="field-note">We would check their existing information and permissions with you before the booking is final.</p>';
+  }
   s+='</article>';return s;
  }).join('');
  el('add-child').hidden=state.children.length>=3;
+}
+function updateFamilyUI(){
+ document.querySelectorAll('[name="family"]').forEach(function(r){r.checked=r.value===state.family;});
+ el('family-explainer').textContent=state.family==='returning'
+  ? 'Welcome back! In the live system, we’ll verify your identity before reusing saved details. This preview doesn’t retrieve family records.'
+  : 'We’ll collect the details needed for your first visit.';
+ el('parent-new').hidden=state.family==='returning';
+ el('new-emergency').hidden=state.family==='returning';
+ el('returning-contacts').hidden=state.family!=='returning';
+ el('contacts-description').textContent=state.family==='returning'
+  ? 'For returning families we only need the email used before. In the live system, we’d verify it securely and reuse your stored contact details.'
+  : 'We need a parent or carer and someone else to contact in an emergency. Please use invented details in this preview.';
 }
 function summary(){
  var names=state.children.map(function(c,i){return c.name.trim()||'Child '+(i+1);});
