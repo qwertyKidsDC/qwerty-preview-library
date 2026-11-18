@@ -27,6 +27,7 @@ from PIL import Image
 COMPLETE = (
     "index.html", "kids.html", "tools.html", "a-kids-pov.html",
     "kids-coding-classes.html", "coding-camp.html",
+    "child-safety.html", "privacy.html", "booking-terms.html",
 )
 DRAFTS = ("adults.html", "teens.html", "thelab.html")
 PAGES = COMPLETE + DRAFTS
@@ -35,6 +36,9 @@ HERO = {
     "tools.html": "qwerty-labs-mascots-cardboard-rocket.webp", "a-kids-pov.html": "qwerty-labs-mascots-cardboard-rocket.webp",
     "kids-coding-classes.html": "qwerty-labs-mascots-robot-car.webp",
     "coding-camp.html": "qwerty-labs-mascots-robot-car.webp",
+    "child-safety.html": "qwerty-labs-mascots-cardboard-rocket.webp",
+    "privacy.html": "qwerty-labs-mascots-cardboard-rocket.webp",
+    "booking-terms.html": "qwerty-labs-mascots-cardboard-rocket.webp",
 }
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))
 
