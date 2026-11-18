@@ -1028,6 +1028,10 @@
   background-color: var(--color-blue);
   opacity: 1;
 }
+/* Kids menu uses the existing green; other navigation squiggles stay blue. */
+.navigation-group:not(.navigation-group--lab) a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-green);
+}
 
 /* Inline text links use the approved squiggle as a background, so every
    wrapped line gets its own underline. The absolute pseudo-element approach
