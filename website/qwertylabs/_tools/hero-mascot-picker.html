@@ -44,9 +44,7 @@ const scenes=Array.from(document.querySelectorAll('.scene'));const status=docume
 let stored={};try{stored=JSON.parse(localStorage.getItem('ql-hero-collage-selection')||'{}')}catch(e){}
 scenes.forEach(el=>{if(stored[el.dataset.id])el.setAttribute('aria-pressed','true');el.addEventListener('click',()=>{const next=el.getAttribute('aria-pressed')!=='true';el.setAttribute('aria-pressed',String(next));if(next)stored[el.dataset.id]=true;else delete stored[el.dataset.id];save();})});
 function save(){try{localStorage.setItem('ql-hero-collage-selection',JSON.stringify(stored))}catch(e){}const selected=scenes.filter(x=>x.getAttribute('aria-pressed')==='true');counter.textContent=selected.length+' selected';status.textContent=selected.length?selected.map(x=>x.dataset.id).join(', '):'Choose your favourites above.'}
-function output(){const selected=scenes.filter(x=>x.getAttribute('aria-pressed')==='true');return 'Qwerty Labs collage hero shortlist ('+selected.length+'):
-'+selected.map(x=>'- '+x.dataset.id+' — '+x.dataset.name+' — source: '+x.dataset.sheet).join('
-')}
+function output(){const selected=scenes.filter(x=>x.getAttribute('aria-pressed')==='true');return 'Qwerty Labs collage hero shortlist ('+selected.length+'):\n'+selected.map(x=>'- '+x.dataset.id+' — '+x.dataset.name+' — source: '+x.dataset.sheet).join('\n')}
 document.querySelector('#clear').addEventListener('click',()=>{stored={};scenes.forEach(el=>el.setAttribute('aria-pressed','false'));save()});
 document.querySelector('#copy').addEventListener('click',async()=>{const n=scenes.filter(x=>x.getAttribute('aria-pressed')==='true').length;if(!n){status.textContent='Select some scenes first.';return;}const value=output();try{await navigator.clipboard.writeText(value);status.textContent='Copied '+n+' scenes. Paste them into this chat.'}catch(e){const t=document.createElement('textarea');t.value=value;t.style='position:fixed;z-index:9999;left:2%;top:2%;width:96%;height:200px';document.body.append(t);t.focus();t.select();status.textContent='Copy the highlighted text, then paste it into ChatGPT.'}});
 save();
