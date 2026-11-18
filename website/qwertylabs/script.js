@@ -270,17 +270,17 @@
   if (!hero) return;
 
   const scenes = [
-    { id: 'robot-workshop', src: 'img/hero-rotation/robot-workshop.webp', alt: 'Q Key, Six Pin and D1 working together in a cardboard robot workshop' },
-    { id: 'control-console', src: 'img/hero-rotation/control-console.webp', alt: 'Q Key, Six Pin and D1 using a handmade cardboard control console' },
-    { id: 'smart-speaker', src: 'img/hero-rotation/smart-speaker.webp', alt: 'Q Key, Six Pin and D1 experimenting with a cardboard smart speaker' },
-    { id: 'weather-station', src: 'img/hero-rotation/weather-station.webp', alt: 'Q Key, Six Pin and D1 testing an electronic weather station' },
-    { id: 'vr-tech-workshop', src: 'img/hero-rotation/vr-tech-workshop.webp', alt: 'Q Key, Six Pin and D1 trying out a handmade VR headset' },
-    { id: 'robot-arm', src: 'img/hero-rotation/robot-arm.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard robotic arm' },
-    { id: 'drawing-tablet', src: 'img/hero-rotation/drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing together on a tablet' },
-    { id: 'colourful-pinball', src: 'img/hero-rotation/colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful cardboard pinball game' },
-    { id: 'satellite-link', src: 'img/hero-rotation/satellite-link.webp', alt: 'Q Key, Six Pin and D1 building a cardboard satellite communication project' },
-    { id: 'rocket-control', src: 'img/hero-rotation/rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a handmade rocket control station' },
-    { id: 'periscope', src: 'img/hero-rotation/periscope.webp', alt: 'Q Key, Six Pin and D1 making a cardboard periscope machine' }
+    { id: 'robot-workshop', src: 'img/hero-rotation/robot-workshop.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 working together in a cardboard robot workshop' },
+    { id: 'control-console', src: 'img/hero-rotation/control-console.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 using a handmade cardboard control console' },
+    { id: 'smart-speaker', src: 'img/hero-rotation/smart-speaker.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 experimenting with a cardboard smart speaker' },
+    { id: 'weather-station', src: 'img/hero-rotation/weather-station.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 testing an electronic weather station' },
+    { id: 'vr-tech-workshop', src: 'img/hero-rotation/vr-tech-workshop.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 trying out a handmade VR headset' },
+    { id: 'robot-arm', src: 'img/hero-rotation/robot-arm.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 operating a cardboard robotic arm' },
+    { id: 'drawing-tablet', src: 'img/hero-rotation/drawing-tablet.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 drawing together on a tablet' },
+    { id: 'colourful-pinball', src: 'img/hero-rotation/colourful-pinball.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 playing a colourful cardboard pinball game' },
+    { id: 'satellite-link', src: 'img/hero-rotation/satellite-link.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 building a cardboard satellite communication project' },
+    { id: 'rocket-control', src: 'img/hero-rotation/rocket-control.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 using a handmade rocket control station' },
+    { id: 'periscope', src: 'img/hero-rotation/periscope.webp?v=20261118-bottom-align', alt: 'Q Key, Six Pin and D1 making a cardboard periscope machine' }
   ];
   const storageKey = 'qwertylabs-hero-production-bag-v1';
   const ids = scenes.map(scene => scene.id);
