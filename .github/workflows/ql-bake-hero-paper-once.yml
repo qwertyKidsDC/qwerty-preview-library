@@ -20,6 +20,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check pillow numpy playwright
       - name: Bake approved paper shape, texture and tape; no SVG colour filters
         run: |
+          python - <<'PY'
           from pathlib import Path
           from io import BytesIO
           import base64, hashlib, subprocess
@@ -100,6 +101,7 @@ jobs:
               print("BAKED",name,"chars",len(content))
           print("ONLY the four hero-paper SVG assets were rewritten; HTML, CSS and blurb papers untouched.")
           
+          PY
       - name: Verify changed paths, commit hero SVGs and remove one-time runner
         run: |
           git config user.name "github-actions[bot]"
