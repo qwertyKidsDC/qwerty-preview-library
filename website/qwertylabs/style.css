@@ -1385,7 +1385,8 @@
   letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
-:where(html[data-layout="subpage"]) :is(h2, h3, h4, h5, h6, .hero-title) {
+:where(html[data-layout="subpage"]) :is(h2, h3, h4, h5, h6, .hero-title),
+:where(html:not([data-layout])) :is(h1, h2, h3, h4, h5, h6) {
   display: block;
   text-transform: uppercase;
 }
