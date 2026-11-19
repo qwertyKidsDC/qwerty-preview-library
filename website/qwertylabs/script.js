@@ -262,7 +262,7 @@
 
 
 /* Curated hero rotation: one scene per page load, no repeated scenes until all
-   26 have appeared in this tab. Uses the existing hero geometry and fallback. */
+   25 have appeared in this tab. Uses the existing hero geometry and fallback. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
   if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
@@ -294,10 +294,9 @@
     { id: 'S04-R1C2-robot-arm', src: 'img/hero-rotation-v2/S04-R1C2-robot-arm.webp', alt: 'Q Key, Six Pin and D1 operating a robotic arm' },
     { id: 'S04-R2C1-robot-car', src: 'img/hero-rotation-v2/S04-R2C1-robot-car.webp', alt: 'Q Key, Six Pin and D1 making a robot car' },
     { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
-    { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' },
-    { id: 'S04-R5C1-solar-wind-turbine', src: 'img/hero-rotation-v2/S04-R5C1-solar-wind-turbine.webp', alt: 'Q Key, Six Pin and D1 exploring a solar and wind turbine project' }
+    { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' }
   ];
-  const storageKey = 'qwertylabs-hero-production-bag-v2';
+  const storageKey = 'qwertylabs-hero-production-bag-v3';
   const ids = scenes.map(scene => scene.id);
   const allowed = new Set(ids);
   let previous = {};

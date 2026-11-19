@@ -10,7 +10,8 @@
     "centerX": 620
   },
   "excluded": [
-    "S07-R3C2"
+    "S07-R3C2",
+    "S04-R5C1"
   ],
   "notes": "Original artwork preserved. 13 standalone originals and 13 carefully masked source-sheet crops; all images aligned by the cardboard platform's front-top seam, not the bottom transparent pixel. No platform was redrawn.",
   "scenes": [
@@ -162,12 +163,6 @@
       "id": "S04-R4C1-music-speaker",
       "file": "S04-R4C1-music-speaker.webp",
       "alt": "Q Key, Six Pin and D1 making music with a cardboard speaker",
-      "source": "cardboard_tech_leds_repaired_faithful.png"
-    },
-    {
-      "id": "S04-R5C1-solar-wind-turbine",
-      "file": "S04-R5C1-solar-wind-turbine.webp",
-      "alt": "Q Key, Six Pin and D1 exploring a solar and wind turbine project",
       "source": "cardboard_tech_leds_repaired_faithful.png"
     }
   ]
