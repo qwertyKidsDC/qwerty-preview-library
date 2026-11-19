@@ -19,9 +19,9 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261118-nav">
+    <link rel="stylesheet" href="style.css?v=20261120-cloud-replay">
     <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261119-footer-fun-10" defer></script>
+    <script src="script.js?v=20261120-cloud-replay" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -86,10 +86,12 @@
 
             <section class="projects projects--subpage" id="cloud-intro" aria-labelledby="cloud-intro-title">
               <figure class="photo-collage">
-                <video class="project-photo" controls playsinline muted preload="metadata" poster="img/cloud-poster-selected.webp" width="1749" height="1007" aria-label="Short demonstration of Project Code Cloud">
-                  <source src="img/cloud-demo-web.mp4" type="video/mp4">
-                  Your browser cannot play this video.
-                </video>
+                <button class="project-photo cloud-replay" type="button" aria-label="Replay the Project Code Cloud video">
+                  <video class="cloud-replay__video" muted playsinline preload="none" width="1749" height="1007" aria-hidden="true">
+                    <source src="img/cloud-demo-web.mp4" type="video/mp4">
+                  </video>
+                  <img class="cloud-replay__poster" src="img/cloud-poster-selected.webp" alt="" width="1749" height="1007" loading="lazy" decoding="async">
+                </button>
                 <img class="project-frame" src="img/mat-h.webp" alt="">
               </figure>
               <div class="subpage-intro">
@@ -112,16 +114,26 @@
                   <p>But where was their code? On the website? On their computer? On the micro:bit?</p>
                   <p>So Tiarna and Chloe decided to build something that would make the whole process visible.</p>
                 </div>
+                <figure class="subpage-art subpage-art--clockwise">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-curated/q-bbc-microbit-frame.webp" alt="Q Key holding a BBC micro:bit" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <section class="subpage-section" id="cloud-explained" aria-labelledby="cloud-explained-title">
                 <img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
-                <h2 class="subpage-section__heading" id="cloud-explained-title">MAKING CODE VISIBLE</h2>
+                <h2 class="subpage-section__heading" id="cloud-explained-title">WHERE CODE GOES</h2>
                 <div class="subpage-section__copy">
                   <p>Project Code Cloud is a physical model of how code moves between a coding website, the cloud, a computer and a device.</p>
                   <p>Press a button to simulate downloading, uploading, pairing or syncing. Lights and sounds show what's happening at each stage.</p>
                   <p>Sometimes pairing fails. Sometimes the cloud goes offline. That's deliberate. Real technology doesn't always cooperate either.</p>
                 </div>
+                <figure class="subpage-art subpage-art--counterclockwise">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-ready/MT04-R01-C05-framed.webp" alt="Six Pin coding on a Raspberry Pi" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <section class="subpage-section" id="cloud-build" aria-labelledby="cloud-build-title">
@@ -130,8 +142,12 @@
                 <div class="subpage-section__copy">
                   <p>Tiarna and Chloe programmed a Raspberry Pi, wired LED strips, built electronic circuits and designed the physical structure.</p>
                   <p>One of the trickiest problems was making sure the system could handle someone pressing another button before the previous action had finished. An entirely predictable problem when your audience includes enthusiastic children.</p>
-                  <p>They also made a video to explain the project clearly for a global audience. You can watch it below.</p>
                 </div>
+                <figure class="subpage-art subpage-art--clockwise">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-ready/MT05-R02-C05-framed.webp" alt="D1 in a cardboard electronics model with coloured lights" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <section class="subpage-section" id="cloud-coolest" aria-labelledby="cloud-coolest-title">
