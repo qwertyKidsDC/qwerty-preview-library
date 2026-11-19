@@ -342,3 +342,63 @@
   hero.alt = selected.alt;
   hero.dataset.heroScene = selected.id;
 })();
+
+/* Footer fun: rotate approved no-tech mascot cut-outs without repeats. */
+(() => {
+  const mascot = document.querySelector('.lab-footer .country-ack__mascot');
+  if (!mascot) return;
+
+  const choices = [
+    '01_Q_skateboard',
+    '02_Q_beanbag',
+    '04_Six_D1_sitting_around',
+    '07_Six_D1_popcorn',
+    '11_Q_Six_skateboards',
+    '13_Six_D1_wagon',
+    '15_Q_cardboard_blocks',
+    '18_D1_cardboard_tent',
+    '19_Six_lying_on_tummy',
+    '21_Q_paper_nest'
+  ];
+  const storageKey = 'qwertylabs-footer-fun-bag-v1';
+  let saved = {};
+  try {
+    saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
+  } catch (_error) {
+    // Private browsing can still show a random mascot.
+  }
+
+  let order = saved.order;
+  let index = saved.index;
+  const valid = Array.isArray(order) &&
+    order.length === choices.length &&
+    new Set(order).size === choices.length &&
+    order.every(choice => choices.includes(choice));
+
+  if (!valid || !Number.isInteger(index) || index < 0 || index >= choices.length) {
+    order = [...choices];
+    for (let i = order.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    if (order.length > 1 && order[0] === saved.last) {
+      [order[0], order[1]] = [order[1], order[0]];
+    }
+    index = 0;
+  }
+
+  const selected = order[index];
+  try {
+    sessionStorage.setItem(storageKey, JSON.stringify({
+      order, index: index + 1, last: selected
+    }));
+  } catch (_error) {
+    // Keep the rotation working even when storage is disabled.
+  }
+
+  const fallback = mascot.getAttribute('src');
+  mascot.addEventListener('error', () => {
+    mascot.src = fallback;
+  }, { once: true });
+  mascot.src = 'img/footer-rotation/' + selected + '.svg';
+})();
