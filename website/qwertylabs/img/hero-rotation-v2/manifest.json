@@ -13,7 +13,8 @@
     "S07-R3C2",
     "S04-R5C1",
     "S02-R1C3",
-    "S07-R4C2"
+    "S07-R4C2",
+    "S04-R1C2"
   ],
   "notes": "Original artwork preserved. 13 standalone originals and 13 carefully masked source-sheet crops; all images aligned by the cardboard platform's front-top seam, not the bottom transparent pixel. No platform was redrawn.",
   "scenes": [
@@ -129,12 +130,6 @@
       "id": "S04-R1C1-computer-game",
       "file": "S04-R1C1-computer-game.webp",
       "alt": "Q Key, Six Pin and D1 working on a computer game",
-      "source": "cardboard_tech_leds_repaired_faithful.png"
-    },
-    {
-      "id": "S04-R1C2-robot-arm",
-      "file": "S04-R1C2-robot-arm.webp",
-      "alt": "Q Key, Six Pin and D1 operating a robotic arm",
       "source": "cardboard_tech_leds_repaired_faithful.png"
     },
     {
