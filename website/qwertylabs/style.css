@@ -1444,6 +1444,22 @@
   height: 85%;
   transform: none;
 }
+/* Share the homepage Cloud replay, fitted inside the existing subpage mat. */
+:where(html[data-layout="subpage"]) .projects--subpage .project-photo.cloud-replay {
+  top: 9%;
+  left: 5%;
+  width: 88%;
+  height: 80%;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: var(--color-ink);
+  cursor: var(--ql-hand-cursor, pointer);
+}
+:where(html[data-layout="subpage"]) .projects--subpage .cloud-replay__video,
+:where(html[data-layout="subpage"]) .projects--subpage .cloud-replay__poster {
+  object-fit: contain;
+}
 /* The Kids intro reuses the homepage green paper artwork at the original
    intro panel width. The photograph and two-column arrangement stay put. */
 :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
