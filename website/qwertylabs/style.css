@@ -52,19 +52,6 @@
   }
 }
 
-/* Only draft copy pages need this simple background for the pale wordmark. */
-.draft-wordmark {
-  display: inline-block;
-  padding: 10px 13px;
-  background: var(--color-ink);
-}
-.draft-wordmark img {
-  display: block;
-  width: 220px;
-  max-width: 100%;
-  height: auto;
-}
-
 /* 02 — Shared foundations and responsive artwork */
 
 :where(html[data-layout]) *,
