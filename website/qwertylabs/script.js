@@ -122,7 +122,7 @@
 /* Project Code Cloud: one silent scroll play; hover or tap to replay.
    The poster remains visible before and after playback. */
 (() => {
-  const button = document.querySelector('#projects .cloud-replay');
+  const button = document.querySelector('.cloud-replay');
   const video = button?.querySelector('video');
   if (!button || !video) return;
 
