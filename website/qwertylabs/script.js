@@ -262,7 +262,7 @@
 
 
 /* Curated hero rotation: one scene per page load, no repeated scenes until all
-   25 have appeared in this tab. Uses the existing hero geometry and fallback. */
+   23 have appeared in this tab. Uses the existing hero geometry and fallback. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
   if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
@@ -281,10 +281,8 @@
     { id: 'S05-R4C1-colourful-pinball', src: 'img/hero-rotation-v2/S05-R4C1-colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
     { id: 'S07-R1C1-workshop-device', src: 'img/hero-rotation-v2/S07-R1C1-workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
     { id: 'S07-R4C1-satellite-link', src: 'img/hero-rotation-v2/S07-R4C1-satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
-    { id: 'S07-R4C2-cardboard-periscope', src: 'img/hero-rotation-v2/S07-R4C2-cardboard-periscope.webp', alt: 'Q Key, Six Pin and D1 building a cardboard periscope' },
     { id: 'S07-R5C2-rocket-control', src: 'img/hero-rotation-v2/S07-R5C2-rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
     { id: 'S02-R1C2-virtual-reality', src: 'img/hero-rotation-v2/S02-R1C2-virtual-reality.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
-    { id: 'S02-R1C3-submarine', src: 'img/hero-rotation-v2/S02-R1C3-submarine.webp', alt: 'Q Key, Six Pin and D1 exploring a cardboard submarine' },
     { id: 'S02-R2C1-solar-rover', src: 'img/hero-rotation-v2/S02-R2C1-solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
     { id: 'S02-R2C2-drawing-plotter', src: 'img/hero-rotation-v2/S02-R2C2-drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
     { id: 'S02-R2C3-keyboard-synthesiser', src: 'img/hero-rotation-v2/S02-R2C3-keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
@@ -296,7 +294,7 @@
     { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
     { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' }
   ];
-  const storageKey = 'qwertylabs-hero-production-bag-v3';
+  const storageKey = 'qwertylabs-hero-production-bag-v4';
   const ids = scenes.map(scene => scene.id);
   const allowed = new Set(ids);
   let previous = {};

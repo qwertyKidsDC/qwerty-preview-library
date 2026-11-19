@@ -11,7 +11,9 @@
   },
   "excluded": [
     "S07-R3C2",
-    "S04-R5C1"
+    "S04-R5C1",
+    "S02-R1C3",
+    "S07-R4C2"
   ],
   "notes": "Original artwork preserved. 13 standalone originals and 13 carefully masked source-sheet crops; all images aligned by the cardboard platform's front-top seam, not the bottom transparent pixel. No platform was redrawn.",
   "scenes": [
@@ -82,12 +84,6 @@
       "source": "original transparent Library image"
     },
     {
-      "id": "S07-R4C2-cardboard-periscope",
-      "file": "S07-R4C2-cardboard-periscope.webp",
-      "alt": "Q Key, Six Pin and D1 building a cardboard periscope",
-      "source": "original transparent Library image"
-    },
-    {
       "id": "S07-R5C2-rocket-control",
       "file": "S07-R5C2-rocket-control.webp",
       "alt": "Q Key, Six Pin and D1 using a rocket control console",
@@ -97,12 +93,6 @@
       "id": "S02-R1C2-virtual-reality",
       "file": "S02-R1C2-virtual-reality.webp",
       "alt": "Q Key, Six Pin and D1 trying a virtual reality headset",
-      "source": "Cardboard Robot Maker Sticker Sheet.png"
-    },
-    {
-      "id": "S02-R1C3-submarine",
-      "file": "S02-R1C3-submarine.webp",
-      "alt": "Q Key, Six Pin and D1 exploring a cardboard submarine",
       "source": "Cardboard Robot Maker Sticker Sheet.png"
     },
     {
