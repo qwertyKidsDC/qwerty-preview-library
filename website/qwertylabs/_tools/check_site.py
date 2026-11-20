@@ -29,7 +29,7 @@ COMPLETE = (
     "kids-coding-classes.html", "coding-camp.html",
     "child-safety.html", "privacy.html", "booking-terms.html",
 )
-DRAFTS = ("adults.html", "teens.html", "thelab.html")
+DRAFTS = ("adults.html", "teens.html", "thelab.html", "contact.html")
 PAGES = COMPLETE + DRAFTS
 HERO = {
     "index.html": "qwerty-labs-mascots-led-electronics.webp", "kids.html": "qwerty-labs-mascots-robot-car.webp",
