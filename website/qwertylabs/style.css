@@ -345,6 +345,8 @@
   transform: translateY(-2px) rotate(45deg);
 }
 .navigation-toggle:is(:hover, :focus-visible) { color: var(--color-blue); }
+.navigation-group--adults .navigation-toggle:is(:hover, :focus-visible) { color: var(--color-pink); }
+.navigation-group--teens .navigation-toggle:is(:hover, :focus-visible) { color: var(--color-orange); }
 .navigation-toggle:focus-visible {
   outline: 2px solid var(--color-blue);
   outline-offset: 3px;
@@ -380,6 +382,9 @@
 }
 .navigation-group--lab .navigation-submenu__links {
   border-left-color: var(--color-blue);
+}
+.navigation-group--adults .navigation-submenu__links {
+  border-left-color: var(--color-pink);
 }
 .navigation-group--teens .navigation-submenu__links {
   border-left-color: var(--color-orange);
@@ -1029,8 +1034,11 @@
   opacity: 1;
 }
 /* Keep each section's navigation squiggle in its approved colour. */
-.navigation-group:not(.navigation-group--lab):not(.navigation-group--teens) a:is(:hover, :focus-visible)::after {
+.navigation-group:not(.navigation-group--lab):not(.navigation-group--adults):not(.navigation-group--teens) a:is(:hover, :focus-visible)::after {
   background-color: var(--color-green);
+}
+.navigation-group--adults a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-pink);
 }
 .navigation-group--teens a:is(:hover, :focus-visible)::after {
   background-color: var(--color-orange);
