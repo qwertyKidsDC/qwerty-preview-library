@@ -1028,9 +1028,12 @@
   background-color: var(--color-blue);
   opacity: 1;
 }
-/* Kids menu uses the existing green; other navigation squiggles stay blue. */
-.navigation-group:not(.navigation-group--lab) a:is(:hover, :focus-visible)::after {
+/* Keep each section's navigation squiggle in its approved colour. */
+.navigation-group:not(.navigation-group--lab):not(.navigation-group--teens) a:is(:hover, :focus-visible)::after {
   background-color: var(--color-green);
+}
+.navigation-group--teens a:is(:hover, :focus-visible)::after {
+  background-color: var(--color-orange);
 }
 
 /* Inline text links use the approved squiggle as a background, so every
