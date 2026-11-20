@@ -381,6 +381,9 @@
 .navigation-group--lab .navigation-submenu__links {
   border-left-color: var(--color-blue);
 }
+.navigation-group--teens .navigation-submenu__links {
+  border-left-color: var(--color-orange);
+}
 .navigation .navigation-submenu a {
   display: inline-block;
   padding: 9px 4px;
