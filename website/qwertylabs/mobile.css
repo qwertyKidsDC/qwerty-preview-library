@@ -196,6 +196,27 @@
   .small-card {
     width: 100%;
   }
+
+  /* A full finger-sized target without changing shared link typography.
+     Let the paper expand to contain the larger interactive rows. */
+  .footer-nav-cards .footer-nav-card {
+    height: auto;
+    min-height: 275px;
+    padding-bottom: 32px;
+  }
+  .footer-nav-cards .footer-card-links a,
+  .lab-footer .footer-legal-links a {
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 4px;
+  }
+  .footer-nav-cards .footer-card-links a::after,
+  .lab-footer .footer-legal-links a::after {
+    left: 4px;
+    right: 4px;
+    bottom: 8px;
+  }
+
   .footer-scene {
     /* The mobile tape begins 24px below the board's top. */
     margin: calc(var(--space-section) - 24px) 12px 0;
