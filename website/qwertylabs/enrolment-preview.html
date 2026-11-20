@@ -152,6 +152,7 @@ textarea{min-height:85px;resize:vertical}
 </div>
 <label class="check-line"><input id="emergency-consent" type="checkbox">I consent to emergency medical assistance for the children named in this request if required. *</label>
 <label class="check-line"><input id="terms-consent" type="checkbox">I have read and agree to the <a href="booking-terms.html" target="_blank" rel="noopener">Booking Terms</a>. *</label>
+<label class="check-line"><input id="newsletter-opt-in" type="checkbox">Yes, email me occasional Qwerty Labs news, projects, workshops and programme updates. (Optional — unsubscribe anytime.)</label>
 <p class="field-note">Your actual form will link to the final published booking terms and privacy notice.</p>
 <div class="controls"><button class="btn secondary back" type="button">← Back</button><button class="btn" type="button" id="next-3">Review request →</button></div>
 </section>
@@ -325,6 +326,7 @@ function renderReview(){
  }).join('');
  var contact=state.family==='returning'?'Returning family · existing details to verify':escapeHtml(el('parent-first').value+' '+el('parent-last').value);
  h+='<div class="review-item"><strong>Parent/carer</strong>'+contact+' · '+escapeHtml(el('parent-email').value)+'</div>';
+  h+='<div class="review-item"><strong>Email updates</strong>'+(el('newsletter-opt-in').checked?'Yes — opted in':'No — not subscribed')+'</div>';
  h+='<div class="review-item"><strong>Standard-rate total · '+money(total)+'</strong>Calculated from your selections at standard rates. Any existing-family rate is confirmed before payment. No payment is taken.<br>When connected, Stripe can receive the payment amount, booking reference and parent email. Child details stay with our enrolment record.</div>';
  el('review').innerHTML=h;
  el('success').hidden=true;
@@ -358,7 +360,7 @@ el('next-2').addEventListener('click',function(){if(validate2())go(3);});
 el('next-3').addEventListener('click',function(){if(validate3())go(4);});
 document.querySelectorAll('.back').forEach(function(b){b.addEventListener('click',function(){go(state.step-1);});});
 el('simulate').addEventListener('click',function(){el('success').hidden=false;el('success').scrollIntoView({behavior:'smooth',block:'center'});});
-el('restart').addEventListener('click',function(){state.step=1;state.family='new';state.programme='camp';state.selectedDays=[];state.term=0;state.session='mon';state.children=[newChild()];state.initialised=false;['parent-first','parent-last','parent-mobile','parent-email','emergency-first','emergency-last','emergency-mobile','updated-mobile'].forEach(function(id){el(id).value='';});['emergency-consent','terms-consent'].forEach(function(id){el(id).checked=false;});go(1);});
+el('restart').addEventListener('click',function(){state.step=1;state.family='new';state.programme='camp';state.selectedDays=[];state.term=0;state.session='mon';state.children=[newChild()];state.initialised=false;['parent-first','parent-last','parent-mobile','parent-email','emergency-first','emergency-last','emergency-mobile','updated-mobile'].forEach(function(id){el(id).value='';});['emergency-consent','terms-consent','newsletter-opt-in'].forEach(function(id){el(id).checked=false;});go(1);});
 renderPickers();updateFamilyUI();go(1);
 })();
 </script>
