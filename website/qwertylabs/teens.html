@@ -56,7 +56,17 @@
                 </div>
               </div>
               <a href="adults.html">Adults</a>
-              <a href="teens.html" class="navigation-current" aria-current="page">Teens</a>
+              <div class="navigation-group navigation-group--teens">
+                <a href="teens.html" class="navigation-current" aria-current="page">Teens</a>
+                <button class="navigation-toggle" type="button" aria-label="Show Teens pages" aria-expanded="false" aria-controls="nav-teens"></button>
+                <div class="navigation-submenu" id="nav-teens">
+                  <div class="navigation-submenu__links">
+                    <a href="teens.html" aria-current="page">Teens overview</a>
+                    <a href="teens.html#teen-studio">Weekly classes</a>
+                    <a href="teens.html#teen-camps">Holiday camps</a>
+                  </div>
+                </div>
+              </div>
               <div class="navigation-group navigation-group--lab">
                 <a href="thelab.html">The Lab</a>
                 <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
