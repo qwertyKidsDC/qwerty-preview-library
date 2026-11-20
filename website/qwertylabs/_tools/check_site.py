@@ -268,6 +268,24 @@ def browser_checks(root, output, report):
                                 offset:b.top-a.bottom};
                     }""")
                     measurements.append({"page": name, "hero": evidence})
+                if mode == "mobile":
+                    menu = page.locator(".mobile-menu-toggle")
+                    if menu.count() != 1:
+                        record(report, "mobile_menu_missing", name)
+                    else:
+                        menu.click()
+                        if menu.get_attribute("aria-expanded") != "true":
+                            record(report, "mobile_menu_open", name)
+                        subnav = page.locator(".navigation-group .navigation-toggle").first
+                        subnav.click()
+                        if subnav.get_attribute("aria-expanded") != "true":
+                            record(report, "mobile_submenu_open", name)
+                        page.keyboard.press("Escape")
+                        if subnav.get_attribute("aria-expanded") != "false":
+                            record(report, "mobile_submenu_escape", name)
+                        page.keyboard.press("Escape")
+                        if menu.get_attribute("aria-expanded") != "false":
+                            record(report, "mobile_menu_escape", name)
                 screenshot = output / "screenshots" / f"{name[:-5]}-{mode}.jpg"
                 screenshot.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(screenshot), type="jpeg", quality=84, full_page=True, animations="disabled")
