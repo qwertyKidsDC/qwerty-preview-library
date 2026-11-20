@@ -68,9 +68,10 @@ unreviewed visual change under the name of cleanup.
 
 ## Asset and experiment policy
 
-The preview workspace deliberately includes original artwork and design
-tools. Not all unreferenced files are rubbish: audit the gallery and
-cross-repository references before removing or relocating any file.
+Legacy originals, unused exports and experimental tools are safely archived at
+`archive/2026-11-20-qwertylabs-unused-assets/`. The staging `img/` folder
+retains active runtime dependencies, including rotating heroes and footer art.
+Recheck usage before restoring or moving files.
 
 For eventual production transfer, stage only approved pages and their
 verified dependencies. Keep artwork originals and experimentation separate.

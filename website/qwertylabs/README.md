@@ -11,7 +11,7 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 
 ## Unfinished before retiring qwertykids.com
 
-The homepage now uses the fixed local photo `img/code-camp-robotics-700.jpg` in Meet the Lab. The old rotating photo script has been removed. `img/coding-for-kids-gift-guide.jpg` is also retained locally for future use. No homepage photos depend on the retiring QwertyKids website.
+The homepage now uses the fixed local photo `img/code-camp-robotics-700.jpg` in Meet the Lab. The old rotating photo script has been removed. The unused gift-guide photograph and other unreferenced artwork have been moved into the dated Git archive (`archive/2026-11-20-qwertylabs-unused-assets/`). No homepage photos depend on the retiring QwertyKids website.
 
 The homepage's **Bookings**, **Contact**, **Child Safety**, **Privacy**, and **Booking Terms** links also still point to qwertykids.com. Those URLs must be replaced with working destinations before the old site is retired.
 
@@ -59,3 +59,7 @@ Approved hero trio exports are 1240 × 955 px transparent WebP files. They shoul
 The active HTML pages share the same header and footer component markup shape. The stylesheet groups matching rules for headings, focus rings, link underlines, and editorial sections rather than reimplementing them per page. Reusable variants (`.subpage-section--plain`, `.subpage-art--raised`, `.subpage-art--centered`) replace positioning hacks tied to page IDs. The Project Code Cloud iframe uses its own `.project-video` component rather than borrowing and undoing testimonial styles. The production CSS no longer includes the abandoned Kids Ages preview rules. No extra page-specific styles are allowed for content-only clones.
 
 **Hero asset contract:** The three approved 1240 × 955 transparent WebPs are installed at `img/qwerty-labs-mascots-led-electronics.webp`, `img/qwerty-labs-mascots-robot-car.webp` and `img/qwerty-labs-mascots-cardboard-rocket.webp`. Home uses Home; Kids, Weekly Classes and Holiday Camps use Kids; Kit & Code and A Kid's POV use Tools. Every complete page uses the same `.hero .mascots` CSS rule and explicit 1240 × 955 HTML dimensions. No page-specific hero CSS is permitted. Binary files were compared with the source uploads using Git blob SHA-1 before publishing. Visual checks against the published site remain necessary.
+
+## Asset cleanup — 20 November 2026
+
+The `img/` directory retains assets required by the current site pages, shared styles, and JavaScript. Three distinct hero fallback scenes, 22 rotating hero images, ten rotating footer cut-outs and three favicon choices remain. 73 unreferenced asset/source files and 9 test and design-tool files were archived intact to `archive/2026-11-20-qwertylabs-unused-assets/website/qwertylabs/` with their Git blob SHA unchanged. The enrolment preview and read-only site quality checker remain in staging. Restore an archived tool and its images together if needed.
