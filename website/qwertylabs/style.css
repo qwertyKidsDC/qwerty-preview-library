@@ -1438,6 +1438,9 @@
   width: 288px;
   --tool-tilt: 5deg;
 }
+/* Paired editorial photos: two positions beside one long text section. */
+:where(html[data-layout="subpage"]) .subpage-art--pair-upper { top: 23%; }
+:where(html[data-layout="subpage"]) .subpage-art--pair-lower { top: 56%; }
 :where(html[data-layout="subpage"]) .subpage-art__media {
   display: block;
   width: 100%;
