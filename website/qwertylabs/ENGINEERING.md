@@ -6,7 +6,7 @@ Status: working static site undergoing a quality-gate review.
 
 - Home: index.html (its own deliberate layout).
 - Subpages: kids.html is the approved reusable layout reference.
-- Shared stylesheet: style.css, the only local stylesheet for actual pages.
+- Shared styles: style.css owns the design system and desktop components; mobile.css holds only responsive layout adjustments (760px and 750px). Both are linked by the actual pages, in that order.
 - Behaviour: script.js plus brand.js for theme-coloured cursors.
 - Approved heroes: img/qwerty-labs-mascots-led-electronics.webp, img/qwerty-labs-mascots-robot-car.webp and
   img/qwerty-labs-mascots-cardboard-rocket.webp, all 1240 × 955 transparent WebP.
@@ -37,7 +37,8 @@ mascots class and 1240 × 955 intrinsic dimensions.
 
 ## Responsive and accessibility contract
 
-- Desktop artwork scales as one composition; mobile layout uses 760 px.
+- Desktop artwork scales as one composition; mobile layout uses 760 px. Do not copy shared styles into mobile.css; adjust only properties that must change.
+- script.js creates the accessible mobile Menu button, while the existing links remain visible without JavaScript.
 - The deliberate card-to-cardboard overlap must survive every page and width.
 - One main landmark and h1, followed by meaningful heading order.
 - Decorative images use alt="" and meaningful images describe the subject.

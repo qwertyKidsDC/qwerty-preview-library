@@ -18,12 +18,25 @@
 
 
 
-/* One shared dropdown pattern for desktop, keyboard and touch navigation.
-   The text links still open their overview pages; chevrons toggle subpages. */
+/* One shared dropdown pattern for keyboard, mouse and touch navigation.
+   Create the mobile Menu button here rather than copying it into every page.
+   Without JavaScript, the top-level links remain visible on mobile. */
 (() => {
+  const nav = document.querySelector('.navigation');
   const groups = [...document.querySelectorAll('.navigation-group')];
-  if (!groups.length) return;
+  if (!nav || !groups.length) return;
 
+  const menuButton = document.createElement('button');
+  menuButton.type = 'button';
+  menuButton.className = 'mobile-menu-toggle';
+  menuButton.textContent = 'Menu';
+  menuButton.setAttribute('aria-controls', 'site-navigation');
+  menuButton.setAttribute('aria-expanded', 'false');
+  nav.id = 'site-navigation';
+  nav.before(menuButton);
+  document.documentElement.classList.add('has-mobile-menu');
+
+  const mobileViewport = window.matchMedia('(max-width: 760px)');
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
   const setOpen = (activeGroup, show) => {
     for (const group of groups) {
@@ -33,6 +46,16 @@
         .setAttribute('aria-expanded', String(expanded));
     }
   };
+  const setMenuOpen = show => {
+    const expanded = show && mobileViewport.matches;
+    nav.classList.toggle('is-menu-open', expanded);
+    menuButton.setAttribute('aria-expanded', String(expanded));
+    if (!expanded) setOpen(null, false);
+  };
+
+  menuButton.addEventListener('click', () => {
+    setMenuOpen(!nav.classList.contains('is-menu-open'));
+  });
 
   for (const group of groups) {
     const toggle = group.querySelector('.navigation-toggle');
@@ -40,10 +63,11 @@
       setOpen(group, !group.classList.contains('is-open'));
     });
     group.addEventListener('mouseenter', () => {
-      if (canHover.matches) setOpen(group, true);
+      if (!mobileViewport.matches && canHover.matches) setOpen(group, true);
     });
     group.addEventListener('mouseleave', () => {
-      if (canHover.matches && !group.contains(document.activeElement)) {
+      if (!mobileViewport.matches && canHover.matches &&
+          !group.contains(document.activeElement)) {
         setOpen(null, false);
       }
     });
@@ -53,15 +77,25 @@
   }
 
   document.addEventListener('pointerdown', event => {
-    if (!event.target.closest('.navigation-group')) setOpen(null, false);
+    if (!nav.contains(event.target) && !menuButton.contains(event.target)) {
+      setOpen(null, false);
+      if (mobileViewport.matches) setMenuOpen(false);
+    } else if (!event.target.closest('.navigation-group')) {
+      setOpen(null, false);
+    }
   });
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     const opened = groups.find(group => group.classList.contains('is-open'));
-    if (!opened) return;
-    setOpen(null, false);
-    opened.querySelector('.navigation-toggle').focus();
+    if (opened) {
+      setOpen(null, false);
+      opened.querySelector('.navigation-toggle').focus();
+    } else if (nav.classList.contains('is-menu-open')) {
+      setMenuOpen(false);
+      menuButton.focus();
+    }
   });
+  mobileViewport.addEventListener('change', () => setMenuOpen(false));
 })();
 
 /* The approved framed artwork varies slightly in tilt. Other frames stay fixed.
