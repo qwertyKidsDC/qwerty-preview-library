@@ -197,12 +197,34 @@
     width: 100%;
   }
 
-  /* A full finger-sized target without changing shared link typography.
-     Let the paper expand to contain the larger interactive rows. */
+  /* Mobile footer: readable, finger-sized rows instead of tiny inline links.
+     Keep all colours, paper artwork and desktop rules in style.css. */
   .footer-nav-cards .footer-nav-card {
     height: auto;
     min-height: 275px;
-    padding-bottom: 32px;
+    padding-bottom: 40px;
+  }
+  /* The tall Get making list needs its painted paper to begin above the title. */
+  .footer-nav-cards .footer-nav-card:first-child .paper-bg {
+    top: 16px;
+    height: calc(100% - 16px);
+  }
+  .footer-nav-card h2 { font-size: 20px; }
+  .footer-nav-cards .footer-card-links,
+  .footer-nav-cards .footer-card-address {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .footer-nav-cards .footer-card-links { gap: 0; }
+  .footer-nav-card:first-child .footer-card-links { gap: 10px; }
+  .footer-nav-card:first-child .footer-card-links > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 12px;
+  }
+  .footer-nav-card:first-child .footer-card-links > div > div > span[aria-hidden="true"] {
+    display: none;
   }
   .footer-nav-cards .footer-card-links a,
   .lab-footer .footer-legal-links a {
@@ -216,6 +238,16 @@
     right: 4px;
     bottom: 8px;
   }
+  .lab-footer .footer-legal { font-size: 14px; }
+  .lab-footer .footer-legal-links {
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 0;
+    margin-left: 0;
+  }
+  .lab-footer .footer-legal-links a { font-size: 16px; }
 
   .footer-scene {
     /* The mobile tape begins 24px below the board's top. */
