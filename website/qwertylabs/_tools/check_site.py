@@ -223,7 +223,7 @@ def browser_checks(root, output, report):
     measurements = []
     with serve(root) as origin, sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
-        for name in COMPLETE:
+        for name in PAGES:
             for mode, width, height in VIEWPORTS:
                 context = browser.new_context(
                     viewport={"width": width, "height": height},
@@ -295,7 +295,7 @@ def browser_checks(root, output, report):
                            f"{name} {mode}: {keyboard}")
                 context.close()
         browser.close()
-    report["browser"] = {"views": len(COMPLETE)*len(VIEWPORTS),
+    report["browser"] = {"views": len(PAGES)*len(VIEWPORTS),
                          "hero_measurements": measurements}
 
 
