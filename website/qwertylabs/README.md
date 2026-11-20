@@ -4,7 +4,7 @@ The deployment root is this directory. Transfer **the contents** of `website/qwe
 
 ## Approved versus draft
 
-- **Approved homepage:** `index.html`, the single `style.css`, `script.js`, `brand.js`, and approved `img/` assets.
+- **Approved homepage:** `index.html`, the shared `style.css` and mobile-only `mobile.css`, `script.js`, `brand.js`, and approved `img/` assets.
 - **Approved Kids page (11 November 2026):** `kids.html`, the shared `style.css`, `script.js`, and approved assets. The last signed-off layout is the source of truth; staging `noindex` stays until launch.
 - **Draft, not yet approved:** `adults.html`, `teens.html`, `thelab.html`. These pages remain under review; do not treat them as final production pages.
 - The existing design preview under `progress/webdesign/ql-site-v2/` is deliberately untouched.
@@ -17,9 +17,9 @@ The homepage's **Bookings**, **Contact**, **Child Safety**, **Privacy**, and **B
 
 The homepage has `<meta name="robots" content="noindex,nofollow">` while staging; remove at public launch. The external Google Fonts and Coolest Projects link are intentional third-party references.
 
-## One stylesheet
+## Two clear CSS responsibilities
 
-`style.css` contains the styles used by the current site pages, including draft Adults/Teens/Lab pages. The abandoned Kids Ages experiment and its standalone unused scripts/styles are preserved in the dated archive, not loaded by the current site. All site pages load only this local CSS (with Google Fonts served externally). The old sources remain recoverable through Git history and the backup branch.
+`style.css` owns the approved design system, shared components and desktop geometry. `mobile.css` contains the original mobile rules (consolidated from scattered media queries) plus deliberate phone-width adjustments. All site pages link both files in the same order, with `mobile.css` loaded only at widths up to 760px. Do not duplicate shared component styling inside the mobile file. The abandoned Kids Ages experiment and old styles remain recoverable through Git history and the backup branch.
 
 Independent design playgrounds keep separate experimental CSS and are not part of the production site's stylesheet contract.
 
@@ -31,10 +31,10 @@ All HTML, JavaScript and CSS files are at the top level; the only subdirectory i
 
 Each page declares its **colour** in the root HTML element: `data-brand="lab"` (the default blue), `kids` (green), `adults` (pink), or `teens` (orange). **Do not randomise this identity.**
 
-- `style.css` owns the approved six-colour palette, per-page accent mapping, cursor styling, shared layouts and scoped page sections. Subpages reuse `.subpage-intro`, `.subpage-board`, `.subpage-section`, `.subpage-art`, and `.subpage-callout` rather than creating page-specific versions.
+- `style.css` owns the approved six-colour palette, per-page accent mapping, cursor styling, shared layouts and scoped page sections; `mobile.css` owns the responsive adjustments. Subpages reuse `.subpage-intro`, `.subpage-board`, `.subpage-section`, `.subpage-art`, and `.subpage-callout` rather than creating page-specific versions.
 - `brand.js` reads `--brand-accent` and applies it to the matching arrow and hand cursors. On touch devices or without JavaScript, native pointers remain.
 - Wordmarks are selected as static image sources in each page: `img/wordmark.svg` for Lab, or `img/wordmark-labs-{green,pink,orange}.svg` for audience pages. This avoids a post-load colour swap and works with JavaScript disabled.
-- `style.css` is the only local stylesheet loaded by site pages. `script.js` is shared and safely skips interactions not present on a page. The former `kids-assets.js` has been consolidated into `script.js`; its unnecessary image fallback code has been removed because the existing repository files are present.
+- All site pages link `style.css` and `mobile.css` for narrow viewports. `script.js` also builds the accessible mobile Menu button in the shared header, without duplicating HTML across pages. The former `kids-assets.js` has been consolidated into `script.js`; its unnecessary image fallback code has been removed because the existing repository files are present.
 
 ## Website continuity — clone gate
 

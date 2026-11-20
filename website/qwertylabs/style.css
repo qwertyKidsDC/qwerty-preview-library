@@ -1,7 +1,6 @@
-/* Qwerty Labs — canonical site stylesheet
-   One local stylesheet for all site pages. The approved desktop/mobile design
-   remains unchanged. Subpage layout is independent of its colour theme;
-   draft pages retain their own scoped components. November 2026. */
+/* Qwerty Labs — shared site stylesheet
+   Shared foundations, design components, branding and desktop layout.
+   Responsive adjustments live only in mobile.css. November 2026. */
 
 /* 01 — Approved brand and cursors */
 :root {
@@ -316,6 +315,9 @@
   text-shadow: 0 2px 7px #000;
 }
 
+
+/* The mobile Menu button is created by script.js; hide it on desktop. */
+.mobile-menu-toggle { display: none; }
 
 /* Shared one-level navigation: parent links stay usable; chevrons open subpages. */
 .navigation-group {
@@ -1097,10 +1099,7 @@
 .footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
 
-/* 12. Responsive overrides
-   761px: preserve the approved scaled desktop composition.
-   760px: stack cards and rearrange the two project panels.
-   750px: adjust only the photographic scene (distinct by design). */
+/* 12. Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
   .cardboard-page {
     zoom: var(--ql-cardboard-zoom, 1);
@@ -1137,246 +1136,6 @@
     right: 56.4px;
   }
   .footer-scene__tape { top: -25.31px; }
-}
-
-@media (max-width: 760px) {
-  .cardboard-stage {
-    padding: 12px 12px 16px;
-  }
-
-  .cardboard-page {
-    width: 100%;
-  }
-
-  .header {
-    display: block;
-    min-height: 120px;
-    height: auto;
-    padding: 18px 20px 11px;
-  }
-
-  .logo {
-    width: min(340px, 83%);
-  }
-
-  .navigation {
-    gap: 7px 8px;
-    padding-top: 14px;
-    font-size: 14px;
-    letter-spacing: .08em;
-  }
-
-  .hero {
-    height: 455px;
-  }
-
-  .hero-copy {
-    width: 100%;
-    padding-left: 0;
-  }
-
-  .hero-paper {
-    width: min(95vw, 433px);
-    height: 182px;
-    margin-left: -5px;
-  }
-
-  .hero h1 {
-    top: 45px;
-    left: 53px;
-    width: calc(100% - 75px);
-    font-size: clamp(27px, 6.8vw, 34px);
-  }
-
-  .mascots {
-    top: 143px;
-    right: -126px;
-    width: 420px;
-    opacity: .95;
-  }
-
-  .feature-cards {
-    flex-direction: column;
-    gap: 3px;
-    width: min(400px, calc(100% - 30px));
-    margin: 0 auto;
-    padding-top: 15px;
-  }
-
-  .feature {
-    height: 222px;
-    padding-top: 39px;
-  }
-
-  .feature p {
-    max-width: 205px;
-  }
-
-  /* Match the mobile Coolest Projects label size as well. */
-  .feature h2 {
-    font-size: 24px;
-  }
-
-  .projects {
-    min-height: 675px;
-    /* The Meet the Lab label begins about 5px into this row. */
-    margin: calc(var(--space-section) - 5px) 12px 0;
-  }
-
-  .project-panel {
-    top: 35px;
-    width: min(420px, 100%);
-    height: 320px;
-  }
-
-  .project-copy {
-    width: min(365px, 100%);
-    padding: 95px 0 0 38px;
-  }
-
-  .project-label {
-    width: 300px;
-  }
-
-  .project-label-text {
-    top: 21px;
-    left: 35px;
-  }
-
-  .project-copy p {
-    max-width: 285px;
-  }
-
-  .photo-collage {
-    top: 328px;
-    left: 0;
-    width: min(550px, 100%);
-    height: auto;
-    aspect-ratio: 555/375;
-  }
-
-  .small-cards {
-    flex-direction: column;
-    gap: 6px;
-    width: min(400px, calc(100% - 30px));
-    margin: 0 auto;
-  }
-
-  .feature,
-  .small-card {
-    width: 100%;
-  }
-  .footer-scene {
-    /* The mobile tape begins 24px below the board's top. */
-    margin: calc(var(--space-section) - 24px) 12px 0;
-  }
-
-  .footer-scene__tape {
-    width: min(295px, 82%);
-    height: auto;
-    aspect-ratio: 354 / 75;
-  }
-
-  .footer-scene__tape-text {
-    top: 42px;
-    left: 32px;
-    font-size: 24px;
-  }
-
-  /* Stack the frame above the copy on narrow screens. */
-  .footer-scene__photo {
-    width: min(100%, 310px);
-    justify-self: center;
-  }
-
-  .footer-scene__content {
-    width: 79%;
-    margin-left: 10%;
-    margin-top: 100px;
-    margin-bottom: 32px;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 22px;
-  }
-
-  .footer-scene__content p {
-    line-height: 1.35;
-    letter-spacing: 0;
-  }
-
-  .scene-link {
-    margin-top: 12px;
-  }
-
-  /* Let the blue cards breathe after the Meet the Lab collage on mobile. */
-  .projects + .small-cards {
-    margin-top: 46px;
-  }
-  .cardboard-page > .lab-footer {
-    width: min(400px, calc(100% - 30px));
-    margin: -85.3px auto 0; /* No-JS fallback; measured from text when JS runs. */
-  }
-
-  .lab-footer .country-ack {
-    padding: 26px 26px 125px;
-  }
-
-  .lab-footer .country-ack__mascot {
-    width: 98px;
-    right: 20px;
-    bottom: 12px;
-  }
-
-  .lab-footer .country-ack p {
-    width: 100%;
-  }
-
-  .lab-footer .footer-legal {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 18px;
-    margin-top: 62px;
-    margin-right: 0;
-    padding: 0 0 30px;
-  }
-
-  .lab-footer .footer-founder-credit {
-    white-space: normal;
-  }
-
-  .lab-footer .footer-legal-links,
-  .lab-footer .footer-legal-signature {
-    flex-wrap: wrap;
-    white-space: normal;
-  }
-
-  .lab-footer .footer-legal-signature {
-    width: 100%;
-    justify-content: flex-start;
-    text-align: left;
-  }
-
-  .lab-footer .footer-legal-links {
-    align-self: flex-end;
-  }
-}
-
-@media (max-width: 750px) {
-  :root {
-    --workshop-footer-height: 300px;
-  }
-
-  .bg-scene-bottom__photo {
-    background-size: auto 100%;
-  }
-
-  .bg-scene__photo::after {
-    opacity: .72;
-  }
-
-  .site {
-    --top-original-height: clamp(200px, 58vw, 370px);
-    --top-photo-width: 100vw;
-  }
 }
 
 /* 03 — Shared subpage layout (Kids is the approved reference) */
@@ -1736,138 +1495,10 @@
   margin-top: 54px;
 }
 
-@media (max-width: 760px) {
-  :where(html[data-layout="subpage"]) .hero h1 {
-    top: 45px;
-    left: 53px;
-    width: calc(100% - 75px);
-    font-size: clamp(44px, 11vw, 65px);
-  }
-  :where(html[data-layout="subpage"]) .hero-tagline {
-    max-width: 100%;
-    margin-top: -5px;
-    font-size: clamp(22px, 6vw, 29px);
-  }
-
-  :where(html[data-layout="subpage"]) .projects--subpage {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 10px;
-    min-height: 0;
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
-    top: 18px;
-    left: 0;
-    grid-column: 1;
-    grid-row: 1;
-    width: min(360px, 80%);
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
-    left: 0; 
-    grid-column: 1;
-    grid-row: 2;
-    min-height: 355px;
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
-    top: 35px;
-    bottom: 0;
-    height: calc(100% - 35px);
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
-    padding: 100px 30px 60px 38px;
-  }
-
-  :where(html[data-layout="subpage"]) .subpage-hero-links {
-    margin: 6px 0 0 49px;
-    gap: 8px 16px;
-    font-size: 16px;
-  }
-  :where(html[data-layout="subpage"]) .hero + .projects--subpage {
-    margin-top: 0;
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links {
-    gap: 5px 17px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-board {
-    width: min(400px, calc(100% - 30px));
-    margin: 24px auto 0;
-    gap: 12px;
-    padding: 12px 8px 45px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-board::before {
-    inset: 20px 0 0;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section {
-    padding: 87px 28px 23px 29px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section + .subpage-section {
-    margin-top: 0;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section__tape {
-    top: 5px;
-    width: min(300px, 94%);
-    height: auto;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section__heading {
-    top: 21px;
-    left: 35px;
-    font-size: 27px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section__copy {
-    width: 100%;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section__copy > p,
-  :where(html[data-layout="subpage"]) .subpage-section__option p {
-    font-size: 16px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section__option h3 {
-    font-size: 20px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art) {
-    min-height: 0;
-  }
-  :where(html[data-layout="subpage"]) .subpage-art,
-  :where(html[data-layout="subpage"]) .subpage-art--clockwise,
-  :where(html[data-layout="subpage"]) .subpage-art--level,
-  :where(html[data-layout="subpage"]) .subpage-art--counterclockwise,
-  :where(html[data-layout="subpage"]) .subpage-art--landscape {
-    position: relative;
-    top: auto;
-    right: auto;
-    max-width: 100%;
-    margin: 23px auto 5px;
-    transform: rotate(var(--tool-tilt, 5deg));
-  }
-  :where(html[data-layout="subpage"]) .subpage-art--clockwise { width: min(262px, 92%); }
-  :where(html[data-layout="subpage"]) .subpage-art--level { width: min(262px, 92%); }
-  :where(html[data-layout="subpage"]) .subpage-art--counterclockwise { width: min(262px, 92%); }
-  :where(html[data-layout="subpage"]) .subpage-art--landscape { width: min(288px, 94%); }
-  :where(html[data-layout="subpage"]) .subpage-callout {
-    width: auto;
-    margin: 0 10px;
-    padding: 37px 27px 38px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-callout::before {
-    border-image-width: 32px;
-  }
-:where(html[data-layout="subpage"]) .subpage-callout__quote p {
-    font-size: 19px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-callout + .subpage-section {
-    margin-top: 18px;
-  }
-  :where(html[data-layout="subpage"]) .subpage-board + .small-cards {
-    margin-top: 45px;
-  }
-}
-
 /* The first Kit & Code image intentionally floats into the preceding text. */
 :where(html[data-layout="subpage"]) .subpage-art--raised {
   top: -145px;
   transform: rotate(var(--tool-tilt, 5deg));
-}
-
-@media (max-width: 760px) {
-  :where(html[data-layout="subpage"]) .subpage-art--raised { top: auto; }
 }
 
 /* A framed video is its own reusable component, never a disguised testimonial. */
@@ -1889,12 +1520,7 @@
   aspect-ratio: 1749 / 1007;
   border: 0;
 }
-@media (max-width: 760px) {
-  .project-video {
-    width: calc(100% - 57px);
-    margin: 0 0 0 29px;
-  }
-}
+
 
 /* Article subheadings. */
 :where(html[data-layout="subpage"]) .subpage-section__subheading {
@@ -1939,12 +1565,4 @@
   line-height: 1.4;
 }
 
-@media (max-width: 760px) {
-  .quote-blue-rule {
-    padding-left: 18px;
-  }
 
-  .quote-blue-rule p {
-    font-size: 19px;
-  }
-}

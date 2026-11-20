@@ -50,7 +50,8 @@ def record(report, code, detail, blocking=True):
 
 
 def check_sources(root, report):
-    css = (root / "style.css").read_text(encoding="utf-8")
+    css_files = ("style.css", "mobile.css")
+    css = "\n".join((root / name).read_text(encoding="utf-8") for name in css_files)
     cache_versions = {}
     for name in PAGES:
         file = root / name
@@ -66,10 +67,12 @@ def check_sources(root, report):
                 for link in document.select('link[rel="stylesheet"]')
                 if not link.get("href", "").startswith(("https:", "http:", "//"))
             ]
-            if sheets != ["style.css"]:
-                record(report, "one_css", f"{name}: {sheets}")
-            link = document.select_one('link[href^="style.css?"]')
-            cache_versions[name] = link.get("href", "") if link else ""
+            if sheets != list(css_files):
+                record(report, "css_files", f"{name}: {sheets}")
+            cache_versions[name] = tuple(
+                link.get("href", "") for link in document.select('link[rel="stylesheet"]')
+                if urlsplit(link.get("href", "")).path in css_files
+            )
             want_layout = "site" if name == "index.html" else "subpage"
             if document.html.get("data-layout") != want_layout:
                 record(report, "layout", name)
@@ -119,7 +122,7 @@ def check_sources(root, report):
 
     if len(set(cache_versions.values())) != 1:
         record(report, "cache_version", cache_versions)
-    report["css_version"] = next(iter(cache_versions.values()), None)
+    report["css_version"] = list(next(iter(cache_versions.values()), ()))
     # Check the image bytes, not just the width/height attributes in HTML.
     for filename in sorted(set(HERO.values())):
         with Image.open(root / "img" / filename) as asset:
@@ -293,6 +296,24 @@ def browser_checks(root, output, report):
                 if not keyboard["skip"] or keyboard["outline"] == "none":
                     record(report, "keyboard_skip_link",
                            f"{name} {mode}: {keyboard}")
+                if mode == "mobile":
+                    menu = page.locator(".mobile-menu-toggle")
+                    if menu.count() != 1:
+                        record(report, "mobile_menu_missing", name)
+                    else:
+                        menu.click()
+                        if menu.get_attribute("aria-expanded") != "true":
+                            record(report, "mobile_menu_open", name)
+                        subnav = page.locator(".navigation-group .navigation-toggle").first
+                        subnav.click()
+                        if subnav.get_attribute("aria-expanded") != "true":
+                            record(report, "mobile_submenu_open", name)
+                        page.keyboard.press("Escape")
+                        if subnav.get_attribute("aria-expanded") != "false":
+                            record(report, "mobile_submenu_escape", name)
+                        page.keyboard.press("Escape")
+                        if menu.get_attribute("aria-expanded") != "false":
+                            record(report, "mobile_menu_escape", name)
                 context.close()
         browser.close()
     report["browser"] = {"views": len(PAGES)*len(VIEWPORTS),
