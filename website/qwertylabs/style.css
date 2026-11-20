@@ -1634,7 +1634,7 @@
 :where(html[data-layout="subpage"]) .subpage-art {
   position: absolute;
   z-index: 3;
-  top: 112px;
+  top: 50%;
   right: 25px;
   display: grid;
   justify-items: center;
@@ -1646,29 +1646,24 @@
   background: transparent;
   color: var(--color-ivory);
   text-align: center;
-  transform: rotate(var(--tool-tilt, 5deg));
+  transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
 }
 :where(html[data-layout="subpage"]) .subpage-art--clockwise {
-  top: 115px;
   right: 28px;
   width: 262px;
   --tool-tilt: 7deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--level {
-  top: 83px;
   right: 12px;
   width: 262px;
-  --tool-tilt: 0deg;
+  --tool-tilt: 2deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--counterclockwise {
-  top: 126px;
   right: 30px;
   width: 262px;
   --tool-tilt: -4deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--landscape {
-  top: 70px;
-
   right: -55px;
   width: 288px;
   --tool-tilt: 5deg;
@@ -1829,6 +1824,7 @@
     right: auto;
     max-width: 100%;
     margin: 23px auto 5px;
+    transform: rotate(var(--tool-tilt, 5deg));
   }
   :where(html[data-layout="subpage"]) .subpage-art--clockwise { width: min(262px, 92%); }
   :where(html[data-layout="subpage"]) .subpage-art--level { width: min(262px, 92%); }
@@ -1853,21 +1849,14 @@
   }
 }
 
-/* Position variants: one consistent artwork component, not per-page ID overrides. */
+/* The first Kit & Code image intentionally floats into the preceding text. */
 :where(html[data-layout="subpage"]) .subpage-art--raised {
   top: -145px;
-}
-:where(html[data-layout="subpage"]) .subpage-art--centered {
-  top: 50%;
-  transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
+  transform: rotate(var(--tool-tilt, 5deg));
 }
 
 @media (max-width: 760px) {
   :where(html[data-layout="subpage"]) .subpage-art--raised { top: auto; }
-  :where(html[data-layout="subpage"]) .subpage-art--centered {
-    top: auto;
-    transform: rotate(var(--tool-tilt, 5deg));
-  }
 }
 
 /* A framed video is its own reusable component, never a disguised testimonial. */
