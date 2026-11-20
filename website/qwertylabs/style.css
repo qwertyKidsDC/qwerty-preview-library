@@ -12,6 +12,7 @@
   --color-ivory: #F7F4EB;
   --color-ink: #020020;
   --brand-accent: var(--color-blue);
+  --testimonial-panel-image: url("img/kids-blue-panel-untaped-vtrim.svg");
 
   /* Shared type scale; fit containers to text, not text to containers. */
   --text-heading: 30px;  /* Section headings and tape lettering */
@@ -37,9 +38,18 @@
   --workshop-footer-height: clamp(260px, 28vw, 520px);
 }
 
-:root[data-brand="kids"]   { --brand-accent: var(--color-green); }
-:root[data-brand="adults"] { --brand-accent: var(--color-pink); }
-:root[data-brand="teens"]  { --brand-accent: var(--color-orange); }
+:root[data-brand="kids"] {
+  --brand-accent: var(--color-green);
+  --testimonial-panel-image: url("img/kids-green-panel-untaped-vtrim.svg");
+}
+:root[data-brand="adults"] {
+  --brand-accent: var(--color-pink);
+  --testimonial-panel-image: url("img/adults-pink-panel-untaped-vtrim.svg");
+}
+:root[data-brand="teens"] {
+  --brand-accent: var(--color-orange);
+  --testimonial-panel-image: url("img/teens-orange-panel-untaped-vtrim.svg");
+}
 
 /* Custom pointers are only for mouse/trackpad. Touch and text inputs remain native. */
 @media (hover: hover) and (pointer: fine) {
@@ -1687,7 +1697,7 @@
   z-index: -1;
   pointer-events: none;
   border: 40px solid transparent;
-  border-image-source: var(--testimonial-panel-image, url("img/kids-green-panel-untaped-vtrim.svg"));
+  border-image-source: var(--testimonial-panel-image);
   border-image-slice: 130 140 130 140 fill;
   border-image-width: 40px 43px;
   border-image-repeat: stretch;
