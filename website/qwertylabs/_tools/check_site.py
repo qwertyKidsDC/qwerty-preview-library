@@ -103,7 +103,7 @@ def check_sources(root, report):
             for attr in ("src", "href", "poster"):
                 value = node.get(attr)
                 if not value or value.startswith(
-                    ("https:", "http:", "//", "mailto:", "tel:", "data:", "javascript:")
+                    ("https:", "http:", "//", "mailto:", "tel:", "sms:", "data:", "javascript:")
                 ):
                     continue
                 u = urlsplit(value)
