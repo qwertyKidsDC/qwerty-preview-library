@@ -87,7 +87,13 @@
   }
 
   .hero {
-    height: clamp(410px, calc(315px + 30vw), 455px);
+    --hero-art-clearance: 0px;
+    height: calc(clamp(410px, calc(315px + 30vw), 455px) + var(--hero-art-clearance));
+  }
+  /* Different hero copy lengths need room before the centred artwork. */
+  :where(html[data-layout="site"]) .hero { --hero-art-clearance: 70px; }
+  :where(html[data-layout="subpage"]) .hero:has(.subpage-hero-links) {
+    --hero-art-clearance: 44px;
   }
 
   .hero-copy {
@@ -109,7 +115,7 @@
   }
 
   .mascots {
-    top: 143px;
+    top: calc(143px + var(--hero-art-clearance));
     left: 50%;
     right: auto;
     width: min(420px, 100%);
