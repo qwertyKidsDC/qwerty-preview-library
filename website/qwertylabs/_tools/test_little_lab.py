@@ -68,9 +68,17 @@ def desktop(browser, url, output):
             inputText: style('#family-type').color,
         };
     }""")
-    check(palette["paper"] == "rgb(146, 214, 68)", f"Paper must use approved Kids green: {palette}")
+    check(palette["paper"] == "rgba(0, 0, 0, 0)", f"No flat green backing behind the artwork: {palette}")
     check("kids-green-panel-untaped-vtrim.svg" in palette["paperGraphic"],
           f"Paper must use the existing green artwork: {palette}")
+    positions = page.evaluate("""() => {
+      const paper = document.querySelector('.qll-side__paper').getBoundingClientRect();
+      const heading = document.querySelector('.qll-side__eyebrow').getBoundingClientRect();
+      const saying = document.querySelector('.qll-side__saying').getBoundingClientRect();
+      return {heading: heading.top - paper.top, saying: saying.top - paper.top};
+    }""")
+    check(positions["heading"] < 60 and positions["saying"] < 175,
+          f"Note heading and message should be high on the paper: {positions}")
     check(palette["labelBackground"] == "rgba(0, 0, 0, 0)",
           f"Note heading must have no separate tape or badge background: {palette}")
     for key in ("speech", "paperHeading", "inputText"):
