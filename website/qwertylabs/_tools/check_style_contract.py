@@ -132,8 +132,13 @@ def main():
             issue(name, f"duplicate CSS selector: {problem}")
         if "!important" in css:
             issue(name, "remove !important rather than overpowering shared rules")
-        if "#mail-from-space" in css or "#javascript-article" in css:
-            issue(name, "page-specific id selectors must be shared modifiers")
+        # Hex colours are not selectors; any other #name is a page-specific ID.
+        uncommented = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+        without_urls = re.sub(r"url\([^)]*\)", "", uncommented, flags=re.I)
+        ids = [token for token in re.findall(r"#([A-Za-z][\w-]*)", without_urls)
+               if not re.fullmatch(r"[0-9A-Fa-f]{3,8}", token)]
+        if ids:
+            issue(name, f"page-specific CSS ID selectors: {sorted(set(ids))}")
     mobile = (SITE / "mobile.css").read_text(encoding="utf-8")
     if len(re.findall(r"@media\s*\(max-width:\s*760px\)", mobile)) != 1:
         issue("mobile.css", "use one consolidated 760px media block")
