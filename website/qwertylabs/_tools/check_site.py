@@ -269,24 +269,23 @@ def browser_checks(root, output, report):
                     }""")
                     measurements.append({"page": name, "hero": evidence})
                 if name == "index.html" and mode == "mobile":
-                    report["home_mobile_geometry"] = page.evaluate("""() => {
-                        const result = {};
-                        for (const key of ['.hero', '.hero-copy', '.hero-paper',
-                                          '.mascots', '.hero-description', '.feature-cards']) {
-                            const node = document.querySelector(key);
-                            if (!node) continue;
-                            const r = node.getBoundingClientRect();
-                            const css = getComputedStyle(node);
-                            result[key] = {
-                                x: Math.round(r.x), y: Math.round(r.y),
-                                width: Math.round(r.width), height: Math.round(r.height),
-                                bottom: Math.round(r.bottom),
-                                position: css.position, marginTop: css.marginTop,
-                                transform: css.transform
-                            };
-                        }
-                        return result;
+                    positions = page.evaluate("""() => {
+                        const art = document.querySelector('.hero .mascots');
+                        const intro = document.querySelector('.hero-description');
+                        const cards = document.querySelector('.feature-cards');
+                        if (!art || !intro || !cards) return null;
+                        return {
+                            art_bottom: art.getBoundingClientRect().bottom,
+                            intro_top: intro.getBoundingClientRect().top,
+                            intro_bottom: intro.getBoundingClientRect().bottom,
+                            cards_top: cards.getBoundingClientRect().top
+                        };
                     }""")
+                    if not positions or (
+                        positions["art_bottom"] > positions["intro_top"] + 2 or
+                        positions["intro_bottom"] > positions["cards_top"] + 2
+                    ):
+                        record(report, "mobile_home_hero_order", positions)
                 screenshot = output / "screenshots" / f"{name[:-5]}-{mode}.jpg"
                 screenshot.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(screenshot), type="jpeg", quality=84, full_page=True, animations="disabled")
