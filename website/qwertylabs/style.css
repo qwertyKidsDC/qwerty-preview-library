@@ -1674,39 +1674,33 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   min-height:310px;
   margin:19px 12px 46px 0;
   padding:73px 24px 116px;
-  background-color:var(--color-ivory);
-  background-image:linear-gradient(rgba(247,244,235,.85),rgba(247,244,235,.85)),url("img/cardboard-texture.svg");
-  background-size:auto,320px 320px;
+  background:var(--color-green);
   color:var(--color-ink);
-  box-shadow:6px 8px 0 rgba(2,0,32,.22);
   transform:rotate(2deg);
 }
-/* Paper edges and subtle photographic texture, sourced from existing site assets. */
-.qll-side__paper::before, .qll-side__paper::after {
+/* Use the exact untaped green paper artwork and the existing nine-slice
+   treatment used for Kids testimonial panels. No invented torn edges or texture. */
+.qll-side__paper::before {
   content:"";
   position:absolute;
   inset:0;
   z-index:-1;
   pointer-events:none;
-  clip-path:polygon(0% 3%, 8% 2%, 17% 4%, 29% 2%, 44% 3%, 62% 1%, 81% 3%, 100% 1%, 98% 22%, 100% 43%, 99% 68%, 100% 98%, 82% 99%, 62% 97%, 42% 100%, 22% 98%, 1% 100%, 2% 77%, 0% 56%, 1% 32%);
+  border:40px solid transparent;
+  border-image-source:url("img/kids-green-panel-untaped-vtrim.svg");
+  border-image-slice:130 140 130 140 fill;
+  border-image-width:40px 43px;
+  border-image-repeat:stretch;
 }
-.qll-side__paper::before { background:var(--color-ivory); box-shadow:6px 8px 0 rgba(2,0,32,.22); }
-.qll-side__paper::after { background:url("img/cardboard-texture.svg") center / 350px repeat; opacity:.12; }
 .qll-side__eyebrow {
-  position:absolute;
-  z-index:1;
-  top:15px;
-  left:16px;
-  max-width:calc(100% - 32px);
-  padding:8px 13px;
-  background:var(--color-ivory);
+  display:block;
+  position:relative;
+  margin:0 0 12px;
   color:var(--color-ink);
   font-size:12px;
   font-weight:700;
   letter-spacing:.055em;
   line-height:1.2;
-  transform:rotate(-4deg);
-  box-shadow:2px 3px 0 rgba(2,0,32,.14);
 }
 .qll-side__quote { position:relative; margin:0; padding:36px 0 0; }
 .qll-side__quote::before, .qll-side__quote::after {
