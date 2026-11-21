@@ -316,7 +316,7 @@
     gap: 0;
     margin-left: 0;
   }
-  .lab-footer .footer-legal-links a { font-size: 16px; }
+  .lab-footer .footer-legal-links a { font-size: var(--text-legal); }
 
   .footer-scene {
     /* The mobile tape begins 24px below the board's top. */
