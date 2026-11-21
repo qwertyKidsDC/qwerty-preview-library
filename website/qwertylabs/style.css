@@ -607,12 +607,17 @@
   color: var(--color-ivory);
 }
 
+/* The two homepage blue tape labels share exactly the same base artwork size. */
+.project-label,
+.footer-scene__tape {
+  width: 354px;
+  height: 64.053px;
+}
+
 .project-label {
   position: absolute;
   top: 5.621px;
   left: 0;
-  width: 354px;
-  height: 64.053px;
 }
 
 /* Paper label headings share the same desktop typography and orientation. */
@@ -705,8 +710,6 @@
   z-index: 2;
   top: 24px;
   left: 0;
-  width: 354px;
-  height: 64.053px;
   object-fit: fill;
   pointer-events: none;
 }
