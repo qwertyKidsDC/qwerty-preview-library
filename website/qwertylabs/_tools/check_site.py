@@ -120,6 +120,20 @@ def check_sources(root, report):
             if not button.get_text(strip=True) and not button.get("aria-label"):
                 record(report, "button_name", f"{name}: unnamed button")
 
+    # The introductory blurb precedes the photo for reading order on every
+    # page, while desktop CSS may still place the photo in the left column.
+    for file in root.glob("*.html"):
+        doc = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
+        for section in doc.select(".projects--subpage"):
+            children = [child for child in section.children if getattr(child, "name", None)]
+            roles = [
+                "intro" if "subpage-intro" in child.get("class", []) else
+                "photo" if "photo-collage" in child.get("class", []) else ""
+                for child in children
+            ]
+            if "intro" in roles and "photo" in roles and roles.index("intro") > roles.index("photo"):
+                record(report, "intro_reading_order", file.name)
+
     if len(set(cache_versions.values())) != 1:
         record(report, "cache_version", cache_versions)
     report["css_version"] = list(next(iter(cache_versions.values()), ()))
@@ -272,23 +286,52 @@ def browser_checks(root, output, report):
                     }""")
                     measurements.append({"page": name, "hero": evidence})
                 if name == "index.html" and mode == "mobile":
-                    positions = page.evaluate("""() => {
-                        const art = document.querySelector('.hero .mascots');
+                    layout = page.evaluate("""() => {
                         const intro = document.querySelector('.hero-description');
+                        const art = document.querySelector('.hero .mascots');
                         const cards = document.querySelector('.feature-cards');
-                        if (!art || !intro || !cards) return null;
+                        const blurb = document.querySelector('.footer-scene__content > p');
+                        const photo = document.querySelector('.footer-scene__photo');
+                        const fonts = [
+                            '.feature h2', '.project-label-text',
+                            '.footer-scene__tape-text'
+                        ].map(sel => getComputedStyle(
+                            document.querySelector(sel)).fontSize);
                         return {
-                            art_bottom: art.getBoundingClientRect().bottom,
-                            intro_top: intro.getBoundingClientRect().top,
-                            intro_bottom: intro.getBoundingClientRect().bottom,
-                            cards_top: cards.getBoundingClientRect().top
+                            intro_before_art: intro.getBoundingClientRect().bottom <=
+                                              art.getBoundingClientRect().top + 2,
+                            art_before_cards: art.getBoundingClientRect().bottom <=
+                                              cards.getBoundingClientRect().top + 2,
+                            blurb_before_photo: blurb.getBoundingClientRect().bottom <=
+                                                photo.getBoundingClientRect().top + 2,
+                            font_sizes: fonts
                         };
                     }""")
-                    if not positions or (
-                        positions["art_bottom"] > positions["intro_top"] + 2 or
-                        positions["intro_bottom"] > positions["cards_top"] + 2
-                    ):
-                        record(report, "mobile_home_hero_order", positions)
+                    if not layout["intro_before_art"] or not layout["art_before_cards"]:
+                        record(report, "mobile_home_hero_order", layout)
+                    if not layout["blurb_before_photo"]:
+                        record(report, "mobile_project_order", layout)
+                    if len(set(layout["font_sizes"])) != 1:
+                        record(report, "mobile_home_heading_size", layout["font_sizes"])
+                if page.locator(".projects--subpage .subpage-intro").count() and page.locator(
+                    ".projects--subpage .photo-collage"
+                ).count():
+                    geometry = page.evaluate("""() => {
+                        const intro = document.querySelector('.projects--subpage .subpage-intro')
+                            .getBoundingClientRect();
+                        const photo = document.querySelector('.projects--subpage .photo-collage')
+                            .getBoundingClientRect();
+                        return {
+                            intro_bottom: intro.bottom,
+                            photo_top: photo.top,
+                            intro_left: intro.left,
+                            photo_right: photo.right
+                        };
+                    }""")
+                    if mode == "mobile" and geometry["intro_bottom"] > geometry["photo_top"] + 2:
+                        record(report, "mobile_intro_photo_order", f"{name}: {geometry}")
+                    if mode == "desktop" and geometry["photo_right"] > geometry["intro_left"] + 200:
+                        record(report, "desktop_intro_photo_layout", f"{name}: {geometry}")
                 screenshot = output / "screenshots" / f"{name[:-5]}-{mode}.jpg"
                 screenshot.parent.mkdir(parents=True, exist_ok=True)
                 page.screenshot(path=str(screenshot), type="jpeg", quality=84, full_page=True, animations="disabled")
@@ -325,12 +368,24 @@ def browser_checks(root, output, report):
                         menu.click()
                         if menu.get_attribute("aria-expanded") != "true":
                             record(report, "mobile_menu_open", name)
-                        subnav = page.locator(".navigation-group .navigation-toggle").first
-                        subnav.click()
-                        if subnav.get_attribute("aria-expanded") != "true":
+                        group = page.locator(".navigation-group").first
+                        heading = group.locator(".navigation-mobile-heading")
+                        before_url = page.url
+                        heading.click()
+                        if heading.get_attribute("aria-expanded") != "true":
                             record(report, "mobile_submenu_open", name)
+                        if page.url != before_url:
+                            record(report, "mobile_group_unexpected_navigation", name)
+                        if name == "index.html":
+                            page.screenshot(
+                                path=str(output / "screenshots" / "index-mobile-menu-open.jpg"),
+                                type="jpeg", quality=84, animations="disabled"
+                            )
+                        overview = group.locator(".navigation-submenu a").first
+                        if not overview.is_visible() or overview.get_attribute("href") != "kids.html":
+                            record(report, "mobile_overview_link", name)
                         page.keyboard.press("Escape")
-                        if subnav.get_attribute("aria-expanded") != "false":
+                        if heading.get_attribute("aria-expanded") != "false":
                             record(report, "mobile_submenu_escape", name)
                         page.keyboard.press("Escape")
                         if menu.get_attribute("aria-expanded") != "false":
