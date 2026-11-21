@@ -49,25 +49,26 @@ def desktop(browser, url, output):
     check(response and response.status == 200, "Prototype must load")
     check(page.locator("html").get_attribute("data-brand") == "kids", "Must use Kids theme")
     check(page.locator(".subpage-board.qll-lab").count() == 1, "Must use the existing editorial board")
-    check(page.locator("img[src*='mascot-curated/d1-led-breadboard-frame.webp']").count() == 1, "Existing framed mascot missing")
+    check(page.locator("img[src*='mascot-ready/q-individual-r05-c01.svg']").count() == 1, "Original unframed Q missing")
     check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "0", "Starts on programme step")
-    check(page.locator("[data-lab-counter]").inner_text() == "0 of 4 connections", "Initial circuit must be off")
+    check(page.locator(".qll-side__paper").count() == 1, "Exactly one paper note")
+    check(page.locator(".qll-side__frame, .qll-side__power").count() == 0, "No old framed mascot or circuit strip")
     check(page.locator("[data-lab-speech]").inner_text() == "Ooh, someone’s about to enrol.", "Stage one dialogue")
     # Approved palette must be used in the rendered UI (not white inputs or off-brand heading text).
     palette = page.evaluate("""() => {
         const style = selector => getComputedStyle(document.querySelector(selector));
         return {
-            bubble: style('.qll-side__bubble').backgroundColor,
+            paper: style('.qll-side__paper', '::before').backgroundColor,
             speech: style('.qll-side__saying').color,
-            bubbleHeading: style('.qll-side__eyebrow').color,
+            paperHeading: style('.qll-side__eyebrow').color,
             input: style('#family-type').backgroundColor,
             inputText: style('#family-type').color,
         };
     }""")
     check(palette == {
-        "bubble": "rgb(247, 244, 235)",
+        "paper": "rgb(247, 244, 235)",
         "speech": "rgb(2, 0, 32)",
-        "bubbleHeading": "rgb(2, 0, 32)",
+        "paperHeading": "rgb(2, 0, 32)",
         "input": "rgb(247, 244, 235)",
         "inputText": "rgb(2, 0, 32)",
     }, f"Speech and inputs must use approved ivory/ink palette: {palette}")
@@ -76,7 +77,6 @@ def desktop(browser, url, output):
     page.locator("#term").select_option("2027-t1")
     page.locator("#preferred-class").select_option("sat9")
     page.locator("#qlf-next").click()
-    check(page.locator("[data-lab-counter]").inner_text() == "1 of 4 connections", "First circuit connection")
     page.locator("#child-0-first").fill("Frankie")
     check("It’s Frankie! Yay, a new maker to meet." in page.locator("[data-lab-speech]").inner_text(), "Child-focused greeting")
     page.locator("#qlf-add-child").click()
@@ -94,7 +94,6 @@ def desktop(browser, url, output):
     page.locator("#child-0-session").select_option("sat9")
     page.locator("#child-0-photo").select_option("no")
     page.locator("#qlf-next").click()
-    check(page.locator("[data-lab-counter]").inner_text() == "2 of 4 connections", "Second circuit connection")
     check("Excitement! Frankie and Maya are on the way." in page.locator("[data-lab-speech]").inner_text(), "Both names carry through")
     page.locator("#parent-first").fill("Alex")
     page.locator("#parent-last").fill("Example")
@@ -106,15 +105,11 @@ def desktop(browser, url, output):
     page.locator("#emergency-consent").check()
     page.locator("#terms-consent").check()
     page.locator("#qlf-next").click()
-    check(page.locator("[data-lab-counter]").inner_text() == "3 of 4 connections", "Review circuit connection")
     check(page.locator("[data-lab-speech]").inner_text() == "Almost there!", "Stage four dialogue")
     page.locator("#qlf-next").click()
     check("Looking good from here!" in page.locator("[data-lab-speech]").inner_text(), "Playful final line")
-    check(page.locator("[data-lab-counter]").inner_text() == "4 of 4 connections", "Completed circuit")
-    check(page.locator(".qll-side__led.is-on").count() == 4, "All four LEDs activated")
     check("Nothing has been sent" in page.locator(".qlf-done").inner_text(), "Completion must say no data sent")
     check(not submissions, f"Prototype must never send POST requests: {submissions}")
-    check(page.evaluate("getComputedStyle(document.querySelector('.qll-side__led')).transitionDuration") == "0s", "Reduced motion honoured")
     page.locator(".qll-lab").screenshot(path=str(output / "little-lab-desktop.png"), animations="disabled")
     # Returning families get distinct dialogue; children may be new to Qwerty.
     page.reload(wait_until="domcontentloaded")
@@ -157,7 +152,7 @@ def mobile(browser, url, output):
     form = page.locator(".qll-lab__form-column")
     check(side.is_visible(), "Mobile mascot greeting remains visible")
     check(side.bounding_box()["y"] < form.bounding_box()["y"], "Mobile scene should precede form")
-    check(page.locator(".qll-side__frame").bounding_box()["width"] < 110, "Compact framed mascot")
+    check(page.locator(".qll-side__mascot").bounding_box()["width"] < 110, "Compact unframed Q on mobile")
     check(page.locator(".qlf-form input").first.is_visible() is False, "Hidden later step fields are not shown")
     page.locator(".qll-lab").screenshot(path=str(output / "little-lab-mobile.png"), animations="disabled")
     context.close()
@@ -176,7 +171,7 @@ def main():
             mobile(browser, url, args.out)
         finally:
             browser.close()
-    print("Little Lab: desktop, mobile, form journey, greeting, progress and no-submission checks passed.")
+    print("Little Lab: desktop, mobile, form journey, greeting, paper note and no-submission checks passed.")
 
 
 if __name__ == "__main__":
