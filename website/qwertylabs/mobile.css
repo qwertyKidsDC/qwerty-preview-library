@@ -310,10 +310,12 @@
   }
   .lab-footer .footer-legal-links {
     align-self: stretch;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
-    flex-direction: column;
-    gap: 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 8px;
     margin-left: 0;
   }
   .lab-footer .footer-legal-links a { font-size: var(--text-legal); }
@@ -390,7 +392,6 @@
     white-space: normal;
   }
 
-  .lab-footer .footer-legal-links,
   .lab-footer .footer-legal-signature {
     flex-wrap: wrap;
     white-space: normal;
