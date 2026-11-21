@@ -524,3 +524,17 @@
     --top-photo-width: 100vw;
   }
 }
+
+
+/* Form-only phone layout: the decorative ink column does not stack. */
+@media (max-width:760px) {
+  .qlf-main { width:calc(100% - 24px); margin:22px auto 42px; }
+  .qlf-shell { display:block; box-shadow:5px 5px 0 var(--color-ink); }
+  .qlf-aside { display:none; }
+  .qlf-pane { padding:25px 19px 29px; }
+  .qlf-grid { grid-template-columns:minmax(0,1fr); gap:0; }
+  .qlf-actions { flex-direction:column-reverse; align-items:stretch; }
+  .qlf-actions .qlf-submit, .qlf-actions .qlf-quiet-button { width:100%; }
+  .qlf-stepper { gap:5px; }
+  .qlf-stepper li { padding:5px 8px; font-size:12px; }
+}
