@@ -31,11 +31,11 @@
     if (stage === 4) return 'Circuit complete! Just a test drive, though — no booking has been made.';
     if (stage === 3) return 'One last look. Even robots double-check their wiring.';
     if (stage === 2) return name
-      ? 'Looking good, ' + name + '. The little machine is waking up.'
+      ? 'The details for ' + name + ' are taking shape. So is our little machine.'
       : 'Two connections down. The little machine is waking up.';
     if (stage === 1) return name
-      ? 'Hello, ' + name + (siblings > 1 ? ' and crew' : '') + '! We like people who make things.'
-      : 'Hello, future maker. What shall we call you?';
+      ? name + (siblings > 1 ? ' and crew! More makers, more ideas.' : '! A new maker to meet. Six Pin is intrigued.')
+      : 'Who’s the young maker joining the experiment?';
     return 'Psst. There’s a little machine in here. Shall we switch it on?';
   }
 
