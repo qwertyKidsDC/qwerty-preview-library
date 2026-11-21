@@ -574,7 +574,7 @@
   .qll-side__quote::before { top:-19px; }
   .qll-side__quote::after { bottom:-58px; right:35px; }
   .qll-side__saying { font-size:18px; padding-right:17px; }
-  .qll-side__mascot { width:min(108%,250px); right:-13px; bottom:-24px; }
+  .qll-side__mascot { width:min(108%,250px); right:-13px; bottom:3px; }
   .qll-lab__intro { font-size:16px; }
 }
 
