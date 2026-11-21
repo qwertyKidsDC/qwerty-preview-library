@@ -175,14 +175,15 @@
     opacity: .95;
     transform: translateX(-50%);
   }
-  /* Home page uses the mascot in the document flow; subpages keep their
-     independent overlay. Override after the shared mascot rule. */
+  /* The hero image has transparent space above its visible artwork.
+     A small optical overlap brings the mascots closer to the intro copy;
+     subpage mascots keep their independent overlay. */
   :where(html[data-layout="site"]) .mascots {
     position: relative;
     top: auto;
     left: auto;
     right: auto;
-    margin: 0 auto;
+    margin: -40px auto 0;
     transform: none;
   }
 

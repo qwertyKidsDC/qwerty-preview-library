@@ -298,8 +298,11 @@ def browser_checks(root, output, report):
                         ].map(sel => getComputedStyle(
                             document.querySelector(sel)).fontSize);
                         return {
-                            intro_before_art: intro.getBoundingClientRect().bottom <=
-                                              art.getBoundingClientRect().top + 2,
+                            // The illustration contains intentional transparent padding.
+                            // Its box slightly overlaps the intro to reduce the visual gap.
+                            intro_art_overlap: Math.round(
+                                intro.getBoundingClientRect().bottom -
+                                art.getBoundingClientRect().top),
                             art_before_cards: art.getBoundingClientRect().bottom <=
                                               cards.getBoundingClientRect().top + 2,
                             blurb_before_photo: blurb.getBoundingClientRect().bottom <=
@@ -307,12 +310,30 @@ def browser_checks(root, output, report):
                             font_sizes: fonts
                         };
                     }""")
-                    if not layout["intro_before_art"] or not layout["art_before_cards"]:
+                    if not layout["art_before_cards"]:
                         record(report, "mobile_home_hero_order", layout)
+                    if not 15 <= layout["intro_art_overlap"] <= 48:
+                        record(report, "mobile_home_intro_mascot_spacing", layout)
                     if not layout["blurb_before_photo"]:
                         record(report, "mobile_project_order", layout)
                     if len(set(layout["font_sizes"])) != 1:
                         record(report, "mobile_home_heading_size", layout["font_sizes"])
+                if name == "index.html" and mode == "desktop":
+                    headings = page.evaluate("""() => {
+                        const properties = [
+                            'fontFamily', 'fontSize', 'fontWeight', 'lineHeight',
+                            'letterSpacing', 'textTransform', 'transform'
+                        ];
+                        return ['.project-label-text', '.footer-scene__tape-text']
+                            .map(selector => {
+                                const css = getComputedStyle(
+                                    document.querySelector(selector));
+                                return Object.fromEntries(properties.map(
+                                    prop => [prop, css[prop]]));
+                            });
+                    }""")
+                    if headings[0] != headings[1]:
+                        record(report, "desktop_project_heading_style", headings)
                 if page.locator(".projects--subpage .subpage-intro").count() and page.locator(
                     ".projects--subpage .photo-collage"
                 ).count():
