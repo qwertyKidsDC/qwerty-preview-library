@@ -1164,7 +1164,7 @@
 }
 
 /* 03 — Shared subpage layout (Kids is the approved reference) */
-:where(html[data-layout="subpage"]) .navigation-current {
+:where(html[data-layout="subpage"]) .navigation-group > a.navigation-current {
   display: inline-block;
   color: var(--brand-accent);
   text-shadow: 0 2px 7px #000;
