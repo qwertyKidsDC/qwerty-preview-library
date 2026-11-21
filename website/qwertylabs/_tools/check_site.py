@@ -331,6 +331,27 @@ def main():
     if not args.static_only:
         browser_checks(args.root.resolve(), args.out, report)
     args.out.mkdir(parents=True, exist_ok=True)
+    # Temporary visual inventory: existing frame artwork, never redraw it.
+    from PIL import ImageDraw, ImageOps
+    frames = sorted((args.root / "img/mascot-curated").glob("*-frame.webp"))
+    frames += sorted((args.root / "img/mascot-ready").glob("*frame*"))
+    archived = args.root.parents[1] / "archive/2026-11-17-pre-cleanup/website/qwertylabs/img/mascot-ready"
+    frames += sorted(archived.glob("*frame*"))
+    frames = [p for p in frames if p.suffix.lower() in (".webp", ".png", ".jpg")]
+    w, h, cols = 230, 264, 5
+    sheet = Image.new("RGB", (cols*w, ((len(frames)+cols-1)//cols)*h), "#F7F4EB")
+    draw = ImageDraw.Draw(sheet)
+    for i, p in enumerate(frames):
+        with Image.open(p) as src:
+            thumb = ImageOps.contain(src.convert("RGBA"), (218, 215))
+            canvas = Image.new("RGBA", (218, 215), "#E2D9C8")
+            canvas.alpha_composite(thumb, ((218-thumb.width)//2, (215-thumb.height)//2))
+            col, row = i % cols, i // cols
+            sheet.paste(canvas.convert("RGB"), (col*w+6, row*h+4))
+            short = p.name[:30]
+            folder = "archive" if "archive/" in p.as_posix() else p.parent.name
+            draw.text((col*w+8, row*h+220), folder + "/" + short, fill="#111111")
+    sheet.save(args.out / "frame-inventory.jpg", quality=88)
     (args.out / "report.json").write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
