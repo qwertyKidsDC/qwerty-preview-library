@@ -434,7 +434,7 @@
   margin-top: -6px;
 }
 
-/* Homepage introduction shares the hero text column with subpage booking links. */
+/* One intro typography component for the homepage and subpage hero links. */
 .hero-description {
   position: relative;
   z-index: 4;
@@ -442,7 +442,17 @@
   margin: 10px 0 0 50px;
   color: var(--color-ivory);
   font-size: var(--text-body);
+  font-weight: 400;
   line-height: 1.35;
+}
+
+/* Inline hero links use the same line-height and colour as the surrounding copy. */
+.hero-description .scene-link {
+  margin-top: 0;
+  color: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  white-space: nowrap;
 }
 
 .hero-paper .paper-bg {
@@ -1184,22 +1194,6 @@
   letter-spacing: -.02em;
 }
 
-:where(html[data-layout="subpage"]) .subpage-hero-links {
-  position: relative;
-  z-index: 4;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 22px;
-  margin: 10px 0 0 50px;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.45;
-}
-:where(html[data-layout="subpage"]) .subpage-hero-links .scene-link {
-  margin-top: 0;
-  color: var(--color-ivory);
-  white-space: nowrap;
-}
 
 :where(html[data-layout="subpage"]) .hero + .projects--subpage {
   margin-top: -24px;

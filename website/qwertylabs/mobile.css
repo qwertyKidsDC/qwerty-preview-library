@@ -135,13 +135,13 @@
     flex-direction: column;
     height: auto;
   }
-  :where(html[data-layout="site"]) .hero-description {
+  .hero-description {
     position: relative;
     width: auto;
     max-width: 460px;
     margin: 0 24px 5px;
   }
-  :where(html[data-layout="subpage"]) .hero:has(.subpage-hero-links) {
+  :where(html[data-layout="subpage"]) .hero:has(.hero-description) {
     --hero-art-clearance: 44px;
   }
 
@@ -444,11 +444,6 @@
     width: min(420px, 96%);
   }
 
-  :where(html[data-layout="subpage"]) .subpage-hero-links {
-    margin: 6px 0 0 49px;
-    gap: 8px 16px;
-    font-size: 16px;
-  }
   :where(html[data-layout="subpage"]) .hero + .projects--subpage {
     margin-top: 0;
   }
