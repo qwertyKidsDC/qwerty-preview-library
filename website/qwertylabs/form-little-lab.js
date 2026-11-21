@@ -10,6 +10,7 @@
   var counter = companion.querySelector('[data-lab-counter]');
   var phases = companion.querySelectorAll('[data-led]');
   var traces = companion.querySelectorAll('[data-wire]');
+  var glows = companion.querySelectorAll('[data-glow]');
 
   function previewStage() {
     var done = app.querySelector('.qlf-done');
@@ -50,6 +51,9 @@
     });
     traces.forEach(function (el) {
       el.classList.toggle('is-on', Number(el.getAttribute('data-wire')) <= stage);
+    });
+    glows.forEach(function (el, index) {
+      el.classList.toggle('is-on', index < stage);
     });
   }
 
