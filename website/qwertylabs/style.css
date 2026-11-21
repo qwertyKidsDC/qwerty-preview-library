@@ -1638,3 +1638,52 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 /* Preserve the HTML hidden attribute after form button styling. */
 .qlf-form [hidden] { display:none !important; }
 .qlf-pane .qlf-links a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
+
+
+/* The Little Lab: editorial form and responsive mascot companion.
+   Existing cardboard board, taped headings and original framed mascots are reused. */
+.qll-lab .qll-lab__section { padding-bottom:55px; }
+.qll-lab__grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(235px,.9fr); gap:clamp(22px,3.5vw,46px); align-items:start; }
+.qll-lab .qll-lab__form-column { width:100%; min-width:0; }
+.qll-lab .qll-lab__form-column > p:first-child { font-weight:400; }
+.qll-lab__intro { margin:0 0 17px; color:var(--color-ivory); font-size:18px; line-height:1.5; }
+.qll-lab__intro strong { color:var(--brand-accent); }
+.qll-lab__form-title { margin:18px 0 9px; color:var(--color-ivory); font-size:24px; letter-spacing:-.025em; }
+.qll-lab .qlf-form label:not(.qlf-choice), .qll-lab .qlf-form legend { color:var(--color-ivory); }
+.qll-lab .qlf-hint, .qll-lab .qlf-intro, .qll-lab .qlf-done, .qll-lab .qlf-done p, .qll-lab .qlf-done h2 { color:var(--color-ivory); }
+.qll-lab .qlf-stepper li { border-color:rgba(247,244,235,.65); color:var(--color-ivory); }
+.qll-lab .qlf-stepper li[aria-current="step"] { border-color:var(--brand-accent); color:var(--color-ink); }
+.qll-lab .qlf-step-title, .qll-lab .qlf-child h4 { color:var(--color-ivory); }
+.qll-lab .qlf-child { border-top-color:rgba(247,244,235,.55); }
+.qll-lab .qlf-choice { color:var(--color-ivory); }
+.qll-lab .qlf-choice a { color:var(--color-ivory); }
+.qll-lab .qlf-quiet-button { border-color:var(--color-ivory); color:var(--color-ivory); }
+.qll-lab .qlf-quiet-button:hover { background:rgba(247,244,235,.12); }
+.qll-lab .qlf-summary { border-color:rgba(247,244,235,.4); color:var(--color-ivory); }
+.qll-lab .qlf-actions { margin-bottom:15px; }
+.qll-lab .qlf-submit { margin-top:14px; }
+.qll-lab__other { margin:22px 0 0; font-size:15px; line-height:1.5; }
+.qll-lab__other a { color:var(--color-ivory); }
+.qll-side { min-width:0; align-self:stretch; }
+.qll-side__sticky { position:sticky; top:22px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.qll-side__frame { position:relative; width:min(100%,285px); margin:0; transform:rotate(4deg); }
+.qll-side__frame img { display:block; width:100%; height:auto; }
+.qll-side__bubble { position:relative; width:min(100%,305px); padding:19px 20px 18px; background:var(--color-ivory); color:var(--color-ink); border:2px solid var(--color-ink); box-shadow:5px 5px 0 var(--brand-accent); transform:rotate(-1.5deg); }
+.qll-side__bubble::before { content:""; position:absolute; top:-12px; left:32px; width:17px; height:17px; transform:rotate(45deg); background:var(--color-ivory); border-left:2px solid var(--color-ink); border-top:2px solid var(--color-ink); }
+.qll-side__eyebrow { display:block; margin:0 0 9px; font-size:12px; font-weight:700; letter-spacing:.07em; color:#435b15; text-transform:uppercase; }
+.qll-side__saying { margin:0; font-size:clamp(17px,1.8vw,21px); font-weight:700; line-height:1.28; overflow-wrap:anywhere; }
+.qll-side__power { width:min(100%,305px); margin:3px 0 0; padding:13px 14px 10px; border:1px dashed rgba(247,244,235,.66); color:var(--color-ivory); }
+.qll-side__power-label { margin:0 0 9px; display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; font-weight:700; }
+.qll-side__power-label span:last-child { color:var(--brand-accent); font-variant-numeric:tabular-nums; }
+.qll-side__circuit { width:100%; height:auto; display:block; overflow:visible; }
+.qll-side__trace { fill:none; stroke:rgba(247,244,235,.3); stroke-width:3; stroke-linecap:round; }
+.qll-side__trace--on { stroke:var(--brand-accent); stroke-dasharray:40; stroke-dashoffset:40; transition:stroke-dashoffset .45s ease; }
+.qll-side__led { fill:#47454b; stroke:var(--color-ivory); stroke-width:2; transition:fill .3s ease; }
+.qll-side__led.is-on { fill:var(--brand-accent); }
+.qll-side__trace--on.is-on { stroke-dashoffset:0; }
+.qll-side__led.is-on + .qll-side__glow { opacity:.16; }
+.qll-side__glow { fill:var(--brand-accent); opacity:0; transition:opacity .4s ease; }
+.qll-side__note { margin:6px 0 0; font-size:13px; line-height:1.4; color:var(--color-ivory); opacity:.86; }
+@media (prefers-reduced-motion:reduce) {
+  .qll-side__trace--on, .qll-side__led, .qll-side__glow { transition:none; }
+}
