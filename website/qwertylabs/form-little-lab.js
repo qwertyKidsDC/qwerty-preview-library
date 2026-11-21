@@ -19,31 +19,41 @@
     return current ? Number(current.getAttribute('data-step')) : 0;
   }
 
-  function firstName() {
-    var first = app.querySelector('#child-0-first');
-    if (!first) return '';
-    // Keep it brief, literal, and entirely local to the page.
-    var typed = first.value.trim().replace(/\s+/g, ' ');
-    return Array.from(typed).slice(0, 24).join('');
+  function childNames() {
+    return Array.from(app.querySelectorAll('.qlf-child input[name$="-first"]'))
+      .map(function (field) {
+        // Only the children's own first-name fields; never the parent's name.
+        return Array.from(field.value.trim().replace(/\s+/g, ' ')).slice(0, 24).join('');
+      })
+      .filter(Boolean);
   }
 
-  function messageFor(stage, name, siblings) {
+  function joinNames(names) {
+    if (names.length === 1) return names[0];
+    if (names.length === 2) return names[0] + ' and ' + names[1];
+    return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+  }
+
+  function messageFor(stage, names, siblings) {
+    var named = names.length ? joinNames(names) : '';
     if (stage === 4) return 'Circuit complete! Just a test drive, though — no booking has been made.';
     if (stage === 3) return 'One last look. Even robots double-check their wiring.';
-    if (stage === 2) return name
-      ? 'The details for ' + name + ' are taking shape. So is our little machine.'
+    if (stage === 2) return named
+      ? 'The details for ' + named + ' are taking shape. So is our little machine.'
       : 'Two connections down. The little machine is waking up.';
-    if (stage === 1) return name
-      ? name + (siblings > 1 ? ' and crew! More makers, more ideas.' : '! A new maker to meet. Six Pin is intrigued.')
-      : 'Who’s the young maker joining the experiment?';
-    return 'Psst. There’s a little machine in here. Shall we switch it on?';
+    if (stage === 1) {
+      if (!named) return 'Who’s the young maker joining the experiment?';
+      if (names.length < siblings) return named + '! Who else is joining?';
+      return named + '! ' + (names.length === 1 ? 'A new maker to meet.' : names.length + ' new makers to meet.') + ' Six Pin is intrigued.';
+    }
+    return 'Psst. There’s a little machine in here.';
   }
 
   function refresh() {
     var stage = previewStage();
-    var name = firstName();
+    var names = childNames();
     var siblings = app.querySelectorAll('.qlf-child').length;
-    bubble.textContent = messageFor(stage, name, siblings);
+    bubble.textContent = messageFor(stage, names, siblings);
     counter.textContent = stage + ' of 4 connections';
     companion.setAttribute('data-phase', String(stage));
     phases.forEach(function (el) {
