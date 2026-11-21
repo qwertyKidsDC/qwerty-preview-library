@@ -1634,4 +1634,7 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 .qlf-gallery p { margin:0; }
 .qlf-gallery a { display:block; color:var(--color-ink); text-align:center; text-decoration:none; }
 .qlf-gallery a:hover { background:var(--brand-accent); }
-@media (max-width:760px) { .qlf-gallery { grid-template-columns:minmax(0,1fr); } }
+
+/* Preserve the HTML hidden attribute after form button styling. */
+.qlf-form [hidden] { display:none !important; }
+.qlf-pane .qlf-links a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
