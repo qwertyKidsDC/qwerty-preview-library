@@ -10,6 +10,7 @@
   form.noValidate = true;
   var status = document.getElementById('qlf-status');
   var title = document.getElementById('qlf-title');
+  var originalTitle = title ? title.textContent : '';
   var step = 0;
   var childCount = 1;
   var emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -113,7 +114,7 @@
     var second = '<section class="qlf-step" data-step="1" hidden><h3 class="qlf-step-title">Who is coming?</h3>' +
       '<p class="qlf-hint">Add siblings here. Each child has their own preferences and permissions.</p>' +
       '<div id="qlf-children">' + child(0) + '</div>' +
-      '<button type="button" class="qlf-quiet-button" id="qlf-add-child">+ Add another child</button></section>';
+      '<div class="qlf-actions"><button type="button" class="qlf-quiet-button" id="qlf-add-child">+ Add another child</button><button type="button" class="qlf-quiet-button" id="qlf-remove-child" hidden>Remove last child</button></div></section>';
     var third = '<section class="qlf-step" data-step="2" hidden><h3 class="qlf-step-title">The grown-ups</h3>' +
       '<div class="qlf-grid">' + field('parent-first','Parent or carer first name','text',true,'autocomplete="given-name"') +
       field('parent-last','Last name','text',true,'autocomplete="family-name"') + '</div>' +
@@ -183,18 +184,24 @@
   done.querySelector('#qlf-start-again').addEventListener('click',function(){
     done.hidden=true;form.hidden=false;step=0;
     if(isEnrol)showStep(0);
-    if(title)title.textContent=kind==='camps'?'Camp enrolment':kind==='classes'?'Class enrolment':'Tell us a bit';
+    if(title)title.textContent=originalTitle;
     if(status)status.textContent='Form preview restarted.';
     form.querySelector('input,select,textarea').focus();
   });
   if(isEnrol) {
     var add=document.getElementById('qlf-add-child');
+    var remove=document.getElementById('qlf-remove-child');
     add.addEventListener('click',function(){
       if(childCount>=4)return;
       var host=document.getElementById('qlf-children');
       host.insertAdjacentHTML('beforeend',child(childCount));
       childCount++;
-      add.hidden=childCount>=4;
+      add.hidden=childCount>=4;remove.hidden=false;
+    });
+    remove.addEventListener('click',function(){
+      if(childCount<=1)return;
+      document.getElementById('qlf-children').lastElementChild.remove();
+      childCount--;add.hidden=false;remove.hidden=childCount<=1;
     });
     document.getElementById('qlf-back').addEventListener('click',function(){showStep(step-1);});
     document.getElementById('qlf-next').addEventListener('click',function(){
