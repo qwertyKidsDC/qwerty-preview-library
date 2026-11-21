@@ -1687,3 +1687,8 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 @media (prefers-reduced-motion:reduce) {
   .qll-side__trace--on, .qll-side__led, .qll-side__glow { transition:none; }
 }
+
+/* Preserve decorative clipping without creating a scroll container,
+   so the mascot can stay beside long steps on desktop. */
+body.qll-prototype .site,
+body.qll-prototype .cardboard-page { overflow:clip; }
