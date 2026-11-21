@@ -47,6 +47,10 @@ jobs:
         if: always()
         run: |
           python website/qwertylabs/_tools/check_site.py --out site-quality-report
+      - name: Smoke test Little Lab prototype
+        if: always()
+        run: |
+          python website/qwertylabs/_tools/test_little_lab.py --out site-quality-report
       - name: Preserve QA report and browser evidence
         if: always()
         uses: actions/upload-artifact@v4
