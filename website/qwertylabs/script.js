@@ -44,6 +44,8 @@
       group.classList.toggle('is-open', expanded);
       group.querySelector('.navigation-toggle')
         .setAttribute('aria-expanded', String(expanded));
+      group.querySelector('.navigation-mobile-heading')
+        .setAttribute('aria-expanded', String(expanded));
     }
   };
   const setMenuOpen = show => {
@@ -59,6 +61,20 @@
 
   for (const group of groups) {
     const toggle = group.querySelector('.navigation-toggle');
+    const parent = group.querySelector(':scope > a');
+    const mobileHeading = document.createElement('button');
+    mobileHeading.type = 'button';
+    mobileHeading.className = 'navigation-mobile-heading';
+    if (parent.classList.contains('navigation-current')) {
+      mobileHeading.classList.add('navigation-current');
+    }
+    mobileHeading.textContent = parent.textContent.trim();
+    mobileHeading.setAttribute('aria-controls', toggle.getAttribute('aria-controls'));
+    mobileHeading.setAttribute('aria-expanded', 'false');
+    group.insertBefore(mobileHeading, parent);
+    mobileHeading.addEventListener('click', () => {
+      setOpen(group, !group.classList.contains('is-open'));
+    });
     toggle.addEventListener('click', () => {
       setOpen(group, !group.classList.contains('is-open'));
     });
@@ -89,7 +105,8 @@
     const opened = groups.find(group => group.classList.contains('is-open'));
     if (opened) {
       setOpen(null, false);
-      opened.querySelector('.navigation-toggle').focus();
+      opened.querySelector(mobileViewport.matches
+        ? '.navigation-mobile-heading' : '.navigation-toggle').focus();
     } else if (nav.classList.contains('is-menu-open')) {
       setMenuOpen(false);
       menuButton.focus();

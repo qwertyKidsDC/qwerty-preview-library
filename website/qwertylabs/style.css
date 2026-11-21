@@ -317,7 +317,8 @@
 
 
 /* The mobile Menu button is created by script.js; hide it on desktop. */
-.mobile-menu-toggle { display: none; }
+.mobile-menu-toggle,
+.navigation-mobile-heading { display: none; }
 
 /* Shared one-level navigation: parent links stay usable; chevrons open subpages. */
 .navigation-group {
@@ -759,6 +760,7 @@
   text-align: left;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "photo text";
   align-items: center;
   gap: 30px;
 }
@@ -767,6 +769,7 @@
    corrugated cardboard back. No masking tape or decorative corners.
    This is reusable around other site photographs. */
 .footer-scene__photo {
+  grid-area: photo;
   margin: 0;
   min-width: 0;
   width: 100%;
@@ -832,6 +835,7 @@
 
 /* Match the Projects paragraph typography without narrowing the footer column. */
 .footer-scene__content p {
+  grid-area: text;
   margin: 0;
   max-width: 570px;
 }

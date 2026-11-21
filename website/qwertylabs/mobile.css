@@ -85,12 +85,51 @@
     min-height: 44px;
     padding: 10px 8px;
   }
+  /* One full-row button opens the submenu; overview remains inside.
+     Without JavaScript the original link and chevron remain usable. */
+  .has-mobile-menu .navigation-group > a,
+  .has-mobile-menu .navigation-group > .navigation-toggle { display: none; }
+  .has-mobile-menu .navigation-mobile-heading {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 48px;
+    padding: 9px 12px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    text-shadow: 0 2px 7px #000;
+    text-align: left;
+    cursor: var(--ql-hand-cursor, pointer);
+  }
+  .navigation-mobile-heading.navigation-current { color: var(--brand-accent); }
+  .navigation-mobile-heading::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin-right: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .navigation-group.is-open .navigation-mobile-heading::after {
+    transform: translateY(2px) rotate(225deg);
+  }
+  .navigation-mobile-heading:focus-visible {
+    outline: 3px solid var(--brand-accent);
+    outline-offset: -3px;
+  }
 
   .hero {
     --hero-art-clearance: 0px;
     height: calc(clamp(410px, calc(315px + 30vw), 455px) + var(--hero-art-clearance));
   }
-  /* Homepage mobile order: paper → mascots → introduction → cards. */
+  /* Homepage mobile order: hero paper → introduction → mascots → cards. */
   :where(html[data-layout="site"]) .hero {
     display: flex;
     flex-direction: column;
@@ -143,7 +182,7 @@
     top: auto;
     left: auto;
     right: auto;
-    margin: -70px auto 0;
+    margin: 0 auto;
     transform: none;
   }
 
@@ -167,8 +206,10 @@
     max-width: 100%;
   }
 
-  /* Match the mobile Coolest Projects label size as well. */
-  .feature h2 {
+  /* Shared size for all homepage paper/card headings. */
+  .feature h2,
+  .project-label-text,
+  .footer-scene__tape-text {
     font-size: 24px;
   }
 
@@ -196,7 +237,6 @@
   .project-label-text {
     top: 21px;
     left: 35px;
-    font-size: clamp(21px, 6vw, 24px);
   }
 
   .project-copy p {
@@ -288,10 +328,9 @@
   .footer-scene__tape-text {
     top: 42px;
     left: 32px;
-    font-size: 24px;
   }
 
-  /* Stack the frame above the copy on narrow screens. */
+  /* The mobile blurb precedes its framed video. */
   .footer-scene__photo {
     width: min(100%, 310px);
     justify-self: center;
@@ -303,6 +342,7 @@
     margin-top: 100px;
     margin-bottom: 32px;
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "text" "photo";
     gap: 22px;
   }
 
@@ -376,32 +416,33 @@
     font-size: clamp(22px, 6vw, 29px);
   }
 
+  /* Across all subpages: introductory blurb first, then the framed photo. */
   :where(html[data-layout="subpage"]) .projects--subpage {
     margin-inline: 0;
     grid-template-columns: minmax(0, 1fr);
-    row-gap: 10px;
+    row-gap: 18px;
     min-height: 0;
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
-    top: 18px;
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
     left: 0;
     grid-column: 1;
     grid-row: 1;
-    width: min(420px, 96%);
-  }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
-    left: 0; 
-    grid-column: 1;
-    grid-row: 2;
-    min-height: 355px;
+    min-height: 320px;
   }
   :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
-    top: 35px;
+    top: 4px;
     bottom: 0;
-    height: calc(100% - 35px);
+    height: calc(100% - 4px);
   }
   :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
-    padding: 100px 30px 60px 38px;
+    padding: 68px 30px 50px 38px;
+  }
+  :where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
+    top: 0;
+    left: 0;
+    grid-column: 1;
+    grid-row: 2;
+    width: min(420px, 96%);
   }
 
   :where(html[data-layout="subpage"]) .subpage-hero-links {
@@ -539,7 +580,6 @@
   .qlf-stepper li { padding:5px 8px; font-size:12px; }
   .qlf-gallery { grid-template-columns:minmax(0,1fr); }
 }
-
 
 /* The Little Lab: keep a small mascot greeting on phones, never the full sticky column. */
 @media (max-width:760px) {
