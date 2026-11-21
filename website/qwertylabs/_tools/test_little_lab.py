@@ -49,7 +49,7 @@ def desktop(browser, url, output):
     check(response and response.status == 200, "Prototype must load")
     check(page.locator("html").get_attribute("data-brand") == "kids", "Must use Kids theme")
     check(page.locator(".subpage-board.qll-lab").count() == 1, "Must use the existing editorial board")
-    check(page.locator("img[src*='mascot-ready/q-individual-r05-c01.svg']").count() == 1, "Original unframed Q missing")
+    check(page.locator("img[src*='mascot-ready/q-individual-r05-c01.webp']").count() == 1, "Original unframed Q missing")
     check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "0", "Starts on programme step")
     check(page.locator(".qll-side__paper").count() == 1, "Exactly one paper note")
     check(page.locator(".qll-side__mascot").evaluate("(img) => img.complete && img.naturalWidth > 0"), "Original Q asset must render")
