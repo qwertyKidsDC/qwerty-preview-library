@@ -592,10 +592,10 @@
     width:min(100% - 26px,325px);
     min-height:170px;
     margin:17px auto 26px;
-    padding:56px 25px 64px;
+    padding:29px 25px 64px;
     transform:rotate(1.2deg);
   }
-  .qll-side__quote { padding-top:28px; }
+  .qll-side__quote { padding-top:24px; }
   .qll-side__quote::before, .qll-side__quote::after { font-size:74px; }
   .qll-side__quote::before { top:-19px; }
   .qll-side__quote::after { bottom:-58px; right:35px; }
