@@ -1706,7 +1706,7 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   position:absolute;
   z-index:2;
   right:-19px;
-  bottom:-30px;
+  bottom:16px;
   width:min(112%,305px);
   height:auto;
   max-width:none;
