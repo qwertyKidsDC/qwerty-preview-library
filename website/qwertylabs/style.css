@@ -1677,11 +1677,11 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 .qll-side__power-label span:last-child { color:var(--brand-accent); font-variant-numeric:tabular-nums; }
 .qll-side__circuit { width:100%; height:auto; display:block; overflow:visible; }
 .qll-side__trace { fill:none; stroke:rgba(247,244,235,.3); stroke-width:3; stroke-linecap:round; }
-.qll-side__trace--on { stroke:var(--brand-accent); stroke-dasharray:40; stroke-dashoffset:40; transition:stroke-dashoffset .45s ease; }
+.qll-side__trace--on { stroke:var(--brand-accent); stroke-dasharray:110; stroke-dashoffset:110; transition:stroke-dashoffset .45s ease; }
 .qll-side__led { fill:#47454b; stroke:var(--color-ivory); stroke-width:2; transition:fill .3s ease; }
 .qll-side__led.is-on { fill:var(--brand-accent); }
 .qll-side__trace--on.is-on { stroke-dashoffset:0; }
-.qll-side__led.is-on + .qll-side__glow { opacity:.16; }
+.qll-side__glow.is-on { opacity:.16; }
 .qll-side__glow { fill:var(--brand-accent); opacity:0; transition:opacity .4s ease; }
 .qll-side__note { margin:6px 0 0; font-size:13px; line-height:1.4; color:var(--color-ivory); opacity:.86; }
 @media (prefers-reduced-motion:reduce) {
