@@ -165,14 +165,17 @@ def check_sources(root, report):
     report["css"] = {"rules": len(selectors), "repeated_selectors": repeated}
     if repeated:
         record(report, "css_repeat_review", repeated, blocking=False)
-    # Match component classes against real HTML and script-added states.
+    # CSS usage covers every HTML page and script in this site directory,
+    # including unlinked form previews. Layout/WCAG gates remain scoped to
+    # approved public pages; this is the selector usage inventory only.
     html_classes = set()
-    for name in PAGES:
-        if (root / name).is_file():
-            doc = BeautifulSoup((root / name).read_text(encoding="utf-8"), "html.parser")
-            for node in doc.select("[class]"):
-                html_classes.update(node.get("class", []))
-    script_sources = (root / "script.js").read_text(encoding="utf-8") + (root / "brand.js").read_text(encoding="utf-8")
+    for file in sorted(root.glob("*.html")):
+        doc = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
+        for node in doc.select("[class]"):
+            html_classes.update(node.get("class", []))
+    script_sources = "\n".join(
+        file.read_text(encoding="utf-8") for file in sorted(root.glob("*.js"))
+    )
     css_classes = set()
     for scope, selector in selectors:
         css_classes.update(re.findall(r"\.([a-zA-Z_][\w-]*)", selector))
