@@ -376,6 +376,7 @@
   }
 
   :where(html[data-layout="subpage"]) .projects--subpage {
+    margin-inline: 0;
     grid-template-columns: minmax(0, 1fr);
     row-gap: 10px;
     min-height: 0;
