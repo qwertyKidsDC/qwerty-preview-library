@@ -1,4 +1,4 @@
-/* The Little Lab: visual companion for the existing Kids enrolment preview.
+/* The Little Lab: paper note companion for the existing Kids enrolment preview.
    Local, non-persistent UI only. No network, storage, submission or payment. */
 (function () {
   'use strict';
@@ -7,11 +7,6 @@
   if (!app || !companion) return;
 
   var bubble = companion.querySelector('[data-lab-speech]');
-  var counter = companion.querySelector('[data-lab-counter]');
-  var phases = companion.querySelectorAll('[data-led]');
-  var traces = companion.querySelectorAll('[data-wire]');
-  var glows = companion.querySelectorAll('[data-glow]');
-
   function previewStage() {
     var done = app.querySelector('.qlf-done');
     if (done && !done.hidden) return 4;
@@ -72,17 +67,6 @@
     var familySelect = app.querySelector('#family-type');
     var returning = familySelect && familySelect.value === 'returning';
     bubble.textContent = messageFor(stage, names, siblings, returning);
-    counter.textContent = stage + ' of 4 connections';
-    companion.setAttribute('data-phase', String(stage));
-    phases.forEach(function (el) {
-      el.classList.toggle('is-on', Number(el.getAttribute('data-led')) <= stage);
-    });
-    traces.forEach(function (el) {
-      el.classList.toggle('is-on', Number(el.getAttribute('data-wire')) <= stage);
-    });
-    glows.forEach(function (el, index) {
-      el.classList.toggle('is-on', index < stage);
-    });
   }
 
   app.addEventListener('input', refresh);
