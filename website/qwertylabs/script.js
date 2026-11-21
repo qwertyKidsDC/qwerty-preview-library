@@ -324,8 +324,8 @@
 })();
 
 
-/* Curated hero rotation: no repeats until the current viewport's scenes
-   have appeared. Two tall scenes are desktop-only. */
+/* Hero rotation: desktop uses every approved scene, while mobile rotates
+   medium-height compositions that share a similar visual footprint. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
   if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
@@ -356,16 +356,30 @@
     { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
     { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' }
   ];
-  // Two tall compositions overlap the mobile copy. Keep both on desktop.
-  const mobileExclusions = new Set([
-    'S05-R2C1-submarine-controls',
-    'S05-R1C2-weather-station'
+  // Keep tall silhouettes (rocket, submarine, weather tower) and short,
+  // low-sitting scenes (including musical notes) in the desktop rotation.
+  const mobileSceneIds = new Set([
+    'S05-R1C1-robot-workshop',
+    'S05-R1C4-control-console',
+    'S05-R2C2-smart-speaker',
+    'S05-R2C3-virtual-reality',
+    'S05-R3C1-robot-arm',
+    'S05-R3C2-drawing-tablet',
+    'S05-R4C1-colourful-pinball',
+    'S07-R1C1-workshop-device',
+    'S02-R1C2-virtual-reality',
+    'S02-R2C1-solar-rover',
+    'S02-R2C2-drawing-plotter',
+    'S02-R2C3-keyboard-synthesiser'
   ]);
-  const isMobile = window.matchMedia('(max-width: 760px)').matches;
-  const scenes = isMobile
-    ? allScenes.filter(scene => !mobileExclusions.has(scene.id))
-    : allScenes;
-  const storageKey = 'qwertylabs-hero-production-bag-v5';
+  const mobileViewport = window.matchMedia('(max-width: 760px)');
+  const isMobile = mobileViewport.matches;
+  const mobileScenes = allScenes.filter(scene => mobileSceneIds.has(scene.id));
+  const scenes = isMobile ? mobileScenes : allScenes;
+  // Separate shuffle bags so switching viewport size does not reset desktop.
+  const storageKey = isMobile
+    ? 'qwertylabs-hero-production-bag-v6-mobile'
+    : 'qwertylabs-hero-production-bag-v5';
   const ids = scenes.map(scene => scene.id);
   const allowed = new Set(ids);
   let previous = {};
@@ -413,6 +427,16 @@
   hero.src = selected.src;
   hero.alt = selected.alt;
   hero.dataset.heroScene = selected.id;
+
+  // Narrowing a desktop window should not leave a tall desktop-only scene
+  // in the mobile layout. The normal shuffle applies again on the next load.
+  mobileViewport.addEventListener('change', () => {
+    if (!mobileViewport.matches || mobileSceneIds.has(hero.dataset.heroScene)) return;
+    const replacement = mobileScenes[Math.floor(Math.random() * mobileScenes.length)];
+    hero.src = replacement.src;
+    hero.alt = replacement.alt;
+    hero.dataset.heroScene = replacement.id;
+  });
 })();
 
 /* Footer fun: rotate approved no-tech mascot cut-outs without repeats. */

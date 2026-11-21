@@ -175,15 +175,14 @@
     opacity: .95;
     transform: translateX(-50%);
   }
-  /* The hero image has transparent space above its visible artwork.
-     A small optical overlap brings the mascots closer to the intro copy;
-     subpage mascots keep their independent overlay. */
+  /* Medium-height homepage scenes need less overlap; subpage hero
+     artwork keeps its separate positioning. */
   :where(html[data-layout="site"]) .mascots {
     position: relative;
     top: auto;
     left: auto;
     right: auto;
-    margin: -40px auto 0;
+    margin: -16px auto 0;
     transform: none;
   }
 

@@ -240,6 +240,14 @@ def browser_checks(root, output, report):
     axe = root.parents[1] / "node_modules" / "axe-core" / "axe.min.js"
     if not axe.is_file():
         record(report, "axe_not_installed", "axe-core missing: cannot verify WCAG")
+    # Read the mobile whitelist from the production script, not a second
+    # hard-coded list that could drift out of sync.
+    source = (root / "script.js").read_text(encoding="utf-8")
+    pool_match = re.search(r"const mobileSceneIds = new Set\(\[([\s\S]*?)\]\)", source)
+    mobile_scene_ids = set(re.findall(r"'([^']+)'", pool_match.group(1))) if pool_match else set()
+    all_scene_ids = set(re.findall(r"\{ id: '([^']+)'", source))
+    if len(mobile_scene_ids) != 12 or not mobile_scene_ids.issubset(all_scene_ids):
+        record(report, "mobile_hero_scene_pool", sorted(mobile_scene_ids))
     measurements = []
     with serve(root) as origin, sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
@@ -285,6 +293,11 @@ def browser_checks(root, output, report):
                                 offset:b.top-a.bottom};
                     }""")
                     measurements.append({"page": name, "hero": evidence})
+                if name == "index.html":
+                    current = page.locator(".hero img.mascots").get_attribute("data-hero-scene")
+                    expected_pool = mobile_scene_ids if mode == "mobile" else all_scene_ids
+                    if current not in expected_pool:
+                        record(report, "hero_scene_viewport_pool", f"{mode}: {current}")
                 if name == "index.html" and mode == "mobile":
                     layout = page.evaluate("""() => {
                         const intro = document.querySelector('.hero-description');
