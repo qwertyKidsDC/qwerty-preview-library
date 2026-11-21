@@ -1663,9 +1663,9 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   position:relative;
   isolation:isolate;
   width:min(100%,325px);
-  min-height:310px;
-  margin:19px 12px 46px 0;
-  padding:36px 24px 116px;
+  min-height:325px;
+  margin:19px 12px 50px 0;
+  padding:38px 24px 186px;
   background:transparent;
   color:var(--color-ink);
   transform:rotate(2deg);
@@ -1683,16 +1683,6 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   border-image-slice:130 140 130 140 fill;
   border-image-width:40px 43px;
   border-image-repeat:stretch;
-}
-.qll-side__eyebrow {
-  display:block;
-  position:relative;
-  margin:0 0 8px;
-  color:var(--color-ink);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.055em;
-  line-height:1.2;
 }
 .qll-side__quote { position:relative; margin:0; padding:28px 0 0; }
 .qll-side__quote::before, .qll-side__quote::after {
@@ -1718,12 +1708,12 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qll-side__mascot {
   position:absolute;
   z-index:2;
-  right:-31px;
-  bottom:-25px;
-  width:clamp(112px,15vw,155px);
+  right:-19px;
+  bottom:-30px;
+  width:min(112%,305px);
   height:auto;
   max-width:none;
-  transform:rotate(-8deg);
+  transform:rotate(-5deg);
   filter:drop-shadow(3px 5px 2px rgba(2,0,32,.18));
 }
 
