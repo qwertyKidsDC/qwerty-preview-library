@@ -1603,7 +1603,7 @@
 .qlf-field, .qlf-fieldset { display:block; min-width:0; margin:0 0 17px; padding:0; border:0; }
 .qlf-form label:not(.qlf-choice), .qlf-form legend { display:block; margin:0 0 7px; color:var(--color-ink); font-size:16px; font-weight:700; line-height:1.35; }
 .qlf-form legend { padding:0; }
-.qlf-form :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { display:block; width:100%; min-height:48px; padding:10px 12px; border:2px solid #716e76; border-radius:5px; background:#fff; color:var(--color-ink); font:inherit; font-size:16px; }
+.qlf-form :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { display:block; width:100%; min-height:48px; padding:10px 12px; border:2px solid var(--color-ink); border-radius:5px; background:var(--color-ivory); color:var(--color-ink); font:inherit; font-size:16px; }
 .qlf-form textarea { min-height:98px; resize:vertical; }
 .qlf-form :is(input,select,textarea,button):focus-visible, .qlf-links a:focus-visible { outline:3px solid var(--brand-accent); outline-offset:3px; }
 .qlf-form :is(input,select,textarea)[aria-invalid="true"] { border-color:#a52a25; }
@@ -1615,7 +1615,7 @@
 .qlf-choice a, .qlf-intro a, .qlf-hint a, .qlf-summary a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
 .qlf-form button { font:700 17px/1.2 'Atkinson Hyperlegible',Arial,sans-serif; cursor:pointer; }
 .qlf-submit { display:block; width:100%; min-height:51px; padding:13px 19px; margin-top:20px; border:2px solid var(--color-ink); border-radius:5px; background:var(--brand-accent); color:var(--color-ink); text-align:center; }
-html[data-brand="lab"] .qlf-submit { color:#fff; }
+html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qlf-submit:hover { filter:brightness(.96); }
 .qlf-quiet-button { display:inline-block; min-height:44px; padding:9px 14px; border:2px solid var(--color-ink); border-radius:5px; background:transparent; color:var(--color-ink); }
 .qlf-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:15px; }
@@ -1674,8 +1674,8 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 .qll-side__frame img { display:block; width:100%; height:auto; }
 .qll-side__bubble { position:relative; width:min(100%,305px); padding:19px 20px 18px; background:var(--color-ivory); color:var(--color-ink); border:2px solid var(--color-ink); box-shadow:5px 5px 0 var(--brand-accent); transform:rotate(-1.5deg); }
 .qll-side__bubble::before { content:""; position:absolute; top:-12px; left:32px; width:17px; height:17px; transform:rotate(45deg); background:var(--color-ivory); border-left:2px solid var(--color-ink); border-top:2px solid var(--color-ink); }
-.qll-side__eyebrow { display:block; margin:0 0 9px; font-size:12px; font-weight:700; letter-spacing:.07em; color:#435b15; text-transform:uppercase; }
-.qll-side__saying { margin:0; font-size:clamp(17px,1.8vw,21px); font-weight:700; line-height:1.28; overflow-wrap:anywhere; }
+.qll-side__eyebrow { display:block; margin:0 0 9px; font-size:12px; font-weight:700; letter-spacing:.07em; color:var(--color-ink); text-transform:uppercase; }
+.qll-side__saying { margin:0; color:var(--color-ink); font-size:clamp(17px,1.8vw,21px); font-weight:700; line-height:1.28; overflow-wrap:anywhere; }
 .qll-side__power { width:min(100%,305px); margin:3px 0 0; padding:13px 14px 10px; border:1px dashed rgba(247,244,235,.66); color:var(--color-ivory); }
 .qll-side__power-label { margin:0 0 9px; display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; font-weight:700; }
 .qll-side__power-label span:last-child { color:var(--brand-accent); font-variant-numeric:tabular-nums; }
