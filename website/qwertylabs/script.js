@@ -98,6 +98,18 @@
   mobileViewport.addEventListener('change', () => setMenuOpen(false));
 })();
 
+/* Home audience cards: preserve the existing accessible heading/arrow links,
+   and let pointer users click anywhere on the paper. */
+(() => {
+  document.querySelectorAll('.feature-cards .feature').forEach(card => {
+    const link = card.querySelector('h2 a');
+    if (!link) return;
+    card.addEventListener('click', event => {
+      if (!event.target.closest('a')) link.click();
+    });
+  });
+})();
+
 /* The approved framed artwork varies slightly in tilt. Other frames stay fixed.
    This is shared by every subpage and needs no page-specific script. */
 (() => {
@@ -295,15 +307,15 @@
 })();
 
 
-/* Curated hero rotation: one scene per page load, no repeated scenes until all
-   22 have appeared in this tab. Uses the existing hero geometry and fallback. */
+/* Curated hero rotation: no repeats until the current viewport's scenes
+   have appeared. Two tall scenes are desktop-only. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
   if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
   const hero = document.querySelector('.hero img.mascots');
   if (!hero) return;
 
-  const scenes = [
+  const allScenes = [
     { id: 'S05-R1C1-robot-workshop', src: 'img/hero-rotation-v2/S05-R1C1-robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
     { id: 'S05-R1C2-weather-station', src: 'img/hero-rotation-v2/S05-R1C2-weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
     { id: 'S05-R1C4-control-console', src: 'img/hero-rotation-v2/S05-R1C4-control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
@@ -327,6 +339,15 @@
     { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
     { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' }
   ];
+  // Two tall compositions overlap the mobile copy. Keep both on desktop.
+  const mobileExclusions = new Set([
+    'S05-R2C1-submarine-controls',
+    'S05-R1C2-weather-station'
+  ]);
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+  const scenes = isMobile
+    ? allScenes.filter(scene => !mobileExclusions.has(scene.id))
+    : allScenes;
   const storageKey = 'qwertylabs-hero-production-bag-v5';
   const ids = scenes.map(scene => scene.id);
   const allowed = new Set(ids);
