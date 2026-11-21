@@ -537,4 +537,5 @@
   .qlf-actions .qlf-submit, .qlf-actions .qlf-quiet-button { width:100%; }
   .qlf-stepper { gap:5px; }
   .qlf-stepper li { padding:5px 8px; font-size:12px; }
+  .qlf-gallery { grid-template-columns:minmax(0,1fr); }
 }
