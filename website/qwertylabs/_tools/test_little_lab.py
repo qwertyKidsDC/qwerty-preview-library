@@ -63,6 +63,7 @@ def desktop(browser, url, output):
     page.locator("#child-0-age").select_option("9")
     page.locator("#child-0-experience").select_option("new")
     page.locator("#child-0-session").select_option("sat9")
+    page.locator("#child-0-photo").select_option("no")
     page.locator("#qlf-next").click()
     check(page.locator("[data-lab-counter]").inner_text() == "2 of 4 connections", "Second circuit connection")
     page.locator("#parent-first").fill("Alex")
