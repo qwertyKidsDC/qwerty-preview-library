@@ -62,7 +62,7 @@ def desktop(browser, url, output):
     page.locator("#qlf-add-child").click()
     check("Frankie! Who else is joining?" in page.locator("[data-lab-speech]").inner_text(), "Prompt for additional child")
     page.locator("#child-1-first").fill("Maya")
-    check("Frankie and Maya! 2 new makers to meet." in page.locator("[data-lab-speech]").inner_text(), "Both children's names in greeting")
+    check("Frankie and Maya! Two new makers to meet." in page.locator("[data-lab-speech]").inner_text(), "Both children's names in greeting")
     page.locator("#child-1-last").fill("Example")
     page.locator("#child-1-age").select_option("11")
     page.locator("#child-1-experience").select_option("some")
