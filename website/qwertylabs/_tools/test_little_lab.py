@@ -49,10 +49,11 @@ def desktop(browser, url, output):
     check(response and response.status == 200, "Prototype must load")
     check(page.locator("html").get_attribute("data-brand") == "kids", "Must use Kids theme")
     check(page.locator(".subpage-board.qll-lab").count() == 1, "Must use the existing editorial board")
-    check(page.locator("img[src*='mascot-ready/q-individual-r05-c01.webp']").count() == 1, "Original unframed Q missing")
+    check(page.locator("img[src*='mascot-ready/trio-cardboard-star.webp']").count() == 1, "Original unframed trio missing")
     check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "0", "Starts on programme step")
     check(page.locator(".qll-side__paper").count() == 1, "Exactly one paper note")
-    check(page.locator(".qll-side__mascot").evaluate("(img) => img.complete && img.naturalWidth > 0"), "Original Q asset must render")
+    check(page.locator(".qll-side__eyebrow").count() == 0, "No note heading")
+    check(page.locator(".qll-side__mascot").evaluate("(img) => img.complete && img.naturalWidth > 0"), "Original uploaded trio must render")
     check(page.locator(".qll-side__frame, .qll-side__power").count() == 0, "No old framed mascot or circuit strip")
     check(page.locator("[data-lab-speech]").inner_text() == "Ooh, someone’s about to enrol.", "Stage one dialogue")
     # Approved palette must be used in the rendered UI (not white inputs or off-brand heading text).
@@ -61,9 +62,7 @@ def desktop(browser, url, output):
         return {
             paper: style('.qll-side__paper').backgroundColor,
             paperGraphic: style('.qll-side__paper', '::before').borderImageSource,
-            labelBackground: style('.qll-side__eyebrow').backgroundColor,
             speech: style('.qll-side__saying').color,
-            paperHeading: style('.qll-side__eyebrow').color,
             input: style('#family-type').backgroundColor,
             inputText: style('#family-type').color,
         };
@@ -79,9 +78,7 @@ def desktop(browser, url, output):
     }""")
     check(positions["heading"] < 60 and positions["saying"] < 175,
           f"Note heading and message should be high on the paper: {positions}")
-    check(palette["labelBackground"] == "rgba(0, 0, 0, 0)",
-          f"Note heading must have no separate tape or badge background: {palette}")
-    for key in ("speech", "paperHeading", "inputText"):
+    for key in ("speech", "inputText"):
         check(palette[key] == "rgb(2, 0, 32)", f"Use approved ink for {key}: {palette}")
     check(palette["input"] == "rgb(247, 244, 235)", f"Form inputs remain ivory: {palette}")
 
@@ -164,7 +161,7 @@ def mobile(browser, url, output):
     form = page.locator(".qll-lab__form-column")
     check(side.is_visible(), "Mobile mascot greeting remains visible")
     check(side.bounding_box()["y"] < form.bounding_box()["y"], "Mobile scene should precede form")
-    check(page.locator(".qll-side__mascot").bounding_box()["width"] < 110, "Compact unframed Q on mobile")
+    check(page.locator(".qll-side__mascot").bounding_box()["width"] < 260, "Trio remains compact on mobile")
     check(page.locator(".qlf-form input").first.is_visible() is False, "Hidden later step fields are not shown")
     page.locator(".qll-lab").screenshot(path=str(output / "little-lab-mobile.png"), animations="disabled")
     context.close()
