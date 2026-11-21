@@ -551,7 +551,7 @@
 .feature {
   height: 240px;
   padding: 42px 32px 25px 34px;
-  cursor: pointer;
+  cursor: var(--ql-hand-cursor, pointer);
 }
 
 
