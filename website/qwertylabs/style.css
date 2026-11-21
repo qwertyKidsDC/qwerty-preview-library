@@ -1670,21 +1670,18 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   color:var(--color-ink);
   transform:rotate(2deg);
 }
-/* Use the exact untaped green paper artwork and the existing nine-slice
-   treatment used for Kids testimonial panels. No invented torn edges or texture. */
-.qll-side__paper::before {
-  content:"";
+/* Reuse the actual untaped Kids paper graphic as a decorative image layer,
+   matching how the existing Kids page handles its paper photographs. */
+.qll-side__paper-bg {
   position:absolute;
   inset:0;
-  z-index:-1;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:fill;
   pointer-events:none;
-  border:40px solid transparent;
-  border-image-source:url("img/kids-green-panel-untaped-vtrim.svg");
-  border-image-slice:130 140 130 140 fill;
-  border-image-width:40px 43px;
-  border-image-repeat:stretch;
 }
-.qll-side__quote { position:relative; margin:0; padding:28px 0 0; }
+.qll-side__quote { position:relative; z-index:1; margin:0; padding:28px 0 0; }
 .qll-side__quote::before, .qll-side__quote::after {
   position:absolute;
   color:var(--color-ink);
