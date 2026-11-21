@@ -33,12 +33,12 @@ DRAFTS = ("adults.html", "teens.html", "thelab.html", "contact.html")
 PAGES = COMPLETE + DRAFTS
 HERO = {
     "index.html": "qwerty-labs-mascots-led-electronics.webp", "kids.html": "qwerty-labs-mascots-robot-car.webp",
-    "tools.html": "qwerty-labs-mascots-cardboard-rocket.webp", "a-kids-pov.html": "qwerty-labs-mascots-cardboard-rocket.webp",
+    "tools.html": "qwerty-labs-mascots-led-electronics.webp", "a-kids-pov.html": "qwerty-labs-mascots-led-electronics.webp",
     "kids-coding-classes.html": "qwerty-labs-mascots-robot-car.webp",
     "coding-camp.html": "qwerty-labs-mascots-robot-car.webp",
-    "child-safety.html": "qwerty-labs-mascots-cardboard-rocket.webp",
-    "privacy.html": "qwerty-labs-mascots-cardboard-rocket.webp",
-    "booking-terms.html": "qwerty-labs-mascots-cardboard-rocket.webp",
+    "child-safety.html": "qwerty-labs-mascots-led-electronics.webp",
+    "privacy.html": "qwerty-labs-mascots-led-electronics.webp",
+    "booking-terms.html": "qwerty-labs-mascots-led-electronics.webp",
 }
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))
 
@@ -52,6 +52,14 @@ def record(report, code, detail, blocking=True):
 def check_sources(root, report):
     css_files = ("style.css", "mobile.css")
     css = "\n".join((root / name).read_text(encoding="utf-8") for name in css_files)
+    # A no-JavaScript visit displays the hero image declared in HTML.
+    # Keep the tall rocket out of every static hero fallback.
+    for file in root.glob("*.html"):
+        document = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
+        hero = document.select_one(".hero img.mascots")
+        if hero and "qwerty-labs-mascots-cardboard-rocket.webp" in hero.get("src", ""):
+            record(report, "nojs_rocket_hero_fallback", file.name)
+
     cache_versions = {}
     for name in PAGES:
         file = root / name
