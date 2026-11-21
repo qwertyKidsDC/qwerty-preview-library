@@ -246,7 +246,7 @@ def browser_checks(root, output, report):
     pool_match = re.search(r"const mobileSceneIds = new Set\(\[([\s\S]*?)\]\)", source)
     mobile_scene_ids = set(re.findall(r"'([^']+)'", pool_match.group(1))) if pool_match else set()
     all_scene_ids = set(re.findall(r"\{ id: '([^']+)'", source))
-    if len(mobile_scene_ids) != 12 or not mobile_scene_ids.issubset(all_scene_ids):
+    if len(mobile_scene_ids) != 8 or not mobile_scene_ids.issubset(all_scene_ids):
         record(report, "mobile_hero_scene_pool", sorted(mobile_scene_ids))
     measurements = []
     with serve(root) as origin, sync_playwright() as playwright:

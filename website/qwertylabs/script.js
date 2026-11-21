@@ -366,11 +366,7 @@
     'S05-R3C1-robot-arm',
     'S05-R3C2-drawing-tablet',
     'S05-R4C1-colourful-pinball',
-    'S07-R1C1-workshop-device',
-    'S02-R1C2-virtual-reality',
-    'S02-R2C1-solar-rover',
-    'S02-R2C2-drawing-plotter',
-    'S02-R2C3-keyboard-synthesiser'
+    'S07-R1C1-workshop-device'
   ]);
   const mobileViewport = window.matchMedia('(max-width: 760px)');
   const isMobile = mobileViewport.matches;
