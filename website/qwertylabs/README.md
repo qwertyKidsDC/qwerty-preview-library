@@ -72,3 +72,10 @@ The `img/` directory retains assets required by the current site pages, shared s
 - These forms remain `noindex,nofollow`, explicitly labelled, and **DO NOT SEND, STORE, BOOK OR CHARGE**. The existing live QwertyKids booking links must stay active until secured submission handling, consent logs, anti-spam, email delivery, verified places and fee review, and Stripe invoicing are connected and tested.
 - Do not send child medical/support details through unprotected email or Stripe metadata. Returning families need verification before existing information is reused. Newsletter consent remains separately optional and unticked, with timestamp/source logging when activated.
 - `enrolment-preview.html` remains the earlier experiment; illustrative camp dates and prices must be reconciled before live release.
+
+### Little Lab prototype (22 November 2026)
+
+- `form-little-lab.html` is a separate **unlinked, noindex, non-submitting** Kids weekly class enrolment experiment. It clones the approved Kids page shell, hero, footer and `subpage-board` with its green tape heading. The form is on the left, and the original framed Six Pin breadboard asset (`img/mascot-curated/d1-led-breadboard-frame.webp`, visually verified) is on the right. The art filename is misleading; the character shown is Six Pin.
+- `forms.js` remains the single source for the existing form questions, validation and four enrolment steps. The page adds only `form-little-lab.js` for local UI responses: a first-name greeting inserted via `textContent` and four circuit lights that update when a step changes. It uses no API, storage, timers, or payment calls.
+- Reusable CSS is added only to `style.css` and mobile adjustments to `mobile.css`. Small-screen layout shows a compact mascot greeting before the form; `prefers-reduced-motion` removes circuit transitions.
+- Real class bookings still go through the existing enrolment link on `kids-coding-classes.html`. This experiment is not a production-ready form. Test keyboard navigation, screen-reader announcements, mobile layout and connected submission security before any rollout.
