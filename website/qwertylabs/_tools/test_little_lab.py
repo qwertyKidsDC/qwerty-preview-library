@@ -61,15 +61,17 @@ def desktop(browser, url, output):
         const style = selector => getComputedStyle(document.querySelector(selector));
         return {
             paper: style('.qll-side__paper').backgroundColor,
-            paperGraphic: style('.qll-side__paper', '::before').borderImageSource,
             speech: style('.qll-side__saying').color,
             input: style('#family-type').backgroundColor,
             inputText: style('#family-type').color,
         };
     }""")
     check(palette["paper"] == "rgba(0, 0, 0, 0)", f"No flat green backing behind the artwork: {palette}")
-    check("kids-green-panel-untaped-vtrim.svg" in palette["paperGraphic"],
-          f"Paper must use the existing green artwork: {palette}")
+    paper_image = page.locator(".qll-side__paper-bg")
+    check(paper_image.count() == 1, "Use one approved paper image, no invented background")
+    check(paper_image.get_attribute("src") == "img/kids-green-panel-untaped-vtrim.svg", "Use exact existing Kids green graphic")
+    check(paper_image.evaluate("(image) => image.complete && image.naturalWidth > 0"),
+          "Green paper background image must load")
     positions = page.evaluate("""() => {
       const paper = document.querySelector('.qll-side__paper').getBoundingClientRect();
       const saying = document.querySelector('.qll-side__saying').getBoundingClientRect();
