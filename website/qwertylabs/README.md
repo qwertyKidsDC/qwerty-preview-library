@@ -63,3 +63,12 @@ The active HTML pages share the same header and footer component markup shape. T
 ## Asset cleanup — 20 November 2026
 
 The `img/` directory retains assets required by the current site pages, shared styles, and JavaScript. Three distinct hero fallback scenes, 22 rotating hero images, ten rotating footer cut-outs and three favicon choices remain. 73 unreferenced asset/source files and 9 test and design-tool files were archived intact to `archive/2026-11-20-qwertylabs-unused-assets/website/qwertylabs/` with their Git blob SHA unchanged. The enrolment preview and read-only site quality checker remain in staging. Restore an archived tool and its images together if needed.
+
+## Forms — design previews (21 November 2026)
+
+- `forms-preview.html` is an unlinked review gallery: Contact; Kids/Teens class enrolment; Kids/Teens holiday camps; Kids/Teens trials/waiting lists; Adults; newsletter.
+- `form-pwyw.html` is deliberately unlinked private agreed-fee preview. Never add it to public navigation.
+- `forms.js` renders the shared questions, responsive design uses `style.css` and phone-only `mobile.css`. No third form stylesheet or duplicated page-specific styles.
+- These forms remain `noindex,nofollow`, explicitly labelled, and **DO NOT SEND, STORE, BOOK OR CHARGE**. The existing live QwertyKids booking links must stay active until secured submission handling, consent logs, anti-spam, email delivery, verified places and fee review, and Stripe invoicing are connected and tested.
+- Do not send child medical/support details through unprotected email or Stripe metadata. Returning families need verification before existing information is reused. Newsletter consent remains separately optional and unticked, with timestamp/source logging when activated.
+- `enrolment-preview.html` remains the earlier experiment; illustrative camp dates and prices must be reconciled before live release.
