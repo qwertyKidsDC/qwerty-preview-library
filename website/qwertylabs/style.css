@@ -1587,7 +1587,7 @@
 .qlf-shell { display:grid; grid-template-columns:minmax(0,.88fr) minmax(0,1.16fr); background:var(--color-ivory); box-shadow:10px 10px 0 var(--color-ink); color:var(--color-ink); }
 .qlf-aside { background:var(--color-ink); color:var(--color-ivory); padding:38px 34px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; min-width:0; }
 .qlf-aside__eyebrow { margin:0 0 28px; color:var(--brand-accent); font-size:14px; font-weight:700; letter-spacing:.04em; }
-.qlf-aside-title { margin:0 0 22px; font-size:clamp(38px,4.4vw,56px); line-height:1.02; letter-spacing:-.06em; color:var(--color-ivory); }
+.qlf-aside .qlf-aside-title { margin:0 0 22px; font-size:clamp(38px,4.4vw,56px); line-height:1.02; letter-spacing:-.06em; color:var(--color-ivory); }
 .qlf-aside p { margin:0 0 15px; line-height:1.4; }
 .qlf-aside__footer { font-size:15px; }
 .qlf-aside__art { display:block; width:100%; max-width:330px; height:auto; margin:auto 0; }
