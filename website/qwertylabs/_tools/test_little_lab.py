@@ -53,6 +53,25 @@ def desktop(browser, url, output):
     check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "0", "Starts on programme step")
     check(page.locator("[data-lab-counter]").inner_text() == "0 of 4 connections", "Initial circuit must be off")
     check(page.locator("[data-lab-speech]").inner_text() == "Ooh, someone’s about to enrol.", "Stage one dialogue")
+    # Approved palette must be used in the rendered UI (not white inputs or off-brand heading text).
+    palette = page.evaluate("""() => {
+        const style = selector => getComputedStyle(document.querySelector(selector));
+        return {
+            bubble: style('.qll-side__bubble').backgroundColor,
+            speech: style('.qll-side__saying').color,
+            bubbleHeading: style('.qll-side__eyebrow').color,
+            input: style('#family-type').backgroundColor,
+            inputText: style('#family-type').color,
+        };
+    }""")
+    check(palette == {
+        "bubble": "rgb(247, 244, 235)",
+        "speech": "rgb(2, 0, 32)",
+        "bubbleHeading": "rgb(2, 0, 32)",
+        "input": "rgb(247, 244, 235)",
+        "inputText": "rgb(2, 0, 32)",
+    }, f"Speech and inputs must use approved ivory/ink palette: {palette}")
+
     page.locator("#family-type").select_option("new")
     page.locator("#term").select_option("2027-t1")
     page.locator("#preferred-class").select_option("sat9")
