@@ -34,29 +34,44 @@
     return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
   }
 
-  function messageFor(stage, names, siblings) {
+  function messageFor(stage, names, siblings, returning) {
     var named = names.length ? joinNames(names) : '';
     if (stage === 4) return 'Looking good from here!';
     if (stage === 3) return 'Almost there!';
-    if (stage === 2) return named
-      ? 'Excitement! ' + named + (names.length === 1 ? ' is' : ' are') + ' on the way.'
-      : 'Excitement! New makers are on their way.';
+    if (stage === 2) {
+      if (!named) return returning
+        ? 'Excitement! Your family is back for more making.'
+        : 'Excitement! New makers are on their way.';
+      return 'Excitement! ' + named + (names.length === 1 ? ' is' : ' are') +
+        ' on the way.' + (returning ? ' Back for more making!' : '');
+    }
     if (stage === 1) {
-      if (!named) return 'Who’s the young maker joining us?';
+      if (!named) return returning
+        ? 'Who’s making things with us this time?'
+        : 'Who’s the young maker joining us?';
       if (names.length < siblings) return named + '! Who else is joining?';
-      if (names.length === 1) return 'It’s ' + named + '! Yay, a new maker to meet.';
       var cheers = { 2: 'Double yay', 3: 'Triple yay', 4: 'Quadruple yay' };
+      if (returning) {
+        return (names.length === 1 ? 'It’s ' : '') + named + '! ' +
+          (names.length === 1 ? 'Yay' : cheers[names.length]) +
+          ', lovely to see your family again.';
+      }
+      if (names.length === 1) return 'It’s ' + named + '! Yay, a new maker to meet.';
       var counts = { 2: 'two', 3: 'three', 4: 'four' };
       return named + '! ' + cheers[names.length] + ', ' + counts[names.length] + ' new makers to meet.';
     }
-    return 'Ooh, someone’s about to enrol.';
+    return returning
+      ? 'Ooh, a familiar family! Welcome back.'
+      : 'Ooh, someone’s about to enrol.';
   }
 
   function refresh() {
     var stage = previewStage();
     var names = childNames();
     var siblings = app.querySelectorAll('.qlf-child').length;
-    bubble.textContent = messageFor(stage, names, siblings);
+    var familySelect = app.querySelector('#family-type');
+    var returning = familySelect && familySelect.value === 'returning';
+    bubble.textContent = messageFor(stage, names, siblings, returning);
     counter.textContent = stage + ' of 4 connections';
     companion.setAttribute('data-phase', String(stage));
     phases.forEach(function (el) {
