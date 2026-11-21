@@ -1587,13 +1587,13 @@
 .qlf-shell { display:grid; grid-template-columns:minmax(0,.88fr) minmax(0,1.16fr); background:var(--color-ivory); box-shadow:10px 10px 0 var(--color-ink); color:var(--color-ink); }
 .qlf-aside { background:var(--color-ink); color:var(--color-ivory); padding:38px 34px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; min-width:0; }
 .qlf-aside__eyebrow { margin:0 0 28px; color:var(--brand-accent); font-size:14px; font-weight:700; letter-spacing:.04em; }
-.qlf-aside h1 { margin:0 0 22px; font-size:clamp(38px,4.4vw,56px); line-height:1.02; letter-spacing:-.06em; color:var(--color-ivory); }
+.qlf-aside-title { margin:0 0 22px; font-size:clamp(38px,4.4vw,56px); line-height:1.02; letter-spacing:-.06em; color:var(--color-ivory); }
 .qlf-aside p { margin:0 0 15px; line-height:1.4; }
 .qlf-aside__footer { font-size:15px; }
 .qlf-aside__art { display:block; width:100%; max-width:330px; height:auto; margin:auto 0; }
 .qlf-pane { padding:35px clamp(24px,4vw,48px) 42px; min-width:0; }
 .qlf-kicker { margin:0 0 14px; color:var(--brand-accent); font-size:15px; font-weight:700; letter-spacing:.045em; text-transform:uppercase; }
-.qlf-pane h2 { margin:0 0 11px; color:var(--color-ink); font-size:clamp(29px,3vw,38px); letter-spacing:-.04em; line-height:1.14; }
+.qlf-pane h1, .qlf-pane h2 { margin:0 0 11px; color:var(--color-ink); font-size:clamp(29px,3vw,38px); letter-spacing:-.04em; line-height:1.14; }
 .qlf-intro { margin:0 0 21px; color:#383742; font-size:16px; line-height:1.5; }
 .qlf-form { margin:0; }
 .qlf-field, .qlf-fieldset { display:block; min-width:0; margin:0 0 17px; padding:0; border:0; }
@@ -1613,7 +1613,7 @@
 .qlf-submit { display:block; width:100%; min-height:51px; padding:13px 19px; margin-top:20px; border:2px solid var(--color-ink); border-radius:5px; background:var(--brand-accent); color:var(--color-ink); text-align:center; }
 html[data-brand="lab"] .qlf-submit { color:#fff; }
 .qlf-submit:hover { filter:brightness(.96); }
-.qlf-quiet-button { min-height:44px; padding:9px 14px; border:2px solid var(--color-ink); border-radius:5px; background:transparent; color:var(--color-ink); }
+.qlf-quiet-button { display:inline-block; min-height:44px; padding:9px 14px; border:2px solid var(--color-ink); border-radius:5px; background:transparent; color:var(--color-ink); }
 .qlf-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:15px; }
 .qlf-actions .qlf-submit { flex:1; width:auto; margin:0; }
 .qlf-alert { display:block; padding:12px 15px; margin-bottom:16px; border-left:5px solid #9e2722; background:#fceae6; color:#722722; font-size:15px; font-weight:700; }
@@ -1626,6 +1626,12 @@ html[data-brand="lab"] .qlf-submit { color:#fff; }
 .qlf-child h4 { margin:0 0 14px; font-size:19px; }
 .qlf-summary { border-top:1px solid #b7b2b7; padding:12px 0; font-size:16px; overflow-wrap:anywhere; }
 .qlf-summary strong { display:block; }
-.qlf-links { display:flex; flex-wrap:wrap; gap:12px 19px; margin-top:23px; color:var(--color-ivory); font-size:14px; }
+.qlf-links { display:flex; flex-wrap:wrap; gap:12px 19px; margin-top:23px; color:var(--color-ink); font-size:14px; }
 .qlf-done { padding:45px 0; }
 .qlf-done p { font-size:17px; }
+
+.qlf-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.qlf-gallery p { margin:0; }
+.qlf-gallery a { display:block; color:var(--color-ink); text-align:center; text-decoration:none; }
+.qlf-gallery a:hover { background:var(--brand-accent); }
+@media (max-width:760px) { .qlf-gallery { grid-template-columns:minmax(0,1fr); } }
