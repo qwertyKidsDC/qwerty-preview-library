@@ -44,7 +44,7 @@
     if (stage === 1) {
       if (!named) return 'Who’s the young maker joining the experiment?';
       if (names.length < siblings) return named + '! Who else is joining?';
-      return named + '! ' + (names.length === 1 ? 'A new maker to meet.' : names.length + ' new makers to meet.') + ' Six Pin is intrigued.';
+      return named + '! ' + (names.length === 1 ? 'A new maker to meet.' : ['', '', 'Two', 'Three', 'Four'][names.length] + ' new makers to meet.') + ' Six Pin is intrigued.';
     }
     return 'Psst. There’s a little machine in here.';
   }
