@@ -52,13 +52,14 @@ def desktop(browser, url, output):
     check(page.locator("img[src*='mascot-ready/q-individual-r05-c01.svg']").count() == 1, "Original unframed Q missing")
     check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "0", "Starts on programme step")
     check(page.locator(".qll-side__paper").count() == 1, "Exactly one paper note")
+    check(page.locator(".qll-side__mascot").evaluate("(img) => img.complete && img.naturalWidth > 0"), "Original Q asset must render")
     check(page.locator(".qll-side__frame, .qll-side__power").count() == 0, "No old framed mascot or circuit strip")
     check(page.locator("[data-lab-speech]").inner_text() == "Ooh, someone’s about to enrol.", "Stage one dialogue")
     # Approved palette must be used in the rendered UI (not white inputs or off-brand heading text).
     palette = page.evaluate("""() => {
         const style = selector => getComputedStyle(document.querySelector(selector));
         return {
-            paper: style('.qll-side__paper', '::before').backgroundColor,
+            paper: style('.qll-side__paper').backgroundColor,
             speech: style('.qll-side__saying').color,
             paperHeading: style('.qll-side__eyebrow').color,
             input: style('#family-type').backgroundColor,
