@@ -1680,7 +1680,9 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   min-height:310px;
   margin:19px 12px 46px 0;
   padding:73px 24px 116px;
+  background:var(--color-ivory);
   color:var(--color-ink);
+  box-shadow:6px 8px 0 rgba(2,0,32,.22);
   transform:rotate(2deg);
 }
 /* Paper edges and subtle photographic texture, sourced from existing site assets. */
