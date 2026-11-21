@@ -564,9 +564,9 @@
   .qll-side__sticky { position:static; }
   .qll-side__paper {
     width:min(100% - 26px,325px);
-    min-height:170px;
-    margin:17px auto 26px;
-    padding:29px 25px 64px;
+    min-height:255px;
+    margin:17px auto 32px;
+    padding:29px 25px 145px;
     transform:rotate(1.2deg);
   }
   .qll-side__quote { padding-top:24px; }
@@ -574,8 +574,7 @@
   .qll-side__quote::before { top:-19px; }
   .qll-side__quote::after { bottom:-58px; right:35px; }
   .qll-side__saying { font-size:18px; padding-right:17px; }
-  .qll-side__eyebrow { top:10px; left:15px; font-size:11px; }
-  .qll-side__mascot { width:94px; right:-18px; bottom:-16px; }
+  .qll-side__mascot { width:min(108%,250px); right:-13px; bottom:-24px; }
   .qll-lab__intro { font-size:16px; }
 }
 
