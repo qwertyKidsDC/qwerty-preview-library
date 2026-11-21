@@ -58,7 +58,7 @@ def desktop(browser, url, output):
     page.locator("#qlf-next").click()
     check(page.locator("[data-lab-counter]").inner_text() == "1 of 4 connections", "First circuit connection")
     page.locator("#child-0-first").fill("Frankie")
-    check("Hello, Frankie!" in page.locator("[data-lab-speech]").inner_text(), "Personal greeting")
+    check("Frankie! A new maker to meet." in page.locator("[data-lab-speech]").inner_text(), "Child-focused greeting")
     page.locator("#child-0-last").fill("Example")
     page.locator("#child-0-age").select_option("9")
     page.locator("#child-0-experience").select_option("new")
