@@ -1647,8 +1647,8 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qlf-pane .qlf-links a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
 
 
-/* The Little Lab: editorial form and responsive mascot companion.
-   Existing cardboard board, taped headings and original framed mascots are reused. */
+/* The Little Lab prototype: reuse the approved editorial form and paper palette.
+   The original Q artwork overlaps a single textured note; no separate widget or progress strip. */
 .qll-lab .qll-lab__section { padding-bottom:55px; }
 .qll-lab__grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(235px,.9fr); gap:clamp(22px,3.5vw,46px); align-items:start; }
 .qll-lab .qll-lab__form-column { width:100%; min-width:0; }
@@ -1672,27 +1672,75 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qll-lab__other { margin:22px 0 0; font-size:15px; line-height:1.5; }
 .qll-lab__other a { color:var(--color-ivory); }
 .qll-side { min-width:0; align-self:stretch; }
-.qll-side__sticky { position:sticky; top:22px; display:flex; flex-direction:column; align-items:center; gap:14px; }
-.qll-side__frame { position:relative; width:min(100%,285px); margin:0; transform:rotate(4deg); }
-.qll-side__frame img { display:block; width:100%; height:auto; }
-.qll-side__bubble { position:relative; width:min(100%,305px); padding:19px 20px 18px; background:var(--color-ivory); color:var(--color-ink); border:2px solid var(--color-ink); box-shadow:5px 5px 0 var(--brand-accent); transform:rotate(-1.5deg); }
-.qll-side__bubble::before { content:""; position:absolute; top:-12px; left:32px; width:17px; height:17px; transform:rotate(45deg); background:var(--color-ivory); border-left:2px solid var(--color-ink); border-top:2px solid var(--color-ink); }
-.qll-side__eyebrow { display:block; margin:0 0 9px; font-size:12px; font-weight:700; letter-spacing:.07em; color:var(--color-ink); text-transform:uppercase; }
-.qll-side__saying { margin:0; color:var(--color-ink); font-size:clamp(17px,1.8vw,21px); font-weight:700; line-height:1.28; overflow-wrap:anywhere; }
-.qll-side__power { width:min(100%,305px); margin:3px 0 0; padding:13px 14px 10px; border:1px dashed rgba(247,244,235,.66); color:var(--color-ivory); }
-.qll-side__power-label { margin:0 0 9px; display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; font-weight:700; }
-.qll-side__power-label span:last-child { color:var(--brand-accent); font-variant-numeric:tabular-nums; }
-.qll-side__circuit { width:100%; height:auto; display:block; overflow:visible; }
-.qll-side__trace { fill:none; stroke:rgba(247,244,235,.3); stroke-width:3; stroke-linecap:round; }
-.qll-side__trace--on { stroke:var(--brand-accent); stroke-dasharray:110; stroke-dashoffset:110; transition:stroke-dashoffset .45s ease; }
-.qll-side__led { fill:#47454b; stroke:var(--color-ivory); stroke-width:2; transition:fill .3s ease; }
-.qll-side__led.is-on { fill:var(--brand-accent); }
-.qll-side__trace--on.is-on { stroke-dashoffset:0; }
-.qll-side__glow.is-on { opacity:.16; }
-.qll-side__glow { fill:var(--brand-accent); opacity:0; transition:opacity .4s ease; }
-.qll-side__note { margin:6px 0 0; font-size:13px; line-height:1.4; color:var(--color-ivory); opacity:.86; }
-@media (prefers-reduced-motion:reduce) {
-  .qll-side__trace--on, .qll-side__led, .qll-side__glow { transition:none; }
+.qll-side__sticky { position:sticky; top:32px; display:flex; justify-content:center; }
+.qll-side__paper {
+  position:relative;
+  isolation:isolate;
+  width:min(100%,325px);
+  min-height:310px;
+  margin:19px 12px 46px 0;
+  padding:73px 24px 116px;
+  color:var(--color-ink);
+  transform:rotate(2deg);
+}
+/* Paper edges and subtle photographic texture, sourced from existing site assets. */
+.qll-side__paper::before, .qll-side__paper::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  clip-path:polygon(0% 3%, 8% 2%, 17% 4%, 29% 2%, 44% 3%, 62% 1%, 81% 3%, 100% 1%, 98% 22%, 100% 43%, 99% 68%, 100% 98%, 82% 99%, 62% 97%, 42% 100%, 22% 98%, 1% 100%, 2% 77%, 0% 56%, 1% 32%);
+}
+.qll-side__paper::before { background:var(--color-ivory); box-shadow:6px 8px 0 rgba(2,0,32,.22); }
+.qll-side__paper::after { background:url("img/cardboard-texture.svg") center / 350px repeat; opacity:.12; }
+.qll-side__eyebrow {
+  position:absolute;
+  z-index:1;
+  top:15px;
+  left:16px;
+  max-width:calc(100% - 32px);
+  padding:8px 13px;
+  background:var(--color-ivory);
+  color:var(--color-ink);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.055em;
+  line-height:1.2;
+  transform:rotate(-4deg);
+  box-shadow:2px 3px 0 rgba(2,0,32,.14);
+}
+.qll-side__quote { position:relative; margin:0; padding:18px 0 0; }
+.qll-side__quote::before, .qll-side__quote::after {
+  position:absolute;
+  color:var(--color-ink);
+  font-family:Georgia,serif;
+  font-weight:700;
+  font-size:94px;
+  line-height:1;
+  pointer-events:none;
+}
+.qll-side__quote::before { content:"“"; top:-54px; left:-4px; }
+.qll-side__quote::after { content:"”"; right:6px; bottom:-88px; }
+.qll-side__saying {
+  position:relative;
+  margin:0;
+  color:var(--color-ink);
+  font-size:clamp(19px,2vw,24px);
+  font-weight:700;
+  line-height:1.28;
+  overflow-wrap:break-word;
+}
+.qll-side__mascot {
+  position:absolute;
+  z-index:2;
+  right:-31px;
+  bottom:-25px;
+  width:clamp(112px,15vw,155px);
+  height:auto;
+  max-width:none !important;
+  transform:rotate(-8deg);
+  filter:drop-shadow(3px 5px 2px rgba(2,0,32,.18));
 }
 
 /* Preserve decorative clipping without creating a scroll container,
