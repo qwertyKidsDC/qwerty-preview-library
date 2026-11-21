@@ -60,19 +60,22 @@ def desktop(browser, url, output):
         const style = selector => getComputedStyle(document.querySelector(selector));
         return {
             paper: style('.qll-side__paper').backgroundColor,
+            paperGraphic: style('.qll-side__paper', '::before').borderImageSource,
+            labelBackground: style('.qll-side__eyebrow').backgroundColor,
             speech: style('.qll-side__saying').color,
             paperHeading: style('.qll-side__eyebrow').color,
             input: style('#family-type').backgroundColor,
             inputText: style('#family-type').color,
         };
     }""")
-    check(palette == {
-        "paper": "rgb(247, 244, 235)",
-        "speech": "rgb(2, 0, 32)",
-        "paperHeading": "rgb(2, 0, 32)",
-        "input": "rgb(247, 244, 235)",
-        "inputText": "rgb(2, 0, 32)",
-    }, f"Speech and inputs must use approved ivory/ink palette: {palette}")
+    check(palette["paper"] == "rgb(146, 214, 68)", f"Paper must use approved Kids green: {palette}")
+    check("kids-green-panel-untaped-vtrim.svg" in palette["paperGraphic"],
+          f"Paper must use the existing green artwork: {palette}")
+    check(palette["labelBackground"] == "rgba(0, 0, 0, 0)",
+          f"Note heading must have no separate tape or badge background: {palette}")
+    for key in ("speech", "paperHeading", "inputText"):
+        check(palette[key] == "rgb(2, 0, 32)", f"Use approved ink for {key}: {palette}")
+    check(palette["input"] == "rgb(247, 244, 235)", f"Form inputs remain ivory: {palette}")
 
     page.locator("#family-type").select_option("new")
     page.locator("#term").select_option("2027-t1")
