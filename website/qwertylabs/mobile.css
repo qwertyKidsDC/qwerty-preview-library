@@ -96,32 +96,11 @@
     flex-direction: column;
     height: auto;
   }
-  /* Reserve the visible artwork's height; transparent image padding cannot
-     push the introduction into the mascot illustration. */
-  :where(html[data-layout="site"]) .hero-artwork {
-    position: relative;
-    height: clamp(170px, 57vw, 240px);
-  }
-  :where(html[data-layout="site"]) .hero-artwork .mascots {
-    position: absolute;
-    top: auto;
-    bottom: 0;
-    left: 50%;
-    right: auto;
-    width: min(420px, 100%);
-    margin: 0;
-    transform: translateX(-50%);
-  }
   :where(html[data-layout="site"]) .hero-description {
     position: relative;
     width: auto;
     max-width: 460px;
     margin: 0 24px 5px;
-  }
-  :where(html[data-layout="site"]) .feature-cards { padding-top: 0; }
-  :where(html[data-layout="site"]) .hero h1 {
-    font-size: clamp(24px, 6.2vw, 31px);
-    line-height: 1.1;
   }
   :where(html[data-layout="subpage"]) .hero:has(.subpage-hero-links) {
     --hero-art-clearance: 44px;
@@ -144,6 +123,10 @@
     width: calc(100% - 75px);
     font-size: clamp(27px, 6.8vw, 34px);
   }
+  :where(html[data-layout="site"]) .hero h1 {
+    font-size: clamp(24px, 6.2vw, 31px);
+    line-height: 1.1;
+  }
 
   .mascots {
     top: calc(143px + var(--hero-art-clearance));
@@ -153,6 +136,16 @@
     opacity: .95;
     transform: translateX(-50%);
   }
+  /* Home page uses the mascot in the document flow; subpages keep their
+     independent overlay. Override after the shared mascot rule. */
+  :where(html[data-layout="site"]) .mascots {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: -70px auto 0;
+    transform: none;
+  }
 
   .feature-cards {
     flex-direction: column;
@@ -161,6 +154,7 @@
     margin: 0 auto;
     padding-top: 15px;
   }
+  :where(html[data-layout="site"]) .feature-cards { padding-top: 0; }
 
   .feature {
     height: auto;
