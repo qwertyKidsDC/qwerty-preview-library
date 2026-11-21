@@ -1126,8 +1126,8 @@
   .hero-copy {
     top: 49px;
   }
-  /* Homepage copy follows its artwork in the HTML but keeps the desktop placement. */
-  :where(html[data-layout="site"]) .hero > .hero-description {
+  /* Homepage and subpages share one desktop intro position. */
+  .hero > .hero-description {
     position: absolute;
     top: 246px;
     left: 78px;
