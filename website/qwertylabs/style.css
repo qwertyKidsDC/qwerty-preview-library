@@ -551,6 +551,7 @@
 .feature {
   height: 240px;
   padding: 42px 32px 25px 34px;
+  cursor: var(--ql-hand-cursor, pointer);
 }
 
 
@@ -1107,6 +1108,13 @@
 
   .hero-copy {
     top: 49px;
+  }
+  /* Homepage copy follows its artwork in the HTML but keeps the desktop placement. */
+  :where(html[data-layout="site"]) .hero > .hero-description {
+    position: absolute;
+    top: 246px;
+    left: 78px;
+    margin: 0;
   }
   .lab-footer .country-ack {
     margin-inline: -6px;
