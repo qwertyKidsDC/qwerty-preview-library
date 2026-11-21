@@ -585,21 +585,26 @@
   .qlf-gallery { grid-template-columns:minmax(0,1fr); }
 }
 
-/* The Little Lab: keep a small mascot greeting on phones, never the full sticky column. */
+/* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
 @media (max-width:760px) {
-  .qll-lab__grid { display:flex; flex-direction:column; gap:22px; }
+  .qll-lab__grid { display:flex; flex-direction:column; gap:12px; }
   .qll-lab .qll-lab__section { padding-bottom:32px; }
   .qll-lab__form-column { order:2; }
   .qll-side { order:1; width:100%; }
-  .qll-side__sticky { position:static; display:grid; grid-template-columns:82px minmax(0,1fr); align-items:center; gap:10px 14px; }
-  .qll-side__frame { width:82px; transform:rotate(3deg); grid-row:1 / 3; }
-  .qll-side__bubble { width:100%; padding:12px 13px; box-shadow:3px 3px 0 var(--brand-accent); transform:rotate(-.5deg); }
-  .qll-side__bubble::before { left:-9px; top:18px; border:0; border-left:2px solid var(--color-ink); border-bottom:2px solid var(--color-ink); }
-  .qll-side__saying { font-size:16px; }
-  .qll-side__eyebrow { font-size:11px; margin-bottom:4px; }
-  .qll-side__power { grid-column:2; width:100%; padding:6px 9px; margin:0; }
-  .qll-side__power-label { margin:0 0 3px; font-size:11px; }
-  .qll-side__circuit { height:33px; }
-  .qll-side__note { display:none; }
+  .qll-side__sticky { position:static; }
+  .qll-side__paper {
+    width:min(100% - 26px,325px);
+    min-height:170px;
+    margin:17px auto 26px;
+    padding:56px 25px 64px;
+    transform:rotate(1.2deg);
+  }
+  .qll-side__quote { padding-top:12px; }
+  .qll-side__quote::before, .qll-side__quote::after { font-size:74px; }
+  .qll-side__quote::before { top:-43px; }
+  .qll-side__quote::after { bottom:-58px; right:35px; }
+  .qll-side__saying { font-size:18px; padding-right:17px; }
+  .qll-side__eyebrow { top:10px; left:15px; font-size:11px; }
+  .qll-side__mascot { width:94px; right:-18px; bottom:-16px; }
   .qll-lab__intro { font-size:16px; }
 }
