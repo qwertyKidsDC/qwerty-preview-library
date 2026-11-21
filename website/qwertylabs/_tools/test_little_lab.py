@@ -72,12 +72,22 @@ def desktop(browser, url, output):
           f"Paper must use the existing green artwork: {palette}")
     positions = page.evaluate("""() => {
       const paper = document.querySelector('.qll-side__paper').getBoundingClientRect();
-      const heading = document.querySelector('.qll-side__eyebrow').getBoundingClientRect();
       const saying = document.querySelector('.qll-side__saying').getBoundingClientRect();
-      return {heading: heading.top - paper.top, saying: saying.top - paper.top};
+      const trio = document.querySelector('.qll-side__mascot').getBoundingClientRect();
+      return {
+        sayingTop: saying.top - paper.top,
+        sayingBottom: saying.bottom,
+        trioTop: trio.top,
+        trioLeft: trio.left,
+        paperRight: paper.right,
+      };
     }""")
-    check(positions["heading"] < 60 and positions["saying"] < 175,
-          f"Note heading and message should be high on the paper: {positions}")
+    check(positions["sayingTop"] < 125,
+          f"Message should begin high on the paper: {positions}")
+    check(positions["sayingBottom"] < positions["trioTop"],
+          f"Trio must not overlap the personalised message: {positions}")
+    check(positions["trioLeft"] < positions["paperRight"],
+          f"Trio should overlap the paper edge: {positions}")
     for key in ("speech", "inputText"):
         check(palette[key] == "rgb(2, 0, 32)", f"Use approved ink for {key}: {palette}")
     check(palette["input"] == "rgb(247, 244, 235)", f"Form inputs remain ivory: {palette}")
