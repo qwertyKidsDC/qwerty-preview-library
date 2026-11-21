@@ -325,7 +325,7 @@ def browser_checks(root, output, report):
                     }""")
                     if not layout["art_before_cards"]:
                         record(report, "mobile_home_hero_order", layout)
-                    if not 15 <= layout["intro_art_overlap"] <= 48:
+                    if not 6 <= layout["intro_art_overlap"] <= 20:
                         record(report, "mobile_home_intro_mascot_spacing", layout)
                     if not layout["blurb_before_photo"]:
                         record(report, "mobile_project_order", layout)
