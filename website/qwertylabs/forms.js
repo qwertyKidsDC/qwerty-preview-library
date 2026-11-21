@@ -156,7 +156,11 @@
   }
   function clearError() {
     var box=document.getElementById('qlf-error');box.hidden=true;box.textContent='';
-    Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid="true"]'),function(el){el.removeAttribute('aria-invalid');});
+    Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid="true"]'),function(el){
+      el.removeAttribute('aria-invalid');
+      var hint=(el.getAttribute('aria-describedby')||'').split(/\s+/).filter(function(x){return x!=='qlf-error';}).join(' ');
+      if(hint)el.setAttribute('aria-describedby',hint);else el.removeAttribute('aria-describedby');
+    });
   }
   function validVisible() {
     clearError();
@@ -164,9 +168,18 @@
       return !el.disabled && !el.closest('[hidden]') && !el.checkValidity();
     });
     if(fields.length){
-      fields[0].setAttribute('aria-invalid','true');
-      showError('Please complete the required fields and check the highlighted answer.');
-      fields[0].focus(); return false;
+      var first=fields[0];
+      var related=form.querySelector('label[for="'+first.id+'"]');
+      var name=related ? related.textContent.trim().replace(/\s*\*\s*$/,'') : 'this answer';
+      var message=first.type==='email' ? 'Enter a valid email address.' :
+        first.type==='checkbox' ? 'Please confirm: '+name :
+        first.tagName==='SELECT' ? 'Choose an option for '+name+'.' :
+        'Please complete: '+name+'.';
+      first.setAttribute('aria-invalid','true');
+      var hint=first.getAttribute('aria-describedby')||'';
+      first.setAttribute('aria-describedby',(hint+' qlf-error').trim());
+      showError(message);
+      first.focus(); return false;
     }
     var email=Array.prototype.filter.call(form.querySelectorAll('input[type=email]'),function(el){return !el.closest('[hidden]');})[0];
     if(email && email.value && !emailRE.test(email.value.trim())){
