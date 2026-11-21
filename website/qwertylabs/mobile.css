@@ -600,9 +600,9 @@
     padding:56px 25px 64px;
     transform:rotate(1.2deg);
   }
-  .qll-side__quote { padding-top:12px; }
+  .qll-side__quote { padding-top:28px; }
   .qll-side__quote::before, .qll-side__quote::after { font-size:74px; }
-  .qll-side__quote::before { top:-43px; }
+  .qll-side__quote::before { top:-19px; }
   .qll-side__quote::after { bottom:-58px; right:35px; }
   .qll-side__saying { font-size:18px; padding-right:17px; }
   .qll-side__eyebrow { top:10px; left:15px; font-size:11px; }
