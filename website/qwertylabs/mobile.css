@@ -209,7 +209,9 @@
   /* Shared size for all homepage paper/card headings. */
   .feature h2,
   .project-label-text,
-  .footer-scene__tape-text {
+  .footer-scene__tape-text,
+  :where(html[data-layout="subpage"]) .subpage-section__heading,
+  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy h2 {
     font-size: 24px;
   }
 
@@ -395,9 +397,6 @@
   .lab-footer .footer-legal-signature {
     flex-wrap: wrap;
     white-space: normal;
-  }
-
-  .lab-footer .footer-legal-signature {
     width: 100%;
     justify-content: flex-start;
     text-align: left;
@@ -467,13 +466,12 @@
   }
   :where(html[data-layout="subpage"]) .subpage-section__tape {
     top: 5px;
-    width: min(300px, 94%);
+    width: min(354px, 100%);
     height: auto;
   }
   :where(html[data-layout="subpage"]) .subpage-section__heading {
     top: 21px;
     left: 35px;
-    font-size: clamp(22px, 6vw, 26px);
   }
   :where(html[data-layout="subpage"]) .subpage-section__copy {
     width: 100%;
@@ -505,9 +503,9 @@
   :where(html[data-layout="subpage"]) .subpage-art--counterclockwise { width: min(320px, 92%); }
   :where(html[data-layout="subpage"]) .subpage-art--landscape { width: min(350px, 94%); }
   /* Level the ISS video and its cardboard backing on phones only. */
-  :where(html[data-layout="subpage"]) #mail-from-space .subpage-art,
-  :where(html[data-layout="subpage"]) #mail-from-space .photo-frame--cardboard-offset,
-  :where(html[data-layout="subpage"]) #mail-from-space .photo-frame--cardboard-offset::before {
+  :where(html[data-layout="subpage"]) .subpage-art--straight,
+  :where(html[data-layout="subpage"]) .subpage-art--straight .photo-frame--cardboard-offset,
+  :where(html[data-layout="subpage"]) .subpage-art--straight .photo-frame--cardboard-offset::before {
     transform: none;
   }
   :where(html[data-layout="subpage"]) .subpage-callout {
@@ -545,30 +543,8 @@
   .quote-blue-rule p {
     font-size: 19px;
   }
-}
 
-@media (max-width: 750px) {
-  :root {
-    --workshop-footer-height: 300px;
-  }
-
-  .bg-scene-bottom__photo {
-    background-size: auto 100%;
-  }
-
-  .bg-scene__photo::after {
-    opacity: .72;
-  }
-
-  .site {
-    --top-original-height: clamp(200px, 58vw, 370px);
-    --top-photo-width: 100vw;
-  }
-}
-
-
-/* Form-only phone layout: the decorative ink column does not stack. */
-@media (max-width:760px) {
+  /* Form-only phone layout: the decorative ink column does not stack. */
   .qlf-main { width:calc(100% - 24px); margin:22px auto 42px; }
   .qlf-shell { display:block; box-shadow:5px 5px 0 var(--color-ink); }
   .qlf-aside { display:none; }
@@ -579,10 +555,8 @@
   .qlf-stepper { gap:5px; }
   .qlf-stepper li { padding:5px 8px; font-size:12px; }
   .qlf-gallery { grid-template-columns:minmax(0,1fr); }
-}
 
-/* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
-@media (max-width:760px) {
+  /* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
   .qll-lab__grid { display:flex; flex-direction:column; gap:12px; }
   .qll-lab .qll-lab__section { padding-bottom:32px; }
   .qll-lab__form-column { order:2; }
@@ -604,3 +578,23 @@
   .qll-side__mascot { width:94px; right:-18px; bottom:-16px; }
   .qll-lab__intro { font-size:16px; }
 }
+
+@media (max-width: 750px) {
+  :root {
+    --workshop-footer-height: 300px;
+  }
+
+  .bg-scene-bottom__photo {
+    background-size: auto 100%;
+  }
+
+  .bg-scene__photo::after {
+    opacity: .72;
+  }
+
+  .site {
+    --top-original-height: clamp(200px, 58vw, 370px);
+    --top-photo-width: 100vw;
+  }
+}
+
