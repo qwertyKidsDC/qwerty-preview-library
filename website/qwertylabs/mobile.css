@@ -90,31 +90,26 @@
     --hero-art-clearance: 0px;
     height: calc(clamp(410px, calc(315px + 30vw), 455px) + var(--hero-art-clearance));
   }
-  /* The homepage stacks the artwork between its heading and introduction. */
+  /* Homepage mobile order: paper → mascots → introduction → cards. */
   :where(html[data-layout="site"]) .hero {
-    display: grid;
-    grid-template-areas: "heading" "art" "intro";
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
+    flex-direction: column;
     height: auto;
   }
-  :where(html[data-layout="site"]) .hero-copy { display: contents; }
-  :where(html[data-layout="site"]) .hero-paper { grid-area: heading; }
   :where(html[data-layout="site"]) .mascots {
-    grid-area: art;
     position: relative;
     top: auto;
     left: auto;
     right: auto;
     width: min(420px, 100%);
-    margin: -4px auto 0;
+    margin: -100px auto 0;
     transform: none;
   }
   :where(html[data-layout="site"]) .hero-description {
-    grid-area: intro;
-    width: 100%;
+    position: relative;
+    width: auto;
     max-width: 460px;
-    margin: 4px auto 5px;
-    padding: 0 24px;
+    margin: 0 24px 5px;
   }
   :where(html[data-layout="site"]) .feature-cards { padding-top: 0; }
   :where(html[data-layout="site"]) .hero h1 {
@@ -268,7 +263,6 @@
     right: 4px;
     bottom: 8px;
   }
-  .lab-footer .footer-legal { font-size: 14px; }
   .lab-footer .footer-legal-links {
     align-self: stretch;
     align-items: flex-start;
@@ -344,6 +338,7 @@
   }
 
   .lab-footer .footer-legal {
+    font-size: 14px;
     flex-direction: column;
     align-items: stretch;
     gap: 18px;
@@ -367,11 +362,6 @@
     justify-content: flex-start;
     text-align: left;
   }
-
-  .lab-footer .footer-legal-links {
-    align-self: flex-end;
-  }
-
 
   :where(html[data-layout="subpage"]) .hero h1 {
     top: 45px;
