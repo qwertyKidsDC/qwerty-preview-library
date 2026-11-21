@@ -478,6 +478,7 @@
 /* 06. Shared typography and handmade paper cards
    Section headings and card titles have separate, centralised sizes. */
 .project-label-text,
+.footer-scene__tape-text,
 .feature h2 {
   font-size: var(--text-heading);
   font-weight: 700;
@@ -502,7 +503,8 @@
 
 .feature h2,
 .small-card h2,
-.project-label-text {
+.project-label-text,
+.footer-scene__tape-text {
   letter-spacing: -.035em;
 }
 
@@ -613,15 +615,19 @@
   height: 64.053px;
 }
 
+/* Paper label headings share the same desktop typography and orientation. */
+.project-label-text,
+.footer-scene__tape-text {
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-1.2deg);
+}
 .project-label-text {
   margin: 0;
   position: absolute;
   top: 22px;
   left: 39px;
   color: var(--color-ink);
-  text-transform: uppercase;
-  white-space: nowrap;
-  transform: rotate(-1.2deg);
 }
 
 .project-copy p {
@@ -714,12 +720,6 @@
   top: -8.93px;
   left: 39px;
   color: var(--color-ink);
-  font-size: var(--text-heading);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -.035em;
-  white-space: nowrap;
-  transform: rotate(-1.2deg);
   pointer-events: none;
 }
 
