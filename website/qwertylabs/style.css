@@ -1673,8 +1673,8 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
   width:min(100%,325px);
   min-height:310px;
   margin:19px 12px 46px 0;
-  padding:73px 24px 116px;
-  background:var(--color-green);
+  padding:36px 24px 116px;
+  background:transparent;
   color:var(--color-ink);
   transform:rotate(2deg);
 }
@@ -1695,14 +1695,14 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qll-side__eyebrow {
   display:block;
   position:relative;
-  margin:0 0 12px;
+  margin:0 0 8px;
   color:var(--color-ink);
   font-size:12px;
   font-weight:700;
   letter-spacing:.055em;
   line-height:1.2;
 }
-.qll-side__quote { position:relative; margin:0; padding:36px 0 0; }
+.qll-side__quote { position:relative; margin:0; padding:28px 0 0; }
 .qll-side__quote::before, .qll-side__quote::after {
   position:absolute;
   color:var(--color-ink);
