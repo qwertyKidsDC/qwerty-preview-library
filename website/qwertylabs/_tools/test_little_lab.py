@@ -97,6 +97,35 @@ def desktop(browser, url, output):
     check(not submissions, f"Prototype must never send POST requests: {submissions}")
     check(page.evaluate("getComputedStyle(document.querySelector('.qll-side__led')).transitionDuration") == "0s", "Reduced motion honoured")
     page.locator(".qll-lab").screenshot(path=str(output / "little-lab-desktop.png"), animations="disabled")
+    # Returning families get distinct dialogue; children may be new to Qwerty.
+    page.reload(wait_until="domcontentloaded")
+    page.locator("#family-type").select_option("returning")
+    check(page.locator("[data-lab-speech]").inner_text() == "Ooh, a familiar family! Welcome back.", "Returning family's stage one")
+    page.locator("#term").select_option("2027-t1")
+    page.locator("#preferred-class").select_option("sat9")
+    page.locator("#qlf-next").click()
+    check(page.locator("[data-lab-speech]").inner_text() == "Who’s making things with us this time?", "Returning family without child name")
+    page.locator("#child-0-first").fill("Frankie")
+    check(page.locator("[data-lab-speech]").inner_text() == "It’s Frankie! Yay, lovely to see your family again.", "One child, returning family")
+    page.locator("#qlf-add-child").click()
+    page.locator("#child-1-first").fill("Maya")
+    check(page.locator("[data-lab-speech]").inner_text() == "Frankie and Maya! Double yay, lovely to see your family again.", "Two children, returning family")
+    page.locator("#qlf-add-child").click()
+    page.locator("#child-2-first").fill("Luca")
+    check(page.locator("[data-lab-speech]").inner_text() == "Frankie, Maya and Luca! Triple yay, lovely to see your family again.", "Three children, returning family")
+    page.locator("#qlf-remove-child").click()
+    check(page.locator("[data-lab-speech]").inner_text() == "Frankie and Maya! Double yay, lovely to see your family again.", "Removed sibling updates greeting")
+    for number in (0, 1):
+        prefix = f"#child-{number}-"
+        page.locator(prefix + "last").fill("Example")
+        page.locator(prefix + "age").select_option("9")
+        page.locator(prefix + "experience").select_option("new")
+        page.locator(prefix + "session").select_option("sat9")
+        page.locator(prefix + "photo").select_option("no")
+    page.locator("#qlf-next").click()
+    check(page.locator("[data-lab-speech]").inner_text() ==
+          "Excitement! Frankie and Maya are on the way. Back for more making!",
+          "Returning family's stage three")
     context.close()
 
 
