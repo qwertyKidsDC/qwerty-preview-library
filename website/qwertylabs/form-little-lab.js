@@ -36,17 +36,20 @@
 
   function messageFor(stage, names, siblings) {
     var named = names.length ? joinNames(names) : '';
-    if (stage === 4) return 'Circuit complete! Just a test drive, though — no booking has been made.';
-    if (stage === 3) return 'One last look. Even robots double-check their wiring.';
+    if (stage === 4) return 'Looking good from here!';
+    if (stage === 3) return 'Almost there!';
     if (stage === 2) return named
-      ? 'The details for ' + named + ' are taking shape. So is our little machine.'
-      : 'Two connections down. The little machine is waking up.';
+      ? 'Excitement! ' + named + (names.length === 1 ? ' is' : ' are') + ' on the way.'
+      : 'Excitement! New makers are on their way.';
     if (stage === 1) {
-      if (!named) return 'Who’s the young maker joining the experiment?';
+      if (!named) return 'Who’s the young maker joining us?';
       if (names.length < siblings) return named + '! Who else is joining?';
-      return named + '! ' + (names.length === 1 ? 'A new maker to meet.' : ['', '', 'Two', 'Three', 'Four'][names.length] + ' new makers to meet.') + ' Six Pin is intrigued.';
+      if (names.length === 1) return 'It’s ' + named + '! Yay, a new maker to meet.';
+      var cheers = { 2: 'Double yay', 3: 'Triple yay', 4: 'Quadruple yay' };
+      var counts = { 2: 'two', 3: 'three', 4: 'four' };
+      return named + '! ' + cheers[names.length] + ', ' + counts[names.length] + ' new makers to meet.';
     }
-    return 'Psst. There’s a little machine in here.';
+    return 'Ooh, someone’s about to enrol.';
   }
 
   function refresh() {
