@@ -175,14 +175,14 @@
     opacity: .95;
     transform: translateX(-50%);
   }
-  /* Medium-height homepage scenes need less overlap; subpage hero
-     artwork keeps its separate positioning. */
+  /* The homepage WebP has transparent space above the characters.
+     Compensate for that canvas, not with extra hero height or duplicate rules. */
   :where(html[data-layout="site"]) .mascots {
     position: relative;
     top: auto;
     left: auto;
     right: auto;
-    margin: -16px auto 0;
+    margin: -50px auto 0;
     transform: none;
   }
 
@@ -230,8 +230,12 @@
     padding: 95px 0 0 38px;
   }
 
-  .project-label {
-    width: 300px;
+  /* Both homepage labels use the same full-length tape, within the screen. */
+  .project-label,
+  .footer-scene__tape {
+    width: min(354px, 100%);
+    height: auto;
+    aspect-ratio: 354 / 75;
   }
 
   .project-label-text {
@@ -317,12 +321,6 @@
   .footer-scene {
     /* The mobile tape begins 24px below the board's top. */
     margin: calc(var(--space-section) - 24px) 12px 0;
-  }
-
-  .footer-scene__tape {
-    width: min(295px, 82%);
-    height: auto;
-    aspect-ratio: 354 / 75;
   }
 
   .footer-scene__tape-text {
@@ -510,6 +508,12 @@
   :where(html[data-layout="subpage"]) .subpage-art--level { width: min(320px, 92%); }
   :where(html[data-layout="subpage"]) .subpage-art--counterclockwise { width: min(320px, 92%); }
   :where(html[data-layout="subpage"]) .subpage-art--landscape { width: min(350px, 94%); }
+  /* Level the ISS video and its cardboard backing on phones only. */
+  :where(html[data-layout="subpage"]) #mail-from-space .subpage-art,
+  :where(html[data-layout="subpage"]) #mail-from-space .photo-frame--cardboard-offset,
+  :where(html[data-layout="subpage"]) #mail-from-space .photo-frame--cardboard-offset::before {
+    transform: none;
+  }
   :where(html[data-layout="subpage"]) .subpage-callout {
     width: auto;
     margin: 0 10px;
