@@ -384,8 +384,8 @@
 }
 .navigation-group--lab .navigation-submenu,
 .navigation-group--enrol .navigation-submenu { left: auto; right: 0; }
-.navigation-group:hover .navigation-submenu,
-.navigation-group:focus-within .navigation-submenu,
+html:not(.has-mobile-menu) .navigation-group:hover .navigation-submenu,
+html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation-group.is-open .navigation-submenu {
   visibility: visible;
   opacity: 1;
@@ -1070,6 +1070,7 @@
    Colour is supplied by existing palette tokens, not embedded in SVGs.
    Hover and keyboard-focus changes are immediate; text colour is unchanged. */
 .navigation a,
+.navigation-menu-label,
 .footer-legal-links a,
 .scene-link,
 .footer-card-links a,
@@ -1079,6 +1080,7 @@
 }
 
 .navigation a::after,
+.navigation-menu-label::after,
 .footer-legal-links a::after,
 .scene-link::after,
 .footer-card-links a::after,
@@ -1098,12 +1100,14 @@
 
 /* The navigation and policy squiggle appears only on hover/focus. */
 .navigation a::after,
+.navigation-menu-label::after,
 .footer-legal-links a::after {
   bottom: -4px;
   height: 7px;
   opacity: 0;
 }
 .navigation a:is(:hover, :focus-visible)::after,
+.navigation-menu-label:is(:hover, :focus-visible)::after,
 .footer-legal-links a:is(:hover, :focus-visible)::after {
   background-color: var(--color-blue);
   opacity: 1;
@@ -1168,9 +1172,8 @@
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
-.footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
-.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
-.footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
+.footer-nav-card:nth-child(1) .paper-bg { top: 11.33896%; height: 88.66104%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 11.76471%; height: 87.45098%; }
 
 /* 12. Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
