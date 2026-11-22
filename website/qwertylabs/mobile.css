@@ -291,7 +291,6 @@
     top: 30px;
     height: calc(100% - 30px);
   }
-  .footer-location-map { height: 190px; }
   .footer-wide-links {
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
