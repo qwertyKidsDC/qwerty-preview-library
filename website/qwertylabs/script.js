@@ -206,6 +206,13 @@
   wide.replaceChildren(paper, content);
   cards.replaceChildren(find, wide);
 
+  // Small, lazy-loaded location map beneath the studio's contact details.
+  const locationDetails = find.querySelector('.footer-card-links');
+  locationDetails.insertAdjacentHTML('afterend',
+    '<iframe class="footer-location-map" title="Map of Qwerty Labs at 230 Marrickville Road, Marrickville" ' +
+      'src="https://maps.google.com/maps?q=230%20Marrickville%20Road%2C%20Marrickville%20NSW%202204%2C%20Australia&amp;z=16&amp;output=embed" ' +
+      'loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>');
+
   const signup = wide.querySelector('.footer-signup');
   signup.addEventListener('submit', event => {
     event.preventDefault();
@@ -388,7 +395,7 @@
   const cards = document.querySelector('.footer-nav-cards');
   if (!footer || !country || !page || !cards) return;
 
-  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-signup';
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-location-map, .footer-signup';
   let pending = false;
 
   const update = () => {
