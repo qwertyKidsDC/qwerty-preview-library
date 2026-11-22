@@ -882,13 +882,53 @@
   font-size: var(--text-footer);
 }
 
-/* Secondary blue cards. Their height fits five full-size links.
-   Artwork has transparent space at the top; 50px positions the copy
-   inside the visible paper, not just its SVG bounds. */
+/* Existing blue paper artwork, now one-third location and two-thirds links. */
 .footer-nav-cards .footer-nav-card {
-  height: 275px;
-  padding: 50px 32px 20px 34px;
+  flex: 1 1 0;
+  width: auto;
+  height: auto;
+  min-height: 345px;
+  padding: 50px 32px 30px 34px;
 }
+.footer-nav-cards .footer-nav-card--wide { flex-grow: 2; }
+.footer-wide-content { position: relative; }
+.footer-wide-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.footer-wide-links .footer-card-links { gap: 5px; }
+.footer-signup-block { margin-top: 18px; }
+.footer-signup-block h2 { margin-bottom: 4px; }
+.footer-signup-block > p { margin: 0 0 10px; font-size: var(--text-footer); }
+.footer-signup-fields { display: flex; align-items: end; gap: 8px; }
+.footer-signup-fields label { flex: 1 1 0; min-width: 0; font-size: var(--text-footer); font-weight: 700; }
+.footer-signup-fields input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 4px;
+  border: 1px solid var(--color-ink);
+  border-radius: 2px;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  padding: 9px;
+  font: inherit;
+}
+.footer-signup-fields button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 0;
+  background: var(--color-ink);
+  color: var(--color-ivory);
+  font: 700 var(--text-footer)/1.2 'Atkinson Hyperlegible', Arial, sans-serif;
+  cursor: pointer;
+}
+.footer-signup-fields :is(input, button):focus-visible {
+  outline: 3px solid var(--color-ivory);
+  outline-offset: 2px;
+}
+.footer-signup-status { font-size: 12px; margin: 7px 0 0; }
 
 .footer-nav-card h2 {
   margin: 0 0 8px;
