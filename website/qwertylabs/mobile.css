@@ -284,8 +284,8 @@
     min-height: 275px;
     padding-bottom: 40px;
   }
-  /* The Get making list needs the paper to begin above the heading. */
-  .footer-nav-cards .footer-nav-card:first-child .paper-bg {
+  /* Get making remains the taller second paper card. */
+  .footer-nav-cards .footer-nav-card:nth-child(2) .paper-bg {
     top: 16px;
     height: calc(100% - 16px);
   }
@@ -296,16 +296,6 @@
     line-height: 1.4;
   }
   .footer-nav-cards .footer-card-links { gap: 0; }
-  .footer-nav-card:first-child .footer-card-links { gap: 10px; }
-  .footer-nav-card:first-child .footer-card-links > div > div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 12px;
-  }
-  .footer-nav-card:first-child .footer-card-links > div > div > span[aria-hidden="true"] {
-    display: none;
-  }
   .footer-nav-cards .footer-card-links a,
   .lab-footer .footer-legal-links a {
     min-width: 44px;
