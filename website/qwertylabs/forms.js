@@ -14,7 +14,6 @@
   var title = document.getElementById('qlf-title');
   var initialTitle = title ? title.textContent : '';
   var childCount = 1;
-  var step = 0;
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   form.className = 'qlf-form';
   form.noValidate = true;
@@ -95,10 +94,11 @@
       '</div></div></fieldset>';
   }
   function programmes() {
-    return '<section class="qlf-step" data-step="0"><h3 class="qlf-step-title">Choose your ' + (isCamp?'camp':'class') + '</h3>' +
+    return '<section>' +
+      (isCamp ? '' : '<h3 class="qlf-step-title">Choose your class</h3>') +
       select('family-type','Have you enrolled with Qwerty before?',[
         ['new','No, new family'],['returning','Yes, returning family']
-      ],true,'We recognise returning families by the details you provide. Previous records are checked manually.') +
+      ],true,isCamp ? '' : 'We recognise returning families by the details you provide. Previous records are checked manually.') +
       (isCamp ?
         campDays() +
         yesNo('extended-hours','Would you like extended hours (8 am–5:30 pm)?',false) :
@@ -108,10 +108,11 @@
           ['sat-1215','Saturday 12:15–1:30 pm'],
           ['other','Other time / please advise']
         ],true,'Current preferences, not confirmed availability. Please refer to the programme overview for the latest times.')) +
-      '<p class="qlf-hint">We confirm availability and payment details separately. Nothing is booked here.</p></section>';
+      (isCamp ? '' : '<p class="qlf-hint">We confirm availability and payment details separately. Nothing is booked here.</p>') +
+      '</section>';
   }
   function grownups() {
-    return '<section class="qlf-step" data-step="2" hidden><h3 class="qlf-step-title">Parent or carer</h3>' +
+    return '<section><h3 class="qlf-step-title">Parent or carer</h3>' +
       nameFields('parent','Primary contact',true) +
       field('parent-phone','Mobile number','tel',true,'','autocomplete="tel"') +
       '<div class="qlf-new-family">' +
@@ -139,19 +140,15 @@
       '</div></section>';
   }
   function enrolmentMarkup() {
-    return '<ol class="qlf-stepper" id="qlf-stepper" aria-label="Enrolment progress">' +
-      '<li aria-current="step">1. Choose</li><li>2. Children</li><li>3. Contacts</li><li>4. Review</li></ol>' +
-      programmes() +
-      '<section class="qlf-step" data-step="1" hidden><h3 class="qlf-step-title">Who is coming?</h3>' +
-      '<p class="qlf-hint">You can enrol up to three children together. For camps, all children on this form attend the same requested days.</p>' +
+    return programmes() +
+      '<section><h3 class="qlf-step-title">Who is coming?</h3>' +
+      '<p class="qlf-hint">You can enrol up to three children together.' +
+      (isCamp ? ' All children on this form attend the same requested days.' : '') + '</p>' +
       '<div id="qlf-children">' + child(0) + '</div>' +
       '<div class="qlf-actions"><button type="button" class="qlf-quiet-button" id="qlf-add-child">+ Add a child</button>' +
       '<button type="button" class="qlf-quiet-button" id="qlf-remove-child" hidden>Remove last child</button></div></section>' +
       grownups() +
-      '<section class="qlf-step" data-step="3" hidden><h3 class="qlf-step-title">Check the details</h3>' +
-      '<div id="qlf-review"></div></section>' +
-      '<div class="qlf-actions"><button type="button" class="qlf-quiet-button" id="qlf-back" hidden>Back</button>' +
-      '<button type="button" class="qlf-submit" id="qlf-next">Next: children →</button></div>';
+      '<button type="submit" class="qlf-submit">Finish preview →</button>';
   }
   function interestMarkup() {
     var teens=kind==='interest-teens';
@@ -255,7 +252,7 @@
     var err=form.querySelector('#qlf-error');
     err.hidden=true;err.textContent='';
     Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'),function(el){el.removeAttribute('aria-invalid');});
-    var scope=enrolment ? form.querySelector('.qlf-step:not([hidden])') : form;
+    var scope=form;
     var bad=Array.prototype.find.call(scope.querySelectorAll('input,select,textarea'),function(el){
       return !el.disabled && !el.closest('[hidden]') && !el.checkValidity();
     });
@@ -277,42 +274,6 @@
     done.setAttribute('tabindex','-1');done.focus();
     if(status)status.textContent='Preview complete. No information was submitted.';
   }
-  function review(){
-    var out=form.querySelector('#qlf-review');out.replaceChildren();
-    var items=[
-      ['Programme',isCamp?'Holiday camps':'Weekly classes'],
-      ['Family',isReturning()?'Returning':'New'],
-      ['Children',Array.prototype.map.call(form.querySelectorAll('.qlf-child'),function(el){
-        return el.querySelector('[name$="-first"]').value+' '+el.querySelector('[name$="-last"]').value;
-      }).join(', ')],
-      ['Primary contact',form.querySelector('#parent-first').value+' '+form.querySelector('#parent-last').value],
-      ['Mobile',form.querySelector('#parent-phone').value],
-      ['Requested',isCamp?Array.prototype.map.call(form.querySelectorAll('input[name="camp-days"]:checked'),function(box){
-        return box.parentElement.querySelector('span').textContent;
-      }).join(', '):form.querySelector('#class-time').selectedOptions[0].textContent]
-    ];
-    items.forEach(function(item){
-      var p=document.createElement('p'),b=document.createElement('strong');
-      p.className='qlf-summary';b.textContent=item[0];p.appendChild(b);
-      p.appendChild(document.createTextNode(item[1]));out.appendChild(p);
-    });
-  }
-  function showStep(n){
-    step=Math.min(3,Math.max(0,n));
-    Array.prototype.forEach.call(form.querySelectorAll('.qlf-step'),function(el){
-      el.hidden=Number(el.dataset.step)!==step;
-    });
-    Array.prototype.forEach.call(form.querySelectorAll('#qlf-stepper li'),function(el,i){
-      if(i===step)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current');
-    });
-    form.querySelector('#qlf-back').hidden=step===0;
-    form.querySelector('#qlf-next').textContent=['Next: children →','Next: contacts →','Review details →','Finish preview →'][step];
-    if(step===3)review();
-    if(status)status.textContent='Step '+(step+1)+' of 4: '+['Choose','Children','Contacts','Review'][step];
-    sync();
-    var h=form.querySelector('.qlf-step:not([hidden]) h3');
-    h.setAttribute('tabindex','-1');h.focus();
-  }
   form.addEventListener('change',sync);
   form.addEventListener('submit',function(ev){ev.preventDefault();sync();if(validVisible())showDone();});
   if(enrolment){
@@ -331,18 +292,10 @@
       form.querySelector('#qlf-add-child').hidden=false;
       form.querySelector('#qlf-remove-child').hidden=childCount===1;
     });
-    form.querySelector('#qlf-back').addEventListener('click',function(){showStep(step-1);});
-    form.querySelector('#qlf-next').addEventListener('click',function(){
-      sync();
-      if(!validVisible())return;
-      if(step===3){showDone();return;}
-      showStep(step+1);
-    });
   }
   done.querySelector('#qlf-start-again').addEventListener('click',function(){
     done.hidden=true;form.hidden=false;
     if(title)title.textContent=initialTitle;
-    if(enrolment)showStep(0);
     if(status)status.textContent='Preview restarted.';
     form.querySelector('input,select,textarea').focus();
   });
