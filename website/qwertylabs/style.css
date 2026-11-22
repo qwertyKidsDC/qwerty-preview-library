@@ -334,6 +334,7 @@
   cursor: pointer;
 }
 .navigation-menu-label:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 5px; }
+.navigation-menu-label.navigation-current { color: var(--brand-accent); }
 /* Shared one-level navigation: mobile uses the same dropdowns. */
 .navigation-group {
   position: relative;
