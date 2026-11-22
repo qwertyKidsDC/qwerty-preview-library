@@ -1,86 +1,75 @@
-/* The Little Lab: paper note companion for the existing Kids enrolment preview.
-   Local, non-persistent UI only. No network, storage, submission or payment. */
+/* The approved Qwerty Labs mascot messenger.
+   One original artwork and paper note, responding only to local form state.
+   No storage, tracking or submission. */
 (function () {
   'use strict';
-  var app = document.querySelector('[data-qlf-app]');
-  var companion = document.querySelector('[data-little-lab]');
-  if (!app || !companion) return;
+  var app=document.querySelector('[data-qlf-app]');
+  var companion=document.querySelector('[data-little-lab]');
+  if(!app||!companion)return;
+  var bubble=companion.querySelector('[data-lab-speech]');
+  if(!bubble)return;
+  var kind=app.dataset.form||document.body.dataset.form||'classes';
 
-  var bubble = companion.querySelector('[data-lab-speech]');
-  function previewStage() {
-    var done = app.querySelector('.qlf-done');
-    if (done && !done.hidden) return 4;
-    var current = app.querySelector('.qlf-step:not([hidden])');
-    return current ? Number(current.getAttribute('data-step')) : 0;
+  function firstName(selector){
+    var field=app.querySelector(selector);
+    return field ? field.value.trim().replace(/\s+/g,' ').slice(0,24) : '';
   }
-
-  function childNames() {
-    return Array.from(app.querySelectorAll('.qlf-child input[name$="-first"]'))
-      .map(function (field) {
-        // Only the children's own first-name fields; never the parent's name.
-        return Array.from(field.value.trim().replace(/\s+/g, ' ')).slice(0, 24).join('');
-      })
-      .filter(Boolean);
+  function names(){
+    return Array.prototype.map.call(app.querySelectorAll('.qlf-child input[name$="-first"]'),function(field){
+      return field.value.trim().replace(/\s+/g,' ').slice(0,24);
+    }).filter(Boolean);
   }
-
-  function joinNames(names) {
-    if (names.length === 1) return names[0];
-    if (names.length === 2) return names[0] + ' and ' + names[1];
-    return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+  function joined(a){
+    if(a.length===1)return a[0];
+    if(a.length===2)return a[0]+' and '+a[1];
+    return a.slice(0,-1).join(', ')+' and '+a[a.length-1];
   }
-
-  function messageFor(stage, names, siblings, returning) {
-    var named = names.length ? joinNames(names) : '';
-    if (stage === 4) return 'Looking good from here!';
-    if (stage === 3) return 'Almost there!';
-    if (stage === 2) {
-      if (!named) return returning
-        ? 'Excitement! Your family is back for more making.'
-        : 'Excitement! New makers are on their way.';
-      return 'Excitement! ' + named + (names.length === 1 ? ' is' : ' are') +
-        ' on the way.' + (returning ? ' Back for more making!' : '');
+  function enrolMessage(){
+    var current=app.querySelector('.qlf-step:not([hidden])');
+    var step=current?Number(current.dataset.step):0;
+    var a=names(),name=joined(a);
+    var children=app.querySelectorAll('.qlf-child').length;
+    var family=app.querySelector('#family-type');
+    var returning=family&&family.value==='returning';
+    if(step===3)return 'Almost there! Looking good from here.';
+    if(step===2)return name ? 'Excitement! '+name+(a.length===1?' is':' are')+' on the way.'+(returning?' Back for more making!':'') :
+      'The grown-ups have arrived. Nearly done!';
+    if(step===1){
+      if(!name)return returning?'Who is making things with us this time?':'Who is the young maker joining us?';
+      if(a.length<children)return name+'! Who else is joining?';
+      if(returning)return (a.length===1?'It’s ':'')+name+'! Lovely to see your family again.';
+      if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
+      return name+'! '+(a.length===2?'Double': 'Triple')+' yay, new makers to meet.';
     }
-    if (stage === 1) {
-      if (!named) return returning
-        ? 'Who’s making things with us this time?'
-        : 'Who’s the young maker joining us?';
-      if (names.length < siblings) return named + '! Who else is joining?';
-      var cheers = { 2: 'Double yay', 3: 'Triple yay', 4: 'Quadruple yay' };
-      if (returning) {
-        return (names.length === 1 ? 'It’s ' : '') + named + '! ' +
-          (names.length === 1 ? 'Yay' : cheers[names.length]) +
-          ', lovely to see your family again.';
-      }
-      if (names.length === 1) return 'It’s ' + named + '! Yay, a new maker to meet.';
-      var counts = { 2: 'two', 3: 'three', 4: 'four' };
-      return named + '! ' + cheers[names.length] + ', ' + counts[names.length] + ' new makers to meet.';
+    return returning?'Ooh, a familiar family! Welcome back.':'Ooh, someone’s about to enrol.';
+  }
+  function simpleMessage(){
+    var name=firstName('#first-first');
+    if(kind==='adult')return name?'Hello '+name+'! What shall we make?':'Grown-up makers welcome. Yes, really.';
+    if(kind==='contact')return name?'Hi '+name+'! We’re listening.':'Hello from the Lab. What’s on your mind?';
+    if(kind.indexOf('interest')===0){
+      var reason=app.querySelector('#reason');
+      var purpose=reason?reason.value:'';
+      if(name)return 'Thanks, '+name+'! We love a good idea.';
+      if(purpose==='trial')return 'A trial? Lovely. Come see what we make.';
+      if(purpose==='classes')return 'A class that fits? Let’s see what we can do.';
+      if(purpose==='camps')return 'More making in the holidays. We like that.';
+      return 'Curious? Good. That’s how things start.';
     }
-    return returning
-      ? 'Ooh, a familiar family! Welcome back.'
-      : 'Ooh, someone’s about to enrol.';
+    return 'Something good is happening.';
   }
-
-  function refresh() {
-    var stage = previewStage();
-    var names = childNames();
-    var siblings = app.querySelectorAll('.qlf-child').length;
-    var familySelect = app.querySelector('#family-type');
-    var returning = familySelect && familySelect.value === 'returning';
-    bubble.textContent = messageFor(stage, names, siblings, returning);
+  function refresh(){
+    if(app.querySelector('.qlf-done:not([hidden])')){
+      bubble.textContent='Looking good from here!';
+    } else {
+      bubble.textContent=(kind==='classes'||kind==='camps')?enrolMessage():simpleMessage();
+    }
   }
-
-  app.addEventListener('input', refresh);
-  app.addEventListener('change', refresh);
-  // The shared form owns step changes. Observe its accessible status updates,
-  // rather than modifying the form engine or inserting duplicate progress logic.
-  var status = document.getElementById('qlf-status');
-  if (status) {
-    new MutationObserver(refresh).observe(status, { childList: true, characterData: true, subtree: true });
-  }
-  // Adding or removing a sibling should update the greeting, too.
-  var children = document.getElementById('qlf-children');
-  if (children) {
-    new MutationObserver(refresh).observe(children, { childList: true });
-  }
+  app.addEventListener('input',refresh);
+  app.addEventListener('change',refresh);
+  var status=document.getElementById('qlf-status');
+  if(status)new MutationObserver(refresh).observe(status,{childList:true,characterData:true,subtree:true});
+  var children=document.getElementById('qlf-children');
+  if(children)new MutationObserver(refresh).observe(children,{childList:true});
   refresh();
 })();
