@@ -278,32 +278,17 @@
     width: 100%;
   }
 
-  /* The same 12px paper-to-paper gap works across all three cards. */
-  .footer-nav-cards { gap: 12px; }
+  /* Original mobile footer: full-width cards and large touch targets. */
   .footer-nav-cards .footer-nav-card {
-    width: 100%;
-    flex: none;
     height: auto;
-    min-height: 0;
+    min-height: 275px;
     padding-bottom: 40px;
   }
-  .footer-nav-cards .footer-nav-card .paper-bg {
-    top: 0;
-    height: 100%;
+  /* The Get making list needs the paper to begin above the heading. */
+  .footer-nav-cards .footer-nav-card:first-child .paper-bg {
+    top: 16px;
+    height: calc(100% - 16px);
   }
-  .footer-wide-links {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 18px;
-  }
-  .footer-wide-links .footer-card-links--explore {
-    grid-column: auto;
-    display: flex;
-  }
-  .footer-signup-block { display: block; }
-  .footer-signup-block > p { margin: 0 0 12px; }
-  .footer-signup-fields { flex-direction: column; align-items: stretch; }
-  .footer-signup-fields label { flex: none; }
-  .footer-signup-fields button { min-height: 44px; }
   .footer-nav-card h2 { font-size: 20px; }
   .footer-nav-cards .footer-card-links,
   .footer-nav-cards .footer-card-address {
@@ -386,7 +371,7 @@
   }
   .cardboard-page > .lab-footer {
     width: calc(100% - 16px);
-    margin: -24px auto 0; /* No-JS fallback for the newsletter paper overlap. */
+    margin: -85.3px auto 0; /* No-JS fallback; measured from links when JS runs. */
   }
 
   .lab-footer .country-ack {
