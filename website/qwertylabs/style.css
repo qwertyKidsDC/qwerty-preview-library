@@ -27,6 +27,7 @@
   --space-section: 52px;
   --nav-top-compensation: 10.27px;
   --link-squiggle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 
   /* Workshop-specific photographic effects */
   --scene-backdrop: #050A13;
@@ -40,14 +41,17 @@
 :root[data-brand="kids"] {
   --brand-accent: var(--color-green);
   --testimonial-panel-image: url("img/kids-green-panel-untaped-vtrim.svg");
+  --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%2392D644' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="adults"] {
   --brand-accent: var(--color-pink);
   --testimonial-panel-image: url("img/adults-pink-panel-untaped-vtrim.svg");
+  --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F66DC1' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="teens"] {
   --brand-accent: var(--color-orange);
   --testimonial-panel-image: url("img/teens-orange-panel-untaped-vtrim.svg");
+  --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23FF9029' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 /* Custom pointers are only for mouse/trackpad. Touch and text inputs remain native. */
@@ -1068,6 +1072,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   background-color: var(--color-blue);
   opacity: 1;
 }
+.footer-legal-links a:is(:hover, :focus-visible)::after {
+  background-color: var(--brand-accent);
+}
 /* Keep each section's navigation squiggle in its approved colour. */
 .navigation-group:not(.navigation-group--lab):not(.navigation-group--adults):not(.navigation-group--teens) a:is(:hover, :focus-visible)::after {
   background-color: var(--color-green);
@@ -1094,7 +1101,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 .footer-scene__content p a:is(:hover, :focus-visible),
 .subpage-section__copy p a:is(:hover, :focus-visible) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%234C69E3' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: var(--link-hover-squiggle);
 }
 
 /* Block-like page links retain the approved tight underline placement. */
@@ -1116,7 +1123,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-card-links a:is(:hover, :focus-visible)::after,
 .feature h2 a:is(:hover, :focus-visible)::after,
 .subpage-section__option a:is(:hover, :focus-visible)::after {
-  background-color: var(--color-blue);
+  background-color: var(--brand-accent);
 }
 
 .footer-nav-cards .footer-card-links a:is(:hover, :focus-visible)::after {
@@ -1128,10 +1135,10 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
-/* Artwork offsets follow Find us, Explore, Get making (their original SVGs). */
+/* Artwork offsets follow Find us, Get making, Explore. */
 .footer-nav-card:nth-child(1) .paper-bg { top: 11.33896%; height: 88.66104%; }
-.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
-.footer-nav-card:nth-child(3) .paper-bg { top: 11.76471%; height: 87.45098%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 11.76471%; height: 87.45098%; }
+.footer-nav-card:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
 
 /* 12. Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
