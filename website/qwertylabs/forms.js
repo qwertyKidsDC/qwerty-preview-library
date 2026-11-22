@@ -176,8 +176,9 @@
   function simpleMarkup() {
     if(kind==='interest-kids'||kind==='interest-teens'||kind==='interest')return interestMarkup();
     if(kind==='adult')return select('adult-interest','What are you interested in?',[
-        ['workshops','Practical workshops'],['mentoring','One-to-one mentoring'],
-        ['groups','A group session'],['projects','Help with a particular project']
+        ['studio','Studio workshops'],['online','Online workshops'],
+        ['mentoring','One-to-one mentoring'],['groups','Group sessions'],
+        ['projects','Help with a particular project']
       ],true) + nameFields('first','Your',true) +
       field('email','Email','email',true,'','autocomplete="email"') +
       field('phone','Mobile','tel',false,'','autocomplete="tel"') +
