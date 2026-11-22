@@ -23,8 +23,10 @@
 <link rel="stylesheet" href="mobile.css?v=20261122-trio-raised" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
     <script src="script.js?v=20261122-shared-css-contract" defer></script>
+    <script src="forms.js?v=20261122-forms-audit" defer></script>
+    <script src="form-little-lab.js?v=20261122-shared-messenger" defer></script>
   </head>
-  <body>
+  <body class="qll-prototype">
     <a class="skip" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
@@ -132,7 +134,7 @@
                 <div class="subpage-section__copy">
                   <p>Questions about classes, camps, mentoring or something you'd like to make? We'd love to hear from you.</p>
                   <p>Text us on <a href="sms:+61405950850">0405 950 850</a>. It's often the easiest way to reach us when we're teaching. You can <a href="tel:+61405950850">call</a> too.</p>
-                  <p>Prefer a form? <a href="https://qwertykids.com/contact-us/">Use our existing QwertyKids contact form</a> until the new one is ready.</p>
+                  <p>The form below is a design preview. Until launch, <a href="https://qwertykids.com/contact-us/">use our existing QwertyKids contact form</a> for real messages.</p>
                   <p>We don't have regular walk-in reception hours. Visits are by arrangement.</p>
                 </div>
                 <figure class="subpage-art subpage-art--counterclockwise">
@@ -142,6 +144,25 @@
                 </figure>
               </section>
 
+
+              <!-- Shared Little Lab inline form: design preview; no submission endpoint. -->
+              <section class="subpage-section subpage-section--natural-height qll-lab qll-lab__section" id="form-contact" aria-labelledby="form-contact-heading">
+                <img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="form-contact-heading">Write us</h2>
+                <div class="qll-lab__grid"><div class="subpage-section__copy qll-lab__form-column">
+                  <p class="qll-lab__intro">Questions, ideas, or something worth making together? <strong>We’re listening.</strong></p>
+                  <p class="qlf-preview-note" role="note">DESIGN PREVIEW — Nothing is sent or saved. Please use imaginary details.</p>
+                  <h3 class="qll-lab__form-title" id="qlf-title">Send a message</h3>
+                  <p class="qlf-hint">Fields marked * are required.</p>
+                  <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
+                  <div data-qlf-app data-form="contact"><noscript><p class="qlf-alert">This form needs JavaScript. For current enquiries, use the existing QwertyKids contact page.</p></noscript></div>
+                </div><aside class="qll-side" data-little-lab aria-label="A note from the Lab"><div class="qll-side__sticky">
+                  <figure class="qll-side__paper">
+                    <img class="qll-side__paper-bg" src="img/kids-blue-panel-untaped-vtrim.svg" alt="" aria-hidden="true">
+                    <blockquote class="qll-side__quote"><p class="qll-side__saying" data-lab-speech>Hello from the Lab. What’s on your mind?</p></blockquote>
+                    <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp" width="360" height="208" loading="lazy" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+                  </figure></div></aside></div>
+              </section>
               <section class="subpage-section" id="getting-here" aria-labelledby="getting-here-title">
                 <img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
                 <h2 class="subpage-section__heading" id="getting-here-title">GETTING HERE</h2>
