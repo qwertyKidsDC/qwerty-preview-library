@@ -31,15 +31,15 @@
     var children=app.querySelectorAll('.qlf-child').length;
     var family=app.querySelector('#family-type');
     var returning=family&&family.value==='returning';
-    if(step===3)return 'Almost there! Looking good from here.';
+    if(step===3)return 'Almost there!';
     if(step===2)return name ? 'Excitement! '+name+(a.length===1?' is':' are')+' on the way.'+(returning?' Back for more making!':'') :
       'The grown-ups have arrived. Nearly done!';
     if(step===1){
       if(!name)return returning?'Who is making things with us this time?':'Who is the young maker joining us?';
       if(a.length<children)return name+'! Who else is joining?';
-      if(returning)return (a.length===1?'It’s ':'')+name+'! Lovely to see your family again.';
+      if(returning)return (a.length===1?'It’s ':'')+name+'! '+(a.length===1?'Yay':a.length===2?'Double yay':'Triple yay')+', lovely to see your family again.';
       if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
-      return name+'! '+(a.length===2?'Double': 'Triple')+' yay, new makers to meet.';
+      return name+'! '+(a.length===2?'Double yay, two':'Triple yay, three')+' new makers to meet.';
     }
     return returning?'Ooh, a familiar family! Welcome back.':'Ooh, someone’s about to enrol.';
   }
