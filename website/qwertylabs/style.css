@@ -300,7 +300,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px 12px;
+  gap: 10px 18px;
   color: var(--color-ivory);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -397,19 +397,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   flex-direction: column;
   align-items: flex-start;
   padding: 7px 12px;
-  border-left: 3px solid var(--color-green);
   background: var(--color-ink);
   box-shadow: 0 8px 18px rgb(0 0 0 / .35);
-}
-.navigation-group--lab .navigation-submenu__links,
-.navigation-group--enrol .navigation-submenu__links {
-  border-left-color: var(--color-blue);
-}
-.navigation-group--adults .navigation-submenu__links {
-  border-left-color: var(--color-pink);
-}
-.navigation-group--teens .navigation-submenu__links {
-  border-left-color: var(--color-orange);
 }
 .navigation .navigation-submenu a {
   display: inline-block;
@@ -883,9 +872,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   font-size: var(--text-footer);
 }
 
-/* Three original blue paper cards, with shared heading and link styles. */
+/* Three approved blue papers grow together to accommodate four programme groups. */
 .footer-nav-cards .footer-nav-card {
-  height: 275px;
+  height: 340px;
   padding: 50px 32px 20px 34px;
 }
 
@@ -900,8 +889,15 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   gap: 3px;
   line-height: 1.35;
 }
-/* Enrol groups the two booking links beneath the audience links. */
-.footer-card-links > strong { margin-top: 10px; }
+/* Each audience has a title and two links on the next line. */
+.footer-card-links > div > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 5px;
+}
+.footer-card-links > div > strong { display: block; }
+.footer-card-links > div > div > span[aria-hidden="true"] { white-space: nowrap; }
 
 .footer-card-links a,
 .footer-legal-links a {
@@ -1132,10 +1128,10 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
-/* These artwork offsets follow the approved papers in their new order. */
-.footer-nav-card:nth-child(1) .paper-bg { top: 8.69565%; height: 90.94203%; }
-.footer-nav-card:nth-child(2) .paper-bg { top: 11.76471%; height: 87.45098%; }
-.footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
+/* Artwork offsets follow Find us, Explore, Get making (their original SVGs). */
+.footer-nav-card:nth-child(1) .paper-bg { top: 11.33896%; height: 88.66104%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(3) .paper-bg { top: 11.76471%; height: 87.45098%; }
 
 /* 12. Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
