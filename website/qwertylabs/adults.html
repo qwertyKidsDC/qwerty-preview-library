@@ -23,8 +23,10 @@
 <link rel="stylesheet" href="mobile.css?v=20261122-trio-raised" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
     <script src="script.js?v=20261122-shared-css-contract" defer></script>
+    <script src="forms.js?v=20261122-forms-audit" defer></script>
+    <script src="form-little-lab.js?v=20261122-shared-messenger" defer></script>
   </head>
-  <body>
+  <body class="qll-prototype">
     <a class="skip" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
@@ -205,6 +207,25 @@
                   <p>Real projects. Real tools. No requirement to become a developer first.</p>
                   <div class="subpage-section__option"><a href="https://qwertykids.com/contact-us/">Tell us what you're making</a></div>
                 </div>
+              </section>
+
+              <!-- Shared Little Lab inline form: design preview; no submission endpoint. -->
+              <section class="subpage-section subpage-section--natural-height qll-lab qll-lab__section" id="form-adult" aria-labelledby="form-adult-heading">
+                <img class="subpage-section__tape" src="img/footer-label-pink-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="form-adult-heading">Your idea</h2>
+                <div class="qll-lab__grid"><div class="subpage-section__copy qll-lab__form-column">
+                  <p class="qll-lab__intro">A project, a workshop or something you want to learn? <strong>Tell us what you have in mind.</strong></p>
+                  <p class="qlf-preview-note" role="note">DESIGN PREVIEW — Nothing is sent or saved. Please use imaginary details.</p>
+                  <h3 class="qll-lab__form-title" id="qlf-title">Workshops and mentoring</h3>
+                  <p class="qlf-hint">Fields marked * are required.</p>
+                  <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
+                  <div data-qlf-app data-form="adult"><noscript><p class="qlf-alert">This form needs JavaScript. For current enquiries, use the existing QwertyKids contact page.</p></noscript></div>
+                </div><aside class="qll-side" data-little-lab aria-label="A note from the Lab"><div class="qll-side__sticky">
+                  <figure class="qll-side__paper">
+                    <img class="qll-side__paper-bg" src="img/kids-pink-panel-untaped-vtrim.svg" alt="" aria-hidden="true">
+                    <blockquote class="qll-side__quote"><p class="qll-side__saying" data-lab-speech>Grown-up makers welcome. Yes, really.</p></blockquote>
+                    <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp" width="360" height="208" loading="lazy" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+                  </figure></div></aside></div>
               </section>
             </section>
             <!-- Footer navigation, useful links and studio contact details -->
