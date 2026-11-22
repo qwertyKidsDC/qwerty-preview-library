@@ -295,6 +295,8 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
   }
+  .footer-signup-block { display: block; }
+  .footer-signup-block > p { margin: 0 0 12px; }
   .footer-signup-fields { flex-direction: column; align-items: stretch; }
   .footer-signup-fields label { flex: none; }
   .footer-signup-fields button { min-height: 44px; }
