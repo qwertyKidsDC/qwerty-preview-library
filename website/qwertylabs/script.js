@@ -51,6 +51,10 @@
   if (adultInterest) adultInterest.setAttribute('href', 'adults.html#form-adult');
 
   if (/(form-classes|form-camps)\.html$/.test(location.pathname)) {
+    nav.querySelectorAll('.navigation-current, [aria-current="page"]').forEach(el => {
+      el.classList.remove('navigation-current');
+      el.removeAttribute('aria-current');
+    });
     enrol.querySelector('.navigation-menu-label').classList.add('navigation-current');
   }
   const groups = [...nav.querySelectorAll('.navigation-group')];
@@ -112,7 +116,7 @@
     });
     if (parent.matches('.navigation-menu-label')) {
       parent.addEventListener('click', () => {
-        if (!mobileViewport.matches) setOpen(group, !group.classList.contains('is-open'));
+        if (!mobileViewport.matches) setOpen(group, true);
       });
     }
     group.addEventListener('focusin', () => {
