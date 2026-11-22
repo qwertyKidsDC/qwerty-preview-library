@@ -893,7 +893,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   /* Leave breathing room below the irregular painted upper edge. */
   padding: 78px 32px 30px 34px;
 }
- .footer-nav-cards .footer-nav-card--wide { flex-grow: 2; }
+.footer-nav-cards .footer-nav-card--wide { flex-grow: 2; }
 .footer-nav-cards .footer-nav-card--newsletter {
   flex: 0 0 100%;
   min-height: 0;
@@ -907,7 +907,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   gap: 16px;
 }
 .footer-wide-links .footer-card-links { gap: 5px; }
- .footer-signup-block {
+.footer-signup-block {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.8fr);
   grid-template-areas: "heading form" "copy form";
@@ -1660,7 +1660,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
    Controls and desktop geometry live here; phone-only changes in mobile.css.
    Preview forms never transmit or store information. */
 .qlf-main { position:relative; z-index:3; margin:54px auto 60px; width:min(1080px,calc(100% - 52px)); }
-.qlf-preview-note { margin:0 0 15px; padding:10px 16px; background:var(--color-orange); color:var(--color-ink); font-size:14px; font-weight:700; }
 .qlf-shell { display:grid; grid-template-columns:minmax(0,.88fr) minmax(0,1.16fr); background:var(--color-ivory); box-shadow:10px 10px 0 var(--color-ink); color:var(--color-ink); }
 .qlf-aside { background:var(--color-ink); color:var(--color-ivory); padding:38px 34px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; min-width:0; }
 .qlf-aside__eyebrow { margin:0 0 28px; color:var(--brand-accent); font-size:14px; font-weight:700; letter-spacing:.04em; }
