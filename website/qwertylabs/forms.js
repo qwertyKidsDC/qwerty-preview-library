@@ -133,7 +133,7 @@
       '<button type="button" class="qlf-quiet-button" id="qlf-remove-child" hidden>Remove last child</button></div></section>' +
       grownups() +
       '<section class="qlf-step" data-step="3" hidden><h3 class="qlf-step-title">Check the details</h3>' +
-      '<div id="qlf-review"></div><p class="qlf-hint">Design preview only. No information will be sent, saved or booked.</p></section>' +
+      '<div id="qlf-review"></div></section>' +
       '<div class="qlf-actions"><button type="button" class="qlf-quiet-button" id="qlf-back" hidden>Back</button>' +
       '<button type="button" class="qlf-submit" id="qlf-next">Next: children →</button></div>';
   }
@@ -201,12 +201,12 @@
 
   form.innerHTML='<p class="qlf-alert" id="qlf-error" role="alert" tabindex="-1" hidden></p>' +
     (enrolment ? enrolmentMarkup() : simpleMarkup() +
-      '<button type="submit" class="qlf-submit">Finish design preview →</button>');
+      '<button type="submit" class="qlf-submit">Finish preview →</button>');
   host.appendChild(form);
   var done=document.createElement('div');
   done.className='qlf-done';
   done.hidden=true;
-  done.innerHTML='<h3>Looking good!</h3><p>This is a design preview. Nothing has been sent, saved, booked or paid for.</p>' +
+  done.innerHTML='<h3>Preview complete</h3><p>Nothing was submitted.</p>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
   host.appendChild(done);
 
