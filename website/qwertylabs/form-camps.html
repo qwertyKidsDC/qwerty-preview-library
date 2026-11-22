@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-AU" data-brand="kids" data-layout="subpage">
+<html lang="en-AU" data-brand="lab" data-layout="subpage">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,11 +7,8 @@
     <meta name="robots" content="noindex,nofollow">
     <meta name="theme-color" content="#020020">
     <link rel="icon" type="image/png" href="img/favicon-d1.png">
-    <meta
-      name="description"
-      content="Request Qwerty Labs creative technology school holiday camps for ages 7–17 in Marrickville. Design preview."
-    >
-    <title>Holiday camp enrolment — Qwerty Labs (preview)</title>
+    <meta name="description" content="Preview the Qwerty Labs holiday camp enrolment form for children and teens aged 7–17.">
+    <title>Holiday camp enrolment — Qwerty Labs (design preview)</title>
     <!-- Approved typefaces and the single site stylesheet. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,9 +20,10 @@
 <link rel="stylesheet" href="mobile.css?v=20261122-trio-raised" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
     <script src="script.js?v=20261122-shared-css-contract" defer></script>
-    <script src="forms.js?v=20261121-preview" defer></script>
+    <script src="forms.js?v=20261122-forms-audit" defer></script>
+    <script src="form-little-lab.js?v=20261122-shared-messenger" defer></script>
   </head>
-  <body data-form="camps">
+  <body class="qll-prototype" data-form="camps">
     <a class="skip" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
@@ -43,11 +41,11 @@
         <div class="cardboard-page" id="top">
           <header class="header">
             <a href="index.html" class="logo" aria-label="Qwerty Labs home">
-              <img src="img/wordmark-labs-green.svg" alt="Qwerty Labs" width="440" height="101">
+              <img src="img/wordmark.svg?v=warm-ivory-20261102" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
               <div class="navigation-group">
-                <a href="kids.html" class="navigation-current">Kids</a>
+                <a href="kids.html">Kids</a>
                 <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
                 <div class="navigation-submenu" id="nav-kids">
                   <div class="navigation-submenu__links">
@@ -79,14 +77,14 @@
                 </div>
               </div>
               <div class="navigation-group navigation-group--lab">
-                <a href="thelab.html">The Lab</a>
+                <a href="thelab.html" class="navigation-current">The Lab</a>
                 <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
                 <div class="navigation-submenu" id="nav-lab">
                   <div class="navigation-submenu__links">
                     <a href="thelab.html">The Lab overview</a>
                     <a href="project-code-cloud.html">Projects</a>
                     <a href="tools.html">Kit &amp; Code</a>
-                    <a href="a-kids-pov.html">A Kid's POV</a>
+                    <a href="a-kids-pov.html" aria-current="page">A Kid's POV</a>
                     <a href="contact.html">Contact</a>
                   </div>
                 </div>
@@ -94,23 +92,75 @@
             </nav>
           </header>
 
-          <main id="main" class="qlf-main">
-            <p class="qlf-preview-note">DESIGN PREVIEW — No submission, booking, payment or data storage is active. Please don't enter real personal details.</p>
-            <div class="qlf-shell">
-              <aside class="qlf-aside" aria-label="About this form">
-                <div><p class="qlf-aside__eyebrow">QWERTY LABS / KIDS</p>
-                <p class="qlf-aside-title">Make a day of it</p><p>Games, robots, electronics and whatever brilliant ideas arrive next. Ages 7–17.</p>
-                <p><strong>We're listening.</strong></p></div>
-                <svg class="qlf-aside__art" viewBox="0 0 320 215" aria-hidden="true" focusable="false"><path d="M18 172 C65 170 60 68 120 89 S220 175 285 38" stroke="#F7F4EB" stroke-width="3" stroke-dasharray="7 9" stroke-linecap="round" fill="none"/><rect x="38" y="27" width="86" height="76" rx="8" fill="#92D644" transform="rotate(-12 81 65)"/><rect x="59" y="47" width="48" height="4" rx="2" fill="#020020" transform="rotate(-12 81 65)"/><rect x="59" y="59" width="34" height="4" rx="2" fill="#020020" transform="rotate(-12 81 65)"/><circle cx="206" cy="110" r="48" fill="#F66DC1"/><path d="M189 107 l13 13 22 -27" fill="none" stroke="#020020" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="115" y="149" width="72" height="47" rx="8" fill="#FF9029" transform="rotate(11 151 172)"/><path d="M143 157 v23 M131 169 h24" stroke="#020020" stroke-width="5" stroke-linecap="round" transform="rotate(11 151 172)"/><path d="M262 15 l7 -12 M276 29 l17 -6 M263 37 l12 14" stroke="#92D644" stroke-width="5" stroke-linecap="round"/><circle cx="26" cy="123" r="6" fill="#4C69E3"/></svg>
-                <p class="qlf-aside__footer"><strong>Made in Marrickville.</strong><br>For people who like making things.</p>
-              </aside>
-              <div class="qlf-pane"><p class="qlf-kicker">HOLIDAY CAMPS</p>
-                <h1 id="qlf-title">Camp enrolment</h1>
-                <p class="qlf-intro">Tell us which holidays and days you’re considering. Availability is confirmed separately. Fields marked * are required.</p>
-                <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div><div data-qlf-app><noscript><p class="qlf-alert">JavaScript is needed to explore this form preview.</p></noscript></div>
-                <nav class="qlf-links" aria-label="Form links"><a href="forms-preview.html">All form previews</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav>
-              </div>
-            </div>
+          <main id="main">
+  <section class="hero" aria-label="Holiday camp enrolment">
+    <div class="hero-copy"><div class="hero-paper"><img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high"><h1><span class="hero-title">camps</span><span class="hero-tagline">holiday making</span></h1></div>    <nav class="subpage-hero-links" aria-label="Programme links"><span>For curious young makers aged 7–17. <a class="scene-link" href="coding-camp.html">See the programme</a>.</span></nav></div>
+    <img class="mascots" src="img/qwerty-labs-mascots-led-electronics.webp" width="1240" height="955" alt="Q Key, Six Pin and D1 making electronics together" fetchpriority="high">
+  </section>
+  <section class="subpage-board qll-lab" id="enrol" aria-label="Holiday camp enrolment design preview">
+    <section class="subpage-section subpage-section--natural-height qll-lab__section" aria-labelledby="enrol-heading">
+      <img class="subpage-section__tape" src="img/footer-blue-tape-vtrim.svg" alt="">
+      <h2 class="subpage-section__heading" id="enrol-heading">Join in</h2>
+      <div class="qll-lab__grid"><div class="subpage-section__copy qll-lab__form-column">
+        <p class="qlf-preview-note" role="note">DESIGN PREVIEW ONLY — No details are sent, saved or booked. Please use imaginary information.</p>
+        <p class="qll-lab__intro">Choose the days you have in mind, then tell us who is coming. <strong>The Lab has a few thoughts as you go.</strong></p>
+        <h3 class="qll-lab__form-title" id="qlf-title">Holiday camp enrolment</h3>
+        <p class="qlf-hint">Fields marked * are required. Payment is not taken during enrolment.</p>
+        <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
+        <div data-qlf-app data-form="camps"><noscript><p class="qlf-alert">This preview requires JavaScript. For current bookings, use the existing QwertyKids form linked from the programme overview.</p></noscript></div>
+        <p class="qll-lab__other">Want the programme details? <a href="coding-camp.html">Read about holiday camps</a>.</p>
+      </div><aside class="qll-side" data-little-lab aria-label="A note from the Lab"><div class="qll-side__sticky"><figure class="qll-side__paper">
+        <img class="qll-side__paper-bg" src="img/kids-blue-panel-untaped-vtrim.svg" alt="" aria-hidden="true">
+        <blockquote class="qll-side__quote"><p class="qll-side__saying" data-lab-speech>Ooh, someone’s about to enrol.</p></blockquote>
+        <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp" width="360" height="208" loading="eager" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+      </figure></div></aside></div>
+    </section>
+  </section>
+
+  <!-- Footer navigation, useful links and studio contact details -->
+            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-join-title">Get making</h2>
+                <nav class="footer-card-links" aria-label="Programs by age group">
+                  <div>
+                    <strong><a href="kids.html">Kids</a></strong>
+                    <div><a href="kids-coding-classes.html" aria-label="Kids weekly classes">Weekly classes</a><span aria-hidden="true"> · </span><a href="coding-camp.html" aria-label="Kids holiday camps">Holiday camps</a></div>
+                  </div>
+                  <div>
+                    <strong><a href="teens.html">Teens</a></strong>
+                    <div><a href="teens.html#teen-studio" aria-label="Teens weekly classes">Weekly classes</a><span aria-hidden="true"> · </span><a href="teens.html#teen-camps" aria-label="Teens holiday camps">Holiday camps</a></div>
+                  </div>
+                  <div>
+                    <strong><a href="adults.html">Adults</a></strong>
+                    <div><a href="adults.html#workshops" aria-label="Adult workshops">Workshops</a><span aria-hidden="true"> · </span><a href="adults.html#online-mentoring" aria-label="Adult mentoring">Mentoring</a></div>
+                  </div>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <a href="index.html">Home</a>
+                  <a href="project-code-cloud.html">Projects</a>
+                  <a href="tools.html">Kit &amp; Code</a>
+                  <a href="thelab.html">The Lab</a>
+                  <a href="a-kids-pov.html">A Kid's POV</a>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find us</h2>
+                <div class="footer-card-links">
+                  <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">create@qwertylabs.com.au</span>
+                  <a href="contact.html">Contact</a>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Directions</a>
+                </div>
+              </section>
+            </section>
           </main>
 
           <!-- Acknowledgement of Country and policies -->
@@ -118,14 +168,14 @@
             <section class="country-ack" aria-labelledby="country-ack-heading">
               <h2 id="country-ack-heading">Acknowledgement of Country</h2>
               <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-              <img class="country-ack__mascot" src="img/kids-footer-mascot.webp" alt="" width="110" height="110" loading="lazy" decoding="async">
+              <img class="country-ack__mascot" src="img/mascot-ready/MS04-R04-C04-transparent.webp" alt="" width="245" height="160" loading="lazy" decoding="async">
             </section>
             <!-- The studio signature follows the left guide; policies follow the right. -->
             <div class="footer-legal">
               <div class="footer-legal-signature">
                 <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
                 <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
-                  <img src="img/wordmark-labs-green.svg" alt="" width="2013" height="460">
+                  <img src="img/wordmark.svg?v=warm-ivory-20261102" alt="" width="2013" height="460">
                 </a>
                 <span class="footer-legal-separator" aria-hidden="true">|</span>
                 <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
