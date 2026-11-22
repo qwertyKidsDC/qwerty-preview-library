@@ -278,18 +278,21 @@
     width: 100%;
   }
 
-  /* Mobile footer: readable, finger-sized rows instead of tiny inline links.
-     Keep all colours, paper artwork and desktop rules in style.css. */
+  /* Two approved blue footer cards stack naturally on phones. */
   .footer-nav-cards .footer-nav-card {
+    width: 100%;
+    flex: none;
     height: auto;
-    min-height: 275px;
+    min-height: 0;
     padding-bottom: 40px;
   }
-  /* The tall Get making list needs its painted paper to begin above the title. */
-  .footer-nav-cards .footer-nav-card:first-child .paper-bg {
-    top: 16px;
-    height: calc(100% - 16px);
+  .footer-wide-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
   }
+  .footer-signup-fields { flex-direction: column; align-items: stretch; }
+  .footer-signup-fields label { flex: none; }
+  .footer-signup-fields button { min-height: 44px; }
   .footer-nav-card h2 { font-size: 20px; }
   .footer-nav-cards .footer-card-links,
   .footer-nav-cards .footer-card-address {
