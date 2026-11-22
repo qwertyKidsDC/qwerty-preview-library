@@ -23,8 +23,37 @@
    Without JavaScript, the top-level links remain visible on mobile. */
 (() => {
   const nav = document.querySelector('.navigation');
-  const groups = [...document.querySelectorAll('.navigation-group')];
-  if (!nav || !groups.length) return;
+  if (!nav) return;
+
+  // One shared Enrol menu for the two dedicated form pages.
+  const enrol = document.createElement('div');
+  enrol.className = 'navigation-group navigation-group--enrol';
+  enrol.innerHTML =
+    '<button class="navigation-menu-label" type="button" aria-expanded="false" aria-controls="nav-enrol">Enrol</button>' +
+    '<button class="navigation-toggle" type="button" aria-label="Show Enrol pages" aria-expanded="false" aria-controls="nav-enrol"></button>' +
+    '<div class="navigation-submenu" id="nav-enrol"><div class="navigation-submenu__links">' +
+      '<a href="form-classes.html">Weekly classes</a>' +
+      '<a href="form-camps.html">Holiday camps</a>' +
+    '</div></div>';
+  nav.appendChild(enrol);
+
+  const about = {
+    'Kids overview': 'About Kids',
+    'Adults overview': 'About Adults',
+    'Teens overview': 'About Teens',
+    'The Lab overview': 'About the Lab'
+  };
+  nav.querySelectorAll('.navigation-submenu__links a').forEach(link => {
+    const label = link.textContent.trim();
+    if (about[label]) link.textContent = about[label];
+  });
+  const adultInterest = nav.querySelector('.navigation-group--adults .navigation-submenu__links a:last-child');
+  if (adultInterest) adultInterest.setAttribute('href', 'adults.html#form-adult');
+
+  if (/(form-classes|form-camps)\.html$/.test(location.pathname)) {
+    enrol.querySelector('.navigation-menu-label').classList.add('navigation-current');
+  }
+  const groups = [...nav.querySelectorAll('.navigation-group')];
 
   const menuButton = document.createElement('button');
   menuButton.type = 'button';
@@ -46,6 +75,8 @@
         .setAttribute('aria-expanded', String(expanded));
       group.querySelector('.navigation-mobile-heading')
         .setAttribute('aria-expanded', String(expanded));
+      const label = group.querySelector('.navigation-menu-label');
+      if (label) label.setAttribute('aria-expanded', String(expanded));
     }
   };
   const setMenuOpen = show => {
@@ -61,7 +92,8 @@
 
   for (const group of groups) {
     const toggle = group.querySelector('.navigation-toggle');
-    const parent = group.querySelector(':scope > a');
+    const parent = group.querySelector(':scope > a, :scope > .navigation-menu-label');
+    if (!parent || !toggle) continue;
     const mobileHeading = document.createElement('button');
     mobileHeading.type = 'button';
     mobileHeading.className = 'navigation-mobile-heading';
@@ -77,6 +109,14 @@
     });
     toggle.addEventListener('click', () => {
       setOpen(group, !group.classList.contains('is-open'));
+    });
+    if (parent.matches('.navigation-menu-label')) {
+      parent.addEventListener('click', () => {
+        if (!mobileViewport.matches) setOpen(group, !group.classList.contains('is-open'));
+      });
+    }
+    group.addEventListener('focusin', () => {
+      if (!mobileViewport.matches) setOpen(group, true);
     });
     group.addEventListener('mouseenter', () => {
       if (!mobileViewport.matches && canHover.matches) setOpen(group, true);
@@ -106,7 +146,7 @@
     if (opened) {
       setOpen(null, false);
       opened.querySelector(mobileViewport.matches
-        ? '.navigation-mobile-heading' : '.navigation-toggle').focus();
+        ? '.navigation-mobile-heading' : ':scope > a, :scope > .navigation-menu-label').focus();
     } else if (nav.classList.contains('is-menu-open')) {
       setMenuOpen(false);
       menuButton.focus();
