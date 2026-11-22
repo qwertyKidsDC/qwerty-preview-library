@@ -148,9 +148,9 @@
     if (event.key !== 'Escape') return;
     const opened = groups.find(group => group.classList.contains('is-open'));
     if (opened) {
-      setOpen(null, false);
       opened.querySelector(mobileViewport.matches
         ? '.navigation-mobile-heading' : ':scope > a, :scope > .navigation-menu-label').focus();
+      setOpen(null, false);
     } else if (nav.classList.contains('is-menu-open')) {
       setMenuOpen(false);
       menuButton.focus();
