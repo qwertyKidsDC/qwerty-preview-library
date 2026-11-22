@@ -495,36 +495,3 @@
   mascot.src = 'img/footer-rotation/' + selected + '.svg';
 })();
 
-
-/* One footer newsletter preview for every Qwerty Labs page.
-   This is not a live subscription: no endpoint, storage or external service. */
-(() => {
-  const footer = document.querySelector('.lab-footer');
-  const legal = footer && footer.querySelector('.footer-legal');
-  if (!legal || footer.querySelector('#newsletter')) return;
-
-  const section = document.createElement('section');
-  section.id = 'newsletter';
-  section.className = 'qlf-footer-signup';
-  section.setAttribute('aria-labelledby', 'newsletter-heading');
-  section.innerHTML = '<h2 id="newsletter-heading">Occasional news from the Lab</h2>' +
-    '<p>New programmes, things we have made and other good ideas. Only when there is something to say.</p>' +
-    '<form class="qlf-form" novalidate aria-label="Newsletter signup design preview">' +
-      '<div class="qlf-grid">' +
-        '<div class="qlf-field"><label for="newsletter-first">First name *</label><input id="newsletter-first" name="first" type="text" autocomplete="given-name" required></div>' +
-        '<div class="qlf-field"><label for="newsletter-last">Last name *</label><input id="newsletter-last" name="last" type="text" autocomplete="family-name" required></div>' +
-        '<div class="qlf-field"><label for="newsletter-email">Email *</label><input id="newsletter-email" name="email" type="email" autocomplete="email" required></div>' +
-      '</div>' +
-      '<label class="qlf-choice"><input type="checkbox" name="consent" required><span>Yes, I want Qwerty Labs emails. I can unsubscribe any time.</span></label>' +
-      '<button type="submit" class="qlf-submit">Preview signup →</button>' +
-      '<p class="qlf-hint" role="status" aria-live="polite">Design preview only. Nothing will be subscribed or saved. Please use imaginary details.</p>' +
-    '</form>';
-  legal.before(section);
-  const form = section.querySelector('form');
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    section.querySelector('[role="status"]').textContent =
-      'Looking good! This is a design preview; no subscription has been created.';
-  });
-})();
