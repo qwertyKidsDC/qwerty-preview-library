@@ -68,7 +68,7 @@
     min-height: 44px;
     padding: 8px 10px;
   }
-  .navigation-toggle { width: 44px; height: 44px; }
+  .navigation-group > .navigation-toggle { display: inline-flex; width: 44px; height: 44px; }
   .navigation-submenu,
   .navigation-group--lab .navigation-submenu {
     position: static;
@@ -88,6 +88,7 @@
   /* One full-row button opens the submenu; overview remains inside.
      Without JavaScript the original link and chevron remain usable. */
   .has-mobile-menu .navigation-group > a,
+  .has-mobile-menu .navigation-group > .navigation-menu-label,
   .has-mobile-menu .navigation-group > .navigation-toggle { display: none; }
   .has-mobile-menu .navigation-mobile-heading {
     display: flex;
