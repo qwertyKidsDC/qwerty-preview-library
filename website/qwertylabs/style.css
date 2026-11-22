@@ -1719,12 +1719,3 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 body.qll-prototype .site,
 body.qll-prototype .cardboard-page { overflow:clip; }
 
-
-/* Newsletter is in the shared footer, not another page or card variant.
-   Reuse the Qwerty form controls; only the footer placement and contrast differ. */
-.qlf-footer-signup { margin:32px 0 0; padding:24px 0 0; border-top:1px dashed rgba(247,244,235,.55); }
-.qlf-footer-signup h2 { margin:0 0 8px; font-size:var(--text-card); }
-.qlf-footer-signup > p { margin:0 0 15px; line-height:1.5; }
-.qlf-footer-signup .qlf-grid { grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:12px; }
-.qlf-footer-signup .qlf-form label:not(.qlf-choice), .qlf-footer-signup .qlf-choice, .qlf-footer-signup .qlf-hint { color:var(--color-ivory); }
-.qlf-footer-signup .qlf-submit { width:auto; margin:10px 0 8px; background:var(--color-blue); color:var(--color-ivory); }
