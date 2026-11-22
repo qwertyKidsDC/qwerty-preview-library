@@ -48,6 +48,23 @@
       '><legend>' + legend + (required ? ' *' : '') + '</legend>' +
       values.map(function (v,i) { return checkbox(id + '-' + i, v, false); }).join('') + '</fieldset>';
   }
+  function campDays() {
+    var dates = [
+      ['2027-01-12','Tuesday 12 January'], ['2027-01-13','Wednesday 13 January'],
+      ['2027-01-14','Thursday 14 January'], ['2027-01-15','Friday 15 January'],
+      ['2027-01-18','Monday 18 January'], ['2027-01-19','Tuesday 19 January'],
+      ['2027-01-20','Wednesday 20 January'], ['2027-01-21','Thursday 21 January'],
+      ['2027-01-27','Wednesday 27 January'], ['2027-01-28','Thursday 28 January'],
+      ['2027-01-29','Friday 29 January']
+    ];
+    return '<fieldset class="qlf-fieldset" data-group="camp-days" data-required="true">' +
+      '<legend>Summer camp days — January 2027 *</legend>' +
+      '<p class="qlf-hint">Choose all the days you would like. We confirm availability separately.</p>' +
+      dates.map(function (date) {
+        return '<label class="qlf-choice"><input type="checkbox" name="camp-days" value="' + date[0] +
+          '"><span>' + date[1] + '</span></label>';
+      }).join('') + '</fieldset>';
+  }
   function newsletter() {
     return '<fieldset class="qlf-fieldset"><legend>Occasional studio news</legend>' +
       checkbox('newsletter-opt-in','Yes, send me occasional Qwerty Labs news. I can unsubscribe any time.',false) + '</fieldset>';
@@ -83,8 +100,7 @@
         ['new','No, new family'],['returning','Yes, returning family']
       ],true,'We recognise returning families by the details you provide. Previous records are checked manually.') +
       (isCamp ?
-        field('camp-days','Which upcoming camp days would you like?','textarea',true,
-          'List the dates you are interested in. We will check availability; dates are not automatically booked.') +
+        campDays() +
         yesNo('extended-hours','Would you like extended hours (8 am–5:30 pm)?',false) :
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
@@ -271,7 +287,9 @@
       }).join(', ')],
       ['Primary contact',form.querySelector('#parent-first').value+' '+form.querySelector('#parent-last').value],
       ['Mobile',form.querySelector('#parent-phone').value],
-      ['Requested',isCamp?form.querySelector('#camp-days').value:form.querySelector('#class-time').selectedOptions[0].textContent]
+      ['Requested',isCamp?Array.prototype.map.call(form.querySelectorAll('input[name="camp-days"]:checked'),function(box){
+        return box.parentElement.querySelector('span').textContent;
+      }).join(', '):form.querySelector('#class-time').selectedOptions[0].textContent]
     ];
     items.forEach(function(item){
       var p=document.createElement('p'),b=document.createElement('strong');
