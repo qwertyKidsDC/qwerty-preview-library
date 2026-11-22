@@ -300,7 +300,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px 20px;
+  gap: 10px 12px;
   color: var(--color-ivory);
   font-size: var(--text-ui);
   font-weight: 700;
@@ -320,7 +320,21 @@
 .mobile-menu-toggle,
 .navigation-mobile-heading { display: none; }
 
-/* Shared one-level navigation: parent links stay usable; chevrons open subpages. */
+/* Desktop menus open on hover and keyboard focus; no desktop chevrons. */
+.navigation-group > .navigation-toggle { display: none; }
+.navigation-menu-label {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-shadow: 0 2px 7px #000;
+  cursor: pointer;
+}
+.navigation-menu-label:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 5px; }
+/* Shared one-level navigation: mobile uses the same dropdowns. */
 .navigation-group {
   position: relative;
   display: inline-flex;
@@ -368,7 +382,10 @@
   opacity: 0;
   pointer-events: none;
 }
-.navigation-group--lab .navigation-submenu { left: auto; right: 0; }
+.navigation-group--lab .navigation-submenu,
+.navigation-group--enrol .navigation-submenu { left: auto; right: 0; }
+.navigation-group:hover .navigation-submenu,
+.navigation-group:focus-within .navigation-submenu,
 .navigation-group.is-open .navigation-submenu {
   visibility: visible;
   opacity: 1;
@@ -383,7 +400,8 @@
   background: var(--color-ink);
   box-shadow: 0 8px 18px rgb(0 0 0 / .35);
 }
-.navigation-group--lab .navigation-submenu__links {
+.navigation-group--lab .navigation-submenu__links,
+.navigation-group--enrol .navigation-submenu__links {
   border-left-color: var(--color-blue);
 }
 .navigation-group--adults .navigation-submenu__links {
