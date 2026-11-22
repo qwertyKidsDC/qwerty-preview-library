@@ -159,14 +159,16 @@
   mobileViewport.addEventListener('change', () => setMenuOpen(false));
 })();
 
-/* Shared two-card footer. Original static links remain available without JS. */
+/* Three shared paper cards: location and links above a full-width newsletter. */
 (() => {
   const cards = document.querySelector('.footer-nav-cards');
   if (!cards) return;
   const find = cards.querySelector('#footer-find-title')?.closest('.footer-nav-card');
   const wide = cards.querySelector('#footer-join-title')?.closest('.footer-nav-card');
+  const newsletterCard = cards.querySelector('#footer-explore-title')?.closest('.footer-nav-card');
   const paper = wide?.querySelector('.paper-bg');
-  if (!find || !wide || !paper) return;
+  const newsletterPaper = newsletterCard?.querySelector('.paper-bg');
+  if (!find || !wide || !paper || !newsletterPaper) return;
 
   wide.classList.add('footer-nav-card--wide');
   const content = document.createElement('div');
@@ -199,19 +201,24 @@
           '<label>Email * <input name="email" type="email" autocomplete="off" required></label>',
           '<button type="submit">Sign up</button>',
         '</div>',
-        '<p class="footer-signup-status" role="status" aria-live="polite">Design preview only. Nothing is sent or saved. Please use imaginary details.</p>',
+        '<p class="footer-signup-status" role="status" aria-live="polite" hidden></p>',
       '</form>',
     '</div>'
   ].join('');
+  const newsletter = content.querySelector('.footer-signup-block');
   wide.replaceChildren(paper, content);
-  cards.replaceChildren(find, wide);
+  newsletterCard.classList.add('footer-nav-card--newsletter');
+  newsletterCard.setAttribute('aria-labelledby', 'footer-newsletter-title');
+  newsletterCard.replaceChildren(newsletterPaper, newsletter);
+  cards.replaceChildren(find, wide, newsletterCard);
 
-  const signup = wide.querySelector('.footer-signup');
+  const signup = newsletterCard.querySelector('.footer-signup');
   signup.addEventListener('submit', event => {
     event.preventDefault();
     if (!signup.reportValidity()) return;
-    signup.querySelector('.footer-signup-status').textContent =
-      'This is a design preview. No subscription has been created.';
+    const status = signup.querySelector('.footer-signup-status');
+    status.hidden = false;
+    status.textContent = 'Signup is not connected yet.';
   });
 })();
 
@@ -388,7 +395,7 @@
   const cards = document.querySelector('.footer-nav-cards');
   if (!footer || !country || !page || !cards) return;
 
-  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-signup';
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-signup, .footer-nav-card--newsletter';
   let pending = false;
 
   const update = () => {
