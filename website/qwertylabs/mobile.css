@@ -278,8 +278,8 @@
     width: 100%;
   }
 
-  /* The footer cards can grow tall on phones; keep the rough
-     paper edge at a fixed offset so it cannot cover the headings. */
+  /* The same 12px paper-to-paper gap works across all three cards. */
+  .footer-nav-cards { gap: 12px; }
   .footer-nav-cards .footer-nav-card {
     width: 100%;
     flex: none;
@@ -288,12 +288,16 @@
     padding-bottom: 40px;
   }
   .footer-nav-cards .footer-nav-card .paper-bg {
-    top: 30px;
-    height: calc(100% - 30px);
+    top: 0;
+    height: 100%;
   }
   .footer-wide-links {
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
+  }
+  .footer-wide-links .footer-card-links--explore {
+    grid-column: auto;
+    display: flex;
   }
   .footer-signup-block { display: block; }
   .footer-signup-block > p { margin: 0 0 12px; }
