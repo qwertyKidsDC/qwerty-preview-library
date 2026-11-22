@@ -251,13 +251,17 @@
   }
 
   .photo-collage {
-    /* Follow About the Lab in document flow; no fixed vertical offset. */
-    position: relative;
-    top: auto;
+    top: 328px;
     left: 0;
     width: min(550px, 100%);
     height: auto;
     aspect-ratio: 555/375;
+  }
+  /* On the homepage only, the photo follows About the Lab naturally.
+     Subpages retain their approved shared photo positioning. */
+  :where(html[data-layout="site"]) .projects .photo-collage {
+    position: relative;
+    top: auto;
     margin: 25px 0 18px;
   }
 
@@ -362,7 +366,7 @@
   }
 
   /* Small, consistent gap between the collage and footer cards on mobile. */
-  .projects + .small-cards {
+  :where(html[data-layout="site"]) .projects + .small-cards {
     margin-top: 30px;
   }
   .cardboard-page > .lab-footer {
