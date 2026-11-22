@@ -94,73 +94,91 @@ def desktop(browser, url, output):
         check(palette[key] == "rgb(2, 0, 32)", f"Use approved ink for {key}: {palette}")
     check(palette["input"] == "rgb(247, 244, 235)", f"Form inputs remain ivory: {palette}")
 
+    # A new family supplies children, birth month/year, contact, support and consent.
     page.locator("#family-type").select_option("new")
-    page.locator("#term").select_option("2027-t1")
-    page.locator("#preferred-class").select_option("sat9")
+    page.locator("#class-time").select_option("sat-9")
     page.locator("#qlf-next").click()
     page.locator("#child-0-first").fill("Frankie")
-    check("It’s Frankie! Yay, a new maker to meet." in page.locator("[data-lab-speech]").inner_text(), "Child-focused greeting")
+    check("It’s Frankie! Yay, a new maker to meet." in page.locator("[data-lab-speech]").inner_text(),
+          "Child-focused greeting")
     page.locator("#qlf-add-child").click()
-    check("Frankie! Who else is joining?" in page.locator("[data-lab-speech]").inner_text(), "Prompt for additional child")
+    check("Frankie! Who else is joining?" in page.locator("[data-lab-speech]").inner_text(),
+          "Prompt for additional child")
     page.locator("#child-1-first").fill("Maya")
-    check("Frankie and Maya! Double yay, two new makers to meet." in page.locator("[data-lab-speech]").inner_text(), "Both children's names in greeting")
-    page.locator("#child-1-last").fill("Example")
-    page.locator("#child-1-age").select_option("11")
-    page.locator("#child-1-experience").select_option("some")
-    page.locator("#child-1-session").select_option("sat9")
-    page.locator("#child-1-photo").select_option("no")
-    page.locator("#child-0-last").fill("Example")
-    page.locator("#child-0-age").select_option("9")
-    page.locator("#child-0-experience").select_option("new")
-    page.locator("#child-0-session").select_option("sat9")
-    page.locator("#child-0-photo").select_option("no")
+    check("Frankie and Maya! Double yay, two new makers to meet." in
+          page.locator("[data-lab-speech]").inner_text(), "Siblings in greeting")
+    for index in (0, 1):
+        p = f"#child-{index}-"
+        page.locator(p + "last").fill("Example")
+        page.locator(p + "month").select_option("6")
+        page.locator(p + "year").fill("2016")
+        page.locator(p + "experience").select_option("no")
     page.locator("#qlf-next").click()
-    check("Excitement! Frankie and Maya are on the way." in page.locator("[data-lab-speech]").inner_text(), "Both names carry through")
+    check("Excitement! Frankie and Maya are on the way." in
+          page.locator("[data-lab-speech]").inner_text(), "Child names carry through")
+
     page.locator("#parent-first").fill("Alex")
     page.locator("#parent-last").fill("Example")
     page.locator("#parent-email").fill("alex@example.invalid")
     page.locator("#parent-phone").fill("0400000000")
-    page.locator("#emergency-name").fill("Casey Example")
-    page.locator("#emergency-phone").fill("0411000000")
-    page.locator("#departure").select_option("no")
-    page.locator("#emergency-consent").check()
+    page.locator("#secondary-first").fill("Casey")
+    page.locator("#secondary-last").fill("Example")
+    page.locator("#secondary-phone").fill("0411000000")
+    page.locator("#secondary-email").fill("casey@example.invalid")
+    page.locator("#support-needed").select_option("no")
+    page.locator("#medication-needed").select_option("no")
+    page.locator("#medical-consent").check()
+    page.locator("#photos").select_option("no")
     page.locator("#terms-consent").check()
     page.locator("#qlf-next").click()
-    check(page.locator("[data-lab-speech]").inner_text() == "Almost there!", "Stage four dialogue")
+    check(page.locator("[data-lab-speech]").inner_text() == "Almost there!",
+          "Review-stage greeting")
     page.locator("#qlf-next").click()
-    check("Looking good from here!" in page.locator("[data-lab-speech]").inner_text(), "Playful final line")
-    check("Nothing has been sent" in page.locator(".qlf-done").inner_text(), "Completion must say no data sent")
+    check("Looking good from here!" in page.locator("[data-lab-speech]").inner_text(),
+          "Completion greeting")
+    check("Nothing has been sent" in page.locator(".qlf-done").inner_text(),
+          "Preview must state that no submission happened")
     check(not submissions, f"Prototype must never send POST requests: {submissions}")
     page.locator(".qll-lab").screenshot(path=str(output / "little-lab-desktop.png"), animations="disabled")
-    # Returning families get distinct dialogue; children may be new to Qwerty.
+
+    # Returning families supply only names, class preference and primary contact.
     page.reload(wait_until="domcontentloaded")
     page.locator("#family-type").select_option("returning")
-    check(page.locator("[data-lab-speech]").inner_text() == "Ooh, a familiar family! Welcome back.", "Returning family's stage one")
-    page.locator("#term").select_option("2027-t1")
-    page.locator("#preferred-class").select_option("sat9")
-    page.locator("#qlf-next").click()
-    check(page.locator("[data-lab-speech]").inner_text() == "Who’s making things with us this time?", "Returning family without child name")
-    page.locator("#child-0-first").fill("Frankie")
-    check(page.locator("[data-lab-speech]").inner_text() == "It’s Frankie! Yay, lovely to see your family again.", "One child, returning family")
-    page.locator("#qlf-add-child").click()
-    page.locator("#child-1-first").fill("Maya")
-    check(page.locator("[data-lab-speech]").inner_text() == "Frankie and Maya! Double yay, lovely to see your family again.", "Two children, returning family")
-    page.locator("#qlf-add-child").click()
-    page.locator("#child-2-first").fill("Luca")
-    check(page.locator("[data-lab-speech]").inner_text() == "Frankie, Maya and Luca! Triple yay, lovely to see your family again.", "Three children, returning family")
-    page.locator("#qlf-remove-child").click()
-    check(page.locator("[data-lab-speech]").inner_text() == "Frankie and Maya! Double yay, lovely to see your family again.", "Removed sibling updates greeting")
-    for number in (0, 1):
-        prefix = f"#child-{number}-"
-        page.locator(prefix + "last").fill("Example")
-        page.locator(prefix + "age").select_option("9")
-        page.locator(prefix + "experience").select_option("new")
-        page.locator(prefix + "session").select_option("sat9")
-        page.locator(prefix + "photo").select_option("no")
+    check(page.locator("[data-lab-speech]").inner_text() ==
+          "Ooh, a familiar family! Welcome back.", "Returning family's initial greeting")
+    page.locator("#class-time").select_option("sat-9")
     page.locator("#qlf-next").click()
     check(page.locator("[data-lab-speech]").inner_text() ==
-          "Excitement! Frankie and Maya are on the way. Back for more making!",
-          "Returning family's stage three")
+          "Who is making things with us this time?", "Ask returning family who is coming")
+    page.locator("#child-0-first").fill("Frankie")
+    check("It’s Frankie! Yay, lovely to see your family again." in
+          page.locator("[data-lab-speech]").inner_text(), "One returning child")
+    page.locator("#qlf-add-child").click()
+    page.locator("#child-1-first").fill("Maya")
+    check("Frankie and Maya! Double yay, lovely to see your family again." in
+          page.locator("[data-lab-speech]").inner_text(), "Two returning children")
+    page.locator("#qlf-add-child").click()
+    page.locator("#child-2-first").fill("Luca")
+    check("Frankie, Maya and Luca! Triple yay, lovely to see your family again." in
+          page.locator("[data-lab-speech]").inner_text(), "Three returning children")
+    page.locator("#qlf-remove-child").click()
+    check(page.locator("#child-0-month").is_disabled(),
+          "Returning family should not re-enter birth month")
+    for index in (0, 1):
+        page.locator(f"#child-{index}-last").fill("Example")
+    page.locator("#qlf-next").click()
+    check("Excitement! Frankie and Maya are on the way. Back for more making!" in
+          page.locator("[data-lab-speech]").inner_text(),
+          "Returning family's contacts-stage greeting")
+    page.locator("#parent-first").fill("Alex")
+    page.locator("#parent-last").fill("Example")
+    page.locator("#parent-phone").fill("0400000000")
+    check(page.locator("#secondary-email").is_disabled(),
+          "Secondary contact details must be skipped for returning families")
+    page.locator("#qlf-next").click()
+    check(page.locator(".qlf-step:not([hidden])").get_attribute("data-step") == "3",
+          "Returning-family journey reaches review without repeating records")
+    check(not submissions, "Returning preview must not submit information")
     context.close()
 
 
