@@ -132,7 +132,7 @@
       select('photos','May we use photos or video from the programme for Qwerty communications?',[
         ['yes','Yes'],['no','No']
       ],true) +
-      checkbox('terms-consent','I agree to the <a href="booking-terms.html" target="_blank" rel="noopener">Booking Terms</a> and acknowledge the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.',true) +
+      checkbox('terms-consent','I agree to the <a href="booking-terms.html">Booking Terms</a> and acknowledge the <a href="privacy.html">Privacy Policy</a>.',true) +
       referral() + newsletter() +
       '</div><div class="qlf-returning-only" hidden>' +
       field('changes','Anything changed since your last booking?','textarea',false,'For example contact, medical, support or collection details. We check existing records manually.') +
