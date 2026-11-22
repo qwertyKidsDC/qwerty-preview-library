@@ -1069,20 +1069,18 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation a:is(:hover, :focus-visible)::after,
 .navigation-menu-label:is(:hover, :focus-visible)::after,
 .footer-legal-links a:is(:hover, :focus-visible)::after {
-  background-color: var(--color-blue);
+  background-color: var(--brand-accent);
   opacity: 1;
 }
-.footer-legal-links a:is(:hover, :focus-visible)::after {
-  background-color: var(--brand-accent);
-}
-/* Keep each section's navigation squiggle in its approved colour. */
-.navigation-group:not(.navigation-group--lab):not(.navigation-group--adults):not(.navigation-group--teens) a:is(:hover, :focus-visible)::after {
+/* Home navigation identifies each audience by colour; within subpages,
+   every hover squiggle follows the current page's brand accent. */
+:root[data-layout="site"] .navigation-group:not(.navigation-group--lab):not(.navigation-group--adults):not(.navigation-group--teens):not(.navigation-group--enrol) a:is(:hover, :focus-visible)::after {
   background-color: var(--color-green);
 }
-.navigation-group--adults a:is(:hover, :focus-visible)::after {
+:root[data-layout="site"] .navigation-group--adults a:is(:hover, :focus-visible)::after {
   background-color: var(--color-pink);
 }
-.navigation-group--teens a:is(:hover, :focus-visible)::after {
+:root[data-layout="site"] .navigation-group--teens a:is(:hover, :focus-visible)::after {
   background-color: var(--color-orange);
 }
 
