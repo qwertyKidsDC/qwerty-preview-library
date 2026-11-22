@@ -216,7 +216,8 @@
   }
 
   .projects {
-    min-height: 675px;
+    /* Let the homepage photo determine the section height on phones. */
+    min-height: 0;
     /* The Meet the Lab label begins about 5px into this row. */
     margin: calc(var(--space-section) - 5px) 12px 0;
   }
@@ -250,11 +251,14 @@
   }
 
   .photo-collage {
-    top: 328px;
+    /* Follow About the Lab in document flow; no fixed vertical offset. */
+    position: relative;
+    top: auto;
     left: 0;
     width: min(550px, 100%);
     height: auto;
     aspect-ratio: 555/375;
+    margin: 25px 0 18px;
   }
 
   .small-cards {
@@ -357,9 +361,9 @@
     margin-top: 12px;
   }
 
-  /* Let the blue cards breathe after the Meet the Lab collage on mobile. */
+  /* Small, consistent gap between the collage and footer cards on mobile. */
   .projects + .small-cards {
-    margin-top: 46px;
+    margin-top: 30px;
   }
   .cardboard-page > .lab-footer {
     width: calc(100% - 16px);
