@@ -382,7 +382,7 @@
   }
   .cardboard-page > .lab-footer {
     width: calc(100% - 16px);
-    margin: -85.3px auto 0; /* No-JS fallback; measured from text when JS runs. */
+    margin: -24px auto 0; /* No-JS fallback for the newsletter paper overlap. */
   }
 
   .lab-footer .country-ack {
