@@ -159,89 +159,6 @@
   mobileViewport.addEventListener('change', () => setMenuOpen(false));
 })();
 
-/* Three shared paper cards: location and links above a full-width newsletter. */
-(() => {
-  const cards = document.querySelector('.footer-nav-cards');
-  if (!cards) return;
-  const find = cards.querySelector('#footer-find-title')?.closest('.footer-nav-card');
-  const wide = cards.querySelector('#footer-join-title')?.closest('.footer-nav-card');
-  const newsletterCard = cards.querySelector('#footer-explore-title')?.closest('.footer-nav-card');
-  const paper = wide?.querySelector('.paper-bg');
-  const newsletterPaper = newsletterCard?.querySelector('.paper-bg');
-  if (!find || !wide || !paper || !newsletterPaper) return;
-
-  wide.classList.add('footer-nav-card--wide');
-  const content = document.createElement('div');
-  content.className = 'footer-wide-content';
-  content.innerHTML = [
-    '<div class="footer-wide-links">',
-      '<h2 id="footer-join-title">Get making</h2>',
-      '<nav class="footer-card-links" aria-label="Kids pages">',
-        '<h3>Kids</h3>',
-        '<a href="kids.html">About Kids</a>',
-        '<a href="kids-coding-classes.html">Weekly classes</a>',
-        '<a href="coding-camp.html">Holiday camps</a>',
-        '<a href="kids.html#form-interest-kids">Trials &amp; interest</a>',
-      '</nav>',
-      '<nav class="footer-card-links" aria-label="Adults pages">',
-        '<h3>Adults</h3>',
-        '<a href="adults.html">About Adults</a>',
-        '<a href="adults.html#form-adult">Register interest</a>',
-      '</nav>',
-      '<nav class="footer-card-links" aria-label="Teens pages">',
-        '<h3>Teens</h3>',
-        '<a href="teens.html">About Teens</a>',
-        '<a href="teens.html#teen-studio">Weekly classes</a>',
-        '<a href="teens.html#teen-camps">Holiday camps</a>',
-        '<a href="teens.html#form-interest-teens">Trials &amp; interest</a>',
-      '</nav>',
-      '<nav class="footer-card-links" aria-label="Enrol">',
-        '<h2>Enrol</h2>',
-        '<a href="form-classes.html">Weekly classes</a>',
-        '<a href="form-camps.html">Holiday camps</a>',
-      '</nav>',
-      '<nav class="footer-card-links footer-card-links--explore" aria-label="Explore">',
-        '<h2>Explore</h2>',
-        '<a href="index.html">Home</a>',
-        '<a href="thelab.html">About the Lab</a>',
-        '<a href="project-code-cloud.html">Projects</a>',
-        '<a href="tools.html">Kit &amp; Code</a>',
-        '<a href="a-kids-pov.html">A Kid&#39;s POV</a>',
-        '<a href="contact.html">Contact</a>',
-      '</nav>',
-    '</div>',
-    '<div class="footer-signup-block" id="newsletter">',
-      '<h2 id="footer-newsletter-title">Stay in the loop</h2>',
-      '<p>Keep up to date with occasional news from the Lab.</p>',
-      '<form class="footer-signup" aria-labelledby="footer-newsletter-title">',
-        '<div class="footer-signup-fields">',
-          '<label>Name <input name="name" type="text" autocomplete="off"></label>',
-          '<label>Email * <input name="email" type="email" autocomplete="off" required></label>',
-          '<button type="submit">Sign up</button>',
-        '</div>',
-        '<p class="footer-signup-status" role="status" aria-live="polite" hidden></p>',
-      '</form>',
-    '</div>'
-  ].join('');
-  const newsletter = content.querySelector('.footer-signup-block');
-  wide.replaceChildren(paper, content);
-  newsletterCard.classList.add('footer-nav-card--newsletter');
-  newsletterCard.setAttribute('aria-labelledby', 'footer-newsletter-title');
-  newsletterCard.replaceChildren(newsletterPaper, newsletter);
-  cards.replaceChildren(find, wide, newsletterCard);
-
-  const signup = newsletterCard.querySelector('.footer-signup');
-  signup.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!signup.reportValidity()) return;
-    const status = signup.querySelector('.footer-signup-status');
-    status.hidden = false;
-    status.textContent = 'Signup is not connected yet.';
-  });
-})();
-
-
-
 /* Home audience cards: preserve the existing accessible heading/arrow links,
    and let pointer users click anywhere on the paper. */
 (() => {
@@ -403,27 +320,28 @@
   if (year) year.textContent = String(new Date().getFullYear());
 })();
 
-/* Keep the Country blackboard overlapping the newsletter paper by 24
-   visible pixels, regardless of font loading or desktop page scaling. */
+/* Keep the Acknowledgement 24 visible px below the footer-card copy,
+   rather than below the paper images. This accommodates differing link lengths. */
 (() => {
   const footer = document.querySelector('.cardboard-page > .lab-footer');
   const country = footer?.querySelector('.country-ack');
   const page = document.querySelector('.cardboard-page');
   const cards = document.querySelector('.footer-nav-cards');
-  const newsletterPaper = cards?.querySelector('.footer-nav-card--newsletter .paper-bg');
-  if (!footer || !country || !page || !cards || !newsletterPaper) return;
+  if (!footer || !country || !page || !cards) return;
 
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address';
   let pending = false;
   const update = () => {
     pending = false;
-    const paperBottom = newsletterPaper.getBoundingClientRect().bottom;
+    const copy = [...cards.querySelectorAll(copySelector)];
+    if (!copy.length) return;
+    const lowestCopy = Math.max(...copy.map(el => el.getBoundingClientRect().bottom));
     const panelTop = country.getBoundingClientRect().top;
-    const correction = (paperBottom - 24) - panelTop;
+    const correction = (lowestCopy + 24) - panelTop;
     const zoom = Number.parseFloat(getComputedStyle(page).zoom) || 1;
-
     if (Math.abs(correction) > 0.35) {
-      const margin = Number.parseFloat(getComputedStyle(footer).marginTop) || 0;
-      footer.style.marginTop = (margin + correction / zoom) + 'px';
+      const current = Number.parseFloat(getComputedStyle(footer).marginTop) || 0;
+      footer.style.marginTop = (current + correction / zoom) + 'px';
     }
   };
 
@@ -436,7 +354,7 @@
   if ('ResizeObserver' in window) {
     const observer = new ResizeObserver(schedule);
     observer.observe(cards);
-    observer.observe(newsletterPaper);
+    cards.querySelectorAll(copySelector).forEach(el => observer.observe(el));
   }
   window.addEventListener('resize', schedule);
   window.addEventListener('load', schedule);
