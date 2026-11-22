@@ -900,7 +900,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-wide-links .footer-card-links { gap: 5px; }
 .footer-signup-block { margin-top: 18px; }
 .footer-signup-block h2 { margin-bottom: 4px; }
-.footer-signup-block > p { margin: 0 0 10px; font-size: var(--text-footer); }
+.footer-signup-block > p { margin: 0 0 10px; font-size: var(--text-footer); font-weight: 700; }
 .footer-signup-fields { display: flex; align-items: end; gap: 8px; }
 .footer-signup-fields label { flex: 1 1 0; min-width: 0; font-size: var(--text-footer); font-weight: 700; }
 .footer-signup-fields input {
