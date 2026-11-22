@@ -899,7 +899,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   min-height: 0;
   padding: 62px 34px 34px;
 }
-.footer-nav-card--newsletter .paper-bg { top: 11%; height: 89%; }
+.footer-nav-card--newsletter .paper-bg { top: 0; height: 100%; }
 .footer-wide-content { position: relative; }
 .footer-wide-links {
   display: grid;
@@ -988,15 +988,12 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 
-/* The painted blue cards stop before the SVG box ends. Their empty lower
-   margins already supply visual space: no extra 26px CSS gap is needed.
-   Preserve the same right-hand guide as the main cards. */
+/* Let the Country blackboard overlap the newsletter paper by 24px.
+   Script keeps that overlap accurate when the layout is scaled. */
 .cardboard-page > .lab-footer {
   position: relative;
-  z-index: 9; /* Country paper sits over the empty lower part of the blue cards. */
-  /* JS aligns this panel 24 viewport pixels below the lowest footer-card
-     copy, regardless of leftover paper. This margin is the no-JS fallback. */
-  margin: -46.755946px 56.4px 0 39px;
+  z-index: 9;
+  margin: -24px 56.4px 0 39px;
   color: var(--color-ivory);
 }
 
