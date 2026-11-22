@@ -26,7 +26,7 @@ from PIL import Image
 
 COMPLETE = (
     "index.html", "kids.html", "tools.html", "a-kids-pov.html",
-    "kids-coding-classes.html", "coding-camp.html",
+    "kids-coding-classes.html", "coding-camp.html", "form-classes.html", "form-camps.html",
     "child-safety.html", "privacy.html", "booking-terms.html",
 )
 DRAFTS = ("adults.html", "teens.html", "thelab.html", "contact.html")
@@ -36,6 +36,8 @@ HERO = {
     "tools.html": "qwerty-labs-mascots-led-electronics.webp", "a-kids-pov.html": "qwerty-labs-mascots-led-electronics.webp",
     "kids-coding-classes.html": "qwerty-labs-mascots-robot-car.webp",
     "coding-camp.html": "qwerty-labs-mascots-robot-car.webp",
+    "form-classes.html": "qwerty-labs-mascots-led-electronics.webp",
+    "form-camps.html": "qwerty-labs-mascots-led-electronics.webp",
     "child-safety.html": "qwerty-labs-mascots-led-electronics.webp",
     "privacy.html": "qwerty-labs-mascots-led-electronics.webp",
     "booking-terms.html": "qwerty-labs-mascots-led-electronics.webp",
