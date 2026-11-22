@@ -278,7 +278,8 @@
     width: 100%;
   }
 
-  /* Two approved blue footer cards stack naturally on phones. */
+  /* The footer cards can grow tall on phones; keep the rough
+     paper edge at a fixed offset so it cannot cover the headings. */
   .footer-nav-cards .footer-nav-card {
     width: 100%;
     flex: none;
@@ -286,6 +287,11 @@
     min-height: 0;
     padding-bottom: 40px;
   }
+  .footer-nav-cards .footer-nav-card .paper-bg {
+    top: 30px;
+    height: calc(100% - 30px);
+  }
+  .footer-location-map { height: 190px; }
   .footer-wide-links {
     grid-template-columns: minmax(0, 1fr);
     gap: 18px;
