@@ -155,6 +155,64 @@
   mobileViewport.addEventListener('change', () => setMenuOpen(false));
 })();
 
+/* Shared two-card footer. Original static links remain available without JS. */
+(() => {
+  const cards = document.querySelector('.footer-nav-cards');
+  if (!cards) return;
+  const find = cards.querySelector('#footer-find-title')?.closest('.footer-nav-card');
+  const wide = cards.querySelector('#footer-join-title')?.closest('.footer-nav-card');
+  const paper = wide?.querySelector('.paper-bg');
+  if (!find || !wide || !paper) return;
+
+  wide.classList.add('footer-nav-card--wide');
+  const content = document.createElement('div');
+  content.className = 'footer-wide-content';
+  content.innerHTML = [
+    '<div class="footer-wide-links">',
+      '<nav class="footer-card-links" aria-label="Get making">',
+        '<h2 id="footer-join-title">Get making</h2>',
+        '<a href="kids.html">Kids</a><a href="teens.html">Teens</a><a href="adults.html">Adults</a>',
+      '</nav>',
+      '<nav class="footer-card-links" aria-label="Enrol">',
+        '<h2>Enrol</h2>',
+        '<a href="form-classes.html">Weekly classes</a>',
+        '<a href="form-camps.html">Holiday camps</a>',
+      '</nav>',
+      '<nav class="footer-card-links" aria-label="Explore">',
+        '<h2>Explore</h2>',
+        '<a href="index.html">Home</a><a href="thelab.html">The Lab</a>',
+        '<a href="project-code-cloud.html">Projects</a>',
+        '<a href="tools.html">Kit &amp; Code</a>',
+        '<a href="a-kids-pov.html">A Kid&#39;s POV</a>',
+      '</nav>',
+    '</div>',
+    '<div class="footer-signup-block" id="newsletter">',
+      '<h2 id="footer-newsletter-title">Stay in the loop</h2>',
+      '<p>Keep up to date with occasional news from the Lab.</p>',
+      '<form class="footer-signup" aria-labelledby="footer-newsletter-title">',
+        '<div class="footer-signup-fields">',
+          '<label>Name <input name="name" type="text" autocomplete="off"></label>',
+          '<label>Email * <input name="email" type="email" autocomplete="off" required></label>',
+          '<button type="submit">Sign up</button>',
+        '</div>',
+        '<p class="footer-signup-status" role="status" aria-live="polite">Design preview only. Nothing is sent or saved. Please use imaginary details.</p>',
+      '</form>',
+    '</div>'
+  ].join('');
+  wide.replaceChildren(paper, content);
+  cards.replaceChildren(find, wide);
+
+  const signup = wide.querySelector('.footer-signup');
+  signup.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!signup.reportValidity()) return;
+    signup.querySelector('.footer-signup-status').textContent =
+      'This is a design preview. No subscription has been created.';
+  });
+})();
+
+
+
 /* Home audience cards: preserve the existing accessible heading/arrow links,
    and let pointer users click anywhere on the paper. */
 (() => {
@@ -326,7 +384,7 @@
   const cards = document.querySelector('.footer-nav-cards');
   if (!footer || !country || !page || !cards) return;
 
-  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address';
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-signup';
   let pending = false;
 
   const update = () => {
