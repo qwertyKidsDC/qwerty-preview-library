@@ -900,6 +900,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   gap: 3px;
   line-height: 1.35;
 }
+/* Enrol groups the two booking links beneath the audience links. */
+.footer-card-links > strong { margin-top: 10px; }
 
 .footer-card-links a,
 .footer-legal-links a {
@@ -1130,8 +1132,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
-.footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
-.footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
+/* These artwork offsets follow the approved papers in their new order. */
+.footer-nav-card:nth-child(1) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(2) .paper-bg { top: 11.76471%; height: 87.45098%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
 
 /* 12. Desktop composition (mobile adjustments live in mobile.css). */
