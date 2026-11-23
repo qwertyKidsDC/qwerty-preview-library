@@ -166,25 +166,37 @@
       '<button type="submit" class="qlf-submit">Review enrolment</button>';
   }
   function interestMarkup() {
-    var teens=kind==='interest-teens';
-    return select('reason','What would you like to hear about?',[
-        ['trial','A trial session'],['classes','Class times or a waiting list'],
-        ['camps',teens?'Teen camp days':'Holiday camp days']
+    var teens = kind === 'interest-teens';
+    var classInterest = kind === 'interest-kids';
+    var reasons = [['trial','A trial session'],['classes','Class times or a waiting list']];
+    if (!classInterest) reasons.push(['camps',teens ? 'Teen camp days' : 'Holiday camp days']);
+    var choices = classInterest ?
+      checkboxGroup('class-preferences','Which class times could work? Choose any that suit.',[
+        'Tuesday 4:00–5:15 pm — Proposed new class',
+        'Friday 4:00–5:15 pm — Proposed new class',
+        'Monday 4:45–6:00 pm — Waiting list (full)',
+        'Saturday 10:30–11:45 am — Waiting list (full)',
+        'Another day or time — Explore future demand'
       ],true) +
-      '<div data-when="reason" data-match="classes" hidden>' +
+      '<div data-when="class-preferences-4" data-match="yes" hidden>' +
+      field('different-time','What day or time could work?','textarea',true) + '</div>' :
       checkboxGroup('days','Which days suit you?',['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],true) +
       checkboxGroup('times','Which time windows could work?',[
         'After school (3:45–5:15 pm)','Late afternoon (5:15–6:45 pm)',
         'Evening (6:45–8 pm)','Saturday morning (9–11:45 am)',
         'Saturday afternoon (12–5 pm)','Flexible'
-      ],true) +
+      ],true);
+    return select('reason','What would you like to hear about?',reasons,true) +
+      '<div data-when="reason" data-match="classes" hidden>' +
+      choices +
       select('likely','If a suitable session opens, would you likely enrol?',[
         ['yes','Yes'],['maybe','Maybe']
       ],true) + '</div>' +
-      '<div data-when="reason" data-match="camps" hidden>' +
-      field('camp-availability','Which upcoming days or dates could work?','textarea',true,
-        'Tell us what dates suit you; no payment or commitment is required.') +
-      field('attendees','How many young people might attend?','number',true,'','min="1" max="20"') + '</div>' +
+      (classInterest ? '' :
+        '<div data-when="reason" data-match="camps" hidden>' +
+        field('camp-availability','Which upcoming days or dates could work?','textarea',true,
+          'Tell us what dates suit you; no payment or commitment is required.') +
+        field('attendees','How many young people might attend?','number',true,'','min="1" max="20"') + '</div>') +
       '<div data-when="reason" data-match="trial" hidden>' +
       field('trial-availability','What days or times might work for a trial?','textarea',false) + '</div>' +
       '<div data-when="reason" data-match="trial,classes" hidden>' +
