@@ -1201,9 +1201,13 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   letter-spacing: -.03em;
   transform: rotate(-1.2deg);
 }
-:where(html[data-layout="subpage"]) :is(h2, h3, h4, h5, h6, .hero-title) {
+:where(html[data-layout="subpage"]) :is(h2, h4, h5, h6, .hero-title) {
   display: block;
   text-transform: uppercase;
+}
+:where(html[data-layout="subpage"]) h3 {
+  color: var(--brand-accent);
+  text-transform: none;
 }
 /* Reusable exception for article titles that are deliberately sentence case. */
 :where(html[data-layout="subpage"]) .subpage-intro__heading--sentence-case {
@@ -1392,8 +1396,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 :where(html[data-layout="subpage"]) .subpage-section__option h3 {
   margin: 0 0 10px;
-  color: var(--brand-accent);
-  text-transform: none;
   font-size: 21px;
   line-height: 1.2;
   letter-spacing: -.025em;
@@ -1606,7 +1608,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 /* Article subheadings. */
 :where(html[data-layout="subpage"]) .subpage-section__subheading {
   margin: 0 0 18px;
-  text-transform: none;
   color: var(--brand-accent);
   font-size: 24px;
   font-weight: 700;
@@ -1718,12 +1719,12 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 .qll-lab .qll-lab__form-column > p:first-child { font-weight:400; }
 .qll-lab__intro { margin:0 0 17px; color:var(--color-ivory); font-size:18px; line-height:1.5; }
 .qll-lab__intro strong { color:var(--brand-accent); }
-.qll-lab__form-title { margin:18px 0 9px; color:var(--color-ivory); font-size:24px; letter-spacing:-.025em; }
+.qll-lab__form-title { margin:18px 0 9px; font-size:24px; letter-spacing:-.025em; }
 .qll-lab .qlf-form label:not(.qlf-choice), .qll-lab .qlf-form legend { color:var(--color-ivory); }
 .qll-lab .qlf-hint, .qll-lab .qlf-intro, .qll-lab .qlf-done, .qll-lab .qlf-done p, .qll-lab .qlf-done h2 { color:var(--color-ivory); }
 .qll-lab .qlf-stepper li { border-color:rgba(247,244,235,.65); color:var(--color-ivory); }
 .qll-lab .qlf-stepper li[aria-current="step"] { border-color:var(--brand-accent); color:var(--color-ink); }
-.qll-lab .qlf-step-title, .qll-lab .qlf-child h4 { color:var(--color-ivory); }
+.qll-lab .qlf-child h4 { color:var(--color-ivory); }
 .qll-lab .qlf-child { border-top-color:rgba(247,244,235,.55); }
 .qll-lab .qlf-choice { color:var(--color-ivory); }
 .qll-lab .qlf-choice a { color:var(--color-ivory); }
