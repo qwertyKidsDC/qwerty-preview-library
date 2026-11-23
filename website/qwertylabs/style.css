@@ -1488,12 +1488,19 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   width: 100%;
   height: auto;
 }
-/* Map uses the existing landscape artwork position and approved cardboard frame. */
-:where(html[data-layout="subpage"]) .subpage-art__media > iframe {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 971 / 715;
+/* The original approved rectangle mascot artwork supplies its own paper and
+   corrugated trim. The live map sits within that frame's inner opening. */
+:where(html[data-layout="subpage"]) .subpage-art__media--map {
+  position: relative;
+}
+:where(html[data-layout="subpage"]) .subpage-art__media--map iframe {
+  position: absolute;
+  top: 6.7%;
+  right: 5.9%;
+  bottom: 9.1%;
+  left: 3.9%;
+  width: 90.2%;
+  height: 84.2%;
   border: 0;
 }
 
