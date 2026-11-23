@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow,noarchive">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QK Prompt Generator</title>
+  <style>
+    :root {
+      --pink: #ec008c;
+      --blue: #33bef2;
+      --green: #8fd32a;
+      --orange: #f27033;
+      --purple: #7c3aed;
+      --yellow: #ffd166;
+      --ink: #171717;
+      --paper: #fffaf2;
+      --soft: #f4f4f4;
+      --code: #1f2937;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(135deg, #fff8e8, #eaf8ff);
+      line-height: 1.45;
+    }
+
+    header {
+      padding: 42px 28px 32px;
+      background: var(--ink);
+      color: white;
+      border-bottom: 8px solid var(--blue);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+
+    header p {
+      max-width: 900px;
+      margin: 0;
+      font-size: 1.1rem;
+      color: #e8e8e8;
+    }
+
+    main {
+      width: min(1480px, 94vw);
+      margin: 0 auto;
+      padding: 28px 0 60px;
+    }
+
+    .big-idea {
+      background: var(--ink);
+      color: white;
+      border: 3px solid var(--ink);
+      border-radius: 22px;
+      box-shadow: 6px 6px 0 var(--blue);
+      padding: 20px;
+      margin-bottom: 22px;
+    }
+
+    .big-idea h2 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+    }
+
+    .big-idea p {
+      margin: 0;
+      color: #f2f2f2;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 3.5fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: white;
+      border: 3px solid var(--ink);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 6px 6px 0 var(--ink);
+      break-inside: avoid;
+    }
+
+    .card-header {
+      padding: 14px 16px;
+      background: var(--blue);
+      color: var(--ink);
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .card-header.pink { background: var(--pink); color: white; }
+    .card-header.green { background: var(--green); color: var(--ink); }
+    .card-header.orange { background: var(--orange); color: var(--ink); }
+    .card-header.purple { background: var(--purple); color: white; }
+
+    .card-header small {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 800;
+      opacity: 0.82;
+    }
+
+    .card-header h2 {
+      margin: 2px 0 0;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .goal {
+      padding: 10px 12px;
+      background: var(--paper);
+      border: 2px dashed var(--ink);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-weight: 800;
+    }
+
+    .field-row {
+      margin-bottom: 13px;
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    textarea,
+    select,
+    input[type="text"] {
+      width: 100%;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px 11px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    select:focus,
+    input[type="text"]:focus {
+      box-shadow: 0 0 0 4px rgba(51,190,242,0.25);
+    }
+
+    .helper {
+      margin: 5px 0 0;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .upgrade {
+      margin-top: 16px;
+      padding: 14px;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      background: #fffaf2;
+      box-shadow: 4px 4px 0 var(--orange);
+    }
+
+    .upgrade h3 {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .check-card {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 10px;
+      background: white;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .check-card input {
+      transform: scale(1.15);
+      accent-color: var(--pink);
+    }
+.template-note {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f6f6f6;
+      border-left: 6px solid var(--pink);
+      border-radius: 10px;
+      font-size: 0.92rem;
+    }
+
+    .template-note.visible {
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: var(--green);
+      color: var(--ink);
+      padding: 10px 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    button:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    button.secondary {
+      background: var(--paper);
+    }
+
+    button.pink {
+      background: var(--pink);
+      color: white;
+    }
+
+    .output-box {
+      min-height: 570px;
+      padding: 16px;
+      background: var(--code);
+      color: #f8fafc;
+      border-radius: 14px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      border: 3px solid var(--ink);
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 12px;
+      font-weight: 800;
+      color: #0f766e;
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+
+    .mini-table th,
+    .mini-table td {
+      border: 2px solid var(--ink);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .mini-table th {
+      background: var(--paper);
+    }
+
+    .tip-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .tip-card {
+      background: white;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 4px 4px 0 var(--orange);
+    }
+
+    .tip-card h3 {
+      margin: 0 0 6px;
+    }
+
+    .tip-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+
+
+
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .toggle-card {
+      background: white;
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      padding: 12px 13px;
+      box-shadow: 4px 4px 0 var(--blue);
+    }
+
+    .toggle-card:nth-child(2) { box-shadow: 4px 4px 0 var(--pink); }
+    .toggle-card:nth-child(3) { box-shadow: 4px 4px 0 var(--green); }
+    .toggle-card:nth-child(4) { box-shadow: 4px 4px 0 var(--orange); }
+    .toggle-card:nth-child(5) { box-shadow: 4px 4px 0 var(--purple); }
+    .toggle-card:nth-child(6) { box-shadow: 4px 4px 0 var(--yellow); }
+
+    .toggle-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      line-height: 1.1;
+    }
+
+    .toggle-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .toggle-card li {
+      margin: 5px 0;
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    .toggle-card code {
+      white-space: nowrap;
+    }
+
+    .reference-block {
+      margin: 14px 0 0;
+      padding: 12px 13px;
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      background: var(--paper);
+    }
+
+    .reference-block h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .reference-block ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .reference-block li {
+      margin: 5px 0;
+      font-size: 0.93rem;
+    }
+
+    code {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      background: #1f2937;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 2px 6px;
+      font-size: 0.86em;
+    }
+
+    .output-section {
+      margin-top: 24px;
+    }
+
+    .moved-upgrade {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+
+    .setup-grid {
+      display: grid;
+      grid-template-columns: minmax(170px, 0.85fr) minmax(230px, 1.15fr) minmax(210px, 1fr);
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .prompt-type-wrap {
+      margin-top: 0;
+    }
+
+    .output-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    textarea {
+      overflow: hidden;
+    }
+
+
+    .role-select-wrap {
+      margin-bottom: 8px;
+    }
+.global-option {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      margin: 12px 0 0;
+      background: var(--paper);
+      border: 2px dashed var(--ink);
+      border-radius: 14px;
+      font-weight: 800;
+    }
+
+    .global-option input {
+      margin-top: 3px;
+      accent-color: var(--pink);
+    }
+
+    @media (max-width: 900px) {
+      .setup-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .tool-grid { grid-template-columns: 1fr; }
+
+      .toggle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .output-box { min-height: 420px; }
+    }
+
+    @media print {
+      body { background: white; }
+      header { color: black; background: white; border-bottom: 3px solid black; }
+      header p { color: black; }
+      main { width: 100%; padding: 14px; }
+      .tool-grid { grid-template-columns: 1fr; }
+
+      .toggle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card { box-shadow: none; border-width: 2px; page-break-inside: avoid; }
+      .big-idea { box-shadow: none; color: black; background: white; }
+      .big-idea p { color: black; }
+      .actions, .tip-row { display: none; }
+      .output-box { color: black; background: #f6f6f6; border-width: 2px; min-height: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="big-idea">
+      <small>Example --offers ++brief ++json → Short JSON answers, no extra offers</small>
+      <h2>Toggles</h2>
+      <div class="toggle-grid">
+        <article class="toggle-card">
+          <h3>Follow-up Offers</h3>
+          <ul>
+            <li>++offers — Include extra suggestions / follow-ups</li><li>--offers — No extra suggestions unless asked</li>
+          </ul>
+        </article>
+        <article class="toggle-card">
+          <h3>Answer Length</h3>
+          <ul>
+            <li>++brief — Short answers (1–3 sentences)</li><li>++deep — Detailed, step-by-step</li><li>--brief / --deep — Reset length to normal</li>
+          </ul>
+        </article>
+        <article class="toggle-card">
+          <h3>Tone</h3>
+          <ul>
+            <li>++casual — Friendly, relaxed style</li><li>++formal — Professional, academic style</li><li>++kid — Simplified, child-friendly explanations</li><li>--casual / --formal / --kid — Reset tone</li>
+          </ul>
+        </article>
+        <article class="toggle-card">
+          <h3>Output Format</h3>
+          <ul>
+            <li>++json — Reply only in JSON</li><li>++table — Use tables where possible</li><li>++checklist — Use checkboxes for steps</li><li>--json / --table / --checklist — Back to normal prose</li>
+          </ul>
+        </article>
+        <article class="toggle-card">
+          <h3>Mode Lock</h3>
+          <ul>
+            <li>++teacher — Stay in teacher/guide role</li><li>++critic — Blunt, critical mode</li><li>++examiner — Quiz + check answers</li><li>--teacher / --critic / --examiner — Reset to default</li>
+          </ul>
+        </article>
+        <article class="toggle-card">
+          <h3>Strategic Thinking</h3>
+          <ul>
+            <li>++strategic — Long-term fit, positioning and consequences</li><li>++risk — Focus on failure modes and weak assumptions</li><li>++tradeoffs — Compare costs, benefits and opportunity cost</li><li>--strategic / --risk / --tradeoffs — Reset strategy lenses</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="tool-grid">
+      <article class="card">
+        <div class="card-header pink">
+          <small>Reference</small>
+          <h2>Commands</h2>
+        </div>
+
+        <div class="card-body">
+          <div class="reference-block">
+            <h3>Core Commands</h3>
+            <ul>
+              <li><code>/explain [topic]</code> — Clear explanation; choose depth</li><li><code>/expand [text]</code> — Add detail and examples</li><li><code>/shrink [text]</code> — Summarize / compress</li><li><code>/debug [code]</code> — Find & fix issues</li><li><code>/optimize [code/process]</code> — Faster / shorter</li><li><code>/rewrite [style]</code> — Change tone/voice</li><li><code>/compare [A] vs [B]</code> — Pros/cons and trade-offs</li><li><code>/critique [idea]</code> — Find weak spots and risks</li><li><code>/assumptions [idea]</code> — Test hidden assumptions</li><li><code>/stress-test [idea]</code> — Find flaws and failure modes</li><li><code>/rank [options]</code> — Rank options with reasons</li><li><code>/recommend [options]</code> — Choose and explain why</li><li><code>/stepbystep [process]</code> — Full walkthrough</li><li><code>/check [text]</code> — Proofread & validate</li><li><code>/simulate [situation]</code> — Roleplay scenario</li><li><code>/generate [list/plan/code]</code> — Create new content</li>
+            </ul>
+          </div>
+
+
+          <div class="reference-block">
+            <h3>Symbols &amp; Shortcuts</h3>
+            <ul>
+              <li><code>`inline`</code> — highlight code/terms</li><li><code>```</code> (triple backticks) — code blocks</li><li><code>#</code> — heading; <code>-</code>/<code>*</code> — bullets; <code>&gt;</code> — quote</li><li><code>{ }</code> — structured output (JSON/configs)</li><li><code>---</code> — section break</li><li>Custom: <code>&gt;&gt;S</code> summarize, <code>&gt;&gt;E</code> explain, <code>&gt;&gt;Q</code> quiz</li>
+            </ul>
+          </div>
+
+
+          <div class="reference-block">
+            <h3>Thinking Prompts</h3>
+            <ul>
+              <li>Don’t just answer quickly. Stress-test it.</li><li>Challenge my assumptions.</li><li>Tell me what’s weak, unclear, or risky.</li><li>Compare the options before choosing.</li><li>Give me the best answer, not the nicest one.</li><li>Point out anything inconsistent.</li><li>Show your reasoning briefly, then your conclusion.</li><li>What would make this fail?</li><li>What’s missing or unclear?</li><li>What would a high-end version look like?</li><li>Cut anything weak or unnecessary.</li><li>Make this harder to ignore.</li>
+            </ul>
+          </div>
+
+
+          <div class="reference-block">
+            <h3>Iteration Tricks</h3>
+            <ul>
+              <li>Draft Cycle — Draft → critique → improve → repeat</li><li>Self-Check — “Check your answer & fix mistakes”</li><li>Multi-Perspective — “Answer as teacher, then student”</li>
+            </ul>
+          </div>
+
+
+          <div class="reference-block">
+            <h3>Constraints &amp; Rules</h3>
+            <ul>
+              <li>Length — “≤50 words” / “max 3 bullets”</li><li>Format — JSON / table / checklist</li><li>Audience — “for a 10-year-old / expert”</li><li>Focus — “Only output code / facts / diagrams”</li>
+            </ul>
+          </div>
+
+
+          <div class="reference-block">
+            <h3>Cross-Tool Powers</h3>
+            <ul>
+              <li>File Generation — .pdf, .docx, .pptx, .csv, .md</li><li>Run Python — charts, data, scripts</li><li>Web Search — get fresh info</li><li>Image Generation/Editing — mockups, diagrams, memes</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-header">
+          <small>Step 1</small>
+          <h2>Build Your Prompt</h2>
+        </div>
+
+        <div class="card-body">
+          <section class="upgrade moved-upgrade">
+            <div class="setup-grid">
+              <div class="field-row">
+                <label for="laneSelect">Lane</label>
+                <select id="laneSelect">
+                  <option value="QK/Core">QK/Core</option>
+                  <option value="QK/Admin">QK/Admin</option>
+                  <option value="QK/Current Offers">QK/Current Offers</option>
+                  <option value="QK/Lessons">QK/Lessons</option>
+                  <option value="QK/Research">QK/Research</option>
+                  <option value="TR/Reboot">TR/Reboot</option>
+                  <option value="QK/Build">QK/Build</option>
+                </select>
+              </div>
+
+              <div id="promptTypeWrap" class="prompt-type-wrap visible">
+                <label for="promptType">Prompt type</label>
+                <select id="promptType"></select>
+                <div id="templateNote" class="template-note"></div>
+              </div>
+
+              <div class="field-row">
+                <label for="modeSelect">Mode</label>
+                <select id="modeSelect">
+                  <option value="">None</option>
+                  <option value="Teacher Mode">Teacher Mode — Step-by-step, beginner-friendly</option>
+                  <option value="Critic Mode">Critic Mode — Direct feedback, no sugar-coating</option>
+                  <option value="Examiner Mode">Examiner Mode — Quiz + evaluate answers</option>
+                  <option value="Brainstorm Mode">Brainstorm Mode — Fast, divergent ideas</option>
+                  <option value="Debugger Mode">Debugger Mode — Point out errors only</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <div id="fields"></div>
+
+          <label class="global-option" for="interpretationCheck">
+            <input type="checkbox" id="interpretationCheck">
+            <span>Interpretation check before response</span>
+          </label>
+
+          <div class="actions">
+            <button id="clearBtn" class="secondary">Clear Fields</button>
+          </div>
+
+          <div id="status" class="status"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="output-section">
+      <article class="card">
+        <div class="card-header orange">
+          <small>Step 2</small>
+          <h2>Copy-Ready Prompt</h2>
+        </div>
+
+        <div class="card-body">
+          <pre id="output" class="output-box" contenteditable="true"></pre>
+          <div class="output-actions">
+            <button id="copyBtn" class="pink">Copy Prompt</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const defaultTemplateId = "ultra-short";
+
+    const templates = {
+      "ultra-short": {
+        category: "default",
+        name: "Ultra-Short Prompt",
+        note: "Best for quick, everyday tasks.",
+        fields: [
+          ["context", "Context", "What is the situation?"],
+          ["task", "Task", "Draft Cycle — Draft → critique → improve → repeat\nSelf-Check — Check your answer & fix mistakes\nMulti-Perspective — Answer as teacher, then student"],
+          ["requirements", "Requirements", "What must be included?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["output_format", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `CONTEXT
+${f.context}
+
+TASK
+${f.task}
+
+REQUIREMENTS
+${f.requirements}
+
+CONSTRAINTS
+${f.constraints}
+
+OUTPUT FORMAT
+${f.output_format}`
+      },
+
+      "core-order": {
+        category: "everyday",
+        name: "Core Prompt Order",
+        note: "Best for most everyday tasks. Clear, reliable, low fuss.",
+        fields: [
+          ["project", "Project", "Project or topic."],
+          ["background", "Background", "Relevant background or current situation."],
+          ["audience", "Audience", "Who is this for?"],
+          ["objective", "Objective", "What should ChatGPT produce or solve?"],
+          ["requirements", "Requirements", "What must be included?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["output_format", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `CONTEXT
+Project: ${f.project}
+Background: ${f.background}
+Audience: ${f.audience}
+
+OBJECTIVE
+Your task is to:
+${f.objective}
+
+REQUIREMENTS
+Include:
+${f.requirements}
+
+CONSTRAINTS
+${f.constraints}
+
+OUTPUT FORMAT
+${f.output_format}`
+      },
+
+      "power-prompt": {
+        category: "everyday",
+        name: "Power Prompt",
+        note: "Best for complex work where role, inputs and quality matter.",
+        fields: [
+          ["role", "Role", "What expert role should ChatGPT take?"],
+          ["project", "Project", "Project or topic."],
+          ["background", "Background", "Relevant background."],
+          ["audience", "Audience", "Who is this for?"],
+          ["stage", "Current stage", "Where are you up to?"],
+          ["objective", "Objective", "What should ChatGPT do?"],
+          ["inputs", "Inputs", "Paste notes, specs, rough ideas or source material."],
+          ["requirements", "Requirements", "What must be included?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["output_structure", "Output structure", "How should the answer be organised?"]
+        ],
+        build: f => `ROLE
+You are ${f.role}.
+
+CONTEXT
+Project: ${f.project}
+Background: ${f.background}
+Audience: ${f.audience}
+Current stage: ${f.stage}
+
+OBJECTIVE
+Your task is to:
+${f.objective}
+
+INPUTS
+Use the following information:
+${f.inputs}
+
+REQUIREMENTS
+Include:
+${f.requirements}
+
+CONSTRAINTS
+${f.constraints}
+
+OUTPUT STRUCTURE
+${f.output_structure}
+
+QUALITY CHECK
+Before finalising:
+- verify the logic
+- remove unnecessary complexity
+- ensure clarity`
+      },
+
+      "coding-superprompt": {
+        category: "coding",
+        name: "Coding Superprompt",
+        note: "Best for cleaner code, fewer bugs and easier testing.",
+        fields: [
+          ["role", "Role", "Example: senior Roblox Lua developer and teacher."],
+          ["objective", "Objective", "Build, debug or refactor what?"],
+          ["platform", "Platform", "Example: Roblox, Raspberry Pi, web browser."],
+          ["language", "Language", "Example: Lua, Python, JavaScript."],
+          ["architecture", "Architecture", "Example: server-authoritative, modular scripts."],
+          ["system", "System", "Core components to include."],
+          ["requirements", "Requirements", "What must the system do?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["testing", "Testing needs", "How should it be tested?"],
+          ["teaching_mode", "Teaching mode", "How should this be explained to students?"]
+        ],
+        build: f => `ROLE
+You are ${f.role}.
+
+OBJECTIVE
+${f.objective}
+
+ENVIRONMENT
+Platform: ${f.platform}
+Language: ${f.language}
+Architecture: ${f.architecture}
+
+SYSTEM
+Include:
+${f.system}
+
+REQUIREMENTS
+The system must:
+${f.requirements}
+
+CONSTRAINTS
+${f.constraints}
+
+OUTPUT
+Provide:
+1. Folder structure
+2. Script breakdown
+3. Full code, ready to copy
+4. Comments explaining logic
+5. How to test
+
+CHECKS
+- Identify possible bugs
+- Prevent common exploits
+- Explain edge cases
+
+TESTING NEEDS
+${f.testing}
+
+TEACHING MODE
+${f.teaching_mode}`
+      },
+
+      "ten-x": {
+        category: "coding",
+        name: "10× Prompt Method",
+        note: "Best when the first answer needs to be unusually strong.",
+        fields: [
+          ["role", "Role", "What expert role should ChatGPT take?"],
+          ["context", "Context", "Background information."],
+          ["objective", "Objective", "What is the task?"],
+          ["inputs", "Inputs", "Notes, specs or ideas."],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"]
+        ],
+        build: f => `ROLE
+You are ${f.role}.
+
+CONTEXT
+${f.context}
+
+OBJECTIVE
+Your task is to:
+${f.objective}
+
+INPUTS
+Use the following information:
+${f.inputs}
+
+CONSTRAINTS
+${f.constraints}
+
+STEP 1 — ANALYSE
+Briefly analyse the problem and identify the key factors that must be solved.
+
+STEP 2 — PLAN
+Create a clear plan for the solution.
+
+STEP 3 — SOLUTION
+Produce the final solution.
+
+STEP 4 — CRITIQUE
+Critically evaluate the solution:
+- weaknesses
+- missing details
+- improvements
+
+STEP 5 — IMPROVED FINAL VERSION
+Produce the improved final answer.`
+      },
+
+      "system-generator": {
+        category: "coding",
+        name: "Teachable System Generator",
+        note: "Best for turning one set of specs into architecture, code, lesson flow and worksheets.",
+        fields: [
+          ["platform", "Platform", "Example: Roblox, Raspberry Pi, web."],
+          ["project", "Project", "Project name or topic."],
+          ["audience", "Audience", "Age and skill level."],
+          ["session_length", "Session length", "Example: 75 minutes, 2 hours."],
+          ["goal", "Goal", "What students should finish with."],
+          ["core_idea", "Core idea", "What is the system?"],
+          ["mechanics", "Main mechanics", "List the core behaviours."],
+          ["variables", "Variables / stats", "Important values, settings, or data."],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"]
+        ],
+        build: f => `ROLE
+You are a senior ${f.platform} developer and expert teacher.
+
+MISSION
+Design a complete, teachable system based on the specs below.
+
+CONTEXT
+Project: ${f.project}
+Audience: ${f.audience}
+Session length: ${f.session_length}
+Goal: ${f.goal}
+
+SYSTEM SPECS
+Core idea: ${f.core_idea}
+
+Main mechanics:
+${f.mechanics}
+
+Variables / stats:
+${f.variables}
+
+Constraints:
+${f.constraints}
+
+ARCHITECTURE REQUIREMENTS
+- Server vs client responsibilities where relevant
+- Modular structure
+- Expandable design
+- Beginner-safe logic
+
+OUTPUT
+Create the following:
+
+1. SYSTEM OVERVIEW
+- What the system does
+- How it works, in simple language
+
+2. ARCHITECTURE
+- Folder structure
+- Script responsibilities
+- Data flow
+
+3. CORE IMPLEMENTATION
+- Step-by-step build order
+- Clean, minimal code per step
+- Each step must work before moving on
+
+4. FINAL CODE
+- Complete working version
+- Clearly commented
+
+5. DEBUG + EDGE CASES
+- Common bugs
+- Fixes
+- Exploit prevention
+
+6. LESSON PLAN
+- Timing blocks
+- What teacher says
+- What students do
+- Checkpoints
+
+7. STUDENT WORKSHEET
+- Fill-in sections
+- Prompts
+- Small challenges
+
+8. EXTENSIONS
+- Next lesson ideas
+- Difficulty upgrades
+
+TEACHING RULES
+- Build from simple to complex
+- Each step must feel like a win
+- Avoid cognitive overload
+- Use clear, simple language
+
+QUALITY
+- Ensure the system works
+- Ensure it is teachable
+- Ensure progression makes sense
+
+FAILSAFE
+If anything is missing, define it before starting.`
+      },
+
+      "fast-brainstorm": {
+        category: "brainstorm",
+        name: "Fast Brainstorm Starter",
+        note: "Best when you want a useful first pass without overbuilding the prompt.",
+        fields: [
+          ["project", "Project", "What are we working on?"],
+          ["goal", "Goal", "What does this brainstorm need to achieve?"],
+          ["audience", "Audience", "Who is this for?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["existing", "What already exists", "Paste rough ideas, notes, drafts or examples."],
+          ["wanted", "What you want from ChatGPT", "Generate options, challenge assumptions, organise, etc."],
+          ["output_format", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `PROJECT
+${f.project}
+
+GOAL
+${f.goal}
+
+AUDIENCE
+${f.audience}
+
+CONSTRAINTS
+${f.constraints}
+
+WHAT ALREADY EXISTS
+${f.existing}
+
+WHAT I WANT FROM YOU
+${f.wanted}
+
+OUTPUT FORMAT
+${f.output_format}`
+      },
+
+      "strategic-brainstorm": {
+        category: "brainstorm",
+        name: "Strategic Brainstorm",
+        note: "Best for positioning, program design, offers, campaigns and bigger decisions.",
+        fields: [
+          ["mission", "Mission", "What should ChatGPT help you think through?"],
+          ["project", "Project", "Project or topic."],
+          ["audience", "Audience", "Who is this for?"],
+          ["situation", "Current situation", "What is happening now?"],
+          ["tried", "What has already been tried", "Previous attempts, decisions, or constraints."],
+          ["matters", "What matters most", "What must this support?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"]
+        ],
+        build: f => `ROLE
+You are a strategy partner with strong taste, practical judgement and commercial awareness.
+
+MISSION
+Help me think through:
+${f.mission}
+
+CONTEXT
+Project: ${f.project}
+Audience: ${f.audience}
+Current situation: ${f.situation}
+What has already been tried: ${f.tried}
+What matters most: ${f.matters}
+
+CONSTRAINTS
+${f.constraints}
+
+ANALYSIS
+Before generating ideas, map:
+1. The real problem
+2. The hidden constraints
+3. The strongest opportunity
+4. The trust risks
+5. The decision I probably need to make
+
+BRAINSTORM
+Generate 12 options with short explanations.
+
+RANK
+Rank them by:
+- strategic fit
+- originality
+- ease of execution
+- likely impact
+
+FINAL RECOMMENDATION
+Tell me what you would do first and why.`
+      },
+
+      "decision-brainstorm": {
+        category: "brainstorm",
+        name: "Decision Brainstorm",
+        note: "Best when you have too many directions and need a clear way through.",
+        fields: [
+          ["decision", "Decision", "What do you need to decide?"],
+          ["options", "Options", "List A, B, C, etc."],
+          ["context", "Context", "What matters? What worries you?"],
+          ["avoid", "What to avoid", "What outcome or risk should be avoided?"],
+          ["success", "Success", "What would success look like?"]
+        ],
+        build: f => `ROLE
+You are a clear-thinking decision partner.
+
+DECISION
+I need to decide:
+${f.decision}
+
+OPTIONS
+${f.options}
+
+CONTEXT
+What matters:
+${f.context}
+
+What I want to avoid:
+${f.avoid}
+
+What success would look like:
+${f.success}
+
+EVALUATE EACH OPTION BY
+- upside
+- downside
+- effort
+- risk
+- reversibility
+- effect on reputation
+- what it unlocks next
+
+THEN PROVIDE
+1. A comparison table
+2. The strongest option
+3. The safest option
+4. The boldest option
+5. The option to avoid
+6. A recommended next move`
+      },
+
+      "critical-friend": {
+        category: "brainstorm",
+        name: "Critical Friend Prompt",
+        note: "Best when you want the idea sharpened, not politely applauded.",
+        fields: [
+          ["idea", "Idea / draft", "Paste the idea or draft."],
+          ["audience", "Audience", "Who is this for?"],
+          ["goal", "Goal", "What should this achieve?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["tone", "Tone", "How direct should the critique be?"]
+        ],
+        build: f => `ROLE
+You are my critical friend: constructive, precise and unsentimental.
+
+IDEA / DRAFT
+${f.idea}
+
+CONTEXT
+Audience: ${f.audience}
+Goal: ${f.goal}
+Constraints: ${f.constraints}
+Tone: ${f.tone}
+
+CHECK FOR
+- unclear thinking
+- weak assumptions
+- generic phrasing
+- practical problems
+- trust issues
+- missing audience motivation
+- places where the idea is trying to do too much
+
+OUTPUT
+1. What is working
+2. What is weak
+3. What is missing
+4. What should be cut
+5. What should be strengthened
+6. A sharper version of the idea`
+      },
+
+      "copy-critique": {
+        category: "brainstorm",
+        name: "Copy Critique",
+        note: "Best for making copy clearer, more trusted and less salesy.",
+        fields: [
+          ["copy", "Copy / draft", "Paste the copy to critique and rewrite."],
+          ["audience", "Audience", "Who is this for? What are they worried about?"],
+          ["goal", "Goal", "What should the copy achieve?"],
+          ["context", "Context", "Where will this appear? What matters strategically?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `ROLE
+You are a conversion-focused editor with strong taste and trust sensitivity.
+
+COPY / DRAFT
+${f.copy}
+
+CONTEXT
+Audience: ${f.audience}
+Goal: ${f.goal}
+Context: ${f.context}
+
+TASK
+Critique and rewrite the copy.
+
+CONSTRAINTS
+${f.constraints}
+
+THINKING MODE
+- identify friction or hesitation points
+- flag anything that feels salesy, generic or unclear
+- remove anything that weakens trust
+- tighten language: high signal, low noise
+- improve weak spots without adding hype
+
+OUTPUT
+${f.output || `1. Improved version first
+2. Key issues found
+3. Optional stronger alternatives`}
+
+DEFAULT TOGGLES
+++deep ++critic ++tight`
+      },
+
+      "strategic-critic": {
+        category: "brainstorm",
+        name: "Strategic Critic",
+        note: "Best for high-stakes QK/TR decisions: offers, pricing, positioning, partnerships, branding and major time investments.",
+        fields: [
+          ["decision", "Decision", "What is being considered?"],
+          ["goal", "Goal", "What outcome are you trying to achieve?"],
+          ["context", "Context", "Background, constraints, assumptions, audience, resources, timeline."],
+          ["knowns", "Knowns / evidence", "What do you already know? What evidence exists?"],
+          ["unknowns", "Unknowns / worries", "What is uncertain, risky or unresolved?"],
+          ["options", "Options", "List options if there are several. Leave blank if evaluating one idea."],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `ROLE
+Act as an experienced strategist, operator and critic.
+
+Your job is not to help me like the idea.
+Your job is to evaluate whether it is likely to work.
+
+DECISION
+${f.decision}
+
+GOAL
+${f.goal}
+
+CONTEXT
+${f.context}
+
+KNOWNS / EVIDENCE
+${f.knowns}
+
+UNKNOWNS / WORRIES
+${f.unknowns}
+
+OPTIONS
+${f.options}
+
+TASK
+Critically evaluate the idea, plan, decision or proposal.
+
+RULES
+- Prioritise truth over encouragement.
+- Do not assume the idea is good.
+- Do not fill gaps with optimistic assumptions.
+- If evidence is missing, say so.
+- If multiple interpretations are possible, identify them.
+- Distinguish between what is known, assumed and unknown.
+- Consider execution difficulty, not just idea quality.
+- Consider opportunity cost.
+- Consider timing risk.
+- Consider whether this creates a real advantage or merely sounds impressive.
+
+ANALYSIS FRAMEWORK
+1. Summary
+Provide a concise summary of the idea and its apparent objective.
+
+2. Strongest Case For
+Make the strongest realistic argument in favour of the idea.
+
+3. Strongest Case Against
+Make the strongest realistic argument against the idea.
+
+4. Hidden Assumptions
+List assumptions that must be true for success.
+
+5. Failure Modes
+Explain how this could fail in practice.
+
+6. Opportunity Cost
+What might be neglected, delayed or sacrificed?
+
+7. Alternatives
+Identify potentially stronger approaches.
+
+8. Evidence Required
+What evidence would meaningfully increase confidence?
+
+9. Recommendation
+Choose one:
+- Proceed
+- Proceed cautiously
+- Run a small test first
+- Delay
+- Reject
+
+10. Next Step
+Recommend the single highest-leverage action.
+
+11. Immediate Utility Test
+If this succeeds in the long term, what useful thing can it produce for Qwerty now?
+Consider:
+- camp content
+- class content
+- tutorials
+- newsletter content
+- YouTube content
+- teacher research
+- evidence of expertise
+- enrolments
+- partnerships
+
+If it produces nothing useful in the next 3–12 months, explain why that matters.
+
+ADDITIONAL INSTRUCTIONS
+Challenge my assumptions.
+Challenge conventional wisdom.
+Challenge attractive but unproven ideas.
+If you believe I am solving the wrong problem, say so.
+
+OUTPUT FORMAT
+${f.output}
+
+DEFAULT TOGGLES
+++deep ++critic ++strategic ++risk ++tradeoffs`
+      },
+
+      "document-first": {
+        category: "analysis",
+        name: "Document-First Workflow",
+        note: "Best when attached files must be analysed before writing.",
+        fields: [
+          ["role", "Role", "Example: expert research and synthesis agent."],
+          ["objective", "Objective", "What should ChatGPT produce after analysing?"],
+          ["documents", "Documents", "What documents are attached or being used?"],
+          ["focus", "Analysis focus", "What should be extracted or compared?"],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `ROLE
+You are ${f.role}.
+
+OBJECTIVE
+${f.objective}
+
+DOCUMENTS
+Use these documents as the primary source of truth:
+${f.documents}
+
+DOCUMENT-FIRST WORKFLOW
+Do not generate conclusions immediately.
+
+First:
+1. analyse
+2. extract
+3. compare
+4. synthesise
+5. then write
+
+ANALYSIS FOCUS
+${f.focus}
+
+EVIDENCE RULES
+- Distinguish clearly between explicit evidence and inference
+- Do not invent conclusions not supported by the documents
+- Treat the attached files as the primary source of truth
+
+OUTPUT FORMAT
+${f.output}
+
+IF INFORMATION IS MISSING
+Say so clearly and identify the gap.`
+      },
+
+      "evidence-mapping": {
+        category: "analysis",
+        name: "Evidence Mapping",
+        note: "Best for high-accuracy research, auditing and grounded writing.",
+        fields: [
+          ["objective", "Objective", "What are you trying to prove, check or write?"],
+          ["documents", "Documents", "What sources should be used?"],
+          ["claims", "Claims / questions", "What claims or questions need evidence?"],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `OBJECTIVE
+${f.objective}
+
+DOCUMENTS
+Use the following as the primary source material:
+${f.documents}
+
+CLAIMS / QUESTIONS TO CHECK
+${f.claims}
+
+EVIDENCE MAPPING RULES
+For each major conclusion, identify:
+- which document(s) support it
+- the relevant section or passage
+- whether the support is explicit or inferred
+- whether any part is uncertain or unsupported
+
+HALLUCINATION PREVENTION
+Never combine separate ideas into a unified conclusion unless the documents genuinely support that connection.
+
+OUTPUT FORMAT
+${f.output}`
+      },
+
+      "cross-document": {
+        category: "analysis",
+        name: "Cross-Document Reasoning",
+        note: "Best for turning multiple files into deeper synthesis.",
+        fields: [
+          ["role", "Role", "Example: expert research and synthesis agent."],
+          ["objective", "Objective", "What should the synthesis achieve?"],
+          ["documents", "Documents", "Which documents are being analysed?"],
+          ["focus", "Focus", "Themes, patterns, contradictions, evolution, strategy, etc."],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `ROLE
+You are ${f.role}.
+
+OBJECTIVE
+${f.objective}
+
+DOCUMENTS
+Analyse the following documents:
+${f.documents}
+
+CROSS-DOCUMENT REASONING
+Look for:
+- recurring concepts across documents
+- disagreements
+- evolution of ideas over time
+- unstated assumptions
+- strategic priorities
+- conceptual frameworks
+- cause-and-effect relationships
+
+FOCUS
+${f.focus}
+
+SOURCE PRIORITY
+1. Explicit statements in the documents
+2. Repeated themes across multiple documents
+3. Strongly implied ideas supported by evidence
+4. External knowledge only when necessary, clearly labelled
+
+OUTPUT FORMAT
+${f.output}`
+      },
+
+      "author-style": {
+        category: "analysis",
+        name: "Author Style Matching",
+        note: "Best when output must sound like the original writer.",
+        fields: [
+          ["objective", "Objective", "What should ChatGPT write or revise?"],
+          ["source_material", "Source material", "What writing should it analyse for style?"],
+          ["new_content", "New content", "What content should be produced?"],
+          ["constraints", "Constraints", "Length — ≤50 words / max 3 bullets\nFormat — JSON / table / checklist\nAudience — for a 10-year-old / expert\nFocus — Only output code / facts / diagrams"],
+          ["output", "Output format", "File Generation — .pdf, .docx, .pptx, .csv, .md\nRun Python — charts, data, scripts\nWeb Search — get fresh info\nImage Generation/Editing — mockups, diagrams, memes"]
+        ],
+        build: f => `OBJECTIVE
+${f.objective}
+
+SOURCE MATERIAL
+Use the following material to infer the author's style:
+${f.source_material}
+
+NEW CONTENT TO PRODUCE
+${f.new_content}
+
+STYLE MATCHING RULES
+Your goal is not merely to summarise the source material.
+
+Your goal is to produce output that plausibly appears to have been written by the original author, using:
+- their reasoning style
+- conceptual framing
+- preferred vocabulary
+- structural habits
+- argumentative patterns
+- tone and cadence
+
+Do not imitate superficially. Reproduce the underlying reasoning and communication patterns.
+
+CONSTRAINTS
+${f.constraints}
+
+OUTPUT FORMAT
+${f.output}`
+      }
+    };
+
+    const categoryLabels = {
+      everyday: "Everyday",
+      coding: "Coding & Teaching",
+      brainstorm: "Brainstorming",
+      analysis: "Analysis"
+    };
+
+    const fieldsEl = document.getElementById("fields");
+    const outputEl = document.getElementById("output");
+    const statusEl = document.getElementById("status");
+    const promptTypeWrap = document.getElementById("promptTypeWrap");
+    const promptTypeEl = document.getElementById("promptType");
+    const templateNoteEl = document.getElementById("templateNote");
+    const laneSelectEl = document.getElementById("laneSelect");
+    const modeSelectEl = document.getElementById("modeSelect");
+    let activeTemplateId = defaultTemplateId;
+    function renderFields(templateId) {
+      const template = templates[templateId];
+      fieldsEl.innerHTML = "";
+
+      const fields = [
+        ["title", "Title", "Short title after the lane, e.g. Parent Reply: Late Pickup"],
+        ...template.fields
+      ];
+
+      fields.forEach(([key, label, helper]) => {
+        const row = document.createElement("div");
+        row.className = "field-row";
+        const safeHelper = helper.replace(/"/g, '&quot;');
+
+        if (key === "role") {
+          const roleOptions = ['Strategic creative partner', 'Critical friend: constructive, precise and unsentimental', 'Practical editor with strong taste', 'Senior coding teacher for mixed-ability children and teens', 'Curriculum designer for project-led creative computing', 'Operations manager for a small education studio', 'Enrolment strategist with strong trust calibration', 'Research and synthesis agent', 'Creative director for a selective learning studio', 'Project-based learning systems designer']
+            .map(role => `<option value="${role}">${role}</option>`)
+            .join("");
+
+          row.innerHTML = `
+            <label for="field-${key}">${label}</label>
+            <div class="role-select-wrap">
+              <select class="role-select" data-role-target="${key}">
+                <option value="">Choose a role…</option>
+                ${roleOptions}
+              </select>
+            </div>
+            <textarea id="field-${key}" data-key="${key}" placeholder="${safeHelper}"></textarea>
+          `;
+        } else {
+          row.innerHTML = `
+            <label for="field-${key}">${label}</label>
+            <textarea id="field-${key}" data-key="${key}" placeholder="${safeHelper}"></textarea>
+          `;
+        }
+
+        fieldsEl.appendChild(row);
+      });
+
+      setupRoleSelectors();
+      setupAutoGrowTextareas();
+      updateNote(templateId);
+      generatePrompt();
+    }
+
+    function updateNote(templateId) {
+      const template = templates[templateId];
+
+      if (templateId === defaultTemplateId) {
+        templateNoteEl.classList.remove("visible");
+        templateNoteEl.textContent = "";
+        return;
+      }
+
+      templateNoteEl.textContent = template.note;
+      templateNoteEl.classList.add("visible");
+    }
+
+    function updatePromptTypeOptions() {
+      promptTypeWrap.classList.add("visible");
+      promptTypeEl.innerHTML = "";
+
+      const defaultOption = document.createElement("option");
+      defaultOption.value = defaultTemplateId;
+      defaultOption.textContent = "Ultra-Short Prompt";
+      promptTypeEl.appendChild(defaultOption);
+
+      Object.entries(categoryLabels).forEach(([category, label]) => {
+        const group = document.createElement("optgroup");
+        group.label = label;
+
+        Object.entries(templates)
+          .filter(([id, t]) => t.category === category)
+          .forEach(([id, template]) => {
+            const option = document.createElement("option");
+            option.value = id;
+            option.textContent = template.name;
+            group.appendChild(option);
+          });
+
+        promptTypeEl.appendChild(group);
+      });
+    }
+
+    function setupRoleSelectors() {
+      document.querySelectorAll(".role-select").forEach(select => {
+        select.addEventListener("change", () => {
+          const target = document.getElementById(`field-${select.dataset.roleTarget}`);
+          if (!target) return;
+          target.value = select.value;
+          autoGrow(target);
+          generatePrompt();
+        });
+      });
+    }
+
+    function autoGrow(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+
+    function setupAutoGrowTextareas() {
+      document.querySelectorAll("textarea").forEach(textarea => {
+        autoGrow(textarea);
+        textarea.addEventListener("input", () => autoGrow(textarea));
+      });
+    }
+
+    function collectFieldValues() {
+      const values = {};
+      document.querySelectorAll("[data-key]").forEach(field => {
+        values[field.dataset.key] = field.value.trim();
+      });
+      return values;
+    }
+
+    function stripEmptySections(text) {
+      return text
+        .split(/\n{2,}/)
+        .map(block => block.trim())
+        .filter(block => {
+          if (!block) return false;
+
+          const lines = block.split("\n").map(line => line.trim());
+          const header = lines[0].replace(/:$/, "");
+
+          const structuralHeaders = [
+            "QUALITY CHECK", "OUTPUT", "CHECKS", "STEP 1 — ANALYSE", "STEP 2 — PLAN",
+            "STEP 3 — SOLUTION", "STEP 4 — CRITIQUE", "STEP 5 — IMPROVED FINAL VERSION",
+            "ANALYSIS", "BRAINSTORM", "RANK", "FINAL RECOMMENDATION",
+            "THINKING MODE", "DEFAULT TOGGLES", "ANALYSIS FRAMEWORK", "RULES",
+            "ADDITIONAL INSTRUCTIONS", "EVALUATE EACH OPTION BY", "THEN PROVIDE",
+            "DOCUMENT-FIRST WORKFLOW", "EVIDENCE RULES", "HALLUCINATION PREVENTION",
+            "CROSS-DOCUMENT REASONING", "SOURCE PRIORITY", "STYLE MATCHING RULES",
+            "TEACHING RULES", "FAILSAFE", "ARCHITECTURE REQUIREMENTS"
+          ];
+
+          if (structuralHeaders.includes(header)) return true;
+          if (lines.length === 1) return lines[0].length > 0;
+
+          return lines.slice(1).some(line => {
+            if (!line) return false;
+            if (/^[A-Za-z /]+:\s*$/.test(line)) return false;
+            if (/^[-•*]\s*$/.test(line)) return false;
+            return true;
+          });
+        })
+        .join("\n\n");
+    }
+
+    function insertAfterSection(promptBody, sectionName, blockToInsert) {
+      const pattern = new RegExp(`(^${sectionName}\\n[\\s\\S]*?)(?=\\n\\n[A-Z][A-Z /—&]+\\n|$)`, "m");
+      if (!pattern.test(promptBody)) return null;
+
+      return promptBody.replace(pattern, match => `${match}\n\n${blockToInsert}`);
+    }
+
+    function addInterpretationCheck(promptBody) {
+      const check = document.getElementById("interpretationCheck");
+      if (!check || !check.checked) return promptBody;
+
+      const block = `INTERPRETATION CHECK
+Before producing the final response:
+1. Restate the task in your own words.
+2. Identify any assumptions you are making.
+3. Identify anything missing, unclear, or potentially ambiguous.
+4. Ask for any information or clarification needed.
+5. Wait for my confirmation before continuing.`;
+
+      return insertAfterSection(promptBody, "TASK", block)
+        || insertAfterSection(promptBody, "CONTEXT", block)
+        || [block, promptBody].filter(Boolean).join("\n\n");
+    }
+
+    function generatePrompt() {
+      const template = templates[activeTemplateId];
+      const values = collectFieldValues();
+      const lane = laneSelectEl.value;
+      const mode = typeof modeSelectEl !== "undefined" && modeSelectEl ? modeSelectEl.value : "";
+      const title = values.title || "";
+      delete values.title;
+
+      const rawPrompt = template.build(values);
+      const promptBody = addInterpretationCheck(stripEmptySections(rawPrompt));
+
+      const fullTitle = title ? `${lane} — ${title}` : "";
+      const titleBlock = fullTitle ? `CHAT TITLE\n${fullTitle}` : "";
+      const modeBlock = mode ? `MODE\nUse ${mode}` : "";
+
+      outputEl.textContent = [titleBlock, modeBlock, promptBody]
+        .filter(Boolean)
+        .join("\n\n");
+
+      statusEl.textContent = "";
+    }
+
+    async function copyPrompt() {
+      const text = outputEl.textContent.trim();
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        statusEl.textContent = "Copied. Prompt goblin contained.";
+      } catch (err) {
+        statusEl.textContent = "Could not auto-copy. Select the prompt box and copy manually.";
+      }
+    }
+
+    function clearFields() {
+      document.querySelectorAll("[data-key]").forEach(field => field.value = "");
+
+      const interpretationCheck = document.getElementById("interpretationCheck");
+      if (interpretationCheck) interpretationCheck.checked = false;
+
+      generatePrompt();
+      statusEl.textContent = "Fields cleared.";
+    }
+
+    promptTypeEl.addEventListener("change", () => {
+      activeTemplateId = promptTypeEl.value;
+      renderFields(activeTemplateId);
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", copyPrompt);
+    document.getElementById("clearBtn").addEventListener("click", clearFields);
+    document.getElementById("interpretationCheck").addEventListener("change", generatePrompt);
+
+    fieldsEl.addEventListener("input", generatePrompt);
+    fieldsEl.addEventListener("change", generatePrompt);
+    laneSelectEl.addEventListener("change", generatePrompt);
+    modeSelectEl.addEventListener("change", generatePrompt);
+
+    updatePromptTypeOptions();
+    renderFields(defaultTemplateId);
+  </script>
+</body>
+</html>
