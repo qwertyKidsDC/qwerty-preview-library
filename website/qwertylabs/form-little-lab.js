@@ -27,7 +27,7 @@
   function enrolMessage(){
     var a=names(), name=joined(a);
     var children=app.querySelectorAll('.qlf-child').length;
-    var family=app.querySelector('#family-type');
+    var family=app.querySelector('input[name="family-type"]:checked');
     var returning=family && family.value==='returning';
     var parent=firstName('#parent-first');
     var selectedDays=app.querySelectorAll('input[name="camp-days"]:checked').length;
@@ -35,7 +35,7 @@
     if(a.length){
       if(a.length<children)return name+'! Who else is joining?';
       if(parent)return 'Looking good, '+parent+'! '+name+(a.length===1?' is':' are')+' ready for some making.';
-      if(returning)return (a.length===1?'It’s ':'')+name+'! '+(a.length===1?'Yay':'Yay')+', welcome back to the Lab.';
+      if(returning)return (a.length===1?'It’s ':'')+name+'! '+'Yay'+', welcome back to the Lab.';
       if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
       return name+'! '+(a.length===2?'Double yay, two':'Triple yay, three')+' new makers to meet.';
     }
