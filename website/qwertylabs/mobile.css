@@ -471,7 +471,8 @@
     top: 21px;
     left: 35px;
   }
-  :where(html[data-layout="subpage"]) .subpage-section__copy {
+  :where(html[data-layout="subpage"]) .subpage-section__copy,
+  :where(html[data-layout="subpage"]) .subpage-map {
     width: 100%;
   }
   :where(html[data-layout="subpage"]) .subpage-section__copy > p,
