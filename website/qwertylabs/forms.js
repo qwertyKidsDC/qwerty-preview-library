@@ -15,6 +15,11 @@
   var initialTitle = title ? title.textContent : '';
   var childCount = 1;
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function birthYears() {
+    var year = new Date().getFullYear(), options = [];
+    for (var y = year - 6; y >= year - 17; y--) options.push([String(y), String(y)]);
+    return options;
+  }
   form.className = 'qlf-form';
   form.noValidate = true;
   form.setAttribute('aria-label', enrolment ? (isCamp ? 'Camp enrolment preview' : 'Weekly classes enrolment preview') : 'Form design preview');
@@ -42,6 +47,14 @@
     return '<label class="qlf-choice"><input type="checkbox" id="' + id + '" name="' + id +
       '" value="yes" ' + (required ? 'required ' : '') + '><span>' + label + '</span></label>';
   }
+  function radioChoices(id, legend, values, required) {
+    return '<fieldset class="qlf-fieldset"><legend>' + legend + (required ? ' *' : '') + '</legend>' +
+      values.map(function (option, i) {
+        return '<label class="qlf-choice"><input type="radio" name="' + id + '" id="' + id + '-' + i +
+          '" value="' + option[0] + '" ' + (required && i === 0 ? 'required ' : '') +
+          '><span>' + option[1] + '</span></label>';
+      }).join('') + '</fieldset>';
+  }
   function checkboxGroup(id, legend, values, required) {
     return '<fieldset class="qlf-fieldset" data-group="' + id + '"' + (required ? ' data-required="true"' : '') +
       '><legend>' + legend + (required ? ' *' : '') + '</legend>' +
@@ -58,7 +71,7 @@
     ];
     return '<fieldset class="qlf-fieldset" data-group="camp-days" data-required="true">' +
       '<legend>Summer camp days — January 2027 *</legend>' +
-      '<p class="qlf-hint">Choose all the days you would like. We confirm availability separately.</p>' +
+      '<p class="qlf-hint">Choose as many days as you\'d like in any order.</p>' +
       dates.map(function (date) {
         return '<label class="qlf-choice"><input type="checkbox" name="camp-days" value="' + date[0] +
           '"><span>' + date[1] + '</span></label>';
@@ -87,11 +100,12 @@
       '<div class="qlf-new-family">' +
       '<div class="qlf-grid">' +
       select(p+'month','Birth month',months.map(function(m,j){return [String(j+1),m];}),true) +
-      field(p+'year','Birth year','number',true,'Month and year only — not a full date of birth.','min="2000" max="2100" inputmode="numeric"') + '</div>' +
-      yesNo(p+'experience','Have they coded before?',true) +
-      '<div data-when="' + p + 'experience" data-match="yes" hidden>' +
-      field(p+'coding','Tell us a little about their coding experience','textarea',true,'Scratch, Python, robotics, school clubs — whatever they have tried.') +
-      '</div></div></fieldset>';
+      select(p+'year','Birth year',birthYears(),true) + '</div>' +
+      (isCamp ? '' :
+        yesNo(p+'experience','Have they coded before?',true) +
+        '<div data-when="' + p + 'experience" data-match="yes" hidden>' +
+        field(p+'coding','Tell us a little about their coding experience','textarea',true,'Scratch, Python, robotics, school clubs — whatever they have tried.') + '</div>') +
+      '</div></fieldset>';
   }
   function programmes() {
     return '<section>' +
@@ -101,7 +115,8 @@
       ],true,isCamp ? '' : 'We recognise returning families by the details you provide. Previous records are checked manually.') +
       (isCamp ?
         campDays() +
-        yesNo('extended-hours','Would you like extended hours (8 am–5:30 pm)?',false) :
+        '<fieldset class="qlf-fieldset"><legend>Extended hours</legend>' +
+        checkbox('extended-hours','I would like extended hours (8 am–5:30 pm).',false) + '</fieldset>' :
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
@@ -114,13 +129,13 @@
   function grownups() {
     return '<section><h3 class="qlf-step-title">Parent or carer</h3>' +
       nameFields('parent','Primary contact',true) +
-      field('parent-phone','Mobile number','tel',true,'','autocomplete="tel"') +
+      field('parent-phone','Mobile number','tel',true,'','autocomplete="tel" inputmode="tel"') +
       '<div class="qlf-new-family">' +
       field('parent-email','Email address','email',true,'','autocomplete="email"') +
       '<h3 class="qlf-step-title">Secondary contact</h3>' +
       nameFields('secondary','Secondary contact',true) +
-      field('secondary-phone','Secondary mobile','tel',true) +
-      field('secondary-email','Secondary email','email',true) +
+      field('secondary-phone','Secondary mobile','tel',true,'','inputmode="tel"') +
+      field('secondary-email','Secondary email','email',true,'','autocomplete="off"') +
       '<h3 class="qlf-step-title">Anything helpful to know?</h3>' +
       yesNo('support-needed','Is there anything we should know to support a child?',true) +
       '<div data-when="support-needed" data-match="yes" hidden>' +
@@ -130,11 +145,11 @@
       field('medical-details','Medical information','textarea',true,'Include relevant medication, allergies or action plans.') + '</div>' +
       '<fieldset class="qlf-fieldset"><legend>Permissions</legend>' +
       checkbox('medical-consent','I authorise Qwerty to seek emergency medical assistance if needed and understand that I will be contacted as soon as practicable.',true) + '</fieldset>' +
-      select('photos','May we use photos or video from the programme for Qwerty communications?',[
+      radioChoices('photos','May we use photos or video from the programme for Qwerty communications?',[
         ['yes','Yes'],['no','No']
       ],true) +
       checkbox('terms-consent','I agree to the <a href="booking-terms.html">Booking Terms</a> and acknowledge the <a href="privacy.html">Privacy Policy</a>.',true) +
-      referral() + newsletter() +
+      (isCamp ? '' : referral() + newsletter()) +
       '</div><div class="qlf-returning-only" hidden>' +
       field('changes','Anything changed since your last booking?','textarea',false,'For example contact, medical, support or collection details. We check existing records manually.') +
       '</div></section>';
@@ -148,7 +163,7 @@
       '<div class="qlf-actions"><button type="button" class="qlf-quiet-button" id="qlf-add-child">+ Add a child</button>' +
       '<button type="button" class="qlf-quiet-button" id="qlf-remove-child" hidden>Remove last child</button></div></section>' +
       grownups() +
-      '<button type="submit" class="qlf-submit">Finish preview →</button>';
+      '<button type="submit" class="qlf-submit">Review enrolment</button>';
   }
   function interestMarkup() {
     var teens=kind==='interest-teens';
@@ -219,7 +234,12 @@
   var done=document.createElement('div');
   done.className='qlf-done';
   done.hidden=true;
-  done.innerHTML='<h3>Preview complete</h3><p>Nothing was submitted.</p>' +
+  done.innerHTML = enrolment ?
+    '<h3 class="qlf-step-title">Review your enrolment</h3>' +
+    '<p>Check your details before continuing. Nothing has been sent yet.</p>' +
+    '<div id="qlf-review"></div>' +
+    '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Edit details</button>' :
+    '<h3>Preview complete</h3><p>Nothing was submitted.</p>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
   host.appendChild(done);
 
@@ -248,6 +268,13 @@
     if(input){input.setAttribute('aria-invalid','true');input.focus();}
     else box.focus();
   }
+  function australianMobile(value) {
+    return /^(?:04\d{8}|\+614\d{8}|614\d{8})$/.test(value.replace(/[\s()\-]/g, ''));
+  }
+  function same(valueA, valueB) {
+    return valueA.trim().replace(/\s+/g, ' ').toLowerCase() ===
+      valueB.trim().replace(/\s+/g, ' ').toLowerCase();
+  }
   function validVisible(){
     var err=form.querySelector('#qlf-error');
     err.hidden=true;err.textContent='';
@@ -261,6 +288,28 @@
       error('Please complete '+(lbl?lbl.textContent.replace('*','').trim():'this answer')+'.',bad);
       return false;
     }
+    if (enrolment) {
+      var phones = ['parent-phone','secondary-phone'];
+      for (var i = 0; i < phones.length; i++) {
+        var phone = form.querySelector('#' + phones[i]);
+        if (phone && !phone.disabled && !australianMobile(phone.value)) {
+          error('Enter an Australian mobile number, such as 0412 345 678.', phone);
+          return false;
+        }
+      }
+      var primary = form.querySelector('#parent-first');
+      var secondary = form.querySelector('#secondary-first');
+      if (secondary && !secondary.disabled) {
+        var sameName = same(primary.value, secondary.value) &&
+          same(form.querySelector('#parent-last').value, form.querySelector('#secondary-last').value);
+        var samePhone = form.querySelector('#parent-phone').value.replace(/[^0-9]/g,'').replace(/^61/, '0') ===
+          form.querySelector('#secondary-phone').value.replace(/[^0-9]/g,'').replace(/^61/, '0');
+        var sameEmail = same(form.querySelector('#parent-email').value, form.querySelector('#secondary-email').value);
+        if (sameName) {error('Please give a different person as your secondary contact.',secondary);return false;}
+        if (samePhone) {error('The secondary contact needs their own mobile number.',form.querySelector('#secondary-phone'));return false;}
+        if (sameEmail) {error('The secondary contact needs a different email address.',form.querySelector('#secondary-email'));return false;}
+      }
+    }
     var badGroup=Array.prototype.find.call(scope.querySelectorAll('fieldset[data-required]'),function(el){
       return !el.closest('[hidden]') && !el.hidden &&
         !Array.prototype.some.call(el.querySelectorAll('input[type="checkbox"]'),function(box){return box.checked;});
@@ -268,11 +317,57 @@
     if(badGroup){error('Please choose at least one option for '+badGroup.querySelector('legend').textContent.replace('*','').trim()+'.',badGroup.querySelector('input'));return false;}
     return true;
   }
+  function reviewAnswers() {
+    var container = done.querySelector('#qlf-review');
+    if (!container) return;
+    container.textContent = '';
+    var seen = {};
+    Array.prototype.forEach.call(form.querySelectorAll('input,select,textarea'),function(input){
+      if (input.disabled || input.closest('[hidden]') || !input.name || seen[input.name]) return;
+      seen[input.name] = true;
+      var group = Array.prototype.filter.call(form.elements,function(item){
+        return item.name === input.name && !item.disabled && !item.closest('[hidden]');
+      });
+      var selected = group.filter(function(item){return item.checked;});
+      var value = '';
+      if (input.type === 'radio' || input.type === 'checkbox') {
+        value = selected.map(function(item){
+          var choice = item.closest('.qlf-choice');
+          return choice ? choice.textContent.trim() : 'Yes';
+        }).join(', ');
+        if (!value && input.type === 'checkbox' && group.length === 1) value = 'No';
+      } else if (input.tagName === 'SELECT') {
+        value = input.selectedOptions.length ? input.selectedOptions[0].textContent.trim() : '';
+      } else value = input.value.trim();
+      if (!value) return;
+      var fieldLabel = form.querySelector('label[for="' + input.id + '"]');
+      var fieldset = input.closest('fieldset');
+      var legend = fieldset && fieldset.querySelector('legend');
+      var label = (input.type === 'radio' || input.type === 'checkbox') && legend ?
+        legend.textContent.trim() : fieldLabel ? fieldLabel.textContent.trim() : input.name;
+      label = label.replace(/\s*\*$/, '');
+      var childFieldset = input.closest('.qlf-child');
+      if (childFieldset) label = 'Child ' + (Number(childFieldset.dataset.child) + 1) +
+        ' — ' + label.replace(/^Child /,'');
+      var row = document.createElement('div');
+      row.className = 'qlf-summary';
+      var heading = document.createElement('strong');
+      heading.textContent = label;
+      var answer = document.createElement('span');
+      answer.textContent = value;
+      row.appendChild(heading);
+      row.appendChild(answer);
+      container.appendChild(row);
+    });
+  }
   function showDone(){
+    if (enrolment) reviewAnswers();
     form.hidden=true;done.hidden=false;
-    if(title)title.textContent='Preview complete';
+    if(title && !enrolment)title.textContent='Preview complete';
     done.setAttribute('tabindex','-1');done.focus();
-    if(status)status.textContent='Preview complete. No information was submitted.';
+    if(status)status.textContent=enrolment ?
+      'Review your enrolment. No information has been sent.' :
+      'Preview complete. No information was submitted.';
   }
   form.addEventListener('change',sync);
   form.addEventListener('submit',function(ev){ev.preventDefault();sync();if(validVisible())showDone();});
