@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Qwerty Reply Card Deck</title><style>
+:root{
+  --ink:#020020;--paper:#F1F8F8;--card:#ffffff;--muted:#596171;--line:#cfd9df;
+  --blue:#4C69E3;--pink:#F66DC1;--green:#92D644;--orange:#FF9029;
+  --accent:var(--green);--accent2:rgba(246,109,193,.20);--danger:rgba(255,144,41,.16);
+  --shadow:0 8px 20px rgba(2,0,32,.07)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+header{position:sticky;top:0;z-index:20;background:rgba(241,248,248,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:none;margin:auto;padding:14px 16px}.brandrow{display:flex;gap:18px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:850}.title{font-size:clamp(34px,4vw,54px);line-height:.98;letter-spacing:-.045em;margin:5px 0 2px}.corpus{font-size:13px;color:var(--muted);text-align:right}
+.controls{display:grid;grid-template-columns:minmax(280px,1.5fr) repeat(2,minmax(170px,.5fr)) auto;gap:9px;margin-top:14px}.controls input,.controls select{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 12px;font:14px/1.2 inherit;color:var(--ink)}.controls input:focus,.controls select:focus{outline:2px solid rgba(76,105,227,.22);border-color:var(--blue)}.resetall{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 13px;font:inherit;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;white-space:nowrap}.resetall:disabled{opacity:.38;cursor:default}.resetall:not(:disabled):hover{border-color:var(--blue);color:var(--blue)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 10px;font-size:13px;cursor:pointer}.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+main.wrap{padding-top:14px}.summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);overflow:hidden}.cardhead{position:relative;padding:16px 18px 13px}.category{font-size:12px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:var(--blue);padding-right:72px}.cardnum{position:absolute;top:16px;right:18px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8b93a0;font-weight:750}h2{font-size:24px;line-height:1.12;margin:6px 0 8px;letter-spacing:-.025em;padding-right:62px}.helper{font-size:14.5px;line-height:1.43;color:var(--muted);margin:4px 0 0}.helper strong{color:var(--ink);font-weight:800}.checkline{padding:0;border:0;background:none}.checkline.policy{color:#7b4f18}.lifecycle{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:800;background:rgba(146,214,68,.16);border:1px solid rgba(146,214,68,.44);border-radius:999px;padding:4px 7px}.lifecycle.exception{background:rgba(255,144,41,.14);border-color:rgba(255,144,41,.42)}.lifecycle.policy{background:rgba(246,109,193,.12);border-color:rgba(246,109,193,.36)}.lifecycle.residual{background:rgba(76,105,227,.10);border-color:rgba(76,105,227,.30)}
+.variant{padding:13px 18px 17px;border-top:1px solid var(--line)}.variant:first-of-type{border-top:1px solid var(--line)}.vtop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}.vlabel{font-size:13px;font-weight:850}.vactions{display:flex;gap:6px;align-items:center}.copy,.reset{border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:750;cursor:pointer}.copy{border:1px solid var(--blue);background:var(--blue);color:#fff}.copy.done{background:var(--green);border-color:var(--green);color:var(--ink)}.reset{border:1px solid var(--line);background:#fff;color:var(--muted)}.reset:disabled{opacity:.35;cursor:default}.reset:not(:disabled):hover{color:var(--blue);border-color:var(--blue)}pre{margin:0;white-space:pre-wrap;word-wrap:break-word;font:17px/1.55 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;background:#fbfdfd;padding:14px;border-radius:10px;border:1px solid #dce5e9;outline:none;transition:border-color .15s,box-shadow .15s,background .15s;min-height:56px}pre[contenteditable="true"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(76,105,227,.14);background:#fff}.placeholder{display:inline;border-radius:4px;background:var(--accent2);box-shadow:0 0 0 2px var(--accent2);cursor:text;font-weight:800}.placeholder:hover{background:rgba(246,109,193,.28);box-shadow:0 0 0 2px rgba(246,109,193,.28)}.placeholder.filled{background:transparent;box-shadow:none;font-weight:inherit}.variant.edited pre{border-color:rgba(76,105,227,.55)}.draft-editor{min-height:190px}.draft-editor:empty:before{content:attr(data-placeholder);color:#969eaa;font-style:italic;pointer-events:none}.edithelp{font-size:11px;color:var(--muted);margin-top:8px}.empty{display:none;padding:55px;text-align:center;color:var(--muted)}
+footer{padding:26px 16px 40px;max-width:none;margin:auto;color:var(--muted);font-size:12px}.hint{display:inline-block;background:rgba(146,214,68,.22);color:var(--ink);font-weight:800;padding:3px 7px;border-radius:6px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}.resetall{width:100%}}
+@media(max-width:620px){.wrap{padding-left:10px;padding-right:10px}.controls{grid-template-columns:1fr}.controls input{grid-column:auto}.corpus{text-align:left}.title{font-size:38px}.summary{align-items:flex-start;gap:8px;flex-direction:column}h2{padding-right:52px}.cardnum{right:14px}}
+@media print{header{position:static}.controls,.chips,.copy,.reset,.edithelp{display:none}.grid{display:block}.card{break-inside:avoid;margin-bottom:12px;box-shadow:none}}
+
+/* --- SUBTLE STUDIO MISSIONS PASS --- */
+body{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(rgba(2,0,32,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(2,0,32,.035) 1px,transparent 1px);
+  background-size:30px 30px;
+}
+header{
+  background:rgba(241,248,248,.965);
+  border-bottom:3px solid var(--ink);
+  box-shadow:0 3px 0 rgba(76,105,227,.16);
+}
+.wrap{padding-left:14px;padding-right:14px}
+.eyebrow{
+  display:inline-block;
+  color:var(--ink);
+  background:var(--green);
+  border:2px solid var(--ink);
+  border-radius:5px;
+  padding:4px 8px;
+  letter-spacing:.09em;
+  box-shadow:3px 3px 0 var(--blue);
+}
+.title{font-weight:900}
+.hint{
+  background:#fff;
+  border:2px solid var(--ink);
+  border-radius:5px;
+  box-shadow:2px 2px 0 var(--pink);
+  padding:3px 7px;
+}
+.controls input,.controls select{
+  border:2px solid var(--ink);
+  border-radius:7px;
+  box-shadow:2px 2px 0 rgba(2,0,32,.12);
+}
+.controls input:focus,.controls select:focus{
+  outline:3px solid rgba(76,105,227,.16);
+  border-color:var(--ink);
+  box-shadow:3px 3px 0 var(--blue);
+}
+.resetall,.chip,.copy,.reset{
+  border:2px solid var(--ink);
+  border-radius:6px;
+  box-shadow:2px 2px 0 var(--ink);
+  transition:transform .08s ease,box-shadow .08s ease;
+}
+.resetall:not(:disabled):hover,.chip:hover,.copy:hover,.reset:not(:disabled):hover{
+  transform:translate(-1px,-1px);
+  box-shadow:3px 3px 0 var(--ink);
+}
+.resetall:not(:disabled):active,.chip:active,.copy:active,.reset:not(:disabled):active{
+  transform:translate(1px,1px);
+  box-shadow:1px 1px 0 var(--ink);
+}
+.resetall{background:#fff;color:var(--ink)}
+.chip{background:#fff;border-radius:999px}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  --card-accent:var(--blue);
+  border:2px solid var(--ink);
+  border-radius:10px;
+  box-shadow:4px 4px 0 var(--ink);
+  background:#fff;
+  transition:transform .08s ease,box-shadow .08s ease;
+}
+.card:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.card::before{
+  content:"";
+  display:block;
+  height:5px;
+  background:var(--card-accent);
+  border-bottom:2px solid var(--ink);
+}
+.card[data-category="Draft"]{--card-accent:var(--green)}
+.card[data-category="Enquiries & fit"]{--card-accent:var(--blue)}
+.card[data-category="Classes"]{--card-accent:var(--pink)}
+.card[data-category="Camps"]{--card-accent:var(--orange)}
+.card[data-category="Booking & payment"]{--card-accent:var(--green)}
+.card[data-category="Sensitive & support"]{--card-accent:var(--pink)}
+.card[data-category="Changes & attendance"]{--card-accent:var(--blue)}
+.card[data-category="Practical"]{--card-accent:var(--orange)}
+.card[data-category="Admin extras"]{--card-accent:var(--green)}
+.cardhead{padding:15px 16px 12px}
+.category{color:var(--ink);font-size:11.5px;letter-spacing:.1em}
+.cardnum{
+  top:14px;
+  right:15px;
+  color:var(--ink);
+  opacity:.46;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+h2{font-size:22px;margin-top:7px;padding-right:54px}
+.helper{font-size:14px}
+.lifecycle{
+  border:2px solid var(--ink);
+  border-radius:5px;
+  background:#fff;
+  box-shadow:2px 2px 0 var(--card-accent);
+}
+.variant{padding:12px 16px 16px;border-top:2px solid rgba(2,0,32,.13)}
+.vlabel{font-size:12.5px;letter-spacing:.02em}
+.copy{background:var(--blue);color:#fff;border-color:var(--ink)}
+.copy.done{background:var(--green);border-color:var(--ink);color:var(--ink)}
+.reset{background:#fff;color:var(--ink)}
+pre{
+  background:#fbfefe;
+  border:1px solid #cfd9df;
+  border-radius:6px;
+  padding:13px;
+  font-size:16px;
+  line-height:1.5;
+}
+pre[contenteditable="true"]:focus{
+  border:2px solid var(--ink);
+  box-shadow:3px 3px 0 var(--card-accent);
+}
+.placeholder{background:rgba(246,109,193,.2);box-shadow:0 0 0 2px rgba(246,109,193,.2)}
+.summary{font-weight:650}
+footer{border-top:2px dashed rgba(2,0,32,.22);margin-top:28px}
+@media(max-width:1180px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:980px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .controls{grid-template-columns:1fr 1fr}
+  .controls input{grid-column:1/-1}
+  .resetall{width:100%}
+}
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding-left:10px;padding-right:10px}
+  .controls{grid-template-columns:1fr}
+  .controls input{grid-column:auto}
+  .card{box-shadow:3px 3px 0 var(--ink)}
+  .card:hover{transform:none;box-shadow:3px 3px 0 var(--ink)}
+}
+
+
+/* Fidelity update: roomier page margins. */
+@media(min-width:701px){.wrap{padding-left:40px;padding-right:40px}footer{padding-left:40px;padding-right:40px}}
+</style></head><body>
+<header><div class="wrap"><div class="brandrow"><div><div class="eyebrow">QK/Admin · working tool</div><div class="title">Reply Card Deck</div></div><div class="corpus"><strong>Corpus:</strong> 2019–2026<br/><span class="hint">double-click [brackets] · edit · copy</span></div></div>
+<div class="controls"><input id="search" placeholder="Search: term reminder, overdue payment, beginner, camp swap…" type="search"/><select id="audience"><option value="">All audiences</option><option>New family</option><option>Current family</option><option>New family / Current family</option><option>Current family / New family</option></select><select id="channel"><option value="">All channels</option><option>SMS</option><option>Email</option></select><button class="resetall" disabled="" id="resetAll" title="Restore every edited reply to its Qwerty default">↺ Reset all</button></div><div class="chips" id="chips"><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Enquiries &amp; fit">Enquiries &amp; fit</button><button class="chip" data-cat="Classes">Classes</button><button class="chip" data-cat="Camps">Camps</button><button class="chip" data-cat="Booking &amp; payment">Booking &amp; payment</button><button class="chip" data-cat="Sensitive &amp; support">Sensitive &amp; support</button><button class="chip" data-cat="Changes &amp; attendance">Changes &amp; attendance</button><button class="chip" data-cat="Practical">Practical</button><button class="chip" data-cat="Admin extras">Admin extras</button></div></div></header>
+<main class="wrap"><div class="summary"><span id="count"></span><span>Prevent what is preventable. Keep exception replies for what remains.</span></div><section class="grid" id="grid"><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 02 enquiries &amp; fit new enquiry: work out the right fit use when the enquiry is interested but does not yet give enough detail to recommend a programme. check: ask only for information you genuinely need. if age/experience/programme is already known, remove that question. default copy hi [contact],
+
+thanks for getting in touch. we’d be happy to help work out the best fit for [child].
+
+could you tell us their age, any coding experience they already have, and whether you’re looking for weekly classes or a holiday camp?
+
+then we can point you to the most useful option.
+
+thanks,
+qwertykids enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 02</span><div class="category">Enquiries &amp; fit</div><h2>New enquiry: work out the right fit</h2><p class="helper use">Use when the enquiry is interested but does not yet give enough detail to recommend a programme.</p><p class="helper checkline"><strong>Check:</strong> Ask only for information you genuinely need. If age/experience/programme is already known, remove that question.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="enquiry-unclear-0">Copy</button></div><pre id="enquiry-unclear-0">Hi [contact],
+
+Thanks for getting in touch. We’d be happy to help work out the best fit for [child].
+
+Could you tell us their age, any coding experience they already have, and whether you’re looking for weekly classes or a holiday camp?
+
+Then we can point you to the most useful option.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email" data-search="card 03 enquiries &amp; fit class availability + fit use when you know the child’s age and can recommend a specific weekly class. check: update term dates, class time and fee. do not promise a perfect social fit unless you know the group. default copy hi [contact],
+
+thanks for getting in touch.
+
+our [term] classes run from [start date] to [end date]. for [child/age], the best option would be [day/time].
+
+the term fee is [fee] for [number] × [length]-minute sessions.
+
+we adapt projects to each child’s level, so beginners can build confidence step by step while children with more experience can be extended.
+
+if you’d like to go ahead, we can hold a place for [child] in [day/time].
+
+thanks,
+qwertykids enquiries &amp; fit new family email"><div class="cardhead"><span class="cardnum">Card 03</span><div class="category">Enquiries &amp; fit</div><h2>Class availability + fit</h2><p class="helper use">Use when you know the child’s age and can recommend a specific weekly class.</p><p class="helper checkline"><strong>Check:</strong> Update term dates, class time and fee. Do not promise a perfect social fit unless you know the group.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="class-availability-0">Copy</button></div><pre id="class-availability-0">Hi [contact],
+
+Thanks for getting in touch.
+
+Our [term] classes run from [start date] to [end date]. For [child/age], the best option would be [day/time].
+
+The term fee is [fee] for [number] × [length]-minute sessions.
+
+We adapt projects to each child’s level, so beginners can build confidence step by step while children with more experience can be extended.
+
+If you’d like to go ahead, we can hold a place for [child] in [day/time].
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 04 enquiries &amp; fit camp availability use when someone asks what camp days still have space. check: only list genuinely available days. link to the current enrolment form. concise copy hi [contact],
+
+yes, we still have space on [available dates].
+
+children can come for one day or book several days, depending on availability.
+
+you can enrol here:
+[camp enrolment link]
+
+once we receive the enrolment, we’ll send the next steps for payment and confirmation.
+
+thanks,
+qwertykids enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 04</span><div class="category">Enquiries &amp; fit</div><h2>Camp availability</h2><p class="helper use">Use when someone asks what camp days still have space.</p><p class="helper checkline"><strong>Check:</strong> Only list genuinely available days. Link to the current enrolment form.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Concise</span><button class="copy" data-copy="camp-availability-0">Copy</button></div><pre id="camp-availability-0">Hi [contact],
+
+Yes, we still have space on [available dates].
+
+Children can come for one day or book several days, depending on availability.
+
+You can enrol here:
+[camp enrolment link]
+
+Once we receive the enrolment, we’ll send the next steps for payment and confirmation.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 05 enquiries &amp; fit not quite old enough yet use when age/independence makes the current programme a poor fit. check: insert the current minimum/typical age only if it is genuinely fixed for that programme. warm copy hi [contact],
+
+thanks for checking with us.
+
+at [age], we’d suggest waiting a little longer before joining this programme. the sessions are fairly independent and children need to be comfortable working in a group, waiting for help sometimes, and sticking with a project when it gets fiddly.
+
+please come back to us around [age/timeframe]. we’d much rather [child] arrive when the experience is likely to feel good than squeeze them in too early.
+
+thanks,
+qwertykids enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 05</span><div class="category">Enquiries &amp; fit</div><h2>Not quite old enough yet</h2><p class="helper use">Use when age/independence makes the current programme a poor fit.</p><p class="helper checkline"><strong>Check:</strong> Insert the current minimum/typical age only if it is genuinely fixed for that programme.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Warm</span><button class="copy" data-copy="too-young-0">Copy</button></div><pre id="too-young-0">Hi [contact],
+
+Thanks for checking with us.
+
+At [age], we’d suggest waiting a little longer before joining this programme. The sessions are fairly independent and children need to be comfortable working in a group, waiting for help sometimes, and sticking with a project when it gets fiddly.
+
+Please come back to us around [age/timeframe]. We’d much rather [child] arrive when the experience is likely to feel good than squeeze them in too early.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 06 enquiries &amp; fit beginner: can they start from scratch? use for a parent worried that their child will be behind. check: keep this broad. do not imply one fixed beginner platform if projects vary. default copy absolutely. no previous coding experience is needed.
+
+we start new coders with clear, step-by-step projects and build from there. the aim is to get them making something quickly while they learn the logic underneath it: sequencing, loops, problem-solving and debugging.
+
+we adjust the project and level as we see how [child] works. enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 06</span><div class="category">Enquiries &amp; fit</div><h2>Beginner: can they start from scratch?</h2><p class="helper use">Use for a parent worried that their child will be behind.</p><p class="helper checkline"><strong>Check:</strong> Keep this broad. Do not imply one fixed beginner platform if projects vary.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="beginner-fit-0">Copy</button></div><pre id="beginner-fit-0">Absolutely. No previous coding experience is needed.
+
+We start new coders with clear, step-by-step projects and build from there. The aim is to get them making something quickly while they learn the logic underneath it: sequencing, loops, problem-solving and debugging.
+
+We adjust the project and level as we see how [child] works.</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email" data-search="card 07 enquiries &amp; fit experienced coder / specific interest use when a child already codes or has a strong platform/language preference. check: do not guarantee a platform before checking the current group, hardware and tutor capacity. default copy hi [contact],
+
+that sounds like a useful starting point. if [child] is already working with [platform/language], please tell us a little about what they’ve made and what they’d like to do next.
+
+we don’t force every child through the same project. where the group and setup allow it, we adapt the work to their experience and interests rather than sending an experienced coder back to square one.
+
+we can then let you know whether [day/programme] looks like a good fit.
+
+thanks,
+qwertykids enquiries &amp; fit new family email"><div class="cardhead"><span class="cardnum">Card 07</span><div class="category">Enquiries &amp; fit</div><h2>Experienced coder / specific interest</h2><p class="helper use">Use when a child already codes or has a strong platform/language preference.</p><p class="helper checkline"><strong>Check:</strong> Do not guarantee a platform before checking the current group, hardware and tutor capacity.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="experienced-fit-0">Copy</button></div><pre id="experienced-fit-0">Hi [contact],
+
+That sounds like a useful starting point. If [child] is already working with [platform/language], please tell us a little about what they’ve made and what they’d like to do next.
+
+We don’t force every child through the same project. Where the group and setup allow it, we adapt the work to their experience and interests rather than sending an experienced coder back to square one.
+
+We can then let you know whether [day/programme] looks like a good fit.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="SMS" data-search="card 08 enquiries &amp; fit invite to a trial class use when a trial is available and you want a quick acknowledgement before sending the enrolment step. check: verify the current trial policy and whether the trial is free/paid before sending. step 1 copy 👋 hi [contact],
+
+we’d be happy to have [child] join us for a trial on [day/date] at [time] 😊
+
+please reply 👍 so we know this reached you, and we’ll send the quick enrolment step. step 2 copy wonderful, we’re looking forward to meeting [child] 😊
+
+before [day], could you please complete our enrolment form so we have the information we need for duty of care:
+[enrolment link]
+
+once that’s done, they’ll be all set for the trial. enquiries &amp; fit new family sms"><div class="cardhead"><span class="cardnum">Card 08</span><div class="category">Enquiries &amp; fit</div><h2>Invite to a trial class</h2><p class="helper use">Use when a trial is available and you want a quick acknowledgement before sending the enrolment step.</p><p class="helper checkline"><strong>Check:</strong> Verify the current trial policy and whether the trial is free/paid before sending.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Step 1</span><button class="copy" data-copy="trial-invite-0">Copy</button></div><pre id="trial-invite-0">👋 Hi [contact],
+
+We’d be happy to have [child] join us for a trial on [day/date] at [time] 😊
+
+Please reply 👍 so we know this reached you, and we’ll send the quick enrolment step.</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Step 2</span><button class="copy" data-copy="trial-invite-1">Copy</button></div><pre id="trial-invite-1">Wonderful, we’re looking forward to meeting [child] 😊
+
+Before [day], could you please complete our enrolment form so we have the information we need for duty of care:
+[enrolment link]
+
+Once that’s done, they’ll be all set for the trial.</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 09 enquiries &amp; fit what do classes actually involve? use for the very common “what do they actually do?” question. check: use examples, not a guaranteed technology list. default copy classes are project-led rather than worksheet-led.
+
+children might build games, animations, interactive stories, websites, robotics or small physical-computing projects, depending on their experience and what we’re working on.
+
+the technology can change, but the useful bit underneath stays consistent: learning how to plan, build, test, debug and keep going when something doesn’t work first time. enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 09</span><div class="category">Enquiries &amp; fit</div><h2>What do classes actually involve?</h2><p class="helper use">Use for the very common “what do they actually do?” question.</p><p class="helper checkline"><strong>Check:</strong> Use examples, not a guaranteed technology list.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="what-classes-involve-0">Copy</button></div><pre id="what-classes-involve-0">Classes are project-led rather than worksheet-led.
+
+Children might build games, animations, interactive stories, websites, robotics or small physical-computing projects, depending on their experience and what we’re working on.
+
+The technology can change, but the useful bit underneath stays consistent: learning how to plan, build, test, debug and keep going when something doesn’t work first time.</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 10 enquiries &amp; fit camp or weekly classes? use when someone is unsure whether the two offers work the same way. check: update any booking rules if camps/classes change structure. default copy the simplest difference is:
+
+weekly classes are an ongoing term programme, so children come at the same time each week and can develop projects over time.
+
+holiday camps are full-day sessions. you can usually book one day or several days, and the projects are planned around the children attending that day.
+
+if you tell us what you’re hoping [child] gets from it, we can suggest which one makes more sense. enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 10</span><div class="category">Enquiries &amp; fit</div><h2>Camp or weekly classes?</h2><p class="helper use">Use when someone is unsure whether the two offers work the same way.</p><p class="helper checkline"><strong>Check:</strong> Update any booking rules if camps/classes change structure.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="camp-vs-classes-0">Copy</button></div><pre id="camp-vs-classes-0">The simplest difference is:
+
+Weekly classes are an ongoing term programme, so children come at the same time each week and can develop projects over time.
+
+Holiday camps are full-day sessions. You can usually book one day or several days, and the projects are planned around the children attending that day.
+
+If you tell us what you’re hoping [child] gets from it, we can suggest which one makes more sense.</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email" data-search="card 11 enquiries &amp; fit will camp include roblox / ai / python / [thing]? use when a family is choosing camp based on a specific technology or project type. check: this is an offer-truth card. be specific about what is possible, but do not promise a fixed daily topic unless it is actually scheduled. default copy hi [contact],
+
+we can often include [interest/technology] in a way that suits [child]’s age and experience.
+
+we don’t run one fixed topic for every child on a camp day. projects are chosen around the children attending, their interests, skill levels and the setup we have available.
+
+so [interest] may be an option, but we don’t want to promise it as the only or guaranteed project. if you tell us what [child] has already done with it, we can give you a more useful idea of the fit.
+
+thanks,
+qwertykids enquiries &amp; fit new family email"><div class="cardhead"><span class="cardnum">Card 11</span><div class="category">Enquiries &amp; fit</div><h2>Will camp include Roblox / AI / Python / [thing]?</h2><p class="helper use">Use when a family is choosing camp based on a specific technology or project type.</p><p class="helper checkline"><strong>Check:</strong> This is an offer-truth card. Be specific about what is possible, but do not promise a fixed daily topic unless it is actually scheduled.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="specific-tech-camp-0">Copy</button></div><pre id="specific-tech-camp-0">Hi [contact],
+
+We can often include [interest/technology] in a way that suits [child]’s age and experience.
+
+We don’t run one fixed topic for every child on a camp day. Projects are chosen around the children attending, their interests, skill levels and the setup we have available.
+
+So [interest] may be an option, but we don’t want to promise it as the only or guaranteed project. If you tell us what [child] has already done with it, we can give you a more useful idea of the fit.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Enquiries &amp; fit" data-channel="Email / SMS" data-search="card 12 enquiries &amp; fit how big are the groups? use when group size is part of the family’s suitability decision. check: insert the actual current maximum/typical ratio only if confirmed for that programme. default copy we keep groups deliberately small so we can adapt projects and give children useful help without turning the session into one long queue for the teacher.
+
+for [programme], the current [maximum/typical ratio] is [ratio]. enquiries &amp; fit new family email / sms"><div class="cardhead"><span class="cardnum">Card 12</span><div class="category">Enquiries &amp; fit</div><h2>How big are the groups?</h2><p class="helper use">Use when group size is part of the family’s suitability decision.</p><p class="helper checkline"><strong>Check:</strong> Insert the actual current maximum/typical ratio only if confirmed for that programme.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="class-size-0">Copy</button></div><pre id="class-size-0">We keep groups deliberately small so we can adapt projects and give children useful help without turning the session into one long queue for the teacher.
+
+For [programme], the current [maximum/typical ratio] is [ratio].</pre></div></article><article class="card" data-audience="New family" data-category="Classes" data-channel="SMS" data-search="card 13 classes new family: class enrolment received preventive · state + delivery clarity preventive workflow for a new weekly-class enrolment. the acknowledgement step verifies the contact channel before relying on it for later admin. check: update day/time. this deliberately separates contactability from payment. step 1 copy 👋 hi [contact], welcome to qwertykids!
+
+[child] is booked to code with us on [day] from [time], starting [date].
+
+please reply 👍 so we know our messages are reaching you.
+
+we’ll send the invoice link in the next message. step 2 copy to secure [child]’s place, please complete payment using the invoice link below:
+[invoice link]
+
+once payment is received, we’ll send through everything you need before the first session. classes new family sms"><div class="cardhead"><span class="cardnum">Card 13</span><div class="category">Classes</div><h2>New family: class enrolment received</h2><div class="lifecycle">Preventive · state + delivery clarity</div><p class="helper use">Preventive workflow for a new weekly-class enrolment. The acknowledgement step verifies the contact channel before relying on it for later admin.</p><p class="helper checkline"><strong>Check:</strong> Update day/time. This deliberately separates contactability from payment.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Step 1</span><button class="copy" data-copy="new-class-enrolment-0">Copy</button></div><pre id="new-class-enrolment-0">👋 Hi [contact], welcome to QwertyKids!
+
+[child] is booked to code with us on [day] from [time], starting [date].
+
+Please reply 👍 so we know our messages are reaching you.
+
+We’ll send the invoice link in the next message.</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Step 2</span><button class="copy" data-copy="new-class-enrolment-1">Copy</button></div><pre id="new-class-enrolment-1">To secure [child]’s place, please complete payment using the invoice link below:
+[invoice link]
+
+Once payment is received, we’ll send through everything you need before the first session.</pre></div></article><article class="card" data-audience="Current family" data-category="Classes" data-channel="SMS" data-search="card 14 classes current family: next-term rollover use when a current family asks whether their regular place continues into the next term. check: no dates, times or fees needed unless something is actually changing. default copy of course! [child]’s spot is always rolled over into the next term unless you tell me otherwise. invoices are sent out between weeks 1 &amp; 2 and are not due until week 4.
+
+xdc classes current family sms"><div class="cardhead"><span class="cardnum">Card 14</span><div class="category">Classes</div><h2>Current family: next-term rollover</h2><p class="helper use">Use when a current family asks whether their regular place continues into the next term.</p><p class="helper checkline"><strong>Check:</strong> No dates, times or fees needed unless something is actually changing.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="returning-class-0">Copy</button></div><pre id="returning-class-0">Of course! [child]’s spot is always rolled over into the next term unless you tell me otherwise. Invoices are sent out between weeks 1 &amp; 2 and are not due until week 4.
+
+xDC</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Classes" data-channel="SMS" data-search="card 15 classes class payment received: confirmed preventive · closes booking state use when a new family’s class payment has been received and their place is confirmed. check: keep the details link at the end of the text so messages renders it cleanly. new family copy hooray! 🎉 your spot in our coding sessions is officially confirmed! 👾
+
+for everything you need to know before arrival, check out the details here:
+
+[class details link] classes new family / current family sms"><div class="cardhead"><span class="cardnum">Card 15</span><div class="category">Classes</div><h2>Class payment received: confirmed</h2><div class="lifecycle">Preventive · closes booking state</div><p class="helper use">Use when a new family’s class payment has been received and their place is confirmed.</p><p class="helper checkline"><strong>Check:</strong> Keep the details link at the end of the text so Messages renders it cleanly.</p></div><div class="variant"><div class="vtop"><span class="vlabel">New family</span><button class="copy" data-copy="class-confirmed-0">Copy</button></div><pre id="class-confirmed-0">Hooray! 🎉 Your spot in our Coding Sessions is officially confirmed! 👾
+
+For everything you need to know before arrival, check out the details here:
+
+[class details link]</pre></div></article><article class="card" data-audience="Current family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 15a booking &amp; payment current family: overdue term payment use when a current family’s term fees are still outstanding. check: keep it light. put the invoice link at the very end. recent · end of term copy hi [contact],
+
+just a quick note as term wrapped up today and [child]’s term fees are still outstanding🤪 here’s the invoice link again:
+
+thanks
+xdc
+
+[invoice link] classic opener copy whoops! it seems you’ve overlooked us.
+
+[child]’s term fees are still outstanding. here’s the invoice link again:
+
+thanks
+xdc
+
+[invoice link] booking &amp; payment current family sms"><div class="cardhead"><span class="cardnum">Card 15A</span><div class="category">Booking &amp; payment</div><h2>Current family: overdue term payment</h2><p class="helper use">Use when a current family’s term fees are still outstanding.</p><p class="helper checkline"><strong>Check:</strong> Keep it light. Put the invoice link at the very end.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Recent · end of term</span><button class="copy" data-copy="term-overdue-current-0">Copy</button></div><pre id="term-overdue-current-0">Hi [contact],
+
+Just a quick note as term wrapped up today and [child]’s term fees are still outstanding🤪 Here’s the invoice link again:
+
+Thanks
+xDC
+
+[invoice link]</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Classic opener</span><button class="copy" data-copy="term-overdue-current-1">Copy</button></div><pre id="term-overdue-current-1">Whoops! It seems you’ve overlooked us.
+
+[child]’s term fees are still outstanding. Here’s the invoice link again:
+
+Thanks
+xDC
+
+[invoice link]</pre></div></article><article class="card" data-audience="Current family" data-category="Classes" data-channel="SMS" data-search="card 16 classes pre-term date reminder — keep this constructed · preventive preventive card. historically common calendar uncertainty is much lower in 2026; systematic sms start-date reminders appear to be part of the improvement. check: send proactively before each term, not only after somebody asks. include both start and end dates. default copy 👋 quick hello: [term] coding starts [day/date] and runs through to [end date].
+
+looking forward to having [child] back 😊
+
+xdc classes current family sms"><div class="cardhead"><span class="cardnum">Card 16</span><div class="category">Classes</div><h2>Pre-term date reminder — keep this</h2><div class="lifecycle">Constructed · preventive</div><p class="helper use">Preventive card. Historically common calendar uncertainty is much lower in 2026; systematic SMS start-date reminders appear to be part of the improvement.</p><p class="helper checkline"><strong>Check:</strong> Send proactively before each term, not only after somebody asks. Include both start and end dates.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="pre-term-reminder-0">Copy</button></div><pre id="pre-term-reminder-0">👋 Quick hello: [term] coding starts [day/date] and runs through to [end date].
+
+Looking forward to having [child] back 😊
+
+xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Classes" data-channel="SMS" data-search="card 17 classes final-week reminder — keep this constructed · preventive preventive card. use before the final session so families do not need to ask whether coding has finished or whether another week remains. check: confirm the actual final date and mention any unusual make-up/extension separately. default copy 👋 quick heads-up: this is the final week of [term] coding.
+
+[child]’s last session is [day/date]. i’ll send the next-term dates once they’re locked in.
+
+xdc classes current family sms"><div class="cardhead"><span class="cardnum">Card 17</span><div class="category">Classes</div><h2>Final-week reminder — keep this</h2><div class="lifecycle">Constructed · preventive</div><p class="helper use">Preventive card. Use before the final session so families do not need to ask whether coding has finished or whether another week remains.</p><p class="helper checkline"><strong>Check:</strong> Confirm the actual final date and mention any unusual make-up/extension separately.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="final-week-reminder-0">Copy</button></div><pre id="final-week-reminder-0">👋 Quick heads-up: this is the final week of [term] coding.
+
+[child]’s last session is [day/date]. I’ll send the next-term dates once they’re locked in.
+
+xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Classes" data-channel="SMS" data-search="card 18 classes residual quick reply: “is coding on today?” residual · much less common in 2026 residual reply for the occasional calendar check. keep it tiny; the proactive reminder cards should do most of this work. check: keep it tiny. they are asking for certainty, not a brochure. yes copy yep 😊 coding is on today as usual. see [child] at [time]. xdc no copy not today 😊 we’re between terms. [term] starts on [date]. xdc classes current family sms"><div class="cardhead"><span class="cardnum">Card 18</span><div class="category">Classes</div><h2>Residual quick reply: “Is coding on today?”</h2><div class="lifecycle residual">Residual · much less common in 2026</div><p class="helper use">Residual reply for the occasional calendar check. Keep it tiny; the proactive reminder cards should do most of this work.</p><p class="helper checkline"><strong>Check:</strong> Keep it tiny. They are asking for certainty, not a brochure.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Yes</span><button class="copy" data-copy="is-coding-on-0">Copy</button></div><pre id="is-coding-on-0">Yep 😊 Coding is on today as usual. See [child] at [time]. xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">No</span><button class="copy" data-copy="is-coding-on-1">Copy</button></div><pre id="is-coding-on-1">Not today 😊 We’re between terms. [term] starts on [date]. xDC</pre></div></article><article class="card" data-audience="New family" data-category="Classes" data-channel="Email / SMS" data-search="card 19 classes joining after term has started use when a family asks whether they have to wait for next term. check: only promise pro-rata fees if that remains current policy. default copy yes, [child] can still join this term if the class has space.
+
+we’ll start them at the right level rather than expecting them to have done the same projects as everyone else.
+
+the adjusted fee from [start date] is [fee]. if you’d like the place, we can send the enrolment step. classes new family email / sms"><div class="cardhead"><span class="cardnum">Card 19</span><div class="category">Classes</div><h2>Joining after term has started</h2><p class="helper use">Use when a family asks whether they have to wait for next term.</p><p class="helper checkline"><strong>Check:</strong> Only promise pro-rata fees if that remains current policy.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="late-term-start-0">Copy</button></div><pre id="late-term-start-0">Yes, [child] can still join this term if the class has space.
+
+We’ll start them at the right level rather than expecting them to have done the same projects as everyone else.
+
+The adjusted fee from [start date] is [fee]. If you’d like the place, we can send the enrolment step.</pre></div></article><article class="card" data-audience="New family" data-category="Camps" data-channel="SMS" data-search="card 20 camps new family: camp enrolment received use for a new camp family. the 👍 verifies the contact channel; use [notes] to acknowledge anything relevant they included on the enrolment form. &lt;strong&gt;common notes:&lt;/strong&gt; friend/seating request · allergy/medical note · access/support note · arrival/pickup note · project/device preference. acknowledge what they told us without promising an outcome we may need to organise around. notes enrolment form friend seating allergy medical support pickup project preference default 👋hi [contact], welcome to qwertykids! [child] is booked to code with us on [date/s] [including extended hours]. please reply now with a 👍 so we know our camp messages are reaching you. this helps us make sure we can contact you if needed on the day. [notes] to lock in their spot, payment can be made via the invoice link below. once that’s done, we’ll send through all the details. [invoice link]"><div class="cardhead"><span class="cardnum">Card 20</span><div class="category">Camps</div><h2>New family: camp enrolment received</h2><div class="lifecycle">Preventive · delivery check works</div><p class="helper use">Use for a new camp family. The 👍 verifies the contact channel; use [notes] to acknowledge anything relevant they included on the enrolment form.</p><p class="helper checkline"><strong>Common notes:</strong> friend/seating request · allergy/medical note · access/support note · arrival/pickup note · project/device preference. Acknowledge what they told us without promising an outcome we may need to organise around.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="new-camp-booking-0">Copy</button></div><pre id="new-camp-booking-0">👋Hi [contact], welcome to QwertyKids!
+
+[child] is booked to code with us on [date/s] [including extended hours].
+
+Please reply now with a 👍 so we know our camp messages are reaching you. This helps us make sure we can contact you if needed on the day.
+
+[notes]
+
+To lock in their spot, payment can be made via the invoice link below.
+
+Once that’s done, we’ll send through all the details.
+
+[invoice link]</pre></div></article><article class="card" data-audience="New family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 21 booking &amp; payment no 👍 / delivery not verified constructed · exception use when the first transactional text asked for acknowledgement but nothing came back. the goal is to verify the channel before assuming the family has the invoice/details. check: do not spam. one concise follow-up, then use the additional contact only when genuinely necessary. default copy hi [contact], just checking our last message reached you.
+
+[child] is booked for [day/date]. could you please send back a 👍 so we know this number is working for qwerty messages?
+
+thanks,
+qwertykids booking &amp; payment new family sms"><div class="cardhead"><span class="cardnum">Card 21</span><div class="category">Booking &amp; payment</div><h2>No 👍 / delivery not verified</h2><div class="lifecycle exception">Constructed · exception</div><p class="helper use">Use when the first transactional text asked for acknowledgement but nothing came back. The goal is to verify the channel before assuming the family has the invoice/details.</p><p class="helper checkline"><strong>Check:</strong> Do not spam. One concise follow-up, then use the additional contact only when genuinely necessary.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="no-ack-followup-0">Copy</button></div><pre id="no-ack-followup-0">Hi [contact], just checking our last message reached you.
+
+[child] is booked for [day/date]. Could you please send back a 👍 so we know this number is working for Qwerty messages?
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="Current family" data-category="Camps" data-channel="SMS" data-search="card 22 camps current family: camp booking received use when a family already knows qwerty and is booking camp again. check: confirm the booked day/s. keep the invoice link at the end. default copy 👋[contact],
+
+great to have [child] back for camp on [date/s].😊
+
+to secure their place, please complete payment using the invoice link below.
+
+bookings are confirmed once payment is received. unpaid places may be released after the due date.
+
+once confirmed, we’ll send through a quick reminder with all the details.
+
+[invoice link] camps current family sms"><div class="cardhead"><span class="cardnum">Card 22</span><div class="category">Camps</div><h2>Current family: camp booking received</h2><p class="helper use">Use when a family already knows Qwerty and is booking camp again.</p><p class="helper checkline"><strong>Check:</strong> Confirm the booked day/s. Keep the invoice link at the end.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="returning-camp-booking-0">Copy</button></div><pre id="returning-camp-booking-0">👋[contact],
+
+Great to have [child] back for camp on [date/s].😊
+
+To secure their place, please complete payment using the invoice link below.
+
+Bookings are confirmed once payment is received. Unpaid places may be released after the due date.
+
+Once confirmed, we’ll send through a quick reminder with all the details.
+
+[invoice link]</pre></div></article><article class="card" data-audience="New family" data-category="Sensitive &amp; support" data-channel="SMS + Email" data-search="card 23 sensitive &amp; support camp support check before confirming use when enrolment information suggests you need practical support detail before invoicing/confirming. check: sensitive: no humour. ask about observable signs and useful responses, not diagnoses. do not confirm the place until the support check is resolved. sms heads-up copy 👋 hi [contact], welcome to qwertykids.
+
+we’ve received [child]’s camp enrolment and are holding the place.
+
+we’ve sent a quick support email so we can plan the day properly for [child]. once that’s sorted, we’ll send the invoice link and camp details. email copy hi [contact],
+
+thanks for enrolling [child] in camp.
+
+before we send the invoice and final camp details, we’d like to check a few practical things so we can support them well while they’re here.
+
+coding camp is fun, but it can also involve frustration when projects don’t work straight away, plans change, children need to wait for help, or other children are making different creative choices nearby.
+
+could you please let us know:
+
+• what does frustration or overwhelm usually look like for [child]?
+• are there early signs we should watch for?
+• what helps them reset or rejoin the activity?
+• is there anything that tends to make things worse?
+• if they become distressed, what would you like us to do first?
+
+thanks. this helps us plan properly and make camp a positive experience for everyone.
+
+warmly,
+qwertykids sensitive &amp; support new family sms + email"><div class="cardhead"><span class="cardnum">Card 23</span><div class="category">Sensitive &amp; support</div><h2>Camp support check before confirming</h2><p class="helper use">Use when enrolment information suggests you need practical support detail before invoicing/confirming.</p><p class="helper checkline"><strong>Check:</strong> Sensitive: no humour. Ask about observable signs and useful responses, not diagnoses. Do not confirm the place until the support check is resolved.</p></div><div class="variant"><div class="vtop"><span class="vlabel">SMS heads-up</span><button class="copy" data-copy="support-check-0">Copy</button></div><pre id="support-check-0">👋 Hi [contact], welcome to QwertyKids.
+
+We’ve received [child]’s camp enrolment and are holding the place.
+
+We’ve sent a quick support email so we can plan the day properly for [child]. Once that’s sorted, we’ll send the invoice link and camp details.</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Email</span><button class="copy" data-copy="support-check-1">Copy</button></div><pre id="support-check-1">Hi [contact],
+
+Thanks for enrolling [child] in camp.
+
+Before we send the invoice and final camp details, we’d like to check a few practical things so we can support them well while they’re here.
+
+Coding camp is fun, but it can also involve frustration when projects don’t work straight away, plans change, children need to wait for help, or other children are making different creative choices nearby.
+
+Could you please let us know:
+
+• What does frustration or overwhelm usually look like for [child]?
+• Are there early signs we should watch for?
+• What helps them reset or rejoin the activity?
+• Is there anything that tends to make things worse?
+• If they become distressed, what would you like us to do first?
+
+Thanks. This helps us plan properly and make camp a positive experience for everyone.
+
+Warmly,
+QwertyKids</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Booking &amp; payment" data-channel="SMS / Email" data-search="card 24 booking &amp; payment camp payment received: confirmed preventive · closes booking state use after camp payment has been received. check: no date needed. keep the camp-details link at the very end of the text. new family copy hooray! 🎉your payment has been received, and your spot is officially confirmed! 
+
+🚀a quick but important rule: no bananas allowed🍌we know they’re a great snack, but for a staff allergy, we ask that campers leave them at home.
+
+for everything you need to know before arrival, check out the link.
+
+thanks for choosing qwertykids—we can’t wait to see you at camp!🕹️
+
+https://qwertykids.com/coding-camp-details/ current family copy hooray! 🎉 you’re all set for camp again.
+
+your spot is confirmed. we’re looking forward to having you back!
+
+🚀 quick reminder: still no bananas please 🍌 (same allergy rule as before).
+
+see you soon—can’t wait to get building 🕹️
+
+everything else you need is here:
+
+https://qwertykids.com/coding-camp-details/ camps new family / current family sms / email"><div class="cardhead"><span class="cardnum">Card 24</span><div class="category">Booking &amp; payment</div><h2>Camp payment received: confirmed</h2><div class="lifecycle">Preventive · closes booking state</div><p class="helper use">Use after camp payment has been received.</p><p class="helper checkline"><strong>Check:</strong> No date needed. Keep the camp-details link at the very end of the text.</p></div><div class="variant"><div class="vtop"><span class="vlabel">New family</span><button class="copy" data-copy="camp-confirmed-0">Copy</button></div><pre id="camp-confirmed-0">Hooray! 🎉Your payment has been received, and your spot is officially confirmed! 
+
+🚀A quick but important rule: No bananas allowed🍌We know they’re a great snack, but for a staff allergy, we ask that campers leave them at home.
+
+For everything you need to know before arrival, check out the link.
+
+Thanks for choosing QwertyKids—we can’t wait to see you at camp!🕹️
+
+https://qwertykids.com/coding-camp-details/</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Current family</span><button class="copy" data-copy="camp-confirmed-1">Copy</button></div><pre id="camp-confirmed-1">Hooray! 🎉 You’re all set for camp again.
+
+Your spot is confirmed. We’re looking forward to having you back!
+
+🚀 Quick reminder: still no bananas please 🍌 (same allergy rule as before).
+
+See you soon—can’t wait to get building 🕹️
+
+Everything else you need is here:
+
+https://qwertykids.com/coding-camp-details/</pre></div></article><article class="card" data-audience="New family" data-category="Camps" data-channel="SMS" data-search="card 25 camps last-minute camp booking use when camp is imminent and normal payment clearing time is too slow. check: set a real proof-of-payment deadline. keep links at the end of sms copy. booking copy 👋hi [contact], welcome to qwertykids!
+
+[child] is booked to code with us on [date/s].
+
+please reply with a 👍 so we know our camp messages are reaching you if we need to contact you on the day.
+
+to lock in their spot, payment can be made via the invoice link below.
+
+as this is a last-minute booking, please send proof of payment before [deadline] so we can confirm the place.
+
+once that’s done, we’ll send through all the details.
+
+[invoice link] confirmation while payment clears copy hooray! 🎉 your spot is confirmed—we’re all set for camp!
+
+as this is a last-minute booking, payment may still be processing.
+please bring proof of payment on arrival (a screenshot is perfect).
+
+🚀 a quick but important rule: no bananas allowed 🍌
+we know they’re a great snack, but for a staff allergy, we ask that campers leave them at home.
+
+thanks for choosing qwertykids—we can’t wait to see you at camp! 🕹️
+
+for everything you need to know before arrival, check out the link below.
+
+https://qwertykids.com/coding-camp-details/ camps new family sms"><div class="cardhead"><span class="cardnum">Card 25</span><div class="category">Camps</div><h2>Last-minute camp booking</h2><p class="helper use">Use when camp is imminent and normal payment clearing time is too slow.</p><p class="helper checkline"><strong>Check:</strong> Set a real proof-of-payment deadline. Keep links at the end of SMS copy.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Booking</span><button class="copy" data-copy="last-minute-camp-0">Copy</button></div><pre id="last-minute-camp-0">👋Hi [contact], welcome to QwertyKids!
+
+[child] is booked to code with us on [date/s].
+
+Please reply with a 👍 so we know our camp messages are reaching you if we need to contact you on the day.
+
+To lock in their spot, payment can be made via the invoice link below.
+
+As this is a last-minute booking, please send proof of payment before [deadline] so we can confirm the place.
+
+Once that’s done, we’ll send through all the details.
+
+[invoice link]</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Confirmation while payment clears</span><button class="copy" data-copy="last-minute-camp-1">Copy</button></div><pre id="last-minute-camp-1">Hooray! 🎉 Your spot is confirmed—we’re all set for camp!
+
+As this is a last-minute booking, payment may still be processing.
+Please bring proof of payment on arrival (a screenshot is perfect).
+
+🚀 A quick but important rule: No bananas allowed 🍌
+We know they’re a great snack, but for a staff allergy, we ask that campers leave them at home.
+
+Thanks for choosing QwertyKids—we can’t wait to see you at camp! 🕹️
+
+For everything you need to know before arrival, check out the link below.
+
+https://qwertykids.com/coding-camp-details/</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Camps" data-channel="SMS" data-search="card 26 camps friends want to sit together use when two children want to work together and you can accommodate it. check: do not promise if grouping/age/support needs make it impractical. default copy yes, absolutely 😊 if they’re booked on the same day, we can sit [child] and [friend] together.
+
+i’ll make a note on the booking. camps new family / current family sms"><div class="cardhead"><span class="cardnum">Card 26</span><div class="category">Camps</div><h2>Friends want to sit together</h2><p class="helper use">Use when two children want to work together and you can accommodate it.</p><p class="helper checkline"><strong>Check:</strong> Do not promise if grouping/age/support needs make it impractical.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="friends-together-0">Copy</button></div><pre id="friends-together-0">Yes, absolutely 😊 If they’re booked on the same day, we can sit [child] and [friend] together.
+
+I’ll make a note on the booking.</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Camps" data-channel="SMS" data-search="card 27 camps add extended hours active · still recurring use when a family wants to add early drop-off/late pickup to an existing camp booking. check: insert current hours and fee. confirm staffing/capacity before saying yes. default copy yes, we can add extended hours for [date] 😊
+
+that covers [early drop-off time] to [late pickup time] and costs [fee].
+
+i’ll update the booking and send the payment step. camps new family / current family sms"><div class="cardhead"><span class="cardnum">Card 27</span><div class="category">Camps</div><h2>Add extended hours</h2><div class="lifecycle">Active · still recurring</div><p class="helper use">Use when a family wants to add early drop-off/late pickup to an existing camp booking.</p><p class="helper checkline"><strong>Check:</strong> Insert current hours and fee. Confirm staffing/capacity before saying yes.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="extended-hours-0">Copy</button></div><pre id="extended-hours-0">Yes, we can add extended hours for [date] 😊
+
+That covers [early drop-off time] to [late pickup time] and costs [fee].
+
+I’ll update the booking and send the payment step.</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Camps" data-channel="SMS / Email" data-search="card 28 camps teen day / teen availability use only when a dedicated teen session is actually running. check: teen offers have changed over time. verify the current age range, date and whether it is dedicated or mixed before sending. default copy hi [contact],
+
+we’ve opened [date] as a [dedicated/mixed] teen camp option for ages [age range].
+
+we keep the session small, so if [child] would like a place, the enrolment form is here:
+[camp enrolment link]
+
+thanks,
+qwertykids camps new family / current family sms / email"><div class="cardhead"><span class="cardnum">Card 28</span><div class="category">Camps</div><h2>Teen day / teen availability</h2><p class="helper use">Use only when a dedicated teen session is actually running.</p><p class="helper checkline"><strong>Check:</strong> Teen offers have changed over time. Verify the current age range, date and whether it is dedicated or mixed before sending.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="teen-day-0">Copy</button></div><pre id="teen-day-0">Hi [contact],
+
+We’ve opened [date] as a [dedicated/mixed] teen camp option for ages [age range].
+
+We keep the session small, so if [child] would like a place, the enrolment form is here:
+[camp enrolment link]
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 29 booking &amp; payment payment reminder: booking not yet secured use when a camp/class enrolment exists but payment has not arrived. &lt;strong&gt;check:&lt;/strong&gt; no booking date needed. keep no explicit and put the invoice link at the end of the sms. sms hi [contact], just checking in as we haven’t received payment for [child]’s [camp/class] booking. payment secures the booking, so please use the invoice link below to confirm their spot. if plans have changed, just reply no and we’ll update our records. thanks, qwertykids [invoice link]"><div class="cardhead"><span class="cardnum">Card 29</span><div class="category">Booking &amp; payment</div><h2>Payment reminder: booking not yet secured</h2><p class="helper use">Use when a camp/class enrolment exists but payment has not arrived.</p><p class="helper checkline"><strong>Check:</strong> No booking date needed. Keep NO explicit and put the invoice link at the end of the SMS.</p></div><div class="variant"><div class="vtop"><span class="vlabel">SMS</span><button class="copy" data-copy="payment-reminder-0">Copy</button></div><pre id="payment-reminder-0">Hi [contact], just checking in as we haven’t received payment for [child]’s [camp/class] booking.
+
+Payment secures the booking, so please use the invoice link below to confirm their spot.
+
+If plans have changed, just reply NO and we’ll update our records.
+
+Thanks,
+QwertyKids
+
+[invoice link]</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 30 booking &amp; payment payment deadline before releasing a place use when you genuinely need a final answer because the session is filling. check: set a real deadline and follow through consistently. default copy hi [contact], just a quick check-in 😊
+
+i’m still holding [child]’s place for [date/day], but payment hasn’t come through yet.
+
+could you please finalise it by [deadline] so i can keep the booking locked in? after that i may need to release the place if the session fills.
+
+[invoice link]
+
+thanks,
+dc booking &amp; payment new family / current family sms"><div class="cardhead"><span class="cardnum">Card 30</span><div class="category">Booking &amp; payment</div><h2>Payment deadline before releasing a place</h2><p class="helper use">Use when you genuinely need a final answer because the session is filling.</p><p class="helper checkline"><strong>Check:</strong> Set a real deadline and follow through consistently.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="payment-deadline-0">Copy</button></div><pre id="payment-deadline-0">Hi [contact], just a quick check-in 😊
+
+I’m still holding [child]’s place for [date/day], but payment hasn’t come through yet.
+
+Could you please finalise it by [deadline] so I can keep the booking locked in? After that I may need to release the place if the session fills.
+
+[invoice link]
+
+Thanks,
+DC</pre></div></article><article class="card" data-audience="Current family / New family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 31 booking &amp; payment they need a little longer to pay use when you can safely agree to a specific later payment date. check: give a concrete hold-until date. do not leave the place open-ended. default copy that’s fine 😊 i can hold [child]’s place until [date].
+
+if anything changes before then, just let me know. xdc booking &amp; payment current family / new family sms"><div class="cardhead"><span class="cardnum">Card 31</span><div class="category">Booking &amp; payment</div><h2>They need a little longer to pay</h2><p class="helper use">Use when you can safely agree to a specific later payment date.</p><p class="helper checkline"><strong>Check:</strong> Give a concrete hold-until date. Do not leave the place open-ended.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="payment-extension-0">Copy</button></div><pre id="payment-extension-0">That’s fine 😊 I can hold [child]’s place until [date].
+
+If anything changes before then, just let me know. xDC</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Booking &amp; payment" data-channel="Email / SMS" data-search="card 32 booking &amp; payment invoice / payment details didn’t arrive exception · historically common, now low exception route when the normal enrolment → text → invoice sequence has failed. this used to be common; by 2025–26 it is much rarer. check: for new camp families, also confirm sms delivery before the day. default copy hi [contact],
+
+thanks for chasing us, and sorry the payment details didn’t reach you.
+
+[child] is still booked for [date/day]. here’s the invoice link to confirm the place:
+[invoice link]
+
+could you also send us a quick text or add our number to your contacts? we use text for [camp/session] updates and want to make sure we can reach you if needed.
+
+once payment is received, we’ll send the final details.
+
+thanks,
+qwertykids booking &amp; payment new family / current family email / sms"><div class="cardhead"><span class="cardnum">Card 32</span><div class="category">Booking &amp; payment</div><h2>Invoice / payment details didn’t arrive</h2><div class="lifecycle exception">Exception · historically common, now low</div><p class="helper use">Exception route when the normal enrolment → text → invoice sequence has failed. This used to be common; by 2025–26 it is much rarer.</p><p class="helper checkline"><strong>Check:</strong> For new camp families, also confirm SMS delivery before the day.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="invoice-missed-0">Copy</button></div><pre id="invoice-missed-0">Hi [contact],
+
+Thanks for chasing us, and sorry the payment details didn’t reach you.
+
+[child] is still booked for [date/day]. Here’s the invoice link to confirm the place:
+[invoice link]
+
+Could you also send us a quick text or add our number to your contacts? We use text for [camp/session] updates and want to make sure we can reach you if needed.
+
+Once payment is received, we’ll send the final details.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="New family" data-category="Booking &amp; payment" data-channel="SMS" data-search="card 33 booking &amp; payment no response: contact the additional parent/carer exception · delivery fallback use only when the primary contact cannot be reached and the additional contact was supplied for the child. check: share only the minimum booking information needed. do not include sensitive enrolment/support details. default copy 👋 hi [contact], this is qwertykids.
+
+you were listed as an additional contact for [child]. we’re getting in touch because we haven’t been able to reach the primary contact and want to make sure [child]’s [camp/class] booking is sorted.
+
+please reply with a 👍 so we know this message reached you.
+
+they’re booked for [date/s]. to confirm the place, payment can be made here:
+[invoice link]
+
+if you can, please let [primary contact] know we’ve been trying to reach them.
+
+thanks booking &amp; payment new family sms"><div class="cardhead"><span class="cardnum">Card 33</span><div class="category">Booking &amp; payment</div><h2>No response: contact the additional parent/carer</h2><div class="lifecycle exception">Exception · delivery fallback</div><p class="helper use">Use only when the primary contact cannot be reached and the additional contact was supplied for the child.</p><p class="helper checkline"><strong>Check:</strong> Share only the minimum booking information needed. Do not include sensitive enrolment/support details.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="additional-contact-0">Copy</button></div><pre id="additional-contact-0">👋 Hi [contact], this is QwertyKids.
+
+You were listed as an additional contact for [child]. We’re getting in touch because we haven’t been able to reach the primary contact and want to make sure [child]’s [camp/class] booking is sorted.
+
+Please reply with a 👍 so we know this message reached you.
+
+They’re booked for [date/s]. To confirm the place, payment can be made here:
+[invoice link]
+
+If you can, please let [primary contact] know we’ve been trying to reach them.
+
+Thanks</pre></div></article><article class="card" data-audience="Current family / New family" data-category="Changes &amp; attendance" data-channel="SMS" data-search="card 34 changes &amp; attendance family asks to change class/camp day use when a requested switch is possible. check: confirm capacity and any fee difference first. yes copy yep, we can make that switch 😊
+
+i’ve moved [child] from [old day/date] to [new day/date].
+
+[if needed: the updated fee/balance is [amount].]
+
+xdc not available copy i can’t move [child] to [requested day] unfortunately, that session is full.
+
+i can offer [alternative 1] or [alternative 2] instead. let me know if either works. xdc changes &amp; attendance current family / new family sms"><div class="cardhead"><span class="cardnum">Card 34</span><div class="category">Changes &amp; attendance</div><h2>Family asks to change class/camp day</h2><p class="helper use">Use when a requested switch is possible.</p><p class="helper checkline"><strong>Check:</strong> Confirm capacity and any fee difference first.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Yes</span><button class="copy" data-copy="day-change-family-0">Copy</button></div><pre id="day-change-family-0">Yep, we can make that switch 😊
+
+I’ve moved [child] from [old day/date] to [new day/date].
+
+[If needed: The updated fee/balance is [amount].]
+
+xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Not available</span><button class="copy" data-copy="day-change-family-1">Copy</button></div><pre id="day-change-family-1">I can’t move [child] to [requested day] unfortunately, that session is full.
+
+I can offer [alternative 1] or [alternative 2] instead. Let me know if either works. xDC</pre></div></article><article class="card" data-audience="Current family / New family" data-category="Changes &amp; attendance" data-channel="Email / SMS" data-search="card 35 changes &amp; attendance family cancellation / refund request active · policy-dependent use when the family is cancelling. this card deliberately does not invent the refund outcome. check: policy check: apply the current terms, notice period and any exceptional circumstances before choosing the second paragraph. acknowledge first copy hi [contact],
+
+thanks for letting me know. i’ve noted that [child] won’t be attending on [date/day].
+
+[refund/credit outcome based on current policy.]
+
+i’ll confirm the admin side once that’s updated.
+
+xdc no refund, credit available copy hi [contact],
+
+thanks for letting me know. i’ve cancelled [child]’s place for [date].
+
+under our current cancellation terms we can’t refund this booking, but i can hold [amount/day] as a credit for [eligible future use].
+
+xdc changes &amp; attendance current family / new family email / sms"><div class="cardhead"><span class="cardnum">Card 35</span><div class="category">Changes &amp; attendance</div><h2>Family cancellation / refund request</h2><div class="lifecycle policy">Active · policy-dependent</div><p class="helper use">Use when the family is cancelling. This card deliberately does not invent the refund outcome.</p><p class="helper checkline policy"><strong>Check:</strong> POLICY CHECK: apply the current terms, notice period and any exceptional circumstances before choosing the second paragraph.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Acknowledge first</span><button class="copy" data-copy="family-cancellation-0">Copy</button></div><pre id="family-cancellation-0">Hi [contact],
+
+Thanks for letting me know. I’ve noted that [child] won’t be attending on [date/day].
+
+[Refund/credit outcome based on current policy.]
+
+I’ll confirm the admin side once that’s updated.
+
+xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">No refund, credit available</span><button class="copy" data-copy="family-cancellation-1">Copy</button></div><pre id="family-cancellation-1">Hi [contact],
+
+Thanks for letting me know. I’ve cancelled [child]’s place for [date].
+
+Under our current cancellation terms we can’t refund this booking, but I can hold [amount/day] as a credit for [eligible future use].
+
+xDC</pre></div></article><article class="card" data-audience="Current family / New family" data-category="Changes &amp; attendance" data-channel="SMS / Email" data-search="card 36 changes &amp; attendance qwerty needs to cancel or move a session use when the change is qwerty’s, not the family’s. check: offer a clean remedy. do not make the family do emotional labour for your scheduling problem. camp day copy hi [contact],
+
+i’m sorry, we need to cancel the camp session on [date].
+
+i can move [child] to any of these available days instead:
+[alternatives]
+
+if none of those work, i can arrange [refund/credit according to what you are offering].
+
+sorry for the disruption. please let me know which option suits you best.
+
+dc weekly class copy hi [contact],
+
+i’m sorry, i need to cancel [day]’s coding class.
+
+i’ll make the missed time up by [make-up arrangement].
+
+please reply 👍 so i know you’ve seen this.
+
+xdc changes &amp; attendance current family / new family sms / email"><div class="cardhead"><span class="cardnum">Card 36</span><div class="category">Changes &amp; attendance</div><h2>Qwerty needs to cancel or move a session</h2><p class="helper use">Use when the change is Qwerty’s, not the family’s.</p><p class="helper checkline"><strong>Check:</strong> Offer a clean remedy. Do not make the family do emotional labour for your scheduling problem.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Camp day</span><button class="copy" data-copy="qk-cancels-day-0">Copy</button></div><pre id="qk-cancels-day-0">Hi [contact],
+
+I’m sorry, we need to cancel the camp session on [date].
+
+I can move [child] to any of these available days instead:
+[alternatives]
+
+If none of those work, I can arrange [refund/credit according to what you are offering].
+
+Sorry for the disruption. Please let me know which option suits you best.
+
+DC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Weekly class</span><button class="copy" data-copy="qk-cancels-day-1">Copy</button></div><pre id="qk-cancels-day-1">Hi [contact],
+
+I’m sorry, I need to cancel [day]’s coding class.
+
+I’ll make the missed time up by [make-up arrangement].
+
+Please reply 👍 so I know you’ve seen this.
+
+xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Changes &amp; attendance" data-channel="SMS" data-search="card 37 changes &amp; attendance child will miss a weekly class active · policy-dependent use when a current family tells you their child will be away. check: make-up availability has varied historically. do not promise one unless you actually have a workable session. acknowledge only copy thanks for letting me know 😊 i’ll mark [child] away for [day]. hope all is well. xdc make-up available copy thanks for letting me know. i can offer [child] a make-up on [day/time] if that works for you. xdc changes &amp; attendance current family sms"><div class="cardhead"><span class="cardnum">Card 37</span><div class="category">Changes &amp; attendance</div><h2>Child will miss a weekly class</h2><div class="lifecycle policy">Active · policy-dependent</div><p class="helper use">Use when a current family tells you their child will be away.</p><p class="helper checkline"><strong>Check:</strong> Make-up availability has varied historically. Do not promise one unless you actually have a workable session.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Acknowledge only</span><button class="copy" data-copy="absence-makeup-0">Copy</button></div><pre id="absence-makeup-0">Thanks for letting me know 😊 I’ll mark [child] away for [day]. Hope all is well. xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Make-up available</span><button class="copy" data-copy="absence-makeup-1">Copy</button></div><pre id="absence-makeup-1">Thanks for letting me know. I can offer [child] a make-up on [day/time] if that works for you. xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Sensitive &amp; support" data-channel="SMS" data-search="card 38 sensitive &amp; support child is unwell use when illness is the reason for missing a session. check: no jokes, pressure or policy lecture in the first reply. sort credits/make-ups separately if needed. default copy thanks for letting me know. i hope [child] feels better soon.
+
+don’t worry about today. i’ll update the attendance here and we can sort any [make-up/credit question] separately.
+
+xdc sensitive &amp; support current family sms"><div class="cardhead"><span class="cardnum">Card 38</span><div class="category">Sensitive &amp; support</div><h2>Child is unwell</h2><p class="helper use">Use when illness is the reason for missing a session.</p><p class="helper checkline"><strong>Check:</strong> No jokes, pressure or policy lecture in the first reply. Sort credits/make-ups separately if needed.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="illness-0">Copy</button></div><pre id="illness-0">Thanks for letting me know. I hope [child] feels better soon.
+
+Don’t worry about today. I’ll update the attendance here and we can sort any [make-up/credit question] separately.
+
+xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Changes &amp; attendance" data-channel="SMS" data-search="card 39 changes &amp; attendance running a few minutes late use when a family gives you a short, practical timing update. check: keep it proportionate. arrival copy no problem 😊 thanks for letting me know. we’ll see you when you get here. xdc pickup copy thanks for the heads-up. that’s fine for [time]. if it looks like you’ll be later than that, just send me another message. xdc changes &amp; attendance current family sms"><div class="cardhead"><span class="cardnum">Card 39</span><div class="category">Changes &amp; attendance</div><h2>Running a few minutes late</h2><p class="helper use">Use when a family gives you a short, practical timing update.</p><p class="helper checkline"><strong>Check:</strong> Keep it proportionate.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Arrival</span><button class="copy" data-copy="late-arrival-0">Copy</button></div><pre id="late-arrival-0">No problem 😊 Thanks for letting me know. We’ll see you when you get here. xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Pickup</span><button class="copy" data-copy="late-arrival-1">Copy</button></div><pre id="late-arrival-1">Thanks for the heads-up. That’s fine for [time]. If it looks like you’ll be later than that, just send me another message. xDC</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Practical" data-channel="SMS" data-search="card 40 practical where are you? residual · largely improved residual quick reply. location/access confusion fell sharply after the wharf street era and the move to marrickville road, but first-time families can still need it. check: current studio address below is based on 2026 communications. update if qwerty moves. default copy we’re at:
+
+qwertykids
+level 1, 230 marrickville road
+marrickville nsw 2204
+
+[add current entrance/parking instruction if needed.]
+
+see you soon 😊 practical new family / current family sms"><div class="cardhead"><span class="cardnum">Card 40</span><div class="category">Practical</div><h2>Where are you?</h2><div class="lifecycle residual">Residual · largely improved</div><p class="helper use">Residual quick reply. Location/access confusion fell sharply after the Wharf Street era and the move to Marrickville Road, but first-time families can still need it.</p><p class="helper checkline"><strong>Check:</strong> Current studio address below is based on 2026 communications. Update if Qwerty moves.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="location-0">Copy</button></div><pre id="location-0">We’re at:
+
+QwertyKids
+Level 1, 230 Marrickville Road
+Marrickville NSW 2204
+
+[Add current entrance/parking instruction if needed.]
+
+See you soon 😊</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Practical" data-channel="SMS" data-search="card 41 practical what should they bring to camp? active practical question use for the common pre-arrival packing question. check: verify current food/allergy details and whether any special project needs personal equipment. default copy for camp, please bring:
+
+• lunch
+• snacks
+• a water bottle
+• anything personal they need for the day
+
+no bananas please 🍌 we have a staff allergy.
+
+we provide the coding/project equipment unless we’ve specifically asked you to bring something else.
+
+full camp details:
+https://qwertykids.com/coding-camp-details/ practical new family / current family sms"><div class="cardhead"><span class="cardnum">Card 41</span><div class="category">Practical</div><h2>What should they bring to camp?</h2><div class="lifecycle">Active practical question</div><p class="helper use">Use for the common pre-arrival packing question.</p><p class="helper checkline"><strong>Check:</strong> Verify current food/allergy details and whether any special project needs personal equipment.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="camp-bring-0">Copy</button></div><pre id="camp-bring-0">For camp, please bring:
+
+• lunch
+• snacks
+• a water bottle
+• anything personal they need for the day
+
+No bananas please 🍌 We have a staff allergy.
+
+We provide the coding/project equipment unless we’ve specifically asked you to bring something else.
+
+Full camp details:
+https://qwertykids.com/coding-camp-details/</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Practical" data-channel="SMS" data-search="card 42 practical do they need to bring a laptop/ipad? active practical question use when a family asks whether sessions are byod. check: historically qwerty has provided laptops/equipment. confirm this remains true for the specific programme. default copy no need to bring a device unless we’ve specifically asked for one. we provide the equipment needed for the projects we’re running. practical new family / current family sms"><div class="cardhead"><span class="cardnum">Card 42</span><div class="category">Practical</div><h2>Do they need to bring a laptop/iPad?</h2><div class="lifecycle">Active practical question</div><p class="helper use">Use when a family asks whether sessions are BYOD.</p><p class="helper checkline"><strong>Check:</strong> Historically Qwerty has provided laptops/equipment. Confirm this remains true for the specific programme.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="devices-0">Copy</button></div><pre id="devices-0">No need to bring a device unless we’ve specifically asked for one. We provide the equipment needed for the projects we’re running.</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Admin extras" data-channel="Email / SMS" data-search="card 43 admin extras sibling discount request mostly historical · verify current policy use if the current policy remains a flat fee with no sibling discount. check: policy check before reuse. this is a much shorter replacement for an older, defensive explanation in the notes. default copy thanks for asking. we don’t currently offer a sibling discount; we keep the fee consistent across families.
+
+i completely understand checking though. admin extras new family / current family email / sms"><div class="cardhead"><span class="cardnum">Card 43</span><div class="category">Admin extras</div><h2>Sibling discount request</h2><div class="lifecycle policy">Mostly historical · verify current policy</div><p class="helper use">Use if the current policy remains a flat fee with no sibling discount.</p><p class="helper checkline policy"><strong>Check:</strong> POLICY CHECK before reuse. This is a much shorter replacement for an older, defensive explanation in the notes.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="sibling-discount-0">Copy</button></div><pre id="sibling-discount-0">Thanks for asking. We don’t currently offer a sibling discount; we keep the fee consistent across families.
+
+I completely understand checking though.</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Admin extras" data-channel="Email" data-search="card 44 admin extras voucher / ndis invoice enquiry legacy-heavy · only keep current arrangements use as a safe first response before confirming a funding arrangement. check: funding programmes change. never assume eligibility or acceptance from historical notes. ndis first step copy hi [contact],
+
+we can check whether the booking can be invoiced in the format you need.
+
+please send:
+• participant name
+• ndis number
+• support category
+• support item number, if you know it
+• the service dates you need shown on the invoice
+
+we’ll confirm the invoice setup before you rely on it for the booking.
+
+thanks,
+qwertykids voucher/credit copy hi [contact],
+
+please send the voucher/credit details and we’ll check them against the current programme before confirming the balance owing.
+
+thanks,
+qwertykids admin extras new family / current family email"><div class="cardhead"><span class="cardnum">Card 44</span><div class="category">Admin extras</div><h2>Voucher / NDIS invoice enquiry</h2><div class="lifecycle residual">Legacy-heavy · only keep current arrangements</div><p class="helper use">Use as a safe first response before confirming a funding arrangement.</p><p class="helper checkline"><strong>Check:</strong> Funding programmes change. Never assume eligibility or acceptance from historical notes.</p></div><div class="variant"><div class="vtop"><span class="vlabel">NDIS first step</span><button class="copy" data-copy="ndis-voucher-0">Copy</button></div><pre id="ndis-voucher-0">Hi [contact],
+
+We can check whether the booking can be invoiced in the format you need.
+
+Please send:
+• participant name
+• NDIS number
+• support category
+• support item number, if you know it
+• the service dates you need shown on the invoice
+
+We’ll confirm the invoice setup before you rely on it for the booking.
+
+Thanks,
+QwertyKids</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Voucher/credit</span><button class="copy" data-copy="ndis-voucher-1">Copy</button></div><pre id="ndis-voucher-1">Hi [contact],
+
+Please send the voucher/credit details and we’ll check them against the current programme before confirming the balance owing.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="Current family" data-category="Sensitive &amp; support" data-channel="Email" data-search="card 45 sensitive &amp; support a child had a difficult session use as a structure when a family tells you their child found a session upsetting or overwhelming. check: do not template away the facts. replace every bracket with what you actually observed. take responsibility for your part without diagnosing the child or blaming another child. structure copy hi [contact],
+
+thank you for telling me, and please don’t apologise.
+
+i’m sorry [child] had such a hard time in the session.
+
+from what i observed, [specific factual account of what happened]. i had expected [your intention], but i can see that [impact/problem you may have missed].
+
+it’s possible that [child]’s description of “[their words]” is the simplest way they have to explain a situation that felt [plain-language interpretation, clearly framed as a possibility].
+
+for next time, [specific thing that would be different / adjustment you can genuinely make]. if you think of anything else that would help [child] feel comfortable, please let me know.
+
+[refund/credit/retry option only if appropriate and already decided.]
+
+dc sensitive &amp; support current family email"><div class="cardhead"><span class="cardnum">Card 45</span><div class="category">Sensitive &amp; support</div><h2>A child had a difficult session</h2><p class="helper use">Use as a structure when a family tells you their child found a session upsetting or overwhelming.</p><p class="helper checkline"><strong>Check:</strong> Do not template away the facts. Replace every bracket with what you actually observed. Take responsibility for your part without diagnosing the child or blaming another child.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Structure</span><button class="copy" data-copy="difficult-session-0">Copy</button></div><pre id="difficult-session-0">Hi [contact],
+
+Thank you for telling me, and please don’t apologise.
+
+I’m sorry [child] had such a hard time in the session.
+
+From what I observed, [specific factual account of what happened]. I had expected [your intention], but I can see that [impact/problem you may have missed].
+
+It’s possible that [child]’s description of “[their words]” is the simplest way they have to explain a situation that felt [plain-language interpretation, clearly framed as a possibility].
+
+For next time, [specific thing that would be different / adjustment you can genuinely make]. If you think of anything else that would help [child] feel comfortable, please let me know.
+
+[Refund/credit/retry option only if appropriate and already decided.]
+
+DC</pre></div></article><article class="card" data-audience="New family" data-category="Sensitive &amp; support" data-channel="Email" data-search="card 46 sensitive &amp; support is qwerty suitable for these support needs? use when a parent gives meaningful support information and wants to know whether the environment is suitable. check: answer from the actual environment and support capacity. do not make clinical judgments. default copy hi [contact],
+
+thanks for giving us that detail. the useful question for us is less the label and more what [child] needs in practice during a group session.
+
+qwerty can involve waiting briefly for help, coping with a project not working first time, changing plans, working alongside other children making different choices, and managing the normal noise of a creative studio.
+
+if you can tell us what overwhelm/frustration looks like for [child], what helps them reset, and how independently they can take part in a group, we can make a more responsible call about fit before confirming the place.
+
+thanks,
+qwertykids sensitive &amp; support new family email"><div class="cardhead"><span class="cardnum">Card 46</span><div class="category">Sensitive &amp; support</div><h2>Is Qwerty suitable for these support needs?</h2><p class="helper use">Use when a parent gives meaningful support information and wants to know whether the environment is suitable.</p><p class="helper checkline"><strong>Check:</strong> Answer from the actual environment and support capacity. Do not make clinical judgments.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="support-suitability-0">Copy</button></div><pre id="support-suitability-0">Hi [contact],
+
+Thanks for giving us that detail. The useful question for us is less the label and more what [child] needs in practice during a group session.
+
+Qwerty can involve waiting briefly for help, coping with a project not working first time, changing plans, working alongside other children making different choices, and managing the normal noise of a creative studio.
+
+If you can tell us what overwhelm/frustration looks like for [child], what helps them reset, and how independently they can take part in a group, we can make a more responsible call about fit before confirming the place.
+
+Thanks,
+QwertyKids</pre></div></article><article class="card" data-audience="Current family" data-category="Admin extras" data-channel="SMS" data-search="card 47 admin extras ask a current family for a google review use after a genuinely good experience or kind piece of feedback, not as a routine demand. check: keep it personal and easy to ignore. current review link is included. default copy thank you 😊 that’s lovely to hear.
+
+if you ever feel like turning that into a quick google review, it genuinely helps a tiny business like mine:
+https://g.page/r/ccer5pzmdvh_eai/review
+
+absolutely no pressure. xdc admin extras current family sms"><div class="cardhead"><span class="cardnum">Card 47</span><div class="category">Admin extras</div><h2>Ask a current family for a Google review</h2><p class="helper use">Use after a genuinely good experience or kind piece of feedback, not as a routine demand.</p><p class="helper checkline"><strong>Check:</strong> Keep it personal and easy to ignore. Current review link is included.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="review-request-0">Copy</button></div><pre id="review-request-0">Thank you 😊 That’s lovely to hear.
+
+If you ever feel like turning that into a quick Google review, it genuinely helps a tiny business like mine:
+https://g.page/r/CcER5PzMdvh_EAI/review
+
+Absolutely no pressure. xDC</pre></div></article><article class="card" data-audience="Current family" data-category="Admin extras" data-channel="SMS" data-search="card 48 admin extras lost property use for water bottles, jumpers and the small travelling museum camp produces. check: only promise pickup times when you know someone will be at the studio. found it copy found it 😊 i’ll keep [item] safe here for [child]. you can grab it [pickup option/time]. xdc haven’t found it yet copy i haven’t spotted [item] yet, but i’ll have a proper look around the studio and let you know if it turns up. xdc admin extras current family sms"><div class="cardhead"><span class="cardnum">Card 48</span><div class="category">Admin extras</div><h2>Lost property</h2><p class="helper use">Use for water bottles, jumpers and the small travelling museum camp produces.</p><p class="helper checkline"><strong>Check:</strong> Only promise pickup times when you know someone will be at the studio.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Found it</span><button class="copy" data-copy="lost-property-0">Copy</button></div><pre id="lost-property-0">Found it 😊 I’ll keep [item] safe here for [child]. You can grab it [pickup option/time]. xDC</pre></div><div class="variant"><div class="vtop"><span class="vlabel">Haven’t found it yet</span><button class="copy" data-copy="lost-property-1">Copy</button></div><pre id="lost-property-1">I haven’t spotted [item] yet, but I’ll have a proper look around the studio and let you know if it turns up. xDC</pre></div></article><article class="card" data-audience="New family" data-category="Classes" data-channel="SMS" data-search="card 49 classes referral: first contact + enrolment form use when a current family has referred someone directly and you already have the new parent/carer’s number. &lt;strong&gt;check:&lt;/strong&gt; keep the enrolment link last so messages renders it cleanly. default 👋 hi [contact], it’s dc from qwertykids. [referrer] passed on your number as [child] is hoping to join [friend] on [day], [time], in [term]. could you please complete our enrolment form when you get a chance so we have all [child]’s details? and send me a quick 👍 so i know this reached you. xdc [class enrolment link]"><div class="cardhead"><span class="cardnum">Card 49</span><div class="category">Classes</div><h2>Referral: first contact + enrolment form</h2><p class="helper use">Use when a current family has referred someone directly and you already have the new parent/carer’s number.</p><p class="helper checkline"><strong>Check:</strong> Keep the enrolment link last so Messages renders it cleanly.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="referral-first-contact-0">Copy</button></div><pre id="referral-first-contact-0">👋 Hi [contact], it’s DC from QwertyKids. [referrer] passed on your number as [child] is hoping to join [friend] on [day], [time], in [term].
+
+Could you please complete our enrolment form when you get a chance so we have all [child]’s details?
+
+And send me a quick 👍 so I know this reached you.
+
+xDC
+
+[class enrolment link]</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Classes" data-channel="SMS" data-search="card 50 classes a class place has opened use when someone has already registered interest and a place becomes available. &lt;strong&gt;check:&lt;/strong&gt; keep the y/n reply instruction explicit. default 👋 hi [contact], it’s qwertykids. [child] is booked in with us for camp on [camp date], and you’d also registered interest in our [class day/time] class for [term]. a place has now opened up, so we wanted to check with you first. if you’d like the spot, just reply y 👍. if not, reply n. thanks"><div class="cardhead"><span class="cardnum">Card 50</span><div class="category">Classes</div><h2>A class place has opened</h2><p class="helper use">Use when someone has already registered interest and a place becomes available.</p><p class="helper checkline"><strong>Check:</strong> Keep the Y/N reply instruction explicit.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="class-place-opened-0">Copy</button></div><pre id="class-place-opened-0">👋 Hi [contact], it’s QwertyKids.
+
+[child] is booked in with us for camp on [camp date], and you’d also registered interest in our [class day/time] class for [term].
+
+A place has now opened up, so we wanted to check with you first.
+
+If you’d like the spot, just reply Y 👍. If not, reply N.
+
+Thanks</pre></div></article><article class="card" data-audience="Current family" data-category="Changes &amp; attendance" data-channel="SMS" data-search="card 51 changes &amp; attendance class time change confirmed use once the affected families have agreed to a new class time. &lt;strong&gt;check:&lt;/strong&gt; send only once everyone who needs to agree to the change has confirmed. default hi [contact], thanks! i’ve now heard back from [other family/name] and [new time] works for them too, so we can switch the [day] class to [new time] next term. i’ll see [child] [before-term note], and then at [new time] on [start date] 😊 xdc"><div class="cardhead"><span class="cardnum">Card 51</span><div class="category">Changes &amp; attendance</div><h2>Class time change confirmed</h2><p class="helper use">Use once the affected families have agreed to a new class time.</p><p class="helper checkline"><strong>Check:</strong> Send only once everyone who needs to agree to the change has confirmed.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="class-time-change-0">Copy</button></div><pre id="class-time-change-0">Hi [contact], thanks! I’ve now heard back from [other family/name] and [new time] works for them too, so we can switch the [day] class to [new time] next term.
+
+I’ll see [child] [before-term note], and then at [new time] on [start date] 😊
+
+xDC</pre></div></article><article class="card" data-audience="New family / Current family" data-category="Practical" data-channel="SMS" data-search="card 52 practical camp food + extended-hours snack use when a family asks whether food is included or what extra food to pack for extended hours. default lunch isn’t included, so please pack lunch and recess for the day. if they’re staying for extended hours, please pack an extra snack too 😊"><div class="cardhead"><span class="cardnum">Card 52</span><div class="category">Practical</div><h2>Camp food + extended-hours snack</h2><p class="helper use">Use when a family asks whether food is included or what extra food to pack for extended hours.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="camp-food-0">Copy</button></div><pre id="camp-food-0">Lunch isn’t included, so please pack lunch and recess for the day. If they’re staying for extended hours, please pack an extra snack too 😊</pre></div></article><article class="card" data-audience="Current family / New family" data-category="Camps" data-channel="Email / SMS" data-search="card 53 camps post-camp login details + term 4 follow-up use after camp to send login details so a child can revisit their work, with a light invitation to continue in weekly classes. &lt;strong&gt;check:&lt;/strong&gt; replace the login suffix only. keep the class enrolment link last. default hi [parent], here’s [child]’s login details so they can show off what they’ve made, or jump back in when inspiration strikes: u: qwerty[llnn] p: ilovecode https://scratch.mit.edu/ https://bitsbox.com/ if you&#x27;re keen to keep their coding spark ablaze, a few term 4 spots are open, including a new saturday session. would be great to see what [child] makes next 🤩 xdc https://qwertykids.com/kids-coding-classes-enrolment/"><div class="cardhead"><span class="cardnum">Card 53</span><div class="category">Camps</div><h2>Post-camp login details + Term 4 follow-up</h2><p class="helper use">Use after camp to send login details so a child can revisit their work, with a light invitation to continue in weekly classes.</p><p class="helper checkline"><strong>Check:</strong> Replace the login suffix only. Keep the class enrolment link last.</p></div><div class="variant"><div class="vtop"><span class="vlabel">Default</span><button class="copy" data-copy="post-camp-logins-0">Copy</button></div><pre id="post-camp-logins-0">Hi [Parent],
+
+Here’s [Child]’s login details so they can show off what they’ve made, or jump back in when inspiration strikes:
+
+u: qwerty[LLNN]
+p: ilovecode
+
+https://scratch.mit.edu/
+https://bitsbox.com/
+
+If you're keen to keep their coding spark ablaze, a few Term 4 spots are open, including a new Saturday session.
+
+Would be great to see what [Child] makes next 🤩
+
+xDC
+https://qwertykids.com/kids-coding-classes-enrolment/</pre></div></article><article class="card draft-card" data-always="true" data-audience="" data-category="Draft" data-channel="" data-search="card 54 draft blank reply draft copy draft  ">
+<div class="cardhead"><span class="cardnum">Card 54</span>
+<div class="category">Draft</div>
+<h2>Blank reply</h2>
+</div>
+<div class="variant">
+<div class="vtop"><span class="vlabel">Draft</span><button class="copy" data-copy="draft-0">Copy</button></div>
+<pre class="draft-editor" data-placeholder="Draft a reply here…" id="draft-0"></pre>
+</div>
+</article></section><div class="empty" id="empty">No cards match that combination. Try a broader search.</div></main>
+<footer>The longitudinal pass distinguishes historical friction from current friction. A card can remain useful even when the underlying problem is mostly solved: sometimes the card is part of why it stayed solved.</footer>
+<script>
+const cards=[...document.querySelectorAll('.card')],
+      search=document.querySelector('#search'),
+      audience=document.querySelector('#audience'),
+      channel=document.querySelector('#channel'),
+      count=document.querySelector('#count'),
+      empty=document.querySelector('#empty'),
+      resetAll=document.querySelector('#resetAll');
+let cat='All';
+const defaults=new Map();
+let activePlaceholder=null;
+let syncingPlaceholders=false;
+
+function show(){
+  const q=search.value.trim().toLowerCase();let n=0;
+  cards.forEach(c=>{
+    const always=c.dataset.always==='true';
+    const okCat=always || cat==='All'||c.dataset.category===cat;
+    const okQ=always || !q||c.dataset.search.includes(q);
+    const a=audience.value;
+    const okA=always || !a||c.dataset.audience.includes(a)||a.includes(c.dataset.audience);
+    const ch=channel.value;
+    const okCh=always || !ch||c.dataset.channel.includes(ch);
+    const ok=okCat&&okQ&&okA&&okCh;
+    c.style.display=ok?'block':'none';if(ok)n++
+  });
+  count.textContent=n+' card'+(n===1?'':'s')+' shown';
+  empty.style.display=n?'none':'block';
+}
+
+function decorateReply(pre,text){
+  pre.textContent='';
+  if(!text) return;
+  const rx=/\[[^\[\]\n]+\]/g;
+  let last=0,m;
+  while((m=rx.exec(text))){
+    pre.append(document.createTextNode(text.slice(last,m.index)));
+    const span=document.createElement('span');
+    span.className='placeholder';
+    span.textContent=m[0];
+    span.dataset.original=m[0];
+    span.title='Double-click to replace';
+    pre.append(span);
+    last=rx.lastIndex;
+  }
+  pre.append(document.createTextNode(text.slice(last)));
+}
+
+function plainText(pre){ return pre.textContent.replace(/\u00a0/g,' '); }
+
+function syncMatchingPlaceholders(pre,source){
+  if(syncingPlaceholders || !source?.dataset?.original) return;
+  syncingPlaceholders=true;
+  const key=source.dataset.original;
+  const value=source.textContent;
+  pre.querySelectorAll('.placeholder').forEach(span=>{
+    if(span!==source && span.dataset.original===key) span.textContent=value;
+  });
+  syncingPlaceholders=false;
+}
+
+function syncVariant(pre){
+  pre.querySelectorAll('.placeholder').forEach(span=>{
+    const t=span.textContent;
+    span.classList.toggle('filled',!/^\[[^\[\]\n]+\]$/.test(t));
+  });
+  const variant=pre.closest('.variant');
+  const changed=plainText(pre)!==defaults.get(pre.id);
+  variant.classList.toggle('edited',changed);
+  const reset=variant.querySelector('.reset');
+  if(reset) reset.disabled=!changed;
+  updateResetAll();
+}
+
+function updateResetAll(){
+  resetAll.disabled=![...defaults.keys()].some(id=>plainText(document.getElementById(id))!==defaults.get(id));
+}
+
+function resetReply(pre){
+  decorateReply(pre,defaults.get(pre.id));
+  syncVariant(pre);
+}
+
+function selectPlaceholder(span){
+  const range=document.createRange();
+  range.selectNodeContents(span);
+  const sel=window.getSelection();
+  sel.removeAllRanges();sel.addRange(range);
+  activePlaceholder=span;
+}
+
+async function copyText(text){
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(err){
+    const ta=document.createElement('textarea');
+    ta.value=text;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.opacity='0';
+    document.body.append(ta);ta.select();document.execCommand('copy');ta.remove();
+  }
+}
+
+// Turn every reply into an editable working surface and add Reset beside Copy.
+document.querySelectorAll('pre[id]').forEach(pre=>{
+  const original=pre.textContent;
+  defaults.set(pre.id,original);
+  decorateReply(pre,original);
+  pre.contentEditable='true';
+  pre.spellcheck=true;
+  pre.setAttribute('aria-label','Editable reply text');
+
+  const variant=pre.closest('.variant');
+  const top=variant.querySelector('.vtop');
+  const copy=top.querySelector('.copy');
+  const actions=document.createElement('div');actions.className='vactions';
+  copy.replaceWith(actions);actions.append(copy);
+  const reset=document.createElement('button');
+  reset.className='reset';reset.type='button';reset.textContent='↺ Reset';reset.disabled=true;
+  reset.dataset.reset=pre.id;reset.title='Restore this reply to its default wording';
+  actions.append(reset);
+});
+
+search.addEventListener('input',show);
+audience.addEventListener('change',show);
+channel.addEventListener('change',show);
+document.querySelector('#chips').addEventListener('click',e=>{
+  if(!e.target.matches('.chip'))return;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+  e.target.classList.add('active');cat=e.target.dataset.cat;show();
+});
+
+document.addEventListener('dblclick',e=>{
+  const span=e.target.closest('.placeholder');
+  if(!span)return;
+  e.preventDefault();selectPlaceholder(span);
+});
+
+document.addEventListener('input',e=>{
+  const pre=e.target.closest?.('pre[contenteditable="true"]');
+  if(!pre)return;
+  if(activePlaceholder && !activePlaceholder.isConnected) activePlaceholder=null;
+  if(activePlaceholder && activePlaceholder.closest('pre')===pre){
+    syncMatchingPlaceholders(pre,activePlaceholder);
+  }
+  syncVariant(pre);
+});
+
+document.addEventListener('focusout',e=>{
+  const pre=e.target.closest?.('pre[contenteditable="true"]');
+  if(!pre)return;
+  pre.querySelectorAll('.placeholder').forEach(span=>{
+    if(!span.textContent.trim()) span.textContent=span.dataset.original||'[change me]';
+  });
+  activePlaceholder=null;syncVariant(pre);
+});
+
+document.addEventListener('keydown',e=>{
+  const span=e.target.closest?.('.placeholder');
+  if(span && e.key==='Enter'){
+    e.preventDefault();
+    const pre=span.closest('pre');
+    syncMatchingPlaceholders(pre,span);
+    pre.focus();
+    const range=document.createRange();range.setStartAfter(span);range.collapse(true);
+    const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);
+    activePlaceholder=null;syncVariant(pre);
+  }
+});
+
+document.addEventListener('click',async e=>{
+  if(e.target.matches('.copy')){
+    const el=document.getElementById(e.target.dataset.copy);
+    await copyText(plainText(el));
+    const old=e.target.textContent;e.target.textContent='Copied';e.target.classList.add('done');
+    setTimeout(()=>{e.target.textContent=old;e.target.classList.remove('done')},1100);
+    return;
+  }
+  if(e.target.matches('.reset')){
+    resetReply(document.getElementById(e.target.dataset.reset));
+  }
+});
+
+resetAll.addEventListener('click',()=>{
+  if(resetAll.disabled)return;
+  if(!confirm('Reset every edited reply back to its Qwerty default?'))return;
+  defaults.forEach((_,id)=>resetReply(document.getElementById(id)));
+});
+
+show();updateResetAll();
+</script></body></html>
