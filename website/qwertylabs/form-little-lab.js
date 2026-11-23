@@ -25,23 +25,24 @@
     return a.slice(0,-1).join(', ')+' and '+a[a.length-1];
   }
   function enrolMessage(){
-    var current=app.querySelector('.qlf-step:not([hidden])');
-    var step=current?Number(current.dataset.step):0;
-    var a=names(),name=joined(a);
+    var a=names(), name=joined(a);
     var children=app.querySelectorAll('.qlf-child').length;
     var family=app.querySelector('#family-type');
-    var returning=family&&family.value==='returning';
-    if(step===3)return 'Almost there!';
-    if(step===2)return name ? 'Excitement! '+name+(a.length===1?' is':' are')+' on the way.'+(returning?' Back for more making!':'') :
-      'The grown-ups have arrived. Nearly done!';
-    if(step===1){
-      if(!name)return returning?'Who is making things with us this time?':'Who is the young maker joining us?';
+    var returning=family && family.value==='returning';
+    var parent=firstName('#parent-first');
+    var selectedDays=app.querySelectorAll('input[name="camp-days"]:checked').length;
+    var classTime=app.querySelector('#class-time');
+    if(a.length){
       if(a.length<children)return name+'! Who else is joining?';
-      if(returning)return (a.length===1?'It’s ':'')+name+'! '+(a.length===1?'Yay':a.length===2?'Double yay':'Triple yay')+', lovely to see your family again.';
+      if(parent)return 'Looking good, '+parent+'! '+name+(a.length===1?' is':' are')+' ready for some making.';
+      if(returning)return (a.length===1?'It’s ':'')+name+'! '+(a.length===1?'Yay':'Yay')+', welcome back to the Lab.';
       if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
       return name+'! '+(a.length===2?'Double yay, two':'Triple yay, three')+' new makers to meet.';
     }
-    return returning?'Ooh, a familiar family! Welcome back.':'Ooh, someone’s about to enrol.';
+    if(returning)return 'Ooh, a familiar family! Welcome back. Who’s coming?';
+    if(selectedDays || (classTime && classTime.value))return 'Good choices! Who’s coming to make things?';
+    if(family && family.value==='new')return 'Who’s the young maker joining us?';
+    return 'Ooh, someone’s about to enrol.';
   }
   function simpleMessage(){
     var name=firstName('#first-first');
