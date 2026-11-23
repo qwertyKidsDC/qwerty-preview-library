@@ -41,7 +41,7 @@
       }).join('') + '</select></div>';
   }
   function yesNo(id, label, required) {
-    return select(id,label,[['yes','Yes'],['no','No']],required);
+    return radioChoices(id,label,[['yes','Yes'],['no','No']],required);
   }
   function checkbox(id, label, required) {
     return '<label class="qlf-choice"><input type="checkbox" id="' + id + '" name="' + id +
@@ -110,9 +110,9 @@
   function programmes() {
     return '<section>' +
       (isCamp ? '' : '<h3 class="qlf-step-title">Choose your class</h3>') +
-      select('family-type','Have you enrolled with Qwerty before?',[
+      radioChoices('family-type','Have you enrolled with Qwerty before?',[
         ['new','No, new family'],['returning','Yes, returning family']
-      ],true,isCamp ? '' : 'We recognise returning families by the details you provide. Previous records are checked manually.') +
+      ],true) +
       (isCamp ?
         campDays() +
         '<fieldset class="qlf-fieldset"><legend>Extended hours</legend>' +
@@ -243,7 +243,10 @@
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
   host.appendChild(done);
 
-  function isReturning(){return enrolment && form.querySelector('#family-type').value==='returning';}
+  function isReturning(){
+    var family = form.querySelector('input[name="family-type"]:checked');
+    return enrolment && !!family && family.value === 'returning';
+  }
   function toggle(el,show){
     el.hidden=!show;
     Array.prototype.forEach.call(el.querySelectorAll('input,select,textarea'),function(input){input.disabled=!show;});
@@ -256,7 +259,9 @@
       toggle(el,isReturning());
     });
     Array.prototype.forEach.call(form.querySelectorAll('[data-when]'),function(el){
-      var input=form.querySelector('#'+el.getAttribute('data-when'));
+      var condition=el.getAttribute('data-when');
+      var input=form.querySelector('#'+condition) ||
+        form.querySelector('input[name="'+condition+'"]:checked');
       var acceptable=(el.getAttribute('data-match')||'').split(',');
       var ancestor=el.parentElement.closest('[hidden]');
       toggle(el,!ancestor && !!input && acceptable.indexOf(input.value)!==-1);
