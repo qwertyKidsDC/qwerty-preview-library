@@ -16,7 +16,7 @@
   var childCount = 1;
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   function birthYears() {
-    var year = new Date().getFullYear(), options = [];
+    var year = isCamp ? 2026 : new Date().getFullYear(), options = [];
     for (var y = year - 6; y >= year - 17; y--) options.push([String(y), String(y)]);
     return options;
   }
@@ -151,7 +151,7 @@
       checkbox('terms-consent','I agree to the <a href="booking-terms.html">Booking Terms</a> and acknowledge the <a href="privacy.html">Privacy Policy</a>.',true) +
       (isCamp ? '' : referral() + newsletter()) +
       '</div><div class="qlf-returning-only" hidden>' +
-      field('changes','Anything changed since your last booking?','textarea',false,'For example contact, medical, support or collection details. We check existing records manually.') +
+      field('changes','Anything changed since your last booking?','textarea',false) +
       '</div></section>';
   }
   function enrolmentMarkup() {
@@ -330,7 +330,9 @@
       });
       var selected = group.filter(function(item){return item.checked;});
       var value = '';
-      if (input.type === 'radio' || input.type === 'checkbox') {
+      if (input.type === 'checkbox' && group.length === 1) {
+        value = input.checked ? 'Yes' : 'No';
+      } else if (input.type === 'radio' || input.type === 'checkbox') {
         value = selected.map(function(item){
           var choice = item.closest('.qlf-choice');
           return choice ? choice.textContent.trim() : 'Yes';
