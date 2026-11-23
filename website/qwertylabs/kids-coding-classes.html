@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="mobile.css?v=20261123-link-audit" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
     <script src="script.js?v=20261123-footer-three-cards" defer></script>
+    <script src="forms.js?v=20261123-link-audit" defer></script>
+    <script src="form-little-lab.js?v=20261122-shared-messenger" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -103,7 +105,7 @@
                 </div>
               </div>
               <nav class="hero-description" aria-label="Weekly class links">
-                <span>Make things every week. <a class="scene-link" href="form-classes.html">Enrol in classes</a> or try <a class="scene-link" href="coding-camp.html">holiday camps</a>.</span>
+                <span>Make something every week. <a class="scene-link" href="form-classes.html">Enrol in classes</a> or explore <a class="scene-link" href="coding-camp.html">holiday camps</a>.</span>
               </nav>
               <img
                 class="mascots"
@@ -138,7 +140,7 @@
             </section>
 
             <!-- Programme questions on the approved cardboard-trim board, with green labels and testimonial. -->
-            <section class="subpage-board" id="classes-editorial" aria-label="About our weekly classes">
+            <section class="subpage-board qll-lab" id="classes-editorial" aria-label="About our weekly classes">
               <section class="subpage-section" id="who" aria-labelledby="classes-who">
                 <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
                 <h2 class="subpage-section__heading" id="classes-who">Who?</h2>
@@ -244,13 +246,27 @@
                   <div class="subpage-section__option">
                     <h3>Fees</h3>
                     <p>$270 for a nine-session term. New students can join partway through when there's a suitable place. We'll help find the right group.</p>
-                  </div>
-                  <div class="subpage-section__option">
-                    <h3>Looking for another time?</h3>
-                    <p>We open additional sessions based on demand. Tell us which days and times suit you.</p>
-                    <a href="kids.html#form-interest-kids">Register your interest</a>
+                    <a href="form-classes.html">Enrol in weekly classes</a>
                   </div>
                 </div>
+              </section>
+
+              <!-- Shared Little Lab inline form: design preview; no submission endpoint. -->
+              <section class="subpage-section subpage-section--natural-height qll-lab__section" id="form-interest-classes" aria-labelledby="form-interest-classes-heading">
+                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="form-interest-classes-heading">Other times?</h2>
+                <div class="qll-lab__grid"><div class="subpage-section__copy qll-lab__form-column">
+                  <p class="qll-lab__intro">Want to try a class or find another time? Tell us what works for you. <strong>No commitment required.</strong></p>
+                  <h3 class="qll-lab__form-title" id="qlf-title">Register your interest</h3>
+                  <p class="qlf-hint">Fields marked * are required.</p>
+                  <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
+                  <div data-qlf-app data-form="interest-kids"><noscript><p class="qlf-alert">This form needs JavaScript. For current enquiries, use the existing QwertyKids contact page.</p></noscript></div>
+                </div><aside class="qll-side" data-little-lab aria-label="A note from the Lab"><div class="qll-side__sticky">
+                  <figure class="qll-side__paper">
+                    <img class="qll-side__paper-bg" src="img/kids-green-panel-untaped-vtrim.svg" alt="" aria-hidden="true">
+                    <blockquote class="qll-side__quote"><p class="qll-side__saying" data-lab-speech>Curious? Good. That’s how things start.</p></blockquote>
+                    <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp" width="360" height="208" loading="lazy" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+                  </figure></div></aside></div>
               </section>
             </section>
 
