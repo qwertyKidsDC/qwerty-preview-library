@@ -1426,9 +1426,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--counterclockwise) { min-height: 425px; }
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--landscape) { min-height: 318px; }
 :where(html[data-layout="subpage"]) .subpage-section.subpage-section--natural-height { min-height: 0; }
-/* Maps use a single full-width placement below location copy, never the artwork column. */
+/* Maps follow the location copy at the same two-thirds desktop width. */
 :where(html[data-layout="subpage"]) .subpage-map {
-  width: 100%;
+  width: 66.6667%;
   margin: 28px 0 0;
 }
 :where(html[data-layout="subpage"]) .subpage-map iframe {
