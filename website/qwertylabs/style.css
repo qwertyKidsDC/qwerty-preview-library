@@ -1426,19 +1426,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--counterclockwise) { min-height: 425px; }
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art--landscape) { min-height: 318px; }
 :where(html[data-layout="subpage"]) .subpage-section.subpage-section--natural-height { min-height: 0; }
-/* One restrained location map beneath the shared footer cards. */
-.footer-location-map {
-  width: calc(100% - 64px);
-  max-width: 720px;
-  margin: 28px auto 0;
-}
-.footer-location-map iframe {
-  display: block;
-  width: 100%;
-  height: clamp(190px, 27vw, 260px);
-  border: 0;
-}
-
 :where(html[data-layout="subpage"]) .subpage-art {
   position: absolute;
   z-index: 3;
