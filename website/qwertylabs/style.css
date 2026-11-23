@@ -1476,6 +1476,10 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   width: 288px;
   --tool-tilt: 5deg;
 }
+/* Only the interactive map is almost level; mascot artwork keeps its tilt. */
+:where(html[data-layout="subpage"]) .subpage-art--landscape:has(.subpage-art__media--map) {
+  --tool-tilt: 1.5deg;
+}
 /* Paired editorial photos: two positions beside one long text section. */
 :where(html[data-layout="subpage"]) .subpage-art--pair-upper { top: 23%; }
 :where(html[data-layout="subpage"]) .subpage-art--pair-lower { top: 56%; }
@@ -1502,6 +1506,31 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   width: 90.2%;
   height: 84.2%;
   border: 0;
+}
+/* A normal directions link, visually overlaid without blocking the map. */
+:where(html[data-layout="subpage"]) .subpage-art__media--map > a {
+  position: absolute;
+  z-index: 1;
+  top: 9%;
+  right: 8%;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid var(--color-ink);
+  border-radius: 2px;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 1px 2px 4px rgba(0,0,0,.25);
+}
+:where(html[data-layout="subpage"]) .subpage-art__media--map > a:is(:hover, :focus-visible) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 :where(html[data-layout="subpage"]) .subpage-callout {
