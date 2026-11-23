@@ -32,8 +32,14 @@
     var parent=firstName('#parent-first');
     var selectedDays=app.querySelectorAll('input[name="camp-days"]:checked').length;
     var classTime=app.querySelector('#class-time');
+    var email=app.querySelector('#parent-email');
+    var phone=app.querySelector('#parent-phone');
+    var terms=app.querySelector('#terms-consent');
     if(a.length){
       if(a.length<children)return name+'! Who else is joining?';
+      if(parent && terms && terms.checked)return 'Ready to review, '+parent+'! Give everything a final look.';
+      if(parent && phone && phone.value.trim() && (!email || email.disabled || (email.validity.valid && email.value.trim())))return 'Nearly there, '+parent+'! Check the permissions and details.';
+      if(parent && email && !email.disabled && email.validity.valid && email.value.trim())return 'Thanks, '+parent+'! A mobile number next.';
       if(parent)return 'Looking good, '+parent+'! '+name+(a.length===1?' is':' are')+' ready for some making.';
       if(returning)return (a.length===1?'It’s ':'')+name+'! '+'Yay'+', welcome back to the Lab.';
       if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
@@ -51,7 +57,27 @@
     if(kind.indexOf('interest')===0){
       var reason=app.querySelector('#reason');
       var purpose=reason?reason.value:'';
-      if(name)return 'Thanks, '+name+'! We love a good idea.';
+      var child=firstName('#child-first');
+      var email=app.querySelector('#email');
+      var phone=app.querySelector('#phone');
+      var experience=app.querySelector('input[name="prior-coding"]:checked');
+      var preferences=app.querySelectorAll('[data-group="class-preferences"] input:checked:not(:disabled)');
+      if(name && phone && phone.value.trim() && email && email.value.trim() && email.validity.valid)
+        return 'All set, '+name+'! Check your details and finish the preview.';
+      if(name && email && email.value.trim() && email.validity.valid)
+        return 'Nearly there, '+name+'! Just your mobile number.';
+      if(name)return 'Thanks, '+name+'! A couple more details and you’re done.';
+      if(child && experience)return child+' has ideas to explore. We’ll find a good place to start.';
+      if(child)return 'Hello, '+child+'! What do you like making?';
+      if(purpose==='classes' && preferences.length>1)
+        return 'A few possibilities! That helps us plan new groups.';
+      if(purpose==='classes' && preferences.length===1){
+        var chosen=preferences[0].closest('.qlf-choice').textContent;
+        if(chosen.indexOf('Tuesday')!==-1)return 'Tuesday could be interesting. A new group, perhaps?';
+        if(chosen.indexOf('Friday')!==-1)return 'Friday making? Good to know.';
+        if(chosen.indexOf('Waiting list')!==-1)return 'That group is full. We’ll keep your interest in mind.';
+        return 'Another time? Tell us what would work.';
+      }
       if(purpose==='trial')return 'A trial? Lovely. Come see what we make.';
       if(purpose==='classes')return 'A class that fits? Let’s see what we can do.';
       if(purpose==='camps')return 'More making in the holidays. We like that.';
