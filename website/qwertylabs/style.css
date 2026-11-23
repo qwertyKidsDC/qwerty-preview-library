@@ -1133,10 +1133,10 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
-/* Artwork offsets follow Find us, Get making, Explore. */
-.footer-nav-card:nth-child(1) .paper-bg { top: 11.33896%; height: 88.66104%; }
+/* Artwork offsets follow Explore, Get making, Find us. */
+.footer-nav-card:nth-child(1) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(2) .paper-bg { top: 11.76471%; height: 87.45098%; }
-.footer-nav-card:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
 
 /* 12. Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
