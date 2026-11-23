@@ -1392,6 +1392,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 :where(html[data-layout="subpage"]) .subpage-section__option h3 {
   margin: 0 0 10px;
+  color: var(--brand-accent);
+  text-transform: none;
   font-size: 21px;
   line-height: 1.2;
   letter-spacing: -.025em;
@@ -1403,6 +1405,13 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   font-size: 16px;
   line-height: 1.4;
   font-weight: 700;
+}
+/* Linked H3s reuse the approved squiggle without shrinking heading text. */
+:where(html[data-layout="subpage"]) .subpage-section__option h3 a {
+  margin-top: 0;
+  padding-bottom: 2px;
+  color: inherit;
+  font: inherit;
 }
 :where(html[data-layout="subpage"]) .subpage-section__option a::after {
   bottom: -2px;
@@ -1597,6 +1606,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 /* Article subheadings. */
 :where(html[data-layout="subpage"]) .subpage-section__subheading {
   margin: 0 0 18px;
+  text-transform: none;
   color: var(--brand-accent);
   font-size: 24px;
   font-weight: 700;
