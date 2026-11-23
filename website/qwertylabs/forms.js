@@ -276,7 +276,8 @@
         form.querySelector('input[name="'+condition+'"]:checked');
       var acceptable=(el.getAttribute('data-match')||'').split(',');
       var ancestor=el.parentElement.closest('[hidden]');
-      toggle(el,!ancestor && !!input && acceptable.indexOf(input.value)!==-1);
+      toggle(el,!ancestor && !!input && acceptable.indexOf(input.value)!==-1 &&
+        (input.type !== 'checkbox' || input.checked));
     });
   }
   function error(message,input){
