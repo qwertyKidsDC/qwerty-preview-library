@@ -380,7 +380,7 @@
   position: absolute;
   z-index: 10;
   top: 100%;
-  left: 0;
+  left: -16px;
   min-width: 195px;
   padding-top: 12px;
   visibility: hidden;
@@ -388,7 +388,7 @@
   pointer-events: none;
 }
 .navigation-group--lab .navigation-submenu,
-.navigation-group--enrol .navigation-submenu { left: auto; right: 0; }
+.navigation-group--enrol .navigation-submenu { min-width: 0; width: max-content; }
 html:not(.has-mobile-menu) .navigation-group:hover .navigation-submenu,
 html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation-group.is-open .navigation-submenu {
