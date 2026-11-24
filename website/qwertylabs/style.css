@@ -428,8 +428,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .hero {
   position: relative;
   z-index: 4;
-  /* The full WebP mascot platform must clear the following coloured cards. */
-  height: 344px;
+  /* Keep the artwork clear of the next section; allow longer intros to grow. */
+  min-height: 344px;
+  padding-bottom: 32px;
 }
 
 .hero-copy {
@@ -450,8 +451,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .hero-description {
   position: relative;
   z-index: 4;
-  max-width: 380px;
-  margin: 10px 0 0 50px;
+  /* The 620px mascot canvas starts at x=371 on the 986px desktop stage. */
+  max-width: 275px;
+  margin: 10px 0 0 78px;
   color: var(--color-ivory);
   font-size: var(--text-body);
   font-weight: 400;
@@ -1195,14 +1197,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   }
 
   .hero-copy {
-    top: 49px;
-  }
-  /* Homepage and subpages share one desktop intro position. */
-  .hero > .hero-description {
-    position: absolute;
-    top: 246px;
-    left: 78px;
-    margin: 0;
+    padding-top: 49px;
   }
   .lab-footer .country-ack {
     margin-inline: -6px;
