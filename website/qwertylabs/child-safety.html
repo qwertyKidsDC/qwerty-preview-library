@@ -16,10 +16,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261124-nav-align">
-<link rel="stylesheet" href="mobile.css?v=20261124-nav-align" media="(max-width: 760px)">
+    <link rel="stylesheet" href="style.css?v=20261124-shared-footer">
+<link rel="stylesheet" href="mobile.css?v=20261124-shared-footer" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261123-footer-three-cards" defer></script>
+    <script src="script.js?v=20261124-shared-footer" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -80,10 +80,10 @@
                 <div class="navigation-submenu" id="nav-lab">
                   <div class="navigation-submenu__links">
                     <a href="thelab.html">About the Lab</a>
-                    <a href="project-code-cloud.html">Projects</a>
+                    <a href="contact.html">Contact</a>
                     <a href="tools.html">Kit &amp; Code</a>
                     <a href="a-kids-pov.html">A Kid's POV</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="project-code-cloud.html">Projects</a>
                   </div>
                 </div>
               </div>
@@ -227,12 +227,18 @@
                 <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
-                  <a href="index.html">Home</a>
-                  <a href="project-code-cloud.html">Projects</a>
-                  <a href="tools.html">Kit &amp; Code</a>
-                  <a href="thelab.html">The Lab</a>
-                  <a href="a-kids-pov.html">A Kid's POV</a>
+                  <div>
+                    <div><a href="index.html">Home</a><span aria-hidden="true"> · </span><a href="project-code-cloud.html">Projects</a><span aria-hidden="true"> · </span><a href="tools.html">Kit &amp; Code</a></div>
+                    <div><a href="thelab.html">The Lab</a><span aria-hidden="true"> · </span><a href="a-kids-pov.html">A Kid's POV</a></div>
+                  </div>
                 </nav>
+                <form class="footer-newsletter" aria-labelledby="footer-newsletter-title">
+                  <h3 id="footer-newsletter-title">Stay in the loop</h3>
+                  <label>Name <input type="text" autocomplete="name" required></label>
+                  <label>Email <input type="email" autocomplete="email" required></label>
+                  <button type="submit" disabled>Subscribe</button>
+                  <output role="status"></output>
+                </form>
               </section>
               <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">

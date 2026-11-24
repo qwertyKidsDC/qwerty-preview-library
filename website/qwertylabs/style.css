@@ -875,6 +875,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
    Spacing and line-height remain specific to each component. */
 .footer-card-links,
 .footer-card-address,
+.footer-newsletter,
 .lab-footer .country-ack p {
   font-size: var(--text-footer);
 }
@@ -888,6 +889,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-nav-card h2,
 .footer-newsletter h3 {
   margin: 0 0 8px;
+  color: inherit;
 }
 
 .footer-card-links {
@@ -923,13 +925,11 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   font-style: normal;
 }
 
-/* Compact newsletter trial, using the existing footer type scale. */
+/* Compact footer newsletter. */
 .footer-newsletter {
   margin-top: 20px;
-  font-size: var(--text-footer);
   line-height: 1.35;
 }
-.footer-newsletter h3 { color: inherit; }
 .footer-newsletter label {
   display: flex;
   align-items: center;
@@ -944,9 +944,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   background: transparent;
   border: 0;
   border-radius: 0;
-  min-height: 24px;
 }
 .footer-newsletter input {
+  min-height: 24px;
   flex: 1;
   width: 0;
   min-width: 0;

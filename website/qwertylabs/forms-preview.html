@@ -19,10 +19,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261124-nav-align">
-<link rel="stylesheet" href="mobile.css?v=20261124-nav-align" media="(max-width: 760px)">
+    <link rel="stylesheet" href="style.css?v=20261124-shared-footer">
+<link rel="stylesheet" href="mobile.css?v=20261124-shared-footer" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261123-footer-three-cards" defer></script>
+    <script src="script.js?v=20261124-shared-footer" defer></script>
     <script src="forms.js?v=20261123-interest-class-times" defer></script>
   </head>
   <body data-form="gallery">
@@ -84,10 +84,10 @@
                 <div class="navigation-submenu" id="nav-lab">
                   <div class="navigation-submenu__links">
                     <a href="thelab.html">About the Lab</a>
-                    <a href="project-code-cloud.html">Projects</a>
+                    <a href="contact.html">Contact</a>
                     <a href="tools.html">Kit &amp; Code</a>
                     <a href="a-kids-pov.html">A Kid's POV</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="project-code-cloud.html">Projects</a>
                   </div>
                 </div>
               </div>
@@ -111,6 +111,61 @@
               </div>
             </div>
           </main>
+
+          
+          <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-join-title">Get making</h2>
+                <nav class="footer-card-links" aria-label="Programs and enrolment">
+                  <div>
+                    <strong><a href="kids.html">Kids</a></strong>
+                    <div><a href="kids-coding-classes.html" aria-label="Kids weekly classes">Weekly classes</a><span aria-hidden="true"> · </span><a href="coding-camp.html" aria-label="Kids holiday camps">Holiday camps</a></div>
+                  </div>
+                  <div>
+                    <strong><a href="adults.html">Adults</a></strong>
+                    <div><a href="adults.html#workshops">Workshops</a><span aria-hidden="true"> · </span><a href="adults.html#online-mentoring">Mentoring</a></div>
+                  </div>
+                  <div>
+                    <strong><a href="teens.html">Teens</a></strong>
+                    <div><a href="teens.html#teen-studio" aria-label="Teens weekly classes">Weekly classes</a><span aria-hidden="true"> · </span><a href="teens.html#teen-camps" aria-label="Teens holiday camps">Holiday camps</a></div>
+                  </div>
+                  <div>
+                    <strong>Enrol</strong>
+                    <div><a href="form-classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="form-camps.html">Holiday camps</a></div>
+                  </div>
+                </nav>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-explore-title">Explore</h2>
+                <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
+                  <div>
+                    <div><a href="index.html">Home</a><span aria-hidden="true"> · </span><a href="project-code-cloud.html">Projects</a><span aria-hidden="true"> · </span><a href="tools.html">Kit &amp; Code</a></div>
+                    <div><a href="thelab.html">The Lab</a><span aria-hidden="true"> · </span><a href="a-kids-pov.html">A Kid's POV</a></div>
+                  </div>
+                </nav>
+                <form class="footer-newsletter" aria-labelledby="footer-newsletter-title">
+                  <h3 id="footer-newsletter-title">Stay in the loop</h3>
+                  <label>Name <input type="text" autocomplete="name" required></label>
+                  <label>Email <input type="email" autocomplete="email" required></label>
+                  <button type="submit" disabled>Subscribe</button>
+                  <output role="status"></output>
+                </form>
+              </section>
+              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <h2 id="footer-find-title">Find us</h2>
+                <div class="footer-card-links">
+                  <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
+                  <a href="tel:+61405950850">0405 950 850</a>
+                  <!-- Proposed public email: show as text until the new mailbox is confirmed live. -->
+                  <span class="footer-email">make@qwertylabs.au</span>
+                  <a href="contact.html">Contact</a>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=230+Marrickville+Road%2C+Marrickville+NSW+2204">Directions</a>
+                </div>
+              </section>
+            </section>
 
           <!-- Acknowledgement of Country and policies -->
           <footer id="bottom" class="lab-footer">

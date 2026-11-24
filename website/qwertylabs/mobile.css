@@ -294,13 +294,12 @@
   .footer-nav-card h2,
   .footer-newsletter h3 { font-size: 20px; }
   .footer-nav-cards .footer-card-links,
-  .footer-nav-cards .footer-card-address {
-    font-size: 16px;
-    line-height: 1.4;
-  }
-  .footer-nav-cards .footer-card-links { gap: 0; }
+  .footer-nav-cards .footer-card-address,
   .footer-newsletter { font-size: 16px; }
-  .footer-newsletter :is(input, button) { min-height: 44px; }
+  .footer-nav-cards .footer-card-links,
+  .footer-nav-cards .footer-card-address { line-height: 1.4; }
+  .footer-nav-cards .footer-card-links { gap: 0; }
+  .footer-newsletter input { min-height: 44px; }
   .footer-nav-cards :is(.footer-card-links a, .footer-newsletter button),
   .lab-footer .footer-legal-links a {
     min-width: 44px;
