@@ -925,7 +925,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 
 /* Compact newsletter trial, using the existing footer type scale. */
 .footer-newsletter {
-  margin-top: 8px;
+  margin-top: 20px;
   font-size: var(--text-footer);
   line-height: 1.35;
 }
