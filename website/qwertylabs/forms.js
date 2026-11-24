@@ -11,6 +11,7 @@
   var isCamp = kind === 'camps';
   var form = document.createElement('form');
   var status = document.getElementById('qlf-status');
+  var requiredHint = document.getElementById('qlf-required-hint');
   var title = document.getElementById('qlf-title');
   var initialTitle = title ? title.textContent : '';
   var childCount = 1;
@@ -401,7 +402,11 @@
   }
   function showDone(){
     if (enrolment) reviewAnswers();
-    if (kind === 'interest-kids') showClassInterestThanks();
+    if (kind === 'interest-kids') {
+      showClassInterestThanks();
+      if (requiredHint) requiredHint.hidden = true;
+      if (status) status.hidden = true;
+    }
     form.hidden=true;done.hidden=false;
     if(title && !enrolment)title.textContent='Preview complete';
     done.setAttribute('tabindex','-1');done.focus();
@@ -431,7 +436,10 @@
   done.querySelector('#qlf-start-again').addEventListener('click',function(){
     done.hidden=true;form.hidden=false;
     if(title)title.textContent=initialTitle;
-    if(status)status.textContent='Preview restarted.';
+    if (kind === 'interest-kids') {
+      if (requiredHint) requiredHint.hidden = false;
+      if (status) { status.hidden = false; status.textContent = ''; }
+    } else if(status)status.textContent='Preview restarted.';
     form.querySelector('input,select,textarea').focus();
   });
   sync();
