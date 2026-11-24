@@ -168,7 +168,7 @@
   function interestMarkup() {
     var teens = kind === 'interest-teens';
     var classInterest = kind === 'interest-kids';
-    var reasons = [['trial','A trial session'],['classes','Class times or a waiting list']];
+    var reasons = [['classes','Class times or a waiting list']];
     if (!classInterest) reasons.push(['camps',teens ? 'Teen camp days' : 'Holiday camp days']);
     var choices = classInterest ?
       checkboxGroup('class-preferences','Which class times could work? Choose any that suit.',[
@@ -186,24 +186,23 @@
         'Evening (6:45–8 pm)','Saturday morning (9–11:45 am)',
         'Saturday afternoon (12–5 pm)','Flexible'
       ],true);
-    return select('reason','What would you like to hear about?',reasons,true) +
-      '<div data-when="reason" data-match="classes" hidden>' +
-      choices +
+    var classQuestions = choices +
       select('likely','If a suitable session opens, would you likely enrol?',[
         ['yes','Yes'],['maybe','Maybe']
-      ],true) + '</div>' +
+      ],true);
+    return (classInterest ? classQuestions :
+      select('reason','What would you like to hear about?',reasons,true) +
+      '<div data-when="reason" data-match="classes" hidden>' + classQuestions + '</div>') +
       (classInterest ? '' :
         '<div data-when="reason" data-match="camps" hidden>' +
         field('camp-availability','Which upcoming days or dates could work?','textarea',true,
           'Tell us what dates suit you; no payment or commitment is required.') +
         field('attendees','How many young people might attend?','number',true,'','min="1" max="20"') + '</div>') +
-      '<div data-when="reason" data-match="trial" hidden>' +
-      field('trial-availability','What days or times might work for a trial?','textarea',false) + '</div>' +
-      '<div data-when="reason" data-match="trial,classes" hidden>' +
+      (classInterest ? '<div>' : '<div data-when="reason" data-match="classes" hidden>') +
       nameFields('child','Child',true) +
       '<div class="qlf-grid">' +
       select('child-month','Birth month',months.map(function(m,j){return [String(j+1),m];}),true) +
-      field('child-year','Birth year','number',true,'','min="2000" max="2100" inputmode="numeric"') + '</div>' +
+      select('child-year','Birth year',birthYears(),true) + '</div>' +
       yesNo('prior-coding','Have they coded before?',true) +
       '<div data-when="prior-coding" data-match="yes" hidden>' +
       field('coding-note','Tell us a little about their coding experience','textarea',true) + '</div></div>' +
@@ -241,7 +240,8 @@
 
   form.innerHTML='<p class="qlf-alert" id="qlf-error" role="alert" tabindex="-1" hidden></p>' +
     (enrolment ? enrolmentMarkup() : simpleMarkup() +
-      '<button type="submit" class="qlf-submit">Finish preview →</button>');
+      '<button type="submit" class="qlf-submit">' +
+        (kind === 'interest-kids' ? 'Register your interest' : 'Finish preview →') + '</button>');
   host.appendChild(form);
   var done=document.createElement('div');
   done.className='qlf-done';
@@ -251,7 +251,10 @@
     '<p>Check your details before continuing. Nothing has been sent yet.</p>' +
     '<div id="qlf-review"></div>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Edit details</button>' :
-    '<h3>Preview complete</h3><p>Nothing was submitted.</p>' +
+    (kind === 'interest-kids' ?
+      '<h3 id="qlf-thanks"></h3><p id="qlf-thanks-child"></p><ul id="qlf-selected-times"></ul>' +
+      '<p>This is a preview. Your details have not been sent and no place has been booked.</p>' :
+      '<h3>Preview complete</h3><p>Nothing was submitted.</p>') +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
   host.appendChild(done);
 
@@ -380,8 +383,25 @@
       container.appendChild(row);
     });
   }
+  function showClassInterestThanks() {
+    var parent = form.querySelector('#first-first').value.trim();
+    var child = form.querySelector('#child-first').value.trim();
+    done.querySelector('#qlf-thanks').textContent = 'Thanks, ' + parent + '!';
+    done.querySelector('#qlf-thanks-child').textContent =
+      'Here are the class times you selected for ' + child + ':';
+    var list = done.querySelector('#qlf-selected-times');
+    list.textContent = '';
+    Array.prototype.forEach.call(form.querySelectorAll('[data-group="class-preferences"] input:checked'), function(input) {
+      var item = document.createElement('li');
+      item.textContent = input.id === 'class-preferences-4' ?
+        form.querySelector('#different-time').value.trim() :
+        input.closest('.qlf-choice').textContent.trim();
+      list.appendChild(item);
+    });
+  }
   function showDone(){
     if (enrolment) reviewAnswers();
+    if (kind === 'interest-kids') showClassInterestThanks();
     form.hidden=true;done.hidden=false;
     if(title && !enrolment)title.textContent='Preview complete';
     done.setAttribute('tabindex','-1');done.focus();
