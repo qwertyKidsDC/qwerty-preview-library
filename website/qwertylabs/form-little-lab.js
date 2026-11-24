@@ -78,7 +78,7 @@
       if(child && experience && experience.value==='yes' && coding && !coding.value.trim())return 'Ooh, '+child+' has coded before! Tell us what they’ve tried.';
       if(child && experience)return child+' has ideas to explore. We’ll find a good place to start.';
       if(child && year && year.value)return 'A little about '+child+'’s coding experience next.';
-      if(child)return 'Hello, '+child+'! What do you like making?';
+      if(child)return 'Ooh, '+child+' might be joining us!';
       if(kind==='interest-kids' && likely && likely.value)return 'Good to know! Who’s coming to make things?';
       if(purpose==='classes' && preferences.length>1)
         return 'A few possibilities! That helps us plan new groups.';
