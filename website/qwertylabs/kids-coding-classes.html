@@ -23,10 +23,10 @@
 <link rel="stylesheet" href="mobile.css?v=20261124-hero-clearance" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
     <script src="script.js?v=20261124-shared-footer" defer></script>
-    <script src="forms.js?v=20261123-interest-checkbox-fix" defer></script>
-    <script src="form-little-lab.js?v=20261123-messenger-progress" defer></script>
+    <script src="forms.js?v=20261124-class-interest" defer></script>
+    <script src="form-little-lab.js?v=20261124-class-interest" defer></script>
   </head>
-  <body>
+  <body class="qll-prototype">
     <a class="skip" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
@@ -104,9 +104,9 @@
                   <h1><span class="hero-title">classes</span><span class="hero-tagline">build something great</span></h1>
                 </div>
               </div>
-              <nav class="hero-description" aria-label="Weekly class links">
-                <span>Make something every week: <a class="scene-link" href="form-classes.html">enrol in classes</a> or explore <a class="scene-link" href="coding-camp.html">holiday camps</a>.</span>
-              </nav>
+              <div class="hero-description">
+                <span>Weekly creative technology classes in small groups, with projects for beginners and experienced young makers.</span>
+              </div>
               <img
                 class="mascots"
                 src="img/qwerty-labs-mascots-robot-car.webp"
@@ -121,7 +121,7 @@
                 <img class="subpage-intro__art" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
                 <div class="subpage-intro__copy">
                   <h2 id="classes-programmes-title">AGES 7–12</h2>
-                  <p>Nine weekly sessions, small groups and time to get properly into a project.</p>
+                  <p>Start with small, guided projects and build the skills to make bigger things of your own.</p>
                   <p>Children aged 7–12 make games, program robots and experiment with electronics, picking up coding with individual guidance along the way.</p>
                 </div>
               </div>
@@ -153,13 +153,61 @@
                 </div>
               </section>
 
+              <section class="subpage-section" id="when" aria-labelledby="classes-when">
+                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="classes-when">When?</h2>
+                <div class="subpage-section__copy">
+                  <div class="subpage-section__option">
+                    <h3>Class times</h3>
+                    <p>Nine weekly sessions during school term. Each class is 75 minutes.</p>
+                    <ul>
+                      <li>Monday: 4:45–6:00 pm</li>
+                      <li>Tuesday: 5:15–6:30 pm</li>
+                      <li>Saturday: 9:00–10:15 am</li>
+                      <li>Saturday: 10:30–11:45 am</li>
+                      <li>Saturday: 12:15–1:30 pm</li>
+                    </ul>
+                    <p>Places depend on the age group and session.</p>
+                    <p>Need a different time or a place on the waiting list? <a href="#form-interest-classes">Tell us which class times suit you</a>.</p>
+                  </div>
+                  <div class="subpage-section__option">
+                    <h3>Fees</h3>
+                    <p>$270 for a nine-session term. New students can join partway through when there's a suitable place. We'll help find the right group.</p>
+                    <a href="form-classes.html">Enrol in weekly classes</a>
+                  </div>
+                </div>
+                <figure class="subpage-art subpage-art--landscape">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/26-six-pin-gamego-handheld-rectangle.webp" alt="Six Pin with a GameGo handheld console" width="971" height="715" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
+
+              <section class="subpage-section" id="where" aria-labelledby="classes-where">
+                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <h2 class="subpage-section__heading" id="classes-where">Where?</h2>
+                <div class="subpage-section__copy">
+                  <p>Upstairs in Marrickville, Sydney's Inner West.</p>
+                  <p>Level 1, 230 Marrickville Road, Marrickville NSW 2204.</p>
+                  <p>We're next to Pizza Hut, near Victoria Road. Our studio is full of computers, robots, electronics and projects in various stages of becoming something.</p>
+                  <p>Every child has their own computer. We provide all the equipment, so there's no need to bring a laptop.</p>
+                </div>
+                <figure class="subpage-art subpage-art--landscape">
+                  <span class="subpage-art__media subpage-art__media--map">
+                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/28-q--six-pin-traffic-light-rectangle.webp" alt="" aria-hidden="true" width="971" height="715" loading="lazy" decoding="async">
+                    <iframe title="Map of the Qwerty Labs studio (listed as QwertyKids), Level 1, 230 Marrickville Road, Marrickville" src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d2984.17173686828!2d151.15937468718099!3d-33.91164153474419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e2!4m5!1s0x6b12b062cf0c4e65:0x7ff876ccfce411c1!2sQwertyKids,+Level+1/230+Marrickville+Rd,+Marrickville+NSW+2204!3m2!1d-33.9118417!2d151.15860039999998!4m3!3m2!1d-33.9108721!2d151.1579758!5e0!3m2!1sen!2sau!4v1693961016517!5m2!1sen!2sau" width="971" height="715" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=QwertyKids%2C+Level+1%2F230+Marrickville+Road%2C+Marrickville+NSW+2204" aria-label="Get directions to Qwerty Labs in Google Maps">Get directions</a>
+                  </span>
+                </figure>
+              </section>
+
               <section class="subpage-section" id="what" aria-labelledby="classes-what">
                 <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
                 <h2 class="subpage-section__heading" id="classes-what">What?</h2>
                 <div class="subpage-section__copy">
                   <p>Games, robots, websites, electronics, AI experiments, digital worlds and things that connect code to the physical world.</p>
                   <p>A child might build a game with scoring, timers and levels, program a robot to respond to its surroundings, make something with a micro:bit or Raspberry Pi, or design and publish a website.</p>
-                  <p>We use Scratch, Python, JavaScript, HTML, game engines, microcontrollers and whatever makes sense for the project and the student's experience.</p>
+                  <p>We use Scratch, Python, JavaScript, HTML, game engines, microcontrollers and <a href="kit-and-code.html">whatever makes sense for the project</a> and the student's experience.</p>
                   <p>Some projects take a session. Others grow over several weeks. There's always something else to try.</p>
                 </div>
                 <figure class="subpage-art subpage-art--clockwise">
@@ -212,52 +260,7 @@
                 </div>
               </aside>
 
-              <section class="subpage-section" id="where" aria-labelledby="classes-where">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
-                <h2 class="subpage-section__heading" id="classes-where">Where?</h2>
-                <div class="subpage-section__copy">
-                  <p>Upstairs in Marrickville, Sydney's Inner West.</p>
-                  <p>Level 1, 230 Marrickville Road, Marrickville NSW 2204.</p>
-                  <p>We're next to Pizza Hut, near Victoria Road. Our studio is full of computers, robots, electronics and projects in various stages of becoming something.</p>
-                  <p>Every child has their own computer. We provide all the equipment, so there's no need to bring a laptop.</p>
-                </div>
-                <figure class="subpage-art subpage-art--landscape">
-                  <span class="subpage-art__media subpage-art__media--map">
-                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/28-q--six-pin-traffic-light-rectangle.webp" alt="" aria-hidden="true" width="971" height="715" loading="lazy" decoding="async">
-                    <iframe title="Map of the Qwerty Labs studio (listed as QwertyKids), Level 1, 230 Marrickville Road, Marrickville" src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d2984.17173686828!2d151.15937468718099!3d-33.91164153474419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e2!4m5!1s0x6b12b062cf0c4e65:0x7ff876ccfce411c1!2sQwertyKids,+Level+1/230+Marrickville+Rd,+Marrickville+NSW+2204!3m2!1d-33.9118417!2d151.15860039999998!4m3!3m2!1d-33.9108721!2d151.1579758!5e0!3m2!1sen!2sau!4v1693961016517!5m2!1sen!2sau" width="971" height="715" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=QwertyKids%2C+Level+1%2F230+Marrickville+Road%2C+Marrickville+NSW+2204" aria-label="Get directions to Qwerty Labs in Google Maps">Get directions</a>
-                  </span>
-                </figure>
-              </section>
 
-              <section class="subpage-section" id="when" aria-labelledby="classes-when">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
-                <h2 class="subpage-section__heading" id="classes-when">When?</h2>
-                <div class="subpage-section__copy">
-                  <div class="subpage-section__option">
-                    <h3>Class times</h3>
-                    <p>Nine weekly sessions during school term. Each class is 75 minutes.</p>
-                    <ul>
-                      <li>Monday: 4:45–6:00 pm</li>
-                      <li>Tuesday: 5:15–6:30 pm</li>
-                      <li>Saturday: 9:00–10:15 am</li>
-                      <li>Saturday: 10:30–11:45 am</li>
-                      <li>Saturday: 12:15–1:30 pm</li>
-                    </ul>
-                    <p>Places depend on the age group and session.</p>
-                  </div>
-                  <div class="subpage-section__option">
-                    <h3>Fees</h3>
-                    <p>$270 for a nine-session term. New students can join partway through when there's a suitable place. We'll help find the right group.</p>
-                    <a href="form-classes.html">Enrol in weekly classes</a>
-                  </div>
-                </div>
-                <figure class="subpage-art subpage-art--landscape">
-                  <span class="subpage-art__media">
-                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/26-six-pin-gamego-handheld-rectangle.webp" alt="Six Pin with a GameGo handheld console" width="971" height="715" loading="lazy" decoding="async">
-                  </span>
-                </figure>
-              </section>
 
               <!-- Shared Little Lab inline form: design preview; no submission endpoint. -->
               <section class="subpage-section subpage-section--natural-height qll-lab__section" id="form-interest-classes" aria-labelledby="form-interest-classes-heading">
