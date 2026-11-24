@@ -56,19 +56,30 @@
     if(kind==='contact')return name?'Hi '+name+'! We’re listening.':'Hello from the Lab. What’s on your mind?';
     if(kind.indexOf('interest')===0){
       var reason=app.querySelector('#reason');
-      var purpose=reason?reason.value:'';
+      var purpose=kind==='interest-kids'?'classes':reason?reason.value:'';
       var child=firstName('#child-first');
       var email=app.querySelector('#email');
       var phone=app.querySelector('#phone');
       var experience=app.querySelector('input[name="prior-coding"]:checked');
       var preferences=app.querySelectorAll('[data-group="class-preferences"] input:checked:not(:disabled)');
-      if(name && phone && phone.value.trim() && email && email.value.trim() && email.validity.valid)
-        return 'All set, '+name+'! Check your details and finish the preview.';
+      var referral=app.querySelector('#referral');
+      var newsletter=app.querySelector('#newsletter-opt-in');
+      var year=app.querySelector('#child-year');
+      var likely=app.querySelector('#likely');
+      var coding=app.querySelector('#coding-note');
+      if(name && phone && phone.value.trim() && email && email.value.trim() && email.validity.valid){
+        if(newsletter && newsletter.checked)return 'More news from the Lab? Excellent, '+name+'!';
+        if(referral && referral.value)return 'Thanks for telling us how you found us, '+name+'!';
+        return 'Almost done, '+name+'! Just a couple of optional questions.';
+      }
       if(name && email && email.value.trim() && email.validity.valid)
         return 'Nearly there, '+name+'! Just your mobile number.';
       if(name)return 'Thanks, '+name+'! A couple more details and you’re done.';
+      if(child && experience && experience.value==='yes' && coding && !coding.value.trim())return 'Ooh, '+child+' has coded before! Tell us what they’ve tried.';
       if(child && experience)return child+' has ideas to explore. We’ll find a good place to start.';
+      if(child && year && year.value)return 'A little about '+child+'’s coding experience next.';
       if(child)return 'Hello, '+child+'! What do you like making?';
+      if(kind==='interest-kids' && likely && likely.value)return 'Good to know! Who’s coming to make things?';
       if(purpose==='classes' && preferences.length>1)
         return 'A few possibilities! That helps us plan new groups.';
       if(purpose==='classes' && preferences.length===1){
@@ -78,7 +89,6 @@
         if(chosen.indexOf('Waiting list')!==-1)return 'That group is full. We’ll keep your interest in mind.';
         return 'Another time? Tell us what would work.';
       }
-      if(purpose==='trial')return 'A trial? Lovely. Come see what we make.';
       if(purpose==='classes')return 'A class that fits? Let’s see what we can do.';
       if(purpose==='camps')return 'More making in the holidays. We like that.';
       return 'Curious? Good. That’s how things start.';
@@ -87,7 +97,9 @@
   }
   function refresh(){
     if(app.querySelector('.qlf-done:not([hidden])')){
-      bubble.textContent='Looking good from here!';
+      var parent=firstName('#first-first');
+      bubble.textContent=kind==='interest-kids' && parent ?
+        'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
     } else {
       bubble.textContent=(kind==='classes'||kind==='camps')?enrolMessage():simpleMessage();
     }
