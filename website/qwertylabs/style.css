@@ -511,12 +511,14 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 .small-card h2,
+.footer-newsletter h3,
 .lab-footer .country-ack h2 {
   font-weight: 700;
   line-height: 1.2;
 }
 
-.small-card h2 {
+.small-card h2,
+.footer-newsletter h3 {
   font-size: var(--text-footer-heading);
   letter-spacing: -.035em;
   white-space: nowrap;
@@ -535,7 +537,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 .feature h2,
-.small-card h2 {
+.small-card h2,
+.footer-newsletter h3 {
   margin: 0;
   text-transform: uppercase;
 }
@@ -882,7 +885,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   padding: 50px 32px 20px 34px;
 }
 
-.footer-nav-card h2 {
+.footer-nav-card h2,
+.footer-newsletter h3 {
   margin: 0 0 8px;
 }
 
@@ -903,7 +907,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-card-links > div > strong { display: block; }
 .footer-card-links > div > div > span[aria-hidden="true"] { white-space: nowrap; }
 
-.footer-card-links a,
+:is(.footer-card-links a, .footer-newsletter button),
 .footer-legal-links a {
   display: inline-flex;
   align-items: center;
@@ -925,12 +929,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   font-size: var(--text-footer);
   line-height: 1.35;
 }
-.footer-newsletter h3 {
-  margin: 0 0 2px;
-  font-size: inherit;
-  font-weight: 700;
-  color: inherit;
-}
+.footer-newsletter h3 { color: inherit; }
 .footer-newsletter label {
   display: flex;
   align-items: center;
@@ -954,12 +953,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   padding: 2px 4px;
 }
 .footer-newsletter button {
-  display: block;
-  margin: 2px 0 0 auto;
+  margin: 2px 0 0;
   padding: 0;
-  font-weight: 700;
 }
-.footer-newsletter button:hover { text-decoration: underline; }
 .footer-newsletter :is(input, button):focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
@@ -1080,7 +1076,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation-menu-label,
 .footer-legal-links a,
 .scene-link,
-.footer-card-links a,
+:is(.footer-card-links a, .footer-newsletter button),
 .feature h2 a,
 .subpage-section__option a {
   position: relative;
@@ -1090,7 +1086,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation-menu-label::after,
 .footer-legal-links a::after,
 .scene-link::after,
-.footer-card-links a::after,
+:is(.footer-card-links a, .footer-newsletter button)::after,
 .feature h2 a::after,
 .subpage-section__option a::after {
   content: "";
@@ -1151,27 +1147,27 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 
 /* Block-like page links retain the approved tight underline placement. */
 .scene-link::after,
-.footer-card-links a::after {
+:is(.footer-card-links a, .footer-newsletter button)::after {
   bottom: 2px;
 }
-.footer-card-links a {
+:is(.footer-card-links a, .footer-newsletter button) {
   min-height: 24px;
 }
 
 /* On the blue paper cards, use ink at rest and ivory on hover. */
-.footer-nav-cards .footer-card-links a::after,
+.footer-nav-cards :is(.footer-card-links a, .footer-newsletter button)::after,
 .feature h2 a::after {
   background-color: var(--color-ink);
 }
 
 .scene-link:is(:hover, :focus-visible)::after,
-.footer-card-links a:is(:hover, :focus-visible)::after,
+:is(.footer-card-links a, .footer-newsletter button):is(:hover, :focus-visible)::after,
 .feature h2 a:is(:hover, :focus-visible)::after,
 .subpage-section__option a:is(:hover, :focus-visible)::after {
   background-color: var(--brand-accent);
 }
 
-.footer-nav-cards .footer-card-links a:is(:hover, :focus-visible)::after {
+.footer-nav-cards :is(.footer-card-links a, .footer-newsletter button):is(:hover, :focus-visible)::after {
   background-color: var(--color-ivory);
 }
 
