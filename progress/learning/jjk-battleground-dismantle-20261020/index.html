@@ -18,6 +18,7 @@ details{border:1px solid var(--line);border-radius:9px;background:#f5f9fa;margin
  .specnote{max-width:1050px;background:#fff;border:2px solid var(--blue);border-radius:12px;padding:17px 20px;margin:0 0 25px}.specnote strong:first-child{font-size:1.13rem}.specnote p{margin:9px 0 0}.specnote code{white-space:nowrap}
 .phasehead{margin:40px 0 27px;padding:24px 25px 28px;border:2px solid var(--ink);border-radius:14px;background:#fff;box-shadow:6px 6px 0 var(--blue);scroll-margin-top:18px}.phasehead h2{font-size:clamp(2rem,5vw,3rem);margin:9px 0 12px}.phasehead p{max-width:950px}.phasehead .eyebrow{font:700 .75rem 'Atkinson Hyperlegible Mono',monospace;color:var(--blue);letter-spacing:.1em}.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}.spec-grid>div{padding:15px;background:#f2f6f6;border-radius:8px}.spec-grid b{display:block;font-size:.84rem;margin-bottom:6px}.spec-grid span{display:block;font-size:.92rem}.try{background:#fff5e8;border-left:5px solid var(--orange);padding:14px 16px;margin:16px 0}.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.checkgrid label{padding:11px 12px;background:#f4f8f9;border:1px solid var(--line);border-radius:7px;font-size:.94rem;display:flex;gap:9px;align-items:start}.checkgrid input{flex-shrink:0;width:19px;height:19px;accent-color:var(--blue)}#s09,#s10,#s11,#s12,#s13,#s14,#s15,#s16{scroll-margin-top:15px}#s09 .number,#s13 .number{background:var(--green)}#s10 .number,#s14 .number{background:var(--orange)}#s11 .number,#s15 .number{background:var(--pink)}#s12 .number,#s16 .number{background:var(--blue);color:white}@media(max-width:750px){.spec-grid,.checkgrid{grid-template-columns:1fr}}
 #s17 .number,#s21 .number,#s25 .number{background:var(--green)}#s18 .number,#s22 .number,#s26 .number{background:var(--pink)}#s19 .number,#s23 .number,#s27 .number{background:var(--orange)}#s20 .number,#s24 .number{background:var(--blue);color:white}
+.henry-conversation{margin:17px 0 24px;padding:18px 20px;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:9px;background:#f7f8ff}.henry-conversation .eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.08em;color:var(--blue)}.henry-conversation h3{margin:6px 0 8px}.henry-conversation ol{margin:12px 0 14px;padding-left:22px}.henry-conversation li{margin:9px 0;line-height:1.45}.henry-notes-label{display:block;font-weight:700;margin-bottom:7px}.henry-conversation textarea{display:block;box-sizing:border-box;width:100%;padding:11px 12px;font:inherit;line-height:1.5;resize:vertical;min-height:98px;background:white;color:var(--ink);border:1.5px solid var(--line);border-radius:7px}.henry-conversation textarea:focus{outline:2px solid var(--blue);outline-offset:2px}.henry-conversation .henry-notes-hint{font-size:.82rem;margin:9px 0 0;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -744,6 +745,21 @@ end</pre></div>
  <div class="stephead"><span class="number">17</span><h2>Give Cleave a key. Make the server hear it.</h2></div>
  <div class="stepbody">
  <p><strong>First win:</strong> press <code>2</code> and see a message from both the client and the server. Dismantle (<code>1</code>) must still work.</p>
+<section class="henry-conversation" id="henry-whats-next" aria-labelledby="henry-conversation-title">
+  <div class="eyebrow">A QUESTION FOR THE GAME'S CREATOR</div>
+  <h3 id="henry-conversation-title">Where should we take your game next?</h3>
+  <p>You've already built a lot. Before we decide how to tackle the next parts, have a think about these. There aren't any right answers, and you don't have to decide everything today. We'll chat about your ideas.</p>
+  <ol>
+   <li><strong>What's the part you're most excited to make next?</strong> Another attack, Domain Clash, character design, animations, effects, the arena—or something else?</li>
+   <li><strong>How do you want to build from here?</strong> Keep writing each part of the code; investigate and change partly completed code; spend more time creating the game's artwork and animations; or a mixture?</li>
+   <li><strong>What should look and feel unmistakably yours?</strong> Pick one ability or part of the game. What would you change about how it looks, moves or sounds?</li>
+   <li><strong>What can you already explain to another developer?</strong> Maybe how a key press reaches the server, how an attack finds a target, or how cooldowns work. What's one part you'd like to understand better?</li>
+   <li><strong>What would be a satisfying thing to show someone at the end of term?</strong> It doesn't need to be the whole game. And what would you be excited to tackle after that?</li>
+  </ol>
+  <label class="henry-notes-label" for="henry-future-notes">My thoughts (a few words are fine)</label>
+  <textarea id="henry-future-notes" rows="4" placeholder="Something I want to build, design, understand, or show off…"></textarea>
+  <p class="henry-notes-hint">Your notes save in this browser as you type. We can discuss them together—no need to finish this before continuing Step 17.</p>
+ </section>
  <h3>A · Client — send a request</h3>
  <ol>
  <li>Stop Play. Open <strong>StarterPlayer → StarterPlayerScripts → CombatClient</strong> (a LocalScript).</li>
@@ -1221,6 +1237,12 @@ end</pre></div>
  const key='ql-henry-fix-name-dismantle-20261027';
  try { const stored=JSON.parse(localStorage.getItem(key)||'{}');document.querySelectorAll('[data-step]').forEach(x=>x.checked=!!stored[x.dataset.step]); }catch(e){}
  document.querySelectorAll('[data-step]').forEach(x=>x.addEventListener('change',()=>{try{const stored={};document.querySelectorAll('[data-step]').forEach(y=>stored[y.dataset.step]=y.checked);localStorage.setItem(key,JSON.stringify(stored))}catch(e){}}));
+ const futureNotes=document.getElementById('henry-future-notes');
+ if(futureNotes){
+   const futureKey='ql-henry-next-direction-20261124';
+   try{futureNotes.value=localStorage.getItem(futureKey)||''}catch(e){}
+   futureNotes.addEventListener('input',()=>{try{localStorage.setItem(futureKey,futureNotes.value)}catch(e){}});
+ }
  document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{
    const code=document.getElementById(button.dataset.copy).textContent;
    try { await navigator.clipboard.writeText(code);button.textContent='COPIED ✓';setTimeout(()=>button.textContent='COPY',1300) }
