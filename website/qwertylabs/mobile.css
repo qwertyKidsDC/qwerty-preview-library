@@ -284,8 +284,8 @@
     min-height: 275px;
     padding-bottom: 40px;
   }
-  /* Keep the taller Get making paper aligned in its second position. */
-  .footer-nav-cards .footer-nav-card:nth-child(2) .paper-bg {
+  /* Keep the taller Get making paper aligned in its first position. */
+  .footer-nav-cards .footer-nav-card:nth-child(1) .paper-bg {
     top: 16px;
     height: calc(100% - 16px);
   }
