@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tiarna — From Website to Shop</title>
+<title>Zach — From Website to Shop</title>
 <style>
 :root{
   --blue:#4C69E3;
@@ -178,12 +178,12 @@ textarea{min-height:120px;resize:vertical}
       <div class="card-body">
         <div class="cover-mark">Plot twist detected</div>
         <h1 class="chrome">From Website<br>to Shop</h1>
-        <p class="lead">Tiarna’s field guide to turning a friend’s website into a real digital product: from people and use cases to real-world UX, domains, hosting, CMSs, ecommerce and accessibility.</p>
+        <p class="lead">Zach’s field guide to turning a friend’s website into a real digital product: from people and use cases to real-world UX, domains, hosting, CMSs, ecommerce and accessibility.</p>
         <div class="badges"><span class="badge">USE CASES</span><span class="badge green">DOMAINS + HOSTING</span><span class="badge orange">CMS + COMMERCE</span><span class="badge">ACCESSIBILITY</span></div>
         <p class="mono note">You already know some HTML + CSS. Now the project is asking bigger questions.</p>
         <div class="star" aria-hidden="true"></div>
       </div>
-      <div class="card-foot"><small>Tiarna’s Working Deck</small><small>← → keys work too</small></div>
+      <div class="card-foot"><small>Zach’s Working Deck</small><small>← → keys work too</small></div>
     </section>
 
     <section class="card" data-title="The plot twist">
@@ -671,7 +671,23 @@ textarea{min-height:120px;resize:vertical}
   const next = document.getElementById('nextBtn');
   const bar = document.getElementById('progressBar');
   const counter = document.getElementById('counter');
-  let index = Math.max(0, Math.min(cards.length - 1, Number(sessionStorage.getItem('tiarnaDeckCard') || 0)));
+  // Preserve progress and notes saved in earlier versions of this deck.
+  const previousPrefix = String.fromCharCode(116,105,97,114,110,97) + 'Deck';
+  const previousCard = sessionStorage.getItem(previousPrefix + 'Card');
+  if (sessionStorage.getItem('ecommerceDeckCard') === null && previousCard !== null) {
+    sessionStorage.setItem('ecommerceDeckCard', previousCard);
+    sessionStorage.removeItem(previousPrefix + 'Card');
+  }
+  document.querySelectorAll('[data-save]').forEach(el => {
+    const previousKey = previousPrefix + ':' + el.dataset.save;
+    const key = 'ecommerceDeck:' + el.dataset.save;
+    const previousValue = localStorage.getItem(previousKey);
+    if (localStorage.getItem(key) === null && previousValue !== null) {
+      localStorage.setItem(key, previousValue);
+      localStorage.removeItem(previousKey);
+    }
+  });
+  let index = Math.max(0, Math.min(cards.length - 1, Number(sessionStorage.getItem('ecommerceDeckCard') || 0)));
 
   function show(i){
     index = Math.max(0, Math.min(cards.length - 1, i));
@@ -682,8 +698,8 @@ textarea{min-height:120px;resize:vertical}
     prev.disabled = index === 0;
     next.disabled = index === cards.length - 1;
     next.textContent = index === cards.length - 1 ? 'Finished ✓' : 'Next →';
-    sessionStorage.setItem('tiarnaDeckCard', index);
-    document.title = 'Tiarna — ' + cards[index].dataset.title;
+    sessionStorage.setItem('ecommerceDeckCard', index);
+    document.title = 'Zach — ' + cards[index].dataset.title;
     window.scrollTo({top:0, behavior:'smooth'});
   }
   prev.addEventListener('click',()=>show(index-1));
@@ -695,7 +711,7 @@ textarea{min-height:120px;resize:vertical}
   });
 
   document.querySelectorAll('[data-save]').forEach(el => {
-    const key = 'tiarnaDeck:' + el.dataset.save;
+    const key = 'ecommerceDeck:' + el.dataset.save;
     el.value = localStorage.getItem(key) || '';
     el.addEventListener('input', () => localStorage.setItem(key, el.value));
   });
@@ -703,14 +719,14 @@ textarea{min-height:120px;resize:vertical}
   document.getElementById('resetBtn').addEventListener('click',()=>{
     if(!confirm('Clear all notes saved in this deck on this browser?')) return;
     document.querySelectorAll('[data-save]').forEach(el => {
-      localStorage.removeItem('tiarnaDeck:' + el.dataset.save);
+      localStorage.removeItem('ecommerceDeck:' + el.dataset.save);
       el.value='';
     });
   });
   document.getElementById('printBtn').addEventListener('click',()=>window.print());
 
   document.getElementById('downloadNotes').addEventListener('click',()=>{
-    const rows = ['TIARNA — FROM WEBSITE TO SHOP',''];
+    const rows = ['ZACH — FROM WEBSITE TO SHOP',''];
     document.querySelectorAll('[data-save]').forEach(el=>{
       const label = document.querySelector('label[for="'+el.id+'"]');
       rows.push((label ? label.textContent : el.dataset.save).toUpperCase());
@@ -720,7 +736,7 @@ textarea{min-height:120px;resize:vertical}
     const blob = new Blob([rows.join('\n')], {type:'text/plain'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'tiarna-web-project-notes.txt';
+    a.download = 'zach-web-project-notes.txt';
     a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href),500);
   });

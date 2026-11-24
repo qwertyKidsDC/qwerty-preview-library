@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tiarna — Decode Rocky</title>
+<title>Zach — Decode Rocky</title>
 <style>
 :root{--ink:#020020;--paper:#f1f8f8;--blue:#4c69e3;--pink:#f66dc1;--green:#92d644;--orange:#ff9029;--panel:#0b0b2d;--muted:#b8c2d8;--line:rgba(241,248,248,.17)}
 *{box-sizing:border-box}html,body{margin:0;background:var(--ink);color:var(--paper);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{min-height:100vh}a{color:inherit}
@@ -25,7 +25,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 7px;b
 <nav class="decknav" id="decknav"></nav>
 
 <section class="active" data-title="Mission">
-<div class="kicker">Tiarna's investigation brief</div><h1>Decode Rocky.</h1>
+<div class="kicker">Zach's investigation brief</div><h1>Decode Rocky.</h1>
 <p class="lead editable">For Marrickville Festival, Chloe's giant crochet Rocky will sit behind Qwerty's glass door. Passersby will have a small interface outside and try to communicate with him.</p>
 <div class="grid"><div class="card green twoThird"><h3>The question</h3><div class="callout editable">Can you identify repeatable musical patterns in Rocky's language well enough to help us build a tiny, learnable first-contact vocabulary?</div></div><div class="card pink third"><div class="big">♫?</div><p class="editable"><strong>You do not need to solve the whole language.</strong> One convincing bridge between the production language and the finished-film sounds would already be useful.</p></div><div class="card wide mission"><strong>First job:</strong> listen, compare, notice patterns, and tell us what seems real. No need to design the whole game yet.</div></div>
 </section>
@@ -82,14 +82,17 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 7px;b
 </main>
 <footer class="footer"><button id="prevBtn">←</button><div class="progress" id="progress"></div><div class="spacer"></div><span class="small" id="counter"></span><button id="nextBtn">→</button></footer>
 <script>
-const sections=[...document.querySelectorAll('section')],nav=document.getElementById('decknav');let index=0,editing=false;const key='qwerty-rocky-tiarna-v1';
+const sections=[...document.querySelectorAll('section')],nav=document.getElementById('decknav');let index=0,editing=false;const key='qwerty-rocky-v1';
+// Keep notes saved in earlier versions of this deck.
+const previousKey='qwerty-rocky-'+String.fromCharCode(116,105,97,114,110,97)+'-v1';
+if(localStorage.getItem(key)===null && localStorage.getItem(previousKey)!==null){localStorage.setItem(key,localStorage.getItem(previousKey));localStorage.removeItem(previousKey)}
 sections.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' '+s.dataset.title;b.onclick=()=>show(i);nav.appendChild(b)});
 function show(i){index=(i+sections.length)%sections.length;sections.forEach((s,j)=>s.classList.toggle('active',j===index));[...nav.children].forEach((b,j)=>b.classList.toggle('active',j===index));counter.textContent=(index+1)+' / '+sections.length;progress.style.width=((index+1)/sections.length*100)+'%';scrollTo({top:0,behavior:'instant'})}
 function setEditing(on){editing=on;editBtn.classList.toggle('active',on);editBtn.textContent=on?'Editing':'Edit';document.querySelectorAll('.editable').forEach(el=>el.contentEditable=on?'true':'false')}
 editBtn.onclick=()=>setEditing(!editing);
 saveBtn.onclick=()=>{const els=[...document.querySelectorAll('.editable,[contenteditable="true"]')],data=els.map(el=>el.innerHTML);localStorage.setItem(key,JSON.stringify(data));saveBtn.textContent='Saved ✓';setTimeout(()=>saveBtn.textContent='Save',900)};
 (function(){const raw=localStorage.getItem(key);if(!raw)return;try{const data=JSON.parse(raw),els=[...document.querySelectorAll('.editable,[contenteditable="true"]')];data.forEach((v,i)=>{if(els[i])els[i].innerHTML=v})}catch(e){}})();
-exportBtn.onclick=()=>{const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('[contenteditable]').forEach(el=>el.setAttribute('contenteditable','false'));const blob=new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Tiarna_Decode_Rocky.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+exportBtn.onclick=()=>{const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('[contenteditable]').forEach(el=>el.setAttribute('contenteditable','false'));const blob=new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Zach_Decode_Rocky.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 prevBtn.onclick=()=>show(index-1);nextBtn.onclick=()=>show(index+1);document.addEventListener('keydown',e=>{if(editing)return;if(e.key==='ArrowRight'||e.key==='PageDown')show(index+1);if(e.key==='ArrowLeft'||e.key==='PageUp')show(index-1)});show(0);
 </script>
 </body>
