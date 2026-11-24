@@ -296,6 +296,8 @@
     line-height: 1.4;
   }
   .footer-nav-cards .footer-card-links { gap: 0; }
+  .footer-newsletter { font-size: 16px; }
+  .footer-newsletter :is(input, button) { min-height: 44px; }
   .footer-nav-cards .footer-card-links a,
   .lab-footer .footer-legal-links a {
     min-width: 44px;

@@ -320,6 +320,16 @@
   if (year) year.textContent = String(new Date().getFullYear());
 })();
 
+/* Newsletter design preview: no data is stored or sent. */
+document.querySelectorAll('.footer-newsletter').forEach(form => {
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    form.reset();
+    form.querySelector('output').textContent = 'Preview only — nothing sent.';
+  });
+  form.querySelector('button').disabled = false;
+});
+
 /* Keep the Acknowledgement 24 visible px below the footer-card copy,
    rather than below the paper images. This accommodates differing link lengths. */
 (() => {
@@ -329,7 +339,7 @@
   const cards = document.querySelector('.footer-nav-cards');
   if (!footer || !country || !page || !cards) return;
 
-  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address';
+  const copySelector = '.footer-nav-card h2, .footer-nav-card .footer-card-links, .footer-nav-card .footer-card-address, .footer-newsletter';
   let pending = false;
   const update = () => {
     pending = false;
