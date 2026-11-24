@@ -935,7 +935,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   align-items: center;
   gap: 8px;
   min-height: 25px;
-  border-bottom: 1px solid var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
 }
 .footer-newsletter input,
 .footer-newsletter button {
@@ -951,6 +951,13 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   width: 0;
   min-width: 0;
   padding: 2px 4px;
+}
+/* Keep browser-autofilled text on the paper rather than a coloured input box. */
+.footer-newsletter input:is(:autofill, :-webkit-autofill) {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
 }
 .footer-newsletter button {
   margin: 2px 0 0;
