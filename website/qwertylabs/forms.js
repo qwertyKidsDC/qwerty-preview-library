@@ -240,7 +240,8 @@
         ['classes','Classes'],['camps','Holiday camps'],
         ['adult','Adults and mentoring'],['other','Something else']
       ],true) + nameFields('first','Your',true) +
-      field('email','Email','email',true,'','autocomplete="email"') +
+      field('phone','Mobile number','tel',true,'We usually reply by text.','autocomplete="tel" inputmode="tel"') +
+      field('email','Email','email',false,'','autocomplete="email"') +
       field('message','What would you like to know?','textarea',true) + newsletter();
   }
 
@@ -314,6 +315,13 @@
       var lbl=scope.querySelector('label[for="'+bad.id+'"]');
       error('Please complete '+(lbl?lbl.textContent.replace('*','').trim():'this answer')+'.',bad);
       return false;
+    }
+    if (kind === 'contact') {
+      var contactPhone = form.querySelector('#phone');
+      if (contactPhone && !australianMobile(contactPhone.value)) {
+        error('Enter an Australian mobile number, such as 0412 345 678.', contactPhone);
+        return false;
+      }
     }
     if (enrolment) {
       var phones = ['parent-phone','secondary-phone'];
