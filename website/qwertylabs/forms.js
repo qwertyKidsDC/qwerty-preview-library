@@ -123,7 +123,6 @@
           '<p class="qlf-hint">Kids: 9:30 am–3:30 pm. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
           '<fieldset class="qlf-fieldset"><legend>Extended hours (kids only)</legend>' +
           checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset>') :
-        '<h3 class="qlf-step-title">Choose your class</h3>' +
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
@@ -312,7 +311,7 @@
     });
     if(bad){
       var lbl=scope.querySelector('label[for="'+bad.id+'"]');
-      if (kind === 'classes') {
+      if (enrolment) {
         var label = lbl ? lbl.textContent.replace('*','').trim() : '';
         var message = 'Please complete ' + (label ? label.toLowerCase() : 'the highlighted field') + '.';
         if (bad.validity.typeMismatch && bad.type === 'email') {
@@ -372,7 +371,11 @@
       return !el.closest('[hidden]') && !el.hidden &&
         !Array.prototype.some.call(el.querySelectorAll('input[type="checkbox"]'),function(box){return box.checked;});
     });
-    if(badGroup){error('Please choose at least one option for '+badGroup.querySelector('legend').textContent.replace('*','').trim()+'.',badGroup.querySelector('input'));return false;}
+    if(badGroup){
+      error(badGroup.dataset.group === 'camp-days' ? 'Please choose at least one camp day.' :
+        'Please choose at least one option for '+badGroup.querySelector('legend').textContent.replace('*','').trim()+'.',badGroup.querySelector('input'));
+      return false;
+    }
     err.hidden=true;err.textContent='';
     return true;
   }
@@ -447,19 +450,20 @@
     form.hidden=true;done.hidden=false;
     if(title && !enrolment)title.textContent='Preview complete';
     done.setAttribute('tabindex','-1');done.focus();
-    if(status)status.textContent=enrolment ?
-      'Review your enrolment. No information has been sent.' :
-      'Preview complete. No information was submitted.';
+    if(status){
+      status.textContent=enrolment ? '' : 'Preview complete. No information was submitted.';
+      if(enrolment)status.hidden=true;
+    }
   }
   form.addEventListener('change',sync);
-  if (kind === 'classes') {
-    // Once review flags an issue, keep the guidance current without moving focus.
-    function refreshValidation() {
-      if (!form.querySelector('#qlf-error').hidden) {
-        sync();
-        validVisible(true);
-      }
+  // Once review flags an issue, keep the guidance current without moving focus.
+  function refreshValidation() {
+    if (enrolment && !form.querySelector('#qlf-error').hidden) {
+      sync();
+      validVisible(true);
     }
+  }
+  if (enrolment) {
     form.addEventListener('input', refreshValidation);
     form.addEventListener('change', refreshValidation);
   }
@@ -472,6 +476,7 @@
       form.querySelector('#qlf-add-child').hidden=childCount>=3;
       form.querySelector('#qlf-remove-child').hidden=false;
       sync();
+      refreshValidation();
     });
     form.querySelector('#qlf-remove-child').addEventListener('click',function(){
       if(childCount<=1)return;
@@ -479,6 +484,7 @@
       childCount--;
       form.querySelector('#qlf-add-child').hidden=false;
       form.querySelector('#qlf-remove-child').hidden=childCount===1;
+      refreshValidation();
     });
   }
   done.querySelector('#qlf-start-again').addEventListener('click',function(){
@@ -487,7 +493,10 @@
     if (isClassInterest) {
       if (requiredHint) requiredHint.hidden = false;
       if (status) { status.hidden = false; status.textContent = ''; }
-    } else if(status)status.textContent='Preview restarted.';
+    } else if(status){
+      status.hidden=false;
+      status.textContent=enrolment ? '' : 'Preview restarted.';
+    }
     form.querySelector('input,select,textarea').focus();
   });
   sync();
