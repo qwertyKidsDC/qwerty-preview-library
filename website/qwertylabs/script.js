@@ -6,7 +6,9 @@
 (() => {
   const updateScale = () => {
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    const scale = Math.max(0.70, Math.min(1.85, (viewportWidth - 84) / 986));
+    // The homepage messenger gets its own rail; never scale it over the artwork.
+    const messengerReserve = document.querySelector('.site.has-messenger-rail') ? 260 : 0;
+    const scale = Math.max(0.70, Math.min(1.85, (viewportWidth - 84 - messengerReserve) / 986));
     document.documentElement.style.setProperty('--ql-cardboard-zoom', String(scale));
     /* The nav starts at viewport y=13px; the wordmark keeps its original y.
        Compensation reverses the 19px removed from the stage's top padding. */

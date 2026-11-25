@@ -1855,3 +1855,59 @@ body.qll-prototype .cardboard-page { overflow:clip; }
 }
 :where(html[data-layout="subpage"]) .subpage-art--stack { gap: 24px; }
 :where(html[data-layout="subpage"]) .subpage-art--stack iframe { aspect-ratio: 16 / 9; border: 0; }
+
+/* Homepage Lab Messengers — use the existing form paper and mascot artwork.
+   Their own rail keeps them out of the way of the original cardboard composition. */
+.home-messenger[hidden] { display:none; }
+.home-messenger-rail:empty, .home-messenger-inline:empty { display:none; }
+.home-messenger-inline:has(.home-messenger[hidden]) { display:none; }
+.home-messenger-inline { position:relative; z-index:6; margin:24px 39px 0; }
+.home-messenger { color:var(--color-ink); }
+.home-messenger .home-messenger__note {
+  display:block;
+  width: min(100%, 290px);
+  min-height: 250px;
+  box-sizing:border-box;
+  margin: 0 auto;
+  padding: 26px 22px 145px;
+  text-align:center;
+  color:var(--color-ink);
+  text-decoration:none;
+  transform:rotate(2deg);
+}
+.home-messenger__copy { position:relative; z-index:3; display:block; }
+.home-messenger__speech { display:block; font-size:20px; font-weight:700; line-height:1.2; }
+.home-messenger__link {
+  display:block;
+  margin-top:10px;
+  font-size:16px;
+  font-weight:700;
+  text-decoration:underline dashed;
+  text-underline-offset:3px;
+}
+.home-messenger__note:hover .home-messenger__link,
+.home-messenger__note:focus-visible .home-messenger__link { text-decoration-style:wavy; }
+.home-messenger__note:focus-visible { outline:3px solid var(--color-orange); outline-offset:4px; }
+.home-messenger .qll-side__mascot { width:min(100%,225px); right:0; bottom:6px; }
+@media (min-width:1200px) and (min-height:420px) {
+  html[data-layout="site"]:has(.site.has-messenger-rail) body { overflow-x:clip; }
+  .site.has-messenger-rail { overflow:clip; }
+  .site.has-messenger-rail .cardboard-stage { display:flex; align-items:flex-start; gap:20px; }
+  .site.has-messenger-rail .cardboard-page { flex:none; margin:0; }
+  .site.has-messenger-rail .home-messenger-rail {
+    position:sticky;
+    top:24px;
+    flex:0 0 240px;
+    width:240px;
+    padding:12px 4px 10px;
+  }
+  .home-messenger-rail .home-messenger__note {
+    width:100%;
+    min-height:250px;
+    padding:25px 19px 145px;
+  }
+}
+@media (max-width:760px) {
+  .home-messenger-inline { margin:20px 20px 0; }
+  .home-messenger .home-messenger__note { min-height:240px; padding-bottom:145px; }
+}

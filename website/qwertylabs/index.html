@@ -19,10 +19,11 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261125-ink-only">
+    <link rel="stylesheet" href="style.css?v=20261126-lab-messenger">
 <link rel="stylesheet" href="mobile.css?v=20261125-ink-only" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261124-shared-footer" defer></script>
+    <script src="home-messenger.js?v=20261126" defer></script>
+    <script src="script.js?v=20261126-lab-messenger" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -116,7 +117,7 @@
               <div class="feature">
                 <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
                 <h2><a href="kids.html">Kids</a></h2>
-                <p>Weekly coding and creative technology classes and school holiday camps.</p>
+                <p>Weekly coding classes and holiday camps for ages 7–12.</p>
                 <a class="feature-arrow" href="kids.html" aria-label="Go to Kids"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
               <div class="feature">
@@ -128,10 +129,25 @@
               <div class="feature">
                 <img class="paper-bg" src="img/teens-blue-panel-untaped-vtrim.svg?v=orange-20261104" alt="">
                 <h2><a href="teens.html">Teens</a></h2>
-                <p>Weekly classes and holiday camps with more independence and individual guidance.</p>
+                <p>Weekly classes and holiday camps for ages 13–17, with more independence.</p>
                 <a class="feature-arrow" href="teens.html" aria-label="Go to Teens"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
             </section>
+
+            <!-- Lab Messengers: edit the announcement here; set data-enabled="false" when there's no news.
+                 The expiry is Sydney local time, just after the final January camp. -->
+            <div class="home-messenger-inline" data-messenger-inline>
+              <aside class="home-messenger" data-home-messenger data-enabled="true" data-expires="2027-01-30T00:00:00+11:00" aria-label="News from the lab" hidden>
+                <a class="qll-side__paper home-messenger__note" href="coding-camp.html">
+                  <img class="qll-side__paper-bg" src="img/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
+                  <span class="home-messenger__copy">
+                    <span class="home-messenger__speech">Psst... we're making things this January!</span>
+                    <span class="home-messenger__link">Summer holiday camps</span>
+                  </span>
+                  <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp" width="360" height="208" alt="" decoding="async">
+                </a>
+              </aside>
+            </div>
 
             <!-- Content-led Coolest Projects panel; its cardboard trim remains intact. -->
             <section class="footer-scene" id="projects" aria-labelledby="featured-projects-title">
@@ -158,7 +174,7 @@
               <div class="project-copy">
                 <img class="project-label" src="img/footer-blue-tape-vtrim.svg" alt="">
                 <h2 class="project-label-text" id="meet-lab-title">MEET THE LAB</h2>
-                <p>We've been making things with people in Marrickville since 2016. We still squeal when the stuff we build does things.</p>
+                <p>We've been making things with curious people in Marrickville since 2016. Around 1,500 young makers have come through our doors. We still squeal when the stuff we build does things.</p>
                 <a class="scene-link" href="thelab.html">About the Lab</a>
               </div>
               <figure class="photo-collage">
@@ -257,6 +273,7 @@
             </div>
           </footer>
         </div>
+        <div class="home-messenger-rail" data-messenger-rail></div>
       </div>
     </div>
   </body>
