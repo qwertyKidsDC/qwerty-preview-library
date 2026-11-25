@@ -11,7 +11,7 @@
   --color-ivory: #F7F4EB;
   --color-ink: #020020;
   --brand-accent: var(--color-blue);
-  --testimonial-panel-image: url("img/kids-blue-panel-untaped-vtrim.svg");
+  --testimonial-panel-image: url("img/blue-note-testimonial-panel.svg");
 
   /* Shared type scale; fit containers to text, not text to containers. */
   --text-heading: 30px;  /* Section headings and tape lettering */
