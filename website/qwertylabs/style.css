@@ -1842,3 +1842,24 @@ html[data-brand="lab"] .qlf-submit { color:var(--color-ivory); }
 body.qll-prototype .site,
 body.qll-prototype .cardboard-page { overflow:clip; }
 
+
+
+/* Three founder media pieces use a real two-column flow instead of overlapping absolute positions. */
+@media (min-width: 761px) {
+  :where(html[data-layout="subpage"]) .subpage-section--art-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+  :where(html[data-layout="subpage"]) .subpage-section--art-stack > .subpage-section__copy { width: auto; }
+  :where(html[data-layout="subpage"]) .subpage-section--art-stack > .subpage-art--stack {
+    position: static;
+    width: 100%;
+    transform: none;
+    align-content: space-between;
+    gap: 28px;
+  }
+}
+:where(html[data-layout="subpage"]) .subpage-art--stack { gap: 24px; }
+:where(html[data-layout="subpage"]) .subpage-art--stack iframe { aspect-ratio: 16 / 9; border: 0; }
