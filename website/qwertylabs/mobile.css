@@ -106,7 +106,7 @@
     font: inherit;
     letter-spacing: inherit;
     text-transform: inherit;
-    text-shadow: 0 2px 7px #000;
+    text-shadow: 0 2px 7px var(--color-ink);
     text-align: left;
     cursor: var(--ql-hand-cursor, pointer);
   }
