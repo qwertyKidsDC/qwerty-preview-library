@@ -255,7 +255,8 @@
     (isClassInterest ?
       '<h3 id="qlf-thanks"></h3><p id="qlf-thanks-child"></p><ul id="qlf-selected-times"></ul>' +
       '<p>This is a preview. Your details have not been sent and no place has been booked.</p>' :
-      '<h3>Preview complete</h3><p>Nothing was submitted.</p>') +
+      '<h3 id="qlf-simple-thanks">Review your details</h3><p>Nothing has been sent yet.</p>') +
+    '<div id="qlf-review"></div>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
   host.appendChild(done);
 
@@ -311,7 +312,7 @@
     });
     if(bad){
       var lbl=scope.querySelector('label[for="'+bad.id+'"]');
-      if (enrolment) {
+      {
         var label = lbl ? lbl.textContent.replace('*','').trim() : '';
         var message = 'Please complete ' + (label ? label.toLowerCase() : 'the highlighted field') + '.';
         if (bad.validity.typeMismatch && bad.type === 'email') {
@@ -320,8 +321,11 @@
           var legend = bad.closest('fieldset').querySelector('legend');
           var question = legend ? legend.textContent.replace('*','').trim() : 'the highlighted question';
           message = 'Please answer: ' + question;
+        } else if (bad.type === 'number' && (bad.validity.rangeUnderflow || bad.validity.rangeOverflow)) {
+          message = 'Please enter a number between ' + bad.min + ' and ' + bad.max + '.';
         } else if (bad.type === 'checkbox') {
-          message = bad.id === 'terms-consent' ? 'Please confirm you agree to the Booking Terms and acknowledge the Privacy Policy.' :
+          message = bad.id === 'subscribe-consent' ? 'Please confirm you would like to subscribe.' :
+            bad.id === 'terms-consent' ? 'Please confirm you agree to the Booking Terms and acknowledge the Privacy Policy.' :
             bad.id === 'medical-consent' ? 'Please confirm the emergency medical permission.' : 'Please tick the highlighted box.';
         } else if (bad.id === 'class-time') {
           message = 'Please choose your preferred class.';
@@ -333,14 +337,12 @@
           message = 'Child ' + childNumber + ': ' + message;
         }
         error(message,bad);
-      } else {
-        error('Please complete '+(lbl?lbl.textContent.replace('*','').trim():'this answer')+'.',bad);
       }
       return false;
     }
-    if (kind === 'contact') {
+    if (!enrolment) {
       var contactPhone = form.querySelector('#phone');
-      if (contactPhone && !australianMobile(contactPhone.value)) {
+      if (contactPhone && !contactPhone.disabled && contactPhone.value.trim() && !australianMobile(contactPhone.value)) {
         error('Enter an Australian mobile number, such as 0412 345 678.', contactPhone);
         return false;
       }
@@ -372,8 +374,8 @@
         !Array.prototype.some.call(el.querySelectorAll('input[type="checkbox"]'),function(box){return box.checked;});
     });
     if(badGroup){
-      error(badGroup.dataset.group === 'camp-days' ? 'Please choose at least one camp day.' :
-        'Please choose at least one option for '+badGroup.querySelector('legend').textContent.replace('*','').trim()+'.',badGroup.querySelector('input'));
+      var groupMessages = {'camp-days':'Please choose at least one camp day.','class-preferences':'Please choose at least one class time.','days':'Please choose at least one day.','times':'Please choose at least one time window.'};
+      error(groupMessages[badGroup.dataset.group] || 'Please choose at least one option.',badGroup.querySelector('input'));
       return false;
     }
     err.hidden=true;err.textContent='';
@@ -401,13 +403,16 @@
         }).join(', ');
         if (!value && input.type === 'checkbox' && group.length === 1) value = 'No';
       } else if (input.tagName === 'SELECT') {
-        value = input.selectedOptions.length ? input.selectedOptions[0].textContent.trim() : '';
+        value = input.value && input.selectedOptions.length ? input.selectedOptions[0].textContent.trim() : '';
       } else value = input.value.trim();
       if (!value) return;
       var fieldLabel = form.querySelector('label[for="' + input.id + '"]');
       var fieldset = input.closest('fieldset');
       var legend = fieldset && fieldset.querySelector('legend');
-      var label = (input.type === 'radio' || input.type === 'checkbox') && legend ?
+      var choiceLabel = input.closest('.qlf-choice');
+      var label = input.type === 'checkbox' && group.length === 1 && choiceLabel ?
+        choiceLabel.textContent.trim() :
+        (input.type === 'radio' || input.type === 'checkbox') && legend ?
         legend.textContent.trim() : fieldLabel ? fieldLabel.textContent.trim() : input.name;
       label = label.replace(/\s*\*$/, '');
       var childFieldset = input.closest('.qlf-child');
@@ -441,32 +446,33 @@
     });
   }
   function showDone(){
-    if (enrolment) reviewAnswers();
+    reviewAnswers();
+    var thanks = done.querySelector('#qlf-simple-thanks');
+    var first = form.querySelector('#first-first');
+    if (thanks && first) thanks.textContent = 'Thanks, ' + first.value.trim() + '!';
     if (isClassInterest) {
       showClassInterestThanks();
       if (requiredHint) requiredHint.hidden = true;
       if (status) status.hidden = true;
     }
     form.hidden=true;done.hidden=false;
-    if(title && !enrolment)title.textContent='Preview complete';
+    if(title && !enrolment)title.textContent='Review your details';
     done.setAttribute('tabindex','-1');done.focus();
     if(status){
-      status.textContent=enrolment ? '' : 'Preview complete. No information was submitted.';
-      if(enrolment)status.hidden=true;
+      status.textContent='';
+      status.hidden=true;
     }
   }
   form.addEventListener('change',sync);
   // Once review flags an issue, keep the guidance current without moving focus.
   function refreshValidation() {
-    if (enrolment && !form.querySelector('#qlf-error').hidden) {
+    if (!form.querySelector('#qlf-error').hidden) {
       sync();
       validVisible(true);
     }
   }
-  if (enrolment) {
-    form.addEventListener('input', refreshValidation);
-    form.addEventListener('change', refreshValidation);
-  }
+  form.addEventListener('input', refreshValidation);
+  form.addEventListener('change', refreshValidation);
   form.addEventListener('submit',function(ev){ev.preventDefault();sync();if(validVisible())showDone();});
   if(enrolment){
     form.querySelector('#qlf-add-child').addEventListener('click',function(){
@@ -495,7 +501,7 @@
       if (status) { status.hidden = false; status.textContent = ''; }
     } else if(status){
       status.hidden=false;
-      status.textContent=enrolment ? '' : 'Preview restarted.';
+      status.textContent='';
     }
     form.querySelector('input,select,textarea').focus();
   });
