@@ -288,7 +288,8 @@
   var quietValidation = false;
   function error(message,input){
     var box=form.querySelector('#qlf-error');
-    box.textContent=message;box.hidden=false;
+    if (box.textContent !== message) box.textContent=message;
+    box.hidden=false;
     if(input){
       input.setAttribute('aria-invalid','true');
       if (!quietValidation) input.focus();
@@ -304,7 +305,6 @@
   function validVisible(quiet){
     quietValidation = !!quiet;
     var err=form.querySelector('#qlf-error');
-    err.hidden=true;err.textContent='';
     Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'),function(el){el.removeAttribute('aria-invalid');});
     var scope=form;
     var bad=Array.prototype.find.call(scope.querySelectorAll('input,select,textarea'),function(el){
@@ -373,6 +373,7 @@
         !Array.prototype.some.call(el.querySelectorAll('input[type="checkbox"]'),function(box){return box.checked;});
     });
     if(badGroup){error('Please choose at least one option for '+badGroup.querySelector('legend').textContent.replace('*','').trim()+'.',badGroup.querySelector('input'));return false;}
+    err.hidden=true;err.textContent='';
     return true;
   }
   function reviewAnswers() {
