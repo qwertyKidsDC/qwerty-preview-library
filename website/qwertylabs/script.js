@@ -25,10 +25,6 @@
   const nav = document.querySelector('.navigation');
   if (!nav) return;
 
-  // Link legacy Teens navigation to the dedicated programme pages.
-  document.querySelectorAll('a[href="teens.html#teen-studio"]').forEach(a => a.setAttribute("href", "teen-coding-classes.html"));
-  document.querySelectorAll('a[href="teens.html#teen-camps"]').forEach(a => a.setAttribute("href", "teen-coding-camp.html"));
-
   // One shared Enrol menu for the two dedicated form pages.
   const enrol = document.createElement('div');
   enrol.className = 'navigation-group navigation-group--enrol';
