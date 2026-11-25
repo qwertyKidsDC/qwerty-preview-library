@@ -113,7 +113,6 @@
   }
   function programmes() {
     return '<section>' +
-      (isCamp ? '' : '<h3 class="qlf-step-title">Choose your class</h3>') +
       radioChoices('family-type','Have you enrolled with Qwerty before?',[
         ['new','No, new family'],['returning','Yes, returning family']
       ],true) +
@@ -124,11 +123,11 @@
           '<p class="qlf-hint">Kids: 9:30 am–3:30 pm. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
           '<fieldset class="qlf-fieldset"><legend>Extended hours (kids only)</legend>' +
           checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset>') :
+        '<h3 class="qlf-step-title">Choose your class</h3>' +
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
-          ['sat-1215','Saturday 12:15–1:30 pm'],
-          ['other','Other time / please advise']
+          ['sat-1215','Saturday 12:15–1:30 pm']
         ],true,'Current preferences, not confirmed availability. Please refer to the programme overview for the latest times.')) +
       (isCamp ? '' : '<p class="qlf-hint">We confirm availability and payment details separately. Nothing is booked here.</p>') +
       '</section>';
@@ -286,11 +285,14 @@
         (input.type !== 'checkbox' || input.checked));
     });
   }
+  var quietValidation = false;
   function error(message,input){
     var box=form.querySelector('#qlf-error');
     box.textContent=message;box.hidden=false;
-    if(input){input.setAttribute('aria-invalid','true');input.focus();}
-    else box.focus();
+    if(input){
+      input.setAttribute('aria-invalid','true');
+      if (!quietValidation) input.focus();
+    } else if (!quietValidation) box.focus();
   }
   function australianMobile(value) {
     return /^(?:04\d{8}|\+614\d{8}|614\d{8})$/.test(value.replace(/[\s()\-]/g, ''));
@@ -299,7 +301,8 @@
     return valueA.trim().replace(/\s+/g, ' ').toLowerCase() ===
       valueB.trim().replace(/\s+/g, ' ').toLowerCase();
   }
-  function validVisible(){
+  function validVisible(quiet){
+    quietValidation = !!quiet;
     var err=form.querySelector('#qlf-error');
     err.hidden=true;err.textContent='';
     Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'),function(el){el.removeAttribute('aria-invalid');});
@@ -309,7 +312,31 @@
     });
     if(bad){
       var lbl=scope.querySelector('label[for="'+bad.id+'"]');
-      error('Please complete '+(lbl?lbl.textContent.replace('*','').trim():'this answer')+'.',bad);
+      if (kind === 'classes') {
+        var label = lbl ? lbl.textContent.replace('*','').trim() : '';
+        var message = 'Please complete ' + (label ? label.toLowerCase() : 'the highlighted field') + '.';
+        if (bad.validity.typeMismatch && bad.type === 'email') {
+          message = 'Please check ' + (bad.id === 'secondary-email' ? 'the secondary' : 'your') + ' email address.';
+        } else if (bad.type === 'radio') {
+          var legend = bad.closest('fieldset').querySelector('legend');
+          var question = legend ? legend.textContent.replace('*','').trim() : 'the highlighted question';
+          message = 'Please answer: ' + question;
+        } else if (bad.type === 'checkbox') {
+          message = bad.id === 'terms-consent' ? 'Please confirm you agree to the Booking Terms and acknowledge the Privacy Policy.' :
+            bad.id === 'medical-consent' ? 'Please confirm the emergency medical permission.' : 'Please tick the highlighted box.';
+        } else if (bad.id === 'class-time') {
+          message = 'Please choose your preferred class.';
+        } else if (bad.type === 'tel') {
+          message = 'Please enter ' + (bad.id === 'secondary-phone' ? 'the secondary contact’s' : 'your') + ' mobile number.';
+        }
+        if (bad.closest('.qlf-child')) {
+          var childNumber = Number(bad.closest('.qlf-child').dataset.child) + 1;
+          message = 'Child ' + childNumber + ': ' + message;
+        }
+        error(message,bad);
+      } else {
+        error('Please complete '+(lbl?lbl.textContent.replace('*','').trim():'this answer')+'.',bad);
+      }
       return false;
     }
     if (kind === 'contact') {
@@ -424,6 +451,17 @@
       'Preview complete. No information was submitted.';
   }
   form.addEventListener('change',sync);
+  if (kind === 'classes') {
+    // Once review flags an issue, keep the guidance current without moving focus.
+    function refreshValidation() {
+      if (!form.querySelector('#qlf-error').hidden) {
+        sync();
+        validVisible(true);
+      }
+    }
+    form.addEventListener('input', refreshValidation);
+    form.addEventListener('change', refreshValidation);
+  }
   form.addEventListener('submit',function(ev){ev.preventDefault();sync();if(validVisible())showDone();});
   if(enrolment){
     form.querySelector('#qlf-add-child').addEventListener('click',function(){
