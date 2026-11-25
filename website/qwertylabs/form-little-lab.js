@@ -52,9 +52,37 @@
     if(family && family.value==='new')return 'Who’s the young maker joining us?';
     return 'Ooh, someone’s about to enrol.';
   }
+  function adultMessage(name){
+    var interest=app.querySelector('#adult-interest');
+    var choice=interest ? interest.value : '';
+    var email=app.querySelector('#email');
+    var last=firstName('#first-last');
+    var experience=app.querySelector('#experience');
+    var project=app.querySelector('#project');
+    var timing=app.querySelector('#timing');
+    var referral=app.querySelector('#referral');
+    var newsletter=app.querySelector('#newsletter-opt-in');
+    var detailsReady=name && last && email && email.value.trim() && email.validity.valid;
+    if(detailsReady && choice && project && project.value.trim()){
+      if(newsletter && newsletter.checked)return 'More news from the Lab? Excellent, '+name+'!';
+      if(referral && referral.value)return 'Thanks for telling us how you found us, '+name+'!';
+      if(timing && timing.value.trim())return 'Looking good, '+name+'! Almost there.';
+      return 'Ooh, something to explore! Just a few optional details to go.';
+    }
+    if(detailsReady && choice){
+      if(experience && experience.value==='new')return 'New to this? Excellent. What are you curious about?';
+      if(experience && experience.value)return 'Let’s put that experience to work, '+name+'! What interests you?';
+      return 'Now for the fun bit, '+name+'! What would you like to make or explore?';
+    }
+    if(name)return 'Hello '+name+'! Lovely to meet you.';
+    if(choice==='mentoring')return 'Your own project? Ooh, what shall we make?';
+    if(choice==='groups')return 'Making discoveries together? Count us in!';
+    if(choice==='both')return 'A bit of both? Excellent choice!';
+    return 'Grown-up makers welcome. Yes, really.';
+  }
   function simpleMessage(){
     var name=firstName('#first-first');
-    if(kind==='adult')return name?'Hello '+name+'! What shall we make?':'Grown-up makers welcome. Yes, really.';
+    if(kind==='adult')return adultMessage(name);
     if(kind==='contact')return name?'Hi '+name+'! We’re listening.':'Hello from the Lab. What’s on your mind?';
     if(kind.indexOf('interest')===0){
       var reason=app.querySelector('#reason');
@@ -100,7 +128,8 @@
   function refresh(){
     if(app.querySelector('.qlf-done:not([hidden])')){
       var parent=firstName('#first-first');
-      bubble.textContent=isClassInterest && parent ?
+      bubble.textContent=kind==='adult' && parent ?
+        'Thanks, '+parent+'! Here’s to making things.' : isClassInterest && parent ?
         'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
     } else {
       bubble.textContent=(kind==='classes'||kind==='camps')?enrolMessage():simpleMessage();
