@@ -127,8 +127,7 @@
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
           ['sat-1215','Saturday 12:15–1:30 pm']
-        ],true,'Current preferences, not confirmed availability. Please refer to the programme overview for the latest times.')) +
-      (isCamp ? '' : '<p class="qlf-hint">We confirm availability and payment details separately. Nothing is booked here.</p>') +
+        ],true)) +
       '</section>';
   }
   function grownups() {
