@@ -11,6 +11,7 @@
   var kind=app.dataset.form||document.body.dataset.form||'classes';
 
   var isClassInterest=kind==='interest-kids'||kind==='interest-teen-classes';
+  var enrolment=kind==='classes'||kind==='camps';
 
   function firstName(selector){
     var field=app.querySelector(selector);
@@ -133,12 +134,13 @@
         'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
     } else {
       var error=app.querySelector('#qlf-error:not([hidden])');
-      if(kind==='classes' && error && error.textContent.trim()){
+      if(enrolment && error && error.textContent.trim()){
         var message=error.textContent.trim();
         var friendly={
           'Please give a different person as your secondary contact.':'Oops! We need two different people as contacts.',
           'The secondary contact needs their own mobile number.':'Oops! Each contact needs their own mobile number.',
-          'The secondary contact needs a different email address.':'Oops! We need a different email address for each contact.'
+          'The secondary contact needs a different email address.':'Oops! We need a different email address for each contact.',
+          'Please choose at least one camp day.':'Ooh, which day are you coming? Choose at least one camp day.'
         };
         bubble.textContent=friendly[message] || message;
         return;
@@ -149,7 +151,9 @@
   app.addEventListener('input',refresh);
   app.addEventListener('change',refresh);
   var error=app.querySelector('#qlf-error');
-  if(kind==='classes' && error)new MutationObserver(refresh).observe(error,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['hidden']});
+  if(enrolment && error)new MutationObserver(refresh).observe(error,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['hidden']});
+  var review=app.querySelector('.qlf-done');
+  if(enrolment && review)new MutationObserver(refresh).observe(review,{attributes:true,attributeFilter:['hidden']});
   var status=document.getElementById('qlf-status');
   if(status)new MutationObserver(refresh).observe(status,{childList:true,characterData:true,subtree:true});
   var children=document.getElementById('qlf-children');
