@@ -11,6 +11,7 @@
   var isClassInterest = kind === 'interest-kids' || isTeenClassInterest;
   var enrolment = kind === 'classes' || kind === 'camps';
   var isCamp = kind === 'camps';
+  var isTeenCamp = isCamp && new URLSearchParams(window.location.search).get('audience') === 'teens';
   var form = document.createElement('form');
   var status = document.getElementById('qlf-status');
   var requiredHint = document.getElementById('qlf-required-hint');
@@ -20,7 +21,7 @@
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   function birthYears() {
     var year = isCamp ? 2026 : new Date().getFullYear(), options = [];
-    for (var y = year - 6; y >= year - 17; y--) options.push([String(y), String(y)]);
+    for (var y = year - (isTeenClassInterest || isTeenCamp ? 12 : 6); y >= year - 17; y--) options.push([String(y), String(y)]);
     return options;
   }
   form.className = 'qlf-form';
@@ -118,8 +119,11 @@
       ],true) +
       (isCamp ?
         campDays() +
-        '<fieldset class="qlf-fieldset"><legend>Extended hours</legend>' +
-        checkbox('extended-hours','I would like extended hours (8 am–5:30 pm).',false) + '</fieldset>' :
+        (isTeenCamp ?
+          '<p class="qlf-hint">Teen camps run 11 am–5 pm. Arrive anytime between 10 and 11 am.</p>' :
+          '<p class="qlf-hint">Kids: 9:30 am–3:30 pm. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
+          '<fieldset class="qlf-fieldset"><legend>Extended hours (kids only)</legend>' +
+          checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset>') :
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
