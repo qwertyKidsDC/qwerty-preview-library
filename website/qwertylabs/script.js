@@ -322,10 +322,33 @@
 
 /* Newsletter design preview: no data is stored or sent. */
 document.querySelectorAll('.footer-newsletter').forEach(form => {
+  const output = form.querySelector('output');
+  const name = form.querySelector('input[type="text"]');
+  const email = form.querySelector('input[type="email"]');
+  if (!output || !name || !email) return;
+  form.noValidate = true;
+  let attempted = false;
+  const validate = () => {
+    const bad = !name.value.trim() ? name : !email.value.trim() || !email.validity.valid ? email : null;
+    name.removeAttribute('aria-invalid');
+    email.removeAttribute('aria-invalid');
+    if (bad) {
+      bad.setAttribute('aria-invalid', 'true');
+      output.textContent = bad === name ? 'Please enter your name.' : 'Please check your email address.';
+    } else output.textContent = '';
+    return bad;
+  };
+  form.addEventListener('input', () => {
+    if (attempted) validate();
+    else output.textContent = '';
+  });
   form.addEventListener('submit', event => {
     event.preventDefault();
-    form.reset();
-    form.querySelector('output').textContent = 'Preview only — nothing sent.';
+    attempted = true;
+    const bad = validate();
+    if (bad) { bad.focus(); return; }
+    output.textContent = 'Thanks, ' + name.value.trim() + '! Email: ' + email.value.trim() + '. Preview only — nothing sent.';
+    attempted = false;
   });
   form.querySelector('button').disabled = false;
 });
