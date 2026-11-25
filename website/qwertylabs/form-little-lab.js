@@ -48,10 +48,10 @@
       if(a.length===1)return 'It’s '+name+'! Yay, a new maker to meet.';
       return name+'! '+(a.length===2?'Double yay, two':'Triple yay, three')+' new makers to meet.';
     }
-    if(returning)return 'Ooh, a familiar family! Welcome back. Who’s coming?';
+    if(!family)return 'Hello! Have we met before?';
     if(selectedDays || (classTime && classTime.value))return 'Good choices! Who’s coming to make things?';
-    if(family && family.value==='new')return 'Who’s the young maker joining us?';
-    return 'Ooh, someone’s about to enrol.';
+    if(returning)return kind==='camps' ? 'Welcome back! Which days are you coming?' : 'Welcome back! Which class suits you?';
+    return kind==='camps' ? 'Lovely to meet you! Which days suit?' : 'Lovely to meet you! Which class suits?';
   }
   function adultMessage(name){
     var interest=app.querySelector('#adult-interest');
@@ -79,12 +79,19 @@
     if(choice==='mentoring')return 'Your own project? Ooh, what shall we make?';
     if(choice==='groups')return 'Making discoveries together? Count us in!';
     if(choice==='both')return 'A bit of both? Excellent choice!';
-    return 'Grown-up makers welcome. Yes, really.';
+    return 'Mentoring, workshops or a bit of both?';
   }
   function simpleMessage(){
     var name=firstName('#first-first');
     if(kind==='adult')return adultMessage(name);
-    if(kind==='contact')return name?'Hi '+name+'! We’re listening.':'Hello from the Lab. What’s on your mind?';
+    if(kind==='contact' || kind==='pwyw'){
+      var phone=app.querySelector('#phone');
+      var message=app.querySelector('#message');
+      if(name && message && message.value.trim())return 'Thanks, '+name+'! Looking good from here.';
+      if(name && phone && phone.value.trim())return 'What’s on your mind, '+name+'? We’re listening.';
+      return name?'Hi '+name+'! Lovely to meet you.':'Hello! Who are we chatting with?';
+    }
+    if(kind==='newsletter')return name?'Thanks, '+name+'! Where shall we send our news?':'Hello! Who’s joining our mailing list?';
     if(kind.indexOf('interest')===0){
       var reason=app.querySelector('#reason');
       var purpose=isClassInterest?'classes':reason?reason.value:'';
@@ -120,9 +127,9 @@
         if(chosen.indexOf('Waiting list')!==-1)return 'That group is full. We’ll keep your interest in mind.';
         return 'Another time? Tell us what would work.';
       }
-      if(purpose==='classes')return 'A class that fits? Let’s see what we can do.';
+      if(purpose==='classes')return 'Which class times could work for you?';
       if(purpose==='camps')return 'More making in the holidays. We like that.';
-      return 'Curious? Good. That’s how things start.';
+      return 'What would you like to hear about?';
     }
     return 'Something good is happening.';
   }
@@ -131,10 +138,10 @@
       var parent=firstName('#first-first');
       bubble.textContent=kind==='adult' && parent ?
         'Thanks, '+parent+'! Here’s to making things.' : isClassInterest && parent ?
-        'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
+        'Thanks, '+parent+'! We like making room for new makers.' : parent ? 'Thanks, '+parent+'! Looking good from here.' : 'Looking good from here!';
     } else {
       var error=app.querySelector('#qlf-error:not([hidden])');
-      if(enrolment && error && error.textContent.trim()){
+      if(error && error.textContent.trim()){
         var message=error.textContent.trim();
         var friendly={
           'Please give a different person as your secondary contact.':'Oops! We need two different people as contacts.',
@@ -151,9 +158,9 @@
   app.addEventListener('input',refresh);
   app.addEventListener('change',refresh);
   var error=app.querySelector('#qlf-error');
-  if(enrolment && error)new MutationObserver(refresh).observe(error,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['hidden']});
+  if(error)new MutationObserver(refresh).observe(error,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['hidden']});
   var review=app.querySelector('.qlf-done');
-  if(enrolment && review)new MutationObserver(refresh).observe(review,{attributes:true,attributeFilter:['hidden']});
+  if(review)new MutationObserver(refresh).observe(review,{attributes:true,attributeFilter:['hidden']});
   var status=document.getElementById('qlf-status');
   if(status)new MutationObserver(refresh).observe(status,{childList:true,characterData:true,subtree:true});
   var children=document.getElementById('qlf-children');
