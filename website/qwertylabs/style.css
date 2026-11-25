@@ -30,8 +30,6 @@
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%230F6DFC' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 
   /* Workshop-specific photographic effects */
-  --scene-backdrop: var(--color-ink);
-  --scene-tint-rgb: 4 9 18;
   --scene-glow-left: rgba(255, 127, 0, .16);
   --scene-glow-right: rgba(255, 139, 0, .18);
 
@@ -74,12 +72,12 @@
 }
 
 :where(html[data-layout]) {
-  background: var(--scene-backdrop);
+  background: var(--color-ink);
 }
 
 :where(html[data-layout]) body {
   margin: 0;
-  background: var(--scene-backdrop);
+  background: var(--color-ink);
   color: var(--color-ivory);
   font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   font-size: var(--text-body);
@@ -118,7 +116,7 @@
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
-  background: var(--scene-backdrop);
+  background: var(--color-ink);
 
   --workshop-top-image: url("img/workshop-top.webp");
   /* Width multiplier preserves the approved photo alignment. Match script.js if changing it. */
@@ -197,13 +195,13 @@
 }
 
 .bg-scene__tones {
-  background: rgb(var(--scene-tint-rgb) / .70);
+  background: color-mix(in srgb, var(--color-ink) 70%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
   mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
 }
 
 .bg-scene__vignette {
-  background: radial-gradient(ellipse 61% 80% at 50% 44%, transparent 24%, rgb(var(--scene-tint-rgb) / .60) 100%);
+  background: radial-gradient(ellipse 61% 80% at 50% 44%, transparent 24%, color-mix(in srgb, var(--color-ink) 60%, transparent) 100%);
   -webkit-mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
   mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
 }
@@ -222,7 +220,7 @@
 }
 
 .bg-scene-bottom__tones {
-  background: rgb(var(--scene-tint-rgb) / .80);
+  background: color-mix(in srgb, var(--color-ink) 80%, transparent);
 }
 
 /* 03. Cardboard stage and accessibility */
@@ -240,7 +238,7 @@
   width: 986px;
   margin: auto;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(0, 0, 0, .12);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--color-ink) 12%, transparent);
 }
 
 .cardboard-page::before {
@@ -316,7 +314,7 @@
 
 .navigation a {
   display: inline-block;
-  text-shadow: 0 2px 7px #000;
+  text-shadow: 0 2px 7px var(--color-ink);
 }
 
 
@@ -334,7 +332,7 @@
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
-  text-shadow: 0 2px 7px #000;
+  text-shadow: 0 2px 7px var(--color-ink);
   cursor: pointer;
 }
 .navigation-menu-label:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 5px; }
@@ -403,7 +401,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   align-items: flex-start;
   padding: 7px 12px;
   background: var(--color-ink);
-  box-shadow: 0 8px 18px rgb(0 0 0 / .35);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--color-ink) 35%, transparent);
 }
 .navigation .navigation-submenu a {
   display: inline-block;
@@ -493,7 +491,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   z-index: 3;
   width: 620px;
   height: auto;
-  filter: drop-shadow(7px 9px 7px rgba(0,0,0,.4));
+  filter: drop-shadow(7px 9px 7px color-mix(in srgb, var(--color-ink) 40%, transparent));
   pointer-events: none;
 }
 
@@ -721,7 +719,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   display: grid;
   grid-template-areas: "sign";
   align-items: center;
-  filter: drop-shadow(6px 10px 5px rgba(0, 0, 0, .28));
+  filter: drop-shadow(6px 10px 5px color-mix(in srgb, var(--color-ink) 28%, transparent));
 }
 
 /* Real blue frayed tape artwork: independent copy of the original Projects label.
@@ -805,7 +803,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   isolation: isolate;
   padding: 8px;
   background: var(--color-ivory);
-  box-shadow: 1px 3px 5px rgba(0,0,0,.29);
+  box-shadow: 1px 3px 5px color-mix(in srgb, var(--color-ink) 29%, transparent);
   transform: rotate(-.6deg);
 }
 
@@ -854,7 +852,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
     repeating-linear-gradient(90deg, rgba(69,38,19,.16) 0 1px, rgba(255,223,172,.13) 2px 4px, transparent 5px 8px),
     repeating-linear-gradient(0deg, rgba(70,40,20,.10) 0 1px, transparent 1px 5px),
     linear-gradient(125deg, #D1A06E, #AA7546 75%, #956038);
-  box-shadow: 2px 3px 3px rgba(0,0,0,.3);
+  box-shadow: 2px 3px 3px color-mix(in srgb, var(--color-ink) 30%, transparent);
   transform: rotate(.8deg);
 }
 
@@ -1564,7 +1562,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 1px 2px 4px rgba(0,0,0,.25);
+  box-shadow: 1px 2px 4px color-mix(in srgb, var(--color-ink) 25%, transparent);
 }
 :where(html[data-layout="subpage"]) .subpage-art__media--map > a:is(:hover, :focus-visible) {
   text-decoration: underline;
@@ -1828,7 +1826,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   height:auto;
   max-width:none;
   transform:rotate(-5deg);
-  filter:drop-shadow(3px 5px 2px rgba(2,0,32,.18));
+  filter:drop-shadow(3px 5px 2px color-mix(in srgb, var(--color-ink) 18%, transparent));
 }
 
 /* Preserve decorative clipping without creating a scroll container,
