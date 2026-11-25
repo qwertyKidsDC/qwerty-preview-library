@@ -10,6 +10,8 @@
   if(!bubble)return;
   var kind=app.dataset.form||document.body.dataset.form||'classes';
 
+  var isClassInterest=kind==='interest-kids'||kind==='interest-teen-classes';
+
   function firstName(selector){
     var field=app.querySelector(selector);
     return field ? field.value.trim().replace(/\s+/g,' ').slice(0,24) : '';
@@ -56,7 +58,7 @@
     if(kind==='contact')return name?'Hi '+name+'! We’re listening.':'Hello from the Lab. What’s on your mind?';
     if(kind.indexOf('interest')===0){
       var reason=app.querySelector('#reason');
-      var purpose=kind==='interest-kids'?'classes':reason?reason.value:'';
+      var purpose=isClassInterest?'classes':reason?reason.value:'';
       var child=firstName('#child-first');
       var email=app.querySelector('#email');
       var phone=app.querySelector('#phone');
@@ -79,7 +81,7 @@
       if(child && experience)return child+' has ideas to explore. We’ll find a good place to start.';
       if(child && year && year.value)return 'A little about '+child+'’s coding experience next.';
       if(child)return 'Ooh, '+child+' might be joining us!';
-      if(kind==='interest-kids' && likely && likely.value)return 'Good to know! Who’s coming to make things?';
+      if(isClassInterest && likely && likely.value)return 'Good to know! Who’s coming to make things?';
       if(purpose==='classes' && preferences.length>1)
         return 'A few possibilities! That helps us plan new groups.';
       if(purpose==='classes' && preferences.length===1){
@@ -98,7 +100,7 @@
   function refresh(){
     if(app.querySelector('.qlf-done:not([hidden])')){
       var parent=firstName('#first-first');
-      bubble.textContent=kind==='interest-kids' && parent ?
+      bubble.textContent=isClassInterest && parent ?
         'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
     } else {
       bubble.textContent=(kind==='classes'||kind==='camps')?enrolMessage():simpleMessage();
