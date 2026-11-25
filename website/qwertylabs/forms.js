@@ -218,15 +218,14 @@
   function simpleMarkup() {
     if(isClassInterest||kind==='interest-teens'||kind==='interest')return interestMarkup();
     if(kind==='adult')return select('adult-interest','What are you interested in?',[
-        ['studio','Studio workshops'],['online','Online workshops'],
-        ['mentoring','One-to-one mentoring'],['groups','Group sessions'],
-        ['projects','Help with a particular project']
+        ['mentoring','One-to-one mentoring'],['groups','Group workshops'],
+        ['both','Both mentoring and group workshops']
       ],true) + nameFields('first','Your',true) +
       field('email','Email','email',true,'','autocomplete="email"') +
       field('phone','Mobile','tel',false,'','autocomplete="tel"') +
       select('experience','Experience with creative technology',[
         ['new','Just starting'],['some','Some experience'],
-        ['confident','Quite confident'],['mixed','A mixture in our group']
+        ['confident','Quite confident']
       ],false) +
       field('project','What would you like to make or explore?','textarea',true) +
       field('timing','Preferred days or timeframe','text',false) + referral() + newsletter();
