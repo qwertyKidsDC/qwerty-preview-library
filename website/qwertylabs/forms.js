@@ -322,6 +322,12 @@
         error('Enter an Australian mobile number, such as 0412 345 678.', contactPhone);
         return false;
       }
+      var optIn = form.querySelector('#newsletter-opt-in');
+      var contactEmail = form.querySelector('#email');
+      if (optIn && optIn.checked && contactEmail && !contactEmail.value.trim()) {
+        error('Please enter your email address if you would like to receive our news.', contactEmail);
+        return false;
+      }
     }
     if (enrolment) {
       var phones = ['parent-phone','secondary-phone'];
