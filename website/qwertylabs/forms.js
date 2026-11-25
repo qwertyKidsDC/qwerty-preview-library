@@ -236,13 +236,9 @@
     if(kind==='newsletter') return nameFields('first','Your',true) +
       field('email','Email','email',true) +
       checkbox('subscribe-consent','Please subscribe me to Qwerty Labs updates. I can unsubscribe at any time.',true);
-    return select('topic','What is your question about?',[
-        ['classes','Classes'],['camps','Holiday camps'],
-        ['adult','Adults and mentoring'],['other','Something else']
-      ],true) + nameFields('first','Your',true) +
-      field('phone','Mobile number','tel',true,'We usually reply by text.','autocomplete="tel" inputmode="tel"') +
-      field('email','Email','email',false,'','autocomplete="email"') +
-      field('message','What would you like to know?','textarea',true) + newsletter();
+    return nameFields('first','Your',true) +
+      field('phone','Mobile number','tel',true,'','autocomplete="tel" inputmode="tel"') +
+      field('message','What would you like to know?','textarea',true);
   }
 
   form.innerHTML='<p class="qlf-alert" id="qlf-error" role="alert" tabindex="-1" hidden></p>' +
@@ -320,12 +316,6 @@
       var contactPhone = form.querySelector('#phone');
       if (contactPhone && !australianMobile(contactPhone.value)) {
         error('Enter an Australian mobile number, such as 0412 345 678.', contactPhone);
-        return false;
-      }
-      var optIn = form.querySelector('#newsletter-opt-in');
-      var contactEmail = form.querySelector('#email');
-      if (optIn && optIn.checked && contactEmail && !contactEmail.value.trim()) {
-        error('Please enter your email address if you would like to receive our news.', contactEmail);
         return false;
       }
     }
