@@ -132,11 +132,24 @@
         'Thanks, '+parent+'! Here’s to making things.' : isClassInterest && parent ?
         'Thanks, '+parent+'! We like making room for new makers.' : 'Looking good from here!';
     } else {
+      var error=app.querySelector('#qlf-error:not([hidden])');
+      if(kind==='classes' && error && error.textContent.trim()){
+        var message=error.textContent.trim();
+        var friendly={
+          'Please give a different person as your secondary contact.':'Oops! We need two different people as contacts.',
+          'The secondary contact needs their own mobile number.':'Oops! Each contact needs their own mobile number.',
+          'The secondary contact needs a different email address.':'Oops! We need a different email address for each contact.'
+        };
+        bubble.textContent=friendly[message] || message;
+        return;
+      }
       bubble.textContent=(kind==='classes'||kind==='camps')?enrolMessage():simpleMessage();
     }
   }
   app.addEventListener('input',refresh);
   app.addEventListener('change',refresh);
+  var error=app.querySelector('#qlf-error');
+  if(kind==='classes' && error)new MutationObserver(refresh).observe(error,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['hidden']});
   var status=document.getElementById('qlf-status');
   if(status)new MutationObserver(refresh).observe(status,{childList:true,characterData:true,subtree:true});
   var children=document.getElementById('qlf-children');
