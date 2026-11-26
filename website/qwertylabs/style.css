@@ -1940,7 +1940,10 @@ body.qll-prototype .cardboard-page { overflow:clip; }
   height: auto;
   margin: 12px 0 0;
 }
+@media (min-width: 761px) {
+  #meet-the-lab .project-panel { height: 370px; }
+}
 @media (max-width: 760px) {
-  #meet-the-lab .project-panel { height: 375px; }
+  #meet-the-lab .project-panel { height: 400px; }
   #meet-the-lab .lab-signoff { width: 205px; }
 }
