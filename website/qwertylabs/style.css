@@ -1888,7 +1888,7 @@ body.qll-prototype .cardboard-page { overflow:clip; }
 .home-messenger__note:hover .home-messenger__link,
 .home-messenger__note:focus-visible .home-messenger__link { text-decoration-style:wavy; }
 .home-messenger__note:focus-visible { outline:3px solid var(--color-orange); outline-offset:4px; }
-.home-messenger .qll-side__mascot { width:min(100%,225px); right:0; bottom:6px; }
+.home-messenger .qll-side__mascot { width:min(100%,136px); right:0; bottom:6px; }
 @media (min-width:1200px) and (min-height:420px) {
   html[data-layout="site"]:has(.site.has-messenger-rail) body { overflow-x:clip; }
   .site.has-messenger-rail { overflow:clip; }
