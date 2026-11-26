@@ -120,7 +120,7 @@
         campDays() +
         (isTeenCamp ?
           '<p class="qlf-hint">Teen camps run 11 am–5 pm. Arrive anytime between 10 and 11 am.</p>' :
-          '<p class="qlf-hint">Kids: 9:30 am–3:30 pm. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
+          '<p class="qlf-hint">Kids: 9:30 am–3:30 pm, arrive from 9 am. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
           '<fieldset class="qlf-fieldset"><legend>Extended hours (kids only)</legend>' +
           checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset>') :
         select('class-time','Preferred class',[
@@ -253,7 +253,7 @@
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Edit details</button>' :
     (isClassInterest ?
       '<h3 id="qlf-thanks"></h3><p id="qlf-thanks-child"></p><ul id="qlf-selected-times"></ul>' +
-      '<p>This is a preview. Your details have not been sent and no place has been booked.</p>' :
+      '' :
       '<h3 id="qlf-simple-thanks">Review your details</h3><p>Nothing has been sent yet.</p>') +
     '<div id="qlf-review"></div>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
@@ -393,14 +393,14 @@
       });
       var selected = group.filter(function(item){return item.checked;});
       var value = '';
-      if (input.type === 'checkbox' && group.length === 1) {
+      if (input.type === 'checkbox' && group.length === 1 && !input.closest('[data-group]')) {
         value = input.checked ? 'Yes' : 'No';
       } else if (input.type === 'radio' || input.type === 'checkbox') {
         value = selected.map(function(item){
           var choice = item.closest('.qlf-choice');
           return choice ? choice.textContent.trim() : 'Yes';
         }).join(', ');
-        if (!value && input.type === 'checkbox' && group.length === 1) value = 'No';
+        if (!value && input.type === 'checkbox' && group.length === 1 && !input.closest('[data-group]')) value = 'No';
       } else if (input.tagName === 'SELECT') {
         value = input.value && input.selectedOptions.length ? input.selectedOptions[0].textContent.trim() : '';
       } else value = input.value.trim();
