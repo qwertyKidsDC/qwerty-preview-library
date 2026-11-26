@@ -253,7 +253,7 @@
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Edit details</button>' :
     (isClassInterest ?
       '<h3 id="qlf-thanks"></h3><p id="qlf-thanks-child"></p><ul id="qlf-selected-times"></ul>' +
-      '' :
+      '<p>Nothing has been sent yet.</p>' :
       '<h3 id="qlf-simple-thanks">Review your details</h3><p>Nothing has been sent yet.</p>') +
     '<div id="qlf-review"></div>' +
     '<button type="button" class="qlf-quiet-button" id="qlf-start-again">Back to the form</button>';
@@ -463,11 +463,13 @@
     }
   }
   form.addEventListener('change',sync);
-  // Once review flags an issue, keep the guidance current without moving focus.
+  // Clear the previous review alert when editing; do not flag untouched fields before review.
   function refreshValidation() {
-    if (!form.querySelector('#qlf-error').hidden) {
-      sync();
-      validVisible(true);
+    var box=form.querySelector('#qlf-error');
+    if (!box.hidden) {
+      box.hidden=true;
+      box.textContent='';
+      Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'),function(el){el.removeAttribute('aria-invalid');});
     }
   }
   form.addEventListener('input', refreshValidation);
