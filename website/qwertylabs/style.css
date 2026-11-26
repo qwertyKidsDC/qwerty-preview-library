@@ -1932,8 +1932,8 @@ body.qll-prototype .cardboard-page { overflow:clip; }
   .home-messenger .home-messenger__note { min-height:240px; padding-bottom:145px; }
 }
 
-/* A little signature, just for the homepage's Meet the Lab panel. */
-#meet-the-lab .lab-signoff {
+/* A little studio signature on the homepage and The Lab. */
+.lab-signoff {
   display: block;
   width: 225px;
   max-width: 95%;
@@ -1945,5 +1945,5 @@ body.qll-prototype .cardboard-page { overflow:clip; }
 }
 @media (max-width: 760px) {
   #meet-the-lab .project-panel { height: 400px; }
-  #meet-the-lab .lab-signoff { width: 205px; }
+  .lab-signoff { width: 205px; }
 }
