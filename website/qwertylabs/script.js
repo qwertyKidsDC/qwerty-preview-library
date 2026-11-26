@@ -228,7 +228,7 @@
   updateFade();
 })();
 
-/* Project Code Cloud: one silent scroll play; hover or tap to replay.
+/* Framed replay: one silent scroll play, silent rollover, explicit sound on supported clips.
    The poster remains visible before and after playback. */
 (() => {
   const button = document.querySelector('.cloud-replay');
@@ -240,15 +240,23 @@
   let playbackMode = null;
   let attemptId = 0;
   const idleLabel = button.getAttribute('aria-label') || 'Replay the Project Code Cloud video';
-  const playingLabel = 'Stop the Project Code Cloud video';
+  const hasSound = button.hasAttribute('data-replay-sound');
+  const playingLabel = button.dataset.stopLabel || 'Stop the Project Code Cloud video';
+  const poster = button.querySelector('[data-replay-poster]');
+  if (poster) {
+    const next = new Image();
+    next.onload = () => { poster.src = next.src; poster.alt = poster.dataset.replayAlt || poster.alt; };
+    next.src = poster.dataset.replayPoster;
+  }
 
   const reset = () => {
     // Invalidate any outstanding play() promise before hiding the video.
     attemptId += 1;
     video.pause();
+    video.muted = true;
     try { video.currentTime = 0; }
     catch (_) { /* Media may not be ready yet. */ }
-    button.classList.remove('is-playing');
+    button.classList.remove('is-playing', 'is-sound-playing');
     button.setAttribute('aria-label', idleLabel);
     playbackMode = null;
   };
@@ -256,7 +264,9 @@
   const play = (mode) => {
     if (playbackMode) return;
     playbackMode = mode;
-    button.setAttribute('aria-label', playingLabel);
+    video.muted = !(hasSound && mode === 'manual');
+    button.setAttribute('aria-label', hasSound && mode !== 'manual' ? idleLabel : playingLabel);
+    button.classList.toggle('is-sound-playing', hasSound && mode === 'manual');
     const currentAttempt = ++attemptId;
     try { video.currentTime = 0; }
     catch (_) { /* Playback will still start from the beginning. */ }
@@ -289,7 +299,12 @@
     if (playbackMode === 'hover') reset();
   });
   button.addEventListener('click', () => {
-    // Click while playing means stop, not restart.
+    // An intentional click on a silent preview starts the sound-enabled replay.
+    if (hasSound && playbackMode && playbackMode !== 'manual') {
+      reset();
+      play('manual');
+      return;
+    }
     if (playbackMode) { reset(); return; }
     play('manual');
   });
