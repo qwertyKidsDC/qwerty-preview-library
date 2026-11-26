@@ -1916,3 +1916,16 @@ body.qll-prototype .cardboard-page { overflow:clip; }
   .home-messenger-inline { margin:20px 20px 0; }
   .home-messenger .home-messenger__note { min-height:240px; padding-bottom:145px; }
 }
+
+/* A little signature, just for the homepage's Meet the Lab panel. */
+#meet-the-lab .lab-signoff {
+  display: block;
+  width: 225px;
+  max-width: 95%;
+  height: auto;
+  margin: 12px 0 0;
+}
+@media (max-width: 760px) {
+  #meet-the-lab .project-panel { height: 375px; }
+  #meet-the-lab .lab-signoff { width: 205px; }
+}
