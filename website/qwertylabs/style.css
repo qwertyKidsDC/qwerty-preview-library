@@ -922,6 +922,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-card-address {
   font-style: normal;
 }
+.footer-card-links a { font-size: inherit; }
 
 /* Compact footer newsletter. */
 .footer-newsletter {
@@ -1642,7 +1643,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   height: auto;
   aspect-ratio: 16 / 9;
   border: 0;
+  max-width: 100%;
 }
+:where(html[data-layout="subpage"]) .subpage-art > .photo-frame--cardboard-offset { width: 100%; min-width: 0; }
 
 
 /* Article subheadings. */
