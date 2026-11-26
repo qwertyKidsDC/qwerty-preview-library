@@ -1430,6 +1430,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-section__copy > p:first-child:not(:where(.subpage-board--article p)) {
   font-weight: 700;
 }
+:where(html[data-layout="subpage"]) .subpage-section__option + p { margin-top: 16px; }
 :where(html[data-layout="subpage"]) .subpage-section__option + .subpage-section__option {
   margin-top: 30px;
 }
@@ -1639,7 +1640,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1749 / 1007;
+  aspect-ratio: 16 / 9;
   border: 0;
 }
 
