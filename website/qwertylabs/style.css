@@ -840,6 +840,21 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   visibility: hidden;
 }
 
+/* Sound is opt-in; the label remains available during silent previews. */
+.cloud-replay__sound-label {
+  position: absolute;
+  z-index: 2;
+  right: 8px;
+  bottom: 8px;
+  padding: 6px 10px;
+  background: var(--color-ink);
+  color: var(--color-ivory);
+  font: 700 14px/1.2 'Atkinson Hyperlegible', sans-serif;
+  pointer-events: none;
+}
+.cloud-replay__sound-label::before { content: 'Play with sound'; }
+.cloud-replay.is-sound-playing .cloud-replay__sound-label::before { content: 'Stop video'; }
+
 
 .photo-frame--cardboard-offset::before {
   content: "";
