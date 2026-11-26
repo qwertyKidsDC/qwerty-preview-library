@@ -1083,6 +1083,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .scene-link,
 :is(.footer-card-links a, .footer-newsletter button),
 .feature h2 a,
+.home-messenger__link,
 .subpage-section__option a {
   position: relative;
 }
@@ -1093,6 +1094,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .scene-link::after,
 :is(.footer-card-links a, .footer-newsletter button)::after,
 .feature h2 a::after,
+.home-messenger__link::after,
 .subpage-section__option a::after {
   content: "";
   position: absolute;
@@ -1163,7 +1165,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 
 /* On the blue paper cards, use ink at rest and ivory on hover. */
 .footer-nav-cards :is(.footer-card-links a, .footer-newsletter button)::after,
-.feature h2 a::after {
+.feature h2 a::after,
+.home-messenger__link::after {
   background-color: var(--color-ink);
 }
 
@@ -1174,7 +1177,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   background-color: var(--brand-accent);
 }
 
-.footer-nav-cards :is(.footer-card-links a, .footer-newsletter button):is(:hover, :focus-visible)::after {
+.footer-nav-cards :is(.footer-card-links a, .footer-newsletter button):is(:hover, :focus-visible)::after,
+.home-messenger__note:is(:hover, :focus-visible) .home-messenger__link::after {
   background-color: var(--color-ivory);
 }
 
@@ -1876,17 +1880,13 @@ body.qll-prototype .cardboard-page { overflow:clip; }
   transform:rotate(2deg);
 }
 .home-messenger__copy { position:relative; z-index:3; display:block; }
-.home-messenger__speech { display:block; font-size:20px; font-weight:700; line-height:1.2; }
 .home-messenger__link {
-  display:block;
-  margin-top:10px;
-  font-size:16px;
+  display:inline-block;
+  font-size:22px;
   font-weight:700;
-  text-decoration:underline dashed;
-  text-underline-offset:3px;
+  line-height:1.15;
 }
-.home-messenger__note:hover .home-messenger__link,
-.home-messenger__note:focus-visible .home-messenger__link { text-decoration-style:wavy; }
+.home-messenger__speech { display:block; margin-top:12px; font-size:16px; font-weight:400; line-height:1.3; }
 .home-messenger__note:focus-visible { outline:3px solid var(--color-orange); outline-offset:4px; }
 .home-messenger .qll-side__mascot { width:min(100%,136px); right:0; bottom:6px; }
 @media (min-width:1200px) and (min-height:420px) {
