@@ -49,7 +49,7 @@
       return name+'! '+(a.length===2?'Double yay, two':'Triple yay, three')+' new makers to meet.';
     }
     if(!family)return 'Hello! Have we met before?';
-    if(selectedDays || (classTime && classTime.value))return 'Good choices! Who’s coming to make things?';
+    if(selectedDays || (classTime && classTime.value))return (selectedDays>1?'Good choices!':'Good choice!')+' Who’s coming to make things?';
     if(returning)return kind==='camps' ? 'Welcome back! Which days are you coming?' : 'Welcome back! Which class suits you?';
     return kind==='camps' ? 'Lovely to meet you! Which days suit?' : 'Lovely to meet you! Which class suits?';
   }
@@ -135,13 +135,13 @@
   }
   function refresh(){
     if(app.querySelector('.qlf-done:not([hidden])')){
-      var parent=firstName('#first-first');
+      var parent=firstName(enrolment?'#parent-first':'#first-first');
       bubble.textContent=kind==='adult' && parent ?
         'Thanks, '+parent+'! Here’s to making things.' : isClassInterest && parent ?
         'Thanks, '+parent+'! We like making room for new makers.' : parent ? 'Thanks, '+parent+'! Looking good from here.' : 'Looking good from here!';
     } else {
       var error=app.querySelector('#qlf-error:not([hidden])');
-      if(error && error.textContent.trim()){
+      if(error && error.textContent.trim() && !app.querySelector('input:focus:not([aria-invalid]), select:focus:not([aria-invalid]), textarea:focus:not([aria-invalid])')){
         var message=error.textContent.trim();
         var friendly={
           'Please give a different person as your secondary contact.':'Oops! We need two different people as contacts.',
