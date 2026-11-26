@@ -19,10 +19,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261125-ink-only">
+    <link rel="stylesheet" href="style.css?v=20261126-lab-signature">
 <link rel="stylesheet" href="mobile.css?v=20261125-ink-only" media="(max-width: 760px)">
     <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261124-shared-footer" defer></script>
+    <script src="script.js?v=20261126-mbot-replay" defer></script>
     <script src="forms.js?v=20261126-all-form-feedback" defer></script>
     <script src="form-little-lab.js?v=20261126-all-form-feedback" defer></script>
   </head>
@@ -148,12 +148,15 @@
                   <p><span id="made-here">At 14, Zach and Chloe built <a href="project-code-cloud.html">Project Code Cloud</a> to help younger makers understand where their code goes. They combined programming, electronics and physical design into an interactive exhibit. It became a VIP judge's favourite at the global Coolest Projects 2026 showcase.</span></p>
                   <p>Your project doesn't need to be that ambitious. But if an idea grows into something you'd like to share with a wider audience, we'll help you explore what that could look like.</p>
                 </div>
-                <figure class="subpage-art subpage-art--landscape">
-                  <div class="photo-frame--cardboard-offset">
-                    <video class="subpage-art__image" controls playsinline preload="metadata" aria-label="Project Code Cloud LED demonstration">
-                      <source src="img/project-code-cloud-led-demonstration.mp4" type="video/mp4">
-                    </video>
-                  </div>
+                <figure class="subpage-art subpage-art--landscape subpage-art--straight">
+                  <span class="subpage-art__media photo-frame--cardboard-offset">
+                    <button class="cloud-replay" type="button" aria-label="Replay the Project Code Cloud video">
+                      <video class="cloud-replay__video" muted playsinline preload="none" width="1749" height="1007" aria-hidden="true">
+                        <source src="img/project-code-cloud-led-demonstration.mp4" type="video/mp4">
+                      </video>
+                      <img class="cloud-replay__poster" src="img/project-code-cloud-blue-led-cloud.webp" alt="Project Code Cloud illuminated blue, with an LED strip connecting the cloud to a control panel" width="1749" height="1007" loading="lazy" decoding="async">
+                    </button>
+                  </span>
                 </figure>
               </section>
 
