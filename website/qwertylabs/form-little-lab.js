@@ -141,7 +141,7 @@
         'Thanks, '+parent+'! We like making room for new makers.' : parent ? 'Thanks, '+parent+'! Looking good from here.' : 'Looking good from here!';
     } else {
       var error=app.querySelector('#qlf-error:not([hidden])');
-      if(error && error.textContent.trim() && !app.querySelector('input:focus:not([aria-invalid]), select:focus:not([aria-invalid]), textarea:focus:not([aria-invalid])')){
+      if(error && error.textContent.trim()){
         var message=error.textContent.trim();
         var friendly={
           'Please give a different person as your secondary contact.':'Oops! We need two different people as contacts.',
