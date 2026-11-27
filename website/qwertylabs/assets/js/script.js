@@ -2,7 +2,7 @@
    Wordmarks are static HTML assets; they work even without JavaScript. */
 "use strict";
 
-/* Pick a mascot. Any mascot. Each page load chooses one favicon. */
+/* Pick a mascot. Any mascot. Even the tiny icon in your browser tab gets a turn. */
 (() => {
   const icons = [
     "assets/design/favicon-q.png",
@@ -86,6 +86,7 @@
     document.documentElement.style.setProperty('--nav-top-compensation', (19 / scale) + 'px');
   };
   updateScale();
+  // An event listener waits for something to happen. This one listens for a change in window size.
   window.addEventListener('resize', updateScale);
 })();
 
@@ -484,6 +485,7 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
 })();
 
 /* A shuffle bag is like drawing cards from a hat: each mascot gets a turn.
+   Random doesn't have to mean repetitive.
    Fisher–Yates shuffles the list. Session storage remembers the next card. */
 function chooseMascot(choices, storageKey) {
   let saved = {};

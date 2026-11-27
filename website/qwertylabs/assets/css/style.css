@@ -1,4 +1,4 @@
-/* The cascade decides which CSS rule wins. Specificity, order and inheritance all matter.
+/* The cascade: a waterfall with opinions. The cascade decides which CSS rule wins. Specificity, order and inheritance all matter.
    General rules set the defaults; later component rules refine them. */
 /* Qwerty Labs — shared site stylesheet
    Shared foundations, design components, branding and desktop layout.
@@ -261,7 +261,7 @@
   max-width: 100%;
 }
 
-/* Two-colour keyboard ring: ink is visible on ivory, orange on dark photos. */
+/* Keyboard focus is a little 'you are here' sign. Ink on ivory, orange on dark photos. */
 .cardboard-page a:focus-visible,
 .cloud-replay:focus-visible {
   outline: 3px solid var(--color-ink);

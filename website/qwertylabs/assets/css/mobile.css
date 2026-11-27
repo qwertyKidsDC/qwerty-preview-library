@@ -1,4 +1,5 @@
 /* Qwerty Labs — phone layout only.
+   Same cardboard, smaller desk.
    A media query asks about the viewport. The same HTML can adapt without a second page.
    Shared colours, typography, components and desktop rules live in style.css.
    760px: navigation and stacked layout. 750px: photo-scene adjustment. */

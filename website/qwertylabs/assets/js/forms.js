@@ -245,6 +245,7 @@
     el.hidden=!show;
     Array.prototype.forEach.call(el.querySelectorAll('input,select,textarea'),function(input){input.disabled=!show;});
   }
+  // The form is having a conversation with you, one answer at a time.
   // State is what the program knows right now. When an answer changes, update the visible questions.
   // Hidden fields are disabled so they are not accidentally included in validation.
   function sync(){
