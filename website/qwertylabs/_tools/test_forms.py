@@ -26,7 +26,7 @@ def main():
                 assert form.count() == 1 and form.is_visible()
                 assert page.locator("[data-form-mascot]").count() == 1
                 page.locator(".form-submit").click()
-                assert page.locator(".form-error").is_visible(), "Empty form must fail validation"
+                assert page.locator("#form-error").is_visible(), "Empty form must fail validation"
                 page.locator('input[name="family-type"][value="returning"]').check()
                 if filename == "classes":
                     page.locator("#class-time").select_option("sat-9")

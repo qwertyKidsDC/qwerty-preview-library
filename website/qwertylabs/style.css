@@ -1283,19 +1283,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   margin-top: -24px;
 }
 
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 22px;
-  margin-top: 17px;
-}
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links .scene-link {
-  margin-top: 0;
-  font-size: 16px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
 :where(html[data-layout="subpage"]) .projects--subpage {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1476,13 +1463,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   bottom: -2px;
   height: 6px;
 }
-:where(html[data-layout="subpage"]) .subpage-section__copy > p.subpage-section__booking-note {
-  margin-top: 27px;
-  padding-top: 16px;
-  border-top: 1px dashed rgba(247,244,235,.65);
-  font-size: 15px;
-  font-weight: 400;
-}
 
 :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art) {
   min-height: 0;
@@ -1535,9 +1515,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-art--landscape:has(.subpage-art__media--map) {
   --tool-tilt: 1.5deg;
 }
+
 /* Paired editorial photos: two positions beside one long text section. */
-:where(html[data-layout="subpage"]) .subpage-art--pair-upper { top: 23%; }
-:where(html[data-layout="subpage"]) .subpage-art--pair-lower { top: 56%; }
+
 :where(html[data-layout="subpage"]) .subpage-art__media {
   display: block;
   width: 100%;
@@ -1641,14 +1621,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   transform: rotate(var(--tool-tilt, 5deg));
 }
 
+
 /* A framed video is its own reusable component, never a disguised testimonial. */
-.project-video {
-  position: relative;
-  z-index: 2;
-  isolation: isolate;
-  width: 66.6667%;
-  margin: 0 0 0 37px;
-}
+
 .project-video__frame {
   width: 100%;
   margin: 0;
@@ -1708,37 +1683,24 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 
-
-
 /* 12 — Forms: one shared editorial layout for every audience.
    Controls and desktop geometry live here; phone-only changes in mobile.css.
    Preview forms never transmit or store information. */
-.form-main { position:relative; z-index:3; margin:54px auto 60px; width:min(1080px,calc(100% - 52px)); }
-.form-shell { display:grid; grid-template-columns:minmax(0,.88fr) minmax(0,1.16fr); background:var(--color-ivory); box-shadow:10px 10px 0 var(--color-ink); color:var(--color-ink); }
-.form-aside { background:var(--color-ink); color:var(--color-ivory); padding:38px 34px; display:flex; flex-direction:column; justify-content:space-between; gap:28px; min-width:0; }
-.form-aside__eyebrow { margin:0 0 28px; color:var(--brand-accent); font-size:14px; font-weight:700; letter-spacing:.04em; }
-.form-aside .form-aside-title { margin:0 0 22px; font-size:clamp(38px,4.4vw,56px); line-height:1.02; letter-spacing:-.06em; color:var(--color-ivory); }
-.form-aside p { margin:0 0 15px; line-height:1.4; }
-.form-aside__footer { font-size:15px; }
-.form-aside__art { display:block; width:100%; max-width:330px; height:auto; margin:auto 0; }
-.form-pane { padding:35px clamp(24px,4vw,48px) 42px; min-width:0; }
-.form-kicker { margin:0 0 14px; color:var(--brand-accent); font-size:15px; font-weight:700; letter-spacing:.045em; text-transform:uppercase; }
-.form-pane h1, .form-pane h2 { margin:0 0 11px; color:var(--color-ink); font-size:clamp(29px,3vw,38px); letter-spacing:-.04em; line-height:1.14; text-transform:none; }
-.form-intro { margin:0 0 21px; color:var(--color-ink); font-size:16px; line-height:1.5; }
+
 .studio-form { margin:0; }
 .form-field, .form-fieldset { display:block; min-width:0; margin:0 0 17px; padding:0; border:0; }
 .studio-form label:not(.form-choice), .studio-form legend { display:block; margin:0 0 7px; color:var(--color-ink); font-size:16px; font-weight:700; line-height:1.35; }
 .studio-form legend { padding:0; }
 .studio-form :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { display:block; width:100%; min-height:48px; padding:10px 12px; border:2px solid var(--color-ink); border-radius:5px; background:var(--color-ivory); color:var(--color-ink); font:inherit; font-size:16px; }
 .studio-form textarea { min-height:98px; resize:vertical; }
-.studio-form :is(input,select,textarea,button):focus-visible, .form-links a:focus-visible { outline:3px solid var(--brand-accent); outline-offset:3px; }
+.studio-form :is(input,select,textarea,button):focus-visible { outline:3px solid var(--brand-accent); outline-offset:3px; }
 .studio-form :is(input,select,textarea)[aria-invalid="true"] { border-color:#a52a25; }
 .form-hint { margin:5px 0 8px; color:var(--color-ink); font-size:14px; line-height:1.4; }
 .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px; }
 .form-choice { display:flex; align-items:flex-start; gap:11px; margin:0 0 11px; font-size:15px; font-weight:400; line-height:1.45; }
 .form-choice :is(input[type="checkbox"],input[type="radio"]) { width:20px; height:20px; flex:0 0 20px; margin:2px 0 0; accent-color:var(--brand-accent); }
 .form-choice span { flex:1; }
-.form-choice a, .form-intro a, .form-hint a, .form-summary a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
+.form-choice a, .form-hint a, .form-summary a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
 .studio-form button { font:700 17px/1.2 'Atkinson Hyperlegible',Arial,sans-serif; cursor:pointer; }
 .form-submit { display:block; width:100%; min-height:51px; padding:13px 19px; margin-top:20px; border:2px solid var(--color-ink); border-radius:5px; background:var(--brand-accent); color:var(--color-ink); text-align:center; }
 .form-submit:hover { text-decoration:underline; text-underline-offset:3px; }
@@ -1747,26 +1709,15 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-actions .form-submit { flex:1; width:auto; margin:0; }
 .form-alert { display:block; padding:12px 15px; margin-bottom:16px; border-left:5px solid #9e2722; background:#fceae6; color:#722722; font-size:15px; font-weight:700; }
 .form-alert[hidden], .form-step[hidden], .form-done[hidden], .studio-form[hidden] { display:none; }
-.form-stepper { display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0 0 22px; list-style:none; }
-.form-stepper li { border:1px solid #99939b; border-radius:20px; padding:5px 10px; font-size:13px; font-weight:700; }
-.form-stepper li[aria-current="step"] { background:var(--brand-accent); border-color:var(--color-ink); color:var(--color-ink); }
-.form-pane .form-step-title { margin:0 0 17px; font-size:23px; }
 .form-child { border-top:2px dashed #bbb6b9; padding-top:17px; margin-top:18px; }
 .form-child h4 { margin:0 0 14px; font-size:19px; }
 .form-summary { border-top:1px solid #b7b2b7; padding:12px 0; font-size:16px; overflow-wrap:anywhere; }
 .form-summary strong { display:block; }
-.form-links { display:flex; flex-wrap:wrap; gap:12px 19px; margin-top:23px; color:var(--color-ink); font-size:14px; }
 .form-done { padding:12px 0; }
 .form-done p { font-size:17px; }
 
-.form-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.form-gallery p { margin:0; }
-.form-gallery a { display:block; color:var(--color-ink); text-align:center; text-decoration:none; }
-.form-gallery a:hover { background:var(--brand-accent); }
-
 /* Preserve the HTML hidden attribute after form button styling. */
 .studio-form [hidden] { display:none; }
-.form-pane .form-links a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
 
 
 /* The Little Lab prototype: reuse the approved editorial form and paper palette.
@@ -1779,9 +1730,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-board__intro strong { color:var(--brand-accent); }
 .form-board__form-title { margin:18px 0 9px; font-size:24px; letter-spacing:-.025em; }
 .form-board .studio-form label:not(.form-choice), .form-board .studio-form legend { color:var(--color-ivory); }
-.form-board .form-hint, .form-board .form-intro, .form-board .form-done, .form-board .form-done p, .form-board .form-done h2 { color:var(--color-ivory); }
-.form-board .form-stepper li { border-color:rgba(247,244,235,.65); color:var(--color-ivory); }
-.form-board .form-stepper li[aria-current="step"] { border-color:var(--brand-accent); color:var(--color-ink); }
+.form-board .form-hint, .form-board .form-done, .form-board .form-done p, .form-board .form-done h2 { color:var(--color-ivory); }
 .form-board .form-child h4 { color:var(--color-ivory); }
 .form-board .form-child { border-top-color:rgba(247,244,235,.55); }
 .form-board .form-choice { color:var(--color-ivory); }
@@ -1854,7 +1803,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
    so the mascot can stay beside long steps on desktop. */
 body.form-page .site,
 body.form-page .cardboard-page { overflow:clip; }
-
 
 
 /* Three founder media pieces use a real two-column flow instead of overlapping absolute positions. */
@@ -1939,6 +1887,6 @@ body.form-page .cardboard-page { overflow:clip; }
   margin: 12px 0 0;
 }
 @media (min-width: 761px) {
-  #meet-the-lab .project-panel { height: 370px; }
+  .projects.meet-the-lab .project-panel { height: 370px; }
 }
 

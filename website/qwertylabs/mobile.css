@@ -433,9 +433,6 @@
   :where(html[data-layout="subpage"]) .hero + .projects--subpage {
     margin-top: 0;
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-project-links {
-    gap: 5px 17px;
-  }
   :where(html[data-layout="subpage"]) .subpage-board {
     width: 100%;
     margin: 24px 0 0;
@@ -517,12 +514,6 @@
   :where(html[data-layout="subpage"]) .subpage-art--raised { top: auto; }
 
 
-  .project-video {
-    width: calc(100% - 57px);
-    margin: 0 0 0 29px;
-  }
-
-
   .quote-blue-rule {
     padding-left: 18px;
   }
@@ -531,17 +522,12 @@
     font-size: 19px;
   }
 
+  
   /* Form-only phone layout: the decorative ink column does not stack. */
-  .form-main { width:calc(100% - 24px); margin:22px auto 42px; }
-  .form-shell { display:block; box-shadow:5px 5px 0 var(--color-ink); }
-  .form-aside { display:none; }
-  .form-pane { padding:25px 19px 29px; }
+
   .form-grid { grid-template-columns:minmax(0,1fr); gap:0; }
   .form-actions { flex-direction:column-reverse; align-items:stretch; }
   .form-actions .form-submit, .form-actions .form-quiet-button { width:100%; }
-  .form-stepper { gap:5px; }
-  .form-stepper li { padding:5px 8px; font-size:12px; }
-  .form-gallery { grid-template-columns:minmax(0,1fr); }
 
   /* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
   .form-board__grid { display:flex; flex-direction:column; gap:12px; }
@@ -566,7 +552,7 @@
   /* Homepage holler mascot and studio signature. */
   .home-messenger-inline { margin: 20px 20px 0; }
   .home-messenger .home-messenger__note { min-height: 240px; }
-  #meet-the-lab .project-panel { height: 400px; }
+  .projects.meet-the-lab .project-panel { height: 400px; }
   .lab-signoff { width: 205px; }
 }
 
