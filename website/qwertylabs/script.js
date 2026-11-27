@@ -125,7 +125,7 @@
   const adultInterest = nav.querySelector('.navigation-group--adults .navigation-submenu__links a:last-child');
   if (adultInterest) adultInterest.setAttribute('href', 'adults.html#form-adult');
 
-  if (/\/forms\/(?:classes|camps|teen-camps)\.html$/.test(location.pathname)) {
+  if (/\/forms\/(?:classes|camps)\.html$/.test(location.pathname)) {
     nav.querySelectorAll('.navigation-current, [aria-current="page"]').forEach(el => {
       el.classList.remove('navigation-current');
       el.removeAttribute('aria-current');

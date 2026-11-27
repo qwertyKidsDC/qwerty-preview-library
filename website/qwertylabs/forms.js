@@ -11,7 +11,6 @@
   var isClassInterest = kind === 'interest-kids' || isTeenClassInterest;
   var enrolment = kind === 'classes' || kind === 'camps';
   var isCamp = kind === 'camps';
-  var isTeenCamp = isCamp && document.documentElement.dataset.audience === 'teens';
   var form = document.createElement('form');
   var status = document.getElementById('form-status');
   var requiredHint = document.getElementById('form-required-hint');
@@ -20,8 +19,8 @@
   var childCount = 1;
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   function birthYears() {
-    var year = isCamp ? 2026 : new Date().getFullYear(), options = [];
-    for (var y = year - (isTeenClassInterest || isTeenCamp ? 12 : 6); y >= year - 17; y--) options.push([String(y), String(y)]);
+    var year = isCamp ? 2027 : new Date().getFullYear(), options = [];
+    for (var y = year - (isTeenClassInterest ? 12 : 6); y >= year - 17; y--) options.push([String(y), String(y)]);
     return options;
   }
   form.className = 'studio-form';
@@ -102,6 +101,7 @@
     var p='child-'+i+'-';
     return '<fieldset class="form-fieldset form-child" data-child="' + i + '"><legend>Child ' + (i+1) + '</legend>' +
       nameFields(p.slice(0,-1),'Child',true) +
+      (isCamp ? select(p+'camp-age','Age group during camp',[['kids','Kids aged 7–12'],['teens','Teens aged 13–17']],true) : '') +
       '<div class="form-new-family">' +
       '<div class="form-grid">' +
       select(p+'month','Birth month',months.map(function(m,j){return [String(j+1),m];}),true) +
@@ -118,12 +118,7 @@
         ['new','No, new family'],['returning','Yes, returning family']
       ],true) +
       (isCamp ?
-        campDays() +
-        (isTeenCamp ?
-          '<p class="form-hint">Teen camps run 11 am–5 pm. Arrive anytime between 10 and 11 am.</p>' :
-          '<p class="form-hint">Kids: 9:30 am–3:30 pm, arrive from 9 am. Teens: 11 am–5 pm, arrive from 10 am.</p>' +
-          '<fieldset class="form-fieldset"><legend>Extended hours (kids only)</legend>' +
-          checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset>') :
+        campDays() :
         select('class-time','Preferred class',[
           ['monday','Monday 4:45–6:00 pm'],['tuesday','Tuesday 5:15–6:30 pm'],
           ['sat-9','Saturday 9:00–10:15 am'],['sat-1030','Saturday 10:30–11:45 am'],
@@ -167,6 +162,11 @@
       '<div id="form-children">' + child(0) + '</div>' +
       '<div class="form-actions"><button type="button" class="form-quiet-button" id="form-add-child">+ Add a child</button>' +
       '<button type="button" class="form-quiet-button" id="form-remove-child" hidden>Remove last child</button></div></section>' +
+      (isCamp ? '<section><h3 class="form-step-title">Camp hours</h3>' +
+        '<p class="form-hint" id="kids-camp-hours">Kids: 9:30 am–3:30 pm, arrive from 9 am.</p>' +
+        '<p class="form-hint" id="teens-camp-hours">Teens: 11 am–5 pm, arrive from 10 am.</p>' +
+        '<fieldset class="form-fieldset" id="kids-extended-hours" hidden><legend>Extended hours (kids only)</legend>' +
+        checkbox('extended-hours','I would like extended hours for a child aged 7–12 (8 am–5:30 pm).',false) + '</fieldset></section>' : '') +
       grownups() +
       '<button type="submit" class="form-submit">Review enrolment</button>';
   }
@@ -285,6 +285,18 @@
       toggle(el,!ancestor && !!input && acceptable.indexOf(input.value)!==-1 &&
         (input.type !== 'checkbox' || input.checked));
     });
+    // Show the relevant camp hours. Returning families choose an age group without re-entering birth details.
+    if (isCamp) {
+      var ageGroups = Array.from(form.querySelectorAll('select[name$="-camp-age"]')).map(function(field){return field.value;});
+      var hasKids = ageGroups.indexOf('kids') !== -1;
+      var hasTeens = ageGroups.indexOf('teens') !== -1;
+      var undecided = ageGroups.indexOf('') !== -1;
+      form.querySelector('#kids-camp-hours').hidden = !hasKids && !undecided;
+      form.querySelector('#teens-camp-hours').hidden = !hasTeens && !undecided;
+      var extended = form.querySelector('#kids-extended-hours');
+      toggle(extended,hasKids);
+      if (!hasKids) form.querySelector('#extended-hours').checked = false;
+    }
   }
   var quietValidation = false;
   function error(message,input){

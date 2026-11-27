@@ -31,7 +31,7 @@ COMPLETE = (
     "teen-coding-camp.html", "class-details.html", "camp-details.html",
     "child-safety.html", "privacy.html", "booking-terms.html", "code-of-conduct.html",
     "javascript-explained.html", "project-code-cloud.html", "pwyw.html",
-    "forms/classes.html", "forms/camps.html", "forms/teen-camps.html",
+    "forms/classes.html", "forms/camps.html",
 )
 PAGES = COMPLETE
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))

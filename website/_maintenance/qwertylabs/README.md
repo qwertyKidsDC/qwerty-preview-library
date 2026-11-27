@@ -1,6 +1,6 @@
 # Qwerty Labs website
 
-Static HTML, CSS and JavaScript. The deployment root is the contents of this directory, which contains only website runtime files.
+Static HTML, CSS and JavaScript. The deployment root is `website/qwertylabs/`, which contains only website runtime files.
 
 - Top-level HTML: content pages.
 - forms/: standalone enrolment pages. Enquiry and interest forms remain embedded in the relevant content pages.
@@ -9,7 +9,7 @@ Static HTML, CSS and JavaScript. The deployment root is the contents of this dir
 - style.css: shared design and layout. mobile.css: responsive adjustments.
 - script.js: shared site behaviour, favicons, hero/footer rotations and the homepage holler mascot. forms.js: form fields, validation and holler mascots.
 
-Form pages use a base URL pointing to the site root so shared relative URLs work both on GitHub Pages and on a production domain. The teen camp page selects the teen audience through its HTML data attribute.
+Form pages use a base URL pointing to the site root so shared relative URLs work both on GitHub Pages and on a production domain. There is one class enrolment page and one camp enrolment page. Camp age groups determine the displayed hours and eligibility for extended hours, including for mixed-age siblings.
 
 ## Before deployment
 
