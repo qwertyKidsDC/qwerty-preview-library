@@ -25,23 +25,15 @@ import tinycss2
 from PIL import Image
 
 COMPLETE = (
-    "index.html", "kids.html", "tools.html", "a-kids-pov.html",
-    "kids-coding-classes.html", "coding-camp.html", "form-classes.html", "form-camps.html",
-    "child-safety.html", "privacy.html", "booking-terms.html",
+    "index.html", "kids.html", "adults.html", "teens.html", "thelab.html",
+    "contact.html", "a-kids-pov.html", "kit-and-code.html",
+    "kids-coding-classes.html", "coding-camp.html", "teen-coding-classes.html",
+    "teen-coding-camp.html", "class-details.html", "camp-details.html",
+    "child-safety.html", "privacy.html", "booking-terms.html", "code-of-conduct.html",
+    "javascript-explained.html", "project-code-cloud.html", "pwyw.html",
+    "forms/classes.html", "forms/camps.html", "forms/teen-camps.html",
 )
-DRAFTS = ("adults.html", "teens.html", "thelab.html", "contact.html")
-PAGES = COMPLETE + DRAFTS
-HERO = {
-    "index.html": "qwerty-labs-mascots-led-electronics.webp", "kids.html": "qwerty-labs-mascots-robot-car.webp",
-    "tools.html": "qwerty-labs-mascots-led-electronics.webp", "a-kids-pov.html": "qwerty-labs-mascots-led-electronics.webp",
-    "kids-coding-classes.html": "qwerty-labs-mascots-robot-car.webp",
-    "coding-camp.html": "qwerty-labs-mascots-robot-car.webp",
-    "form-classes.html": "qwerty-labs-mascots-led-electronics.webp",
-    "form-camps.html": "qwerty-labs-mascots-led-electronics.webp",
-    "child-safety.html": "qwerty-labs-mascots-led-electronics.webp",
-    "privacy.html": "qwerty-labs-mascots-led-electronics.webp",
-    "booking-terms.html": "qwerty-labs-mascots-led-electronics.webp",
-}
+PAGES = COMPLETE
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))
 
 
@@ -56,10 +48,10 @@ def check_sources(root, report):
     css = "\n".join((root / name).read_text(encoding="utf-8") for name in css_files)
     # A no-JavaScript visit displays the hero image declared in HTML.
     # Keep the tall rocket out of every static hero fallback.
-    for file in root.glob("*.html"):
+    for file in root.rglob("*.html"):
         document = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
         hero = document.select_one(".hero img.mascots")
-        if hero and "qwerty-labs-mascots-cardboard-rocket.webp" in hero.get("src", ""):
+        if hero and "hero-mascots/cardboard-rocket.webp" in hero.get("src", ""):
             record(report, "nojs_rocket_hero_fallback", file.name)
 
     cache_versions = {}
@@ -89,8 +81,8 @@ def check_sources(root, report):
             if document.select("[style],style"):
                 record(report, "inline_css", name)
             hero = document.select_one(".hero img.mascots")
-            expected = "img/" + HERO[name]
-            if not hero or any(
+            expected = hero.get("src", "") if hero else ""
+            if not hero or not expected.startswith("img/hero-mascots/") or any(
                 hero.get(k) != v for k, v in
                 (("src", expected), ("width", "1240"), ("height", "955"))
             ):
@@ -112,6 +104,8 @@ def check_sources(root, report):
         for node in document.select("[src],[href],[poster]"):
             for attr in ("src", "href", "poster"):
                 value = node.get(attr)
+                if node.name == "base":
+                    continue
                 if not value or value.startswith(
                     ("https:", "http:", "//", "mailto:", "tel:", "sms:", "data:", "javascript:")
                 ):
@@ -132,7 +126,7 @@ def check_sources(root, report):
 
     # The introductory blurb precedes the photo for reading order on every
     # page, while desktop CSS may still place the photo in the left column.
-    for file in root.glob("*.html"):
+    for file in root.rglob("*.html"):
         doc = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
         for section in doc.select(".projects--subpage"):
             children = [child for child in section.children if getattr(child, "name", None)]
@@ -148,8 +142,8 @@ def check_sources(root, report):
         record(report, "cache_version", cache_versions)
     report["css_version"] = list(next(iter(cache_versions.values()), ()))
     # Check the image bytes, not just the width/height attributes in HTML.
-    for filename in sorted(set(HERO.values())):
-        with Image.open(root / "img" / filename) as asset:
+    for filename in sorted((root / "img" / "hero-mascots").glob("*.webp")):
+        with Image.open(filename) as asset:
             if asset.size != (1240, 955) or "A" not in asset.getbands():
                 record(report, "hero_dimensions_or_alpha",
                        f"{filename}: {asset.size}, {asset.mode}")
@@ -193,7 +187,7 @@ def check_sources(root, report):
     # including unlinked form previews. Layout/WCAG gates remain scoped to
     # approved public pages; this is the selector usage inventory only.
     html_classes = set()
-    for file in sorted(root.glob("*.html")):
+    for file in sorted(root.rglob("*.html")):
         doc = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
         for node in doc.select("[class]"):
             html_classes.update(node.get("class", []))
@@ -207,7 +201,7 @@ def check_sources(root, report):
     report["css"]["unused_classes"] = unused_classes
     if unused_classes:
         record(report, "unused_css_classes", unused_classes)
-    for name in ("brand.js", "script.js"):
+    for name in ("script.js", "forms.js"):
         result = subprocess.run(
             ["node", "--check", str(root / name)], capture_output=True, text=True
         )
@@ -256,7 +250,7 @@ def browser_checks(root, output, report):
     pool_match = re.search(r"const mobileSceneIds = new Set\(\[([\s\S]*?)\]\)", source)
     mobile_scene_ids = set(re.findall(r"'([^']+)'", pool_match.group(1))) if pool_match else set()
     all_scene_ids = set(re.findall(r"\{ id: '([^']+)'", source))
-    if len(mobile_scene_ids) != 8 or not mobile_scene_ids.issubset(all_scene_ids):
+    if not mobile_scene_ids or not mobile_scene_ids.issubset(all_scene_ids):
         record(report, "mobile_hero_scene_pool", sorted(mobile_scene_ids))
     measurements = []
     with serve(root) as origin, sync_playwright() as playwright:

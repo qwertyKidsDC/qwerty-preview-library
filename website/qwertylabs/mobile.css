@@ -563,6 +563,11 @@
   .qll-side__saying { font-size:18px; padding-right:17px; }
   .qll-side__mascot { width:min(108%,250px); right:-13px; bottom:3px; }
   .qll-lab__intro { font-size:16px; }
+  /* Homepage holler mascot and studio signature. */
+  .home-messenger-inline { margin: 20px 20px 0; }
+  .home-messenger .home-messenger__note { min-height: 240px; }
+  #meet-the-lab .project-panel { height: 400px; }
+  .lab-signoff { width: 205px; }
 }
 
 @media (max-width: 750px) {

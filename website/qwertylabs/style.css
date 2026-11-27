@@ -1,7 +1,7 @@
 /* The cascade: general rules first, then specific components and overrides. */
 /* Qwerty Labs — shared site stylesheet
    Shared foundations, design components, branding and desktop layout.
-   Responsive adjustments live only in mobile.css. November 2026. */
+   Phone-specific adjustments live in mobile.css. Desktop and input-specific media queries stay here. */
 
 /* 01 — Approved brand and cursors */
 :root {
@@ -1928,10 +1928,7 @@ body.qll-prototype .cardboard-page { overflow:clip; }
     padding:25px 19px 145px;
   }
 }
-@media (max-width:760px) {
-  .home-messenger-inline { margin:20px 20px 0; }
-  .home-messenger .home-messenger__note { min-height:240px; padding-bottom:145px; }
-}
+
 
 /* A little studio signature on the homepage and The Lab. */
 .lab-signoff {
@@ -1944,7 +1941,4 @@ body.qll-prototype .cardboard-page { overflow:clip; }
 @media (min-width: 761px) {
   #meet-the-lab .project-panel { height: 370px; }
 }
-@media (max-width: 760px) {
-  #meet-the-lab .project-panel { height: 400px; }
-  .lab-signoff { width: 205px; }
-}
+

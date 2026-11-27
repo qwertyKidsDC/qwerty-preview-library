@@ -22,8 +22,8 @@ def find_html_pages():
     # The older enrolment-preview.html is a standalone design experiment;
     # shared pages declare their layout explicitly.
     return {
-        p.name: p.read_text(encoding="utf-8")
-        for p in sorted(SITE.glob("*.html"))
+        p.relative_to(SITE).as_posix(): p.read_text(encoding="utf-8")
+        for p in sorted(SITE.rglob("*.html"))
         if re.search(r'data-layout="(?:site|subpage)"', p.read_text(encoding="utf-8"))
     }
 
@@ -78,7 +78,6 @@ def main():
 
     standard_nav = nav_links(pages["kids.html"])
     standard_footer = footer_links(pages["kids.html"])
-    common_version = None
     for filename, html in pages.items():
         brand = re.search(r'data-brand="([^"]+)"', html)
         layout = re.search(r'data-layout="([^"]+)"', html)
@@ -89,17 +88,9 @@ def main():
         if re.search(r"<style\b|\sstyle\s*=", html, re.I):
             issue(filename, "inline CSS is forbidden on shared pages")
 
-        urls = re.findall(r'href="((?:style|mobile)\.css\?v=([^"]+))"', html)
-        if len(urls) != 2 or [url.split("?")[0] for url, _ in urls] != list(STYLES):
-            issue(filename, "must load style.css then mobile.css, exactly once")
-        else:
-            versions = tuple(v for _, v in urls)
-            if len(set(versions)) != 1:
-                issue(filename, "two CSS files have different versions")
-            if common_version is None:
-                common_version = versions[0]
-            if versions[0] != common_version:
-                issue(filename, "CSS version differs from the homepage")
+        urls = re.findall(r'href="((?:style|mobile)\.css(?:\?[^"]*)?)"', html)
+        if urls != list(STYLES):
+            issue(filename, "must load style.css then mobile.css, exactly once, without version queries")
 
         if nav_links(html) != standard_nav:
             issue(filename, "main navigation differs from Kids template")
@@ -149,7 +140,7 @@ def main():
             print(" -", item)
         return 1
     print(f"Style contract passed: {len(pages)} shared pages, two CSS files, "
-          f"one version ({common_version}), consistent navigation and footer cards.")
+          "clean URLs, consistent navigation and footer cards.")
     return 0
 
 
