@@ -39,9 +39,9 @@ jobs:
             website/qwertylabs/tools.html \
             website/qwertylabs/a-kids-pov.html \
             website/qwertylabs/kids-coding-classes.html \
-            website/qwertylabs/form-little-lab.html \
-            website/qwertylabs/form-classes.html \
-            website/qwertylabs/form-camps.html \
+            website/qwertylabs/forms/classes.html \
+            website/qwertylabs/forms/camps.html \
+            website/qwertylabs/forms/teen-camps.html \
             website/qwertylabs/coding-camp.html \
             website/qwertylabs/child-safety.html \
             website/qwertylabs/privacy.html \
@@ -50,10 +50,10 @@ jobs:
         if: always()
         run: |
           python website/qwertylabs/_tools/check_site.py --out site-quality-report
-      - name: Smoke test Little Lab prototype
+      - name: Smoke test enrolment forms
         if: always()
         run: |
-          python website/qwertylabs/_tools/test_little_lab.py --out site-quality-report
+          python website/qwertylabs/_tools/test_forms.py --out site-quality-report
       - name: Preserve QA report and browser evidence
         if: always()
         uses: actions/upload-artifact@v4
