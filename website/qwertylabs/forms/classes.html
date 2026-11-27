@@ -1,17 +1,15 @@
 <!doctype html>
-<html lang="en-AU" data-brand="kids" data-layout="subpage">
+<html lang="en-AU" data-brand="lab" data-layout="subpage">
   <head>
+    <base href="../">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- Staging only: remove noindex/nofollow before public launch. -->
     <meta name="robots" content="noindex,nofollow">
     <meta name="theme-color" content="#020020">
-    <link rel="icon" type="image/png" href="img/favicon-d1.png">
-    <meta
-      name="description"
-      content="A playful, interactive Qwerty Labs Kids form design experiment featuring original framed mascots and a circuit that comes to life. Preview only."
-    >
-    <title>The Little Lab — Kids enrolment experiment | Qwerty Labs</title>
+    <link rel="icon" type="image/png" href="img/design/favicon-d1.png">
+    <meta name="description" content="Preview the Qwerty Labs weekly class enrolment form for children and teens aged 7–17.">
+    <title>Weekly class enrolment — Qwerty Labs (design preview)</title>
     <!-- Approved typefaces and the single site stylesheet. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,15 +17,13 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261125-ink-only">
-<link rel="stylesheet" href="mobile.css?v=20261125-ink-only" media="(max-width: 760px)">
-    <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261124-shared-footer" defer></script>
-    <script src="forms.js?v=20261126-all-form-feedback" defer></script>
-    <script src="form-little-lab.js?v=20261126-all-form-feedback" defer></script>
+    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css" media="(max-width: 760px)">
+    <script src="script.js" defer></script>
+    <script src="forms.js" defer></script>
   </head>
   <body class="qll-prototype" data-form="classes">
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="forms/classes.html#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
       <div aria-hidden="true" class="ambient"></div>
@@ -44,11 +40,11 @@
         <div class="cardboard-page" id="top">
           <header class="header">
             <a href="index.html" class="logo" aria-label="Qwerty Labs home">
-              <img src="img/wordmark-labs-green.svg" alt="Qwerty Labs" width="440" height="101">
+              <img src="img/design/wordmark.svg" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
               <div class="navigation-group">
-                <a href="kids.html" class="navigation-current">Kids</a>
+                <a href="kids.html">Kids</a>
                 <button class="navigation-toggle" type="button" aria-label="Show Kids pages" aria-expanded="false" aria-controls="nav-kids"></button>
                 <div class="navigation-submenu" id="nav-kids">
                   <div class="navigation-submenu__links">
@@ -80,7 +76,7 @@
                 </div>
               </div>
               <div class="navigation-group navigation-group--lab">
-                <a href="thelab.html">The Lab</a>
+                <a href="thelab.html" class="navigation-current">The Lab</a>
                 <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
                 <div class="navigation-submenu" id="nav-lab">
                   <div class="navigation-submenu__links">
@@ -96,64 +92,38 @@
           </header>
 
           <main id="main">
-            <!-- Hero -->
-            <section class="hero" aria-label="Weekly classes form design experiment">
-              <div class="hero-copy">
-                <div class="hero-paper">
-                  <img class="paper-bg" src="img/hero-paper-green.svg?v=kids-neutral-tape-20261109b" alt="" fetchpriority="high">
-                  <h1><span class="hero-title">classes</span><span class="hero-tagline">the little lab</span></h1>
-                </div>
-              </div>
-              <nav class="hero-description" aria-label="Weekly class links">
-                <span>An experiment in making forms fun. <a class="scene-link" href="kids-coding-classes.html">Back to weekly classes</a>.</span>
-              </nav>
-              <img
-                class="mascots"
-                src="img/qwerty-labs-mascots-robot-car.webp"
-                alt="Q Key, Six Pin and D1 building a wheeled electronics project on cardboard"
-                width="1240" height="955" fetchpriority="high"
-              >
-            </section>
+  <section class="hero" aria-label="Weekly class enrolment">
+    <div class="hero-copy">
+      <div class="hero-paper">
+        <img class="paper-bg" src="img/design/hero-paper.svg" alt="" fetchpriority="high">
+        <h1><span class="hero-title">classes</span><span class="hero-tagline">weekly making</span></h1>
+      </div>
+    </div>
+    <nav class="hero-description" aria-label="Programme links">
+      <span>For curious young makers aged 7–17. More about our <a class="scene-link" href="kids-coding-classes.html">weekly classes</a>.</span>
+    </nav>
+    <img class="mascots" src="img/hero-mascots/led-electronics.webp" width="1240" height="955" alt="Q Key, Six Pin and D1 making electronics together" fetchpriority="high">
+  </section>
+  <section class="subpage-board qll-lab" id="enrol" aria-label="Weekly class enrolment design preview">
+    <section class="subpage-section subpage-section--natural-height qll-lab__section" aria-labelledby="enrol-heading">
+      <img class="subpage-section__tape" src="img/design/footer-blue-tape.svg" alt="">
+      <h2 class="subpage-section__heading" id="enrol-heading">Class enrolment</h2>
+      <div class="qll-lab__grid"><div class="subpage-section__copy qll-lab__form-column">
+        <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
+        <div data-qlf-app data-form="classes"><noscript><p class="qlf-alert">This preview requires JavaScript. For current bookings, use the existing QwertyKids form linked from the programme overview.</p></noscript></div>
+        <p class="qll-lab__other">Want the programme details? <a href="kids-coding-classes.html">Read about weekly classes</a>.</p>
+      </div><aside class="qll-side" data-little-lab aria-label="A note from the Lab"><div class="qll-side__sticky"><figure class="qll-side__paper">
+        <img class="qll-side__paper-bg" src="img/design/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
+        <blockquote class="qll-side__quote"><p class="qll-side__saying" data-lab-speech>Hello! Have we met before?</p></blockquote>
+        <img class="qll-side__mascot" src="img/holler-mascots/trio-cardboard-star.webp" width="360" height="208" loading="eager" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+      </figure></div></aside></div>
+    </section>
+  </section>
 
-
-            <section class="subpage-board qll-lab" id="little-lab" aria-label="Little Lab enrolment form experiment">
-              <section class="subpage-section subpage-section--natural-height qll-lab__section" aria-labelledby="qll-heading">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
-                <h2 class="subpage-section__heading" id="qll-heading">Join in</h2>
-                <div class="qll-lab__grid">
-                  <div class="subpage-section__copy qll-lab__form-column">
-                    <p class="qll-lab__intro">A little paperwork, a little making. <strong>And a note from the Lab as you go.</strong></p>
-                    <h3 class="qll-lab__form-title" id="qlf-title">Class enrolment</h3>
-                    <p class="qlf-hint">Try the steps with made-up details. Fields marked * are required. No bookings or payments happen here.</p>
-                    <div id="qlf-status" class="qlf-hint" role="status" aria-live="polite"></div>
-                    <div data-qlf-app>
-                      <noscript><p class="qlf-alert">This interactive experiment needs JavaScript. For actual bookings, use the weekly classes page.</p></noscript>
-                    </div>
-                    <p class="qll-lab__other">Looking for the real thing? <a href="kids-coding-classes.html">See weekly classes and enrol.</a></p>
-                  </div>
-
-                  <aside class="qll-side" data-little-lab aria-label="A note from the Lab">
-                    <div class="qll-side__sticky">
-                      <figure class="qll-side__paper">
-                        <img class="qll-side__paper-bg" src="img/kids-green-panel-untaped-vtrim.svg" alt="" aria-hidden="true">
-                        
-                        <blockquote class="qll-side__quote">
-                          <p class="qll-side__saying" data-lab-speech>Hello! Have we met before?</p>
-                        </blockquote>
-                        <img class="qll-side__mascot" src="img/mascot-ready/trio-cardboard-star.webp"
-                          width="360" height="208" loading="eager" decoding="async"
-                          alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
-                      </figure>
-                    </div>
-                  </aside>
-                </div>
-              </section>
-            </section>
-
-            <!-- Footer navigation, useful links and studio contact details -->
+  <!-- Footer navigation, useful links and studio contact details -->
             <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
               <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
-                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <img class="paper-bg" src="img/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
                   <div>
@@ -170,12 +140,12 @@
                   </div>
                   <div>
                     <strong>Enrol</strong>
-                    <div><a href="form-classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="form-camps.html">Holiday camps</a></div>
+                    <div><a href="forms/classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="forms/camps.html">Holiday camps</a></div>
                   </div>
                 </nav>
               </section>
               <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
-                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <img class="paper-bg" src="img/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
                   <div>
@@ -192,7 +162,7 @@
                 </form>
               </section>
               <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
-                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+                <img class="paper-bg" src="img/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">
                   <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
@@ -211,15 +181,15 @@
             <section class="country-ack" aria-labelledby="country-ack-heading">
               <h2 id="country-ack-heading">Acknowledgement of Country</h2>
               <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-              <img class="country-ack__mascot" src="img/qwerty-labs-q-key-skateboard.webp" alt="" width="110" height="110" loading="lazy" decoding="async">
+              <img class="country-ack__mascot" src="img/footer-mascots/six-pin-d1-cardboard-wagon.webp" alt="" width="245" height="160" loading="lazy" decoding="async">
             </section>
 
             <!-- The studio signature follows the left guide; policies follow the right. -->
             <div class="footer-legal">
               <div class="footer-legal-signature">
                 <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
-                <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
-                  <img src="img/wordmark-labs-green.svg" alt="" width="2013" height="460">
+                <a class="footer-wordmark" href="forms/classes.html#top" aria-label="Qwerty Labs — back to top">
+                  <img src="img/design/wordmark.svg" alt="" width="2013" height="460">
                 </a>
                 <span class="footer-legal-separator" aria-hidden="true">|</span>
                 <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>

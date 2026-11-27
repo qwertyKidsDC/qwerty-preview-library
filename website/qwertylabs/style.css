@@ -1,3 +1,4 @@
+/* The cascade: general rules first, then specific components and overrides. */
 /* Qwerty Labs — shared site stylesheet
    Shared foundations, design components, branding and desktop layout.
    Responsive adjustments live only in mobile.css. November 2026. */
@@ -11,7 +12,7 @@
   --color-ivory: #F7F4EB;
   --color-ink: #020020;
   --brand-accent: var(--color-blue);
-  --testimonial-panel-image: url("img/blue-note-testimonial-panel.svg");
+  --testimonial-panel-image: url("img/design/blue-note-testimonial-panel.svg");
 
   /* Shared type scale; fit containers to text, not text to containers. */
   --text-heading: 30px;  /* Section headings and tape lettering */
@@ -38,17 +39,17 @@
 
 :root[data-brand="kids"] {
   --brand-accent: var(--color-green);
-  --testimonial-panel-image: url("img/kids-green-panel-untaped-vtrim.svg");
+  --testimonial-panel-image: url("img/design/kids-green-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%2392D644' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="adults"] {
   --brand-accent: var(--color-pink);
-  --testimonial-panel-image: url("img/adults-pink-panel-untaped-vtrim.svg");
+  --testimonial-panel-image: url("img/design/adults-pink-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F66DC1' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="teens"] {
   --brand-accent: var(--color-orange);
-  --testimonial-panel-image: url("img/teens-orange-panel-untaped-vtrim.svg");
+  --testimonial-panel-image: url("img/design/teens-orange-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23FF9029' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
@@ -118,7 +119,7 @@
   overflow: hidden;
   background: var(--color-ink);
 
-  --workshop-top-image: url("img/workshop-top.webp");
+  --workshop-top-image: url("img/design/workshop-top.webp");
   /* Width multiplier preserves the approved photo alignment. Match script.js if changing it. */
   --top-original-height: clamp(285px, 36vw, 740px);
   --top-photo-width: max(100vw, calc(var(--top-original-height) * 3.227799));
@@ -214,7 +215,7 @@
 }
 
 .bg-scene-bottom__photo {
-  background-image: url("img/workshop-footer.webp");
+  background-image: url("img/design/workshop-footer.webp");
   background-size: cover;
   background-position: center bottom;
 }
@@ -246,7 +247,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("img/cardboard-texture.svg") repeat;
+  background: url("img/design/cardboard-texture.svg") repeat;
   opacity: .17;
   pointer-events: none;
 }
@@ -756,7 +757,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
-  border-image-source: url("img/footer-experiment-dark-vtrim.webp");
+  border-image-source: url("img/design/footer-dark-paper.webp");
   border-image-slice: 92 140 92 140 fill;
   border-image-width: 1;
   border-image-repeat: stretch round;
@@ -1388,7 +1389,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
-  border-image-source: url("img/footer-experiment-dark-vtrim.webp");
+  border-image-source: url("img/design/footer-dark-paper.webp");
   border-image-slice: 92 140 92 140 fill;
   border-image-width: 1;
   border-image-repeat: stretch round;

@@ -1,3 +1,77 @@
+/* Qwerty Labs paired cursors. One CSS theme token selects the colour.
+   Wordmarks are static HTML assets; they work even without JavaScript. */
+"use strict";
+
+/* Pick a mascot. Any mascot. Each page load chooses one favicon. */
+(() => {
+  const icons = [
+    "img/design/favicon-q.png",
+    "img/design/favicon-d1.png",
+    "img/design/favicon-six-pin.png"
+  ];
+  const link = document.querySelector('link[rel="icon"]');
+  if (link) link.href = icons[Math.floor(Math.random() * icons.length)];
+})();
+
+(() => {
+  const root = document.documentElement;
+  const style = getComputedStyle(root);
+  const token = name => style.getPropertyValue(name).trim();
+  const accent = token('--brand-accent');
+  const ivory = token('--color-ivory');
+  const ink = token('--color-ink');
+  if (!accent || !ivory || !ink) return;
+
+  const arrow = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="32" viewBox="0 0 26 32">
+    <path d="M2 1 L2 25 L8 19 L13 29 L18 26 L13 16 L23 16 Z"
+      fill="${accent}" stroke="${ivory}" stroke-width="2" stroke-linejoin="round"/>
+  </svg>`;
+  const hand = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="40" viewBox="0 0 36 40">
+    <path d="M11 17V6a3.5 3.5 0 0 1 7 0v10-3a3.25 3.25 0 0 1 6.5 0v3-1a3.25 3.25 0 0 1 6.5 0v5h1.5a3 3 0 0 1 3 3v6.5a8 8 0 0 1-8 8H16a8 8 0 0 1-6.6-3.5L2 23.5a3.25 3.25 0 0 1 5.4-3.6L11 24Z"
+      fill="${accent}" stroke="${ink}" stroke-width="2"
+      stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>`;
+  const cursor = (svg, x, y, fallback) =>
+    `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${x} ${y}, ${fallback}`;
+
+  root.style.setProperty('--ql-arrow-cursor', cursor(arrow, 2, 1, 'auto'));
+  root.style.setProperty('--ql-hand-cursor', cursor(hand, 15, 3, 'pointer'));
+  root.classList.add('ql-brand-cursor');
+})();
+
+/* Homepage holler mascot — this runs before the layout is measured. */
+/* The Lab Messengers: one announcement, one link, one expiry.
+   The same element moves between the inline slot and its own desktop rail.
+   Nothing floats over the site, and there is no scroll animation. */
+"use strict";
+(() => {
+  const note = document.querySelector('[data-home-messenger]');
+  const inline = document.querySelector('[data-messenger-inline]');
+  const rail = document.querySelector('[data-messenger-rail]');
+  const site = document.querySelector('.site');
+  if (!note || !inline || !rail || !site) return;
+
+  const expires = Date.parse(note.dataset.expires || '');
+  const wide = window.matchMedia('(min-width:1200px) and (min-height:420px)');
+  const update = () => {
+    const enabled = note.dataset.enabled === 'true' &&
+      (!Number.isFinite(expires) || Date.now() < expires);
+    note.hidden = !enabled;
+    const useRail = enabled && wide.matches;
+    site.classList.toggle('has-messenger-rail', useRail);
+    const destination = useRail ? rail : inline;
+    if (note.parentElement !== destination) destination.appendChild(note);
+  };
+  // This script runs before script.js, which reads the rail state when scaling.
+  update();
+  window.addEventListener('resize', update);
+  window.addEventListener('pageshow', () => {
+    update();
+    window.dispatchEvent(new Event('resize'));
+  });
+})();
+
+/* Shared page behaviour */
 /* Retain the approved responsive cardboard scaling and scene fade. */
 "use strict";
 
@@ -34,8 +108,8 @@
     '<button class="navigation-menu-label" type="button" aria-expanded="false" aria-controls="nav-enrol">Enrol</button>' +
     '<button class="navigation-toggle" type="button" aria-label="Show Enrol pages" aria-expanded="false" aria-controls="nav-enrol"></button>' +
     '<div class="navigation-submenu" id="nav-enrol"><div class="navigation-submenu__links">' +
-      '<a href="form-classes.html">Weekly classes</a>' +
-      '<a href="form-camps.html">Holiday camps</a>' +
+      '<a href="forms/classes.html">Weekly classes</a>' +
+      '<a href="forms/camps.html">Holiday camps</a>' +
     '</div></div>';
   nav.appendChild(enrol);
 
@@ -52,7 +126,7 @@
   const adultInterest = nav.querySelector('.navigation-group--adults .navigation-submenu__links a:last-child');
   if (adultInterest) adultInterest.setAttribute('href', 'adults.html#form-adult');
 
-  if (/(form-classes|form-camps)\.html$/.test(location.pathname)) {
+  if (/\/forms\/(?:classes|camps|teen-camps)\.html$/.test(location.pathname)) {
     nav.querySelectorAll('.navigation-current, [aria-current="page"]').forEach(el => {
       el.classList.remove('navigation-current');
       el.removeAttribute('aria-current');
@@ -416,38 +490,38 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
    medium-height compositions that share a similar visual footprint. */
 (() => {
   // Keep the independently approved test pages isolated from production behaviour.
-  if (document.documentElement.hasAttribute('data-hero-rotation-experiment')) return;
+
   const hero = document.querySelector('.hero img.mascots');
   if (!hero) return;
 
   const allScenes = [
-    { id: 'S05-R1C1-robot-workshop', src: 'img/hero-rotation-v2/S05-R1C1-robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
-    { id: 'S05-R1C2-weather-station', src: 'img/hero-rotation-v2/S05-R1C2-weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
-    { id: 'S05-R1C4-control-console', src: 'img/hero-rotation-v2/S05-R1C4-control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
-    { id: 'S05-R2C1-submarine-controls', src: 'img/hero-rotation-v2/S05-R2C1-submarine-controls.webp', alt: 'Q Key, Six Pin and D1 using a cardboard submarine control station' },
-    { id: 'S05-R2C2-smart-speaker', src: 'img/hero-rotation-v2/S05-R2C2-smart-speaker.webp', alt: 'Q Key, Six Pin and D1 making a smart speaker' },
-    { id: 'S05-R2C3-virtual-reality', src: 'img/hero-rotation-v2/S05-R2C3-virtual-reality.webp', alt: 'Q Key, Six Pin and D1 experimenting with virtual reality' },
-    { id: 'S05-R3C1-robot-arm', src: 'img/hero-rotation-v2/S05-R3C1-robot-arm.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robotic arm' },
-    { id: 'S05-R3C2-drawing-tablet', src: 'img/hero-rotation-v2/S05-R3C2-drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing on a tablet' },
-    { id: 'S05-R4C1-colourful-pinball', src: 'img/hero-rotation-v2/S05-R4C1-colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
-    { id: 'S07-R1C1-workshop-device', src: 'img/hero-rotation-v2/S07-R1C1-workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
-    { id: 'S07-R4C1-satellite-link', src: 'img/hero-rotation-v2/S07-R4C1-satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
-    { id: 'S07-R5C2-rocket-control', src: 'img/hero-rotation-v2/S07-R5C2-rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
-    { id: 'S02-R1C2-virtual-reality', src: 'img/hero-rotation-v2/S02-R1C2-virtual-reality.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
-    { id: 'S02-R2C1-solar-rover', src: 'img/hero-rotation-v2/S02-R2C1-solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
-    { id: 'S02-R2C2-drawing-plotter', src: 'img/hero-rotation-v2/S02-R2C2-drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
-    { id: 'S02-R2C3-keyboard-synthesiser', src: 'img/hero-rotation-v2/S02-R2C3-keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
+    { id: 'robot-workshop', src: 'img/hero-mascots/robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
+    { id: 'weather-station', src: 'img/hero-mascots/weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
+    { id: 'control-console', src: 'img/hero-mascots/control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
+    { id: 'submarine-controls', src: 'img/hero-mascots/submarine-controls.webp', alt: 'Q Key, Six Pin and D1 using a cardboard submarine control station' },
+    { id: 'smart-speaker', src: 'img/hero-mascots/smart-speaker.webp', alt: 'Q Key, Six Pin and D1 making a smart speaker' },
+    { id: 'virtual-reality', src: 'img/hero-mascots/virtual-reality.webp', alt: 'Q Key, Six Pin and D1 experimenting with virtual reality' },
+    { id: 'robot-arm', src: 'img/hero-mascots/robot-arm.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robotic arm' },
+    { id: 'drawing-tablet', src: 'img/hero-mascots/drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing on a tablet' },
+    { id: 'colourful-pinball', src: 'img/hero-mascots/colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
+    { id: 'workshop-device', src: 'img/hero-mascots/workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
+    { id: 'satellite-link', src: 'img/hero-mascots/satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
+    { id: 'rocket-control', src: 'img/hero-mascots/rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
+    { id: 'virtual-reality-headset', src: 'img/hero-mascots/virtual-reality-headset.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
+    { id: 'solar-rover', src: 'img/hero-mascots/solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
+    { id: 'drawing-plotter', src: 'img/hero-mascots/drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
+    { id: 'keyboard-synthesiser', src: 'img/hero-mascots/keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
   ];
   // Desktop has the full curated rotation; mobile uses the medium-sized subset.
   const mobileSceneIds = new Set([
-    'S05-R1C1-robot-workshop',
-    'S05-R1C4-control-console',
-    'S05-R2C2-smart-speaker',
-    'S05-R2C3-virtual-reality',
-    'S05-R3C1-robot-arm',
-    'S05-R3C2-drawing-tablet',
-    'S05-R4C1-colourful-pinball',
-    'S07-R1C1-workshop-device'
+    'robot-workshop',
+    'control-console',
+    'smart-speaker',
+    'virtual-reality',
+    'robot-arm',
+    'drawing-tablet',
+    'colourful-pinball',
+    'workshop-device'
   ]);
   const mobileViewport = window.matchMedia('(max-width: 760px)');
   const isMobile = mobileViewport.matches;
@@ -522,18 +596,18 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
   if (!mascot) return;
 
   const choices = [
-    '01_Q_skateboard',
-    '02_Q_beanbag',
-    '04_Six_D1_sitting_around',
-    '07_Six_D1_popcorn',
-    '11_Q_Six_skateboards',
-    '13_Six_D1_wagon',
-    '15_Q_cardboard_blocks',
-    '18_D1_cardboard_tent',
-    '19_Six_lying_on_tummy',
-    '21_Q_paper_nest'
+    'q-skateboard',
+    'q-beanbag',
+    'six-pin-d1-sitting-around',
+    'six-pin-d1-popcorn',
+    'q-six-pin-skateboards',
+    'six-pin-d1-wagon',
+    'q-cardboard-blocks',
+    'd1-cardboard-tent',
+    'six-pin-lying-on-tummy',
+    'q-paper-nest'
   ];
-  const storageKey = 'qwertylabs-footer-fun-bag-v1';
+  const storageKey = 'qwertylabs-footer-mascots';
   let saved = {};
   try {
     saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
@@ -573,6 +647,6 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
   mascot.addEventListener('error', () => {
     mascot.src = fallback;
   }, { once: true });
-  mascot.src = 'img/footer-rotation/' + selected + '.svg';
+  mascot.src = 'img/footer-mascots/' + selected + '.svg';
 })();
 
