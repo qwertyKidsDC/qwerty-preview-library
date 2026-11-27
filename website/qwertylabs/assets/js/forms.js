@@ -127,16 +127,16 @@
       '</section>';
   }
   function grownups() {
-    return '<section><h3 class="form-step-title">Parent or carer</h3>' +
+    return '<section><h3>Parent or carer</h3>' +
       nameFields('parent','Primary contact',true) +
       field('parent-phone','Mobile number','tel',true,'','autocomplete="tel" inputmode="tel"') +
       '<div class="form-new-family">' +
       field('parent-email','Email address','email',true,'','autocomplete="email"') +
-      '<h3 class="form-step-title">Secondary contact</h3>' +
+      '<h3>Secondary contact</h3>' +
       nameFields('secondary','Secondary contact',true) +
       field('secondary-phone','Secondary mobile','tel',true,'','inputmode="tel"') +
       field('secondary-email','Secondary email','email',true,'','autocomplete="off"') +
-      '<h3 class="form-step-title">Anything helpful to know?</h3>' +
+      '<h3>Anything helpful to know?</h3>' +
       yesNo('support-needed','Is there anything we should know to support a child?',true) +
       '<div data-when="support-needed" data-match="yes" hidden>' +
       field('support-details','Support information','textarea',true,'Strategies, sensory needs or other things that help us teach well.') + '</div>' +
@@ -156,13 +156,13 @@
   }
   function enrolmentMarkup() {
     return programmes() +
-      '<section><h3 class="form-step-title">Who is coming?</h3>' +
+      '<section><h3>Who is coming?</h3>' +
       '<p class="form-hint">You can enrol up to three children together.' +
       (isCamp ? ' All children on this form attend the same requested days.' : '') + '</p>' +
       '<div id="form-children">' + child(0) + '</div>' +
       '<div class="form-actions"><button type="button" class="form-quiet-button" id="form-add-child">+ Add a child</button>' +
       '<button type="button" class="form-quiet-button" id="form-remove-child" hidden>Remove last child</button></div></section>' +
-      (isCamp ? '<section><h3 class="form-step-title">Camp hours</h3>' +
+      (isCamp ? '<section><h3>Camp hours</h3>' +
         '<p class="form-hint" id="kids-camp-hours">Kids: 9:30 am–3:30 pm, arrive from 9 am.</p>' +
         '<p class="form-hint" id="teens-camp-hours">Teens: 11 am–5 pm, arrive from 10 am.</p>' +
         '<fieldset class="form-fieldset" id="kids-extended-hours" hidden><legend>Extended hours (kids only)</legend>' +
@@ -191,7 +191,7 @@
       yesNo('prior-coding','Have they coded before?',true) +
       '<div data-when="prior-coding" data-match="yes" hidden>' +
       field('coding-note','Tell us a little about their coding experience','textarea',true) + '</div></div>' +
-      '<h3 class="form-step-title">Your details</h3>' +
+      '<h3>Your details</h3>' +
       nameFields('first','Parent or carer',true) +
       field('email','Email','email',true,'','autocomplete="email"') +
       field('phone','Mobile','tel',true,'','autocomplete="tel"') +
@@ -225,7 +225,7 @@
   done.className='form-done';
   done.hidden=true;
   done.innerHTML = enrolment ?
-    '<h3 class="form-step-title">Review your enrolment</h3>' +
+    '<h3>Review your enrolment</h3>' +
     '<p>Check your details before continuing. Nothing has been sent yet.</p>' +
     '<div id="form-review"></div>' +
     '<button type="button" class="form-quiet-button" id="form-start-again">Edit details</button>' :

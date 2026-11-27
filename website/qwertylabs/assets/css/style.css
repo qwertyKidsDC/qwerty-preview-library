@@ -1717,7 +1717,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-alert { display:block; padding:12px 15px; margin-bottom:16px; border-left:5px solid #9e2722; background:#fceae6; color:#722722; font-size:var(--text-compact); font-weight:700; }
 .form-alert[hidden], .form-done[hidden], .studio-form[hidden] { display:none; }
 .form-child { border-top:2px dashed #bbb6b9; padding-top:17px; margin-top:18px; }
-.form-child h4 { margin:0 0 14px; font-size:var(--text-small-heading); }
 .form-summary { border-top:1px solid #b7b2b7; padding:12px 0; font-size:var(--text-ui); overflow-wrap:anywhere; }
 .form-summary strong { display:block; }
 .form-done { padding:12px 0; }
@@ -1736,19 +1735,21 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-board__intro { margin:0 0 17px; color:var(--color-ivory); font-size:var(--text-body); line-height:1.5; }
 .form-board__intro strong { color:var(--brand-accent); }
 .form-board__form-title { margin:18px 0 9px; font-size:var(--text-large); letter-spacing:-.025em; }
-.form-board .studio-form label:not(.form-choice), .form-board .studio-form legend { color:var(--color-ivory); }
-.form-board .form-hint, .form-board .form-done, .form-board .form-done p, .form-board .form-done h2 { color:var(--color-ivory); }
-.form-board .form-child h4 { color:var(--color-ivory); }
+.form-board .studio-form label:not(.form-choice),
+.form-board .studio-form legend,
+.form-board .form-hint,
+.form-board .form-done,
+.form-board .form-done p,
+.form-board .form-choice,
+.form-board .form-choice a,
+.form-board__other a { color: var(--color-ivory); }
 .form-board .form-child { border-top-color:rgba(247,244,235,.55); }
-.form-board .form-choice { color:var(--color-ivory); }
-.form-board .form-choice a { color:var(--color-ivory); }
 .form-board .form-quiet-button { border-color:var(--color-ivory); color:var(--color-ivory); }
 .form-board .form-quiet-button:hover { background:rgba(247,244,235,.12); }
 .form-board .form-summary { border-color:rgba(247,244,235,.4); color:var(--color-ivory); }
 .form-board .form-actions { margin-bottom:15px; }
 .form-board .form-submit { margin-top:14px; }
 .form-board__other { margin:22px 0 0; font-size:var(--text-compact); line-height:1.5; }
-.form-board__other a { color:var(--color-ivory); }
 .form-note { min-width:0; align-self:stretch; }
 .form-note__sticky { position:sticky; top:32px; display:flex; justify-content:center; }
 .form-note__paper {

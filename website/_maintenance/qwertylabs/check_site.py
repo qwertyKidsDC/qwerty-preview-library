@@ -149,6 +149,8 @@ def check_sources(root, report):
                        f"{filename}: {asset.size}, {asset.mode}")
     selectors = []
     invalid = []
+    duplicate_properties = []
+    typography_values = {}
 
     def walk(nodes, scope=()):
         for node in nodes:
@@ -172,6 +174,14 @@ def check_sources(root, report):
                     node.content, skip_whitespace=True, skip_comments=True
                 )
                 invalid.extend(f"{selector}: {x}" for x in declarations if x.type == "error")
+                properties = Counter(d.name for d in declarations if d.type == "declaration")
+                duplicate_properties.extend(
+                    f"{selector}: {name}" for name, count in properties.items() if count > 1
+                )
+                for d in declarations:
+                    if d.type == "declaration" and d.name.startswith("--text-"):
+                        value = tinycss2.serialize(d.value).strip()
+                        typography_values.setdefault(value, set()).add(d.name)
 
     walk(tinycss2.parse_stylesheet(css, skip_whitespace=True, skip_comments=True))
     if invalid:
@@ -180,7 +190,14 @@ def check_sources(root, report):
         {"scope": list(scope), "selector": selector, "count": n}
         for (scope, selector), n in Counter(selectors).items() if n > 1
     ]
-    report["css"] = {"rules": len(selectors), "repeated_selectors": repeated}
+    report["css"] = {"rules": len(selectors), "repeated_selectors": repeated,
+                     "duplicate_properties": duplicate_properties}
+    if duplicate_properties:
+        record(report, "duplicate_css_properties", duplicate_properties)
+    duplicate_sizes = {value: sorted(names) for value, names in typography_values.items() if len(names) > 1}
+    report["css"]["duplicate_typography_values"] = duplicate_sizes
+    if duplicate_sizes:
+        record(report, "duplicate_typography_values", duplicate_sizes)
     if repeated:
         record(report, "css_repeat_review", repeated, blocking=False)
     # CSS usage covers every HTML page and script in this site directory,
@@ -197,7 +214,8 @@ def check_sources(root, report):
     css_classes = set()
     for scope, selector in selectors:
         css_classes.update(re.findall(r"\.([a-zA-Z_][\w-]*)", selector))
-    unused_classes = sorted(c for c in css_classes if c not in html_classes and c not in script_sources)
+    unused_classes = sorted(c for c in css_classes if c not in html_classes and
+                            not re.search(r"(?<![\w-])" + re.escape(c) + r"(?![\w-])", script_sources))
     report["css"]["unused_classes"] = unused_classes
     if unused_classes:
         record(report, "unused_css_classes", unused_classes)
