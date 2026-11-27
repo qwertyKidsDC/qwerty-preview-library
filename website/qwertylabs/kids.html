@@ -1,48 +1,51 @@
 <!doctype html>
+<!-- Made at Qwerty Labs.
+     Curious how it works? You're in the right place.
+     CTRL + ALT + CREATE -->
 <html lang="en-AU" data-brand="kids" data-layout="subpage">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- Staging only: remove noindex/nofollow before public launch. -->
     <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://qwertylabs.au/kids.html">
     <meta name="theme-color" content="#020020">
-    <link rel="icon" type="image/png" href="img/favicon-d1.png">
+    <link rel="icon" type="image/png" href="assets/design/favicon-d1.png">
     <meta
       name="description"
       content="Creative technology for kids aged 7–12 in Marrickville, Sydney. Explore coding classes, robotics and school holiday camps at Qwerty Labs."
     >
     <title>Creative Technology &amp; Coding for Kids 7–12 | Qwerty Labs</title>
-    <!-- Approved typefaces and the single site stylesheet. -->
+    <!-- Shared typefaces and stylesheets. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261125-ink-only">
-<link rel="stylesheet" href="mobile.css?v=20261125-ink-only" media="(max-width: 760px)">
-    <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="script.js?v=20261124-shared-footer" defer></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 760px)">
+    <script src="assets/js/script.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
           <header class="header">
             <a href="index.html" class="logo" aria-label="Qwerty Labs home">
-              <img src="img/wordmark-labs-green.svg" alt="Qwerty Labs" width="440" height="101">
+              <img src="assets/design/wordmark-labs-green.svg" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
               <div class="navigation-group">
@@ -98,25 +101,25 @@
             <section class="hero" aria-label="Kids aged 7 to 12">
               <div class="hero-copy">
                 <div class="hero-paper">
-                  <img class="paper-bg" src="img/hero-paper-green.svg?v=kids-neutral-tape-20261109b" alt="" fetchpriority="high">
+                  <img class="paper-bg" src="assets/design/hero-paper-green.svg" alt="" fetchpriority="high">
                   <h1><span class="hero-title">kids</span><span class="hero-tagline">who like making things</span></h1>
                 </div>
               </div>
               <nav class="hero-description" aria-label="Book a Kids programme">
-                <span>Make games, robots and more in our <a class="scene-link" href="kids-coding-classes.html">weekly classes</a> and <a class="scene-link" href="coding-camp.html">holiday camps</a>.</span>
+                <span>Make games, robots and more in our <a class="intro-link" href="kids-coding-classes.html">weekly classes</a> and <a class="intro-link" href="coding-camp.html">holiday camps</a>.</span>
               </nav>
               <img
-                class="mascots"
-                src="img/qwerty-labs-mascots-robot-car.webp"
+                class="hero-mascots"
+                src="assets/mascots/hero/robot-car.webp"
                 alt="Q Key, Six Pin and D1 building a wheeled electronics project on cardboard"
                 width="1240" height="955" fetchpriority="high"
               >
             </section>
 
             <!-- Kids introduction: original photo beside the homepage green paper card. -->
-            <section class="projects projects--subpage" id="kids-programmes" aria-labelledby="kids-programmes-title">
+            <section class="featured-section featured-section--subpage" id="kids-programmes" aria-labelledby="kids-programmes-title">
               <div class="subpage-intro">
-                <img class="subpage-intro__art" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+                <img class="subpage-intro__art" src="assets/design/kids-green-panel.svg" alt="">
                 <div class="subpage-intro__copy">
                   <h2 id="kids-programmes-title">AGES 7–12</h2>
                   <p>Think of something you'd like to make. We'll help you figure out how.</p>
@@ -125,15 +128,15 @@
               </div>
               <figure class="photo-collage">
                 <img
-                  class="project-photo"
+                  class="featured-photo"
                   loading="lazy"
                   decoding="async"
-                  src="img/child-bbc-microbit-led-heart.jpg"
+                  src="assets/photos/child-bbc-microbit-led-heart.jpg"
                   alt="A child holding a BBC micro:bit with a glowing red LED heart"
                   width="700"
                   height="394"
                 >
-                <img class="project-frame" src="img/mat-h.webp" alt="">
+                <img class="featured-photo-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
               </figure>
             </section>
 
@@ -141,7 +144,7 @@
                  Six existing green tape labels and the green testimonial are retained. -->
             <section class="subpage-board" id="kids-editorial" aria-label="About our Kids programmes">
               <section class="subpage-section" id="who" aria-labelledby="kids-who">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-who">Who?</h2>
                 <div class="subpage-section__copy">
                   <p>For ages 7–12. Some have never written a line of code; others have been coding for years.</p>
@@ -151,7 +154,7 @@
               </section>
 
               <section class="subpage-section" id="what" aria-labelledby="kids-what">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-what">What?</h2>
                 <div class="subpage-section__copy">
                   <p>Games, robots, AI experiments, electronics, websites, digital worlds and things that respond to light, sound or movement.</p>
@@ -159,14 +162,14 @@
                   <p>We use Scratch, Python, JavaScript, Raspberry Pi, microcontrollers, sensors and plenty of things with wires. We choose the <a href="kit-and-code.html">tools to suit the project</a>, not the other way around.</p>
                 </div>
                 <figure class="subpage-art subpage-art--clockwise">
-                <span class="subpage-art__media">
-                  <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/20-d1-led-breadboard-square.webp" alt="D1 wiring colourful LEDs on a breadboard" width="1084" height="1084" loading="lazy" decoding="async">
-                </span>
-              </figure>
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="assets/mascots/framed/d1-led-breadboard-square.webp" alt="D1 wiring colourful LEDs on a breadboard" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <section class="subpage-section" id="why" aria-labelledby="kids-why">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-why">Why?</h2>
                 <div class="subpage-section__copy">
                   <p>Making gives learning a reason.</p>
@@ -175,14 +178,14 @@
                   <p>We like hearing, “What happens if I try this?” Particularly when nobody knows the answer yet.</p>
                 </div>
                 <figure class="subpage-art subpage-art--level">
-                <span class="subpage-art__media">
-                  <img class="subpage-art__image" src="img/mascot-curated/q-d1-gamego-handheld-frame.webp" alt="Q Key and D1 with a GameGo handheld games console" width="1084" height="1084" loading="lazy" decoding="async">
-                </span>
-              </figure>
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="assets/mascots/framed/q-d1-gamego-handheld-frame.webp" alt="Q Key and D1 with a GameGo handheld games console" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <section class="subpage-section" id="how" aria-labelledby="kids-how">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-how">How?</h2>
                 <div class="subpage-section__copy">
                   <p>We teach in small groups and give children individual guidance.</p>
@@ -193,24 +196,24 @@
                   <p>If your child has particular support needs or finds busy environments difficult, <a href="contact.html">get in touch</a> and we can talk through which group might suit them.</p>
                 </div>
                 <figure class="subpage-art subpage-art--counterclockwise">
-                <span class="subpage-art__media">
-                  <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/23-d1-black-drone-square.webp" alt="D1 with a drone" width="1084" height="1084" loading="lazy" decoding="async">
-                </span>
-              </figure>
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="assets/mascots/framed/d1-black-drone-square.webp" alt="D1 with a drone" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
               </section>
 
               <!-- Original parent testimonial on its own green paper card. -->
               <aside class="subpage-callout" aria-label="Parent testimonial">
                 <div class="subpage-callout__body">
                   <blockquote class="subpage-callout__quote">
-                      <p>“They’ve built games, apps, and worked with robotics and VR — all at their own level. I’ve been really impressed with both their progress and their enjoyment.”</p>
-                      <cite>Imala · Mum of Evie (11) and Amaya (7)</cite>
-                    </blockquote>
+                    <p>“They’ve built games, apps, and worked with robotics and VR — all at their own level. I’ve been really impressed with both their progress and their enjoyment.”</p>
+                    <cite>Imala · Mum of Evie (11) and Amaya (7)</cite>
+                  </blockquote>
                 </div>
               </aside>
 
               <section class="subpage-section" id="where" aria-labelledby="kids-where">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-where">Where?</h2>
                 <div class="subpage-section__copy">
                   <p>Upstairs in Marrickville, Sydney's Inner West.</p>
@@ -220,7 +223,7 @@
                 </div>
                 <figure class="subpage-art subpage-art--landscape">
                   <span class="subpage-art__media subpage-art__media--map">
-                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/28-q--six-pin-traffic-light-rectangle.webp" alt="" aria-hidden="true" width="971" height="715" loading="lazy" decoding="async">
+                    <img class="subpage-art__image" src="assets/mascots/framed/q-six-pin-traffic-light-rectangle.webp" alt="" aria-hidden="true" width="971" height="715" loading="lazy" decoding="async">
                     <iframe title="Map of the Qwerty Labs studio (listed as QwertyKids), Level 1, 230 Marrickville Road, Marrickville" src="https://www.google.com/maps?q=QwertyKids%2C+Level+1%2F230+Marrickville+Road%2C+Marrickville+NSW+2204&amp;z=17&amp;output=embed" width="971" height="715" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <a href="https://www.google.com/maps/dir/?api=1&amp;destination=QwertyKids%2C+Level+1%2F230+Marrickville+Road%2C+Marrickville+NSW+2204" aria-label="Get directions to Qwerty Labs in Google Maps">Get directions</a>
                   </span>
@@ -230,24 +233,24 @@
               <aside class="subpage-callout" aria-label="Testimonial"><div class="subpage-callout__body"><blockquote class="subpage-callout__quote"><p>“It was epic mum. This is the best day of my life!”</p><cite>Samuel, 9 · After a holiday camp</cite></blockquote></div></aside>
 
               <section class="subpage-section" id="when" aria-labelledby="kids-when">
-                <img class="subpage-section__tape" src="img/footer-label-green-vtrim.svg" alt="">
+                <img class="subpage-section__tape" src="assets/design/footer-label-green.svg" alt="">
                 <h2 class="subpage-section__heading" id="kids-when">When?</h2>
                 <div class="subpage-section__copy">
                   <div class="subpage-section__option">
-                      <h3><a href="kids-coding-classes.html">Weekly classes</a></h3>
-                      <p>75 minutes weekly, usually nine sessions per term. Come back to a project, try out new ideas and get the tricky bits working. New students can join during a term when there's a suitable place.</p>
+                    <h3><a href="kids-coding-classes.html">Weekly classes</a></h3>
+                    <p>75 minutes weekly, usually nine sessions per term. Come back to a project, try out new ideas and get the tricky bits working. New students can join during a term when there's a suitable place.</p>
 
-                    </div>
-                    <div class="subpage-section__option">
-                      <h3><a href="coding-camp.html">School holiday camps</a></h3>
-                      <p>A whole day to get stuck into something you might not get to try at home. Make a game and get someone else to play it, program a robot or experiment with electronics. We run different projects on different days. Come for one or several.</p>
+                  </div>
+                  <div class="subpage-section__option">
+                    <h3><a href="coding-camp.html">School holiday camps</a></h3>
+                    <p>A whole day to get stuck into something you might not get to try at home. Make a game and get someone else to play it, program a robot or experiment with electronics. We run different projects on different days. Come for one or several.</p>
 
-                    </div>
+                  </div>
 
                 </div>
                 <figure class="subpage-art subpage-art--landscape">
                   <span class="subpage-art__media">
-                    <img class="subpage-art__image" src="img/mascot-curated/approved-2026-11/28-q--six-pin-traffic-light-rectangle.webp" alt="Q Key and Six Pin with a traffic-light circuit" width="971" height="715" loading="lazy" decoding="async">
+                    <img class="subpage-art__image" src="assets/mascots/framed/q-six-pin-traffic-light-rectangle.webp" alt="Q Key and Six Pin with a traffic-light circuit" width="971" height="715" loading="lazy" decoding="async">
                   </span>
                 </figure>
               </section>
@@ -255,9 +258,9 @@
             </section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
-                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
                   <div>
@@ -274,12 +277,12 @@
                   </div>
                   <div>
                     <strong>Enrol</strong>
-                    <div><a href="form-classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="form-camps.html">Holiday camps</a></div>
+                    <div><a href="enrol/classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="enrol/camps.html">Holiday camps</a></div>
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
-                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
                   <div>
@@ -295,8 +298,8 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
-                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">
                   <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
@@ -308,14 +311,14 @@
                 </div>
               </section>
             </section>
-        </main>
+          </main>
 
           <!-- Acknowledgement of Country and policies -->
           <footer id="bottom" class="lab-footer">
             <section class="country-ack" aria-labelledby="country-ack-heading">
               <h2 id="country-ack-heading">Acknowledgement of Country</h2>
               <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-              <img class="country-ack__mascot" src="img/qwerty-labs-q-key-skateboard.webp" alt="" width="110" height="110" loading="lazy" decoding="async">
+              <img class="country-ack__mascot" src="assets/mascots/footer/q-key-skateboard.webp" alt="" width="110" height="110" loading="lazy" decoding="async">
             </section>
 
             <!-- The studio signature follows the left guide; policies follow the right. -->
@@ -323,15 +326,15 @@
               <div class="footer-legal-signature">
                 <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
                 <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
-                  <img src="img/wordmark-labs-green.svg" alt="" width="2013" height="460">
+                  <img src="assets/design/wordmark-labs-green.svg" alt="" width="2013" height="460">
                 </a>
                 <span class="footer-legal-separator" aria-hidden="true">|</span>
                 <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
               </div>
               <nav class="footer-legal-links" aria-label="Policies">
-                <a href="child-safety.html">Child Safety</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="booking-terms.html">Booking Terms</a>
+                <a href="info/child-safety.html">Child Safety</a>
+                <a href="info/privacy.html">Privacy</a>
+                <a href="info/booking-terms.html">Booking Terms</a>
               </nav>
             </div>
           </footer>

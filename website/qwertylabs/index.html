@@ -1,49 +1,55 @@
 <!doctype html>
+<!-- Made at Qwerty Labs.
+     Curious how it works? You're in the right place.
+     CTRL + ALT + CREATE -->
 <html lang="en-AU" data-brand="lab" data-layout="site">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- Staging only: remove noindex/nofollow before public launch. -->
     <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://qwertylabs.au/">
     <meta name="theme-color" content="#020020">
-    <link rel="icon" type="image/png" href="img/favicon-d1.png">
+    <link rel="icon" type="image/png" href="assets/design/favicon-d1.png">
     <meta
       name="description"
       content="Qwerty Labs is a creative technology studio in Marrickville, Sydney. Coding classes and school holiday camps for kids and teens, plus adult workshops and mentoring."
     >
     <title>Qwerty Labs — Creative Technology &amp; Coding in Sydney</title>
-    <!-- Approved typefaces and the single site stylesheet. -->
+    <!-- Shared typefaces and stylesheets. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css?v=20261126-cardboard-signoff">
-<link rel="stylesheet" href="mobile.css?v=20261125-ink-only" media="(max-width: 760px)">
-    <script src="brand.js?v=20261118-favicon" defer></script>
-    <script src="home-messenger.js?v=20261126" defer></script>
-    <script src="script.js?v=20261126-lab-messenger" defer></script>
+    <!-- Relative URLs are directions from a starting point. Absolute URLs include the full address,
+         like https://qwertylabs.au/assets/css/style.css. Relative links make it easier
+         to move the whole site without rewriting every link. -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 760px)">
+    <script src="assets/js/script.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <!-- Oooh, you're viewing my insides! -->
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
           <header class="header">
             <a href="#top" class="logo" aria-label="Qwerty Labs home">
-              <img src="img/wordmark.svg?v=20261125-blue" alt="Qwerty Labs" width="440" height="101">
+              <img src="assets/design/wordmark.svg" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
               <div class="navigation-group">
@@ -95,42 +101,42 @@
           </header>
 
           <main id="main">
-            <!-- Hero -->
+            <!-- The hero mascots have a life of their own. Look in assets/js/script.js. -->
             <section class="hero" aria-label="Welcome to the lab">
               <div class="hero-copy">
                 <div class="hero-paper">
-                  <img class="paper-bg" src="img/hero-paper.svg?v=blue-20261104" alt="" fetchpriority="high">
+                  <img class="paper-bg" src="assets/design/hero-paper.svg" alt="" fetchpriority="high">
                   <h1>Curious technology<br>for creative people.</h1>
                 </div>
               </div>
               <p class="hero-description">We make things with technology and teach people of all ages to do the same.</p>
               <img
-                class="mascots"
-                src="img/qwerty-labs-mascots-led-electronics.webp"
+                class="hero-mascots"
+                src="assets/mascots/hero/led-electronics.webp"
                 alt="Q Key, D1 and Six Pin making an LED electronics project together on a cardboard platform"
                 width="1240" height="955" fetchpriority="high"
               >
             </section>
 
             <!-- Audience card headings link to their respective pages. -->
-            <section class="feature-cards" aria-label="Explore Qwerty Labs">
-              <div class="feature">
-                <img class="paper-bg" src="img/kids-green-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+            <section class="audience-cards" aria-label="Explore Qwerty Labs">
+              <div class="audience-card">
+                <img class="paper-bg" src="assets/design/kids-green-panel.svg" alt="">
                 <h2><a href="kids.html">Kids</a></h2>
                 <p>Weekly coding classes and holiday camps for ages 7–12.</p>
-                <a class="feature-arrow" href="kids.html" aria-label="Go to Kids"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="kids.html" aria-label="Go to Kids"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
-              <div class="feature">
-                <img class="paper-bg" src="img/adults-pink-panel-untaped-vtrim.svg?v=pixel-retouch-9" alt="">
+              <div class="audience-card">
+                <img class="paper-bg" src="assets/design/adults-pink-panel.svg" alt="">
                 <h2><a href="adults.html">Adults</a></h2>
                 <p>Practical mentoring and group workshops for people who want to make things.</p>
-                <a class="feature-arrow" href="adults.html" aria-label="Go to Adults"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="adults.html" aria-label="Go to Adults"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
-              <div class="feature">
-                <img class="paper-bg" src="img/teens-blue-panel-untaped-vtrim.svg?v=orange-20261104" alt="">
+              <div class="audience-card">
+                <img class="paper-bg" src="assets/design/teens-blue-panel.svg" alt="">
                 <h2><a href="teens.html">Teens</a></h2>
                 <p>Weekly classes and holiday camps for ages 13–17, with more independence.</p>
-                <a class="feature-arrow" href="teens.html" aria-label="Go to Teens"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="teens.html" aria-label="Go to Teens"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
             </section>
 
@@ -138,13 +144,13 @@
                  The expiry is Sydney local time, just after the final January camp. -->
             <div class="home-messenger-inline" data-messenger-inline>
               <aside class="home-messenger" data-home-messenger data-enabled="true" data-expires="2027-01-30T00:00:00+11:00" aria-label="News from the lab" hidden>
-                <a class="qll-side__paper home-messenger__note" href="coding-camp.html">
-                  <img class="qll-side__paper-bg" src="img/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
+                <a class="form-note__paper home-messenger__note" href="coding-camp.html">
+                  <img class="form-note__paper-bg" src="assets/design/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
                   <span class="home-messenger__copy">
                     <span class="home-messenger__speech">Psst... come make things with us!</span>
                     <span class="home-messenger__link">Summer holiday camps</span>
                   </span>
-                  <img class="qll-side__mascot" src="img/mascot-ready/q-individual-r05-c03.webp" width="136" height="129" alt="" decoding="async">
+                  <img class="form-note__mascot" src="assets/mascots/holler/q-on-cardboard-box.webp" width="136" height="129" alt="" decoding="async">
                 </a>
               </aside>
             </div>
@@ -152,16 +158,16 @@
             <!-- Content-led Coolest Projects panel; its cardboard trim remains intact. -->
             <section class="footer-scene" id="projects" aria-labelledby="featured-projects-title">
               <div class="footer-scene__board">
-                <img class="footer-scene__tape" src="img/footer-blue-tape-vtrim.svg" alt="" width="2021" height="507">
+                <img class="footer-scene__tape" src="assets/design/footer-blue-tape.svg" alt="" width="2021" height="507">
                 <h2 class="footer-scene__tape-text" id="featured-projects-title">COOLEST PROJECTS</h2>
                 <div class="footer-scene__content">
                   <p>Zach and Chloe <a href="project-code-cloud.html">built a cloud</a> that makes invisible code visible. An international <a href="https://coolestprojects.org/">Coolest Projects</a> judge picked it as a favourite. We told the <strong>Prime Minister</strong>. His office wrote back to congratulate them on their <strong>creativity, innovation</strong> and <strong>technical skills</strong>. Not a bad result for a couple of makers from Marrickville.</p>
                   <figure class="footer-scene__photo photo-frame--cardboard-offset">
                     <button class="cloud-replay" type="button" aria-label="Replay the Project Code Cloud video">
                       <video class="cloud-replay__video" muted playsinline preload="none" width="1749" height="1007" aria-hidden="true">
-                        <source src="img/project-code-cloud-led-demonstration.mp4" type="video/mp4">
+                        <source src="assets/video/project-code-cloud-led-demonstration.mp4" type="video/mp4">
                       </video>
-                      <img class="cloud-replay__poster" src="img/project-code-cloud-blue-led-cloud.webp" alt="Project Code Cloud illuminated blue, with an LED strip connecting the cloud to a control panel" width="1749" height="1007" loading="lazy" decoding="async">
+                      <img class="cloud-replay__poster" src="assets/photos/project-code-cloud-blue-led-cloud.webp" alt="Project Code Cloud illuminated blue, with an LED strip connecting the cloud to a control panel" width="1749" height="1007" loading="lazy" decoding="async">
                     </button>
                   </figure>
                 </div>
@@ -169,33 +175,33 @@
             </section>
 
             <!-- Meet the Lab project-style panel -->
-            <section class="projects" id="meet-the-lab" aria-labelledby="meet-lab-title">
-              <img class="project-panel" src="img/project-backboard.svg" alt="">
+            <section class="featured-section meet-the-lab" id="meet-the-lab" aria-labelledby="meet-lab-title">
+              <img class="project-panel" src="assets/design/project-backboard.svg" alt="">
               <div class="project-copy">
-                <img class="project-label" src="img/footer-blue-tape-vtrim.svg" alt="">
+                <img class="project-label" src="assets/design/footer-blue-tape.svg" alt="">
                 <h2 class="project-label-text" id="meet-lab-title">MEET THE LAB</h2>
                 <p>We've been making things with people in Marrickville since 2016. Around 1,500 young makers have come through our doors. We still squeal when the stuff we build does things.</p>
-                <img class="lab-signoff" src="img/ctrl-alt-create-cardboard.webp" alt="ctrl + alt + create" width="320" height="90" loading="lazy" decoding="async">
-                <a class="scene-link" href="thelab.html">About the Lab</a>
+                <img class="lab-signoff" src="assets/design/ctrl-alt-create-cardboard.webp" alt="ctrl + alt + create" width="320" height="90" loading="lazy" decoding="async">
+                <a class="intro-link" href="thelab.html">About the Lab</a>
               </div>
               <figure class="photo-collage">
                 <img
-                  class="project-photo"
+                  class="featured-photo"
                   loading="lazy"
                   decoding="async"
-                  src="img/qwerty-labs-kids-robotics-coding.jpg"
+                  src="assets/photos/qwerty-labs-kids-robotics-coding.jpg"
                   width="700"
                   height="394"
                   alt="Two young makers with a light-up robot and block-based coding on their computers at Qwerty Labs"
                 >
-                <img class="project-frame" src="img/project-photo-frame.svg" alt="">
+                <img class="featured-photo-frame" src="assets/design/project-photo-frame.svg" alt="">
               </figure>
             </section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
-                <img class="paper-bg" src="img/footer-explore-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
+                <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
                   <div>
@@ -212,12 +218,12 @@
                   </div>
                   <div>
                     <strong>Enrol</strong>
-                    <div><a href="form-classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="form-camps.html">Holiday camps</a></div>
+                    <div><a href="enrol/classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="enrol/camps.html">Holiday camps</a></div>
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
-                <img class="paper-bg" src="img/footer-find-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
+                <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
                   <div>
@@ -233,8 +239,8 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
-                <img class="paper-bg" src="img/footer-hello-blue-vtrim.svg?v=tape-blue-20261105" alt="">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
+                <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">
                   <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
@@ -246,14 +252,14 @@
                 </div>
               </section>
             </section>
-        </main>
+          </main>
 
           <!-- Acknowledgement of Country and policies -->
           <footer id="bottom" class="lab-footer">
             <section class="country-ack" aria-labelledby="country-ack-heading">
               <h2 id="country-ack-heading">Acknowledgement of Country</h2>
               <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-              <img class="country-ack__mascot" src="img/qwerty-labs-d1-lounging.svg" alt="" width="110" height="110" loading="lazy" decoding="async">
+              <img class="country-ack__mascot" src="assets/design/qwerty-labs-d1-lounging.svg" alt="" width="110" height="110" loading="lazy" decoding="async">
             </section>
 
             <!-- The studio signature follows the left guide; policies follow the right. -->
@@ -261,15 +267,15 @@
               <div class="footer-legal-signature">
                 <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
                 <a class="footer-wordmark" href="#top" aria-label="Qwerty Labs — back to top">
-                  <img src="img/wordmark.svg?v=20261125-blue" alt="" width="2013" height="460">
+                  <img src="assets/design/wordmark.svg" alt="" width="2013" height="460">
                 </a>
                 <span class="footer-legal-separator" aria-hidden="true">|</span>
                 <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
               </div>
               <nav class="footer-legal-links" aria-label="Policies">
-                <a href="child-safety.html">Child Safety</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="booking-terms.html">Booking Terms</a>
+                <a href="info/child-safety.html">Child Safety</a>
+                <a href="info/privacy.html">Privacy</a>
+                <a href="info/booking-terms.html">Booking Terms</a>
               </nav>
             </div>
           </footer>

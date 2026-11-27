@@ -4,19 +4,21 @@ on:
   push:
     paths:
       - 'website/qwertylabs/**'
+      - "website/_maintenance/qwertylabs/**"
       - '.github/workflows/qwertylabs-style-contract.yml'
   pull_request:
     paths:
       - 'website/qwertylabs/**'
+      - "website/_maintenance/qwertylabs/**"
       - '.github/workflows/qwertylabs-style-contract.yml'
 
 jobs:
   style-contract:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Audit shared CSS and HTML components
-        run: python3 website/qwertylabs/_tools/check_style_contract.py
+        run: python3 website/_maintenance/qwertylabs/check_style_contract.py
