@@ -1,0 +1,23 @@
+name: Qwerty Labs audit package
+on:
+  push:
+    branches: [audit-package]
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Assemble website and maintenance source
+        run: |
+          mkdir -p audit-package
+          cp -R website/qwertylabs audit-package/
+          cp -R website/_maintenance/qwertylabs audit-package/maintenance
+          cp .github/workflows/ql-current-site-quality.yml .github/workflows/qwertylabs-style-contract.yml audit-package/maintenance/
+          printf 'Website source from main commit %s\n' '5ad157d8cb9c943d16f98685b94ed05ad5e66a11' > audit-package/SOURCE.txt
+      - uses: actions/upload-artifact@v6
+        with:
+          name: qwertylabs-claude-audit
+          path: audit-package/
+          retention-days: 14
