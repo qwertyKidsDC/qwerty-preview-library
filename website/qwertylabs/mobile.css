@@ -532,37 +532,37 @@
   }
 
   /* Form-only phone layout: the decorative ink column does not stack. */
-  .qlf-main { width:calc(100% - 24px); margin:22px auto 42px; }
-  .qlf-shell { display:block; box-shadow:5px 5px 0 var(--color-ink); }
-  .qlf-aside { display:none; }
-  .qlf-pane { padding:25px 19px 29px; }
-  .qlf-grid { grid-template-columns:minmax(0,1fr); gap:0; }
-  .qlf-actions { flex-direction:column-reverse; align-items:stretch; }
-  .qlf-actions .qlf-submit, .qlf-actions .qlf-quiet-button { width:100%; }
-  .qlf-stepper { gap:5px; }
-  .qlf-stepper li { padding:5px 8px; font-size:12px; }
-  .qlf-gallery { grid-template-columns:minmax(0,1fr); }
+  .form-main { width:calc(100% - 24px); margin:22px auto 42px; }
+  .form-shell { display:block; box-shadow:5px 5px 0 var(--color-ink); }
+  .form-aside { display:none; }
+  .form-pane { padding:25px 19px 29px; }
+  .form-grid { grid-template-columns:minmax(0,1fr); gap:0; }
+  .form-actions { flex-direction:column-reverse; align-items:stretch; }
+  .form-actions .form-submit, .form-actions .form-quiet-button { width:100%; }
+  .form-stepper { gap:5px; }
+  .form-stepper li { padding:5px 8px; font-size:12px; }
+  .form-gallery { grid-template-columns:minmax(0,1fr); }
 
   /* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
-  .qll-lab__grid { display:flex; flex-direction:column; gap:12px; }
-  .qll-lab .qll-lab__section { padding-bottom:32px; }
-  .qll-lab__form-column { order:2; }
-  .qll-side { order:1; width:100%; }
-  .qll-side__sticky { position:static; }
-  .qll-side__paper {
+  .form-board__grid { display:flex; flex-direction:column; gap:12px; }
+  .form-board .form-board__section { padding-bottom:32px; }
+  .form-board__form-column { order:2; }
+  .form-note { order:1; width:100%; }
+  .form-note__sticky { position:static; }
+  .form-note__paper {
     width:min(100% - 26px,325px);
     min-height:255px;
     margin:17px auto 32px;
     padding:29px 25px 145px;
     transform:rotate(1.2deg);
   }
-  .qll-side__quote { padding-top:24px; }
-  .qll-side__quote::before, .qll-side__quote::after { font-size:74px; }
-  .qll-side__quote::before { top:-19px; }
-  .qll-side__quote::after { bottom:-58px; right:35px; }
-  .qll-side__saying { font-size:18px; padding-right:17px; }
-  .qll-side__mascot { width:min(108%,250px); right:-13px; bottom:3px; }
-  .qll-lab__intro { font-size:16px; }
+  .form-note__quote { padding-top:24px; }
+  .form-note__quote::before, .form-note__quote::after { font-size:74px; }
+  .form-note__quote::before { top:-19px; }
+  .form-note__quote::after { bottom:-58px; right:35px; }
+  .form-note__saying { font-size:18px; padding-right:17px; }
+  .form-note__mascot { width:min(108%,250px); right:-13px; bottom:3px; }
+  .form-board__intro { font-size:16px; }
   /* Homepage holler mascot and studio signature. */
   .home-messenger-inline { margin: 20px 20px 0; }
   .home-messenger .home-messenger__note { min-height: 240px; }
