@@ -1,9 +1,12 @@
-/* The cascade: general rules first, then specific components and overrides. */
+/* The cascade decides which CSS rule wins. Specificity, order and inheritance all matter.
+   General rules set the defaults; later component rules refine them. */
 /* Qwerty Labs — shared site stylesheet
    Shared foundations, design components, branding and desktop layout.
    Phone-specific adjustments live in mobile.css. Desktop and input-specific media queries stay here. */
 
-/* 01 — Approved brand and cursors */
+/* CSS custom properties (variables) give repeated values one name.
+   Change a brand colour here and the rules using that variable change with it. */
+/* 01 — Brand and cursors */
 :root {
   --color-blue: #0F6DFC;
   --color-pink: #F66DC1;
@@ -12,7 +15,7 @@
   --color-ivory: #F7F4EB;
   --color-ink: #020020;
   --brand-accent: var(--color-blue);
-  --testimonial-panel-image: url("img/design/blue-note-testimonial-panel.svg");
+  --testimonial-panel-image: url("../design/blue-note-testimonial-panel.svg");
 
   /* Shared type scale; fit containers to text, not text to containers. */
   --text-heading: 30px;  /* Section headings and tape lettering */
@@ -39,17 +42,17 @@
 
 :root[data-brand="kids"] {
   --brand-accent: var(--color-green);
-  --testimonial-panel-image: url("img/design/kids-green-panel.svg");
+  --testimonial-panel-image: url("../design/kids-green-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%2392D644' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="adults"] {
   --brand-accent: var(--color-pink);
-  --testimonial-panel-image: url("img/design/adults-pink-panel.svg");
+  --testimonial-panel-image: url("../design/adults-pink-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23F66DC1' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 :root[data-brand="teens"] {
   --brand-accent: var(--color-orange);
-  --testimonial-panel-image: url("img/design/teens-orange-panel.svg");
+  --testimonial-panel-image: url("../design/teens-orange-panel.svg");
   --link-hover-squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23FF9029' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
@@ -110,6 +113,7 @@
   outline-offset: -4px;
 }
 
+/* Relative URLs in CSS start at this stylesheet, not at the HTML page. */
 /* 02. Workshop photographs
    Two real WebP photos; top fade stops are calculated by script.js. */
 .site {
@@ -119,7 +123,7 @@
   overflow: hidden;
   background: var(--color-ink);
 
-  --workshop-top-image: url("img/design/workshop-top.webp");
+  --workshop-top-image: url("../design/workshop-top.webp");
   /* Width multiplier preserves the approved photo alignment. Match script.js if changing it. */
   --top-original-height: clamp(285px, 36vw, 740px);
   --top-photo-width: max(100vw, calc(var(--top-original-height) * 3.227799));
@@ -215,7 +219,7 @@
 }
 
 .bg-scene-bottom__photo {
-  background-image: url("img/design/workshop-footer.webp");
+  background-image: url("../design/workshop-footer.webp");
   background-size: cover;
   background-position: center bottom;
 }
@@ -247,7 +251,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("img/design/cardboard-texture.svg") repeat;
+  background: url("../design/cardboard-texture.svg") repeat;
   opacity: .17;
   pointer-events: none;
 }
@@ -757,7 +761,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
-  border-image-source: url("img/design/footer-dark-paper.webp");
+  border-image-source: url("../design/footer-dark-paper.webp");
   border-image-slice: 92 140 92 140 fill;
   border-image-width: 1;
   border-image-repeat: stretch round;
@@ -789,7 +793,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   gap: 30px;
 }
 
-/* Photo frame 02: a narrow ivory photo print over a slightly offset
+/* Photo frame: a narrow ivory photo print over a slightly offset
    corrugated cardboard back. No masking tape or decorative corners.
    This is reusable around other site photographs. */
 .footer-scene__photo {
@@ -1196,8 +1200,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   background-color: var(--color-ivory);
 }
 
-/* 11. Alpha-trimmed artwork. The originals remain available under their old
-   names. These offsets retain painted positions and proportions exactly. */
+/* Artwork offsets retain the painted positions and proportions. */
 .feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
 .feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
 .feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
@@ -1376,7 +1379,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
   border: solid transparent;
   border-width: clamp(18px, 2.2vw, 40px) clamp(22px, 3.1vw, 56px);
-  border-image-source: url("img/design/footer-dark-paper.webp");
+  border-image-source: url("../design/footer-dark-paper.webp");
   border-image-slice: 92 140 92 140 fill;
   border-image-width: 1;
   border-image-repeat: stretch round;
@@ -1515,8 +1518,6 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-art--landscape:has(.subpage-art__media--map) {
   --tool-tilt: 1.5deg;
 }
-
-/* Paired editorial photos: two positions beside one long text section. */
 
 :where(html[data-layout="subpage"]) .subpage-art__media {
   display: block;
@@ -1825,7 +1826,7 @@ body.form-page .cardboard-page { overflow:clip; }
 :where(html[data-layout="subpage"]) .subpage-art--stack { gap: 24px; }
 :where(html[data-layout="subpage"]) .subpage-art--stack iframe { aspect-ratio: 16 / 9; border: 0; }
 
-/* Homepage Lab Messengers — use the existing form paper and mascot artwork.
+/* Homepage holler mascots — use the existing form paper and mascot artwork.
    Their own rail keeps them out of the way of the original cardboard composition. */
 .home-messenger[hidden] { display:none; }
 .home-messenger-rail:empty, .home-messenger-inline:empty { display:none; }

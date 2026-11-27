@@ -28,10 +28,10 @@ COMPLETE = (
     "index.html", "kids.html", "adults.html", "teens.html", "thelab.html",
     "contact.html", "a-kids-pov.html", "kit-and-code.html",
     "kids-coding-classes.html", "coding-camp.html", "teen-coding-classes.html",
-    "teen-coding-camp.html", "class-details.html", "camp-details.html",
-    "child-safety.html", "privacy.html", "booking-terms.html", "code-of-conduct.html",
-    "javascript-explained.html", "project-code-cloud.html", "pwyw.html",
-    "forms/classes.html", "forms/camps.html",
+    "teen-coding-camp.html", "info/class-details.html", "info/camp-details.html",
+    "info/child-safety.html", "info/privacy.html", "info/booking-terms.html", "info/code-of-conduct.html",
+    "javascript-explained.html", "project-code-cloud.html", "info/pwyw.html",
+    "enrol/classes.html", "enrol/camps.html",
 )
 PAGES = COMPLETE
 VIEWPORTS = (("desktop", 1440, 900), ("mobile", 390, 844))
@@ -44,14 +44,14 @@ def record(report, code, detail, blocking=True):
 
 
 def check_sources(root, report):
-    css_files = ("style.css", "mobile.css")
+    css_files = ("assets/css/style.css", "assets/css/mobile.css")
     css = "\n".join((root / name).read_text(encoding="utf-8") for name in css_files)
     # A no-JavaScript visit displays the hero image declared in HTML.
     # Keep the tall rocket out of every static hero fallback.
     for file in root.rglob("*.html"):
         document = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
         hero = document.select_one(".hero img.mascots")
-        if hero and "hero-mascots/cardboard-rocket.webp" in hero.get("src", ""):
+        if hero and "mascots/hero/rocket-control.webp" in hero.get("src", ""):
             record(report, "nojs_rocket_hero_fallback", file.name)
 
     cache_versions = {}
@@ -82,7 +82,7 @@ def check_sources(root, report):
                 record(report, "inline_css", name)
             hero = document.select_one(".hero img.mascots")
             expected = hero.get("src", "") if hero else ""
-            if not hero or not expected.startswith("img/hero-mascots/") or any(
+            if not hero or not expected.startswith("assets/mascots/hero/") or any(
                 hero.get(k) != v for k, v in
                 (("src", expected), ("width", "1240"), ("height", "955"))
             ):
@@ -142,7 +142,7 @@ def check_sources(root, report):
         record(report, "cache_version", cache_versions)
     report["css_version"] = list(next(iter(cache_versions.values()), ()))
     # Check the image bytes, not just the width/height attributes in HTML.
-    for filename in sorted((root / "img" / "hero-mascots").glob("*.webp")):
+    for filename in sorted((root / "assets" / "mascots" / "hero").glob("*.webp")):
         with Image.open(filename) as asset:
             if asset.size != (1240, 955) or "A" not in asset.getbands():
                 record(report, "hero_dimensions_or_alpha",
@@ -184,7 +184,7 @@ def check_sources(root, report):
     if repeated:
         record(report, "css_repeat_review", repeated, blocking=False)
     # CSS usage covers every HTML page and script in this site directory,
-    # including unlinked form previews. Layout/WCAG gates remain scoped to
+    # including unlisted pages. Layout/WCAG gates remain scoped to
     # approved public pages; this is the selector usage inventory only.
     html_classes = set()
     for file in sorted(root.rglob("*.html")):
@@ -192,7 +192,7 @@ def check_sources(root, report):
         for node in doc.select("[class]"):
             html_classes.update(node.get("class", []))
     script_sources = "\n".join(
-        file.read_text(encoding="utf-8") for file in sorted(root.glob("*.js"))
+        file.read_text(encoding="utf-8") for file in sorted((root / "assets" / "js").glob("*.js"))
     )
     css_classes = set()
     for scope, selector in selectors:
@@ -201,18 +201,17 @@ def check_sources(root, report):
     report["css"]["unused_classes"] = unused_classes
     if unused_classes:
         record(report, "unused_css_classes", unused_classes)
-    for name in ("script.js", "forms.js"):
+    for name in ("assets/js/script.js", "assets/js/forms.js"):
         result = subprocess.run(
             ["node", "--check", str(root / name)], capture_output=True, text=True
         )
         if result.returncode:
             record(report, "javascript_syntax", f"{name}: {result.stderr}")
-    # Inventory only; assets are not deleted simply because current pages
-    # don't reference them. Some are intentionally held in the asset catalogue.
+    # Inventory includes dynamic mascot filenames, referenced by the shared script.
     combined = "\n".join((root / name).read_text(encoding="utf-8")
                          for name in PAGES if (root / name).is_file())
-    combined += css + (root / "script.js").read_text(encoding="utf-8")
-    image_files = [p for p in (root / "img").rglob("*") if p.is_file()]
+    combined += css + script_sources
+    image_files = [p for p in (root / "assets").rglob("*") if p.is_file() and p.suffix.lower() in {".webp", ".png", ".jpg", ".svg", ".mp4"}]
     report["asset_inventory"] = {
         "total": len(image_files),
         "not_directly_used": [
@@ -246,7 +245,7 @@ def browser_checks(root, output, report):
         record(report, "axe_not_installed", "axe-core missing: cannot verify WCAG")
     # Read the mobile whitelist from the production script, not a second
     # hard-coded list that could drift out of sync.
-    source = (root / "script.js").read_text(encoding="utf-8")
+    source = (root / "assets/js/script.js").read_text(encoding="utf-8")
     pool_match = re.search(r"const mobileSceneIds = new Set\(\[([\s\S]*?)\]\)", source)
     mobile_scene_ids = set(re.findall(r"'([^']+)'", pool_match.group(1))) if pool_match else set()
     all_scene_ids = set(re.findall(r"\{ id: '([^']+)'", source))

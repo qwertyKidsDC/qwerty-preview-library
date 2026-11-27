@@ -27,7 +27,7 @@
   form.noValidate = true;
   form.setAttribute('aria-label', enrolment ? (isCamp ? 'Camp enrolment preview' : 'Weekly classes enrolment preview') : 'Form design preview');
 
-  // Build one labelled field. Reuse it whenever a form needs the same kind of input.
+  // A function lets us describe a job once and reuse it. Every labelled field starts here.
   function field(id, label, type, required, hint, extra) {
     var tip = hint ? '<p class="form-hint" id="' + id + '-hint">' + hint + '</p>' : '';
     var desc = hint ? ' aria-describedby="' + id + '-hint"' : '';
@@ -148,7 +148,7 @@
       radioChoices('photos','May we use photos or video from the programme for Qwerty communications?',[
         ['yes','Yes'],['no','No']
       ],true) +
-      checkbox('terms-consent','I agree to the <a href="booking-terms.html">Booking Terms</a> and acknowledge the <a href="privacy.html">Privacy Policy</a>.',true) +
+      checkbox('terms-consent','I agree to the <a href="info/booking-terms.html">Booking Terms</a> and acknowledge the <a href="info/privacy.html">Privacy Policy</a>.',true) +
       (isCamp ? '' : referral() + newsletter()) +
       '</div><div class="form-returning-only" hidden>' +
       field('changes','Anything changed since your last booking?','textarea',false) +
@@ -171,12 +171,7 @@
       '<button type="submit" class="form-submit">Review enrolment</button>';
   }
   function interestMarkup() {
-    var teens = kind === 'interest-teens';
-    var classInterest = isClassInterest;
-    var reasons = [['classes','Class times or a waiting list']];
-    if (!classInterest) reasons.push(['camps',teens ? 'Teen camp days' : 'Holiday camp days']);
-    var choices = classInterest ?
-      checkboxGroup('class-preferences','Which class times could work? Choose any that suit.',[
+    return checkboxGroup('class-preferences','Which class times could work? Choose any that suit.',[
         'Tuesday 4:00–5:15 pm — Proposed new class',
         'Friday 4:00–5:15 pm — Proposed new class',
         ...(isTeenClassInterest ? [] : ['Monday 4:45–6:00 pm — Waiting list (full)']),
@@ -184,26 +179,11 @@
         'Another day or time — Explore future demand'
       ],true) +
       '<div data-when="class-preferences-' + (isTeenClassInterest ? 3 : 4) + '" data-match="yes" hidden>' +
-      field('different-time','What day or time could work?','textarea',true) + '</div>' :
-      checkboxGroup('days','Which days suit you?',['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],true) +
-      checkboxGroup('times','Which time windows could work?',[
-        'After school (3:45–5:15 pm)','Late afternoon (5:15–6:45 pm)',
-        'Evening (6:45–8 pm)','Saturday morning (9–11:45 am)',
-        'Saturday afternoon (12–5 pm)','Flexible'
-      ],true);
-    var classQuestions = choices +
+      field('different-time','What day or time could work?','textarea',true) + '</div>' +
       select('likely','If a suitable session opens, would you likely enrol?',[
         ['yes','Yes'],['maybe','Maybe']
-      ],true);
-    return (classInterest ? classQuestions :
-      select('reason','What would you like to hear about?',reasons,true) +
-      '<div data-when="reason" data-match="classes" hidden>' + classQuestions + '</div>') +
-      (classInterest ? '' :
-        '<div data-when="reason" data-match="camps" hidden>' +
-        field('camp-availability','Which upcoming days or dates could work?','textarea',true,
-          'Tell us what dates suit you; no payment or commitment is required.') +
-        field('attendees','How many young people might attend?','number',true,'','min="1" max="20"') + '</div>') +
-      (classInterest ? '<div>' : '<div data-when="reason" data-match="classes" hidden>') +
+      ],true) +
+      '<div>' +
       nameFields('child',isTeenClassInterest ? 'Teen' : 'Child',true) +
       '<div class="form-grid">' +
       select('child-month','Birth month',months.map(function(m,j){return [String(j+1),m];}),true) +
@@ -218,7 +198,7 @@
       referral() + newsletter();
   }
   function simpleMarkup() {
-    if(isClassInterest||kind==='interest-teens'||kind==='interest')return interestMarkup();
+    if(isClassInterest)return interestMarkup();
     if(kind==='adult')return select('adult-interest','What are you interested in?',[
         ['mentoring','One-to-one mentoring'],['groups','Group workshops'],
         ['both','Both mentoring and group workshops']
@@ -231,9 +211,6 @@
       ],false) +
       field('project','What would you like to make or explore?','textarea',true) +
       field('timing','Preferred days or timeframe','text',false) + referral() + newsletter();
-    if(kind==='newsletter') return nameFields('first','Your',true) +
-      field('email','Email','email',true) +
-      checkbox('subscribe-consent','Please subscribe me to Qwerty Labs updates. I can unsubscribe at any time.',true);
     return nameFields('first','Your',true) +
       field('phone','Mobile number','tel',true,'','autocomplete="tel" inputmode="tel"') +
       field('message','What would you like to know?','textarea',true);
@@ -268,7 +245,8 @@
     el.hidden=!show;
     Array.prototype.forEach.call(el.querySelectorAll('input,select,textarea'),function(input){input.disabled=!show;});
   }
-  // Show only the questions that apply to the family. Hidden fields are disabled.
+  // State is what the program knows right now. When an answer changes, update the visible questions.
+  // Hidden fields are disabled so they are not accidentally included in validation.
   function sync(){
     Array.prototype.forEach.call(form.querySelectorAll('.form-new-family'),function(el){
       toggle(el,!isReturning());
@@ -338,8 +316,7 @@
         } else if (bad.type === 'number' && (bad.validity.rangeUnderflow || bad.validity.rangeOverflow)) {
           message = 'Please enter a number between ' + bad.min + ' and ' + bad.max + '.';
         } else if (bad.type === 'checkbox') {
-          message = bad.id === 'subscribe-consent' ? 'Please confirm you would like to subscribe.' :
-            bad.id === 'terms-consent' ? 'Please confirm you agree to the Booking Terms and acknowledge the Privacy Policy.' :
+          message = bad.id === 'terms-consent' ? 'Please confirm you agree to the Booking Terms and acknowledge the Privacy Policy.' :
             bad.id === 'medical-consent' ? 'Please confirm the emergency medical permission.' : 'Please tick the highlighted box.';
         } else if (bad.id === 'class-time') {
           message = 'Please choose your preferred class.';
@@ -612,17 +589,14 @@
   function simpleMessage(){
     var name=firstName('#first-first');
     if(kind==='adult')return adultMessage(name);
-    if(kind==='contact' || kind==='pwyw'){
+    if(kind==='contact'){
       var phone=app.querySelector('#phone');
       var message=app.querySelector('#message');
       if(name && message && message.value.trim())return 'Thanks, '+name+'! Looking good from here.';
       if(name && phone && phone.value.trim())return 'What’s on your mind, '+name+'? We’re listening.';
       return name?'Hi '+name+'! Lovely to meet you.':'Hello! Who are we chatting with?';
     }
-    if(kind==='newsletter')return name?'Thanks, '+name+'! Where shall we send our news?':'Hello! Who’s joining our mailing list?';
-    if(kind.indexOf('interest')===0){
-      var reason=app.querySelector('#reason');
-      var purpose=isClassInterest?'classes':reason?reason.value:'';
+    if(isClassInterest){
       var child=firstName('#child-first');
       var email=app.querySelector('#email');
       var phone=app.querySelector('#phone');
@@ -646,18 +620,16 @@
       if(child && year && year.value)return 'A little about '+child+'’s coding experience next.';
       if(child)return 'Ooh, '+child+' might be joining us!';
       if(isClassInterest && likely && likely.value)return 'Good to know! Who’s coming to make things?';
-      if(purpose==='classes' && preferences.length>1)
+      if(preferences.length>1)
         return 'A few possibilities! That helps us plan new groups.';
-      if(purpose==='classes' && preferences.length===1){
+      if(preferences.length===1){
         var chosen=preferences[0].closest('.form-choice').textContent;
         if(chosen.indexOf('Tuesday')!==-1)return 'Tuesday could be interesting. A new group, perhaps?';
         if(chosen.indexOf('Friday')!==-1)return 'Friday making? Good to know.';
         if(chosen.indexOf('Waiting list')!==-1)return 'That group is full. We’ll keep your interest in mind.';
         return 'Another time? Tell us what would work.';
       }
-      if(purpose==='classes')return 'Which class times could work for you?';
-      if(purpose==='camps')return 'More making in the holidays. We like that.';
-      return 'What would you like to hear about?';
+      return 'Which class times could work for you?';
     }
     return 'Something good is happening.';
   }

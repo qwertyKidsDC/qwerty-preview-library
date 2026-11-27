@@ -20,7 +20,7 @@ def main():
                 errors, posts = [], []
                 page.on("pageerror", lambda error: errors.append(str(error)))
                 page.on("request", lambda request: posts.append(request.url) if request.method == "POST" else None)
-                response = page.goto(f"{origin}/forms/{filename}.html", wait_until="load")
+                response = page.goto(f"{origin}/enrol/{filename}.html", wait_until="load")
                 assert response and response.ok
                 form = page.locator(".studio-form")
                 assert form.count() == 1 and form.is_visible()

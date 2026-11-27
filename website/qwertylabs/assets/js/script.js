@@ -5,9 +5,9 @@
 /* Pick a mascot. Any mascot. Each page load chooses one favicon. */
 (() => {
   const icons = [
-    "img/design/favicon-q.png",
-    "img/design/favicon-d1.png",
-    "img/design/favicon-six-pin.png"
+    "assets/design/favicon-q.png",
+    "assets/design/favicon-d1.png",
+    "assets/design/favicon-six-pin.png"
   ];
   const link = document.querySelector('link[rel="icon"]');
   if (link) link.href = icons[Math.floor(Math.random() * icons.length)];
@@ -39,7 +39,6 @@
   root.classList.add('ql-brand-cursor');
 })();
 
-/* Homepage holler mascot — this runs before the layout is measured. */
 /* Holler mascots: one announcement, one link, one expiry.
    The same element moves between the inline slot and its own desktop rail.
    Nothing floats over the site, and there is no scroll animation. */
@@ -62,7 +61,7 @@
     const destination = useRail ? rail : inline;
     if (note.parentElement !== destination) destination.appendChild(note);
   };
-  // This script runs before script.js, which reads the rail state when scaling.
+  // Update the announcement before the next section measures the layout.
   update();
   window.addEventListener('resize', update);
   window.addEventListener('pageshow', () => {
@@ -72,7 +71,6 @@
 })();
 
 /* Shared page behaviour */
-"use strict";
 
 /* Scale the 986px desktop composition without changing its artwork.
    Responsive CSS takes over when the viewport is 760px or narrower. */
@@ -107,8 +105,8 @@
     '<button class="navigation-menu-label" type="button" aria-expanded="false" aria-controls="nav-enrol">Enrol</button>' +
     '<button class="navigation-toggle" type="button" aria-label="Show Enrol pages" aria-expanded="false" aria-controls="nav-enrol"></button>' +
     '<div class="navigation-submenu" id="nav-enrol"><div class="navigation-submenu__links">' +
-      '<a href="forms/classes.html">Weekly classes</a>' +
-      '<a href="forms/camps.html">Holiday camps</a>' +
+      '<a href="enrol/classes.html">Weekly classes</a>' +
+      '<a href="enrol/camps.html">Holiday camps</a>' +
     '</div></div>';
   nav.appendChild(enrol);
 
@@ -125,7 +123,7 @@
   const adultInterest = nav.querySelector('.navigation-group--adults .navigation-submenu__links a:last-child');
   if (adultInterest) adultInterest.setAttribute('href', 'adults.html#form-adult');
 
-  if (/\/forms\/(?:classes|camps)\.html$/.test(location.pathname)) {
+  if (/\/enrol\/(?:classes|camps)\.html$/.test(location.pathname)) {
     nav.querySelectorAll('.navigation-current, [aria-current="page"]').forEach(el => {
       el.classList.remove('navigation-current');
       el.removeAttribute('aria-current');
@@ -533,22 +531,22 @@ function chooseMascot(choices, storageKey) {
   if (!hero) return;
 
   const allScenes = [
-    { id: 'robot-workshop', src: 'img/hero-mascots/robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
-    { id: 'weather-station', src: 'img/hero-mascots/weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
-    { id: 'control-console', src: 'img/hero-mascots/control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
-    { id: 'submarine-controls', src: 'img/hero-mascots/submarine-controls.webp', alt: 'Q Key, Six Pin and D1 using a cardboard submarine control station' },
-    { id: 'smart-speaker', src: 'img/hero-mascots/smart-speaker.webp', alt: 'Q Key, Six Pin and D1 making a smart speaker' },
-    { id: 'virtual-reality', src: 'img/hero-mascots/virtual-reality.webp', alt: 'Q Key, Six Pin and D1 experimenting with virtual reality' },
-    { id: 'robot-arm', src: 'img/hero-mascots/robot-arm.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robotic arm' },
-    { id: 'drawing-tablet', src: 'img/hero-mascots/drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing on a tablet' },
-    { id: 'colourful-pinball', src: 'img/hero-mascots/colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
-    { id: 'workshop-device', src: 'img/hero-mascots/workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
-    { id: 'satellite-link', src: 'img/hero-mascots/satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
-    { id: 'rocket-control', src: 'img/hero-mascots/rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
-    { id: 'virtual-reality-headset', src: 'img/hero-mascots/virtual-reality-headset.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
-    { id: 'solar-rover', src: 'img/hero-mascots/solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
-    { id: 'drawing-plotter', src: 'img/hero-mascots/drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
-    { id: 'keyboard-synthesiser', src: 'img/hero-mascots/keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
+    { id: 'robot-workshop', src: 'assets/mascots/hero/robot-workshop.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robot in their workshop' },
+    { id: 'weather-station', src: 'assets/mascots/hero/weather-station.webp', alt: 'Q Key, Six Pin and D1 testing a handmade weather station' },
+    { id: 'control-console', src: 'assets/mascots/hero/control-console.webp', alt: 'Q Key, Six Pin and D1 operating a cardboard control console' },
+    { id: 'submarine-controls', src: 'assets/mascots/hero/submarine-controls.webp', alt: 'Q Key, Six Pin and D1 using a cardboard submarine control station' },
+    { id: 'smart-speaker', src: 'assets/mascots/hero/smart-speaker.webp', alt: 'Q Key, Six Pin and D1 making a smart speaker' },
+    { id: 'virtual-reality', src: 'assets/mascots/hero/virtual-reality.webp', alt: 'Q Key, Six Pin and D1 experimenting with virtual reality' },
+    { id: 'robot-arm', src: 'assets/mascots/hero/robot-arm.webp', alt: 'Q Key, Six Pin and D1 building a cardboard robotic arm' },
+    { id: 'drawing-tablet', src: 'assets/mascots/hero/drawing-tablet.webp', alt: 'Q Key, Six Pin and D1 drawing on a tablet' },
+    { id: 'colourful-pinball', src: 'assets/mascots/hero/colourful-pinball.webp', alt: 'Q Key, Six Pin and D1 playing a colourful pinball game' },
+    { id: 'workshop-device', src: 'assets/mascots/hero/workshop-device.webp', alt: 'Q Key, Six Pin and D1 making an electronic workshop device' },
+    { id: 'satellite-link', src: 'assets/mascots/hero/satellite-link.webp', alt: 'Q Key, Six Pin and D1 testing a satellite link' },
+    { id: 'rocket-control', src: 'assets/mascots/hero/rocket-control.webp', alt: 'Q Key, Six Pin and D1 using a rocket control console' },
+    { id: 'virtual-reality-headset', src: 'assets/mascots/hero/virtual-reality-headset.webp', alt: 'Q Key, Six Pin and D1 trying a virtual reality headset' },
+    { id: 'solar-rover', src: 'assets/mascots/hero/solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
+    { id: 'drawing-plotter', src: 'assets/mascots/hero/drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
+    { id: 'keyboard-synthesiser', src: 'assets/mascots/hero/keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
   ];
   // Desktop has the full curated rotation; mobile uses the medium-sized subset.
   const mobileSceneIds = new Set([
@@ -615,6 +613,6 @@ function chooseMascot(choices, storageKey) {
   mascot.addEventListener('error', () => {
     mascot.src = fallback;
   }, { once: true });
-  mascot.src = 'img/footer-mascots/' + selected + '.svg';
+  mascot.src = 'assets/mascots/footer/' + selected + '.svg';
 })();
 

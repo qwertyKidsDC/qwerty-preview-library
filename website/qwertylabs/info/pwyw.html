@@ -4,26 +4,28 @@
     <base href="../">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <!-- Staging only: remove noindex/nofollow before public launch. -->
+    <!-- Intentional: this direct-link page is not included in public navigation or search indexing. -->
     <meta name="robots" content="noindex,nofollow">
     <meta name="theme-color" content="#020020">
-    <link rel="icon" type="image/png" href="img/design/favicon-d1.png">
-    <meta name="description" content="Preview the Qwerty Labs holiday camp enrolment form for children and teens aged 7–17.">
-    <title>Holiday camp enrolment — Qwerty Labs (design preview)</title>
-    <!-- Approved typefaces and the single site stylesheet. -->
+    <link rel="icon" type="image/png" href="assets/design/favicon-d1.png">
+    <meta
+      name="description"
+      content="Pay What You Want places at Qwerty Labs: privately arranged, flexible-fee places for classes and camps when fees are a barrier."
+    >
+    <title>Pay What You Want — Qwerty Labs</title>
+    <!-- Shared typefaces and stylesheets. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="mobile.css" media="(max-width: 760px)">
-    <script src="script.js" defer></script>
-    <script src="forms.js" defer></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 760px)">
+    <script src="assets/js/script.js" defer></script>
   </head>
-  <body class="form-page" data-form="camps">
-    <a class="skip" href="forms/camps.html#main">Skip to content</a>
+  <body>
+    <a class="skip" href="info/pwyw.html#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
       <div aria-hidden="true" class="ambient"></div>
@@ -40,7 +42,7 @@
         <div class="cardboard-page" id="top">
           <header class="header">
             <a href="index.html" class="logo" aria-label="Qwerty Labs home">
-              <img src="img/design/wordmark.svg" alt="Qwerty Labs" width="440" height="101">
+              <img src="assets/design/wordmark.svg" alt="Qwerty Labs" width="440" height="101">
             </a>
             <nav class="navigation" aria-label="Main navigation">
               <div class="navigation-group">
@@ -76,7 +78,7 @@
                 </div>
               </div>
               <div class="navigation-group navigation-group--lab">
-                <a href="thelab.html" class="navigation-current">The Lab</a>
+                <a href="thelab.html">The Lab</a>
                 <button class="navigation-toggle" type="button" aria-label="Show The Lab pages" aria-expanded="false" aria-controls="nav-lab"></button>
                 <div class="navigation-submenu" id="nav-lab">
                   <div class="navigation-submenu__links">
@@ -92,36 +94,66 @@
           </header>
 
           <main id="main">
-            <section class="hero" aria-label="Holiday camp enrolment">
+            <section class="hero" aria-label="Pay What You Want">
               <div class="hero-copy">
                 <div class="hero-paper">
-                  <img class="paper-bg" src="img/design/hero-paper.svg" alt="" fetchpriority="high">
-                  <h1><span class="hero-title">camps</span><span class="hero-tagline">holiday making</span></h1>
+                  <img class="paper-bg" src="assets/design/hero-paper.svg" alt="" fetchpriority="high">
+                  <h1><span class="hero-title">PWYW</span><span class="hero-tagline">pay what you want</span></h1>
                 </div>
               </div>
-              <nav class="hero-description" aria-label="Programme links">
-                <span>For curious young makers aged 7–17. Holiday camps for <a class="scene-link" href="coding-camp.html">kids</a> and <a class="scene-link" href="teen-coding-camp.html">teens</a>.</span>
-              </nav>
-              <img class="mascots" src="img/hero-mascots/led-electronics.webp" width="1240" height="955" alt="Q Key, Six Pin and D1 making electronics together" fetchpriority="high">
+              <img class="mascots" src="assets/mascots/hero/led-electronics.webp" alt="Q Key, D1 and Six Pin building an LED electronics project on a cardboard workbench" width="1240" height="955" fetchpriority="high">
             </section>
-            <section class="subpage-board form-board" id="enrol" aria-label="Holiday camp enrolment design preview">
-              <section class="subpage-section subpage-section--natural-height form-board__section" aria-labelledby="enrol-heading">
-                <img class="subpage-section__tape" src="img/design/footer-blue-tape.svg" alt="">
-                <h2 class="subpage-section__heading" id="enrol-heading">Camp enrolment</h2>
-                <div class="form-board__grid">
-                  <div class="subpage-section__copy form-board__form-column">
-                    <div id="form-status" class="form-hint" role="status" aria-live="polite"></div>
-                    <div data-form-app data-form="camps"><noscript><p class="form-alert">This preview requires JavaScript. For current bookings, use the existing QwertyKids form linked from the programme overview.</p></noscript></div>
-                    <p class="form-board__other">Want the programme details? Read about holiday camps for <a href="coding-camp.html">kids</a> and <a href="teen-coding-camp.html">teens</a>.</p>
-                  </div><aside class="form-note" data-form-mascot aria-label="A note from the Lab">
-                    <div class="form-note__sticky">
-                      <figure class="form-note__paper">
-                        <img class="form-note__paper-bg" src="img/design/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
-                        <blockquote class="form-note__quote"><p class="form-note__saying" data-lab-speech>Hello! Have we met before?</p></blockquote>
-                        <img class="form-note__mascot" src="img/holler-mascots/trio-cardboard-star.webp" width="360" height="208" loading="eager" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
-                      </figure>
-                    </div>
-                  </aside>
+
+            <section class="subpage-board" id="pay-what-you-want" aria-label="Pay What You Want places">
+              <section class="subpage-section subpage-section--natural-height" aria-labelledby="pwyw-intro-title">
+                <img class="subpage-section__tape" src="assets/design/footer-blue-tape.svg" alt="">
+                <h2 class="subpage-section__heading" id="pwyw-intro-title">ROOM TO MAKE</h2>
+                <div class="subpage-section__copy">
+                  <p class="subpage-lead">If fees make joining difficult, please talk to us.</p>
+                  <p>When places are available, we can sometimes offer a weekly class or camp place for whatever you can afford, even nothing.</p>
+                  <p>No awkward questions.</p>
+                </div>
+                <figure class="subpage-art subpage-art--level">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="assets/mascots/framed/q-merge-camera-square.webp" alt="Q Key with a purple MERGE camera" width="1084" height="1084" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
+
+              <section class="subpage-section subpage-section--plain" aria-labelledby="pwyw-what-title">
+                <h3 class="subpage-section__subheading" id="pwyw-what-title">What you pay</h3>
+                <div class="subpage-section__copy">
+                  <p>Tell us what you can comfortably contribute. It might be the usual fee, a smaller amount, $5 or nothing at all.</p>
+                  <p>There's no application form and no need to prove anything. Once we've agreed on a place, your child gets the same teaching, tools and time as everyone else.</p>
+                </div>
+              </section>
+
+              <section class="subpage-section subpage-section--plain subpage-section--natural-height" aria-labelledby="pwyw-places-title">
+                <div>
+                  <h3 class="subpage-section__subheading" id="pwyw-places-title">Finding a place</h3>
+                  <div class="subpage-section__copy">
+                    <p>Flexible-fee places depend on the spaces we have available. For holiday camps, we may suggest particular days; for weekly classes, particular sessions. We'll work out the options with you before booking.</p>
+                  </div>
+                </div>
+                <figure class="subpage-art subpage-art--landscape">
+                  <span class="subpage-art__media">
+                    <img class="subpage-art__image" src="assets/mascots/framed/six-pin-raspberry-pi-frame.webp" alt="Six Pin with a Raspberry Pi single-board computer" width="971" height="715" loading="lazy" decoding="async">
+                  </span>
+                </figure>
+              </section>
+
+              <section class="subpage-section subpage-section--plain" aria-labelledby="pwyw-later-title">
+                <h3 class="subpage-section__subheading" id="pwyw-later-title">No strings</h3>
+                <div class="subpage-section__copy">
+                  <p>There's nothing to pay back. If you'd like to contribute more later, that's entirely up to you.</p>
+                </div>
+              </section>
+
+              <section class="subpage-section" aria-labelledby="pwyw-talk-title">
+                <img class="subpage-section__tape" src="assets/design/footer-blue-tape.svg" alt="">
+                <h2 class="subpage-section__heading" id="pwyw-talk-title">LET'S TALK</h2>
+                <div class="subpage-section__copy">
+                  <p>If we've sent you this page, just reply to our message. Otherwise, <a href="contact.html">get in touch</a> or text <a href="sms:+61405950850">0405 950 850</a>. Tell us which class or camp you're interested in, and we'll see what we can make work.</p>
                 </div>
               </section>
             </section>
@@ -129,7 +161,7 @@
             <!-- Footer navigation, useful links and studio contact details -->
             <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
               <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
-                <img class="paper-bg" src="img/design/footer-explore-blue.svg" alt="">
+                <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
                   <div>
@@ -146,12 +178,12 @@
                   </div>
                   <div>
                     <strong>Enrol</strong>
-                    <div><a href="forms/classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="forms/camps.html">Holiday camps</a></div>
+                    <div><a href="enrol/classes.html">Weekly classes</a><span aria-hidden="true"> · </span><a href="enrol/camps.html">Holiday camps</a></div>
                   </div>
                 </nav>
               </section>
               <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
-                <img class="paper-bg" src="img/design/footer-find-blue.svg" alt="">
+                <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
                   <div>
@@ -168,7 +200,7 @@
                 </form>
               </section>
               <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
-                <img class="paper-bg" src="img/design/footer-hello-blue.svg" alt="">
+                <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">
                   <address class="footer-card-address">Level 1<br>230 Marrickville Road<br>Marrickville NSW 2204</address>
@@ -187,23 +219,23 @@
             <section class="country-ack" aria-labelledby="country-ack-heading">
               <h2 id="country-ack-heading">Acknowledgement of Country</h2>
               <p>We create and learn on the unceded lands of the Gadigal and Wangal peoples of the Eora Nation. Led by our Kamilaroi founder, we pay our respects to Elders past and present and honour the continuing knowledge, cultures and creativity of First Nations peoples.</p>
-              <img class="country-ack__mascot" src="img/footer-mascots/six-pin-d1-cardboard-wagon.webp" alt="" width="245" height="160" loading="lazy" decoding="async">
+              <img class="country-ack__mascot" src="assets/mascots/footer/six-pin-d1-cardboard-wagon.webp" alt="" width="245" height="160" loading="lazy" decoding="async">
             </section>
 
             <!-- The studio signature follows the left guide; policies follow the right. -->
             <div class="footer-legal">
               <div class="footer-legal-signature">
                 <span class="footer-copyright">© <span id="copyright-year">2026</span></span>
-                <a class="footer-wordmark" href="forms/camps.html#top" aria-label="Qwerty Labs — back to top">
-                  <img src="img/design/wordmark.svg" alt="" width="2013" height="460">
+                <a class="footer-wordmark" href="info/pwyw.html#top" aria-label="Qwerty Labs — back to top">
+                  <img src="assets/design/wordmark.svg" alt="" width="2013" height="460">
                 </a>
                 <span class="footer-legal-separator" aria-hidden="true">|</span>
                 <span class="footer-founder-credit">Our founder built this website. She couldn't help herself.</span>
               </div>
               <nav class="footer-legal-links" aria-label="Policies">
-                <a href="child-safety.html">Child Safety</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="booking-terms.html">Booking Terms</a>
+                <a href="info/child-safety.html">Child Safety</a>
+                <a href="info/privacy.html">Privacy</a>
+                <a href="info/booking-terms.html">Booking Terms</a>
               </nav>
             </div>
           </footer>

@@ -1,18 +1,17 @@
 # Qwerty Labs website
 
-Static HTML, CSS and JavaScript. The deployment root is `website/qwertylabs/`, which contains only website runtime files.
+The deployment root is `website/qwertylabs/`. It contains only the static site.
 
-- Top-level HTML: content pages.
-- forms/: standalone enrolment pages. Enquiry and interest forms remain embedded in the relevant content pages.
-- img/: photographs; design/, hero-mascots/, framed-mascots/, holler-mascots/ and footer-mascots/ group artwork by purpose.
-- media/: video files.
-- style.css: shared design and layout. mobile.css: responsive adjustments.
-- script.js: shared site behaviour, favicons, hero/footer rotations and the homepage holler mascot. forms.js: form fields, validation and holler mascots.
+- Root HTML pages: main content and programmes.
+- `enrol/`: one classes form and one camps form.
+- `info/`: practical information, policies and the unlisted PWYW page.
+- `assets/css/`: shared style.css and mobile.css.
+- `assets/js/`: shared script.js and forms.js.
+- `assets/photos/`, `assets/video/`, `assets/design/`, `assets/mascots/`: media and artwork.
+- `robots.txt` and `sitemap.xml`: search-engine discovery at the site root.
 
-Form pages use a base URL pointing to the site root so shared relative URLs work both on GitHub Pages and on a production domain. There is one class enrolment page and one camp enrolment page. Camp age groups determine the displayed hours and eligibility for extended hours, including for mixed-age siblings.
+Nested HTML pages use `<base href="../">` to share site-root relative links. CSS image URLs are relative to the CSS file itself. JavaScript-generated URLs resolve against the document base. Keep filenames lowercase and descriptive.
 
 ## Before deployment
 
-The forms currently validate locally only. No backend, actual enrolment, notification or payment submission exists. Connect and test a secure submission workflow before accepting personal data. Staging noindex remains until public launch. Keep the privately shared PWYW page unlisted. Check all asset paths, desktop/mobile visuals, keyboard accessibility and forms; do not deploy the cleanup without browser checks. The development checks live alongside this document, outside the deployment directory.
-
-Git history preserves removed prototypes and unused artwork. No version suffixes are required in public asset URLs.
+Forms validate locally only. Connect and test a secure submission workflow before accepting personal data or payment. Staging noindex remains until launch. Keep PWYW unlisted; its path is not an access-control mechanism. Configure the legacy redirects listed in `redirects.md` on the production server, rather than keeping obsolete HTML pages. Run the source and browser checks in this maintenance directory; review desktop and mobile screenshots. Git history preserves removed files.

@@ -38,15 +38,14 @@ jobs:
           npx vnu --errors-only \
             website/qwertylabs/index.html \
             website/qwertylabs/kids.html \
-            website/qwertylabs/tools.html \
             website/qwertylabs/a-kids-pov.html \
             website/qwertylabs/kids-coding-classes.html \
-            website/qwertylabs/forms/classes.html \
-            website/qwertylabs/forms/camps.html \
+            website/qwertylabs/enrol/classes.html \
+            website/qwertylabs/enrol/camps.html \
             website/qwertylabs/coding-camp.html \
-            website/qwertylabs/child-safety.html \
-            website/qwertylabs/privacy.html \
-            website/qwertylabs/booking-terms.html
+            website/qwertylabs/info/child-safety.html \
+            website/qwertylabs/info/privacy.html \
+            website/qwertylabs/info/booking-terms.html
       - name: Audit assets, CSS, JavaScript, desktop, mobile and WCAG
         if: always()
         run: |

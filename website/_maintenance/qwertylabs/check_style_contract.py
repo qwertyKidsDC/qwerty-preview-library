@@ -9,7 +9,7 @@ import re
 import sys
 
 SITE = Path(__file__).resolve().parents[2] / "qwertylabs"
-STYLES = ("style.css", "mobile.css")
+STYLES = ("assets/css/style.css", "assets/css/mobile.css")
 VALID_BRANDS = {"lab", "kids", "adults", "teens"}
 errors = []
 
@@ -19,8 +19,7 @@ def issue(page, message):
 
 
 def find_html_pages():
-    # The older enrolment-preview.html is a standalone design experiment;
-    # shared pages declare their layout explicitly.
+    # Shared pages declare their layout explicitly.
     return {
         p.relative_to(SITE).as_posix(): p.read_text(encoding="utf-8")
         for p in sorted(SITE.rglob("*.html"))
@@ -88,7 +87,7 @@ def main():
         if re.search(r"<style\b|\sstyle\s*=", html, re.I):
             issue(filename, "inline CSS is forbidden on shared pages")
 
-        urls = re.findall(r'href="((?:style|mobile)\.css(?:\?[^"]*)?)"', html)
+        urls = re.findall(r'href="(assets/css/(?:style|mobile)\.css(?:\?[^"]*)?)"', html)
         if urls != list(STYLES):
             issue(filename, "must load style.css then mobile.css, exactly once, without version queries")
 
@@ -130,9 +129,9 @@ def main():
                if not re.fullmatch(r"[0-9A-Fa-f]{3,8}", token)]
         if ids:
             issue(name, f"page-specific CSS ID selectors: {sorted(set(ids))}")
-    mobile = (SITE / "mobile.css").read_text(encoding="utf-8")
+    mobile = (SITE / "assets/css/mobile.css").read_text(encoding="utf-8")
     if len(re.findall(r"@media\s*\(max-width:\s*760px\)", mobile)) != 1:
-        issue("mobile.css", "use one consolidated 760px media block")
+        issue("assets/css/mobile.css", "use one consolidated 760px media block")
 
     if errors:
         print("Style contract FAILED")
