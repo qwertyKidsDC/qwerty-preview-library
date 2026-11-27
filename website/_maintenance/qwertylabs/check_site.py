@@ -50,7 +50,7 @@ def check_sources(root, report):
     # Keep the tall rocket out of every static hero fallback.
     for file in root.rglob("*.html"):
         document = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
-        hero = document.select_one(".hero img.mascots")
+        hero = document.select_one(".hero img.hero-mascots")
         if hero and "mascots/hero/rocket-control.webp" in hero.get("src", ""):
             record(report, "nojs_rocket_hero_fallback", file.name)
 
@@ -80,7 +80,7 @@ def check_sources(root, report):
                 record(report, "layout", name)
             if document.select("[style],style"):
                 record(report, "inline_css", name)
-            hero = document.select_one(".hero img.mascots")
+            hero = document.select_one(".hero img.hero-mascots")
             expected = hero.get("src", "") if hero else ""
             if not hero or not expected.startswith("assets/mascots/hero/") or any(
                 hero.get(k) != v for k, v in
@@ -128,7 +128,7 @@ def check_sources(root, report):
     # page, while desktop CSS may still place the photo in the left column.
     for file in root.rglob("*.html"):
         doc = BeautifulSoup(file.read_text(encoding="utf-8"), "html.parser")
-        for section in doc.select(".projects--subpage"):
+        for section in doc.select(".featured-section--subpage"):
             children = [child for child in section.children if getattr(child, "name", None)]
             roles = [
                 "intro" if "subpage-intro" in child.get("class", []) else
@@ -287,7 +287,7 @@ def browser_checks(root, output, report):
                            blocking=False)
                 if mode == "desktop":
                     evidence = page.evaluate("""() => {
-                        const img = document.querySelector('.mascots');
+                        const img = document.querySelector('.hero-mascots');
                         const next = document.querySelector('.hero + section');
                         if (!img || !next) return null;
                         const a=img.getBoundingClientRect();
@@ -297,19 +297,19 @@ def browser_checks(root, output, report):
                     }""")
                     measurements.append({"page": name, "hero": evidence})
                 if name == "index.html":
-                    current = page.locator(".hero img.mascots").get_attribute("data-hero-scene")
+                    current = page.locator(".hero img.hero-mascots").get_attribute("data-hero-scene")
                     expected_pool = mobile_scene_ids if mode == "mobile" else all_scene_ids
                     if current not in expected_pool:
                         record(report, "hero_scene_viewport_pool", f"{mode}: {current}")
                 if name == "index.html" and mode == "mobile":
                     layout = page.evaluate("""() => {
                         const intro = document.querySelector('.hero-description');
-                        const art = document.querySelector('.hero .mascots');
-                        const cards = document.querySelector('.feature-cards');
+                        const art = document.querySelector('.hero .hero-mascots');
+                        const cards = document.querySelector('.audience-cards');
                         const blurb = document.querySelector('.footer-scene__content > p');
                         const photo = document.querySelector('.footer-scene__photo');
                         const fonts = [
-                            '.feature h2', '.project-label-text',
+                            '.audience-card h2', '.project-label-text',
                             '.footer-scene__tape-text'
                         ].map(sel => getComputedStyle(
                             document.querySelector(sel)).fontSize);
@@ -350,13 +350,13 @@ def browser_checks(root, output, report):
                     }""")
                     if headings[0] != headings[1]:
                         record(report, "desktop_project_heading_style", headings)
-                if page.locator(".projects--subpage .subpage-intro").count() and page.locator(
-                    ".projects--subpage .photo-collage"
+                if page.locator(".featured-section--subpage .subpage-intro").count() and page.locator(
+                    ".featured-section--subpage .photo-collage"
                 ).count():
                     geometry = page.evaluate("""() => {
-                        const intro = document.querySelector('.projects--subpage .subpage-intro')
+                        const intro = document.querySelector('.featured-section--subpage .subpage-intro')
                             .getBoundingClientRect();
-                        const photo = document.querySelector('.projects--subpage .photo-collage')
+                        const photo = document.querySelector('.featured-section--subpage .photo-collage')
                             .getBoundingClientRect();
                         return {
                             intro_bottom: intro.bottom,
@@ -391,7 +391,7 @@ def browser_checks(root, output, report):
                 keyboard = page.evaluate("""() => {
                     const el = document.activeElement;
                     const css = getComputedStyle(el);
-                    return {skip:el.classList.contains('skip'),
+                    return {skip:el.classList.contains('skip-to-content'),
                             outline:css.outlineStyle};
                 }""")
                 if not keyboard["skip"] or keyboard["outline"] == "none":

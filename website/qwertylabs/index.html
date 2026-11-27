@@ -32,18 +32,18 @@
   </head>
   <body>
     <!-- Oooh, you're viewing my insides! -->
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
@@ -111,7 +111,7 @@
               </div>
               <p class="hero-description">We make things with technology and teach people of all ages to do the same.</p>
               <img
-                class="mascots"
+                class="hero-mascots"
                 src="assets/mascots/hero/led-electronics.webp"
                 alt="Q Key, D1 and Six Pin making an LED electronics project together on a cardboard platform"
                 width="1240" height="955" fetchpriority="high"
@@ -119,24 +119,24 @@
             </section>
 
             <!-- Audience card headings link to their respective pages. -->
-            <section class="feature-cards" aria-label="Explore Qwerty Labs">
-              <div class="feature">
+            <section class="audience-cards" aria-label="Explore Qwerty Labs">
+              <div class="audience-card">
                 <img class="paper-bg" src="assets/design/kids-green-panel.svg" alt="">
                 <h2><a href="kids.html">Kids</a></h2>
                 <p>Weekly coding classes and holiday camps for ages 7–12.</p>
-                <a class="feature-arrow" href="kids.html" aria-label="Go to Kids"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="kids.html" aria-label="Go to Kids"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
-              <div class="feature">
+              <div class="audience-card">
                 <img class="paper-bg" src="assets/design/adults-pink-panel.svg" alt="">
                 <h2><a href="adults.html">Adults</a></h2>
                 <p>Practical mentoring and group workshops for people who want to make things.</p>
-                <a class="feature-arrow" href="adults.html" aria-label="Go to Adults"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="adults.html" aria-label="Go to Adults"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
-              <div class="feature">
+              <div class="audience-card">
                 <img class="paper-bg" src="assets/design/teens-blue-panel.svg" alt="">
                 <h2><a href="teens.html">Teens</a></h2>
                 <p>Weekly classes and holiday camps for ages 13–17, with more independence.</p>
-                <a class="feature-arrow" href="teens.html" aria-label="Go to Teens"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
+                <a class="audience-card-arrow" href="teens.html" aria-label="Go to Teens"><svg aria-hidden="true" viewBox="0 0 76 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c19-2 35 2 60-2M50 5l16 9-14 11"/></svg></a>
               </div>
             </section>
 
@@ -175,18 +175,18 @@
             </section>
 
             <!-- Meet the Lab project-style panel -->
-            <section class="projects meet-the-lab" id="meet-the-lab" aria-labelledby="meet-lab-title">
+            <section class="featured-section meet-the-lab" id="meet-the-lab" aria-labelledby="meet-lab-title">
               <img class="project-panel" src="assets/design/project-backboard.svg" alt="">
               <div class="project-copy">
                 <img class="project-label" src="assets/design/footer-blue-tape.svg" alt="">
                 <h2 class="project-label-text" id="meet-lab-title">MEET THE LAB</h2>
                 <p>We've been making things with people in Marrickville since 2016. Around 1,500 young makers have come through our doors. We still squeal when the stuff we build does things.</p>
                 <img class="lab-signoff" src="assets/design/ctrl-alt-create-cardboard.webp" alt="ctrl + alt + create" width="320" height="90" loading="lazy" decoding="async">
-                <a class="scene-link" href="thelab.html">About the Lab</a>
+                <a class="intro-link" href="thelab.html">About the Lab</a>
               </div>
               <figure class="photo-collage">
                 <img
-                  class="project-photo"
+                  class="featured-photo"
                   loading="lazy"
                   decoding="async"
                   src="assets/photos/qwerty-labs-kids-robotics-coding.jpg"
@@ -194,13 +194,13 @@
                   height="394"
                   alt="Two young makers with a light-up robot and block-based coding on their computers at Qwerty Labs"
                 >
-                <img class="project-frame" src="assets/design/project-photo-frame.svg" alt="">
+                <img class="featured-photo-frame" src="assets/design/project-photo-frame.svg" alt="">
               </figure>
             </section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
                 <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
@@ -222,7 +222,7 @@
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
                 <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
@@ -239,7 +239,7 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">

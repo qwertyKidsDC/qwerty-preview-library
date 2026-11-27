@@ -28,18 +28,18 @@
     <script src="assets/js/script.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="info/camp-details.html#main">Skip to content</a>
+    <a class="skip-to-content" href="info/camp-details.html#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
@@ -97,9 +97,9 @@
           </header>
 
           <main id="main">
-            <section class="hero" aria-label="Holiday Camp Details"><div class="hero-copy"><div class="hero-paper"><img class="paper-bg" src="assets/design/hero-paper.svg" alt="" fetchpriority="high"><h1><span class="hero-title">camp details</span><span class="hero-tagline">ready for camp</span></h1></div></div><img class="mascots" src="assets/mascots/hero/led-electronics.webp" alt="Q Key, D1 and Six Pin building an LED electronics project on a cardboard workbench" width="1240" height="955" fetchpriority="high"></section>
-            <section class="projects projects--subpage" id="camp-welcome" aria-labelledby="camp-welcome-title"><div class="subpage-intro"><img class="subpage-intro__art" src="assets/design/kids-blue-panel.svg" alt=""><div class="subpage-intro__copy"><h2 id="camp-welcome-title">BEFORE CAMP</h2><p>A whole day to make things. Here's the practical stuff so everything runs smoothly.</p><p>Your confirmation email has the days you've booked and any individual arrangements. This page covers what stays the same.</p></div></div>
-              <figure class="photo-collage"><img class="project-photo" loading="lazy" decoding="async" src="assets/photos/qwerty-holiday-camp-robotics.webp" alt="Two young makers showing a brightly illuminated robot at a Qwerty workshop" width="700" height="394"><img class="project-frame" src="assets/design/cardboard-photo-frame.webp" alt=""></figure>
+            <section class="hero" aria-label="Holiday Camp Details"><div class="hero-copy"><div class="hero-paper"><img class="paper-bg" src="assets/design/hero-paper.svg" alt="" fetchpriority="high"><h1><span class="hero-title">camp details</span><span class="hero-tagline">ready for camp</span></h1></div></div><img class="hero-mascots" src="assets/mascots/hero/led-electronics.webp" alt="Q Key, D1 and Six Pin building an LED electronics project on a cardboard workbench" width="1240" height="955" fetchpriority="high"></section>
+            <section class="featured-section featured-section--subpage" id="camp-welcome" aria-labelledby="camp-welcome-title"><div class="subpage-intro"><img class="subpage-intro__art" src="assets/design/kids-blue-panel.svg" alt=""><div class="subpage-intro__copy"><h2 id="camp-welcome-title">BEFORE CAMP</h2><p>A whole day to make things. Here's the practical stuff so everything runs smoothly.</p><p>Your confirmation email has the days you've booked and any individual arrangements. This page covers what stays the same.</p></div></div>
+              <figure class="photo-collage"><img class="featured-photo" loading="lazy" decoding="async" src="assets/photos/qwerty-holiday-camp-robotics.webp" alt="Two young makers showing a brightly illuminated robot at a Qwerty workshop" width="700" height="394"><img class="featured-photo-frame" src="assets/design/cardboard-photo-frame.webp" alt=""></figure>
             </section>
             <section class="subpage-board" id="camp-information" aria-label="Holiday Camp Details"><!-- Shared editorial sections and existing framed mascot assets. --><section class="subpage-section subpage-section--natural-height" id="camp-times" aria-labelledby="camp-times-title"><img class="subpage-section__tape" src="assets/design/footer-blue-tape.svg" alt=""><h2 class="subpage-section__heading" id="camp-times-title">CAMP HOURS</h2><div class="subpage-section__copy"><p><strong>Standard camp:</strong> 9:30 am–3:30 pm. Drop-off is from 9:00 am and pick-up is by 4:00 pm.</p><p><strong>Optional extended hours:</strong> 8:00 am–5:30 pm by arrangement. Please text by 9:00 pm the night before if you need early drop-off. Let us know as soon as possible about a late pick-up.</p><p><strong>Teen camp:</strong> 11:00 am–5:00 pm. Arrive from 10:00 am.</p></div><figure class="subpage-art subpage-art--counterclockwise"><span class="subpage-art__media"><img class="subpage-art__image" src="assets/mascots/framed/six-pin-pattern-cube.webp" alt="Six Pin with a patterned cube" width="971" height="715" loading="lazy" decoding="async"></span></figure></section>
               <section class="subpage-section subpage-section--plain" id="what-to-bring" aria-labelledby="what-to-bring-title"><h3 class="subpage-section__subheading" id="what-to-bring-title">What to bring</h3><div class="subpage-section__copy"><ul><li>Packed lunch and recess</li><li>Extra snack if staying for extended hours</li><li>Hat and raincoat for lunchtime outings</li><li>Medical Action Plan and any necessary medication, if applicable</li></ul><p>All technology, including laptops, robots and other equipment, is provided. No need to bring a computer.</p></div></section>
@@ -114,8 +114,8 @@
               <section class="subpage-section subpage-section--plain" id="before-day-one" aria-labelledby="before-day-one-title"><h3 class="subpage-section__subheading" id="before-day-one-title">Before day one</h3><div class="subpage-section__copy"><p>Before camp, please read our <a href="info/child-safety.html#session-and-online-conduct">Session and Online Conduct</a> with your child.</p><p>We welcome beginners and experienced makers. If there are support needs, triggers or strategies that help your child enjoy the day, please tell us before they arrive.</p><p>Questions or changes? Text <a href="sms:+61405950850">0405 950 850</a>. Our <a href="info/child-safety.html">Child Safety policy</a> is also available to read.</p></div><figure class="subpage-art subpage-art--landscape"><span class="subpage-art__media"><img class="subpage-art__image" src="assets/mascots/framed/six-pin-bbc-microbit-frame.webp" alt="Six Pin with a glowing BBC micro:bit" width="971" height="715" loading="lazy" decoding="async"></span></figure></section></section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
                 <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
@@ -137,7 +137,7 @@
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
                 <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
@@ -154,7 +154,7 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">

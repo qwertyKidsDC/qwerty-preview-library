@@ -28,18 +28,18 @@
     <script src="assets/js/script.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
@@ -106,10 +106,10 @@
                 </div>
               </div>
               <nav class="hero-description" aria-label="Book a Kids programme">
-                <span>Make games, robots and more in our <a class="scene-link" href="kids-coding-classes.html">weekly classes</a> and <a class="scene-link" href="coding-camp.html">holiday camps</a>.</span>
+                <span>Make games, robots and more in our <a class="intro-link" href="kids-coding-classes.html">weekly classes</a> and <a class="intro-link" href="coding-camp.html">holiday camps</a>.</span>
               </nav>
               <img
-                class="mascots"
+                class="hero-mascots"
                 src="assets/mascots/hero/robot-car.webp"
                 alt="Q Key, Six Pin and D1 building a wheeled electronics project on cardboard"
                 width="1240" height="955" fetchpriority="high"
@@ -117,7 +117,7 @@
             </section>
 
             <!-- Kids introduction: original photo beside the homepage green paper card. -->
-            <section class="projects projects--subpage" id="kids-programmes" aria-labelledby="kids-programmes-title">
+            <section class="featured-section featured-section--subpage" id="kids-programmes" aria-labelledby="kids-programmes-title">
               <div class="subpage-intro">
                 <img class="subpage-intro__art" src="assets/design/kids-green-panel.svg" alt="">
                 <div class="subpage-intro__copy">
@@ -128,7 +128,7 @@
               </div>
               <figure class="photo-collage">
                 <img
-                  class="project-photo"
+                  class="featured-photo"
                   loading="lazy"
                   decoding="async"
                   src="assets/photos/child-bbc-microbit-led-heart.jpg"
@@ -136,7 +136,7 @@
                   width="700"
                   height="394"
                 >
-                <img class="project-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
+                <img class="featured-photo-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
               </figure>
             </section>
 
@@ -258,8 +258,8 @@
             </section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
                 <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
@@ -281,7 +281,7 @@
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
                 <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
@@ -298,7 +298,7 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">

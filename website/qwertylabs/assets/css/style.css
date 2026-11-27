@@ -23,9 +23,13 @@
   --text-body: 18px;     /* Reading copy */
   --text-ui: 16px;       /* Navigation, links and footer UI */
   --text-hero: 36px;     /* Handwritten page title */
-  --text-footer-heading: 18px; /* Blue footer-card titles */
-  --text-footer: 14px;         /* Footer card copy and Country paragraph */
-  --text-legal: 12px;    /* Policies and copyright */
+  --text-small: 14px;   /* Compact reading copy, hints and footer text */
+  --text-compact: 15px; /* Form choices and captions */
+  --text-button: 17px;  /* Form actions and review text */
+  --text-small-heading: 19px; /* Smaller headings and mobile quotes */
+  --text-subheading: 21px; /* Editorial subheadings and quotes */
+  --text-large: 24px;   /* Large editorial copy and mobile section headings */
+  --text-tiny: 12px;    /* Policies and copyright */
 
   /* Section spacing, before responsive page scaling. */
   --space-section: 52px;
@@ -58,16 +62,18 @@
 
 /* Custom pointers are only for mouse/trackpad. Touch and text inputs remain native. */
 @media (hover: hover) and (pointer: fine) {
-  html.ql-brand-cursor { cursor: var(--ql-arrow-cursor, auto); }
-  html.ql-brand-cursor :is(a, button, [role="button"]) {
-    cursor: var(--ql-hand-cursor, pointer);
+  html.brand-cursor { cursor: var(--arrow-cursor, auto); }
+  html.brand-cursor :is(a, button, [role="button"]) {
+    cursor: var(--hand-cursor, pointer);
   }
-  html.ql-brand-cursor :is(input, textarea, [contenteditable="true"]) {
+  html.brand-cursor :is(input, textarea, [contenteditable="true"]) {
     cursor: text;
   }
 }
 
-/* 02 — Shared foundations and responsive artwork */
+/* Shared foundations and responsive artwork */
+/* :where() is a built-in CSS selector, not a class name. It adds no specificity,
+   so these defaults are easy for a more specific component to override. */
 
 :where(html[data-layout]) *,
 :where(html[data-layout]) *::before,
@@ -94,7 +100,7 @@
   text-decoration: none;
 }
 
-.skip {
+.skip-to-content {
   position: absolute;
   top: -90px;
   left: 10px;
@@ -104,17 +110,17 @@
   color: var(--color-ink);
 }
 
-.skip:focus {
+.skip-to-content:focus {
   top: 10px;
 }
 
-.skip:focus-visible {
+.skip-to-content:focus-visible {
   outline: 3px solid var(--color-ink);
   outline-offset: -4px;
 }
 
 /* Relative URLs in CSS start at this stylesheet, not at the HTML page. */
-/* 02. Workshop photographs
+/* Workshop photographs
    Two real WebP photos; top fade stops are calculated by script.js. */
 .site {
   position: relative;
@@ -131,7 +137,7 @@
   --top-fade-end: 1160px;
 }
 
-.ambient {
+.ambient-light {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -141,8 +147,8 @@
     radial-gradient(ellipse 33% 420px at 100% 4%, var(--scene-glow-right), transparent);
 }
 
-.bg-scene,
-.bg-scene-bottom {
+.workshop-background,
+.workshop-background-footer {
   position: absolute;
   left: 50%;
   width: 100vw;
@@ -152,32 +158,32 @@
   transform: translateX(-50%);
 }
 
-.bg-scene {
+.workshop-background {
   top: 0;
   height: var(--top-fade-end);
 }
 
-.bg-scene-bottom {
+.workshop-background-footer {
   bottom: 0;
   height: var(--workshop-footer-height);
 }
 
-.bg-scene__photo,
-.bg-scene__tones,
-.bg-scene__vignette,
-.bg-scene-bottom__photo,
-.bg-scene-bottom__tones {
+.workshop-background__photo,
+.workshop-background__tones,
+.workshop-background__vignette,
+.workshop-background-footer__photo,
+.workshop-background-footer__tones {
   position: absolute;
   inset: 0;
 }
 
-.bg-scene__photo,
-.bg-scene-bottom__photo {
+.workshop-background__photo,
+.workshop-background-footer__photo {
   background-repeat: no-repeat;
 }
 
 /* Top: full-height fade plus a second copy to preserve the original lighting. */
-.bg-scene__photo {
+.workshop-background__photo {
   background-image: var(--workshop-top-image);
   background-size: var(--top-photo-width) auto;
   background-position: center top;
@@ -185,7 +191,7 @@
   mask-image: linear-gradient(to bottom, #000 0px, #000 var(--top-fade-start), rgba(0,0,0,.88) var(--top-fade-stop1, 872px), rgba(0,0,0,.5) var(--top-fade-stop2, 980px), rgba(0,0,0,.12) var(--top-fade-stop3, 1088px), transparent var(--top-fade-end));
 }
 
-.bg-scene__photo::after {
+.workshop-background__photo::after {
   content: "";
   display: block;
   position: absolute;
@@ -199,36 +205,36 @@
   mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
 }
 
-.bg-scene__tones {
+.workshop-background__tones {
   background: color-mix(in srgb, var(--color-ink) 70%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
   mask-image: linear-gradient(to bottom, #000 var(--top-fade-start), transparent var(--top-fade-end));
 }
 
-.bg-scene__vignette {
+.workshop-background__vignette {
   background: radial-gradient(ellipse 61% 80% at 50% 44%, transparent 24%, color-mix(in srgb, var(--color-ink) 60%, transparent) 100%);
   -webkit-mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
   mask-image: linear-gradient(#000 0%, #000 85%, transparent 100%);
 }
 
 /* Footer: photo and darkening tint share the same soft upper edge. */
-.bg-scene-bottom__photo,
-.bg-scene-bottom__tones {
+.workshop-background-footer__photo,
+.workshop-background-footer__tones {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.12) 9%, rgba(0,0,0,.5) 23%, rgba(0,0,0,.88) 36%, #000 45%, #000 100%);
 }
 
-.bg-scene-bottom__photo {
+.workshop-background-footer__photo {
   background-image: url("../design/workshop-footer.webp");
   background-size: cover;
   background-position: center bottom;
 }
 
-.bg-scene-bottom__tones {
+.workshop-background-footer__tones {
   background: color-mix(in srgb, var(--color-ink) 80%, transparent);
 }
 
-/* 03. Cardboard stage and accessibility */
+/* Cardboard stage and accessibility */
 .cardboard-stage {
   position: relative;
   z-index: 3;
@@ -278,7 +284,7 @@
   pointer-events: none;
 }
 
-/* 04. Wordmark and navigation */
+/* Wordmark and navigation */
 .header {
   position: relative;
   z-index: 9;
@@ -412,7 +418,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   display: inline-block;
   padding: 9px 4px;
   color: var(--color-ivory);
-  font-size: 14px;
+  font-size: var(--text-small);
   line-height: 1.2;
   letter-spacing: .02em;
   text-transform: none;
@@ -425,7 +431,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   height: 4px;
 }
 
-/* 05. Hero and handmade mascots */
+/* Hero and handmade mascots */
 .hero {
   position: relative;
   z-index: 4;
@@ -462,7 +468,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 /* Inline hero links use the same line-height and colour as the surrounding copy. */
-.hero-description .scene-link {
+.hero-description .intro-link {
   margin-top: 0;
   color: inherit;
   font-weight: inherit;
@@ -489,7 +495,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   transform: rotate(-1.2deg);
 }
 
-.mascots {
+.hero-mascots {
   position: absolute;
   top: -89px;
   right: -5px;
@@ -500,29 +506,29 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
 }
 
-/* 06. Shared typography and handmade paper cards
+/* Shared typography and handmade paper cards
    Section headings and card titles have separate, centralised sizes. */
 .project-label-text,
 .footer-scene__tape-text,
-.feature h2,
+.audience-card h2,
 :where(html[data-layout="subpage"]) .subpage-section__heading,
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy h2 {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy h2 {
   font-size: var(--text-heading);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -.035em;
 }
 
-.small-card h2,
+.footer-paper-card h2,
 .footer-newsletter h3,
 .lab-footer .country-ack h2 {
   font-weight: 700;
   line-height: 1.2;
 }
 
-.small-card h2,
+.footer-paper-card h2,
 .footer-newsletter h3 {
-  font-size: var(--text-footer-heading);
+  font-size: var(--text-body);
   letter-spacing: -.035em;
   white-space: nowrap;
 }
@@ -532,27 +538,27 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   margin: 0 0 9px;
 }
 
-.feature p,
+.audience-card p,
 .project-copy p {
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
 }
 
-.feature h2,
-.small-card h2,
+.audience-card h2,
+.footer-paper-card h2,
 .footer-newsletter h3 {
   margin: 0;
   text-transform: uppercase;
 }
 
-.feature p {
+.audience-card p {
   margin-top: 16px;
   max-width: 187px;
 }
 
-.feature,
-.small-card {
+.audience-card,
+.footer-paper-card {
   display: block;
   position: relative;
   flex: none;
@@ -562,13 +568,13 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   isolation: isolate;
 }
 
-.feature .paper-bg,
-.small-card .paper-bg {
+.audience-card .paper-bg,
+.footer-paper-card .paper-bg {
   z-index: -1;
 }
 
 /* Three static audience panels */
-.feature-cards {
+.audience-cards {
   position: relative;
   z-index: 5;
   display: flex;
@@ -576,15 +582,15 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   margin: -24px 38px 0;
 }
 
-.feature {
+.audience-card {
   height: 240px;
   padding: 42px 32px 25px 34px;
-  cursor: var(--ql-hand-cursor, pointer);
+  cursor: var(--hand-cursor, pointer);
 }
 
 
 /* Hand-drawn go arrows, independently clickable from the headings. */
-.feature-arrow {
+.audience-card-arrow {
   position: absolute;
   right: 26px;
   bottom: 20px;
@@ -595,18 +601,18 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   color: var(--color-ink);
 }
 
-.feature-arrow svg {
+.audience-card-arrow svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.feature:is(:hover, :focus-within) .feature-arrow {
+.audience-card:is(:hover, :focus-within) .audience-card-arrow {
   color: var(--color-blue);
 }
 
-/* 07. Current project and photographic collage */
-.projects {
+/* Current project and photographic collage */
+.featured-section {
   position: relative;
   z-index: 6;
   min-height: 405px;
@@ -675,7 +681,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   transform: rotate(7deg);
 }
 
-.project-frame {
+.featured-photo-frame {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -683,7 +689,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   pointer-events: none;
 }
 
-.project-photo {
+.featured-photo {
   position: absolute;
   top: 16%;
   left: 10.6%;
@@ -694,8 +700,8 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   transform: rotate(-4.3deg);
 }
 
-/* 08. Three smaller information panels */
-.small-cards {
+/* Three smaller information panels */
+.footer-paper-cards {
   position: relative;
   z-index: 8;
   display: flex;
@@ -705,7 +711,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 
-/* 09. Closing scene, blue information cards and legal footer
+/* Closing scene, blue information cards and legal footer
    Consolidated from the existing footer CSS without changing source order.
    Only the mobile tape lettering uses 24px to fit the narrower artwork.
    The brighter tape blue belongs to the artwork, not the palette. */
@@ -823,7 +829,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   border: 0;
   overflow: hidden;
   background: transparent;
-  cursor: var(--ql-hand-cursor, pointer);
+  cursor: var(--hand-cursor, pointer);
 }
 
 .cloud-replay__video,
@@ -854,7 +860,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   padding: 6px 10px;
   background: var(--color-ink);
   color: var(--color-ivory);
-  font: 700 14px/1.2 'Atkinson Hyperlegible', sans-serif;
+  font: 700 var(--text-small)/1.2 'Atkinson Hyperlegible', sans-serif;
   pointer-events: none;
 }
 .cloud-replay__sound-label::before { content: 'Play with sound'; }
@@ -883,7 +889,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   max-width: 570px;
 }
 
-.scene-link {
+.intro-link {
   display: inline-block;
   margin-top: 18px;
   line-height: 1.4;
@@ -895,7 +901,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .footer-card-address,
 .footer-newsletter,
 .lab-footer .country-ack p {
-  font-size: var(--text-footer);
+  font-size: var(--text-small);
 }
 
 /* Three approved blue papers grow together to accommodate four programme groups. */
@@ -1047,7 +1053,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
      Country and the left-hand alignment stay unchanged. */
   margin: 60px -12.1px 0 0;
   padding: 0 0 24px;
-  font-size: var(--text-legal);
+  font-size: var(--text-tiny);
   line-height: 1.4;
 }
 
@@ -1095,15 +1101,15 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   white-space: nowrap;
 }
 
-/* 10. Link roles: one squiggle mask for all link types.
+/* Link roles: one squiggle mask for all link types.
    Colour is supplied by existing palette tokens, not embedded in SVGs.
    Hover and keyboard-focus changes are immediate; text colour is unchanged. */
 .navigation a,
 .navigation-menu-label,
 .footer-legal-links a,
-.scene-link,
+.intro-link,
 :is(.footer-card-links a, .footer-newsletter button),
-.feature h2 a,
+.audience-card h2 a,
 .subpage-section__option a {
   position: relative;
 }
@@ -1111,9 +1117,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .navigation a::after,
 .navigation-menu-label::after,
 .footer-legal-links a::after,
-.scene-link::after,
+.intro-link::after,
 :is(.footer-card-links a, .footer-newsletter button)::after,
-.feature h2 a::after,
+.audience-card h2 a::after,
 .subpage-section__option a::after {
   content: "";
   position: absolute;
@@ -1175,7 +1181,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 /* Block-like page links retain the approved tight underline placement. */
-.scene-link::after,
+.intro-link::after,
 :is(.footer-card-links a, .footer-newsletter button)::after {
   bottom: 2px;
 }
@@ -1185,13 +1191,13 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 
 /* On the blue paper cards, use ink at rest and ivory on hover. */
 .footer-nav-cards :is(.footer-card-links a, .footer-newsletter button)::after,
-.feature h2 a::after {
+.audience-card h2 a::after {
   background-color: var(--color-ink);
 }
 
-.scene-link:is(:hover, :focus-visible)::after,
+.intro-link:is(:hover, :focus-visible)::after,
 :is(.footer-card-links a, .footer-newsletter button):is(:hover, :focus-visible)::after,
-.feature h2 a:is(:hover, :focus-visible)::after,
+.audience-card h2 a:is(:hover, :focus-visible)::after,
 .subpage-section__option a:is(:hover, :focus-visible)::after {
   background-color: var(--brand-accent);
 }
@@ -1201,18 +1207,18 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 /* Artwork offsets retain the painted positions and proportions. */
-.feature:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
-.feature:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
-.feature:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
+.audience-card:nth-child(1) .paper-bg { top: 10.01112%; height: 89.4327%; }
+.audience-card:nth-child(2) .paper-bg { top: 8.93271%; height: 90.71926%; }
+.audience-card:nth-child(3) .paper-bg { top: 8.69565%; height: 90.94203%; }
 /* Artwork offsets follow Get making, Explore, Find us. */
 .footer-nav-card:nth-child(2) .paper-bg { top: 8.69565%; height: 90.94203%; }
 .footer-nav-card:nth-child(1) .paper-bg { top: 11.76471%; height: 87.45098%; }
 .footer-nav-card:nth-child(3) .paper-bg { top: 11.33896%; height: 88.66104%; }
 
-/* 12. Desktop composition (mobile adjustments live in mobile.css). */
+/* Desktop composition (mobile adjustments live in mobile.css). */
 @media (min-width: 761px) {
   .cardboard-page {
-    zoom: var(--ql-cardboard-zoom, 1);
+    zoom: var(--cardboard-zoom, 1);
   }
 
   .hero-copy {
@@ -1248,7 +1254,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   .footer-scene__tape { top: -25.31px; }
 }
 
-/* 03 — Shared subpage layout (Kids is the approved reference) */
+/* Shared subpage layout (Kids is the approved reference) */
 :where(html[data-layout="subpage"]) .hero h1 {
   top: 43px;
   left: 54px;
@@ -1282,16 +1288,16 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 
-:where(html[data-layout="subpage"]) .hero + .projects--subpage {
+:where(html[data-layout="subpage"]) .hero + .featured-section--subpage {
   margin-top: -24px;
 }
 
-:where(html[data-layout="subpage"]) .projects--subpage {
+:where(html[data-layout="subpage"]) .featured-section--subpage {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
+:where(html[data-layout="subpage"]) .featured-section--subpage .photo-collage {
   position: relative;
   top: 86px;
   left: auto;
@@ -1303,7 +1309,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   margin-inline: auto;
   transform: none; 
 }
-:where(html[data-layout="subpage"]) .projects--subpage .project-photo {
+:where(html[data-layout="subpage"]) .featured-section--subpage .featured-photo {
   top: 7%;
   left: 3%;
   width: 91.5%;
@@ -1311,7 +1317,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   transform: none;
 }
 /* Share the homepage Cloud replay, fitted inside the existing subpage mat. */
-:where(html[data-layout="subpage"]) .projects--subpage .project-photo.cloud-replay {
+:where(html[data-layout="subpage"]) .featured-section--subpage .featured-photo.cloud-replay {
   top: 9%;
   left: 5%;
   width: 88%;
@@ -1320,15 +1326,15 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   border: 0;
   overflow: hidden;
   background: var(--color-ink);
-  cursor: var(--ql-hand-cursor, pointer);
+  cursor: var(--hand-cursor, pointer);
 }
-:where(html[data-layout="subpage"]) .projects--subpage .cloud-replay__video,
-:where(html[data-layout="subpage"]) .projects--subpage .cloud-replay__poster {
+:where(html[data-layout="subpage"]) .featured-section--subpage .cloud-replay__video,
+:where(html[data-layout="subpage"]) .featured-section--subpage .cloud-replay__poster {
   object-fit: contain;
 }
 /* The Kids intro reuses the homepage green paper artwork at the original
    intro panel width. The photograph and two-column arrangement stay put. */
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro {
   position: relative;
   isolation: isolate;
   left: -45px;
@@ -1336,7 +1342,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   grid-row: 1;
   min-height: 405px;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__art {
   position: absolute;
   inset: 26px 0 33px;
   z-index: 0;
@@ -1344,19 +1350,19 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   height: calc(100% - 59px);
   pointer-events: none;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy {
   position: relative;
   z-index: 1;
   padding: 79px 44px 58px;
   color: var(--color-ink);
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy h2 {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy h2 {
   margin: 0;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy p {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy p {
   margin: 8px 0 0;
 }
-:where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy .scene-link {
+:where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy .intro-link {
   --link-underline-rest: var(--color-ink);
 }
 
@@ -1443,7 +1449,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 :where(html[data-layout="subpage"]) .subpage-section__option h3 {
   margin: 0 0 10px;
-  font-size: 21px;
+  font-size: var(--text-subheading);
   line-height: 1.2;
   letter-spacing: -.025em;
 }
@@ -1451,7 +1457,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   display: inline-block;
   margin-top: 13px;
   padding-bottom: 3px;
-  font-size: 16px;
+  font-size: var(--text-ui);
   line-height: 1.4;
   font-weight: 700;
 }
@@ -1492,31 +1498,31 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   background: transparent;
   color: var(--color-ivory);
   text-align: center;
-  transform: translateY(-50%) rotate(var(--tool-tilt, 5deg));
+  transform: translateY(-50%) rotate(var(--frame-tilt, 5deg));
 }
 :where(html[data-layout="subpage"]) .subpage-art--clockwise {
   right: 28px;
   width: 262px;
-  --tool-tilt: 7deg;
+  --frame-tilt: 7deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--level {
   right: 12px;
   width: 262px;
-  --tool-tilt: 2deg;
+  --frame-tilt: 2deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--counterclockwise {
   right: 30px;
   width: 262px;
-  --tool-tilt: -4deg;
+  --frame-tilt: -4deg;
 }
 :where(html[data-layout="subpage"]) .subpage-art--landscape {
   right: -55px;
   width: 288px;
-  --tool-tilt: 5deg;
+  --frame-tilt: 5deg;
 }
 /* Only the interactive map is almost level; mascot artwork keeps its tilt. */
 :where(html[data-layout="subpage"]) .subpage-art--landscape:has(.subpage-art__media--map) {
-  --tool-tilt: 1.5deg;
+  --frame-tilt: 1.5deg;
 }
 
 :where(html[data-layout="subpage"]) .subpage-art__media {
@@ -1557,7 +1563,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   border-radius: 2px;
   background: var(--color-ivory);
   color: var(--color-ink);
-  font-size: 12px;
+  font-size: var(--text-tiny);
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
@@ -1599,12 +1605,12 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 :where(html[data-layout="subpage"]) .subpage-callout__quote p {
   margin: 0 0 19px;
-  font-size: 21px;
+  font-size: var(--text-subheading);
   font-weight: 700;
   line-height: 1.46;
 }
 :where(html[data-layout="subpage"]) .subpage-callout__quote cite {
-  font-size: 15px;
+  font-size: var(--text-compact);
   line-height: 1.4;
   font-style: normal;
   font-weight: 700;
@@ -1612,14 +1618,14 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-callout + .subpage-section {
   margin-top: 26px;
 }
-:where(html[data-layout="subpage"]) .subpage-board + .small-cards {
+:where(html[data-layout="subpage"]) .subpage-board + .footer-paper-cards {
   margin-top: 54px;
 }
 
 /* The first Kit & Code image intentionally floats into the preceding text. */
 :where(html[data-layout="subpage"]) .subpage-art--raised {
   top: -145px;
-  transform: rotate(var(--tool-tilt, 5deg));
+  transform: rotate(var(--frame-tilt, 5deg));
 }
 
 
@@ -1644,7 +1650,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-section__subheading {
   margin: 0 0 18px;
   color: var(--brand-accent);
-  font-size: 24px;
+  font-size: var(--text-large);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -.025em;
@@ -1655,7 +1661,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 :where(html[data-layout="subpage"]) .subpage-section__copy > .subpage-lead {
   margin-bottom: 22px;
   color: var(--color-ivory);
-  font-size: 24px;
+  font-size: var(--text-large);
   font-weight: 700;
   line-height: 1.3;
 }
@@ -1670,7 +1676,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 
 .quote-blue-rule p {
   margin: 0;
-  font-size: 21px;
+  font-size: var(--text-subheading);
   font-weight: 400;
   line-height: 1.45;
 }
@@ -1678,44 +1684,44 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .quote-blue-rule cite {
   display: block;
   margin-top: 16px;
-  font-size: 14px;
+  font-size: var(--text-small);
   font-style: normal;
   line-height: 1.4;
 }
 
 
-/* 12 — Forms: one shared editorial layout for every audience.
+/* Forms: one shared editorial layout for every audience.
    Controls and desktop geometry live here; phone-only changes in mobile.css.
    Preview forms never transmit or store information. */
 
 .studio-form { margin:0; }
 .form-field, .form-fieldset { display:block; min-width:0; margin:0 0 17px; padding:0; border:0; }
-.studio-form label:not(.form-choice), .studio-form legend { display:block; margin:0 0 7px; color:var(--color-ink); font-size:16px; font-weight:700; line-height:1.35; }
+.studio-form label:not(.form-choice), .studio-form legend { display:block; margin:0 0 7px; color:var(--color-ink); font-size:var(--text-ui); font-weight:700; line-height:1.35; }
 .studio-form legend { padding:0; }
-.studio-form :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { display:block; width:100%; min-height:48px; padding:10px 12px; border:2px solid var(--color-ink); border-radius:5px; background:var(--color-ivory); color:var(--color-ink); font:inherit; font-size:16px; }
+.studio-form :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { display:block; width:100%; min-height:48px; padding:10px 12px; border:2px solid var(--color-ink); border-radius:5px; background:var(--color-ivory); color:var(--color-ink); font:inherit; font-size:var(--text-ui); }
 .studio-form textarea { min-height:98px; resize:vertical; }
 .studio-form :is(input,select,textarea,button):focus-visible { outline:3px solid var(--brand-accent); outline-offset:3px; }
 .studio-form :is(input,select,textarea)[aria-invalid="true"] { border-color:#a52a25; }
-.form-hint { margin:5px 0 8px; color:var(--color-ink); font-size:14px; line-height:1.4; }
+.form-hint { margin:5px 0 8px; color:var(--color-ink); font-size:var(--text-small); line-height:1.4; }
 .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px; }
-.form-choice { display:flex; align-items:flex-start; gap:11px; margin:0 0 11px; font-size:15px; font-weight:400; line-height:1.45; }
+.form-choice { display:flex; align-items:flex-start; gap:11px; margin:0 0 11px; font-size:var(--text-compact); font-weight:400; line-height:1.45; }
 .form-choice :is(input[type="checkbox"],input[type="radio"]) { width:20px; height:20px; flex:0 0 20px; margin:2px 0 0; accent-color:var(--brand-accent); }
 .form-choice span { flex:1; }
 .form-choice a, .form-hint a, .form-summary a { text-decoration:underline; text-decoration-style:dashed; text-underline-offset:3px; }
-.studio-form button { font:700 17px/1.2 'Atkinson Hyperlegible',Arial,sans-serif; cursor:pointer; }
+.studio-form button { font:700 var(--text-button)/1.2 'Atkinson Hyperlegible',Arial,sans-serif; cursor:pointer; }
 .form-submit { display:block; width:100%; min-height:51px; padding:13px 19px; margin-top:20px; border:2px solid var(--color-ink); border-radius:5px; background:var(--brand-accent); color:var(--color-ink); text-align:center; }
 .form-submit:hover { text-decoration:underline; text-underline-offset:3px; }
 .form-quiet-button { display:inline-block; min-height:44px; padding:9px 14px; border:2px solid var(--color-ink); border-radius:5px; background:transparent; color:var(--color-ink); }
 .form-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:15px; }
 .form-actions .form-submit { flex:1; width:auto; margin:0; }
-.form-alert { display:block; padding:12px 15px; margin-bottom:16px; border-left:5px solid #9e2722; background:#fceae6; color:#722722; font-size:15px; font-weight:700; }
-.form-alert[hidden], .form-step[hidden], .form-done[hidden], .studio-form[hidden] { display:none; }
+.form-alert { display:block; padding:12px 15px; margin-bottom:16px; border-left:5px solid #9e2722; background:#fceae6; color:#722722; font-size:var(--text-compact); font-weight:700; }
+.form-alert[hidden], .form-done[hidden], .studio-form[hidden] { display:none; }
 .form-child { border-top:2px dashed #bbb6b9; padding-top:17px; margin-top:18px; }
-.form-child h4 { margin:0 0 14px; font-size:19px; }
-.form-summary { border-top:1px solid #b7b2b7; padding:12px 0; font-size:16px; overflow-wrap:anywhere; }
+.form-child h4 { margin:0 0 14px; font-size:var(--text-small-heading); }
+.form-summary { border-top:1px solid #b7b2b7; padding:12px 0; font-size:var(--text-ui); overflow-wrap:anywhere; }
 .form-summary strong { display:block; }
 .form-done { padding:12px 0; }
-.form-done p { font-size:17px; }
+.form-done p { font-size:var(--text-button); }
 
 /* Preserve the HTML hidden attribute after form button styling. */
 .studio-form [hidden] { display:none; }
@@ -1727,9 +1733,9 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-board__grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(235px,.9fr); gap:clamp(22px,3.5vw,46px); align-items:start; }
 .form-board .form-board__form-column { width:100%; min-width:0; }
 .form-board .form-board__form-column > p:first-child { font-weight:400; }
-.form-board__intro { margin:0 0 17px; color:var(--color-ivory); font-size:18px; line-height:1.5; }
+.form-board__intro { margin:0 0 17px; color:var(--color-ivory); font-size:var(--text-body); line-height:1.5; }
 .form-board__intro strong { color:var(--brand-accent); }
-.form-board__form-title { margin:18px 0 9px; font-size:24px; letter-spacing:-.025em; }
+.form-board__form-title { margin:18px 0 9px; font-size:var(--text-large); letter-spacing:-.025em; }
 .form-board .studio-form label:not(.form-choice), .form-board .studio-form legend { color:var(--color-ivory); }
 .form-board .form-hint, .form-board .form-done, .form-board .form-done p, .form-board .form-done h2 { color:var(--color-ivory); }
 .form-board .form-child h4 { color:var(--color-ivory); }
@@ -1741,7 +1747,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .form-board .form-summary { border-color:rgba(247,244,235,.4); color:var(--color-ivory); }
 .form-board .form-actions { margin-bottom:15px; }
 .form-board .form-submit { margin-top:14px; }
-.form-board__other { margin:22px 0 0; font-size:15px; line-height:1.5; }
+.form-board__other { margin:22px 0 0; font-size:var(--text-compact); line-height:1.5; }
 .form-board__other a { color:var(--color-ivory); }
 .form-note { min-width:0; align-self:stretch; }
 .form-note__sticky { position:sticky; top:32px; display:flex; justify-content:center; }
@@ -1849,7 +1855,7 @@ body.form-page .cardboard-page { overflow:clip; }
 .home-messenger__speech { display:block; margin-bottom:12px; font-size:22px; font-weight:700; line-height:1.15; }
 .home-messenger__link {
   display:inline;
-  font-size:16px;
+  font-size:var(--text-ui);
   font-weight:700;
   line-height:1.5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.8 L11 2.7 L23 3.6 L35 2.4 L47 3.4 L59 2.5 L71 3.8 L83 2.8 L100 3.3' fill='none' stroke='%23020020' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -1888,6 +1894,6 @@ body.form-page .cardboard-page { overflow:clip; }
   margin: 12px 0 0;
 }
 @media (min-width: 761px) {
-  .projects.meet-the-lab .project-panel { height: 370px; }
+  .featured-section.meet-the-lab .project-panel { height: 370px; }
 }
 

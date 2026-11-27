@@ -36,7 +36,7 @@ def nav_links(html):
 
 def footer_links(html):
     match = re.search(
-        r'<section class="small-cards footer-nav-cards"[^>]*>.*?</main>',
+        r'<section class="footer-paper-cards footer-nav-cards"[^>]*>.*?</main>',
         html, re.S
     )
     return re.findall(r'<a\b[^>]*\bhref="([^"]+)"', match.group()) if match else None

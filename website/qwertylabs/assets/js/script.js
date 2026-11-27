@@ -34,9 +34,9 @@
   const cursor = (svg, x, y, fallback) =>
     `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${x} ${y}, ${fallback}`;
 
-  root.style.setProperty('--ql-arrow-cursor', cursor(arrow, 2, 1, 'auto'));
-  root.style.setProperty('--ql-hand-cursor', cursor(hand, 15, 3, 'pointer'));
-  root.classList.add('ql-brand-cursor');
+  root.style.setProperty('--arrow-cursor', cursor(arrow, 2, 1, 'auto'));
+  root.style.setProperty('--hand-cursor', cursor(hand, 15, 3, 'pointer'));
+  root.classList.add('brand-cursor');
 })();
 
 /* Holler mascots: one announcement, one link, one expiry.
@@ -80,7 +80,7 @@
     // The homepage messenger gets its own rail; never scale it over the artwork.
     const messengerReserve = document.querySelector('.site.has-messenger-rail') ? 260 : 0;
     const scale = Math.max(0.70, Math.min(1.85, (viewportWidth - 84 - messengerReserve) / 986));
-    document.documentElement.style.setProperty('--ql-cardboard-zoom', String(scale));
+    document.documentElement.style.setProperty('--cardboard-zoom', String(scale));
     /* The nav starts at viewport y=13px; the wordmark keeps its original y.
        Compensation reverses the 19px removed from the stage's top padding. */
     document.documentElement.style.setProperty('--nav-top-compensation', (19 / scale) + 'px');
@@ -236,7 +236,7 @@
 /* Home audience cards: preserve the existing accessible heading/arrow links,
    and let pointer users click anywhere on the paper. */
 (() => {
-  document.querySelectorAll('.feature-cards .feature').forEach(card => {
+  document.querySelectorAll('.audience-cards .audience-card').forEach(card => {
     const link = card.querySelector('h2 a');
     if (!link) return;
     card.addEventListener('click', event => {
@@ -254,7 +254,7 @@
   ]) {
     document.querySelectorAll(selector).forEach(frame => {
       const angle = minimum + Math.random() * (maximum - minimum);
-      frame.style.setProperty('--tool-tilt', angle.toFixed(1) + 'deg');
+      frame.style.setProperty('--frame-tilt', angle.toFixed(1) + 'deg');
     });
   }
 })();
@@ -529,7 +529,7 @@ function chooseMascot(choices, storageKey) {
 /* Hero rotation: desktop uses every approved scene, while mobile rotates
    medium-height compositions that share a similar visual footprint. */
 (() => {
-  const hero = document.querySelector('.hero img.mascots');
+  const hero = document.querySelector('.hero img.hero-mascots');
   if (!hero) return;
 
   const allScenes = [

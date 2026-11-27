@@ -29,18 +29,18 @@
     <script src="assets/js/forms.js" defer></script>
   </head>
   <body class="form-page">
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
@@ -110,7 +110,7 @@
                 <span>Weekly creative technology classes for beginners and experienced young makers.</span>
               </div>
               <img
-                class="mascots"
+                class="hero-mascots"
                 src="assets/mascots/hero/robot-car.webp"
                 alt="Q Key, Six Pin and D1 building a wheeled electronics project on cardboard"
                 width="1240" height="955" fetchpriority="high"
@@ -118,7 +118,7 @@
             </section>
 
             <!-- Programme introduction: approved Kids photo and green paper card. -->
-            <section class="projects projects--subpage" id="classes-programmes" aria-labelledby="classes-programmes-title">
+            <section class="featured-section featured-section--subpage" id="classes-programmes" aria-labelledby="classes-programmes-title">
               <div class="subpage-intro">
                 <img class="subpage-intro__art" src="assets/design/kids-green-panel.svg" alt="">
                 <div class="subpage-intro__copy">
@@ -128,14 +128,14 @@
                 </div>
               </div>
               <figure class="photo-collage">
-                <button class="project-photo cloud-replay" type="button" data-replay-sound data-stop-label="Stop the mBot video" aria-label="Play the mBot video with sound">
+                <button class="featured-photo cloud-replay" type="button" data-replay-sound data-stop-label="Stop the mBot video" aria-label="Play the mBot video with sound">
                   <video class="cloud-replay__video" muted playsinline preload="none" width="960" height="540" aria-hidden="true">
                     <source src="assets/video/mbot-robotics.mp4" type="video/mp4">
                   </video>
                   <img class="cloud-replay__poster" src="assets/photos/qwerty-weekly-classes-electronics.webp" data-replay-poster="assets/photos/qwerty-mbot-poster.webp" data-replay-alt="mBot robotics demonstration at Qwerty Labs" alt="Two young makers building an electronics project together beside a computer" width="960" height="540" loading="lazy" decoding="async">
                   <span class="cloud-replay__sound-label" aria-hidden="true"></span>
                 </button>
-                <img class="project-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
+                <img class="featured-photo-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
               </figure>
             </section>
 
@@ -268,8 +268,8 @@
             </section>
 
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
                 <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
@@ -291,7 +291,7 @@
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
                 <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
@@ -308,7 +308,7 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">

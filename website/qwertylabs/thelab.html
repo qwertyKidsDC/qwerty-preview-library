@@ -29,18 +29,18 @@
     <script src="assets/js/forms.js" defer></script>
   </head>
   <body class="form-page">
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip-to-content" href="#main">Skip to content</a>
     <div class="site">
       <!-- Decorative workshop photography and lighting. -->
-      <div aria-hidden="true" class="ambient"></div>
-      <div aria-hidden="true" class="bg-scene">
-        <div class="bg-scene__photo"></div>
-        <div class="bg-scene__tones"></div>
-        <div class="bg-scene__vignette"></div>
+      <div aria-hidden="true" class="ambient-light"></div>
+      <div aria-hidden="true" class="workshop-background">
+        <div class="workshop-background__photo"></div>
+        <div class="workshop-background__tones"></div>
+        <div class="workshop-background__vignette"></div>
       </div>
-      <div aria-hidden="true" class="bg-scene-bottom">
-        <div class="bg-scene-bottom__photo"></div>
-        <div class="bg-scene-bottom__tones"></div>
+      <div aria-hidden="true" class="workshop-background-footer">
+        <div class="workshop-background-footer__photo"></div>
+        <div class="workshop-background-footer__tones"></div>
       </div>
       <div class="cardboard-stage">
         <div class="cardboard-page" id="top">
@@ -109,9 +109,9 @@
               <div class="hero-description">
                 <span>Meet the people, projects and ideas behind Qwerty Labs.</span>
               </div>
-              <img class="mascots" src="assets/mascots/hero/led-electronics.webp" alt="Q Key, D1 and Six Pin building an LED electronics project on a cardboard workbench" width="1240" height="955" fetchpriority="high">
+              <img class="hero-mascots" src="assets/mascots/hero/led-electronics.webp" alt="Q Key, D1 and Six Pin building an LED electronics project on a cardboard workbench" width="1240" height="955" fetchpriority="high">
             </section>
-            <section class="projects projects--subpage" id="lab-intro" aria-labelledby="lab-intro-title">
+            <section class="featured-section featured-section--subpage" id="lab-intro" aria-labelledby="lab-intro-title">
               <div class="subpage-intro">
                 <img class="subpage-intro__art" src="assets/design/kids-blue-panel.svg" alt="">
                 <div class="subpage-intro__copy">
@@ -122,8 +122,8 @@
                 </div>
               </div>
               <figure class="photo-collage">
-                <img class="project-photo" loading="lazy" decoding="async" src="assets/photos/lucky-maker-desk.webp" alt="Lucky the cat lying upside down beside a BBC micro:bit and colourful electronics wires on a blue and beige work surface" width="1120" height="630">
-                <img class="project-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
+                <img class="featured-photo" loading="lazy" decoding="async" src="assets/photos/lucky-maker-desk.webp" alt="Lucky the cat lying upside down beside a BBC micro:bit and colourful electronics wires on a blue and beige work surface" width="1120" height="630">
+                <img class="featured-photo-frame" src="assets/design/cardboard-photo-frame.webp" alt="">
               </figure>
             </section>
             <section class="subpage-board form-board" id="lab-editorial" aria-label="About The Lab">
@@ -299,8 +299,8 @@
               </section>
             </section>
             <!-- Footer navigation, useful links and studio contact details -->
-            <section class="small-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
-              <section class="small-card footer-nav-card" aria-labelledby="footer-join-title">
+            <section class="footer-paper-cards footer-nav-cards" aria-label="Explore, join in and contact Qwerty Labs">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-join-title">
                 <img class="paper-bg" src="assets/design/footer-explore-blue.svg" alt="">
                 <h2 id="footer-join-title">Get making</h2>
                 <nav class="footer-card-links" aria-label="Programs and enrolment">
@@ -322,7 +322,7 @@
                   </div>
                 </nav>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-explore-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-explore-title">
                 <img class="paper-bg" src="assets/design/footer-find-blue.svg" alt="">
                 <h2 id="footer-explore-title">Explore</h2>
                 <nav class="footer-card-links" aria-label="Explore Qwerty Labs">
@@ -339,7 +339,7 @@
                   <output role="status"></output>
                 </form>
               </section>
-              <section class="small-card footer-nav-card" aria-labelledby="footer-find-title">
+              <section class="footer-paper-card footer-nav-card" aria-labelledby="footer-find-title">
                 <img class="paper-bg" src="assets/design/footer-hello-blue.svg" alt="">
                 <h2 id="footer-find-title">Find us</h2>
                 <div class="footer-card-links">

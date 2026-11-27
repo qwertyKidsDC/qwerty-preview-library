@@ -33,7 +33,7 @@
     align-items: stretch;
     gap: 0;
     padding: 8px 0 4px;
-    font-size: 16px;
+    font-size: var(--text-ui);
     letter-spacing: .06em;
   }
 
@@ -55,8 +55,8 @@
     text-transform: uppercase;
     cursor: pointer;
   }
-  .mobile-menu-toggle::after { content: "☰"; font-size: 19px; line-height: 1; }
-  .mobile-menu-toggle[aria-expanded="true"]::after { content: "×"; font-size: 24px; }
+  .mobile-menu-toggle::after { content: "☰"; font-size: var(--text-small-heading); line-height: 1; }
+  .mobile-menu-toggle[aria-expanded="true"]::after { content: "×"; font-size: var(--text-large); }
   .mobile-menu-toggle:focus-visible { outline: 3px solid var(--brand-accent); outline-offset: 3px; }
   .navigation-group {
     display: grid;
@@ -110,7 +110,7 @@
     text-transform: inherit;
     text-shadow: 0 2px 7px var(--color-ink);
     text-align: left;
-    cursor: var(--ql-hand-cursor, pointer);
+    cursor: var(--hand-cursor, pointer);
   }
   .navigation-mobile-heading.navigation-current { color: var(--brand-accent); }
   .navigation-mobile-heading::after {
@@ -166,7 +166,7 @@
     line-height: 1.1;
   }
 
-  .mascots {
+  .hero-mascots {
     position: relative;
     top: auto;
     left: auto;
@@ -176,36 +176,36 @@
     margin: 0 auto;
   }
 
-  .feature-cards {
+  .audience-cards {
     flex-direction: column;
     gap: 3px;
     width: calc(100% - 16px);
     margin: 0 auto;
     padding-top: 15px;
   }
-  :where(html[data-layout="site"]) .feature-cards { padding-top: 0; }
+  :where(html[data-layout="site"]) .audience-cards { padding-top: 0; }
 
-  .feature {
+  .audience-card {
     height: auto;
     min-height: 222px;
     padding-top: 39px;
     padding-bottom: 60px;
   }
 
-  .feature p {
+  .audience-card p {
     max-width: 100%;
   }
 
   /* Shared size for all homepage paper/card headings. */
-  .feature h2,
+  .audience-card h2,
   .project-label-text,
   .footer-scene__tape-text,
   :where(html[data-layout="subpage"]) .subpage-section__heading,
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy h2 {
-    font-size: 24px;
+  :where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy h2 {
+    font-size: var(--text-large);
   }
 
-  .projects {
+  .featured-section {
     /* Let the homepage photo determine the section height on phones. */
     min-height: 0;
     /* Half a section gap before the Meet the Lab tape. */
@@ -249,21 +249,21 @@
   }
   /* On the homepage only, the photo follows About the Lab naturally.
      Subpages retain their approved shared photo positioning. */
-  :where(html[data-layout="site"]) .projects .photo-collage {
+  :where(html[data-layout="site"]) .featured-section .photo-collage {
     position: relative;
     top: auto;
     margin: 25px 0 18px;
   }
 
-  .small-cards {
+  .footer-paper-cards {
     flex-direction: column;
     gap: 6px;
     width: calc(100% - 16px);
     margin: 0 auto;
   }
 
-  .feature,
-  .small-card {
+  .audience-card,
+  .footer-paper-card {
     width: 100%;
   }
 
@@ -279,10 +279,10 @@
     height: calc(100% - 16px);
   }
   .footer-nav-card h2,
-  .footer-newsletter h3 { font-size: 20px; }
+  .footer-newsletter h3 { font-size: var(--text-card); }
   .footer-nav-cards .footer-card-links,
   .footer-nav-cards .footer-card-address,
-  .footer-newsletter { font-size: 16px; }
+  .footer-newsletter { font-size: var(--text-ui); }
   .footer-nav-cards .footer-card-links,
   .footer-nav-cards .footer-card-address { line-height: 1.4; }
   .footer-nav-cards .footer-card-links { gap: 0; }
@@ -309,7 +309,7 @@
     gap: 8px;
     margin-left: 0;
   }
-  .lab-footer .footer-legal-links a { font-size: var(--text-legal); }
+  .lab-footer .footer-legal-links a { font-size: var(--text-tiny); }
 
   .footer-scene {
     /* The mobile tape begins 24px below the board's top. */
@@ -342,12 +342,12 @@
     letter-spacing: 0;
   }
 
-  .scene-link {
+  .intro-link {
     margin-top: 12px;
   }
 
   /* Transfer that space to the gap above the blue footer cards. */
-  :where(html[data-layout="site"]) .projects + .small-cards {
+  :where(html[data-layout="site"]) .featured-section + .footer-paper-cards {
     margin-top: var(--space-section);
   }
   .cardboard-page > .lab-footer {
@@ -370,7 +370,7 @@
   }
 
   .lab-footer .footer-legal {
-    font-size: 14px;
+    font-size: var(--text-small);
     flex-direction: column;
     align-items: stretch;
     gap: 18px;
@@ -404,27 +404,27 @@
   }
 
   /* Across all subpages: introductory blurb first, then the framed photo. */
-  :where(html[data-layout="subpage"]) .projects--subpage {
+  :where(html[data-layout="subpage"]) .featured-section--subpage {
     margin-inline: 0;
     grid-template-columns: minmax(0, 1fr);
     row-gap: 18px;
     min-height: 0;
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro {
+  :where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro {
     left: 0;
     grid-column: 1;
     grid-row: 1;
     min-height: 320px;
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__art {
+  :where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__art {
     top: 4px;
     bottom: 0;
     height: calc(100% - 4px);
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .subpage-intro__copy {
+  :where(html[data-layout="subpage"]) .featured-section--subpage .subpage-intro__copy {
     padding: 68px 30px 50px 38px;
   }
-  :where(html[data-layout="subpage"]) .projects--subpage .photo-collage {
+  :where(html[data-layout="subpage"]) .featured-section--subpage .photo-collage {
     top: 0;
     left: 0;
     grid-column: 1;
@@ -432,7 +432,7 @@
     width: min(420px, 96%);
   }
 
-  :where(html[data-layout="subpage"]) .hero + .projects--subpage {
+  :where(html[data-layout="subpage"]) .hero + .featured-section--subpage {
     margin-top: 0;
   }
   :where(html[data-layout="subpage"]) .subpage-board {
@@ -464,10 +464,10 @@
   }
   :where(html[data-layout="subpage"]) .subpage-section__copy > p,
   :where(html[data-layout="subpage"]) .subpage-section__option p {
-    font-size: 16px;
+    font-size: var(--text-ui);
   }
   :where(html[data-layout="subpage"]) .subpage-section__option h3 {
-    font-size: 20px;
+    font-size: var(--text-card);
   }
   :where(html[data-layout="subpage"]) .subpage-section:has(> .subpage-art) {
     min-height: 0;
@@ -482,11 +482,11 @@
     right: auto;
     max-width: 100%;
     margin: 23px auto 5px;
-    transform: rotate(var(--tool-tilt, 5deg));
+    transform: rotate(var(--frame-tilt, 5deg));
   }
-  :where(html[data-layout="subpage"]) .subpage-art--clockwise { width: min(320px, 92%); }
-  :where(html[data-layout="subpage"]) .subpage-art--level { width: min(320px, 92%); }
-  :where(html[data-layout="subpage"]) .subpage-art--counterclockwise { width: min(320px, 92%); }
+  :where(html[data-layout="subpage"]) :is(.subpage-art--clockwise, .subpage-art--level, .subpage-art--counterclockwise) {
+    width: min(320px, 92%);
+  }
   :where(html[data-layout="subpage"]) .subpage-art--landscape { width: min(350px, 94%); }
   /* Level the ISS video and its cardboard backing on phones only. */
   :where(html[data-layout="subpage"]) .subpage-art--straight,
@@ -503,12 +503,12 @@
     border-image-width: 32px;
   }
 :where(html[data-layout="subpage"]) .subpage-callout__quote p {
-    font-size: 19px;
+    font-size: var(--text-small-heading);
   }
   :where(html[data-layout="subpage"]) .subpage-callout + .subpage-section {
     margin-top: 18px;
   }
-  :where(html[data-layout="subpage"]) .subpage-board + .small-cards {
+  :where(html[data-layout="subpage"]) .subpage-board + .footer-paper-cards {
     margin-top: 45px;
   }
 
@@ -521,7 +521,7 @@
   }
 
   .quote-blue-rule p {
-    font-size: 19px;
+    font-size: var(--text-small-heading);
   }
 
   
@@ -548,13 +548,13 @@
   .form-note__quote::before, .form-note__quote::after { font-size:74px; }
   .form-note__quote::before { top:-19px; }
   .form-note__quote::after { bottom:-58px; right:35px; }
-  .form-note__saying { font-size:18px; padding-right:17px; }
+  .form-note__saying { font-size:var(--text-body); padding-right:17px; }
   .form-note__mascot { width:min(108%,250px); right:-13px; bottom:3px; }
-  .form-board__intro { font-size:16px; }
+  .form-board__intro { font-size:var(--text-ui); }
   /* Homepage holler mascot and studio signature. */
   .home-messenger-inline { margin: 20px 20px 0; }
   .home-messenger .home-messenger__note { min-height: 240px; }
-  .projects.meet-the-lab .project-panel { height: 400px; }
+  .featured-section.meet-the-lab .project-panel { height: 400px; }
   .lab-signoff { width: 205px; }
 }
 
@@ -563,11 +563,11 @@
     --workshop-footer-height: 300px;
   }
 
-  .bg-scene-bottom__photo {
+  .workshop-background-footer__photo {
     background-size: auto 100%;
   }
 
-  .bg-scene__photo::after {
+  .workshop-background__photo::after {
     opacity: .72;
   }
 
