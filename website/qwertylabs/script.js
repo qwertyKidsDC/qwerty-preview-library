@@ -40,7 +40,7 @@
 })();
 
 /* Homepage holler mascot — this runs before the layout is measured. */
-/* The Lab Messengers: one announcement, one link, one expiry.
+/* Holler mascots: one announcement, one link, one expiry.
    The same element moves between the inline slot and its own desktop rail.
    Nothing floats over the site, and there is no scroll animation. */
 "use strict";
@@ -72,10 +72,9 @@
 })();
 
 /* Shared page behaviour */
-/* Retain the approved responsive cardboard scaling and scene fade. */
 "use strict";
 
-/* Scale the approved 986px desktop composition without changing its artwork.
+/* Scale the 986px desktop composition without changing its artwork.
    Responsive CSS takes over when the viewport is 760px or narrower. */
 (() => {
   const updateScale = () => {
@@ -486,11 +485,50 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
   schedule();
 })();
 
+/* A shuffle bag is like drawing cards from a hat: each mascot gets a turn.
+   Fisher–Yates shuffles the list. Session storage remembers the next card. */
+function chooseMascot(choices, storageKey) {
+  let saved = {};
+  try {
+    saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
+  } catch (_error) {
+    // If storage is blocked, we can still choose a mascot.
+  }
+
+  let order = saved.order;
+  let index = saved.index;
+  const valid = Array.isArray(order) &&
+    order.length === choices.length &&
+    new Set(order).size === choices.length &&
+    order.every(choice => choices.includes(choice));
+
+  if (!valid || !Number.isInteger(index) || index < 0 || index >= choices.length) {
+    order = [...choices];
+    for (let i = order.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    // Don't repeat the last mascot when we start a fresh shuffle.
+    if (order.length > 1 && order[0] === saved.last) {
+      [order[0], order[1]] = [order[1], order[0]];
+    }
+    index = 0;
+  }
+
+  const selected = order[index];
+  try {
+    sessionStorage.setItem(storageKey, JSON.stringify({
+      order, index: index + 1, last: selected
+    }));
+  } catch (_error) {
+    // The artwork still works without storage.
+  }
+  return selected;
+}
+
 /* Hero rotation: desktop uses every approved scene, while mobile rotates
    medium-height compositions that share a similar visual footprint. */
 (() => {
-  // Keep the independently approved test pages isolated from production behaviour.
-
   const hero = document.querySelector('.hero img.mascots');
   if (!hero) return;
 
@@ -527,46 +565,10 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
   const isMobile = mobileViewport.matches;
   const mobileScenes = allScenes.filter(scene => mobileSceneIds.has(scene.id));
   const scenes = isMobile ? mobileScenes : allScenes;
-  // Separate shuffle bags so switching viewport size does not reset desktop.
-  const storageKey = isMobile
-    ? 'qwertylabs-hero-production-bag-v6-mobile'
-    : 'qwertylabs-hero-production-bag-v5';
-  const ids = scenes.map(scene => scene.id);
-  const allowed = new Set(ids);
-  let previous = {};
-  try {
-    previous = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
-  } catch (_error) {
-    // Browsers blocking storage can still display one randomly selected hero.
-  }
-
-  let order = Array.isArray(previous.order) ? previous.order : [];
-  let index = Number.isInteger(previous.index) ? previous.index : 0;
-  const valid = order.length === scenes.length &&
-    new Set(order).size === scenes.length && order.every(id => allowed.has(id));
-
-  if (!valid || index < 0 || index >= order.length) {
-    order = [...ids];
-    for (let i = order.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [order[i], order[j]] = [order[j], order[i]];
-    }
-    if (order.length > 1 && order[0] === previous.last) {
-      [order[0], order[1]] = [order[1], order[0]];
-    }
-    index = 0;
-  }
-
-  const selectedId = order[index];
+  const storageKey = isMobile ? 'qwertylabs-hero-mobile' : 'qwertylabs-hero-desktop';
+  const selectedId = chooseMascot(scenes.map(scene => scene.id), storageKey);
   const selected = scenes.find(scene => scene.id === selectedId);
   if (!selected) return;
-  try {
-    sessionStorage.setItem(storageKey, JSON.stringify({
-      order, index: index + 1, last: selectedId
-    }));
-  } catch (_error) {
-    // No persistent shuffle if storage is blocked, but the image still works.
-  }
 
   const fallbackSrc = hero.getAttribute('src');
   const fallbackAlt = hero.getAttribute('alt');
@@ -607,41 +609,7 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
     'six-pin-lying-on-tummy',
     'q-paper-nest'
   ];
-  const storageKey = 'qwertylabs-footer-mascots';
-  let saved = {};
-  try {
-    saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {};
-  } catch (_error) {
-    // Private browsing can still show a random mascot.
-  }
-
-  let order = saved.order;
-  let index = saved.index;
-  const valid = Array.isArray(order) &&
-    order.length === choices.length &&
-    new Set(order).size === choices.length &&
-    order.every(choice => choices.includes(choice));
-
-  if (!valid || !Number.isInteger(index) || index < 0 || index >= choices.length) {
-    order = [...choices];
-    for (let i = order.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [order[i], order[j]] = [order[j], order[i]];
-    }
-    if (order.length > 1 && order[0] === saved.last) {
-      [order[0], order[1]] = [order[1], order[0]];
-    }
-    index = 0;
-  }
-
-  const selected = order[index];
-  try {
-    sessionStorage.setItem(storageKey, JSON.stringify({
-      order, index: index + 1, last: selected
-    }));
-  } catch (_error) {
-    // Keep the rotation working even when storage is disabled.
-  }
+  const selected = chooseMascot(choices, 'qwertylabs-footer-mascots');
 
   const fallback = mascot.getAttribute('src');
   mascot.addEventListener('error', () => {

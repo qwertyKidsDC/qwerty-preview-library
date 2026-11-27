@@ -579,7 +579,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 }
 
 
-/* Version 03: hand-drawn go arrows, independently clickable from the headings. */
+/* Hand-drawn go arrows, independently clickable from the headings. */
 .feature-arrow {
   position: absolute;
   right: 26px;
@@ -1720,7 +1720,7 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
 .studio-form [hidden] { display:none; }
 
 
-/* The Little Lab prototype: reuse the approved editorial form and paper palette.
+/* Enrolment board: reuse the shared editorial form and paper palette.
    The original Q artwork overlaps a single textured note; no separate widget or progress strip. */
 .form-board .form-board__section { padding-bottom:55px; }
 .form-board__grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(235px,.9fr); gap:clamp(22px,3.5vw,46px); align-items:start; }

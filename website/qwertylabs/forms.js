@@ -11,7 +11,7 @@
   var isClassInterest = kind === 'interest-kids' || isTeenClassInterest;
   var enrolment = kind === 'classes' || kind === 'camps';
   var isCamp = kind === 'camps';
-  var isTeenCamp = isCamp && (document.documentElement.dataset.audience === 'teens' || new URLSearchParams(window.location.search).get('audience') === 'teens');
+  var isTeenCamp = isCamp && document.documentElement.dataset.audience === 'teens';
   var form = document.createElement('form');
   var status = document.getElementById('form-status');
   var requiredHint = document.getElementById('form-required-hint');
@@ -28,6 +28,7 @@
   form.noValidate = true;
   form.setAttribute('aria-label', enrolment ? (isCamp ? 'Camp enrolment preview' : 'Weekly classes enrolment preview') : 'Form design preview');
 
+  // Build one labelled field. Reuse it whenever a form needs the same kind of input.
   function field(id, label, type, required, hint, extra) {
     var tip = hint ? '<p class="form-hint" id="' + id + '-hint">' + hint + '</p>' : '';
     var desc = hint ? ' aria-describedby="' + id + '-hint"' : '';
@@ -267,6 +268,7 @@
     el.hidden=!show;
     Array.prototype.forEach.call(el.querySelectorAll('input,select,textarea'),function(input){input.disabled=!show;});
   }
+  // Show only the questions that apply to the family. Hidden fields are disabled.
   function sync(){
     Array.prototype.forEach.call(form.querySelectorAll('.form-new-family'),function(el){
       toggle(el,!isReturning());
@@ -301,6 +303,7 @@
     return valueA.trim().replace(/\s+/g, ' ').toLowerCase() ===
       valueB.trim().replace(/\s+/g, ' ').toLowerCase();
   }
+  // Check the visible questions and explain the first problem we find.
   function validVisible(quiet){
     quietValidation = !!quiet;
     var err=form.querySelector('#form-error');
@@ -380,6 +383,7 @@
     err.hidden=true;err.textContent='';
     return true;
   }
+  // Build the review from the answers rather than asking families to type them twice.
   function reviewAnswers() {
     var container = done.querySelector('#form-review');
     if (!container) return;

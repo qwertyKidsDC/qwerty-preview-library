@@ -529,7 +529,7 @@
   .form-actions { flex-direction:column-reverse; align-items:stretch; }
   .form-actions .form-submit, .form-actions .form-quiet-button { width:100%; }
 
-  /* Little Lab paper note: full version beside desktop forms, compact and unframed above phone form. */
+  /* Holler mascot note: beside desktop forms, above phone forms. */
   .form-board__grid { display:flex; flex-direction:column; gap:12px; }
   .form-board .form-board__section { padding-bottom:32px; }
   .form-board__form-column { order:2; }
