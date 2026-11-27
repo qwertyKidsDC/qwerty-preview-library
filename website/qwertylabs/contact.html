@@ -21,7 +21,7 @@
       href="https://fonts.googleapis.com/css2?family=Architects+Daughter&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap"
     >
     <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="mobile.css" media="(max-width: 760px)">
+    <link rel="stylesheet" href="mobile.css" media="(max-width: 760px)">
     <script src="script.js" defer></script>
     <script src="forms.js" defer></script>
   </head>
@@ -157,16 +157,20 @@
               <section class="subpage-section subpage-section--natural-height form-board__section" id="form-contact" aria-labelledby="form-contact-heading">
                 <img class="subpage-section__tape" src="img/design/footer-blue-tape.svg" alt="">
                 <h2 class="subpage-section__heading" id="form-contact-heading">Send us a text</h2>
-                <div class="form-board__grid"><div class="subpage-section__copy form-board__form-column">
-                  <p class="form-hint">Fields marked * are required.</p>
-                  <div id="form-status" class="form-hint" role="status" aria-live="polite"></div>
-                  <div data-form-app data-form="contact"><noscript><p class="form-alert">This form needs JavaScript. Please text <a href="sms:+61405950850">0405 950 850</a> instead.</p></noscript></div>
-                </div><aside class="form-note" data-form-mascot aria-label="A note from the Lab"><div class="form-note__sticky">
-                  <figure class="form-note__paper">
-                    <img class="form-note__paper-bg" src="img/design/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
-                    <blockquote class="form-note__quote"><p class="form-note__saying" data-lab-speech>Hello! Who are we chatting with?</p></blockquote>
-                    <img class="form-note__mascot" src="img/holler-mascots/trio-cardboard-star.webp" width="360" height="208" loading="lazy" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
-                  </figure></div></aside></div>
+                <div class="form-board__grid">
+                  <div class="subpage-section__copy form-board__form-column">
+                    <p class="form-hint">Fields marked * are required.</p>
+                    <div id="form-status" class="form-hint" role="status" aria-live="polite"></div>
+                    <div data-form-app data-form="contact"><noscript><p class="form-alert">This form needs JavaScript. Please text <a href="sms:+61405950850">0405 950 850</a> instead.</p></noscript></div>
+                  </div><aside class="form-note" data-form-mascot aria-label="A note from the Lab"><div class="form-note__sticky">
+                      <figure class="form-note__paper">
+                        <img class="form-note__paper-bg" src="img/design/blue-note-testimonial-panel.svg" alt="" aria-hidden="true">
+                        <blockquote class="form-note__quote"><p class="form-note__saying" data-lab-speech>Hello! Who are we chatting with?</p></blockquote>
+                        <img class="form-note__mascot" src="img/holler-mascots/trio-cardboard-star.webp" width="360" height="208" loading="lazy" decoding="async" alt="Q Key, Six Pin and D1 together in a cardboard boat with a yellow star">
+                      </figure>
+                    </div>
+                  </aside>
+                </div>
               </section>
             </section>
 
@@ -224,7 +228,7 @@
                 </div>
               </section>
             </section>
-        </main>
+          </main>
 
           <!-- Acknowledgement of Country and policies -->
           <footer id="bottom" class="lab-footer">
