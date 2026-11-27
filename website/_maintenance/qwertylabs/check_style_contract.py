@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Read-only guard for the shared Qwerty Labs site styles and page components.
 
-Run from anywhere: python3 website/qwertylabs/_tools/check_style_contract.py
+Run from anywhere: python3 website/_maintenance/qwertylabs/check_style_contract.py
 No external packages, browser, build step or network connection required.
 """
 from pathlib import Path
 import re
 import sys
 
-SITE = Path(__file__).resolve().parents[1]
+SITE = Path(__file__).resolve().parents[2] / "qwertylabs"
 STYLES = ("style.css", "mobile.css")
 VALID_BRANDS = {"lab", "kids", "adults", "teens"}
 errors = []

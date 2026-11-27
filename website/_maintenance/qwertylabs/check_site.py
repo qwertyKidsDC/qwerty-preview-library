@@ -2,8 +2,8 @@
 """Qwerty Labs quality gate. Read-only checks against the actual site.
 
 Run from repository root:
-  python website/qwertylabs/_tools/check_site.py --static-only
-  python website/qwertylabs/_tools/check_site.py
+  python website/_maintenance/qwertylabs/check_site.py --static-only
+  python website/_maintenance/qwertylabs/check_site.py
 Requires: beautifulsoup4, tinycss2, playwright; axe-core for WCAG tests.
 """
 from __future__ import annotations
@@ -436,7 +436,7 @@ def browser_checks(root, output, report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2] / "qwertylabs")
     parser.add_argument("--out", type=Path, default=Path("site-quality-report"))
     parser.add_argument("--static-only", action="store_true")
     args = parser.parse_args()

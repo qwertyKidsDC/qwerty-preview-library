@@ -10,7 +10,7 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("site-quality-report"))
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
-    root = Path(__file__).resolve().parents[1]
+    root = Path(__file__).resolve().parents[2] / "qwertylabs"
     with serve(root) as origin, sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         for filename in ("classes", "camps", "teen-camps"):

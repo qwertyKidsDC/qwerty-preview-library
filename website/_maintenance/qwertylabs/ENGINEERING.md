@@ -12,6 +12,6 @@ The website is plain HTML, CSS and JavaScript. Keep the approved visual design, 
 
 ## Checks before deployment
 
-Run the read-only source and browser checks in `_tools`. Review desktop and mobile screenshots, links, images, videos, navigation, form validation, keyboard focus, reduced motion, and accessibility. Noindex remains until public launch. Forms are local-only and do not submit; connect and test the secure backend before accepting personal data. Preserve the privately shared PWYW page and the old tools.html redirect.
+Run the read-only source and browser checks in `website/_maintenance/qwertylabs`. Review desktop and mobile screenshots, links, images, videos, navigation, form validation, keyboard focus, reduced motion, and accessibility. Noindex remains until public launch. Forms are local-only and do not submit; connect and test the secure backend before accepting personal data. Preserve the privately shared PWYW page and the old tools.html redirect.
 
 The Git history is the archive, not the public website directory.

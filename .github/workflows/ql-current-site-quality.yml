@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - "website/qwertylabs/**"
+      - "website/_maintenance/qwertylabs/**"
       - ".github/workflows/ql-current-site-quality.yml"
   pull_request:
     paths:
       - "website/qwertylabs/**"
+      - "website/_maintenance/qwertylabs/**"
       - ".github/workflows/ql-current-site-quality.yml"
   workflow_dispatch:
 
@@ -49,11 +51,11 @@ jobs:
       - name: Audit assets, CSS, JavaScript, desktop, mobile and WCAG
         if: always()
         run: |
-          python website/qwertylabs/_tools/check_site.py --out site-quality-report
+          python website/_maintenance/qwertylabs/check_site.py --out site-quality-report
       - name: Smoke test enrolment forms
         if: always()
         run: |
-          python website/qwertylabs/_tools/test_forms.py --out site-quality-report
+          python website/_maintenance/qwertylabs/test_forms.py --out site-quality-report
       - name: Preserve QA report and browser evidence
         if: always()
         uses: actions/upload-artifact@v4
