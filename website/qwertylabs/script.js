@@ -437,15 +437,8 @@ document.querySelectorAll('.footer-newsletter').forEach(form => {
     { id: 'S02-R2C1-solar-rover', src: 'img/hero-rotation-v2/S02-R2C1-solar-rover.webp', alt: 'Q Key, Six Pin and D1 testing a solar-powered rover' },
     { id: 'S02-R2C2-drawing-plotter', src: 'img/hero-rotation-v2/S02-R2C2-drawing-plotter.webp', alt: 'Q Key, Six Pin and D1 operating a drawing plotter' },
     { id: 'S02-R2C3-keyboard-synthesiser', src: 'img/hero-rotation-v2/S02-R2C3-keyboard-synthesiser.webp', alt: 'Q Key, Six Pin and D1 playing an electronic keyboard synthesiser' },
-    { id: 'S02-R3C3-arcade-machine', src: 'img/hero-rotation-v2/S02-R3C3-arcade-machine.webp', alt: 'Q Key, Six Pin and D1 playing a cardboard arcade machine' },
-    { id: 'S02-R3C4-shadow-theatre', src: 'img/hero-rotation-v2/S02-R3C4-shadow-theatre.webp', alt: 'Q Key, Six Pin and D1 making a cardboard shadow theatre' },
-    { id: 'S04-R1C1-computer-game', src: 'img/hero-rotation-v2/S04-R1C1-computer-game.webp', alt: 'Q Key, Six Pin and D1 working on a computer game' },
-    { id: 'S04-R2C1-robot-car', src: 'img/hero-rotation-v2/S04-R2C1-robot-car.webp', alt: 'Q Key, Six Pin and D1 making a robot car' },
-    { id: 'S04-R2C2-led-circuit', src: 'img/hero-rotation-v2/S04-R2C2-led-circuit.webp', alt: 'Q Key, Six Pin and D1 testing a colourful LED circuit' },
-    { id: 'S04-R4C1-music-speaker', src: 'img/hero-rotation-v2/S04-R4C1-music-speaker.webp', alt: 'Q Key, Six Pin and D1 making music with a cardboard speaker' }
   ];
-  // Keep tall silhouettes (rocket, submarine, weather tower) and short,
-  // low-sitting scenes (including musical notes) in the desktop rotation.
+  // Desktop has the full curated rotation; mobile uses the medium-sized subset.
   const mobileSceneIds = new Set([
     'S05-R1C1-robot-workshop',
     'S05-R1C4-control-console',
