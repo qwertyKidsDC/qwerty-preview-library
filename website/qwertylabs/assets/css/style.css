@@ -1534,6 +1534,27 @@ html:not(.has-mobile-menu) .navigation-group:focus-within .navigation-submenu,
   width: 100%;
   height: auto;
 }
+
+/* Gift photographs reuse the approved subpage photo frame, not a plain CSS border.
+   These inset measurements match .featured-section--subpage .featured-photo above. */
+:where(html[data-layout="subpage"]) .subpage-art__media--product {
+  position: relative;
+  aspect-ratio: 700 / 516;
+}
+:where(html[data-layout="subpage"]) .subpage-art__media--product .featured-photo {
+  top: 7%;
+  left: 3%;
+  width: 91.5%;
+  height: 85%;
+  object-fit: contain;
+  transform: none;
+  background: #fff;
+}
+:where(html[data-layout="subpage"]) .subpage-art__media--product .featured-photo-frame {
+  width: 100%;
+  height: 100%;
+}
+
 /* The original approved rectangle mascot artwork supplies its own paper and
    corrugated trim. The live map sits within that frame's inner opening. */
 :where(html[data-layout="subpage"]) .subpage-art__media--map {
